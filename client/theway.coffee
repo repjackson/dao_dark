@@ -182,7 +182,7 @@ Template.edit_doc.helpers
 Template.view_youtube.onRendered ->
     Meteor.setTimeout (->
         $('.ui.embed').embed()
-    ), 1000
+    ), 500
 
         
         
