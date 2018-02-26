@@ -1,0 +1,88 @@
+template(name='doc_matches')
+    .ui.fluid.styled.accordion
+        .title 
+            |top doc matches (#{top_doc_matches.length})
+            i.dropdown.icon
+            if currentUser
+                #compute_doc_matches.ui.icon.basic.button(data-tooltip='Compute Matches')
+                    i.refresh.icon
+        .content.match_content
+            if top_doc_matches
+                .ui.relaxed.divided.items
+                    each top_doc_matches
+                        +doc_match
+                        
+                        
+                                        
+template(name='doc_match')                    
+    .item 
+        .content
+            .description
+                |intersection tags (#{intersection_tags_count})
+                each intersection_tags
+                    .ui.basic.label #{this}
+            .description
+                | doc tags
+                each tags
+                    .ui.small.basic.label #{this}
+            // .description
+            //     |#{match_doc.type} entry by
+            //     img.ui.avatar.image(src="{{c.url match_doc.author.profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+            //     | #{match_doc.author.name}
+            .title
+                i.dropdown.icon
+                |content 
+            .content
+                |!{match_doc.content}
+            .extra
+                +view_full_button match_doc
+
+
+template(name='response_list')
+    .ui.dividing.inverted.header 
+        |#{child_count} Responses
+    .ui.segments
+        each responses
+            .ui.segment
+                .content
+                    .description
+                        |!{content}
+                        |#{text}
+                        .meta
+                            each tags
+                                .ui.basic.label #{this}
+                .content
+                    +author_info
+                    |#{when}
+                    +thanks_button
+                    +respond_button
+                    .floated.right
+                        +view_full_button
+                        
+template(name='upvoted_list')
+    .ui.header upvoters
+    .ui.list
+        each upvoted_users
+            .content
+                .description
+                    |#{name}
+                    .meta
+                        each tags
+                            .ui.basic.label #{this}
+
+
+
+
+template(name='author_info')
+    if is_anonymous
+        |by nonymous
+    else
+        if is_private
+            i.large.lock.icon
+        | by 
+        with author
+            if profile.image_id
+                img.ui.avatar.spaced.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+            |&nbsp;
+            a(href="/u/#{username}") #{name} 
+            +staus_indicator

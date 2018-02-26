@@ -1,0 +1,135 @@
+template(name='user_layout')
+    +nav
+    .ui.padded.stackable.grid
+        .centered.row
+            .four.wide.column.shadowed-box
+                with person
+                    img.ui.small.centered.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                    .ui.center.aligned.header
+                        if profile.first_name
+                            |#{profile.first_name} #{profile.last_name}
+                        |#{username}
+                        // unless is_user
+                        // +staus_indicator
+                    if is_user
+                        a.ui.icon.button(href="/profile/edit/#{_id}") 
+                            i.pencil.icon
+                    .ui.vertical.fluid.inverted.menu
+                        a.item(href="/u/settings/")
+                            i.settings.icon
+                            |settings
+                        a.item(href="/dashboard/")
+                            i.dashboard.icon
+                            |dashboard
+                    .ui.vertical.fluid.inverted.menu
+                        a.item(href="/u/#{username}")
+                            i.info.icon
+                            |info
+                        a.item(href="/u/#{username}/documents")
+                            i.book.icon
+                            |docs
+                        a.item(href="/u/#{username}/contact")
+                            i.contact.icon
+                            |contact
+                        a.item(href="/u/#{username}/comparison")
+                            i.fork.icon
+                            |compare
+                        a.item(href="/u/#{username}/karma")
+                            i.heart.icon
+                            |karma
+                        a.item(href="/u/#{username}/social")
+                            i.users.icon
+                            |social
+                        a.item(href="/u/#{username}/info")
+                            i.money.icon
+                            |transactions
+                if is_user
+                    .ui.basic.center.aligned.segment
+                        #logout.ui.center.aligned.button log out
+            .ui.twelve.wide.column.secondary.segment
+                +Template.dynamic template=user_main
+
+
+template(name='user_info')
+    h1.ui.center.aligned.header about #{person.username}
+    with person
+        if tags
+            each tags
+                .user_tag.ui.label #{this}
+        if profile.location
+            .ui.header 
+                |location
+                i.location.icon
+                | #{profile.location}
+        if profile.about_me
+            .ui.header about me
+            |#{profile.about_me}
+        // .ui.header My True Colors Are:
+        // +color_dots
+        // if profile.if_knew_me
+        //     .ui.header If you really knew me you would know…
+        //     |#{profile.if_knew_me}
+        // if profile.if_not_working
+        //     .ui.header If I am not at work or in class then I am probably…
+        //     |#{profile.if_not_working}
+        //     +profile_stripe
+        // else
+        //     .centered.row
+        //         .twelve.wide.column.shadowed-box
+        //             +profile_comparison
+        
+        
+template(name='user_documents')
+    h1.ui.center.aligned.header #{person.first_name} Documents
+    +tags
+    // +ancestor_facet
+
+    
+    each user_docs
+        +databank_card
+
+
+
+template(name='user_karma')
+    h1.ui.center.aligned.header #{person.first_name} karma
+
+
+
+template(name='user_social')
+    .ui.header user social
+    .ui.button add friend
+    .ui.segment 
+        |friendslist
+
+
+template(name='view_account')
+    h1.ui.center.aligned.header 
+        |account
+    |{{> atForm state='changePwd'}}
+    h2.ui.header 
+        |email(s)
+    .ui.segment
+        .ui.divided.list
+            each currentUser.emails
+                .item 
+                    // unless verified
+                    //     .right.floated.content
+                    //         .ui.basic.button Verify
+                    .content
+                        |#{address}
+                        if verified
+                            .ui.green.basic.label Verified
+                        else
+                            .ui.basic.label Unverified
+                            .send_verification_email.ui.basic.button Verify
+        .ui.action.fluid.input
+            input#new_email(type='email')
+            #add_email.ui.submit.blue.button Add Email Address
+    h2.ui.header 
+        |change username 
+    .ui.segment
+        .ui.header current: #{currentUser.username}
+        .ui.action.fluid.input
+            input#username(type='text')
+            #change_username.ui.submit.blue.button Submit
+            

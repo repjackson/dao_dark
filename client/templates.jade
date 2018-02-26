@@ -1,0 +1,82 @@
+head
+    title the way
+    meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='white')
+    meta(name='google-site-verification', content='6osbddgiRIkUEHj3ezFR6D2yOQuooBvvXsBliSWhAZA')
+    meta(name="theme-color", content="#ffffff")
+
+
+template(name='layout')
+    +nav
+    +Template.dynamic template=main
+
+
+template(name='nav')
+    .ui.inverted.large.borderless.menu
+        a.header.icon.item(href='/')
+            i.home.icon
+        a.icon.item(href='/dashboard')
+            i.dashboard.icon
+        .item #{currentUser.points} pts
+        if currentUser
+            a#add_doc.item
+                i.plus.icon
+            // .ui.icon.input
+            //     // i.plus.icon
+            //     input#quick_add(type='text' placeholder='quick add')
+            //     i.lightning.icon
+        .right.menu
+            if currentUser
+                a.icon.item(href='/mail')
+                    i.mail.icon
+                a.icon.item(href='/notifications')
+                    i.bell.icon
+                a.icon.item(href="/u/#{currentUser.username}")
+                    i.user.icon
+                a#logout.ui.icon.item(href='#') 
+                    i.sign.out.icon
+            else
+                a.ui.icon.item(href='/sign-in') 
+                    i.sign.in.icon
+
+template(name='staus_indicator')
+    if online 
+        // .ui.label(class='{{labelClass}}') 
+        img.ui.avatar.image(src="https://png.icons8.com/connection-status-on/color/48" title='Online' width="48" height="48")
+        // |Online
+    else if idle
+        .ui.label(class='{{labelClass}}') Idle
+        // else 
+        //     |Offline
+
+
+template(name='tags')
+    .ui.left.icon.small.inline.input
+        i.search.icon
+        input#search(type='text')    
+    |&nbsp;  
+    if selected_tags
+        #clear_tags.ui.grey.icon.button
+            i.remove.icon
+        each selected_tags
+            .unselect_tag.ui.grey.button
+                strong #{this}
+    each tags
+        .ui.button.select_tag(class=tag_class)
+            strong #{this.name}
+        // .ui.button.select_tag
+
+
+
+
+template(name='home')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            +tags
+        .twelve.wide.column
+            each docs
+                // if one_doc
+                +doc_card
+        
+        

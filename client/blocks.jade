@@ -1,0 +1,9 @@
+template(name='published')
+    div
+        if can_edit
+            #publish.ui.icon.compact.button(data-tooltip='published' class=published_class)
+                i.eye.icon
+            #publish_anonymously.ui.icon.compact.button(data-tooltip='anonymous' class=published_anonymously_class)
+                i.eye.slash.icon
+            #unpublish.ui.icon.compact.button(data-tooltip='private' class=private_class)
+                i.unlock.icon

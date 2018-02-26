@@ -1,7 +1,6 @@
 Meteor.methods 
     add_doc: (tags) ->
         result = Docs.insert
-            parent_id: 'jFGwEzNgajnMad2MA'
             tags: tags
             author_id: Meteor.userId()
             timestamp: Date.now()
@@ -15,6 +14,11 @@ Docs.allow
     insert: (userId, doc) -> doc.author_id is userId
     update: (userId, doc) -> doc.author_id is userId
     remove: (userId, doc) -> doc.author_id is userId
+
+Meteor.users.allow
+    insert: (userId, doc) -> userId
+    update: (userId, doc) -> userId
+    remove: (userId, doc) -> userId
 
 
 Meteor.publish 'facet', (
@@ -42,7 +46,7 @@ Meteor.publish 'facet', (
                 { $group: _id: '$tags', count: $sum: 1 }
                 { $match: _id: $nin: selected_tags }
                 { $sort: count: -1, _id: 1 }
-                { $limit:42 }
+                { $limit:100 }
                 { $project: _id: 0, name: '$_id', count: 1 }
                 ]
             # console.log 'theme tag_cloud, ', tag_cloud
@@ -90,5 +94,20 @@ Meteor.publish 'facet', (
             self.onStop ()-> subHandle.stop()
 
 
+Meteor.publish 'top_posts', ->
+    Docs.find {},
+        {
+            sort: points:-1
+            limit: 10
+        }
+
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
+    
+    
+Meteor.publish 'user', (user_id)->
+    Meteor.users.find user_id
+    
+    
+Meteor.publish 'top_users', ->
+    Meteor.users.find()
