@@ -13,26 +13,28 @@ template(name='layout')
 
 
 template(name='nav')
-    .ui.inverted.large.borderless.menu
+    .ui.inverted.borderless.labeled.icon.menu
         a.header.icon.item(href='/')
             i.home.icon
-        a.icon.item(href='/dashboard')
-            i.dashboard.icon
-        .item #{currentUser.points} pts
         if currentUser
-            a#add_doc.item
-                i.plus.icon
+            a.icon.item(href="/u/#{currentUser.username}/dashboard")
+                i.dashboard.icon
+        a.icon.item(href='/people')
+            i.users.icon
+        .item #{currentUser.points} pts
             // .ui.icon.input
             //     // i.plus.icon
             //     input#quick_add(type='text' placeholder='quick add')
             //     i.lightning.icon
         .right.menu
             if currentUser
-                a.icon.item(href='/mail')
+                a#add_doc.item
+                    i.plus.icon
+                a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")
                     i.mail.icon
-                a.icon.item(href='/notifications')
+                a.icon.item(href='/notifications' class="{{isActiveRoute 'notifications'}}")
                     i.bell.icon
-                a.icon.item(href="/u/#{currentUser.username}")
+                a.icon.item(href="/u/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
                     i.user.icon
                 a#logout.ui.icon.item(href='#') 
                     i.sign.out.icon

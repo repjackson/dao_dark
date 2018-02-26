@@ -333,3 +333,20 @@
 #         doc = Docs.findOne FlowRouter.getParam('doc_id')
 #         # console.log 'completion_type', doc.completion_type
 #         Meteor.call 'calculate_doc_completion', FlowRouter.getParam('doc_id')
+
+
+
+
+Template.toggle_friend.helpers
+    is_friend: -> if Meteor.user()?.friends then @_id in Meteor.user().friends
+        
+Template.toggle_friend.events
+    'click #add_friend': (e,t)-> 
+        Meteor.users.update Meteor.userId(), $addToSet: friends: @_id
+
+        # Meteor.call 'add_notification', @_id, 'friended', Meteor.userId()
+
+    'click #remove_friend': (e,t)-> 
+        Meteor.users.update Meteor.userId(), $pull: friends: @_id
+
+        # Meteor.call 'add_notification', @_id, 'unfriended', Meteor.userId()

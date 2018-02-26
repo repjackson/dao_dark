@@ -20,38 +20,38 @@ template(name='watson_keywords')
         |Analyzed Keywords
 
 template(name='doc_emotion') 
-    .ui.fluid.shadowed.padded10.accordion
+    .ui.fluid.accordion
         .title
             .ui.small.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
                 .bar
                 .progress
                 .label
                     if is_positive
-                        |#{sentiment_score_percent}% Positive
+                        |#{sentiment_score_percent}% positive
                     else
-                        |#{sentiment_score_percent}% Negative
+                        |#{sentiment_score_percent}% negative
         .content
             with watson.emotion.document.emotion
                 .ui.blue.small.progress(data-percent=sadness_percent)
                     .bar
                     .progress
-                    .label #{sadness_percent}% Sadness 
+                    .label #{sadness_percent}% sadness 
                 .ui.green.small.progress(data-percent=joy_percent)
                     .bar
                     .progress
-                    .label #{joy_percent}% Joy 
+                    .label #{joy_percent}% joy 
                 .ui.black.small.progress(data-percent=fear_percent)
                     .bar
                     .progress
-                    .label #{fear_percent}% Fear 
+                    .label #{fear_percent}% fear 
                 .ui.yellow.small.progress(data-percent=disgust_percent)
                     .bar
                     .progress
-                    .label #{disgust_percent}% Disgust 
+                    .label #{disgust_percent}% disgust 
                 .ui.red.small.progress(data-percent=anger_percent)
                     .bar
                     .progress
-                    .label #{anger_percent}% Anger 
+                    .label #{anger_percent}% anger 
         // .title
         //     each watson_keywords
         //         .ui.label #{this}

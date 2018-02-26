@@ -18,7 +18,7 @@ Template.top_posts.helpers
 
 
 Template.top_people.onCreated ->
-    @autorun -> Meteor.subscribe 'top_people'
+    @autorun -> Meteor.subscribe 'all_people'
     
 Template.top_people.helpers
     top_users: ->

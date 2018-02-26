@@ -1,5 +1,7 @@
 @Tags = new Meteor.Collection 'tags'
 @Docs = new Meteor.Collection 'docs'
+@People_tags = new Meteor.Collection 'people_tags'
+
 Meteor.users.helpers
     name: -> 
         if @profile?.first_name and @profile?.last_name
@@ -108,16 +110,7 @@ FlowRouter.route '/',
         BlazeLayout.render 'layout', 
             main: 'home'
 
-FlowRouter.route '/dashboard', 
-    action: ->
-        BlazeLayout.render 'layout', 
-            main: 'dashboard'
 
-
-FlowRouter.route '/u/:username/karma', 
-    action: ->
-        BlazeLayout.render 'layout', 
-            main: 'karma'
 
 
 Meteor.methods

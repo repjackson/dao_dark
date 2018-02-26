@@ -1,0 +1,68 @@
+template(name='people_cloud')
+    #cloud.ui.basic.center.aligned.segment
+        // .ui.hidden.divider
+        // .ui.left.icon.small.input
+        //     i.search.icon
+        //     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" placeholder='Search...'
+        if selected_people_tags
+            #clear_tags.ui.circular.icon.big.active.button
+                i.remove.icon
+            each selected_people_tags
+                .unselect_tag.ui.circular.big.active.button
+                    strong #{this}
+        each all_people_tags
+            .ui.circular.button.select_tag(class=cloud_tag_class) #{this.name}
+                    // small #{this.count}
+                    // small [#{this.index}]
+
+
+
+template(name='view_people')
+    .ui.stackable.padded.grid
+        .centered.row
+            .three.wide.column
+                // +parent_link
+            .ten.wide.column
+                h1.ui.center.aligned.inverted.header
+                    i.large.users.icon
+                    // +icon96 name=icon_class classes='ui inline image'
+            .three.wide.column
+                // if can_edit
+                //     +edit_button
+    +people_cloud
+    .ui.hidden.divider
+        // .twelve.wide.column
+            // +doc_content tags='people cloud,blurb'
+            // .ui.hidden.divider
+    .ui.centered.stackable.cards
+        each people
+            +person
+            // .ui.stackable.grid
+            //     // .four.wide.column
+            //     .eleven.wide.column
+
+
+template(name='person')
+    .ui.card
+        .image
+            a(href="/user/#{username}")
+                img.ui.fluid.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+        .content
+            .center.aligned.header
+                a(href="/user/#{username}")
+                    if profile.first_name
+                        | #{profile.first_name}
+                    if profile.last_name
+                        | #{profile.last_name}
+                    else    
+                        | #{username}
+                    // +staus_indicator
+            if profile.location
+                .center.aligned.meta
+                    | #{profile.location}
+            // .center.aligned.meta
+            //     +color_dots
+        // .extra.content
+        //     each ten_tags
+        //         .ui.compact.tiny.circular.button.user_tag(class=person_tag_class) #{this}
+

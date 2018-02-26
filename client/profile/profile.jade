@@ -1,69 +1,79 @@
 template(name='user_layout')
     +nav
-    .ui.padded.stackable.grid
+    .ui.stackable.grid
         .centered.row
-            .four.wide.column.shadowed-box
+            .two.wide.column
                 with person
                     img.ui.small.centered.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                    .ui.center.aligned.header
+                    .ui.center.aligned.inverted.header
                         if profile.first_name
                             |#{profile.first_name} #{profile.last_name}
                         |#{username}
                         // unless is_user
                         // +staus_indicator
                     if is_user
-                        a.ui.icon.button(href="/profile/edit/#{_id}") 
-                            i.pencil.icon
-                    .ui.vertical.fluid.inverted.menu
-                        a.item(href="/u/settings/")
-                            i.settings.icon
-                            |settings
-                        a.item(href="/dashboard/")
+                        .ui.vertical.inverted.labeled.icon.fluid.menu
+                            a.item(href="/profile/edit/#{_id}" class="{{isActiveRoute 'edit_profile'}}") 
+                                i.pencil.icon
+                            a.item(href="/u/#{username}/settings/" class="{{isActiveRoute 'account_settings'}}")
+                                i.settings.icon
+                                // |settings
+                    .ui.vertical.inverted.labeled.icon.fluid.menu
+                        a.item(href="/u/#{username}/dashboard/" class="{{isActiveRoute 'user_dashboard'}}")
                             i.dashboard.icon
-                            |dashboard
-                    .ui.vertical.fluid.inverted.menu
-                        a.item(href="/u/#{username}")
+                            // |dashboard
+                        a.item(href="/u/#{username}" class="{{isActiveRoute 'user_info'}}")
                             i.info.icon
-                            |info
-                        a.item(href="/u/#{username}/documents")
+                            // |info
+                        a.item(href="/u/#{username}/documents"  class="{{isActiveRoute 'user_docs'}}")
                             i.book.icon
-                            |docs
-                        a.item(href="/u/#{username}/contact")
-                            i.contact.icon
-                            |contact
-                        a.item(href="/u/#{username}/comparison")
+                            // |docs
+                        a.item(href="/u/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                            i.phone.icon
+                            // |contact
+                        a.item(href="/u/#{username}/comparison"  class="{{isActiveRoute 'user_comparison'}}")
                             i.fork.icon
-                            |compare
-                        a.item(href="/u/#{username}/karma")
+                            // |compare
+                        a.item(href="/u/#{username}/conversations" class="{{isActiveRoute 'user_conversations'}}")
+                            i.comments.icon
+                            // |conversations
+                        a.item(href="/u/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
                             i.heart.icon
-                            |karma
-                        a.item(href="/u/#{username}/social")
+                            // |karma
+                        a.item(href="/u/#{username}/social" class="{{isActiveRoute 'user_social'}}")
                             i.users.icon
-                            |social
-                        a.item(href="/u/#{username}/info")
+                            // |social
+                        a.item(href="/u/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
                             i.money.icon
-                            |transactions
+                            // |transactions
                 if is_user
                     .ui.basic.center.aligned.segment
                         #logout.ui.center.aligned.button log out
-            .ui.twelve.wide.column.secondary.segment
+            .ui.fourteen.wide.column
                 +Template.dynamic template=user_main
 
 
 template(name='user_info')
-    h1.ui.center.aligned.header about #{person.username}
+    h1.ui.center.aligned.inverted.header about #{person.username}
     with person
-        if tags
-            each tags
-                .user_tag.ui.label #{this}
-        if profile.location
-            .ui.header 
-                |location
-                i.location.icon
-                | #{profile.location}
-        if profile.about_me
-            .ui.header about me
-            |#{profile.about_me}
+        .ui.three.column.grid
+            .column
+                .ui.segment
+                    if tags
+                        each tags
+                            .user_tag.ui.label #{this}
+                    if profile.location
+                        .ui.header 
+                            i.geomarker.icon
+                            | #{profile.location}
+                    if profile.about_me
+                        .ui.header about me
+                        h5.ui.header #{profile.about_me}
+            .column
+                +wall
+            .column
+                .ui.segment
+                    .ui.header friends
         // .ui.header My True Colors Are:
         // +color_dots
         // if profile.if_knew_me
@@ -80,7 +90,7 @@ template(name='user_info')
         
         
 template(name='user_documents')
-    h1.ui.center.aligned.header #{person.first_name} Documents
+    h1.ui.center.aligned.header #{person.first_name} docs
     +tags
     // +ancestor_facet
 
@@ -92,6 +102,14 @@ template(name='user_documents')
 
 template(name='user_karma')
     h1.ui.center.aligned.header #{person.first_name} karma
+
+
+template(name='user_contact')
+    h1.ui.center.aligned.header #{person.first_name} contact
+
+
+template(name='user_transactions')
+    h1.ui.center.aligned.header #{person.first_name} transactions
 
 
 
@@ -133,3 +151,26 @@ template(name='view_account')
             input#username(type='text')
             #change_username.ui.submit.blue.button Submit
             
+            
+template(name='user_conversations')
+    .ui.horizontal.divider.header 
+        i.comments.outline.icon
+        |public conversations with #{user.name}
+    each public_conversations_with_user
+        +conversation_messages_pane
+    .ui.horizontal.dividing.header
+        a.ui.teal.button(href='/conversations')
+            i.external.icon
+            |view all conversations
+            
+            
+            
+template(name='wall')
+    .ui.segment
+        .ui.form
+            .field
+                |add to wall
+                textarea(rows='3')
+    each recent_posts
+        .ui.segment
+            |#{content}
