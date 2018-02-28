@@ -1,0 +1,47 @@
+template(name='mail')
+    .ui.stackable.padded.grid
+        .centered.row
+            .ui.four.wide.column
+                .ui.center.aligned.icon.button
+                    i.plus.icon
+                .ui.vertical.menu
+                    .item 
+                        |inbox
+                        i.inbox.icon
+                    .item 
+                        i.pencil.icon
+                        |drafts
+                    .item 
+                        i.send.icon
+                        |sent
+                    .item 
+                        i.archive.icon
+                        |archived
+            .ui.ten.wide.column.segment
+                unless messages.length
+                    |no messages
+                each messages
+                    +message
+
+            
+template(name='message')
+    .ui.segment.notification_segment(class=notification_segment_class)
+        .ui.feed
+            .event
+                .label
+                    img.ui.avatar.image(src="{{c.url author.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                .content
+                    .summary
+                        // a.user(href="/profile/#{subject.username}")
+                        //     | #{subject_name}
+                        // | #{predicate}
+                        a.user(href="/profile/#{author.username}")
+                            |from #{author.username}.
+                        .date
+                            | #{when}
+                    .extra.text
+                        p !{content}
+                        p #{text}
+                    .meta
+                        // +mark_read_button
+                        // +session_delete_button

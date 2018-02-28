@@ -1,0 +1,127 @@
+// template(name='edit_doc')
+//     with doc
+//         .ui.padded.stackable.grid
+//             .centered.middle.aligned.row
+//                 .three.wide.center.aligned.column
+//                     +save_link
+//                 .ten.wide.center.aligned.column
+//                     h1.ui.inverted.header
+//                         if icon_class
+//                             +icon96 name=icon_class classes='ui image'
+//                         |Edit 
+//                         if title
+//                             |#{title}
+//                         else
+//                             |#{parent.title} Item
+
+//                 .three.wide.center.aligned.column
+//                     +delete_button
+//             .centered.row
+//                 .twelve.wide.column
+//                     if template
+//                         +Template.dynamic template=edit_type_template
+//                     else
+//                         +parent_doc_segment
+//                         +edit_html_field key='content'
+//                         +published
+//                 .four.wide.column
+//                     if is_admin
+//                         .ui.fluid.styled.accordion
+//                             .active.title
+//                                 |Template:#{template}
+//                                 i.dropdown.icon
+//                             .active.content
+//                                 each templates
+//                                     +toggle_key key='template' value=slug icon=icon_class label=title
+//                     +published
+//                     // +edit_type
+
+
+// template(name='view_document')
+//     +edit_html_field key='content'
+//     +edit_transcript
+//     +child_docs
+
+
+// template(name='view_doc')
+//     with doc
+//         // .ui.padded.stackable.grid
+//             // .centered.row
+//             //     .four.wide.center.aligned.column
+//             //         .ui.horizontal.list
+//             //             .item
+//             //                 a.ui.icon.basic.white.inverted.circular.button(href="/view/hBh38f3W9C3qXwNv2" data-position="bottom center" data-tooltip='Karma')
+//             //                     +icon48 name='diamond' classes='ui mini inline image'
+//             //             .item
+//             //                 +admin_toggle
+//             //             .item
+//             //                 #report_bug.ui.icon.basic.white.inverted.circular.button(data-position="bottom center" data-tooltip="Report a Bug/Feature Request")
+//             //                     +icon48 name='bug'
+//             //     .eight.wide.center.aligned.column
+//             //         unless is_site
+//             //             // +parent_link
+//             //             +ancestor_facet
+//             //         else
+//             //             .ui.small.image
+//             //                 +view_image_id
+//             //     .four.wide.center.aligned.column
+//             //         if currentUser
+//             //             .ui.horizontal.list
+//             //                 // if cart_items
+//             //                 a.ui.icon.basic.white.inverted.circular.button(href='/cart' data-position="bottom center" data-tooltip="Shopping Cart")
+//             //                     i.large.icons
+//             //                         i.cart.icon
+//             //                         i.corner.teal.asterisk.icon
+                            
+//             //                 .item
+//             //                     a.ui.icon.basic.white.inverted.circular.button(href="/view/q6NwnyH93JB4Dg5K7" data-position="bottom center" data-tooltip='Messaging')
+//             //                         +icon48 name='chat' classes='ui mini inline image'
+//             //                 .item
+//             //                     a.ui.icon.basic.white.inverted.circular.button(href="/view/Gd7PigcoofFzYdau7" data-position="bottom center" data-tooltip='Notifications')
+//             //                         +icon48 name='bell' classes='ui mini inline image'
+//             //                 .item
+//             //                     a.ui.icon.basic.white.inverted.circular.button(href="/user/#{currentUser.username}" data-position="bottom center" data-tooltip=currentUser.username)
+//             //                         if currentUser.profile.image_id
+//             //                             img.ui.mini.image(src="{{c.url currentUser.profile.image_id width=60 height=60 gravity='face' crop='fill'}}")
+//             //                         else
+//             //                             i.user.icon
+//             //         else
+//             //             a.ui.icon.basic.white.inverted.circular.button(href='/sign-in') 
+//             //                 +icon48 name='login-rounded-down' classes='ui mini inline spaced image'
+//             //                 // | Sign In
+//         if template
+//             +Template.dynamic template=view_template
+//         else            
+//             .ui.padded.stackable.grid
+//                 .row
+//                     .three.wide.center.aligned.column
+//                         +parent_link
+//                     .ten.wide.column
+//                         h1.ui.inverted.center.aligned.header 
+//                             if icon_class
+//                                 +icon96 name=icon_class classes='ui inline image'
+//                             |#{title}
+//                     .three.wide.center.aligned.column
+//                         if can_edit
+//                             +edit_button
+//                 .centered.row
+//                     .ten.wide.column
+//                         +parent_doc_segment
+//                         .shadowed-box
+//                             +view_html_field key='content'
+//                             +author_info
+//                             |#{when}
+                            
+                            
+                            
+template(name='doc_template_selection')
+    .ui.header Select Document Template
+    +toggle_key key='completion_type' value='response' icon='response' label='Response'
+
+    // .ui.header Choose Child Actions
+    each child_actions
+        .toggle_child_action.ui.button(class=child_action_toggle_class)
+            +icon24 name=icon_class classes='ui inline image'
+            strong #{title}    
+            
+                            

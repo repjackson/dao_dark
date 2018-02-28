@@ -25,7 +25,7 @@ template(name='user_layout')
                         a.item(href="/u/#{username}" class="{{isActiveRoute 'user_info'}}")
                             i.info.icon
                             // |info
-                        a.item(href="/u/#{username}/documents"  class="{{isActiveRoute 'user_docs'}}")
+                        a.item(href="/u/#{username}/docs"  class="{{isActiveRoute 'user_docs'}}")
                             i.book.icon
                             // |docs
                         a.item(href="/u/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
@@ -74,6 +74,7 @@ template(name='user_info')
             .column
                 .ui.segment
                     .ui.header friends
+                    +toggle_friend
         // .ui.header My True Colors Are:
         // +color_dots
         // if profile.if_knew_me
@@ -89,35 +90,54 @@ template(name='user_info')
         //             +profile_comparison
         
         
-template(name='user_documents')
-    h1.ui.center.aligned.header #{person.first_name} docs
-    +tags
-    // +ancestor_facet
+// template(name='user_documents')
+//     h1.ui.center.aligned.header #{person.username} docs
+//     +tags
+//     // +ancestor_facet
 
     
-    each user_docs
-        +databank_card
+//     each user_docs
+//         +databank_card
 
 
 
 template(name='user_karma')
-    h1.ui.center.aligned.header #{person.first_name} karma
+    h1.ui.center.aligned.inverted.header #{person.username} karma
+    .ui.stackable.inverted.grid
+        .four.wide.column
+            .ui.segment tag cloud
+        .twelve.wide.column
+            .ui.segment top posts
 
 
 template(name='user_contact')
-    h1.ui.center.aligned.header #{person.first_name} contact
-
+    h1.ui.center.aligned.inverted.header contact #{person.username}
+    .ui.inverted.form
+        .field
+            label message
+            textarea#message_area(rows='5')
+        #clear_message.ui.icon.button
+            i.remove.icon
+        #send_message.ui.large.icon.button
+            i.send.large.icon
 
 template(name='user_transactions')
-    h1.ui.center.aligned.header #{person.first_name} transactions
-
+    h1.ui.center.aligned.header #{person.username} transactions
+    .ui.grid
+        .four.wide.column
+            .ui.segment tag facet
+            .ui.segment username facet
+        .four.wide.column
+            .ui.segment top earning posts
+        
 
 
 template(name='user_social')
     .ui.header user social
     .ui.button add friend
+    +toggle_friend
     .ui.segment 
-        |friendslist
+        |friends list
 
 
 template(name='view_account')
@@ -136,20 +156,20 @@ template(name='view_account')
                     .content
                         |#{address}
                         if verified
-                            .ui.green.basic.label Verified
+                            .ui.green.basic.label verified
                         else
-                            .ui.basic.label Unverified
-                            .send_verification_email.ui.basic.button Verify
+                            .ui.basic.label unverified
+                            .send_verification_email.ui.basic.button verify
         .ui.action.fluid.input
             input#new_email(type='email')
-            #add_email.ui.submit.blue.button Add Email Address
+            #add_email.ui.submit.button add email
     h2.ui.header 
         |change username 
     .ui.segment
         .ui.header current: #{currentUser.username}
         .ui.action.fluid.input
             input#username(type='text')
-            #change_username.ui.submit.blue.button Submit
+            #change_username.ui.submit.button submit
             
             
 template(name='user_conversations')
@@ -174,3 +194,17 @@ template(name='wall')
     each recent_posts
         .ui.segment
             |#{content}
+            
+            
+            
+template(name='profile_docs')
+    with user
+        if user_docs.count
+            +tags type='journal' author_id=user._id
+            .ui.dividing.header
+                | #{username} docs
+            // .ui.cards
+            each user_docs
+                +doc_card
+        else
+            h4.ui.header #{name} doesn't have any public entries.

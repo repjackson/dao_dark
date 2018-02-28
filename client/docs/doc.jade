@@ -1,12 +1,11 @@
 template(name='doc_card')        
-    if youtube
-        +view_youtube
-    if image_url
-        .ui.image
-            img(src=image_url)
-
     .ui.stackable.grid
         .twelve.wide.column
+            if youtube
+                +view_youtube
+            if image_url
+                .ui.image
+                    img(src=image_url)
             .ui.segment
                 if content
                     .large-text !{content}

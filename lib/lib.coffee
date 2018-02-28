@@ -105,10 +105,17 @@ FlowRouter.notFound =
 
 
 FlowRouter.route '/', 
-    # title: Meteor.settings.public.site.short - "Home"
+    name:'home'
     action: ->
         BlazeLayout.render 'layout', 
             main: 'home'
+
+
+FlowRouter.route '/tools', 
+    name:'tools'
+    action: ->
+        BlazeLayout.render 'layout', 
+            main: 'tools'
 
 
 

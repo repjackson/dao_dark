@@ -1,5 +1,5 @@
 head
-    title the way
+    title the_way
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='apple-mobile-web-app-status-bar-style', content='white')
@@ -10,18 +10,18 @@ head
 template(name='layout')
     +nav
     +Template.dynamic template=main
-
+    +dev_footer
 
 template(name='nav')
     .ui.inverted.borderless.labeled.icon.menu
-        a.header.icon.item(href='/')
-            i.home.icon
-        if currentUser
-            a.icon.item(href="/u/#{currentUser.username}/dashboard")
-                i.dashboard.icon
-        a.icon.item(href='/people')
-            i.users.icon
-        .item #{currentUser.points} pts
+        a.icon.item(href='/' class="{{isActiveRoute 'home'}}")
+            i.home.outline.icon
+        a.icon.item(href="/tools" class="{{isActiveRoute 'tools'}}")
+            i.clone.icon
+        // a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
+        //     i.users.outline.icon
+        // a.icon.item(href='/store' class="{{isActiveRoute 'store'}}")
+        //     i.shopping.basket.outline.icon
             // .ui.icon.input
             //     // i.plus.icon
             //     input#quick_add(type='text' placeholder='quick add')
@@ -29,18 +29,23 @@ template(name='nav')
         .right.menu
             if currentUser
                 a#add_doc.item
-                    i.plus.icon
+                    i.plus.outline.icon
+                a.icon.item(href="/u/#{currentUser.username}/dashboard" class="{{isActiveRoute 'dashboard'}}")
+                    i.dashboard.outline.icon
+                a.item(href="/u/#{currentUser.username}/karma" class="{{isActiveRoute 'karma'}}")
+                    i.heart.outline.icon
+                    |#{currentUser.points} pts
                 a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")
-                    i.mail.icon
+                    i.mail.outline.icon
                 a.icon.item(href='/notifications' class="{{isActiveRoute 'notifications'}}")
-                    i.bell.icon
+                    i.bell.outline.icon
                 a.icon.item(href="/u/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
-                    i.user.icon
+                    i.user.outline.icon
                 a#logout.ui.icon.item(href='#') 
-                    i.sign.out.icon
+                    i.sign.out.outline.icon
             else
                 a.ui.icon.item(href='/sign-in') 
-                    i.sign.in.icon
+                    i.sign.in.outline.icon
 
 template(name='staus_indicator')
     if online 
@@ -82,3 +87,5 @@ template(name='home')
                 +doc_card
         
         
+template(name='icon48')
+    img.ui.image(src="https://png.icons8.com/color/48/000000/#{name}.png" class=classes title=tooltip)

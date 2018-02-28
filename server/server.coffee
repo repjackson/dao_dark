@@ -164,4 +164,14 @@ Meteor.publish 'people_tags', (selected_people_tags)->
 
     self.ready()
         
-    
+
+
+Meteor.publish 'user_docs', (username, selected_theme_tags)->
+    # console.log selected_theme_tags
+    user = Meteor.users.findOne username: username
+    Docs.find {
+        # type: 'journal'
+        author_id: Meteor.userId()
+        published: 1
+        # tags: $in: selected_theme_tags
+        }, sort: timestamp: -1    

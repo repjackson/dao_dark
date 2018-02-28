@@ -57,6 +57,12 @@ FlowRouter.route '/u/:username/contact',
         BlazeLayout.render 'user_layout',
             user_main: 'user_contact'
             
+FlowRouter.route '/u/:username/transactions', 
+    name: 'user_transactions'
+    action: (params) ->
+        BlazeLayout.render 'user_layout',
+            user_main: 'user_transactions'
+            
 FlowRouter.route '/u/:username/dashboard', 
     name: 'user_dashboard'
     action: ->
@@ -96,3 +102,36 @@ Template.user_layout.helpers
     is_user: -> FlowRouter.getParam('username') is Meteor.user()?.username
 Template.user_layout.events
     'click #logout': -> AccountsTemplates.logout()
+
+
+
+FlowRouter.route '/u/:username/docs', 
+    name: 'user_docs'
+    action: (params) ->
+        BlazeLayout.render 'user_layout',
+            # sub_nav: 'member_nav'
+            user_main: 'profile_docs'
+
+
+
+Template.profile_docs.onCreated -> 
+    # @autorun => Meteor.subscribe('user_docs', FlowRouter.getParam('username'), selected_theme_tags.array())
+    @autorun => Meteor.subscribe('user_docs', FlowRouter.getParam('username'))
+
+
+Template.profile_docs.helpers
+    user: -> Meteor.users.findOne username: FlowRouter.getParam('username')
+
+    user_docs: -> 
+        user = Meteor.users.findOne username: FlowRouter.getParam('username')
+        Docs.find {
+            published: 1
+            author_id: user._id
+            }, timestamp: -1
+            
+            
+            
+Template.user_contact.events
+    'click #send_message': ->
+        message = $('#message_area').val()
+        Meteor.call 'send_message', FlowRouter.getParam('username'), message

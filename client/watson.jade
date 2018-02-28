@@ -30,25 +30,26 @@ template(name='doc_emotion')
                         |#{sentiment_score_percent}% positive
                     else
                         |#{sentiment_score_percent}% negative
+                    i.dropdown.icon
         .content
             with watson.emotion.document.emotion
-                .ui.blue.small.progress(data-percent=sadness_percent)
+                .ui.blue.tiny.progress(data-percent=sadness_percent)
                     .bar
                     .progress
                     .label #{sadness_percent}% sadness 
-                .ui.green.small.progress(data-percent=joy_percent)
+                .ui.green.tiny.progress(data-percent=joy_percent)
                     .bar
                     .progress
                     .label #{joy_percent}% joy 
-                .ui.black.small.progress(data-percent=fear_percent)
+                .ui.black.tiny.progress(data-percent=fear_percent)
                     .bar
                     .progress
                     .label #{fear_percent}% fear 
-                .ui.yellow.small.progress(data-percent=disgust_percent)
+                .ui.yellow.tiny.progress(data-percent=disgust_percent)
                     .bar
                     .progress
                     .label #{disgust_percent}% disgust 
-                .ui.red.small.progress(data-percent=anger_percent)
+                .ui.red.tiny.progress(data-percent=anger_percent)
                     .bar
                     .progress
                     .label #{anger_percent}% anger 

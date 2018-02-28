@@ -1,15 +1,15 @@
-FlowRouter.route '/notifications', 
-    name:'notifications'
+FlowRouter.route '/mail', 
+    name:'mail'
     action: (params) ->
         BlazeLayout.render 'layout',
-            main: 'view_notifications'
+            main: 'mail'
 
 
 
 Meteor.methods
-    # add_notification: (subject_id, predicate, object_id) ->
+    # add_message: (subject_id, predicate, object_id) ->
     #     new_id = Docs.insert
-    #         type: 'notification'
+    #         type: 'message'
     #         subject_id: subject_id
     #         predicate: predicate
     #         object_id: object_id
@@ -17,8 +17,9 @@ Meteor.methods
 
 
 if Meteor.isClient
-    Template.view_notifications.onCreated ->
-        @autorun => Meteor.subscribe 'all_notifications'
+    Template.mail.onCreated ->
+        @autorun => Meteor.subscribe 'user_mail', Meteor.userId()
+        @autorun => Meteor.subscribe 'all_messages'
         # @autorun => 
         #     Meteor.subscribe('facet', 
         #         selected_theme_tags.array()
@@ -26,7 +27,7 @@ if Meteor.isClient
         #         selected_location_tags.array()
         #         selected_intention_tags.array()
         #         selected_timestamp_tags.array()
-        #         type = 'notification'
+        #         type = 'message'
         #         author_id = null
         #         parent_id = null
         #         tag_limit = 20
@@ -41,48 +42,48 @@ if Meteor.isClient
     
         #         )
 
-    Template.view_notifications.helpers
-        notifications: -> 
+    Template.mail.helpers
+        messages: -> 
             Docs.find {
-                type: 'notification'
+                type: 'message'
                 }, 
                 sort: timestamp: -1
         
         
-        # notifications_allowed: ->
-        #     # console.log Notification.permission
-        #     if Notification.permission is 'denied' or 'default' 
-        #         # console.log 'notifications are denied'
+        # messages_allowed: ->
+        #     # console.log message.permission
+        #     if message.permission is 'denied' or 'default' 
+        #         # console.log 'messages are denied'
         #         # return false
-        #     if Notification.permission is 'granted'
+        #     if message.permission is 'granted'
         #         # console.log 'yes granted'
         #         # return true
             
             
-    Template.view_notifications.events
-        # 'click #allow_notifications': ->
-        #     Notification.requestPermission()
+    Template.mail.events
+        # 'click #allow_messages': ->
+        #     message.requestPermission()
         
         # 'click #mark_all_read': ->
-        #     if confirm 'Mark all notifications read?'
+        #     if confirm 'Mark all messages read?'
         #         Docs.update {},
         #             $addToSet: read_by: Meteor.userId()
                     
-    Template.notification.helpers
-        notification_segment_class: -> if Meteor.userId() in @read_by then 'basic' else ''
+    Template.message.helpers
+        message_segment_class: -> if Meteor.userId() in @read_by then 'basic' else ''
         
         subject_name: -> if @subject_id is Meteor.userId() then 'You' else @subject().name()
         object_name: -> if @object_id is Meteor.userId() then 'you' else @object().name()
 
-    Template.notification.events
+    Template.message.events
     
 
 if Meteor.isServer
-    publishComposite 'received_notifications', ->
+    publishComposite 'received_messages', ->
         {
             find: ->
                 Docs.find
-                    type: 'notification'
+                    type: 'message'
                     recipient_id: Meteor.userId()
             children: [
                 { find: (message) ->
@@ -92,32 +93,32 @@ if Meteor.isServer
                 ]    
         }
         
-    publishComposite 'all_notifications', ->
+    publishComposite 'all_messages', ->
         {
             find: ->
-                Docs.find type: 'notification'
+                Docs.find type: 'message'
             children: [
-                { find: (notification) ->
+                { find: (message) ->
                     Meteor.users.find 
-                        _id: notification.subject_id
+                        _id: message.subject_id
                     }
-                { find: (notification) ->
+                { find: (message) ->
                     Meteor.users.find 
-                        _id: notification.object_id
+                        _id: message.object_id
                     }
                 ]    
         }
         
         
-    publishComposite 'unread_notifications', ->
+    publishComposite 'unread_messages', ->
         {
             find: ->
                 Docs.find
-                    type: 'notification'
+                    type: 'message'
                     recipient_id: Meteor.userId()
                     read: false
             children: [
-                { find: (notification) ->
+                { find: (message) ->
                     Meteor.users.find 
                         _id: message.author_id
                     }
@@ -125,12 +126,12 @@ if Meteor.isServer
         }
         
         
-    Meteor.publish 'notification_subjects', (selected_subjects)->
+    Meteor.publish 'message_subjects', (selected_subjects)->
         self = @
         match = {}
         
         if selected_tags.length > 0 then match.tags = $all: selected_tags
-        match.type = 'notification'
+        match.type = 'message'
 
         cloud = Docs.aggregate [
             { $match: match }
@@ -142,10 +143,10 @@ if Meteor.isServer
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
         # console.log 'cloud, ', cloud
-        cloud.forEach (notification_subject, i) ->
-            self.added 'notification_subjects', Random.id(),
-                name: notification_subject.name
-                count: notification_subject.count
+        cloud.forEach (message_subject, i) ->
+            self.added 'message_subjects', Random.id(),
+                name: message_subject.name
+                count: message_subject.count
                 index: i
     
         self.ready()

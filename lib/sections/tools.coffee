@@ -1,8 +1,6 @@
-FlowRouter.route '/notifications', 
-    name:'notifications'
-    action: (params) ->
-        BlazeLayout.render 'layout',
-            main: 'view_notifications'
+FlowRouter.route '/notifications', action: (params) ->
+    BlazeLayout.render 'layout',
+        main: 'view_notifications'
 
 
 

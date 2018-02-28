@@ -111,7 +111,7 @@ Template.home.helpers
         if Session.get 'editing_id'
             Docs.find Session.get('editing_id')
         else
-            Docs.find({},{limit:1,sort:tag_count:1})
+            Docs.find({},{limit:5,sort:tag_count:1})
 
     editing_this: -> Session.equals 'editing_id', @_id
 

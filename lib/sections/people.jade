@@ -18,17 +18,6 @@ template(name='people_cloud')
 
 
 template(name='view_people')
-    .ui.stackable.padded.grid
-        .centered.row
-            .three.wide.column
-                // +parent_link
-            .ten.wide.column
-                h1.ui.center.aligned.inverted.header
-                    i.large.users.icon
-                    // +icon96 name=icon_class classes='ui inline image'
-            .three.wide.column
-                // if can_edit
-                //     +edit_button
     +people_cloud
     .ui.hidden.divider
         // .twelve.wide.column

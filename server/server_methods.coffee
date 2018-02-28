@@ -298,3 +298,12 @@ Meteor.methods
                 
         return
                 
+                
+    send_message: (username, message)->
+        recipient = Meteor.users.findOne username:username
+        console.log message
+        Docs.insert
+            recipient_id: recipient._id
+            text: message
+            type:'message'
+        

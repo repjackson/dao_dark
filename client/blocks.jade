@@ -4,7 +4,7 @@ template(name='doc_matches')
             |top doc matches (#{top_doc_matches.length})
             i.dropdown.icon
             if currentUser
-                #compute_doc_matches.ui.icon.basic.button(data-tooltip='Compute Matches')
+                #compute_doc_matches.ui.icon.button(data-tooltip='Compute Matches')
                     i.refresh.icon
         .content.match_content
             if top_doc_matches
@@ -30,11 +30,11 @@ template(name='doc_match')
             .description
                 |intersection tags (#{intersection_tags_count})
                 each intersection_tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
             .description
                 | doc tags
                 each tags
-                    .ui.small.basic.label #{this}
+                    .ui.small.label #{this}
             // .description
             //     |#{match_doc.type} entry by
             //     img.ui.avatar.image(src="{{c.url match_doc.author.profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -60,7 +60,7 @@ template(name='response_list')
                         |#{text}
                         .meta
                             each tags
-                                .ui.basic.label #{this}
+                                .ui.label #{this}
                 .content
                     +author_info
                     |#{when}
@@ -78,7 +78,7 @@ template(name='upvoted_list')
                     |#{name}
                     .meta
                         each tags
-                            .ui.basic.label #{this}
+                            .ui.label #{this}
 
 
 
@@ -102,10 +102,77 @@ template(name='author_info')
 template(name='toggle_friend')
     if currentUser
         if is_friend
-            #remove_friend.ui.basic.button
+            #remove_friend.ui.button
                 i.minus.icon
                 |unfriend
         else
-            #add_friend.ui.basic.button
+            #add_friend.ui.button
                 i.plus.icon
                 |friend
+
+
+template(name='dev_footer')
+    .ui.inverted.segment
+        .ui.horizontal.dividing.header 
+            |DEV
+            .ui.horizontal.list
+                .item
+                    a(href='/view/3qLXqhMDmxxZvh3tA') tasks
+                .item
+                    a(href='/view/z3fPCMJnhCLKs2kKK') facet
+
+        with doc
+            if parent_id
+                .ui.segment
+                    a.ui.header(href="/view/#{doc.parent_id}") 
+                        +icon48 name=parent.icon_class
+                        |Parent: #{parent.title}
+            +edit_text_field key='title'
+            +edit_text_field key='type'
+            +edit_text_field key='template'
+            +edit_text_field key='icon_class'
+            // +edit_number
+            +edit_array_field key='tags' icon='hashtag'
+            +published
+            // +edit_completion_type
+            #create_child.ui.button create child
+            unless parent_id
+                #create_parent.ui.button create parent
+            #move_above_parent.ui.button move above parent
+            #toggle_child_docs.ui.button toggle child docs
+            // #trickle_down.ui.button run trickle_down
+            if show_child_docs
+                +child_docs
+                
+template(name='parent_link')
+//     with parent
+//         a.ui.white.inverted.circular.button(href="/view/#{_id}") 
+//             if icon_class
+//                 +icon48 name=icon_class classes='avatar'
+//             else
+//                 +icon48 name='sort-up' classes='avatar'
+//             // if number
+//             //     |#{number}:
+//             |#{title}
+                
+                
+template(name='edit_button')
+//     if can_edit
+//         // +call_watson
+//         a.ui.icon.button(href="/edit/#{_id}")
+//             i.pencil.icon
+                
+template(name='parent_doc_segment')
+//     .ui.secondary.segment
+//         .ui.header
+//             +icon48 name='response' classes='avatar'
+//             |In response to...
+//         +view_full_button
+//         with parent
+//             .ui.segment
+//                 +view_array_field key='tags'
+//                 .large130 !{content}
+//             +author_info
+//             |#{when}
+                
+                

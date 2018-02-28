@@ -1,15 +1,15 @@
-FlowRouter.route '/notifications', 
-    name:'notifications'
+FlowRouter.route '/store', 
+    name:'store'
     action: (params) ->
         BlazeLayout.render 'layout',
-            main: 'view_notifications'
+            main: 'store'
 
 
 
 Meteor.methods
-    # add_notification: (subject_id, predicate, object_id) ->
+    # add_product: (subject_id, predicate, object_id) ->
     #     new_id = Docs.insert
-    #         type: 'notification'
+    #         type: 'product'
     #         subject_id: subject_id
     #         predicate: predicate
     #         object_id: object_id
@@ -17,8 +17,8 @@ Meteor.methods
 
 
 if Meteor.isClient
-    Template.view_notifications.onCreated ->
-        @autorun => Meteor.subscribe 'all_notifications'
+    Template.store.onCreated ->
+        @autorun => Meteor.subscribe 'store', Meteor.userId()
         # @autorun => 
         #     Meteor.subscribe('facet', 
         #         selected_theme_tags.array()
@@ -26,7 +26,7 @@ if Meteor.isClient
         #         selected_location_tags.array()
         #         selected_intention_tags.array()
         #         selected_timestamp_tags.array()
-        #         type = 'notification'
+        #         type = 'product'
         #         author_id = null
         #         parent_id = null
         #         tag_limit = 20
@@ -41,96 +41,96 @@ if Meteor.isClient
     
         #         )
 
-    Template.view_notifications.helpers
-        notifications: -> 
+    Template.store.helpers
+        products: -> 
             Docs.find {
-                type: 'notification'
+                type: 'product'
                 }, 
                 sort: timestamp: -1
         
         
-        # notifications_allowed: ->
-        #     # console.log Notification.permission
-        #     if Notification.permission is 'denied' or 'default' 
-        #         # console.log 'notifications are denied'
+        # products_allowed: ->
+        #     # console.log product.permission
+        #     if product.permission is 'denied' or 'default' 
+        #         # console.log 'products are denied'
         #         # return false
-        #     if Notification.permission is 'granted'
+        #     if product.permission is 'granted'
         #         # console.log 'yes granted'
         #         # return true
             
             
-    Template.view_notifications.events
-        # 'click #allow_notifications': ->
-        #     Notification.requestPermission()
+    Template.store.events
+        # 'click #allow_products': ->
+        #     product.requestPermission()
         
         # 'click #mark_all_read': ->
-        #     if confirm 'Mark all notifications read?'
+        #     if confirm 'Mark all products read?'
         #         Docs.update {},
         #             $addToSet: read_by: Meteor.userId()
                     
-    Template.notification.helpers
-        notification_segment_class: -> if Meteor.userId() in @read_by then 'basic' else ''
+    Template.product.helpers
+        product_segment_class: -> if Meteor.userId() in @read_by then 'basic' else ''
         
         subject_name: -> if @subject_id is Meteor.userId() then 'You' else @subject().name()
         object_name: -> if @object_id is Meteor.userId() then 'you' else @object().name()
 
-    Template.notification.events
+    Template.product.events
     
 
 if Meteor.isServer
-    publishComposite 'received_notifications', ->
+    publishComposite 'received_products', ->
         {
             find: ->
                 Docs.find
-                    type: 'notification'
+                    type: 'product'
                     recipient_id: Meteor.userId()
             children: [
-                { find: (message) ->
+                { find: (product) ->
                     Meteor.users.find 
-                        _id: message.author_id
+                        _id: product.author_id
                     }
                 ]    
         }
         
-    publishComposite 'all_notifications', ->
+    publishComposite 'all_products', ->
         {
             find: ->
-                Docs.find type: 'notification'
+                Docs.find type: 'product'
             children: [
-                { find: (notification) ->
+                { find: (product) ->
                     Meteor.users.find 
-                        _id: notification.subject_id
+                        _id: product.subject_id
                     }
-                { find: (notification) ->
+                { find: (product) ->
                     Meteor.users.find 
-                        _id: notification.object_id
+                        _id: product.object_id
                     }
                 ]    
         }
         
         
-    publishComposite 'unread_notifications', ->
+    publishComposite 'unread_products', ->
         {
             find: ->
                 Docs.find
-                    type: 'notification'
+                    type: 'product'
                     recipient_id: Meteor.userId()
                     read: false
             children: [
-                { find: (notification) ->
+                { find: (product) ->
                     Meteor.users.find 
-                        _id: message.author_id
+                        _id: product.author_id
                     }
                 ]    
         }
         
         
-    Meteor.publish 'notification_subjects', (selected_subjects)->
+    Meteor.publish 'product_subjects', (selected_subjects)->
         self = @
         match = {}
         
         if selected_tags.length > 0 then match.tags = $all: selected_tags
-        match.type = 'notification'
+        match.type = 'product'
 
         cloud = Docs.aggregate [
             { $match: match }
@@ -142,10 +142,10 @@ if Meteor.isServer
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
         # console.log 'cloud, ', cloud
-        cloud.forEach (notification_subject, i) ->
-            self.added 'notification_subjects', Random.id(),
-                name: notification_subject.name
-                count: notification_subject.count
+        cloud.forEach (product_subject, i) ->
+            self.added 'product_subjects', Random.id(),
+                name: product_subject.name
+                count: product_subject.count
                 index: i
     
         self.ready()

@@ -6,6 +6,7 @@ if Meteor.isClient
     
     
     FlowRouter.route '/people', 
+        name: 'people'
         action: ->
             BlazeLayout.render 'layout', 
                 main: 'view_people'
