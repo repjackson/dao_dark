@@ -15,14 +15,20 @@ template(name='doc_matches')
                         
 template(name='published')
     div
-        if can_edit
-            #publish.ui.icon.compact.button(data-tooltip='published' class=published_class)
+        if is_author
+            #publish.ui.icon.button(data-tooltip='published' class=published_class)
                 i.eye.icon
-            #publish_anonymously.ui.icon.compact.button(data-tooltip='anonymous' class=published_anonymously_class)
+            #publish_anonymously.ui.icon.button(data-tooltip='anonymous' class=published_anonymously_class)
                 i.eye.slash.icon
-            #unpublish.ui.icon.compact.button(data-tooltip='private' class=private_class)
+            #unpublish.ui.icon.button(data-tooltip='private' class=private_class)
                 i.unlock.icon  
-  
+        else
+            if is_anonymous
+                .ui.label anon
+            else if is_private
+                .ui.label private
+            else 
+                .ui.label published
                                         
 template(name='doc_match')                    
     .item 
@@ -115,11 +121,11 @@ template(name='dev_footer')
     .ui.inverted.segment
         .ui.horizontal.dividing.header 
             |DEV
-            .ui.horizontal.list
-                .item
-                    a(href='/view/3qLXqhMDmxxZvh3tA') tasks
-                .item
-                    a(href='/view/z3fPCMJnhCLKs2kKK') facet
+            // .ui.horizontal.list
+            //     .item
+            //         a(href='/view/3qLXqhMDmxxZvh3tA') tasks
+            //     .item
+            //         a(href='/view/z3fPCMJnhCLKs2kKK') facet
 
         with doc
             if parent_id
@@ -145,22 +151,22 @@ template(name='dev_footer')
                 +child_docs
                 
 template(name='parent_link')
-//     with parent
-//         a.ui.white.inverted.circular.button(href="/view/#{_id}") 
-//             if icon_class
-//                 +icon48 name=icon_class classes='avatar'
-//             else
-//                 +icon48 name='sort-up' classes='avatar'
-//             // if number
-//             //     |#{number}:
-//             |#{title}
+    with parent
+        a.ui.button(href="/view/#{_id}") 
+            i.up.arrow.icon
+            // if number
+            //     |#{number}:
+            if title
+                |#{title}
+            else
+                |parent
                 
                 
 template(name='edit_button')
-//     if can_edit
-//         // +call_watson
-//         a.ui.icon.button(href="/edit/#{_id}")
-//             i.pencil.icon
+    if is_author
+        // +call_watson
+        a.ui.icon.button(href="/edit/#{_id}")
+            i.pencil.icon
                 
 template(name='parent_doc_segment')
 //     .ui.secondary.segment
@@ -176,3 +182,64 @@ template(name='parent_doc_segment')
 //             |#{when}
                 
                 
+                
+                
+template(name='reference_other_children')
+    // .ui.header Choose Child Docs
+    // .ui.header 
+        // |Selected children from 
+        // if selector.icon_class
+        //     +icon24 name=selector.icon_class classes='ui inline image'
+        // |#{selector.title}
+        // small
+            // a(href="view/8SE48hfdLYhqmkFLC" target="_blank") Add/Edit
+    each available_children
+        .select_child.ui.basic.compact.button(class=child_field_toggle_class)
+            +icon24 name=icon_class classes='ui inline image'
+            strong #{title}    
+    .ui.items
+        each selected_children
+            .item
+                .content
+                    .header
+                        +icon48 name=icon_class classes='ui inline image'
+                        |#{title}
+                    .meta Slug: #{slug}
+                .content
+                    .disable_child.ui.right.floated.basic.red.icon.button
+                        i.remove.icon
+    
+                
+                
+template(name='icon24')
+    img(src="https://png.icons8.com/color/24/000000/#{name}.png" class=classes title=tooltip)
+// template(name='icon96')
+//     img(src="https://png.icons8.com/color/100/000000/#{name}.png" class=classes title=tooltip)
+
+// template(name='ultraviolet_icon40')
+//     img(src="https://png.icons8.com/#{name}/ultraviolet/40" class=classes title=tooltip width="40" height="40")
+    
+// template(name='ultraviolet_icon80')
+//     img(src="https://png.icons8.com/#{name}/ultraviolet/80" class=classes title=tooltip width="80" height="80")
+    
+// template(name='dots100')
+//     img(src="https://png.icons8.com/hide/#{name}/100/000000" class=classes title=tooltip)
+// template(name='dots50')
+//     // img(src="https://png.icons8.com/hide/#{name}/50/000000" class=classes title=tooltip)
+//     img(src="https://png.icons8.com/ios/50/000000/#{name}.png" class=classes title=tooltip)
+    
+    
+    
+    
+// template(name='dusk_icon64')    
+//     img(src="https://png.icons8.com/#{name}/dusk/64" class=classes title=tooltip width="64" height="64")    
+    
+// template(name='ios96')
+//     // i.icon(src="https://png.icons8.com/#{name}/p1em/96" class=classes width="96" height="96")
+//     img(src="https://png.icons8.com/#{name}/p1em/96" class=classes width="96" height="96")
+                
+                
+                
+template(name='add_child_button')
+    #add_child.ui.icon.button
+        i.vertically.flipped.reply.icon                

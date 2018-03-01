@@ -1,5 +1,5 @@
 head
-    title the_way
+    title the way
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='apple-mobile-web-app-status-bar-style', content='white')
@@ -16,16 +16,16 @@ template(name='nav')
     .ui.inverted.borderless.labeled.icon.menu
         a.icon.item(href='/' class="{{isActiveRoute 'home'}}")
             i.home.outline.icon
-        a.icon.item(href="/tools" class="{{isActiveRoute 'tools'}}")
-            i.clone.icon
+        // a.icon.item(href="/tools" class="{{isActiveRoute 'tools'}}")
+        //     i.clone.icon
         // a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
         //     i.users.outline.icon
         // a.icon.item(href='/store' class="{{isActiveRoute 'store'}}")
         //     i.shopping.basket.outline.icon
-            // .ui.icon.input
-            //     // i.plus.icon
-            //     input#quick_add(type='text' placeholder='quick add')
-            //     i.lightning.icon
+        //     .ui.icon.input
+        //         // i.plus.icon
+        //         input#quick_add(type='text' placeholder='quick add')
+        //         i.lightning.icon
         .right.menu
             if currentUser
                 a#add_doc.item
@@ -34,7 +34,7 @@ template(name='nav')
                     i.dashboard.outline.icon
                 a.item(href="/u/#{currentUser.username}/karma" class="{{isActiveRoute 'karma'}}")
                     i.heart.outline.icon
-                    |#{currentUser.points} pts
+                    // |#{currentUser.points} pts
                 a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")
                     i.mail.outline.icon
                 a.icon.item(href='/notifications' class="{{isActiveRoute 'notifications'}}")
@@ -50,7 +50,8 @@ template(name='nav')
 template(name='staus_indicator')
     if online 
         // .ui.label(class='{{labelClass}}') 
-        img.ui.avatar.image(src="https://png.icons8.com/connection-status-on/color/48" title='Online' width="48" height="48")
+        i.circle.icon
+        // img.ui.avatar.image(src="https://png.icons8.com/connection-status-on/color/48" title='Online' width="48" height="48")
         // |Online
     else if idle
         .ui.label(class='{{labelClass}}') Idle
@@ -82,6 +83,18 @@ template(name='home')
         .four.wide.column
             +tags
         .twelve.wide.column
+            // .ui.icon.button
+            //     i.calendar.icon
+            // .ui.icon.button
+            //     i.checkmark.icon
+            // .ui.icon.button
+            //     i.icon
+            // .ui.icon.button
+            //     i.icon
+            // .ui.icon.button
+            //     i.icon
+            // .ui.icon.button
+            //     i.icon
             each docs
                 // if one_doc
                 +doc_card

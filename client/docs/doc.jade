@@ -59,25 +59,26 @@ template(name='view_doc')
                             .large-text !{content}
                         each tags 
                             .doc_tag.ui.small.compact.button(class=tag_class) #{this}
+                // +comments
                 if watson
                     .ui.segment
                         +analyzed_watson_keywords
-
+                +threaded_children
             .ui.four.wide.column
                 .ui.segment
+                    if parent_id
+                        +parent_link
                     .content
                         +author_info
                         if is_author
                             a.ui.icon.button(href="/edit/#{_id}")
                                 i.pencil.icon
-                    if currentUser
-                        +vote_button
                     if watson
                         +doc_emotion
                     else
                         +call_watson
+                    +add_child_button
+                    if currentUser
+                        +vote_button
                     +upvoted_list
                 
-
-
-

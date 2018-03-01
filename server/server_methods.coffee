@@ -306,4 +306,13 @@ Meteor.methods
             recipient_id: recipient._id
             text: message
             type:'message'
+            
+            
+    calculate_child_count: (doc_id)->
+        child_count = Docs.find(parent_id: doc_id).count()
+        Docs.update doc_id, 
+            $set: child_count: child_count
+        
+        
+            
         

@@ -10,6 +10,7 @@ FlowRouter.route '/view/:doc_id',
 
 Template.view_doc.onCreated ->
     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
+    @autorun -> Meteor.subscribe 'parent_doc', FlowRouter.getParam('doc_id')
     # @autorun -> Meteor.subscribe 'delta', FlowRouter.getParam('doc_id')
     
     # @autorun -> Meteor.subscribe 'ancestor_ids', FlowRouter.getParam('doc_id')
@@ -202,4 +203,6 @@ Template.vote_button.events
     'click .vote_down': -> 
         if Meteor.userId() then Meteor.call 'vote_down', @_id
         else FlowRouter.go '/sign-in'
+            
+            
             

@@ -32,7 +32,7 @@ template(name='edit_field')
 
 template(name='edit_icon_field')
     .ui.labeled.input
-        a.ui.basic.label(href="https://icons8.com/icon/new-icons/color" target='_blank' data-tooltip="Lookup at icons8")
+        a.ui.label(href="https://icons8.com/icon/new-icons/color" target='_blank' data-tooltip="Lookup at icons8")
             |Icon 
         input#icon_class(type='text' value=icon_class)
     if icon_class    
@@ -47,7 +47,7 @@ template(name='edit_icon_field')
 
 template(name='edit_number')
     .ui.labeled.input
-        .ui.basic.label Number
+        .ui.label Number
         input#number(type='number' min='0' value=number)
 
 // template(name='edit_text')
@@ -56,13 +56,13 @@ template(name='edit_number')
 //             textarea#text(rows='3') #{text}
 
 // template(name='view_text')
-//     .ui.basic.segment
+//     .ui.segment
 //         |#{text}
             
             
 template(name='edit_link_field')
     .ui.labeled.icon.input
-        .ui.basic.label Link (include http://)
+        .ui.label Link (include http://)
         // i.linkify.icon
         input#link(type='text' value=link)
 
@@ -80,13 +80,13 @@ template(name='edit_uploaded_image_field')
                  |Uploaded Image
             .ui.large.centered.image
                 img(src="{{c.url image_id width=500 crop='fit'}}")
-                a#remove_photo.ui.top.right.attached.link.basic.label
+                a#remove_photo.ui.top.right.attached.link.label
                     +icon48 name='delete' classes='ui tiny spaced image'
                 if isInRole 'dev'
                     .ui.bottom.right.attached.blue.label Image Id: #{image_id}
         else
             .ui.labeled.fluid.input
-                .ui.basic.label
+                .ui.label
                     +icon48 name='add-image' classes='ui tiny spaced image'
                     |Upload Image
                 input(type='file' name='upload_picture' accept='image/*')
@@ -110,11 +110,11 @@ template(name='edit_linked_image_field')
             .ui.label Image URL: #{image_url}
         else
             .ui.labeled.icon.action.fluid.input
-                .ui.basic.label 
+                .ui.label 
                     +icon48 name='add-link' classes='ui mini spaced image'
                     |Paste Image URL
                 input#image_url(type='text' value=image_url)
-                .ui.basic.button
+                .ui.button
                     +icon24 name='sent'
 
 
@@ -128,11 +128,11 @@ template(name='edit_youtube_field')
     with context_doc
         .ui.segment
             .ui.action.fluid.labeled.input
-                .ui.basic.label
+                .ui.label
                     +icon48 name='youtube' classes='ui mini spaced image'
                     |Youtube Id
                 input#youtube(type='text' value=youtube)
-                .ui.icon.basic.button#clear_youtube
+                .ui.icon.button#clear_youtube
                     +icon24 name='delete'
             if youtube
                 .ui.embed(data-source="youtube" data-id=youtube)
@@ -147,11 +147,11 @@ template(name='view_youtube_field')
 template(name='edit_vimeo_field')
     .ui.segment
         .ui.action.fluid.labeled.input
-            .ui.basic.label
+            .ui.label
                 +icon48 name='vimeo' classes='ui mini spaced image'
                 |vimeo Id
             input#vimeo(type='text' value=vimeo)
-            .ui.icon.basic.button#clear_vimeo
+            .ui.icon.button#clear_vimeo
                 +icon24 name='delete'
         if vimeo
             .ui.embed(data-source="vimeo" data-id=vimeo)
@@ -167,7 +167,7 @@ template(name='view_vimeo_field')
             
 // template(name='edit_author')
 //     .ui.labeled.input
-//         .ui.basic.label 
+//         .ui.label 
 //             |Author: 
 //             with author
 //                 img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -177,7 +177,7 @@ template(name='view_vimeo_field')
                     
 // template(name='edit_recipient')
 //     .ui.labeled.input
-//         .ui.basic.label 
+//         .ui.label 
 //             |Recipient: 
 //             with recipient
 //                 img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -212,7 +212,7 @@ template(name='view_transcript_field')
 // template(name='start_datetime')
 //     if editing
 //         .ui.labeled.input
-//             .ui.basic.label Start Date/Time
+//             .ui.label Start Date/Time
 //             input#start_datetime(type='datetime-local' value=start_datetime)
 //     else
 //         .ui.header Start Date/Time #{start_datetime}
@@ -220,7 +220,7 @@ template(name='view_transcript_field')
 // template(name='end_datetime')
 //     if editing
 //         .ui.labeled.input
-//             .ui.basic.label End Date/Time
+//             .ui.label End Date/Time
 //             input#end_datetime(type='datetime-local' value=end_datetime)
 //     else
 //         .ui.header End Date/Time #{end_datetime}
@@ -257,7 +257,7 @@ template(name='edit_string_field')
         |#{databank_field_template_value}
     
     .ui.labeled.fluid.input
-        .ui.basic.label #{field_doc.title}
+        .ui.label #{field_doc.title}
         input#text_field_input(type='text' value=databank_field_template_value)
 
 // template(name='view_number_field')
@@ -269,11 +269,11 @@ template(name='edit_string_field')
     
 template(name='view_array_field')
     if field_value
-        .ui.basic.segment
+        .ui.segment
             +icon48 name=field_doc.icon_class classes='ui inline image'
                 // |#{field_doc.title}
             each field_value
-                .ui.basic.large.label #{this}
+                .ui.large.label #{this}
     
     
 template(name='edit_array_field')
@@ -288,7 +288,7 @@ template(name='edit_array_field')
         // .ui.mini.input
         //     +inputAutocomplete settings=theme_select_settings id="theme_tag_select" class="" autocomplete="off"
         each field_value
-            // a.ui.basic.circular.button.doc_tag #{this}
+            // a.ui.circular.button.doc_tag #{this}
             a.ui.circular.white.button.doc_tag
                 i.remove.icon
                 |#{this}
@@ -302,7 +302,7 @@ template(name='view_html_field')
         // .ui.header
         //     +icon48 name=field_doc.icon_class classes='ui inline image'
         //     |#{field_doc.title}
-        .ui.basic.segment
+        .ui.segment
             .large120 !{html_field_value}
     
     
@@ -319,7 +319,7 @@ template(name='edit_html_field')
     
 template(name='edit_text_field')
     .ui.labeled.fluid.input
-        .ui.basic.label #{key}
+        .ui.label #{key}
         input#value(type='text' value=page_field_value)
 
     // +toggle_key key='completion_type' value='response' icon='response' label='Response'

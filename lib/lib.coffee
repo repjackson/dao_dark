@@ -83,6 +83,9 @@ Docs.helpers
     is_anonymous: -> @published is 0
     is_private: -> @published is -1
 
+    parent: -> Docs.findOne @parent_id
+
+
     five_tags: -> if @tags then @tags[0..4]
 
     up_voted: -> @upvoters and Meteor.userId() in @upvoters

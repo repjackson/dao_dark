@@ -1,0 +1,36 @@
+template(name='threaded_children')
+    // .ui.inverted.header child documents
+    each child_docs
+        +threaded_child
+            
+            
+template(name='threaded_child')
+    .ui.segment
+        .content
+            a.header(href="/view/#{_id}")
+                if number
+                    |#{number}: 
+                if title
+                    |#{title}
+                // |(#{type})
+            .description
+                .meta
+                    each tags
+                        .ui.label #{this}
+                |!{content}
+                |#{text}
+                |#{body}
+                // +edit_number
+                // +published
+        .content
+            +author_info
+            |#{when}
+            +vote_button
+            +add_child_button
+            +edit_button
+    if child_count
+        .ui.grid
+            .two.wide.column
+            .fourteen.wide.column
+                each children
+                    +threaded_child
