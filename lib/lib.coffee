@@ -100,6 +100,13 @@ Docs.helpers
     
     read: -> @read_by and Meteor.userId() in @read_by
 
+    children: -> 
+        Docs.find {parent_id: @_id}, 
+            sort:
+                points:-1
+                timestamp:-1
+
+
 
 FlowRouter.notFound =
     action: ->

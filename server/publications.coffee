@@ -1,4 +1,5 @@
 Meteor.publish 'type', (type)->
+    console.log type
     Docs.find {type: type},
         limit: 20
     

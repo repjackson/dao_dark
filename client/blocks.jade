@@ -91,7 +91,7 @@ template(name='upvoted_list')
 
 template(name='author_info')
     if is_anonymous
-        |by anonymous
+        |by anon
     else
         if is_private
             i.large.lock.icon
@@ -101,7 +101,7 @@ template(name='author_info')
                 img.ui.avatar.spaced.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
             |&nbsp;
             a(href="/u/#{username}") #{name} 
-            +staus_indicator
+            // +staus_indicator
 
 
 
@@ -123,16 +123,17 @@ template(name='dev_footer')
             |DEV
             // .ui.horizontal.list
             //     .item
-            //         a(href='/view/3qLXqhMDmxxZvh3tA') tasks
+            //         a(href='/v/3qLXqhMDmxxZvh3tA') tasks
             //     .item
-            //         a(href='/view/z3fPCMJnhCLKs2kKK') facet
+            //         a(href='/v/z3fPCMJnhCLKs2kKK') facet
 
         with doc
             if parent_id
                 .ui.segment
-                    a.ui.header(href="/view/#{doc.parent_id}") 
-                        +icon48 name=parent.icon_class
-                        |Parent: #{parent.title}
+                    a.ui.header(href="/v/#{doc.parent_id}") 
+                        if icon_class
+                            +icon48 name=parent.icon_class
+                        |parent: #{parent.title}
             +edit_text_field key='title'
             +edit_text_field key='type'
             +edit_text_field key='template'
@@ -148,11 +149,11 @@ template(name='dev_footer')
             #toggle_child_docs.ui.button toggle child docs
             // #trickle_down.ui.button run trickle_down
             if show_child_docs
-                +child_docs
+                +threaded_children
                 
 template(name='parent_link')
     with parent
-        a.ui.button(href="/view/#{_id}") 
+        a.ui.button(href="/v/#{_id}") 
             i.up.arrow.icon
             // if number
             //     |#{number}:
@@ -169,45 +170,45 @@ template(name='edit_button')
             i.pencil.icon
                 
 template(name='parent_doc_segment')
-//     .ui.secondary.segment
-//         .ui.header
-//             +icon48 name='response' classes='avatar'
-//             |In response to...
-//         +view_full_button
-//         with parent
-//             .ui.segment
-//                 +view_array_field key='tags'
-//                 .large130 !{content}
-//             +author_info
-//             |#{when}
+    if parent
+        .ui.secondary.segment
+            // .ui.header in response to...
+            // +view_full_button
+            with parent
+                .large130 !{content}
+                +author_info
+                |&nbsp;
+                |#{when}
                 
                 
                 
                 
 template(name='reference_other_children')
-    // .ui.header Choose Child Docs
-    // .ui.header 
-        // |Selected children from 
-        // if selector.icon_class
-        //     +icon24 name=selector.icon_class classes='ui inline image'
-        // |#{selector.title}
-        // small
-            // a(href="view/8SE48hfdLYhqmkFLC" target="_blank") Add/Edit
-    each available_children
-        .select_child.ui.basic.compact.button(class=child_field_toggle_class)
-            +icon24 name=icon_class classes='ui inline image'
-            strong #{title}    
-    .ui.items
-        each selected_children
-            .item
-                .content
-                    .header
-                        +icon48 name=icon_class classes='ui inline image'
-                        |#{title}
-                    .meta Slug: #{slug}
-                .content
-                    .disable_child.ui.right.floated.basic.red.icon.button
-                        i.remove.icon
+    .ui.segment
+        .ui.header choose fields
+        // .ui.header 
+            // |Selected children from 
+            // if selector.icon_class
+            //     +icon24 name=selector.icon_class classes='ui inline image'
+            // |#{selector.title}
+            // small
+                // a(href="view/8SE48hfdLYhqmkFLC" target="_blank") Add/Edit
+        each available_children
+            .select_child.ui.button(class=child_field_toggle_class)
+                // +icon24 name=icon_class classes='ui inline image'
+                strong #{slug}    
+        // .ui.items
+        //     each selected_children
+        //         .item
+        //             .content
+        //                 .header
+        //                     // +icon48 name=icon_class classes='ui inline image'
+        //                     |#{title}
+        //                 .meta Slug: #{slug}
+        //                 .meta id: #{_id}
+        //             .content
+        //                 .disable_child.ui.right.floated.red.small.icon.button
+        //                     i.remove.icon
     
                 
                 

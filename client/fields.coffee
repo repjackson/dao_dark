@@ -671,17 +671,17 @@ Template.edit_array_field.helpers
             
 Template.edit_text_field.events
     'blur #value': (e,t)->
-        # console.log @
+        # console.log @key
         value = $(e.currentTarget).closest('#value').val()
         # console.log value
         Docs.update FlowRouter.getParam('doc_id'),
             $set: "#{@key}": value
             
-# Template.edit_text_field.helpers
-#     field_value: ->
-#         # console.log @
-#         current_doc = Docs.findOne FlowRouter.getParam('doc_id')
-#         current_doc["#{@key}"]
+Template.edit_text_field.helpers
+    # field_value: ->
+    #     # console.log @
+    #     current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+    #     current_doc["#{@key}"]
             
             
 Template.view_html_field.helpers

@@ -263,7 +263,7 @@ Meteor.methods
         recipient = Meteor.users.findOne recipient_id
         
         
-        doc_link = "/view/#{doc._id}"
+        doc_link = "/v/#{doc._id}"
         notification = 
             Docs.findOne
                 type:'notification'

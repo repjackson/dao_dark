@@ -46,9 +46,9 @@ template(name='user_layout')
                         a.item(href="/u/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
                             i.money.icon
                             // |transactions
-                if is_user
-                    .ui.basic.center.aligned.segment
-                        #logout.ui.center.aligned.button log out
+                // if is_user
+                //     .ui.basic.center.aligned.segment
+                //         #logout.ui.center.aligned.button log out
             .ui.fourteen.wide.column
                 +Template.dynamic template=user_main
 

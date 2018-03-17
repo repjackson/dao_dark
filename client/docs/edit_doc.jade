@@ -1,45 +1,51 @@
 template(name='edit_doc')
     with doc
-        .ui.padded.stackable.grid
-            .twelve.wide.column
-                .content
-                    div
-                        .ui.small.input
-                            input#add_tag(type='text' maxlength='50' placeholder='add tag')
-                        each tags
-                            a.ui.compact.button.doc_tag
-                                i.remove.icon
-                                |#{this}
-                
-                    div
-                        .ui.labeled.action.small.input
-                            .ui.label image url
-                            input#image_url(type='text' value=image_url)
-                            if image_url
-                                #clear_image_url.ui.icon.button
-                                    i.remove.icon
-                    div
-                        if image_url
-                            .ui.image
-                                img(src=image_url)
-                    div
-                        .ui.labeled.action.small.input
-                            .ui.label youtube
-                            input#youtube(type='text' value=youtube)
-                            if youtube
-                                #clear_youtube.ui.icon.button
-                                    i.remove.icon
-                        if youtube
-                            +view_youtube
-                    .field
-                        .froala-container
-                            +froalaReactive getFEContext
-            .four.wide.column
-                if tags
-                    a.ui.icon.large.fluid.button(href="/view/#{_id}")
-                        i.checkmark.icon
-                +published        
-                #delete.ui.icon.button
-                    i.remove.icon
-                +reference_other_children type='field' key='field_ids'
+        // each field_ids
+        //     +edit_field template=field_doc.field_template key=field_doc.slug
+        // .ui.divider
+        .content
+            // +edit_text_field key='title'
+            // +edit_text_field key='slug'
+            // +edit_text_field key='icon_class'
+            // +edit_text_field key='type'
+            // +edit_text_field key='field_template'
+            
+            div
+                .ui.small.input
+                    input#add_tag(type='text' maxlength='50' placeholder='add tag')
+                each tags
+                    a.ui.compact.button.doc_tag
+                        i.remove.icon
+                        |#{this}
+        
+            div
+                .ui.labeled.action.small.input
+                    .ui.label image url
+                    input#image_url(type='text' value=image_url)
+                    if image_url
+                        #clear_image_url.ui.icon.button
+                            i.remove.icon
+            div
+                if image_url
+                    .ui.image
+                        img(src=image_url)
+            div
+                .ui.labeled.action.small.input
+                    .ui.label youtube
+                    input#youtube(type='text' value=youtube)
+                    if youtube
+                        #clear_youtube.ui.icon.button
+                            i.remove.icon
+                if youtube
+                    +view_youtube
+            .field
+                .froala-container
+                    +froalaReactive getFEContext
+            // if tags
+            a.ui.icon.large.fluid.button(href="/v/#{_id}")
+                i.checkmark.icon
+            // +published        
+            #delete.ui.icon.button
+                i.remove.icon
+            // +reference_other_children type='field' key='field_ids'
     

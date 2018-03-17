@@ -1,33 +1,39 @@
 template(name='threaded_children')
     // .ui.inverted.header child documents
-    each child_docs
+    each children
         +threaded_child
             
             
 template(name='threaded_child')
     .ui.segment
-        .content
-            a.header(href="/view/#{_id}")
-                if number
-                    |#{number}: 
-                if title
-                    |#{title}
-                // |(#{type})
-            .description
-                .meta
-                    each tags
-                        .ui.label #{this}
-                |!{content}
-                |#{text}
-                |#{body}
-                // +edit_number
-                // +published
-        .content
-            +author_info
-            |#{when}
-            +vote_button
-            +add_child_button
-            +edit_button
+        .ui.two.column.grid
+            .column
+                a.header(href="/v/#{_id}")
+                    if number
+                        |#{number}: 
+                    if title
+                        |#{title}
+                    // |(#{type})
+                .description
+                    // .meta
+                    //     each tags
+                    //         .ui.label #{this}
+                    .large130 !{content}
+                    |#{text}
+                    |#{body}
+                    // +edit_number
+                    // +published
+            .column
+                +author_info
+                |#{when}
+                if currentUser
+                    +vote_button
+                    +add_child_button
+                if is_author
+                    +edit_button
+                +view_full_button
+                    
+                
     if child_count
         .ui.grid
             .two.wide.column

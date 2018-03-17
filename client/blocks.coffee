@@ -5,20 +5,21 @@ Template.reference_other_children.onCreated ->
     
             
 Template.reference_other_children.helpers
-    selector: -> Docs.findOne @doc_id
+    # selector: -> Docs.findOne @doc_id
 
     available_children: ->
         # Docs.find parent_id:@doc_id
-        current_doc = Docs.findOne FlowRouter.getParam('doc_id')
-        if current_doc["#{@key}"]
-            Docs.find
-                # parent_id:@doc_id
-                type:@type
-                _id:$nin:current_doc["#{@key}"]
-        else
-            Docs.find
-                # parent_id:@doc_id
-                type:@type
+        Docs.find(type:'field')
+        # current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+        # if current_doc["#{@key}"]
+        #     Docs.find
+        #         # parent_id:@doc_id
+        #         type:@type
+        #         _id:$nin:current_doc["#{@key}"]
+        # else
+        #     Docs.find
+        #         # parent_id:@doc_id
+        #         type:@type
         
         
     selected_children: -> 
@@ -28,14 +29,14 @@ Template.reference_other_children.helpers
                 # parent_id:@doc_id
                 _id:$in:current_doc["#{@key}"]
         
-    # child_field_toggle_class: ->
-    #     doc = Docs.findOne FlowRouter.getParam('doc_id')
-    #     if @slug in doc.child_fields then 'blue' else 'basic'
+    child_field_toggle_class: ->
+        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        if @_id in doc.field_ids then 'active' else ''
 
 Template.reference_other_children.events
     'click .select_child': ->
         current_doc = Docs.findOne FlowRouter.getParam('doc_id')
-        console.log @
+        # console.log @
         passed_key = Template.parentData(0).key
         
         if current_doc["#{passed_key}"] 
@@ -385,7 +386,7 @@ Template.dev_footer.events
         parent_doc_id = Docs.insert {}
         Docs.update FlowRouter.getParam('doc_id'),
             $set: parent_id: parent_doc_id
-        FlowRouter.go "/view/#{parent_doc_id}"
+        FlowRouter.go "/v/#{parent_doc_id}"
 
     'click #move_above_parent': ->
         current_doc = Docs.findOne FlowRouter.getParam('doc_id')
@@ -422,3 +423,28 @@ Template.add_child_button.events
             parent_id: @_id
             
         FlowRouter.go "/edit/#{child_id}"
+        
+        
+        
+Template.vote_button.helpers
+    vote_up_button_class: ->
+        if not Meteor.userId() then 'disabled'
+        else if @upvoters and Meteor.userId() in @upvoters then 'green'
+        else 'outline'
+
+    vote_down_button_class: ->
+        if not Meteor.userId() then 'disabled'
+        else if @downvoters and Meteor.userId() in @downvoters then 'red'
+        else 'outline'
+
+Template.vote_button.events
+    'click .vote_up': (e,t)-> 
+        if Meteor.userId()
+            Meteor.call 'vote_up', @_id
+        else FlowRouter.go '/sign-in'
+
+    'click .vote_down': -> 
+        if Meteor.userId() then Meteor.call 'vote_down', @_id
+        else FlowRouter.go '/sign-in'
+            
+        

@@ -1,31 +1,27 @@
 template(name='doc_card')        
-    .ui.stackable.grid
-        .twelve.wide.column
-            if youtube
-                +view_youtube
-            if image_url
-                .ui.image
-                    img(src=image_url)
-            .ui.segment
-                if content
-                    .large-text !{content}
-                each tags 
-                    .doc_tag.ui.small.compact.button(class=tag_class) #{this}
-        .four.wide.column
-            .ui.segment
-                +author_info
-                div #{when}
-                if is_author
-                    a.ui.icon.button(href="/edit/#{_id}")
-                        i.pencil.icon
-                a.ui.icon.button(href="/view/#{_id}")
-                    i.right.arrow.icon
-                if currentUser
-                    div
-                        +vote_button
-                    div
-                        if upvoted_users
-                            +upvoted_list
+    if youtube
+        +view_youtube
+    if image_url
+        .ui.image
+            img(src=image_url)
+    .ui.inverted.segment
+        if parent_id
+            +parent_doc_segment
+        if content
+            .large-text !{content}
+        each tags 
+            .doc_tag.ui.small.compact.inverted.black.basic.button(class=tag_class) #{this}
+        div 
+            +author_info
+            |#{when}
+        if currentUser
+            +vote_button
+            if upvoted_users
+                +upvoted_list
+        if is_author
+            a.ui.icon.button(href="/edit/#{_id}")
+                i.pencil.icon
+        +view_full_button
             
             
 template(name='vote_button')
@@ -37,6 +33,9 @@ template(name='vote_button')
         
             
                     
+template(name='view_full_button')
+    a.ui.icon.button(href="/v/#{_id}")
+        i.right.arrow.icon
                         
                     
 template(name='view_youtube')
@@ -45,40 +44,41 @@ template(name='view_youtube')
 
 template(name='view_doc')        
     with doc
-        .ui.stackable.grid
-            .ui.twelve.wide.column
-                if youtube
-                    +view_youtube
-                if image_url
-                    .ui.image
-                        img(src=image_url)
+        if youtube
+            +view_youtube
+        if image_url
+            .ui.image
+                img(src=image_url)
+    
+        .ui.inverted.segment
+            .content
+                if title
+                    h1.ui.center.aligned.header #{title}
+                if slug
+                    h4.ui.center.aligned.header #{slug}
+                if content
+                    .large-text !{content}
+                each tags 
+                    .doc_tag.ui.small.compact.button(class=tag_class) #{this}
+        // +comments
+        if watson
+            .ui.inverted.segment
+                +analyzed_watson_keywords
+        .ui.inverted.segment
+            if parent_id
+                +parent_link
+            .content
+                // +author_info
+                if is_author
+                    a.ui.icon.button(href="/edit/#{_id}")
+                        i.pencil.icon
+            if watson
+                +doc_emotion
+            // else
+            //     +call_watson
+            +add_child_button
+            if currentUser
+                +vote_button
+            +upvoted_list
+        +threaded_children
             
-                .ui.segment
-                    .content
-                        if content
-                            .large-text !{content}
-                        each tags 
-                            .doc_tag.ui.small.compact.button(class=tag_class) #{this}
-                // +comments
-                if watson
-                    .ui.segment
-                        +analyzed_watson_keywords
-                +threaded_children
-            .ui.four.wide.column
-                .ui.segment
-                    if parent_id
-                        +parent_link
-                    .content
-                        +author_info
-                        if is_author
-                            a.ui.icon.button(href="/edit/#{_id}")
-                                i.pencil.icon
-                    if watson
-                        +doc_emotion
-                    else
-                        +call_watson
-                    +add_child_button
-                    if currentUser
-                        +vote_button
-                    +upvoted_list
-                

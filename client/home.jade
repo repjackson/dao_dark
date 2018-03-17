@@ -1,0 +1,31 @@
+
+
+template(name='tags')
+    // .ui.left.icon.small.inline.input
+    //     i.search.icon
+    //     input#search(type='text')    
+    // |&nbsp;  
+    if selected_tags
+        #clear_tags.ui.icon.button
+            i.remove.icon
+        each selected_tags
+            .unselect_tag.ui.button
+                strong #{this}
+    each tags
+        .ui.button.inverted.basic.black.select_tag(class=tag_class)
+            strong #{this.name}
+        // .ui.button.select_tag
+
+
+
+
+template(name='home')
+    .ui.stackable.grid
+        .ui.four.wide.column
+            +tags
+        .ui.twelve.wide.column
+            each docs
+                // if one_doc
+                +doc_card
+        
+        
