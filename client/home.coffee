@@ -6,9 +6,9 @@ Template.tags.helpers
             Tags.find { 
                 # type:Template.currentData().type
                 count: $lt: doc_count
-                }, limit: 40
+                }, limit: 50
         else
-            Tags.find({}, limit: 40)
+            Tags.find({}, limit: 50)
             
             
     
@@ -50,7 +50,7 @@ Template.home.onCreated ->
 Template.home.helpers
     one_doc: -> Docs.find().count() is 1
 
-    docs: -> Docs.find({},{limit:5,sort:tag_count:1})
+    docs: -> Docs.find({},{limit:1,sort:tag_count:1})
 
     editing_this: -> Session.equals 'editing_id', @_id
 

@@ -70,4 +70,12 @@ Template.view_youtube.onRendered ->
         
             
             
-            
+Template.your_tags.helpers
+    'keyup #add_your_tag': (e,t)->
+        if e.which is 13
+            doc_id = FlowRouter.getParam('doc_id')
+            add_your_tag = $('#add_your_tag').val().toLowerCase().trim()
+            if add_your_tag.length > 0
+                Docs.update doc_id,
+                    $set: add_your_tag: image_id
+                $('#add_your_tag').val('')
