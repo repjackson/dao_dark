@@ -527,10 +527,7 @@ Template.edit_html_field.helpers
     getFEContext: ->
         console.log @
         console.log Template.parentData(1)
-        if @type is 'direct'
-            context_doc = Template.parentData(1)
-        else
-            context_doc = Template.parentData(3)
+        context_doc = Template.parentData(3)
         # @current_doc = Docs.findOne FlowRouter.getParam 'doc_id'
         # @current_doc = Docs.findOne @_id
         self = @

@@ -1,35 +1,33 @@
-FlowRouter.route '/blocks', 
+FlowRouter.route '/tools', 
     action: (params) ->
         BlazeLayout.render 'layout',
-            main: 'blocks'
+            main: 'tools'
 
-
-FlowRouter.route '/block/:hash', 
+FlowRouter.route '/miner_calc', 
     action: (params) ->
         BlazeLayout.render 'layout',
-            # nav: 'nav'
-            main: 'block_page'
+            main: 'miner_calc'
 
-
+FlowRouter.route '/miners', 
+    action: (params) ->
+        BlazeLayout.render 'layout',
+            main: 'miners'
 
 
     
-Template.blocks.onRendered ->
-    @autorun => Meteor.subscribe 'type', 'block'
+
+    
+Template.miners.onRendered ->
+    @autorun => Meteor.subscribe 'miners'
     
 
-Template.latest_block.helpers
-    latest_block: -> Docs.findOne type:'block'
+# Template.view_doc.helpers
+#     doc: -> Docs.findOne FlowRouter.getParam('doc_id')
+#     view_template: -> "view_#{@template}"
+#     # is_site: ->
+#     #     doc = Docs.findOne FlowRouter.getParam('doc_id')
+#     #     if doc.type is 'site' then true else false
         
-
-
-
-Template.block_page.onRendered ->
-    @autorun => Meteor.subscribe 'block', FlowRouter.getParam('hash')
-    
-
-Template.block_page.helpers
-    block: -> Docs.findOne type:'block'
         
 # Template.view_doc.onCreated ->
 #     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
@@ -52,16 +50,12 @@ Template.block_page.helpers
 #     tag_class: -> if @valueOf() in selected_tags.array() then 'grey' else ''
 
 
-Template.latest_block.events
-    'click #fetch_latest_block': ->
-        Meteor.call 'fetch_latest_block'
-        # console.log request
+# Template.doc_card.events
+#     'click #edit_this': ->
+#         Session.set 'editing_id', @_id
 
-
-Template.block_page.events
-    'click #refresh_block': ->
-        Meteor.call 'get_block_details', FlowRouter.getParam 'hash'
-        # console.log request
+#     'click .doc_tag': ->
+#         if @valueOf() in selected_tags.array() then selected_tags.remove @valueOf() else selected_tags.push @valueOf()
 
 
 

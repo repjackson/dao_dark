@@ -35,11 +35,11 @@ Docs.before.insert (userId, doc)=>
 
     doc.author_id = Meteor.userId()
     doc.tag_count = doc.tags?.length
-    doc.points = 0
-    doc.read_by = [Meteor.userId()]
-    doc.upvoters = []
-    doc.downvoters = []
-    doc.published = 0
+    # doc.points = 0
+    # doc.read_by = [Meteor.userId()]
+    # doc.upvoters = []
+    # doc.downvoters = []
+    # doc.published = 0
     return
 
 Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
@@ -119,14 +119,6 @@ FlowRouter.route '/',
     action: ->
         BlazeLayout.render 'layout', 
             main: 'home'
-
-
-FlowRouter.route '/tools', 
-    name:'tools'
-    action: ->
-        BlazeLayout.render 'layout', 
-            main: 'tools'
-
 
 
 

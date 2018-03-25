@@ -313,6 +313,59 @@ Meteor.methods
         Docs.update doc_id, 
             $set: child_count: child_count
         
-        
+    fetch_latest_block: ->        
+        request = HTTP.get 'https://blockchain.info/latestblock', (err,res)->
+            if err then console.error err
+            else
+                
+                console.log res.data
+                existing_block = 
+                    Docs.findOne 
+                        type:'block'
+                        hash: res.data.hash
+                if existing_block
+                    return existing_block._id
+                else
+                    Docs.insert
+                        type: 'block'
+                        hash: res.data.hash
+                        time: res.data.time
+                        block_index: res.data.block_index
+                        height: res.data.height
+            
+    get_block_details: (hash)->        
+        request = HTTP.get "https://blockchain.info/rawblock/#{hash}", (err,res)->
+            if err then console.error err
+            else
+                
+                console.log res.data
+                block = res.data
+                existing_block = 
+                    Docs.findOne 
+                        type:'block'
+                        hash: res.data.hash
+                if existing_block
+                    # return existing_block._id
+                    Docs.update existing_block._id,
+                        $set:
+                            hash: block.hash
+                            time: block.time
+                            block_index: block.block_index
+                            height: block.height
+                            ver: block.ver
+                            prev_block: block.prev_block
+                            mrkl_root: block.mrkl_root
+                            bits: block.bits
+                            fee: block.fee
+                            nonce: block.nonce
+                            main_chain: block.main_chain
+                            relayed_by: block.relayed_by
+                else
+                    Docs.insert
+                        type: 'block'
+                        hash: block.hash
+                        time: block.time
+                        block_index: block.block_index
+                        height: block.height
             
         

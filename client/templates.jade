@@ -13,24 +13,23 @@ template(name='layout')
     // +dev_footer
 
 template(name='nav')
-    .ui.inverted.borderless.large.icon.stackable.menu
+    .ui.inverted.borderless.icon.stackable.menu
         a.icon.item(href='/' class="{{isActiveRoute 'home'}}")
             i.home.outline.icon
-        .ui.icon.input
-            input#query(type='text' placeholder='ask')
-        // a.icon.item(href="/tools" class="{{isActiveRoute 'tools'}}")
-        //     i.clone.icon
-        // a.icon.item(href="/tools" class="{{isActiveRoute 'tools'}}")
-        //     i.clone.icon
+        .ui.icon.inverted.transparent.input
+            i.search.icon
+            input#query(type='text')
+        a.icon.item(href="/tools" class="{{isActiveRoute 'tools'}}")
+            i.wrench.icon
         // a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
         //     i.users.outline.icon
         // a.icon.item(href='/store' class="{{isActiveRoute 'store'}}")
         //     i.shopping.basket.outline.icon
         if currentUser
-            .ui.icon.input
-                // i.plus.icon
-                input#quick_add(type='text' placeholder='add')
-                i.lightning.icon
+            // .ui.icon.input
+            //     // i.plus.icon
+            //     input#quick_add(type='text' placeholder='add')
+            //     i.lightning.icon
             a#add_doc.item
                 i.plus.outline.icon
             a.icon.item(href="/u/#{currentUser.username}/dashboard" class="{{isActiveRoute 'dashboard'}}")

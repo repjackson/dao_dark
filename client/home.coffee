@@ -50,7 +50,7 @@ Template.home.onCreated ->
 Template.home.helpers
     one_doc: -> Docs.find().count() is 1
 
-    docs: -> Docs.find({},{limit:1,sort:tag_count:1})
+    docs: -> Docs.find({},{limit:3,sort:tag_count:1})
 
     editing_this: -> Session.equals 'editing_id', @_id
 

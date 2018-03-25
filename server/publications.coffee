@@ -1,5 +1,5 @@
 Meteor.publish 'type', (type)->
-    console.log type
+    # console.log type
     Docs.find {type: type},
         limit: 20
     
@@ -177,3 +177,8 @@ Meteor.publish 'facet', (
             self.onStop ()-> subHandle.stop()
 
         
+        
+Meteor.publish 'block', (hash)->
+    Docs.find 
+        type: 'block'
+        hash: hash
