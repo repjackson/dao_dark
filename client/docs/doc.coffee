@@ -21,6 +21,11 @@ Template.view_doc.onRendered ->
                         document.title = doc.title
             , 500
     
+    Meteor.setTimeout ->
+        $('.ui.accordion').accordion()
+    , 1000
+
+
 
 Template.view_doc.helpers
     doc: -> Docs.findOne FlowRouter.getParam('doc_id')

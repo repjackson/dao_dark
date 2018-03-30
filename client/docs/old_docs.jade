@@ -115,13 +115,14 @@
                             
                             
 template(name='doc_template_selection')
-    .ui.header Select Document Template
-    +toggle_key key='completion_type' value='response' icon='response' label='Response'
-
-    // .ui.header Choose Child Actions
-    each child_actions
-        .toggle_child_action.ui.button(class=child_action_toggle_class)
-            +icon24 name=icon_class classes='ui inline image'
-            strong #{title}    
+    .ui.inverted.segment
+        .ui.header select document template
+        +toggle_key key='completion_type' value='response' icon='response' label='Response'
+    
+        // .ui.header Choose Child Actions
+        each child_actions
+            .toggle_child_action.ui.button(class=child_action_toggle_class)
+                +icon24 name=icon_class classes='ui inline image'
+                strong #{title}    
             
                             

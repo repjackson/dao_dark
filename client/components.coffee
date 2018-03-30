@@ -10,12 +10,12 @@ Template.reference_other_children.helpers
     available_children: ->
         # Docs.find parent_id:@doc_id
         Docs.find(type:'field')
-        # current_doc = Docs.findOne FlowRouter.getParam('doc_id')
-        # if current_doc["#{@key}"]
+        # doc = Docs.findOne FlowRouter.getParam('doc_id')
+        # if doc["#{@key}"]
         #     Docs.find
         #         # parent_id:@doc_id
         #         type:@type
-        #         _id:$nin:current_doc["#{@key}"]
+        #         _id:$nin:doc["#{@key}"]
         # else
         #     Docs.find
         #         # parent_id:@doc_id
@@ -23,11 +23,11 @@ Template.reference_other_children.helpers
         
         
     selected_children: -> 
-        current_doc = Docs.findOne FlowRouter.getParam('doc_id')
-        if current_doc["#{@key}"]
+        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        if doc["#{@key}"]
             Docs.find
                 # parent_id:@doc_id
-                _id:$in:current_doc["#{@key}"]
+                _id:$in:doc["#{@key}"]
         
     child_field_toggle_class: ->
         doc = Docs.findOne FlowRouter.getParam('doc_id')
@@ -35,27 +35,35 @@ Template.reference_other_children.helpers
 
 Template.reference_other_children.events
     'click .select_child': ->
-        current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+        doc = Docs.findOne FlowRouter.getParam('doc_id')
         # console.log @
         passed_key = Template.parentData(0).key
         
-        if current_doc["#{passed_key}"] 
-            if @_id in current_doc["#{passed_key}"]
-                Docs.update current_doc._id,
+        if doc["#{passed_key}"] 
+            if @_id in doc["#{passed_key}"]
+                Docs.update doc._id,
                     $pull: "#{passed_key}": @_id
             else
-                Docs.update current_doc._id,
+                Docs.update doc._id,
                     $addToSet: "#{passed_key}": @_id
         else
-            Docs.update current_doc._id,
+            Docs.update doc._id,
                 $set: "#{passed_key}": []
      
     'click .disable_child': ->
         passed_key = Template.parentData(0).key
-        current_doc = Docs.findOne FlowRouter.getParam('doc_id')
-        Docs.update current_doc._id,
+        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        Docs.update doc._id,
             $pull: "#{passed_key}": @_id
         
+
+
+
+Template.ownership.events
+    'click #make_author_owner': ->
+        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        Meteor.call 'calculate_owner_ids', doc._id
+        # Meteor.call 'change_ownership', doc._id, doc._author_id, 100     
 
 
 
@@ -389,8 +397,8 @@ Template.dev_footer.events
         FlowRouter.go "/v/#{parent_doc_id}"
 
     'click #move_above_parent': ->
-        current_doc = Docs.findOne FlowRouter.getParam('doc_id')
-        parent_doc = Docs.findOne current_doc.parent_id
+        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        parent_doc = Docs.findOne doc.parent_id
         console.log 'grandparent id', parent_doc.parent_id
         Docs.update FlowRouter.getParam('doc_id'),
             $set: parent_id: parent_doc.parent_id
@@ -448,3 +456,28 @@ Template.vote_button.events
         else FlowRouter.go '/sign-in'
             
         
+        
+Template.toggle_key.helpers
+    toggle_key_button_class: -> 
+        current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+        # console.log current_doc["#{@key}"]
+        # console.log @key
+        # console.log Template.parentData()
+        # console.log Template.parentData()["#{@key}"]
+        if @value
+            if current_doc["#{@key}"] is @value then 'blue' else 'basic'
+        else if current_doc["#{@key}"] is true then 'blue' else 'basic'
+
+
+Template.toggle_key.events
+    'click #toggle_key': ->
+        # console.log @
+        if @value
+            Docs.update FlowRouter.getParam('doc_id'), 
+                $set: "#{@key}": "#{@value}"
+        else if Template.parentData()["#{@key}"] is true
+            Docs.update FlowRouter.getParam('doc_id'), 
+                $set: "#{@key}": false
+        else
+            Docs.update FlowRouter.getParam('doc_id'), 
+                $set: "#{@key}": true

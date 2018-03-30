@@ -338,7 +338,7 @@ Meteor.methods
             if err then console.error err
             else
                 
-                console.log res.data
+                console.log res.data.tx
                 block = res.data
                 existing_block = 
                     Docs.findOne 
@@ -360,6 +360,7 @@ Meteor.methods
                             nonce: block.nonce
                             main_chain: block.main_chain
                             relayed_by: block.relayed_by
+                            tx: block.tx
                 else
                     Docs.insert
                         type: 'block'
@@ -368,4 +369,62 @@ Meteor.methods
                         block_index: block.block_index
                         height: block.height
             
+    get_transaction_details: (hash)->        
+        request = HTTP.get "https://blockchain.info/rawtx/#{hash}", (err,res)->
+            if err then console.error err
+            else
+                
+                # console.log res.data
+                transaction = res.data
+                existing_transaction = 
+                    Docs.findOne 
+                        type:'transaction'
+                        hash: res.data.hash
+                if existing_transaction
+                    # return existing_transaction._id
+                    Docs.update existing_transaction._id,
+                        $set:
+                            hash: transaction.hash
+                            ver: transaction.ver
+                            block_height: transaction.block_height
+                            relayed_by: transaction.relayed_by
+                            tx_index: transaction.tx_index
+                            lock_time: transaction.lock_time
+                            size: transaction.size
+                            double_spend: transaction.double_spend
+                            time: transaction.time
+                            vin_sz: transaction.vin_sz
+                            vout_sz: transaction.vout_sz
+                            inputs: transaction.inputs
+                            out: transaction.out
+                else
+                    Docs.insert
+                        type: 'transaction'
+                        hash: transaction.hash
+            
         
+    change_ownership: (doc_id, user_id, percent)->
+        doc = Docs.findOne doc_id
+        if not doc.ownership?
+            Docs.update doc_id,
+                $set:
+                    ownership:
+                        [{user_id:doc.author_id,percent: 100}]
+        else if doc.ownership.user_id
+            Docs.update {_id:doc_id, "ownership.user_id":user_id}, 
+                $set:
+                    "ownership.$": percent 
+        
+    calculate_owner_ids: (doc_id)->
+        doc = Docs.findOne doc_id
+        if doc.ownership
+            owner_ids = _.pluck doc.ownership, 'user_id'
+            console.log owner_ids
+            Docs.update doc_id,
+                $set: owner_ids: owner_ids
+        else
+            Docs.update doc_id,
+                $set:
+                    ownership:
+                        [{user_id: doc.author_id, percent:100}]
+            

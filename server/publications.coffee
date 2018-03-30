@@ -179,6 +179,33 @@ Meteor.publish 'facet', (
         
         
 Meteor.publish 'block', (hash)->
-    Docs.find 
+    Docs.find {
         type: 'block'
         hash: hash
+    },
+        fields: 
+            hash:1
+            type:1
+            time:1
+            height:1
+Meteor.publish 'blocks', ()->
+    Docs.find {
+        type: 'block'
+    },
+        fields: 
+            hash:1
+            type:1
+            time:1
+            height:1
+
+
+Meteor.publish 'transaction', (hash)->
+    Docs.find {
+        type: 'transaction'
+        hash: hash
+    },        
+        fields: 
+            hash:1
+        
+        
+        

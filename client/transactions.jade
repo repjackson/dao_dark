@@ -1,0 +1,82 @@
+template(name='transactions')
+    h1.ui.inverted.header bitcoin transactionchain
+    +latest_transaction
+    +transaction_browser
+
+template(name='transaction_browser')
+    h2.ui.inverted.header transaction browser
+    .ui.cards
+        each transactions
+            +transaction_card
+    
+template(name='latest_transaction')
+    h2.ui.inverted.header latest transaction
+    #fetch_latest_transaction.ui.button fetch latest
+    with latest_transaction
+        +transaction_card
+    
+    
+template(name='transaction_card')
+    .ui.card
+        .content
+            .ui.list
+                .item hash: #{hash}
+                .item time: #{time}
+                .item transaction index: #{transaction_index}
+                .item height: #{height}
+        .content
+            a.ui.icon.button(href="/transaction/#{hash}")
+                i.right.arrow.icon
+                
+                
+                
+template(name='transaction_page')
+    .ui.stackable.grid
+        .centered.row
+            a.ui.center.aligned.button(href='/transactions')
+                i.up.arrow.icon
+                |bitcoin transactions
+        .centered.row
+            .ui.inverted.center.aligned.header view transaction ##{height}
+        .row
+            .fifteen.wide.column
+                .ui.segment
+                    .ui.list
+                        with transaction
+                            .item hash: #{hash}
+                            .item time: #{time}
+                            .item lock_time: #{lock_time}
+                            .item size: #{size}
+                            .item double_spend: #{double_spend}
+                            .item time: #{time}
+                            .item vin_sz: #{vin_sz}
+                            .item vout_sz: #{vout_sz}
+                            .item
+                                a.ui.button(href="/transaction/#{prev_transaction}")
+                                    i.chevron.left.icon
+                                    |prev transaction #{prev_transaction}
+                    #refresh_transaction.ui.button refresh data
+                .ui.center.aligned.inverted.header transactions 
+                .ui.inverted.header inputs            
+                .ui.segments
+                    each transaction.five_inputs
+                        .ui.segment
+                            .ui.list
+                            .ui.list
+                                .item prev out hash: #{prev_out.hash}
+                                .item prev out value: #{prev_out.value}
+                                .item prev out value: #{prev_out.value}
+                                .item prev out n: #{prev_out.n}
+                                .item script: #{script}
+                .ui.inverted.header out            
+                .ui.segments
+                    each transaction.five_out
+                        .ui.segment
+                            .ui.list
+                                .item spent: #{spent}
+                                .item value: #{value}
+                                .item tx_index: #{tx_index}
+                                .item addr: #{addr}
+                                .item n: #{n}
+                                .item script: #{script}
+                                .item type: #{type}

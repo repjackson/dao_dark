@@ -1,32 +1,51 @@
-FlowRouter.route '/tools', 
+FlowRouter.route '/transactions', 
     action: (params) ->
+        BlazeLayout.reset()        
         BlazeLayout.render 'layout',
-            main: 'tools'
+            main: 'transactions'
 
-FlowRouter.route '/miner_calc', 
-    action: (params) ->
-        BlazeLayout.render 'layout',
-            main: 'miner_calc'
 
-FlowRouter.route '/miners', 
+FlowRouter.route '/transaction/:hash', 
     action: (params) ->
+        BlazeLayout.reset()        
         BlazeLayout.render 'layout',
-            main: 'miners'
+            main: 'transaction_page'
+
+
 
 
     
-
-    
-Template.miners.onRendered ->
-    @autorun => Meteor.subscribe 'miners'
+Template.transactions.onRendered ->
+    @autorun => Meteor.subscribe 'type', 'transaction'
     
 
-# Template.view_doc.helpers
-#     doc: -> Docs.findOne FlowRouter.getParam('doc_id')
-#     view_template: -> "view_#{@template}"
-#     # is_site: ->
-#     #     doc = Docs.findOne FlowRouter.getParam('doc_id')
-#     #     if doc.type is 'site' then true else false
+Template.latest_transaction.helpers
+    latest_transaction: -> Docs.findOne type:'transaction'
+        
+
+
+
+Template.transaction_page.onCreated ->
+    @autorun => Meteor.subscribe 'transaction', FlowRouter.getParam('hash')
+    
+
+Template.transaction_page.helpers
+    transaction: -> Docs.findOne type:'transaction'
+        
+        
+        
+        
+Template.transaction_browser.onCreated ->
+    @autorun => Meteor.subscribe 'type', 'transaction'
+    
+
+Template.transaction_browser.helpers
+    transactions: -> Docs.find type:'transaction'
+        
+        
+        
+        
+        
         
         
 # Template.view_doc.onCreated ->
@@ -50,12 +69,16 @@ Template.miners.onRendered ->
 #     tag_class: -> if @valueOf() in selected_tags.array() then 'grey' else ''
 
 
-# Template.doc_card.events
-#     'click #edit_this': ->
-#         Session.set 'editing_id', @_id
+Template.latest_transaction.events
+    'click #fetch_latest_transaction': ->
+        Meteor.call 'fetch_latest_transaction'
+        # console.log request
 
-#     'click .doc_tag': ->
-#         if @valueOf() in selected_tags.array() then selected_tags.remove @valueOf() else selected_tags.push @valueOf()
+
+Template.transaction_page.events
+    'click #refresh_transaction': ->
+        Meteor.call 'get_transaction_details', FlowRouter.getParam 'hash'
+        # console.log request
 
 
 

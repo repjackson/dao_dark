@@ -1,0 +1,24 @@
+.ui.button, .ui.label.tag {
+	 margin-top: 0.1em !important;
+	 margin-bottom: 0.1em !important;
+}
+ .meta .ui.button {
+	 margin: 0.2em !important;
+}
+ .user_tag, .doc_tag {
+	 margin: 0.1em !important;
+}
+ body {
+	 background: #000 !important;
+	 line-height: 2em;
+}
+ .large-text {
+	 font-size: 130% !important;
+}
+ .-autocomplete-container {
+	 margin-top: 12px;
+}
+ body {
+	 font-family: 'Ubuntu', sans-serif;
+}
+ 

@@ -102,46 +102,45 @@ template(name='call_watson')
         |analyze
 
 template(name='analyzed_watson_keywords')
-    .ui.tertiary.segment
-        .ui.fluid.accordion
-            .title
-                .ui.header 
-                    // +icon48 name='dna-helix' classes='ui mini spaced image'
-                    |#{watson.keywords.length} Analyzed Keywords
-                    i.dropdown.icon
-            .content
-                .ui.three.stackable.cards
-                    each watson.keywords
-                        .ui.card
-                            .content
-                                .header 
-                                    i.tag.icon
-                                    // +icon48 name='tag' classes='ui mini spaced image'
-                                    |#{text}
-                                .meta
-                                    |#{relevance_percent}% Relevant
-                                // .meta
-                                //     |Sentiment: #{sentiment.score}
-                                .description
-                                    with emotion
-                                        .ui.list
-                                            .ui.blue.tiny.progress(data-percent=sadness_percent)
-                                                .bar
-                                                .progress
-                                                .label #{sadness_percent}% Sadness
-                                            .ui.green.tiny.progress(data-percent=joy_percent)
-                                                .bar
-                                                .progress
-                                                .label #{joy_percent}% Joy 
-                                            .ui.black.tiny.progress(data-percent=fear_percent)
-                                                .bar
-                                                .progress
-                                                .label #{fear_percent}% Fear
-                                            .ui.yellow.tiny.progress(data-percent=disgust_percent)
-                                                .bar
-                                                .progress
-                                                .label #{disgust_percent}% Disgust 
-                                            .ui.red.tiny.progress(data-percent=anger_percent)
-                                                .bar
-                                                .progress
-                                                .label #{anger_percent}% Anger 
+    .ui.fluid.accordion
+        .title
+            .ui.inverted.header 
+                // +icon48 name='dna-helix' classes='ui mini spaced image'
+                |#{watson.keywords.length} watson keywords
+                i.dropdown.icon
+        .content
+            .ui.three.stackable.cards
+                each watson.keywords
+                    .ui.card
+                        .content
+                            .header 
+                                i.tag.icon
+                                // +icon48 name='tag' classes='ui mini spaced image'
+                                |#{text}
+                            .meta
+                                |#{relevance_percent}% Relevant
+                            // .meta
+                            //     |Sentiment: #{sentiment.score}
+                            .description
+                                with emotion
+                                    .ui.list
+                                        .ui.blue.tiny.progress(data-percent=sadness_percent)
+                                            .bar
+                                            .progress
+                                            .label #{sadness_percent}% Sadness
+                                        .ui.green.tiny.progress(data-percent=joy_percent)
+                                            .bar
+                                            .progress
+                                            .label #{joy_percent}% Joy 
+                                        .ui.black.tiny.progress(data-percent=fear_percent)
+                                            .bar
+                                            .progress
+                                            .label #{fear_percent}% Fear
+                                        .ui.yellow.tiny.progress(data-percent=disgust_percent)
+                                            .bar
+                                            .progress
+                                            .label #{disgust_percent}% Disgust 
+                                        .ui.red.tiny.progress(data-percent=anger_percent)
+                                            .bar
+                                            .progress
+                                            .label #{anger_percent}% Anger 

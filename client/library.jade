@@ -6,20 +6,20 @@ template(name='tags')
     //     input#search(type='text')    
     // |&nbsp;  
     if selected_tags
-        #clear_tags.ui.icon.button
+        #clear_tags.ui.icon.large.active.button
             i.remove.icon
         each selected_tags
-            .unselect_tag.ui.button
+            .unselect_tag.ui.large.active.button
                 strong #{this}
     each tags
-        .ui.button.inverted.basic.black.select_tag(class=tag_class)
+        .ui.button.select_tag(class=tag_class)
             strong #{this.name}
         // .ui.button.select_tag
 
 
 
 
-template(name='home')
+template(name='library')
     .ui.stackable.grid
         .ui.four.wide.column
             +tags

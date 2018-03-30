@@ -5,33 +5,41 @@ template(name='threaded_children')
             
             
 template(name='threaded_child')
-    .ui.segment
-        .ui.two.column.grid
-            .column
-                a.header(href="/v/#{_id}")
-                    if number
-                        |#{number}: 
-                    if title
-                        |#{title}
-                    // |(#{type})
-                .description
-                    // .meta
-                    //     each tags
-                    //         .ui.label #{this}
-                    .large130 !{content}
-                    |#{text}
-                    |#{body}
-                    // +edit_number
-                    // +published
-            .column
-                +author_info
-                |#{when}
-                if currentUser
-                    +vote_button
-                    +add_child_button
-                if is_author
-                    +edit_button
-                +view_full_button
+    .ui.inverted.segment
+        .ui.fluid.accordion
+            .title
+                .ui.inverted.header 
+                    // +icon48 name='dna-helix' classes='ui mini spaced image'
+                    |replies
+                    i.dropdown.icon
+            .content
+                .ui.two.column.grid
+                    .column
+                        a.header(href="/v/#{_id}")
+                            if number
+                                |#{number}: 
+                            if title
+                                |#{title}
+                            // |(#{type})
+                        .description
+                            // .meta
+                            //     each tags
+                            //         .ui.label #{this}
+                            .large130 !{content}
+                            |#{text}
+                            |#{body}
+                            // +edit_number
+                            // +published
+                    .column
+                        +author_info
+                        |#{when}
+                        if currentUser
+                            +vote_button
+                            +add_child_button
+                        if is_author
+                            +edit_button
+                        +view_full_button
+
                     
                 
     if child_count

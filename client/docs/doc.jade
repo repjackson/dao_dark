@@ -64,12 +64,12 @@ template(name='view_doc')
                         each tags 
                             .doc_tag.ui.small.compact.button(class=tag_class) #{this}
                 +threaded_children
-                // +comments
+                +ownership
                 if watson
                     .ui.inverted.segment
                         +analyzed_watson_keywords
             .four.wide.column
-                .ui.tertiary.segment
+                .ui.inverted.segment
                     if parent_id
                         +parent_link
                     .content
@@ -85,13 +85,8 @@ template(name='view_doc')
                     if currentUser
                         +vote_button
                     +upvoted_list
-                +tag_that
+                +crowd_tags
             
             
-template(name='tag_that')
-    .ui.tertiary.segment
-        .ui.header your tags
-        each your_tags
-            .ui.label #{this}
-        .ui.input
-            input#add_your_tag(type='text' placeholder='add')
+            
+            

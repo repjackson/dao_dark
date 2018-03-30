@@ -39,7 +39,6 @@ kadira:blaze-layout
 useraccounts:flow-routing
 useraccounts:semantic-ui
 coffeescript
-stylus@=2.513.14
 matb33:collection-hooks
 zimme:active-route
 http

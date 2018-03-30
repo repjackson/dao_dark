@@ -15,7 +15,7 @@ FlowRouter.route '/block/:hash',
 
     
 Template.blocks.onRendered ->
-    @autorun => Meteor.subscribe 'type', 'block'
+    @autorun => Meteor.subscribe 'blocks'
     
 
 Template.latest_block.helpers
@@ -24,12 +24,28 @@ Template.latest_block.helpers
 
 
 
-Template.block_page.onRendered ->
+Template.block_page.onCreated ->
     @autorun => Meteor.subscribe 'block', FlowRouter.getParam('hash')
     
 
 Template.block_page.helpers
     block: -> Docs.findOne type:'block'
+        
+        
+        
+        
+Template.block_browser.onCreated ->
+    @autorun => Meteor.subscribe 'blocks'
+    
+
+Template.block_browser.helpers
+    blocks: -> Docs.find type:'block'
+        
+        
+        
+        
+        
+        
         
 # Template.view_doc.onCreated ->
 #     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')

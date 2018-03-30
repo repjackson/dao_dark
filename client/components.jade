@@ -56,7 +56,7 @@ template(name='doc_match')
 
 template(name='response_list')
     .ui.dividing.inverted.header 
-        |#{child_count} Responses
+        |#{child_count} replies
     .ui.segments
         each responses
             .ui.segment
@@ -81,10 +81,10 @@ template(name='upvoted_list')
         each upvoted_users
             .content
                 .description
-                    |#{name}
-                    .meta
-                        each tags
-                            .ui.label #{this}
+                    |#{name} (#{username})
+                    // .meta
+                    //     each tags
+                    //         .ui.label #{this}
 
 
 
@@ -244,3 +244,38 @@ template(name='icon24')
 template(name='add_child_button')
     #add_child.ui.icon.button
         i.vertically.flipped.reply.icon                
+        
+        
+template(name='ownership')
+    .ui.inverted.segment
+        .ui.fluid.accordion
+            .title
+                .ui.inverted.header 
+                    | ownership
+                    i.dropdown.icon
+            .content
+                #make_author_owner.ui.button make author owner
+                .ui.list
+                    each ownership
+                        .item user id: #{user_id} #{percent}
+                .ui.header your ownership
+                if has_ownership
+                    |#{my_ownership} %
+                    #offer_ownership.ui.button offer ownership
+                .ui.header offers
+                .ui.header transactions
+                
+                
+template(name='crowd_tags')
+    .ui.inverted.segment
+        .ui.header crowd tags
+        if my_review_tags
+            each my_review_tags
+                .ui.label #{this}
+        .ui.input
+            input#add_your_tag(type='text' placeholder='add')
+
+
+
+template(name='toggle_key')
+    #toggle_key.ui.compact.button(class=toggle_key_button_class) #{label}

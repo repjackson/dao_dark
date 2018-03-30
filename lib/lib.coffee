@@ -35,10 +35,11 @@ Docs.before.insert (userId, doc)=>
 
     doc.author_id = Meteor.userId()
     doc.tag_count = doc.tags?.length
-    # doc.points = 0
+    doc.points = 0
     # doc.read_by = [Meteor.userId()]
-    # doc.upvoters = []
-    # doc.downvoters = []
+    doc.ownership = [{user_id: Meteor.userId(),percent: 100}]
+    doc.upvoters = []
+    doc.downvoters = []
     # doc.published = 0
     return
 
@@ -85,8 +86,34 @@ Docs.helpers
 
     parent: -> Docs.findOne @parent_id
 
+    five_tx: -> if @tx then @tx[0..4]
+    five_inputs: -> if @inputs then @inputs[0..4]
+    five_out: -> if @out then @out[0..4]
 
     five_tags: -> if @tags then @tags[0..4]
+
+    has_ownership: -> 
+        # console.log 'checking if has ownership'
+        if @ownership 
+            if @owner_ids
+                if Meteor.userId() in @owner_ids
+                    # console.log 'has_ownership'
+                    return true
+                else
+                    false
+            else
+                Meteor.call 'calculate_owner_ids', @_id
+                false
+    
+    # owner_ids: ->
+    #     console.log 'loading owner ids'
+    #     if @ownership
+    #         _.pluck @ownership, 'user_id'
+            
+    my_ownership: ->
+        if @ownership
+            my_ownership_object = (_.findWhere(@ownership, {user_id:Meteor.userId()}))
+            my_ownership_object.percent
 
     up_voted: -> @upvoters and Meteor.userId() in @upvoters
     down_voted: -> @downvoters and Meteor.userId() in @downvoters
@@ -118,7 +145,7 @@ FlowRouter.route '/',
     name:'home'
     action: ->
         BlazeLayout.render 'layout', 
-            main: 'home'
+            main: 'library'
 
 
 

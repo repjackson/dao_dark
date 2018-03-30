@@ -1,3 +1,10 @@
+FlowRouter.route '/', 
+    action: ->
+        BlazeLayout.render 'layout', 
+            main: 'library'
+
+
+
 Template.tags.helpers
     tags: ->
         doc_count = Docs.find({}).count()
@@ -40,14 +47,14 @@ Template.tags.events
 
 
 
-Template.home.onCreated ->
+Template.library.onCreated ->
     @autorun => 
         Meteor.subscribe('facet', 
             selected_tags.array()
             )
         Meteor.subscribe 'doc', Session.get('editing_id')
 
-Template.home.helpers
+Template.library.helpers
     one_doc: -> Docs.find().count() is 1
 
     docs: -> Docs.find({},{limit:3,sort:tag_count:1})
