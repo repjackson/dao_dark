@@ -1,5 +1,5 @@
 
-FlowRouter.route '/v/:doc_id', 
+FlowRouter.route '/view/:doc_id', 
     name: 'view'
     action: (params) ->
         # if selected_theme_tags

@@ -20,81 +20,82 @@ template(name='watson_keywords')
         |Analyzed Keywords
 
 template(name='doc_emotion') 
-    .ui.fluid.inverted.accordion
-        .title
-            .ui.small.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
-                .bar
-                .progress
-                .label
-                    if is_positive
-                        |#{sentiment_score_percent}% positive
-                    else
-                        |#{sentiment_score_percent}% negative
-                    i.dropdown.icon
-        .content
-            with watson.emotion.document.emotion
-                .ui.blue.tiny.progress(data-percent=sadness_percent)
+    .ui.basic.inverted.segment
+        .ui.fluid.inverted.accordion
+            .title
+                .ui.small.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
                     .bar
                     .progress
-                    .label #{sadness_percent}% sadness 
-                .ui.green.tiny.progress(data-percent=joy_percent)
-                    .bar
-                    .progress
-                    .label #{joy_percent}% joy 
-                .ui.black.tiny.progress(data-percent=fear_percent)
-                    .bar
-                    .progress
-                    .label #{fear_percent}% fear 
-                .ui.yellow.tiny.progress(data-percent=disgust_percent)
-                    .bar
-                    .progress
-                    .label #{disgust_percent}% disgust 
-                .ui.red.tiny.progress(data-percent=anger_percent)
-                    .bar
-                    .progress
-                    .label #{anger_percent}% anger 
-        // .title
-        //     each watson_keywords
-        //         .ui.label #{this}
-        //     // |#{watson.keywords.length} Analyzed Keywords
-        //     // i.dropdown.icon
-        // .content
-        //     .ui.cards
-        //         each watson.keywords
-        //             .ui.card
-        //                 .content
-        //                     .header 
-        //                         |#{text}
-        //                         .right.floated
-        //                             small(data-tooltip='Relevance') #{relevance_percent}%
-        //                     // .meta
-        //                     //     |Sentiment: #{sentiment.score}
-        //                     .description
-        //                         with emotion
-        //                             .ui.blue.tiny.progress.compacted-progress(data-percent=sadness_percent data-tooltip="#{sadness_percent}% Sadness")
-        //                                 .bar
-        //                                 // .progress
-        //                                 // .label #{sadness_percent}% Sadness
-        //                             .ui.green.tiny.progress.compacted-progress(data-percent=joy_percent data-tooltip="#{joy_percent}% Joy")
-        //                                 .bar
-        //                                 // .progress
-        //                                 // .label #{joy_percent}% Joy 
-        //                             .ui.black.tiny.progress.compacted-progress(data-percent=fear_percent data-tooltip="#{fear_percent}% Fear")
-        //                                 .bar
-        //                                 // .progress
-        //                                 // .label #{fear_percent}% Fear
-        //                             .ui.yellow.tiny.progress.compacted-progress(data-percent=disgust_percent data-tooltip="#{disgust_percent}% Disgust")
-        //                                 .bar
-        //                                 // .progress
-        //                                 // .label #{disgust_percent}% Disgust 
-        //                             .ui.red.tiny.progress.compacted-progress(data-percent=anger_percent data-tooltip="#{anger_percent}% Anger")
-        //                                 .bar
-        //                                 // .progress
-                                        // .label #{anger_percent}% Anger 
-
-    // .ui.dividing.header 
-        +icon48 name='make-decision' classes='ui mini spaced image'
-    //     |Emotion
+                    .label
+                        if is_positive
+                            |#{sentiment_score_percent}% positive
+                        else
+                            |#{sentiment_score_percent}% negative
+                        i.dropdown.icon
+            .content
+                with watson.emotion.document.emotion
+                    .ui.blue.tiny.progress(data-percent=sadness_percent)
+                        .bar
+                        .progress
+                        .label #{sadness_percent}% sadness 
+                    .ui.green.tiny.progress(data-percent=joy_percent)
+                        .bar
+                        .progress
+                        .label #{joy_percent}% joy 
+                    .ui.black.tiny.progress(data-percent=fear_percent)
+                        .bar
+                        .progress
+                        .label #{fear_percent}% fear 
+                    .ui.yellow.tiny.progress(data-percent=disgust_percent)
+                        .bar
+                        .progress
+                        .label #{disgust_percent}% disgust 
+                    .ui.red.tiny.progress(data-percent=anger_percent)
+                        .bar
+                        .progress
+                        .label #{anger_percent}% anger 
+            // .title
+            //     each watson_keywords
+            //         .ui.label #{this}
+            //     // |#{watson.keywords.length} Analyzed Keywords
+            //     // i.dropdown.icon
+            // .content
+            //     .ui.cards
+            //         each watson.keywords
+            //             .ui.card
+            //                 .content
+            //                     .header 
+            //                         |#{text}
+            //                         .right.floated
+            //                             small(data-tooltip='Relevance') #{relevance_percent}%
+            //                     // .meta
+            //                     //     |Sentiment: #{sentiment.score}
+            //                     .description
+            //                         with emotion
+            //                             .ui.blue.tiny.progress.compacted-progress(data-percent=sadness_percent data-tooltip="#{sadness_percent}% Sadness")
+            //                                 .bar
+            //                                 // .progress
+            //                                 // .label #{sadness_percent}% Sadness
+            //                             .ui.green.tiny.progress.compacted-progress(data-percent=joy_percent data-tooltip="#{joy_percent}% Joy")
+            //                                 .bar
+            //                                 // .progress
+            //                                 // .label #{joy_percent}% Joy 
+            //                             .ui.black.tiny.progress.compacted-progress(data-percent=fear_percent data-tooltip="#{fear_percent}% Fear")
+            //                                 .bar
+            //                                 // .progress
+            //                                 // .label #{fear_percent}% Fear
+            //                             .ui.yellow.tiny.progress.compacted-progress(data-percent=disgust_percent data-tooltip="#{disgust_percent}% Disgust")
+            //                                 .bar
+            //                                 // .progress
+            //                                 // .label #{disgust_percent}% Disgust 
+            //                             .ui.red.tiny.progress.compacted-progress(data-percent=anger_percent data-tooltip="#{anger_percent}% Anger")
+            //                                 .bar
+            //                                 // .progress
+                                            // .label #{anger_percent}% Anger 
+    
+        // .ui.dividing.header 
+            +icon48 name='make-decision' classes='ui mini spaced image'
+        //     |Emotion
             
 template(name='call_watson')
     #call_watson.ui.fluid.button 

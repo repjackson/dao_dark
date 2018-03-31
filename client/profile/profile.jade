@@ -15,35 +15,35 @@ template(name='user_layout')
                         .ui.vertical.inverted.labeled.icon.fluid.menu
                             a.item(href="/profile/edit/#{_id}" class="{{isActiveRoute 'edit_profile'}}") 
                                 i.pencil.icon
-                            a.item(href="/u/#{username}/settings/" class="{{isActiveRoute 'account_settings'}}")
+                            a.item(href="/user/#{username}/settings/" class="{{isActiveRoute 'account_settings'}}")
                                 i.settings.icon
                                 // |settings
                     .ui.vertical.inverted.labeled.icon.fluid.menu
-                        a.item(href="/u/#{username}/dashboard/" class="{{isActiveRoute 'user_dashboard'}}")
+                        a.item(href="/user/#{username}/dashboard/" class="{{isActiveRoute 'user_dashboard'}}")
                             i.dashboard.icon
                             // |dashboard
-                        a.item(href="/u/#{username}" class="{{isActiveRoute 'user_info'}}")
+                        a.item(href="/user/#{username}" class="{{isActiveRoute 'user_info'}}")
                             i.info.icon
                             // |info
-                        a.item(href="/u/#{username}/docs"  class="{{isActiveRoute 'user_docs'}}")
+                        a.item(href="/user/#{username}/docs"  class="{{isActiveRoute 'user_docs'}}")
                             i.book.icon
                             // |docs
-                        a.item(href="/u/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                        a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
                             i.phone.icon
                             // |contact
-                        a.item(href="/u/#{username}/comparison"  class="{{isActiveRoute 'user_comparison'}}")
+                        a.item(href="/user/#{username}/comparison"  class="{{isActiveRoute 'user_comparison'}}")
                             i.fork.icon
                             // |compare
-                        a.item(href="/u/#{username}/conversations" class="{{isActiveRoute 'user_conversations'}}")
+                        a.item(href="/user/#{username}/conversations" class="{{isActiveRoute 'user_conversations'}}")
                             i.comments.icon
                             // |conversations
-                        a.item(href="/u/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
+                        a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
                             i.heart.icon
                             // |karma
-                        a.item(href="/u/#{username}/social" class="{{isActiveRoute 'user_social'}}")
+                        a.item(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}")
                             i.users.icon
                             // |social
-                        a.item(href="/u/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
+                        a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
                             i.money.icon
                             // |transactions
                 // if is_user

@@ -100,7 +100,7 @@ template(name='author_info')
             if profile.image_id
                 img.ui.avatar.spaced.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
             |&nbsp;
-            a(href="/u/#{username}") #{name} 
+            a(href="/user/#{username}") #{name} 
             // +staus_indicator
 
 
@@ -109,11 +109,11 @@ template(name='toggle_friend')
     if currentUser
         if is_friend
             #remove_friend.ui.button
-                i.minus.icon
+                i.minus.large.icon
                 |unfriend
         else
             #add_friend.ui.button
-                i.plus.icon
+                i.plus.large.icon
                 |friend
 
 
@@ -130,7 +130,7 @@ template(name='dev_footer')
         with doc
             if parent_id
                 .ui.segment
-                    a.ui.header(href="/v/#{doc.parent_id}") 
+                    a.ui.header(href="/view/#{doc.parent_id}") 
                         if icon_class
                             +icon48 name=parent.icon_class
                         |parent: #{parent.title}
@@ -153,7 +153,7 @@ template(name='dev_footer')
                 
 template(name='parent_link')
     with parent
-        a.ui.button(href="/v/#{_id}") 
+        a.ui.button(href="/view/#{_id}") 
             i.up.arrow.icon
             // if number
             //     |#{number}:
@@ -171,8 +171,8 @@ template(name='edit_button')
                 
 template(name='parent_doc_segment')
     if parent
-        .ui.secondary.segment
-            // .ui.header in response to...
+        .ui.inverted.segment
+            .ui.header in response to...
             // +view_full_button
             with parent
                 .large130 !{content}
@@ -279,3 +279,22 @@ template(name='crowd_tags')
 
 template(name='toggle_key')
     #toggle_key.ui.compact.button(class=toggle_key_button_class) #{label}
+
+
+            
+            
+template(name='vote_button')
+    i.thumbs.up.link.large.icon.vote_up(class=vote_up_button_class)
+    i.thumbs.down.large.link.icon.vote_down(class=vote_down_button_class)
+    |#{points}
+        
+            
+                    
+template(name='view_full_button')
+    a.floated.right(href="/view/#{_id}")
+        i.right.chevron.link.large.icon
+                        
+                    
+template(name='view_youtube')
+    .ui.embed(data-source="youtube" data-id=youtube)
+

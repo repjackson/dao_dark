@@ -22,7 +22,7 @@ template(name='top_posts')
                         each five_tags
                             .ui.label #{this}
                     .content
-                        a.ui.icon.button(href="/v/#{_id}")
+                        a.ui.icon.button(href="/view/#{_id}")
                             i.right.arrow.icon
                         |#{points} pts
         .ui.header total posts
@@ -39,7 +39,7 @@ template(name='top_people')
                         each five_tags
                             .ui.label #{this}
                     .content
-                        a.ui.icon.button(href="/v/#{_id}")
+                        a.ui.icon.button(href="/view/#{_id}")
                             i.right.arrow.icon
                         |#{points} pts
         .ui.header total posts

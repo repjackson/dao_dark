@@ -17,6 +17,7 @@ Template.registerHelper 'page_field_value', ->
     current_doc = Docs.findOne FlowRouter.getParam('doc_id')
     current_doc["#{@key}"]
         
+Template.registerHelper 'has_role', (role)-> Meteor.user().roles and role in Meteor.user().roles   
 
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id

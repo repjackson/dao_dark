@@ -7,13 +7,13 @@
 #             FlowRouter.go ‘login’
 #     ]
 
-FlowRouter.route '/u/:username', 
+FlowRouter.route '/user/:username', 
     name: 'user_info'
     action: (params) ->
         BlazeLayout.render 'user_layout',
             user_main: 'user_info'
             
-FlowRouter.route '/u/:username/settings', action: (params) ->
+FlowRouter.route '/user/:username/settings', action: (params) ->
     name: 'account_settings'
     BlazeLayout.render 'user_layout',
         user_main: 'view_account'
@@ -22,48 +22,48 @@ FlowRouter.route '/u/:username/settings', action: (params) ->
             
             
             
-FlowRouter.route '/u/:username/comparison', 
+FlowRouter.route '/user/:username/comparison', 
     name: 'user_comparison'
     action: (params) ->
         BlazeLayout.render 'user_layout',
             user_main: 'user_comparison'
             
-FlowRouter.route '/u/:username/conversations', 
+FlowRouter.route '/user/:username/conversations', 
     name: 'user_conversations'
     action: (params) ->
         BlazeLayout.render 'user_layout',
             user_main: 'user_conversations'
             
-FlowRouter.route '/u/:username/social', 
+FlowRouter.route '/user/:username/social', 
     name: 'user_social'
     action: (params) ->
         BlazeLayout.render 'user_layout',
             user_main: 'user_social'
             
-FlowRouter.route '/u/:username/documents', 
+FlowRouter.route '/user/:username/documents', 
     action: (params) ->
         BlazeLayout.render 'user_layout',
             user_main: 'user_documents'
             
-FlowRouter.route '/u/:username/karma', 
+FlowRouter.route '/user/:username/karma', 
     name: 'user_karma'
     action: (params) ->
         BlazeLayout.render 'user_layout',
             user_main: 'user_karma'
             
-FlowRouter.route '/u/:username/contact', 
+FlowRouter.route '/user/:username/contact', 
     name: 'user_contact'
     action: (params) ->
         BlazeLayout.render 'user_layout',
             user_main: 'user_contact'
             
-FlowRouter.route '/u/:username/transactions', 
+FlowRouter.route '/user/:username/transactions', 
     name: 'user_transactions'
     action: (params) ->
         BlazeLayout.render 'user_layout',
             user_main: 'user_transactions'
             
-FlowRouter.route '/u/:username/dashboard', 
+FlowRouter.route '/user/:username/dashboard', 
     name: 'user_dashboard'
     action: ->
         BlazeLayout.render 'user_layout', 
@@ -71,7 +71,7 @@ FlowRouter.route '/u/:username/dashboard',
 
 # FlowRouter.route '/dashboard',
 #     triggersEnter: [ (context, redirect) ->
-#         redirect "/u/#{Meteor.user().username}/dashboard"
+#         redirect "/user/#{Meteor.user().username}/dashboard"
 #         return
 #     ]
 
@@ -91,6 +91,7 @@ Template.user_layout.onCreated ->
 
 
 Template.user_info.helpers
+    user: -> Meteor.users.findOne username: FlowRouter.getParam('username')
 
 Template.user_layout.helpers
     
@@ -105,7 +106,7 @@ Template.user_layout.events
 
 
 
-FlowRouter.route '/u/:username/docs', 
+FlowRouter.route '/user/:username/docs', 
     name: 'user_docs'
     action: (params) ->
         BlazeLayout.render 'user_layout',

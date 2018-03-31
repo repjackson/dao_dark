@@ -394,7 +394,7 @@ Template.dev_footer.events
         parent_doc_id = Docs.insert {}
         Docs.update FlowRouter.getParam('doc_id'),
             $set: parent_id: parent_doc_id
-        FlowRouter.go "/v/#{parent_doc_id}"
+        FlowRouter.go "/view/#{parent_doc_id}"
 
     'click #move_above_parent': ->
         doc = Docs.findOne FlowRouter.getParam('doc_id')
@@ -465,8 +465,8 @@ Template.toggle_key.helpers
         # console.log Template.parentData()
         # console.log Template.parentData()["#{@key}"]
         if @value
-            if current_doc["#{@key}"] is @value then 'blue' else 'basic'
-        else if current_doc["#{@key}"] is true then 'blue' else 'basic'
+            if current_doc["#{@key}"] is @value then 'grey' else ''
+        else if current_doc["#{@key}"] is true then 'grey' else ''
 
 
 Template.toggle_key.events
