@@ -1,0 +1,77 @@
+template(name='threaded_children')
+    // .ui.inverted.header child documents
+    each children
+        +threaded_child
+            
+            
+template(name='threaded_child')
+    .ui.inverted.segment
+        .ui.fluid.accordion
+            .title
+                .ui.inverted.header 
+                    // +icon48 name='dna-helix' classes='ui mini spaced image'
+                    |replies
+                    i.dropdown.icon
+            .content
+                .ui.two.column.grid
+                    .column
+                        a.header(href="/view/#{_id}")
+                            if number
+                                |#{number}: 
+                            if title
+                                |#{title}
+                            // |(#{type})
+                        .description
+                            // .meta
+                            //     each tags
+                            //         .ui.label #{this}
+                            .large130 !{content}
+                            |#{text}
+                            |#{body}
+                            // +edit_number
+                            // +published
+                    .column
+                        +author_info
+                        |#{when}
+                        if currentUser
+                            +vote_button
+                            +add_child_button
+                        if is_author
+                            +edit_button
+                        +view_full_button
+
+                    
+                
+    if child_count
+        .ui.grid
+            .two.wide.column
+            .fourteen.wide.column
+                each children
+                    +threaded_child
+                    
+                    
+template(name='doc_card')        
+    if youtube
+        +view_youtube
+    if image_url
+        .ui.image
+            img(src=image_url)
+    .ui.inverted.segment
+        if content
+            .ui.basic.inverted.segment
+                .large-text !{content}
+        if parent_id
+            +parent_doc_segment
+        each tags 
+            .doc_tag.ui.small.compact.inverted.black.basic.button(class=tag_class) #{this}
+        div 
+            // +author_info
+            |#{when}
+        if currentUser
+            // +vote_button
+            // if upvoted_users
+            //     +upvoted_list
+        if is_author
+            a(href="/edit/#{_id}")
+                i.large.link.pencil.icon
+        // +view_full_button
