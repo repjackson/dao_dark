@@ -19,7 +19,7 @@ shell-server@0.3.1
 accounts-base@1.4.2
 mobile-experience@1.0.5
 ecmascript@0.10.6
-reactive-var@1.0.11
 dynamic-import@0.3.0
-matb33:collection-hooks
 coffeescript@2.2.1_1
+react-meteor-data
+static-html
