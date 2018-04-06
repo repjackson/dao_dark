@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import {withTracker} from 'meteor/react-meteor-data';
+import ReactDOM from 'react-dom'
+import { withTracker } from 'meteor/react-meteor-data';
+
+import { Docs } from '../api/docs.js'
+
+import Doc from './Doc.js'
 
 class App extends Component {
   constructor(props) {
@@ -8,20 +13,60 @@ class App extends Component {
       test_session: true
     };
   }
-  
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim()
+
+    console.log(text)
+    Meteor.call('docs.insert', text)
+
+    ReactDOM.findDOMNode(this.refs.textInput).value = ''
+
+  }
+
+  renderDocs() {
+    console.log(this.props.docs)
+    return this.props.docs.map((doc) => {
+
+      return (
+        <Doc
+          key = { doc._id }
+          doc = { doc }
+        />
+      )
+    })
+  }
+
   render() {
     return (
       <div className="container">
-        <h1>hello world</h1>
-         
-      </div>    
+        <header>
+          <h1>dao</h1>
+          
+          <form className='new-doc' onSubmit={this.handleSubmit.bind(this)}>
+            <input
+              type='text'
+              ref='textInput'
+              placeholder='add doc'
+            />
+          </form>
+        </header>
+        <h3>Docs:</h3>
+        <ul>
+          {this.renderDocs()}
+        </ul>
+      </div>
     )
   }
 }
-  
+
 export default withTracker(() => {
+  const docsSub = Meteor.subscribe('docs')
 
   return {
+    loading: !docsSub.ready(),
     currentUser: Meteor.user(),
+    docs: Docs.find({}).fetch(),
   };
 })(App);
