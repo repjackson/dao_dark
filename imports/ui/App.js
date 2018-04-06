@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
+import Headroom from 'react-headroom'
 import { withTracker } from 'meteor/react-meteor-data';
 
 import { Docs } from '../api/docs.js'
 import Doc from './Doc.js'
+import MenuAppBar from './MenuAppBar.js'
+import Burger from './burger.js'
 
 import Button from 'material-ui/Button'
 
@@ -43,6 +46,10 @@ class App extends Component {
   render() {
     return (
       <div className="container">
+        <Headroom>
+          <MenuAppBar />
+        </Headroom>
+        <Burger />
         <header>
           <h1>dao</h1>
           <Button variant="raised" color="primary">

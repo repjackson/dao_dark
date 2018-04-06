@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Meteor } from 'meteor/meteor'
 import classnames from 'classnames'
+import Card, {CardActions, CardContent } from 'material-ui/Card'
+import Button from 'material-ui/Button'
+import Typography from 'material-ui/Typography';
+
 
 import { Docs } from '../api/docs.js'
 
