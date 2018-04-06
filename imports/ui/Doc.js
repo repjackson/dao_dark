@@ -7,7 +7,7 @@ import { Docs } from '../api/docs.js'
 export default class Doc extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
+    // console.log(props)
   }
   
   toggleChecked() {
@@ -31,19 +31,18 @@ export default class Doc extends Component {
       checked: this.props.doc.checked,
       private: this.props.doc.private,
     })
-    console.log(this.props.doc._id)
+    // console.log(this.props.doc._id)
 
     return (
       <div>
-        <h4>hi</h4> 
         <li className = { docClassName } >
-        <button className="delete" onClick={this.deleteThisDoc.bind(this)}>
-            &times
-          </button>
+        {/* <button className="delete" onClick={this.deleteThisDoc.bind(this)}>x</button> 
   
+      
         <input type = "checkbox"
         readOnly checked = {!!this.props.doc.checked } onClick = { this.toggleChecked.bind(this) }
         />
+        */}
   
         {
           this.props.showPrivateButton ? (
@@ -54,8 +53,19 @@ export default class Doc extends Component {
         }
   
         <span className="text">
-            <strong>hi</strong>
-            <strong>{this.props.doc._id}</strong>: {this.props.doc.content}
+          <ul>
+            {
+              this.props.doc.tags.map((tag) => {
+                return(
+                  <li key={tag}>{tag}</li>
+                )
+              } 
+              )
+            }
+          </ul>
+              
+              
+            <strong>{this.props.doc._id}</strong>
           </span>
         </li>
       </div>

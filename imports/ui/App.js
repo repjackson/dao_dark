@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom'
 import { withTracker } from 'meteor/react-meteor-data';
 
 import { Docs } from '../api/docs.js'
-
 import Doc from './Doc.js'
+
+import Button from 'material-ui/Button'
+
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +28,7 @@ class App extends Component {
   }
 
   renderDocs() {
-    console.log(this.props.docs)
+    // console.log(this.props.docs)
     return this.props.docs.map((doc) => {
 
       return (
@@ -43,7 +45,10 @@ class App extends Component {
       <div className="container">
         <header>
           <h1>dao</h1>
-          
+          <Button variant="raised" color="primary">
+            Hello World
+          </Button>
+
           <form className='new-doc' onSubmit={this.handleSubmit.bind(this)}>
             <input
               type='text'
