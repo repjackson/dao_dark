@@ -22,41 +22,30 @@ if Meteor.isClient
     
     
     Template.edit_profile.events
-        'blur #first_name': ->
-            first_name = $('#first_name').val().trim()
+        'blur #display_name': ->
+            display_name = $('#display_name').val().trim()
             Meteor.users.update FlowRouter.getParam('user_id'),
-                $set: 
-                    "profile.first_name": first_name
-
-        'blur #last_name': ->
-            last_name = $('#last_name').val().trim()
-            Meteor.users.update FlowRouter.getParam('user_id'),
-                $set: 
-                    "profile.last_name": last_name
+                $set: "profile.display_name": display_name
 
         'blur #location': ->
             location = $('#location').val().trim()
             Meteor.users.update FlowRouter.getParam('user_id'),
-                $set: 
-                    "profile.location": location
+                $set: "profile.location": location
             
         'blur #if_knew_me': ->
             if_knew_me = $('#if_knew_me').val().trim()
             Meteor.users.update FlowRouter.getParam('user_id'),
-                $set: 
-                    "profile.if_knew_me": if_knew_me
+                $set: "profile.if_knew_me": if_knew_me
             
         'blur #about_me': ->
             about_me = $('#about_me').val().trim()
             Meteor.users.update FlowRouter.getParam('user_id'),
-                $set: 
-                    "profile.about_me": about_me
+                $set: "profile.about_me": about_me
             
         'blur #if_not_working': ->
             if_not_working = $('#if_not_working').val().trim()
             Meteor.users.update FlowRouter.getParam('user_id'),
-                $set: 
-                    "profile.if_not_working": if_not_working
+                $set: "profile.if_not_working": if_not_working
 
             
         'keydown #input_image_id': (e,t)->

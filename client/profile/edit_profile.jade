@@ -4,49 +4,45 @@ template(name='edit_profile')
             h1.ui.center.aligned.header edit #{username}
             .ui.inverted.form
                 .ui.stackable.grid
-                    .five.wide.column    
+                    // .five.wide.column    
+                    //     .field
+                    //         if profile.image_id
+                    //             label image
+                    //             .ui.centered.image
+                    //                 img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                    //                 a#remove_photo.ui.right.corner.link.label
+                    //                     i.remove.red.link.icon
+                    //         else
+                    //             // label mage
+                    //             input(type='file' name='upload_picture' accept='image/*')
+                    .ten.wide.centered.column
                         .field
-                            if profile.image_id
-                                label image
-                                .ui.centered.image
-                                    img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                    a#remove_photo.ui.right.corner.link.label
-                                        i.remove.red.link.icon
-                            else
-                                // label mage
-                                input(type='file' name='upload_picture' accept='image/*')
-                    .ten.wide.column
-                        .field
-                            label first name 
+                            label display name 
                             .ui.input
-                                input#first_name(type='text' value=profile.first_name)
-                        .field
-                            label last name 
-                            .ui.input
-                                input#last_name(type='text' value=profile.last_name)
+                                input#display_name(type='text' value=profile.display_name)
                         .field
                             label email
                             each emails
                                 .ui.basic.label #{address}
                                 if verified
-                                    .ui.basic.green.label Verified
+                                    .ui.basic.green.label verified
                                 else
-                                    .ui.basic.label Unverified
+                                    .ui.basic.label unverified
                         .field
                             label location 
                             .ui.input
                                 input#location(type='text' value=profile.location)
                         .field
-                            label tags (please select a few key words that embody yourself, interests, etc.)
+                            label tags
                             each tags
                                 .ui.button.person_tag
                                     i.minus.icon
                                     |#{this}
                             .ui.left.icon.input
                                 i.add.icon
-                                input#add_tag(type='text' placeholder='Press enter after each tag' maxlength='50')
+                                input#add_tag(type='text' maxlength='50')
                         .field
-                            label about me 
+                            label text
                             .ui.input
                                 textarea#about_me(type='textarea' maxlength="250" rows='3')
                                     |#{profile.about_me}

@@ -3,9 +3,7 @@ template(name='user_layout')
     with person
         img.ui.small.centered.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
         .ui.center.aligned.inverted.header
-            if profile.first_name
-                |#{profile.first_name} #{profile.last_name}
-            |#{username}
+            |#{name}
             // unless is_user
             // +staus_indicator
         .ui.inverted.icon.fluid.big.menu
@@ -49,11 +47,11 @@ template(name='user_layout')
 
 
 template(name='user_info')
-    h1.ui.center.aligned.inverted.header about #{person.username}
+    h1.ui.center.aligned.inverted.header about #{person.name}
     with person
         .ui.three.column.grid
             .column
-                .ui.segment
+                .ui.inverted.segment
                     if tags
                         each tags
                             .user_tag.ui.label #{this}
@@ -62,12 +60,12 @@ template(name='user_info')
                             i.geomarker.icon
                             | #{profile.location}
                     if profile.about_me
-                        .ui.header about me
+                        .ui.header about
                         h5.ui.header #{profile.about_me}
             .column
                 +wall
             .column
-                .ui.segment
+                .ui.inverted.segment
                     .ui.header friends
                     +toggle_friend
         // .ui.header My True Colors Are:
@@ -86,7 +84,7 @@ template(name='user_info')
         
         
 // template(name='user_documents')
-//     h1.ui.center.aligned.header #{person.username} docs
+//     h1.ui.center.aligned.header #{person.name} docs
 //     +tags
 //     // +ancestor_facet
 
@@ -97,7 +95,7 @@ template(name='user_info')
 
 
 template(name='user_karma')
-    h1.ui.center.aligned.inverted.header #{person.username} karma
+    h1.ui.center.aligned.inverted.header #{person.name} karma
     .ui.stackable.inverted.grid
         .four.wide.column
             .ui.segment tag cloud
@@ -106,7 +104,7 @@ template(name='user_karma')
 
 
 template(name='user_contact')
-    h1.ui.center.aligned.inverted.header contact #{person.username}
+    h1.ui.center.aligned.inverted.header contact #{person.name}
     .ui.inverted.form
         .field
             label message
@@ -117,7 +115,7 @@ template(name='user_contact')
             i.send.large.icon
 
 template(name='user_transactions')
-    h1.ui.center.aligned.header #{person.username} transactions
+    h1.ui.center.aligned.header #{person.name} transactions
     .ui.grid
         .four.wide.column
             .ui.segment tag facet
@@ -181,10 +179,10 @@ template(name='user_conversations')
             
             
 template(name='wall')
-    .ui.segment
+    .ui.inverted.segment
         .ui.form
             .field
-                |add to wall
+                |add
                 textarea(rows='3')
     each recent_posts
         .ui.segment

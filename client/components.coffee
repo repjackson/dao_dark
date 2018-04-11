@@ -31,7 +31,7 @@ Template.reference_other_children.helpers
         
     child_field_toggle_class: ->
         doc = Docs.findOne FlowRouter.getParam('doc_id')
-        if @_id in doc.field_ids then 'active' else ''
+        if doc and doc.field_ids and @_id in doc.field_ids then 'active' else ''
 
 Template.reference_other_children.events
     'click .select_child': ->
