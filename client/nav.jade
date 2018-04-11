@@ -1,15 +1,15 @@
 template(name='nav')
-    .ui.inverted.borderless.icon.stackable.large.menu
+    .ui.inverted.borderless.icon.stackable.big.menu
         a.header.icon.item(href='/' class="{{isActiveRoute 'home'}}")
             i.home.outline.icon
             // |facet
-        .item
-            |make this elemental and terrifying
+        // .item
+        //     |facking everything
         // .ui.icon.inverted.transparent.input
         //     i.search.icon
         //     input#query(type='text')
-        // a.icon.item(href='/blocks' class="{{isActiveRoute 'blocks'}}")
-        //     i.bitcoin.icon
+        a.icon.item(href='/blocks' class="{{isActiveRoute 'blocks'}}")
+            i.bitcoin.icon
         a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
             i.users.outline.icon
         .right.menu
@@ -22,6 +22,8 @@ template(name='nav')
                     i.plus.outline.icon
                 a.icon.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute 'dashboard'}}")
                     i.dashboard.outline.icon
+                a.icon.item(href="/transactions" class="{{isActiveRoute 'transactions'}}")
+                    i.exchange.icon
                 a.item(href="/user/#{currentUser.username}/karma" class="{{isActiveRoute 'karma'}}")
                     |#{currentUser.points}
                 a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")

@@ -18,16 +18,19 @@ template(name='view_doc')
                         if content
                             .large-text !{content}
                 +threaded_children
-                +ownership
-                +doc_matches
+                // +doc_matches
                 if watson
                     .ui.inverted.segment
                         +analyzed_watson_keywords
             .five.wide.column
-                .ui.inverted.segment
-                    .ui.header author tagsP
-                    each tags 
-                        .doc_tag.ui.small.compact.button(class=tag_class) #{this}
+                if tags
+                    .ui.inverted.segment
+                        .ui.header author tags
+                        each tags 
+                            .doc_tag.ui.small.compact.button(class=tag_class) #{this}
+                if template
+                    .ui.inverted.segment
+                        .ui.header template: #{template}
                 .ui.inverted.segment
                     if parent_id
                         +parent_link
@@ -42,9 +45,11 @@ template(name='view_doc')
                         +call_watson
                     +add_child_button
                     if currentUser
-                        +vote_button
+                        div
+                            +vote_button
                     +upvoted_list
                 +crowd_tags
+                +ownership
             
             
             

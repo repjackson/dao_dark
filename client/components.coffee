@@ -150,16 +150,16 @@ Template.ownership.events
 #     @autorun => Meteor.subscribe 'parent_doc', @data._id
     
     
-# Template.parent_doc_segment.onRendered ->
-#     @autorun =>
-#         if @subscriptionsReady()
-#             Meteor.setTimeout ->
-#                 $('.ui.accordion').accordion()
-#             , 500
+Template.parent_doc_segment.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.ui.accordion').accordion()
+            , 500
     
-# Template.parent_doc_segment.onCreated ->
-#     # console.log @data
-#     @autorun => Meteor.subscribe 'parent_doc', @data._id
+Template.parent_doc_segment.onCreated ->
+    # console.log @data
+    @autorun => Meteor.subscribe 'parent_doc', @data._id
     
     
 # Template.parent_link.onCreated ->

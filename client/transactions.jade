@@ -1,19 +1,13 @@
 template(name='transactions')
-    h1.ui.inverted.header bitcoin transactionchain
-    +latest_transaction
-    +transaction_browser
+    .ui.segment
+        h1.ui.header transactions
+        +transaction_browser
 
 template(name='transaction_browser')
     h2.ui.inverted.header transaction browser
     .ui.cards
         each transactions
             +transaction_card
-    
-template(name='latest_transaction')
-    h2.ui.inverted.header latest transaction
-    #fetch_latest_transaction.ui.button fetch latest
-    with latest_transaction
-        +transaction_card
     
     
 template(name='transaction_card')

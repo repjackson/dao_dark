@@ -19,9 +19,6 @@ Template.transactions.onRendered ->
     @autorun => Meteor.subscribe 'type', 'transaction'
     
 
-Template.latest_transaction.helpers
-    latest_transaction: -> Docs.findOne type:'transaction'
-        
 
 
 
@@ -68,11 +65,6 @@ Template.transaction_browser.helpers
 # Template.doc_card.helpers
 #     tag_class: -> if @valueOf() in selected_tags.array() then 'grey' else ''
 
-
-Template.latest_transaction.events
-    'click #fetch_latest_transaction': ->
-        Meteor.call 'fetch_latest_transaction'
-        # console.log request
 
 
 Template.transaction_page.events

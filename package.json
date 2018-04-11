@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.44",
+    "bcrypt": "^2.0.0",
+    "vue": "^2.1.10",
+    "vue-meteor-tracker": "^1.0.3",
+    "watson-developer-cloud": "^3.3.0"
+  },
+  "devDependencies": {}
+}

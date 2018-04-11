@@ -7,12 +7,12 @@ template(name='threaded_children')
 template(name='threaded_child')
     .ui.inverted.segment
         .ui.fluid.accordion
-            .title
+            .active.title
                 .ui.inverted.header 
                     // +icon48 name='dna-helix' classes='ui mini spaced image'
-                    |replies
+                    |children
                     i.dropdown.icon
-            .content
+            .active.content
                 .ui.two.column.grid
                     .column
                         a.header(href="/view/#{_id}")
@@ -72,6 +72,5 @@ template(name='doc_card')
             if upvoted_users
                 +upvoted_list
         if is_author
-            a(href="/edit/#{_id}")
-                i.large.link.pencil.icon
+            +edit_button
         +view_full_button

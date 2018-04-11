@@ -13,9 +13,9 @@ Template.tags.helpers
             Tags.find { 
                 # type:Template.currentData().type
                 count: $lt: doc_count
-                }, limit: 50
+                }, limit: 20
         else
-            Tags.find({}, limit: 50)
+            Tags.find({}, limit: 20)
             
             
     

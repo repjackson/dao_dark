@@ -1,10 +1,10 @@
 
 
 template(name='tags')
-    // .ui.left.icon.small.inline.input
-    //     i.search.icon
-    //     input#search(type='text')    
-    // |&nbsp;  
+    .ui.left.icon.small.inline.input
+        i.search.icon
+        input#search(type='text')    
+    |&nbsp;  
     if selected_tags
         #clear_tags.ui.icon.large.active.button
             i.remove.icon
@@ -25,7 +25,7 @@ template(name='library')
             +tags
         .ui.twelve.wide.column
             // .ui.inverted.header facet: an ai-driven crossplatform interdimensional token cryptocurrency cafe latte full stack decentralized exchange marketplace social network 
-            .ui.inverted.header build worlds 
+            // .ui.inverted.header build worlds 
             each docs
                 // if one_doc
                 +doc_card

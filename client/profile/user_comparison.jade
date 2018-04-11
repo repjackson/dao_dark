@@ -1,10 +1,9 @@
 template(name='user_comparison')
     h1.ui.center.aligned.header
         | compare
-    .ui.dividing.header Journal Tag Overlap
+    .ui.dividing.header tag overlap
     // +tag_facet
-    if isInRole 'admin'
-        #calculate_user_clouds.ui.button calc user clouds
+    #calculate_user_clouds.ui.button calc user clouds
     // with user
     //     if journal_list
     //         .ui.header #{user.profile.first_name}'s Journal Tags
