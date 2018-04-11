@@ -1,62 +1,73 @@
 <template>
-<div class="app">
-  <p>
-    You pressed the button {{count}} times.
-  </p>
-  <my-button :label="buttonLabel" @click="addOne"></my-button>
-  <form-example></form-example>
-  <p>
-    Learn more about the vue integration <a href="https://github.com/Akryum/meteor-vue-component">on GitHub</a>.
-  </p>
-</div>
+  <v-app id="inspire" dark>
+    <v-navigation-drawer
+      clipped
+      fixed
+      v-model="drawer"
+      app
+    >
+      <v-list dense>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon>dashboard</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Dashboard</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon>settings</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Settings</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar app fixed clipped-left>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout justify-center align-center>
+          <v-flex shrink>
+            <v-tooltip right>
+              <v-btn
+                icon
+                large
+                :href="source"
+                target="_blank"
+                slot="activator"
+              >
+                <v-icon large>code</v-icon>
+              </v-btn>
+              <span>Source</span>
+            </v-tooltip>
+            <v-tooltip right>
+              <v-btn icon large href="https://codepen.io/johnjleider/pen/qxQWda" target="_blank" slot="activator">
+                <v-icon large>mdi-codepen</v-icon>
+              </v-btn>
+              <span>Codepen</span>
+            </v-tooltip>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+    <v-footer app fixed>
+      <span>&copy; 2017</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-import {Session} from 'meteor/session';
-
-Session.setDefault("counter", 0);
-
-let labels = ['Click me!', 'Click me again!', 'Here! Click here!', 'Again! Again!',
-'Don\'t click me! No, I\'m just kidding. You can.', 'You like that?',
-'Can you stratch me in the back please?', 'You are soooo nice! Click!',
-'Hmmmm...', 'You know, you are wasting time clicking me.',
-'No really, you can click me as much as you want.', 'Click me to level up!'];
-
-export default {
-  data() {
-    return {
-      buttonLabel: 'Click me!',
-      count: 0
-    }
-  },
-  meteor: {
-    data: {
-      count() {
-        return Session.get('counter');
-      }
-    }
-  },
-  methods: {
-    addOne() {
-      Session.set('counter', this.count + 1);
-
-      this.buttonLabel = labels[Math.round(Math.random()*(labels.length - 1))];
+  export default {
+    data: () => ({
+      drawer: true
+    }),
+    props: {
+      source: String
     }
   }
-}
 </script>
-
-<style>
-body {
-  margin: 30px;
-}
-
-a {
-  color: #40b883;
-  text-decoration: none;
-}
-
-h1 {
-  font-weight: normal;
-}
-</style>
