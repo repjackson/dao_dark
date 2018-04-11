@@ -1,0 +1,203 @@
+template(name='user_layout')
+    +nav
+    with person
+        img.ui.small.centered.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+        .ui.center.aligned.inverted.header
+            |#{name}
+            // unless is_user
+            // +staus_indicator
+        .ui.inverted.icon.fluid.big.menu
+            a.item(href="/user/#{username}/dashboard/" class="{{isActiveRoute 'user_dashboard'}}")
+                i.dashboard.icon
+                // |dashboard
+            a.item(href="/user/#{username}" class="{{isActiveRoute 'user_info'}}")
+                i.info.icon
+                // |info
+            a.item(href="/user/#{username}/docs"  class="{{isActiveRoute 'user_docs'}}")
+                i.book.icon
+                // |docs
+            a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                i.phone.icon
+                // |contact
+            a.item(href="/user/#{username}/comparison"  class="{{isActiveRoute 'user_comparison'}}")
+                i.fork.icon
+                // |compare
+            a.item(href="/user/#{username}/conversations" class="{{isActiveRoute 'user_conversations'}}")
+                i.comments.icon
+                // |conversations
+            a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
+                i.heart.icon
+                // |karma
+            a.item(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}")
+                i.users.icon
+                // |social
+            a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
+                i.money.icon
+                // |transactions
+            if is_user
+                a.item(href="/profile/edit/#{_id}" class="{{isActiveRoute 'edit_profile'}}") 
+                    i.pencil.icon
+                a.item(href="/user/#{username}/settings/" class="{{isActiveRoute 'account_settings'}}")
+                    i.settings.icon
+                    // |settings
+    // if is_user
+    //     .ui.basic.center.aligned.segment
+    //         #logout.ui.center.aligned.button log out
+    +Template.dynamic template=user_main
+
+
+template(name='user_info')
+    // h1.ui.center.aligned.inverted.header about #{person.name}
+    with person
+        .ui.three.column.grid
+            .column
+                .ui.inverted.segment
+                    if tags
+                        each tags
+                            .user_tag.ui.label #{this}
+                    if profile.location
+                        .ui.header 
+                            i.geomarker.icon
+                            | #{profile.location}
+                    if profile.about_me
+                        .ui.header about
+                        h5.ui.header #{profile.about_me}
+            .column
+                +wall
+            .column
+                .ui.inverted.segment
+                    .ui.header friends
+                    +toggle_friend
+        // .ui.header My True Colors Are:
+        // +color_dots
+        // if profile.if_knew_me
+        //     .ui.header If you really knew me you would know…
+        //     |#{profile.if_knew_me}
+        // if profile.if_not_working
+        //     .ui.header If I am not at work or in class then I am probably…
+        //     |#{profile.if_not_working}
+        //     +profile_stripe
+        // else
+        //     .centered.row
+        //         .twelve.wide.column.shadowed-box
+        //             +profile_comparison
+        
+        
+// template(name='user_documents')
+//     h1.ui.center.aligned.header #{person.name} docs
+//     +tags
+//     // +ancestor_facet
+
+    
+//     each user_docs
+//         +databank_card
+
+
+
+template(name='user_karma')
+    h1.ui.center.aligned.inverted.header #{person.name} karma
+    .ui.stackable.inverted.grid
+        .four.wide.column
+            .ui.segment tag cloud
+        .twelve.wide.column
+            .ui.segment top posts
+
+
+template(name='user_contact')
+    h1.ui.center.aligned.inverted.header contact #{person.name}
+    .ui.inverted.form
+        .field
+            label message
+            textarea#message_area(rows='5')
+        #clear_message.ui.icon.button
+            i.remove.icon
+        #send_message.ui.large.icon.button
+            i.send.large.icon
+
+template(name='user_transactions')
+    h1.ui.center.aligned.header #{person.name} transactions
+    .ui.grid
+        .four.wide.column
+            .ui.segment tag facet
+            .ui.segment username facet
+        .four.wide.column
+            .ui.segment top earning posts
+        
+
+
+template(name='user_social')
+    .ui.header user social
+    .ui.button add friend
+    +toggle_friend
+    .ui.segment 
+        |friends list
+
+
+template(name='view_account')
+    h1.ui.center.aligned.header 
+        |account
+    |{{> atForm state='changePwd'}}
+    h2.ui.header 
+        |email(s)
+    .ui.segment
+        .ui.divided.list
+            each currentUser.emails
+                .item 
+                    // unless verified
+                    //     .right.floated.content
+                    //         .ui.basic.button Verify
+                    .content
+                        |#{address}
+                        if verified
+                            .ui.green.basic.label verified
+                        else
+                            .ui.basic.label unverified
+                            .send_verification_email.ui.basic.button verify
+        .ui.action.fluid.input
+            input#new_email(type='email')
+            #add_email.ui.submit.button add email
+    h2.ui.header 
+        |change username 
+    .ui.segment
+        .ui.header current: #{currentUser.username}
+        .ui.action.fluid.input
+            input#username(type='text')
+            #change_username.ui.submit.button submit
+            
+            
+template(name='user_conversations')
+    .ui.horizontal.divider.header 
+        i.comments.outline.icon
+        |public conversations with #{user.name}
+    each public_conversations_with_user
+        +conversation_messages_pane
+    .ui.horizontal.dividing.header
+        a.ui.teal.button(href='/conversations')
+            i.external.icon
+            |view all conversations
+            
+            
+            
+template(name='wall')
+    .ui.inverted.segment
+        .ui.form
+            .field
+                |add
+                textarea(rows='3')
+    each recent_posts
+        .ui.segment
+            |#{content}
+            
+            
+            
+template(name='profile_docs')
+    with user
+        if user_docs.count
+            +tags type='journal' author_id=user._id
+            .ui.dividing.header
+                | #{username} docs
+            // .ui.cards
+            each user_docs
+                +doc_card
+        else
+            h4.ui.header #{name} doesn't have any public entries.

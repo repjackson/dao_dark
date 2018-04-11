@@ -1,0 +1,22 @@
+template(name='ad_block')
+    .ui.inverted.segment
+        .ui.inverted.header ads
+        
+        
+template(name='ads')
+    .ui.inverted.segment
+        .ui.header ads
+        +current_ad
+        
+        
+template(name='current_ad')
+    with current_ad
+        |!{content}
+        
+        
+template(name='edit_ad')
+    .ui.inverted.segment
+        .ui.header edit ad
+        .ui.header clicks
+        
+template(name='ad_page')

@@ -1,0 +1,36 @@
+
+
+template(name='tags')
+    // .ui.left.icon.small.inline.input
+    //     i.search.icon
+    //     input#search(type='text')    
+    // |&nbsp;  
+    if selected_tags
+        #clear_tags.ui.icon.large.active.button
+            i.remove.icon
+        each selected_tags
+            .unselect_tag.ui.large.active.button
+                strong #{this}
+    each tags
+        .ui.compact.button.select_tag(class=tag_class)
+            strong #{this.name}
+        // .ui.compact.button.select_tag
+
+
+
+
+template(name='library')
+    .ui.stackable.centered.grid
+        // .ui.four.wide.column
+        .center.aligned.row
+            .ui.fifteen.wide.column
+                +tags
+        .row
+            .ui.sixteen.wide.column
+                // .ui.inverted.header facet: an ai-driven crossplatform interdimensional token cryptocurrency cafe latte full stack decentralized exchange marketplace social network 
+                // .ui.inverted.header build worlds 
+                each docs
+                    // if one_doc
+                    +doc_card
+        
+        
