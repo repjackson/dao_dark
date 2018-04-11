@@ -281,8 +281,14 @@ template(name='crowd_tags')
 template(name='toggle_key')
     #toggle_key.ui.compact.button(class=toggle_key_button_class) #{label}
 
-
+template(name='clone_button')
+    .ui.icon.button
+        i.fork.icon
             
+template(name='donate_button')
+    .ui.button
+        i.plus.icon
+        |donate fac     
             
 template(name='vote_button')
     .ui.icon.button.vote_up

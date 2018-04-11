@@ -68,6 +68,8 @@ template(name='doc_card')
             +author_info
             |#{when}
         if currentUser
+            +clone_button
+            +donate_button
             +vote_button
             if upvoted_users
                 +upvoted_list
