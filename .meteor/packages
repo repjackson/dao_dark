@@ -26,3 +26,5 @@ reactive-var@1.0.11
 session@1.1.7
 akryum:vue
 akryum:vue-component
+akryum:vue-router2
+akryum:vue-pug
