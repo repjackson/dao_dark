@@ -1,7 +1,7 @@
 template(name='nav')
     .ui.inverted.borderless.icon.big.menu
         a.header.icon.item(href='/' class="{{isActiveRoute 'home'}}")
-            i.home.outline.icon
+            i.home.icon
             // |facet
         // .item
         //     |facking everything
@@ -11,7 +11,7 @@ template(name='nav')
         a.icon.item(href='/blocks' class="{{isActiveRoute 'blocks'}}")
             i.bitcoin.icon
         a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
-            i.users.outline.icon
+            i.users.icon
         if currentUser
             // .ui.icon.input
             //     // i.plus.icon
@@ -20,7 +20,7 @@ template(name='nav')
             a#add_doc.item
                 i.plus.outline.icon
             a.icon.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute 'dashboard'}}")
-                i.dashboard.outline.icon
+                i.line.chart.icon
             a.icon.item(href="/transactions" class="{{isActiveRoute 'transactions'}}")
                 i.exchange.icon
             a.item(href="/user/#{currentUser.username}/karma" class="{{isActiveRoute 'karma'}}")

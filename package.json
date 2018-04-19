@@ -1,13 +1,19 @@
 {
-  "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.44",
-    "axios": "^0.18.0",
-    "bcrypt": "^2.0.0",
-    "vue": "^2.1.10",
-    "vue-meteor-tracker": "^1.0.3",
-    "vuetify": "^1.0.14",
-    "watson-developer-cloud": "^3.3.0",
-    "vue-router": "^2.0.0"
-  },
-  "devDependencies": {}
+	"dependencies": {
+		"@babel/runtime": "^7.0.0-beta.44",
+		"bcrypt": "^2.0.0",
+		"watson-developer-cloud": "^3.3.0"
+	},
+	"devDependencies": {
+		"autoprefixer": "^6.3.1"
+	},
+	"postcss": {
+		"plugins": {
+			"autoprefixer": {
+				"browsers": [
+					"last 2 versions"
+				]
+			}
+		}
+	}
 }

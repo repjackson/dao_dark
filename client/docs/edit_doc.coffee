@@ -22,7 +22,7 @@ Template.edit_doc.helpers
     field_doc: -> Docs.findOne Template.parentData(1)
     
     
-    doc_template: -> console.log @
+    # doc_template: -> console.log @
 
 
 Template.edit_doc.events
