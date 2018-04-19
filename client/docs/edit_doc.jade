@@ -3,56 +3,57 @@ template(name='edit_doc')
         .ui.inverted.center.aligned.header edit doc
         .ui.stackable.padded.grid
             .ten.wide.column
-                +Template.dynamic template=doc_template
-
-                // if parent_id
-                +parent_doc_segment
-                .ui.header hi
-                each field_ids
-                    +edit_field template=field_doc.field_template key=field_doc.slug
-                .content
-                    // +edit_text_field key='title'
-                    // +edit_text_field key='slug'
-                    // +edit_text_field key='icon_class'
-                    // +edit_text_field key='type'
-                    // +edit_text_field key='field_template'
-                    div
-                        .ui.inverted.header tags
-                        .ui.small.input
-                            input#add_tag(type='text' maxlength='50' placeholder='add tag')
-                        each tags
-                            a.ui.compact.button.doc_tag
-                                i.remove.icon
-                                |#{this}
-                
-                    // .ui.basic.segment
-                    //     .ui.labeled.action.small.input
-                    //         .ui.label image url
-                    //         input#image_url(type='text' value=image_url)
-                    //         if image_url
-                    //             #clear_image_url.ui.icon.button
-                    //                 i.remove.icon
-                    // .ui.basic.segment
-                    //     if image_url
-                    //         .ui.image
-                    //             img(src=image_url)
-                    // .ui.basic.segment
-                    //     .ui.labeled.action.small.input
-                    //         .ui.label youtube
-                    //         input#youtube(type='text' value=youtube)
-                    //         if youtube
-                    //             #clear_youtube.ui.icon.button
-                    //                 i.remove.icon
-                    //     if youtube
-                    //         +view_youtube
-                    .field
-                        .froala-container
-                            +froalaReactive getFEContext
-                    .ui.inverted.segment
-                        .ui.header bounty
-                        h5.ui.header offer bounty for this post
-                        .ui.input
-                            input#bounty_input(type='number' min='0')
+                if template
+                    +Template.dynamic template=edit_type_template
+                else
+                    // if parent_id
+                    +parent_doc_segment
+                    .ui.header hi
+                    each field_ids
+                        +edit_field template=field_doc.field_template key=field_doc.slug
+                    .content
+                        // +edit_text_field key='title'
+                        // +edit_text_field key='slug'
+                        // +edit_text_field key='icon_class'
+                        // +edit_text_field key='type'
+                        // +edit_text_field key='field_template'
+                        div
+                            .ui.inverted.header tags
+                            .ui.small.input
+                                input#add_tag(type='text' maxlength='50' placeholder='add tag')
+                            each tags
+                                a.ui.compact.button.doc_tag
+                                    i.remove.icon
+                                    |#{this}
+                    
+                        // .ui.basic.segment
+                        //     .ui.labeled.action.small.input
+                        //         .ui.label image url
+                        //         input#image_url(type='text' value=image_url)
+                        //         if image_url
+                        //             #clear_image_url.ui.icon.button
+                        //                 i.remove.icon
+                        // .ui.basic.segment
+                        //     if image_url
+                        //         .ui.image
+                        //             img(src=image_url)
+                        // .ui.basic.segment
+                        //     .ui.labeled.action.small.input
+                        //         .ui.label youtube
+                        //         input#youtube(type='text' value=youtube)
+                        //         if youtube
+                        //             #clear_youtube.ui.icon.button
+                        //                 i.remove.icon
+                        //     if youtube
+                        //         +view_youtube
+                        .field
+                            .froala-container
+                                +froalaReactive getFEContext
+                        .ui.inverted.segment
+                            .ui.header bounty
+                            h5.ui.header offer bounty for this post
+                            .ui.input
+                                input#bounty_input(type='number' min='0')
 
             .six.wide.column
                 a.ui.icon.large.fluid.button(href="/view/#{_id}")
@@ -63,9 +64,10 @@ template(name='edit_doc')
                 .ui.divider
                 .ui.inverted.segment
                     .ui.inverted.header template
-                    +toggle_key key='template' value='none' label='none'
+                    +toggle_key key='template' value=null label='none'
                     +toggle_key key='template' value='question' label='question'
                     +toggle_key key='template' value='ad' label='ad'
+                    +toggle_key key='template' value='event' label='event'
                 .ui.divider
                 +reference_other_children type='field' key='field_ids'
                 .ui.inverted.segment

@@ -1,15 +1,23 @@
-template(name='admin')
+template(name='mail')
     .ui.stackable.centered.padded.grid
         .four.wide.column
             .ui.vertical.inverted.menu
                 a.item(href="/mail/inbox") 
                     |inbox
                     i.inbox.icon
+                .item 
+                    |drafts
+                    i.edit.icon
+                .item 
+                    |sent
+                    i.send.icon
+                .item 
+                    |archived
+                    i.archive.icon
         .twelve.wide.column
             .ui.inverted.header facet: an ai-driven crossplatform interdimensional token cryptocurrency cafe latte full stack decentralized exchange marketplace social network 
             .ui.inverted.header build worlds 
-            if alerts
-                each alerts
-                    +alerts
+            each messages
+                +message
         
         

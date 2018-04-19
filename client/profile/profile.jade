@@ -1,73 +1,77 @@
 template(name='user_layout')
     +nav
-    with person
-        img.ui.small.centered.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-        .ui.center.aligned.inverted.header
-            |#{name}
-            // unless is_user
-            // +staus_indicator
-        .ui.inverted.icon.fluid.big.menu
-            a.item(href="/user/#{username}/dashboard/" class="{{isActiveRoute 'user_dashboard'}}")
-                i.dashboard.icon
-                // |dashboard
-            a.item(href="/user/#{username}" class="{{isActiveRoute 'user_info'}}")
-                i.info.icon
-                // |info
-            a.item(href="/user/#{username}/docs"  class="{{isActiveRoute 'user_docs'}}")
-                i.book.icon
-                // |docs
-            a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
-                i.phone.icon
-                // |contact
-            a.item(href="/user/#{username}/comparison"  class="{{isActiveRoute 'user_comparison'}}")
-                i.fork.icon
-                // |compare
-            a.item(href="/user/#{username}/conversations" class="{{isActiveRoute 'user_conversations'}}")
-                i.comments.icon
-                // |conversations
-            a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
-                i.heart.icon
-                // |karma
-            a.item(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}")
-                i.users.icon
-                // |social
-            a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
-                i.money.icon
-                // |transactions
-            if is_user
-                a.item(href="/profile/edit/#{_id}" class="{{isActiveRoute 'edit_profile'}}") 
-                    i.pencil.icon
-                a.item(href="/user/#{username}/settings/" class="{{isActiveRoute 'account_settings'}}")
-                    i.settings.icon
-                    // |settings
-    // if is_user
-    //     .ui.basic.center.aligned.segment
-    //         #logout.ui.center.aligned.button log out
-    +Template.dynamic template=user_main
+    .ui.stackable.padded.grid
+        .four.wide.column
+            with person
+                img.ui.small.centered.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                .ui.center.aligned.inverted.header
+                    |#{name}
+                    // unless is_user
+                    // +staus_indicator
+                .ui.inverted.vertical.menu
+                    a.item(href="/user/#{username}/dashboard/" class="{{isActiveRoute 'user_dashboard'}}")
+                        i.dashboard.icon
+                        |dashboard
+                    a.item(href="/user/#{username}" class="{{isActiveRoute 'user_info'}}")
+                        i.info.icon
+                        |info
+                    a.item(href="/user/#{username}/docs"  class="{{isActiveRoute 'user_docs'}}")
+                        i.book.icon
+                        |docs
+                    a.item(href="/user/#{username}/contact" class="{{isActiveRoute 'user_contact'}}")
+                        i.phone.icon
+                        |contact
+                    a.item(href="/user/#{username}/achievements" class="{{isActiveRoute 'user_achievements'}}")
+                        i.trophy.icon
+                        |achievements
+                    a.item(href="/user/#{username}/comparison"  class="{{isActiveRoute 'user_comparison'}}")
+                        i.fork.icon
+                        |compare
+                    a.item(href="/user/#{username}/conversations" class="{{isActiveRoute 'user_conversations'}}")
+                        i.comments.icon
+                        |conversations
+                    a.item(href="/user/#{username}/karma" class="{{isActiveRoute 'user_karma'}}")
+                        i.heart.icon
+                        |karma
+                    a.item(href="/user/#{username}/social" class="{{isActiveRoute 'user_social'}}")
+                        i.users.icon
+                        |social
+                    a.item(href="/user/#{username}/transactions" class="{{isActiveRoute 'user_transactions'}}")
+                        i.money.icon
+                        |transactions
+                if is_user
+                    .ui.inverted.vertical.menu
+                        a.item(href="/profile/edit/#{_id}" class="{{isActiveRoute 'edit_profile'}}") 
+                            i.edit.icon
+                            |edit profile
+                        a.item(href="/user/#{username}/settings/" class="{{isActiveRoute 'account_settings'}}")
+                            i.settings.icon
+                            |settings
+                        a#logout.item(href='#')
+                            |log out
+        .twelve.wide.column
+            +Template.dynamic template=user_main
+        
 
 
 template(name='user_info')
     // h1.ui.center.aligned.inverted.header about #{person.name}
     with person
-        .ui.three.column.grid
-            .column
-                .ui.inverted.segment
-                    if tags
-                        each tags
-                            .user_tag.ui.label #{this}
-                    if profile.location
-                        .ui.header 
-                            i.geomarker.icon
-                            | #{profile.location}
-                    if profile.about_me
-                        .ui.header about
-                        h5.ui.header #{profile.about_me}
-            .column
-                +wall
-            .column
-                .ui.inverted.segment
-                    .ui.header friends
-                    +toggle_friend
+        .ui.inverted.segment
+            if tags
+                each tags
+                    .user_tag.ui.label #{this}
+            if profile.location
+                .ui.header 
+                    i.compass.icon
+                    | #{profile.location}
+            if profile.about_me
+                h4 about: #{profile.about_me}
+            if profile.sex_position
+                h4.ui.header favorite sex position: #{profile.sex_position}
+            if profile.spirit_animal
+                h5.ui.header spirit animal: #{profile.spirit_animal}
+        +wall
         // .ui.header My True Colors Are:
         // +color_dots
         // if profile.if_knew_me
@@ -101,6 +105,16 @@ template(name='user_karma')
             .ui.segment tag cloud
         .twelve.wide.column
             .ui.segment top posts
+
+template(name='user_achievements')
+    h1.ui.center.aligned.inverted.header 
+        i.trophy.icon
+        |#{person.name} achievements
+    if achievements
+        each achievements
+            .ui.header hi
+    else
+        .ui.inverted.header no achievements
 
 
 template(name='user_contact')
@@ -166,15 +180,14 @@ template(name='view_account')
             
             
 template(name='user_conversations')
-    .ui.horizontal.divider.header 
-        i.comments.outline.icon
+    .ui.horizontal.divider.inverted.header 
+        i.comments.icon
         |public conversations with #{user.name}
     each public_conversations_with_user
         +conversation_messages_pane
-    .ui.horizontal.dividing.header
-        a.ui.teal.button(href='/conversations')
-            i.external.icon
-            |view all conversations
+    a.ui.button(href='/conversations')
+        i.external.icon
+        |view all conversations
             
             
             

@@ -1,0 +1,34 @@
+template(name='store')
+    .ui.inverted.center.aligned.header  
+        i.shopping.cart.icon
+        |store
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.segment tag facet
+            .ui.segment price facet
+            .ui.segment author facet
+        .ten.wide.column
+            each products
+                +product
+
+        
+template(name='product')
+    .ui.segment.notification_segment(class=notification_segment_class)
+        .ui.feed
+            .event
+                .label
+                    img.ui.avatar.image(src="{{c.url author.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                .content
+                    .summary
+                        // a.user(href="/profile/#{subject.username}")
+                        //     | #{subject_name}
+                        // | #{predicate}
+                        a.user(href="/profile/#{author.username}")
+                            | #{author.username}.
+                        .date
+                            | #{when}
+                    .extra.text
+                        p !{content}
+                    .meta
+                        +mark_read_button
+                        // +session_delete_button

@@ -4,17 +4,19 @@ template(name='edit_profile')
             h1.ui.center.aligned.header edit #{username}
             .ui.inverted.form
                 .ui.stackable.grid
-                    // .five.wide.column    
-                    //     .field
-                    //         if profile.image_id
-                    //             label image
-                    //             .ui.centered.image
-                    //                 img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                    //                 a#remove_photo.ui.right.corner.link.label
-                    //                     i.remove.red.link.icon
-                    //         else
-                    //             // label mage
-                    //             input(type='file' name='upload_picture' accept='image/*')
+                    .five.wide.column    
+                        .field
+                            if profile.image_id
+                                label image
+                                .ui.centered.image
+                                    img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                    a#remove_photo.ui.right.corner.link.label
+                                        i.remove.red.link.icon
+                            else
+                                // label mage
+                                input(type='file' name='upload_picture' accept='image/*')
+                        .ui.hidden.divider
+                            a.ui.fluid.button(href="/user/#{username}") save
                     .ten.wide.centered.column
                         .field
                             label display name 
@@ -33,6 +35,14 @@ template(name='edit_profile')
                             .ui.input
                                 input#location(type='text' value=profile.location)
                         .field
+                            label favorite sex position 
+                            .ui.input
+                                input#sex_position(type='text' value=profile.sex_position)
+                        .field
+                            label spirit animal
+                            .ui.input
+                                input#spirit_animal(type='text' value=profile.spirit_animal)
+                        .field
                             label tags
                             each tags
                                 .ui.button.person_tag
@@ -46,7 +56,3 @@ template(name='edit_profile')
                             .ui.input
                                 textarea#about_me(type='textarea' maxlength="250" rows='3')
                                     |#{profile.about_me}
-            .field
-                    .ui.center.aligned.basic.segment
-                        a.ui.center.aligned.huge.button(href="/user/#{username}")
-                            |save

@@ -309,17 +309,49 @@ template(name='view_html_field')
     
     
 
-template(name='edit_html_field')
-    .ui.header
-        +icon48 name='html' classes='ui mini spaced image'
-        | Edit HTML
-    .froala-container
-        +froalaReactive getFEContext
+// template(name='edit_html_field')
+//     .ui.header
+//         +icon48 name='html' classes='ui mini spaced image'
+//         | Edit HTML
+//     .froala-container
+//         +froalaReactive getFEContext
     
     
-template(name='edit_text_field')
-    .ui.labeled.fluid.input
-        .ui.label #{key}
-        input#value(type='text' value=page_field_value)
+// template(name='edit_text_field')
+//     .ui.labeled.fluid.input
+//         .ui.label #{key}
+//         input#value(type='text' value=page_field_value)
 
     // +toggle_key key='completion_type' value='response' icon='response' label='Response'
+
+
+template(name='edit_textarea')
+    .field
+        label #{label}
+        textarea#textarea(rows='3') #{key_value}
+
+
+template(name='edit_text_field')
+    .field
+        label #{label}
+        .ui.left.icon.input
+            if icon
+                i.icon(class=icon)
+            input#text_field(type='text' value=key_value)
+
+        
+template(name='edit_html_field')
+    .field
+        label #{label}
+        .froala-container
+            +froalaReactive getFEContext
+        
+        
+template(name='edit_date_field')            
+    .field
+        label #{label}
+        .ui.left.icon.input
+            if icon
+                i.icon(class=icon)
+            input#date_field(type='date' value=key_value)        
+        

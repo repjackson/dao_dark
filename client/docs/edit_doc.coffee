@@ -16,7 +16,7 @@ Template.edit_doc.onRendered ->
 
 Template.edit_doc.helpers
     doc: -> Docs.findOne FlowRouter.getParam('doc_id')
-    edit_type_template: -> "edit_#{@template}"
+    edit_type_template: -> "#{@template}_edit"
     templates: -> Docs.find type:'template'
 
     field_doc: -> Docs.findOne Template.parentData(1)
@@ -87,7 +87,7 @@ Template.edit_doc.events
     'click #delete': ->
         if confirm 'delete?'
             Docs.remove @_id
-        Session.set 'editing_id', null
+        FlowRouter.go '/'
             
     'blur #youtube': ->
         youtube = $('#youtube').val()

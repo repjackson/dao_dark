@@ -13,29 +13,33 @@ template(name='nav')
         a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
             i.users.icon
         if currentUser
-            // .ui.icon.input
-            //     // i.plus.icon
-            //     input#quick_add(type='text' placeholder='add')
-            //     i.lightning.icon
-            a#add_doc.item
-                i.plus.outline.icon
-            a.icon.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute 'dashboard'}}")
-                i.line.chart.icon
-            a.icon.item(href="/transactions" class="{{isActiveRoute 'transactions'}}")
-                i.exchange.icon
-            a.item(href="/user/#{currentUser.username}/karma" class="{{isActiveRoute 'karma'}}")
-                |#{currentUser.points}
-            a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")
-                i.mail.outline.icon
-            a.icon.item(href='/notifications' class="{{isActiveRoute 'notifications'}}")
-                i.bell.outline.icon
-            // if has_role 'admin'
-            a.icon.item(href='/admin' class="{{isActiveRoute 'admin'}}")
-                i.configure.icon
-            a.icon.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
-                i.user.outline.icon
-            a#logout.ui.icon.item(href='#') 
-                i.sign.out.outline.icon
+            .ui.icon.small.transparent.inverted.input
+                // i.plus.icon
+                input#quick_add(type='text' placeholder='quick add tags')
+                i.lightning.icon
+            .right.menu
+                a#add_doc.item
+                    i.plus.icon
+                a.icon.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute 'dashboard'}}")
+                    i.line.chart.icon
+                a.icon.item(href="/transactions" class="{{isActiveRoute 'transactions'}}")
+                    i.exchange.icon
+                a.icon.item(href="/store" class="{{isActiveRoute 'store'}}")
+                    i.shopping.cart.icon
+                a.icon.item(href="/conversations" class="{{isActiveRoute 'conversations'}}")
+                    i.comments.icon
+                a.item(href="/user/#{currentUser.username}/karma" class="{{isActiveRoute 'karma'}}")
+                    |#{currentUser.points}
+                a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")
+                    i.mail.icon
+                a.icon.item(href='/notifications' class="{{isActiveRoute 'notifications'}}")
+                    i.bell.icon
+                a.ui.icon.dropdown.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
+                    i.user.icon
+                    .menu
+                        .item test
+                a#logout.ui.icon.item(href='#') 
+                    i.sign.out.icon
         else
             a.ui.icon.item(href='/sign-in') 
-                i.sign.in.outline.icon
+                i.sign.in.icon

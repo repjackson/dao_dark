@@ -113,15 +113,3 @@
 //                             |#{when}
                             
                             
-                            
-template(name='doc_template_selection')
-    .ui.inverted.segment
-        .ui.header select document template
-    
-        // .ui.header Choose Child Actions
-        each child_actions
-            .toggle_child_action.ui.button(class=child_action_toggle_class)
-                +icon24 name=icon_class classes='ui inline image'
-                strong #{title}    
-            
-                            

@@ -1,6 +1,10 @@
 Template.nav.onCreated ->
     @autorun -> Meteor.subscribe 'user', Meteor.userId()
 
+Template.nav.onRendered ->
+    #   // be sure to use this.$ so it is scoped to the template instead of to the window
+    @$('.ui.dropdown').dropdown({on: 'hover'});
+
 
 Template.nav.events
     'click #logout': -> AccountsTemplates.logout()

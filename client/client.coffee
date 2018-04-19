@@ -44,13 +44,13 @@ Template.registerHelper 'person', () -> Meteor.users.findOne username:FlowRouter
 
 
 
-FlowRouter.wait()
-Tracker.autorun ->
-  # if the roles subscription is ready, start routing
-  # there are specific cases that this reruns, so we also check
-  # that FlowRouter hasn't initalized already
-  if !FlowRouter._initialized
-     FlowRouter.initialize()
+# FlowRouter.wait()
+# Tracker.autorun ->
+#   # if the roles subscription is ready, start routing
+#   # there are specific cases that this reruns, so we also check
+#   # that FlowRouter hasn't initalized already
+#   if !FlowRouter._initialized
+#      FlowRouter.initialize()
 
 
 

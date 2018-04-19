@@ -19,9 +19,6 @@ FlowRouter.route '/user/:username/settings', action: (params) ->
         user_main: 'view_account'
     
 
-            
-            
-            
 FlowRouter.route '/user/:username/comparison', 
     name: 'user_comparison'
     action: (params) ->
@@ -50,6 +47,12 @@ FlowRouter.route '/user/:username/karma',
     action: (params) ->
         BlazeLayout.render 'user_layout',
             user_main: 'user_karma'
+            
+FlowRouter.route '/user/:username/achievements', 
+    name: 'user_achievements'
+    action: (params) ->
+        BlazeLayout.render 'user_layout',
+            user_main: 'user_achievements'
             
 FlowRouter.route '/user/:username/contact', 
     name: 'user_contact'
@@ -80,8 +83,8 @@ FlowRouter.route '/user/:username/dashboard',
 
 Template.user_layout.onCreated ->
     @autorun -> Meteor.subscribe('user_profile', FlowRouter.getParam('username'))
-    @autorun -> Meteor.subscribe('ancestor_id_docs', null, FlowRouter.getParam('username'))
-    @autorun -> Meteor.subscribe('ancestor_ids', null, FlowRouter.getParam('username'))
+    # @autorun -> Meteor.subscribe('ancestor_id_docs', null, FlowRouter.getParam('username'))
+    # @autorun -> Meteor.subscribe('ancestor_ids', null, FlowRouter.getParam('username'))
 
     
 # Template.user_layout.onRendered ->
@@ -94,13 +97,14 @@ Template.user_info.helpers
     user: -> Meteor.users.findOne username: FlowRouter.getParam('username')
 
 Template.user_layout.helpers
-    
-    user_docs: ->
-        person = Meteor.users.findOne username:FlowRouter.getParam('username')
-        Docs.find
-            author_id:person._id
+    # user_docs: ->
+    #     person = Meteor.users.findOne username:FlowRouter.getParam('username')
+    #     Docs.find
+    #         author_id:person._id
     
     is_user: -> FlowRouter.getParam('username') is Meteor.user()?.username
+    
+    
 Template.user_layout.events
     'click #logout': -> AccountsTemplates.logout()
 
@@ -128,8 +132,9 @@ Template.profile_docs.helpers
         Docs.find {
             published: 1
             author_id: user._id
-            }, timestamp: -1
-            
+            }, 
+                sort:timestamp: -1
+                limit: 5
             
             
 Template.user_contact.events

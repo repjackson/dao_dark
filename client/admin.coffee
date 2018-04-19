@@ -1,19 +1,13 @@
 FlowRouter.route '/admin', 
-    action: (params) ->
-        BlazeLayout.render 'layout',
+    name: 'admin'
+    action: -> 
+        BlazeLayout.render 'layout', 
             main: 'admin'
 
 
 
-    
-Template.admin.onRendered ->
-    @autorun => Meteor.subscribe 'admin'
-    
+Template.admin.onCreated ->
+    @autorun => Meteor.subscribe('admin')
 
-Template.block_page.onCreated ->
-    @autorun => Meteor.subscribe 'block', FlowRouter.getParam('hash')
-    
-
-Template.block_page.helpers
-    block: -> Docs.findOne type:'block'
-        
+Template.admin.helpers
+    messages: -> Docs.find type:'message'

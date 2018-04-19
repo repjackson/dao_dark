@@ -73,9 +73,12 @@ template(name='doc_card')
                 div 
                     |#{when}
                 if currentUser
-                    +clone_button
-                    +donate_button
-                    +vote_button
+                    div
+                        +clone_button
+                    div
+                        +donate_button
+                    div
+                        +vote_button
                     if upvoted_users
                         +upvoted_list
                 if is_author

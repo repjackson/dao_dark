@@ -31,6 +31,15 @@ if Meteor.isClient
             location = $('#location').val().trim()
             Meteor.users.update FlowRouter.getParam('user_id'),
                 $set: "profile.location": location
+        'blur #sex_position': ->
+            sex_position = $('#sex_position').val().trim()
+            Meteor.users.update FlowRouter.getParam('user_id'),
+                $set: "profile.sex_position": sex_position
+        
+        'blur #spirit_animal': ->
+            spirit_animal = $('#spirit_animal').val().trim()
+            Meteor.users.update FlowRouter.getParam('user_id'),
+                $set: "profile.spirit_animal": spirit_animal
             
         'blur #if_knew_me': ->
             if_knew_me = $('#if_knew_me').val().trim()
