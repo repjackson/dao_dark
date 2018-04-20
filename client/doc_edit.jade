@@ -1,4 +1,4 @@
-template(name='edit_doc')
+template(name='doc_edit')
     with doc
         .ui.inverted.center.aligned.header edit doc
         .ui.stackable.padded.grid
@@ -12,20 +12,6 @@ template(name='edit_doc')
                     each field_ids
                         +edit_field template=field_doc.field_template key=field_doc.slug
                     .content
-                        // +edit_text_field key='title'
-                        // +edit_text_field key='slug'
-                        // +edit_text_field key='icon_class'
-                        // +edit_text_field key='type'
-                        // +edit_text_field key='field_template'
-                        div
-                            .ui.inverted.header tags
-                            .ui.small.input
-                                input#add_tag(type='text' maxlength='50' placeholder='add tag')
-                            each tags
-                                a.ui.compact.button.doc_tag
-                                    i.remove.icon
-                                    |#{this}
-                    
                         // .ui.basic.segment
                         //     .ui.labeled.action.small.input
                         //         .ui.label image url
@@ -46,15 +32,7 @@ template(name='edit_doc')
                         //                 i.remove.icon
                         //     if youtube
                         //         +view_youtube
-                        .field
-                            .froala-container
-                                +froalaReactive getFEContext
-                        .ui.inverted.segment
-                            .ui.header bounty
-                            h5.ui.header offer bounty for this post
-                            .ui.input
-                                input#bounty_input(type='number' min='0')
-
+                +edit_textarea key='content' label='Content'
             .six.wide.column
                 a.ui.icon.large.fluid.button(href="/view/#{_id}")
                     i.checkmark.icon
@@ -68,6 +46,16 @@ template(name='edit_doc')
                     +toggle_key key='template' value='question' label='question'
                     +toggle_key key='template' value='ad' label='ad'
                     +toggle_key key='template' value='event' label='event'
+                    +toggle_key key='template' value='quiz' label='quiz'
+                    +toggle_key key='template' value='prediction' label='prediction'
+                    +toggle_key key='template' value='offer' label='offer'
+                .ui.divider
+                .ui.inverted.segment
+                    .ui.inverted.header user actions
+                //     +toggle_list_items list='user_actions' value='tag_rating' label='tag rating'
+                //     +toggle_list_items list='user_actions' value='comments' label='comments'
+                //     +toggle_list_items list='user_actions' value='bounty' label='bounty'
+                //     +toggle_list_items list='user_actions' value='ownership' label='ownership'
                 .ui.divider
                 +reference_other_children type='field' key='field_ids'
                 .ui.inverted.segment

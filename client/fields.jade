@@ -188,16 +188,16 @@ template(name='view_vimeo_field')
                         
 template(name='edit_transcript_field')
     .ui.header 
-        +icon48 name="paper" classes='ui mini inline image'
-        |Transcript
+        i.list.icon
+        |transcript
     .froala-container
         +froalaReactive transcript_context
 
 template(name='view_transcript_field')
     .ui.styled.fluid.accordion
         h3.title
-            +icon96 name="paper" classes='ui mini inline image'
-            | Transcript
+            i.list.icon
+            | transcript
             i.dropdown.icon
         .content
             |!{transcript}
@@ -266,12 +266,18 @@ template(name='edit_string_field')
 //             |#{field_doc.title}:
 //             |#{databank_field_template_value}
 
+template(name='edit_number_field')
+    .field
+        label #{label}
+        .ui.left.icon.input
+            if icon
+                i.icon(class=icon)
+            input#number_field(type='number' min='0' value=key_value)
+
     
 template(name='view_array_field')
     if field_value
         .ui.segment
-            +icon48 name=field_doc.icon_class classes='ui inline image'
-                // |#{field_doc.title}
             each field_value
                 .ui.large.label #{this}
     
@@ -279,10 +285,10 @@ template(name='view_array_field')
 template(name='edit_array_field')
     // .ui.segment
     .ui.header
-        +icon48 name=field_doc.icon_class classes='ui inline image'
+        i.tags.icon
         |#{field_doc.title}
         .ui.mini.input
-            input.new_entry(type='text' placeholder='Add...' maxlength='50' )
+            input.new_entry(type='text' placeholder='add item' maxlength='50' )
             // .ui.icon.button
             //     i.right.arrow.icon
         // .ui.mini.input
@@ -309,13 +315,6 @@ template(name='view_html_field')
     
     
 
-// template(name='edit_html_field')
-//     .ui.header
-//         +icon48 name='html' classes='ui mini spaced image'
-//         | Edit HTML
-//     .froala-container
-//         +froalaReactive getFEContext
-    
     
 // template(name='edit_text_field')
 //     .ui.labeled.fluid.input
@@ -326,9 +325,10 @@ template(name='view_html_field')
 
 
 template(name='edit_textarea')
-    .field
-        label #{label}
-        textarea#textarea(rows='3') #{key_value}
+    .ui.form
+        .field
+            label #{label}
+            textarea#textarea(rows='5') #{key_value}
 
 
 template(name='edit_text_field')

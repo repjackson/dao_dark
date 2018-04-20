@@ -1,3 +1,39 @@
 template(name='event_edit')
     .ui.inverted.header edit event
-    +edit_date_field key='start_date' label='start date'
+    .ui.inverted.form
+        +edit_date_field key='start_date' label='start date'
+        +edit_date_field key='end_date' label='end date'
+        +edit_text_field key='location' label='location'
+    
+template(name='event_view')
+    .ui.inverted.header view event
+    .ui.inverted.segment
+        .ui.header start date #{start_date}
+        .ui.header end date #{start_date}
+        .ui.header location #{location}
+    
+    
+    
+template(name='question_edit')
+    .ui.inverted.header edit question
+    +edit_text_field key='question' label='question'
+    
+template(name='question_view')
+    .ui.inverted.header view question
+    h5.ui.inverted.header view question
+    .ui.inverted.segment #{question}
+    .ui.button answer
+    each answers
+        .ui.inverted.segment
+            |#{answer}
+    
+template(name='ad_edit')
+    .ui.inverted.header edit ad
+    +edit_text_field key='title' label='title'
+    +edit_array_field key='tags' label='tags'
+    
+template(name='ad_view')
+    .ui.inverted.header view ad
+    .ui.inverted.header #{title}
+    +view_array_field key='tags' label='tags'
+    

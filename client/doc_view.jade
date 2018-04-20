@@ -1,14 +1,23 @@
 
 template(name='view_doc')        
     with doc
+
         .ui.stackable.grid
             .eleven.wide.column
-                if youtube
-                    +view_youtube
-                if image_url
-                    .ui.image
-                        img(src=image_url)
-            
+                if template
+                    +Template.dynamic template=view_template
+                else
+                    if youtube
+                        +view_youtube
+                    if image_url
+                        .ui.image
+                            img(src=image_url)
+                
+                    +threaded_children
+                    // +doc_matches
+                    if watson
+                        .ui.inverted.segment
+                            +analyzed_watson_keywords
                 .ui.inverted.segment
                     .content
                         if title
@@ -17,12 +26,14 @@ template(name='view_doc')
                             h4.ui.center.aligned.header #{slug}
                         if content
                             .large-text !{content}
-                +threaded_children
-                // +doc_matches
-                if watson
-                    .ui.inverted.segment
-                        +analyzed_watson_keywords
             .five.wide.column
+                .ui.inverted.segment
+                    +author_info
+                    .ui.header #{when}
+                    if is_author
+                        a.ui.icon.button(href="/edit/#{_id}")
+                            i.pencil.icon
+
                 if tags
                     .ui.inverted.segment
                         .ui.header author tags
@@ -34,15 +45,10 @@ template(name='view_doc')
                 .ui.inverted.segment
                     if parent_id
                         +parent_link
-                    .content
-                        // +author_info
-                        if is_author
-                            a.ui.icon.button(href="/edit/#{_id}")
-                                i.pencil.icon
-                    if watson
-                        +doc_emotion
-                    else
-                        +call_watson
+                    // if watson
+                    //     +doc_emotion
+                    // else
+                    //     +call_watson
                     +add_child_button
                     if currentUser
                         div

@@ -1,5 +1,5 @@
 head
-    title facet
+    title dao
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='apple-mobile-web-app-status-bar-style', content='white')
@@ -11,6 +11,7 @@ template(name='layout')
     +nav
     +Template.dynamic template=main
     // +dev_footer
+    +footer
 
 
 template(name='staus_indicator')
@@ -23,3 +24,15 @@ template(name='staus_indicator')
         .ui.label(class='{{labelClass}}') Idle
         // else 
         //     |Offline
+
+
+template(name='footer')
+    .ui.inverted.segment
+        .ui.header Site Map
+        .ui.list
+            a.item(href='/store') store
+            a.item(href='/mail') mail
+            a.item(href='/people') people
+            a.item(href='/about') about
+            
+                

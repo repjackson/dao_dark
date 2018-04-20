@@ -32,7 +32,7 @@
   "galaxy.meteor.com": {
     "env": {
       "MONGO_URL": "mongodb://thewayadmin:turnfearagainstthose@aws-us-east-1-portal.21.dblayer.com:10444/thewaydb?ssl=true",
-      "ROOT_URL": "https://www.theway.world"
+      "ROOT_URL": "https://www.dao.af"
     }
   }
 }
