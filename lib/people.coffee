@@ -30,7 +30,7 @@ if Meteor.isClient
             if @valueOf() in selected_people_tags.array() then selected_people_tags.remove @valueOf() else selected_people_tags.push @valueOf()
     
     Template.person.helpers
-        ten_tags: -> if @tags then @tags[..6]
+        ten_tags: -> if @tags then @tags[.6]
     
         person_tag_class: -> if @valueOf() in selected_people_tags.array() then 'teal' else 'basic'
     

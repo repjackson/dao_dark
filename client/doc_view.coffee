@@ -4,14 +4,14 @@ FlowRouter.route '/view/:doc_id',
     action: (params) ->
         # if selected_theme_tags
         #     selected_theme_tags.clear()
-        BlazeLayout.reset()        
+        # BlazeLayout.reset()        
         BlazeLayout.render 'layout',
             # nav: 'nav'
-            main: 'view_doc'
+            main: 'doc_view'
 
 
     
-Template.view_doc.onRendered ->
+Template.doc_view.onRendered ->
     @autorun =>
         if @subscriptionsReady()
             doc = Docs.findOne FlowRouter.getParam('doc_id')
@@ -27,7 +27,7 @@ Template.view_doc.onRendered ->
 
 
 
-Template.view_doc.helpers
+Template.doc_view.helpers
     doc: -> Docs.findOne FlowRouter.getParam('doc_id')
     view_template: -> "#{@template}_view"
     # is_site: ->
@@ -35,7 +35,7 @@ Template.view_doc.helpers
     #     if doc.type is 'site' then true else false
         
         
-Template.view_doc.onCreated ->
+Template.doc_view.onCreated ->
     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
     @autorun -> Meteor.subscribe 'parent_doc', FlowRouter.getParam('doc_id')
     # @autorun -> Meteor.subscribe 'delta', FlowRouter.getParam('doc_id')
@@ -45,7 +45,7 @@ Template.view_doc.onCreated ->
     # @autorun => Meteor.subscribe 'facet', 
 
 
-# Template.view_doc.helpers
+# Template.doc_view.helpers
 #     doc: -> Docs.findOne FlowRouter.getParam('doc_id')
 
 

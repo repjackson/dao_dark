@@ -8,10 +8,10 @@ head
 
 
 template(name='layout')
-    +nav
-    +Template.dynamic template=main
-    // +dev_footer
-    +footer
+    .inverted
+        +nav
+        +Template.dynamic template=main
+        // +dev_footer
 
 
 template(name='staus_indicator')
@@ -25,14 +25,3 @@ template(name='staus_indicator')
         // else 
         //     |Offline
 
-
-template(name='footer')
-    .ui.inverted.segment
-        .ui.header Site Map
-        .ui.list
-            a.item(href='/store') store
-            a.item(href='/mail') mail
-            a.item(href='/people') people
-            a.item(href='/about') about
-            
-                

@@ -23,10 +23,17 @@
       "username": "1d2b3ee0-5e06-44a8-b1ab-e8a535132f9d",
       "password": "5EKhvmppcFN2"
     },
+    "visual": {
+      "url": "https://gateway-a.watsonplatform.net/visual-recognition/api",
+      "api_key": "b466adf0ebf44847e4a605406d43dfd57cf047a8"
+    },
     "personality": {
       "url": "https://gateway.watsonplatform.net/personality-insights/api",
       "username": "a80ae329-2664-438a-84b4-55d6866947a0",
       "password": "bMI0PgCgyP3k"
+    },
+    "google": {
+      "places": "AIzaSyDjxr1W7FhbxSIlmZKJ9x3tisiG7pmUxt4"
     }
   },
   "galaxy.meteor.com": {

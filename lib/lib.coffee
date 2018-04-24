@@ -11,7 +11,7 @@ Meteor.users.helpers
     last_login: -> 
         moment(@status?.lastLogin.date).fromNow()
 
-    five_tags: -> if @tags then @tags[0..3]
+    five_tags: -> if @tags then @tags[0.3]
     
             
 Docs.before.insert (userId, doc)=>
@@ -86,11 +86,11 @@ Docs.helpers
 
     parent: -> Docs.findOne @parent_id
 
-    five_tx: -> if @tx then @tx[0..4]
-    five_inputs: -> if @inputs then @inputs[0..4]
-    five_out: -> if @out then @out[0..4]
+    five_tx: -> if @tx then @tx[0.4]
+    five_inputs: -> if @inputs then @inputs[0.4]
+    five_out: -> if @out then @out[0.4]
 
-    five_tags: -> if @tags then @tags[0..4]
+    five_tags: -> if @tags then @tags[0.4]
 
     has_ownership: -> 
         # console.log 'checking if has ownership'

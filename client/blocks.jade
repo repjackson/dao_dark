@@ -1,16 +1,16 @@
 template(name='blocks')
-    h1.ui.inverted.header bitcoin blockchain
+    h1.ui.header bitcoin blockchain
     +latest_block
     +block_browser
 
 template(name='block_browser')
-    h2.ui.inverted.header block browser
+    h2.ui.header block browser
     .ui.cards
         each blocks
             +block_card
     
 template(name='latest_block')
-    h2.ui.inverted.header latest block
+    h2.ui.header latest block
     #fetch_latest_block.ui.button fetch latest
     with latest_block
         +block_card
@@ -39,7 +39,7 @@ template(name='block_page')
                         i.up.arrow.icon
                         |bitcoin blocks
                 .centered.row
-                    .ui.inverted.center.aligned.header view block ##{height}
+                    .ui.center.aligned.header view block ##{height}
                 .row
                     .fifteen.wide.column
                         .ui.segment
@@ -60,7 +60,7 @@ template(name='block_page')
                                         i.chevron.left.icon
                                         |prev block #{prev_block}
                             #refresh_block.ui.button refresh data
-                        .ui.center.aligned.inverted.header transactions 
+                        .ui.center.aligned.header transactions 
                         .ui.segments
                             each five_tx
                                 .ui.segment

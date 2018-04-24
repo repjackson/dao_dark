@@ -172,7 +172,7 @@ template(name='view_vimeo_field')
 //             with author
 //                 img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
 //                 |#{username}
-//         +inputAutocomplete settings=author_edit_settings id="author_select" class="" autocomplete="off" placeholder='Lookup...'
+//         +inputAutocomplete settings=author_edit_settings id="author_select" class="" autocomplete="off" placeholder='Lookup..'
                     
                     
 // template(name='edit_recipient')
@@ -182,7 +182,7 @@ template(name='view_vimeo_field')
 //             with recipient
 //                 img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
 //                 |#{username}
-//         +inputAutocomplete settings=recipient_select_settings id="recipient_select" class="" autocomplete="off" placeholder='Lookup...'
+//         +inputAutocomplete settings=recipient_select_settings id="recipient_select" class="" autocomplete="off" placeholder='Lookup..'
                     
                         
                         
@@ -231,14 +231,14 @@ template(name='view_transcript_field')
 //     //     .ui.header field_doc title: #{field_doc.title}
 //     //     .ui.header field_doc field type: #{field_doc.field_template}
 //     //     .ui.header field_doc slug: #{field_doc.slug}
-//     +Template.dynamic template=view_field_template data=..
+//     +Template.dynamic template=view_field_template data=.
 
 // template(name='field_edit_template')
 //     // .ui.secondary.segment
 //     //     .ui.header field_doc title: #{field_doc.title}
 //     //     .ui.header field_doc field type: #{field_doc.field_template}
 //     //     .ui.header field_doc slug: #{field_doc.slug}
-//     +Template.dynamic template=edit_field_template data=..
+//     +Template.dynamic template=edit_field_template data=.
 
 
 template(name='view_text_field')
@@ -321,14 +321,14 @@ template(name='view_html_field')
 //         .ui.label #{key}
 //         input#value(type='text' value=page_field_value)
 
-    // +toggle_key key='completion_type' value='response' icon='response' label='Response'
+//     +toggle_key key='completion_type' value='response' icon='response' label='Response'
 
 
 template(name='edit_textarea')
     .ui.form
         .field
             label #{label}
-            textarea#textarea(rows='5') #{key_value}
+            textarea#textarea(rows='') #{key_value}
 
 
 template(name='edit_text_field')

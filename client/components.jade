@@ -55,7 +55,7 @@ template(name='doc_match')
 
 
 template(name='response_list')
-    .ui.dividing.inverted.header 
+    .ui.dividing.header 
         |#{child_count} replies
     .ui.segments
         each responses
@@ -91,7 +91,7 @@ template(name='upvoted_list')
 
 
 template(name='author_info')
-    .ui.inverted.header
+    .ui.header
         if is_anonymous
             |by anon
         else
@@ -120,7 +120,7 @@ template(name='toggle_friend')
 
 
 template(name='dev_footer')
-    .ui.inverted.segment
+    .ui.segment
         .ui.horizontal.dividing.header 
             |DEV
             // .ui.horizontal.list
@@ -173,7 +173,7 @@ template(name='edit_button')
                 
 template(name='parent_doc_segment')
     if parent
-        .ui.inverted.segment
+        .ui.segment
             .ui.header parent:
             // +view_full_button
             with parent
@@ -186,7 +186,7 @@ template(name='parent_doc_segment')
                 
                 
 template(name='reference_other_children')
-    .ui.inverted.segment
+    .ui.segment
         .ui.header choose fields
         // .ui.header 
             // |Selected children from 
@@ -249,10 +249,10 @@ template(name='add_child_button')
         
         
 template(name='ownership')
-    .ui.inverted.segment
+    .ui.segment
         .ui.fluid.accordion
             .title
-                .ui.inverted.header 
+                .ui.header 
                     | ownership
                     i.dropdown.icon
             .content
@@ -269,7 +269,7 @@ template(name='ownership')
                 
                 
 template(name='crowd_tags')
-    .ui.inverted.segment
+    .ui.segment
         .ui.header crowd tags
         if my_review_tags
             each my_review_tags
@@ -311,7 +311,7 @@ template(name='view_youtube')
 
 
 template(name='bounty')
-    .ui.inverted.segment
+    .ui.segment
         .ui.header bounty
         h5.ui.header offer bounty for this post
         .ui.input

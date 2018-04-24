@@ -8,9 +8,14 @@
  .user_tag, .doc_tag {
 	 margin: 0.1em !important;
 }
+/*.inverted {*/
+/*	filter: invert(100%);*/
+/*}*/
+
  body {
-	 background: #000 !important;
-	 line-height: 2em;
+	 /*background: #000 !important;*/
+	/*filter: invert(100%);*/
+	/*line-height: 2em;*/
 }
  .large-text {
 	 font-size: 130% !important;

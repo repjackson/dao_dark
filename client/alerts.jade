@@ -1,13 +1,13 @@
 template(name='alerts')
     .ui.stackable.centered.padded.grid
         .four.wide.column
-            .ui.vertical.inverted.menu
+            .ui.vertical.menu
                 a.item(href="/mail/inbox") 
                     |inbox
                     i.inbox.icon
         .twelve.wide.column
-            .ui.inverted.header facet: an ai-driven crossplatform interdimensional token cryptocurrency cafe latte full stack decentralized exchange marketplace social network 
-            .ui.inverted.header build worlds 
+            .ui.header facet: an ai-driven crossplatform interdimensional token cryptocurrency cafe latte full stack decentralized exchange marketplace social network 
+            .ui.header build worlds 
             if alerts
                 each alerts
                     +alerts

@@ -1,11 +1,11 @@
 template(name='nav')
-    .ui.inverted.borderless.icon.big.menu
+    .ui.borderless.icon.big.menu
         a.header.icon.item(href='/' class="{{isActiveRoute 'home'}}")
             i.home.icon
             // |facet
         // .item
         //     |facking everything
-        // .ui.icon.inverted.transparent.input
+        // .ui.icon.transparent.input
         //     i.search.icon
         //     input#query(type='text')
         a.icon.item(href='/blocks' class="{{isActiveRoute 'blocks'}}")
@@ -13,7 +13,7 @@ template(name='nav')
         a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
             i.users.icon
         if currentUser
-            .ui.icon.small.transparent.inverted.input
+            .ui.icon.small.transparent.input
                 // i.plus.icon
                 input#quick_add(type='text' placeholder='quick add tags')
                 i.lightning.icon

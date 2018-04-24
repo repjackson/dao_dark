@@ -19,6 +19,7 @@ Template.registerHelper 'page_field_value', ->
         
 Template.registerHelper 'has_role', (role)-> Meteor.user().roles and role in Meteor.user().roles   
 
+Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
 

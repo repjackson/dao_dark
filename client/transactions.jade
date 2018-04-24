@@ -4,7 +4,7 @@ template(name='transactions')
         +transaction_browser
 
 template(name='transaction_browser')
-    h2.ui.inverted.header transaction browser
+    h2.ui.header transaction browser
     .ui.cards
         each transactions
             +transaction_card
@@ -31,7 +31,7 @@ template(name='transaction_page')
                 i.up.arrow.icon
                 |bitcoin transactions
         .centered.row
-            .ui.inverted.center.aligned.header view transaction ##{height}
+            .ui.center.aligned.header view transaction ##{height}
         .row
             .fifteen.wide.column
                 .ui.segment
@@ -50,8 +50,8 @@ template(name='transaction_page')
                                     i.chevron.left.icon
                                     |prev transaction #{prev_transaction}
                     #refresh_transaction.ui.button refresh data
-                .ui.center.aligned.inverted.header transactions 
-                .ui.inverted.header inputs            
+                .ui.center.aligned.header transactions 
+                .ui.header inputs            
                 .ui.segments
                     each transaction.five_inputs
                         .ui.segment
@@ -62,7 +62,7 @@ template(name='transaction_page')
                                 .item prev out value: #{prev_out.value}
                                 .item prev out n: #{prev_out.n}
                                 .item script: #{script}
-                .ui.inverted.header out            
+                .ui.header out            
                 .ui.segments
                     each transaction.five_out
                         .ui.segment

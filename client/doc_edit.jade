@@ -1,6 +1,6 @@
 template(name='doc_edit')
     with doc
-        .ui.inverted.center.aligned.header edit doc
+        .ui.center.aligned.header edit doc
         .ui.stackable.padded.grid
             .ten.wide.column
                 if template
@@ -8,7 +8,6 @@ template(name='doc_edit')
                 else
                     // if parent_id
                     +parent_doc_segment
-                    .ui.header hi
                     each field_ids
                         +edit_field template=field_doc.field_template key=field_doc.slug
                     .content
@@ -32,7 +31,8 @@ template(name='doc_edit')
                         //                 i.remove.icon
                         //     if youtube
                         //         +view_youtube
-                +edit_textarea key='content' label='Content'
+                // +edit_textarea key='content' label='Content'
+                +edit_html_field key='html' label='html'
             .six.wide.column
                 a.ui.icon.large.fluid.button(href="/view/#{_id}")
                     i.checkmark.icon
@@ -40,8 +40,8 @@ template(name='doc_edit')
                 #delete.ui.icon.button
                     i.remove.icon
                 .ui.divider
-                .ui.inverted.segment
-                    .ui.inverted.header template
+                .ui.segment
+                    .ui.header template
                     +toggle_key key='template' value=null label='none'
                     +toggle_key key='template' value='question' label='question'
                     +toggle_key key='template' value='ad' label='ad'
@@ -50,21 +50,21 @@ template(name='doc_edit')
                     +toggle_key key='template' value='prediction' label='prediction'
                     +toggle_key key='template' value='offer' label='offer'
                 .ui.divider
-                .ui.inverted.segment
-                    .ui.inverted.header user actions
+                .ui.segment
+                    .ui.header user actions
                 //     +toggle_list_items list='user_actions' value='tag_rating' label='tag rating'
                 //     +toggle_list_items list='user_actions' value='comments' label='comments'
                 //     +toggle_list_items list='user_actions' value='bounty' label='bounty'
                 //     +toggle_list_items list='user_actions' value='ownership' label='ownership'
                 .ui.divider
                 +reference_other_children type='field' key='field_ids'
-                .ui.inverted.segment
-                    .ui.inverted.header components
+                .ui.segment
+                    .ui.header components
                     +reference_other_children type='component' key='component_ids'
-                .ui.inverted.segment
-                    .ui.inverted.header permissions
-                .ui.inverted.segment
-                    .ui.inverted.header access
+                .ui.segment
+                    .ui.header permissions
+                .ui.segment
+                    .ui.header access
                     +toggle_key key='access' value='public' label='public'
                     +toggle_key key='access' value='private' label='private'
                     +toggle_key key='access' value='payment_required' label='payment_required'

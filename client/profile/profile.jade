@@ -4,11 +4,11 @@ template(name='user_layout')
         .four.wide.column
             with person
                 img.ui.small.centered.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                .ui.center.aligned.inverted.header
+                .ui.center.aligned.header
                     |#{name}
                     // unless is_user
                     // +staus_indicator
-                .ui.inverted.vertical.menu
+                .ui.vertical.menu
                     a.item(href="/user/#{username}/dashboard/" class="{{isActiveRoute 'user_dashboard'}}")
                         i.dashboard.icon
                         |dashboard
@@ -40,7 +40,7 @@ template(name='user_layout')
                         i.money.icon
                         |transactions
                 if is_user
-                    .ui.inverted.vertical.menu
+                    .ui.vertical.menu
                         a.item(href="/profile/edit/#{_id}" class="{{isActiveRoute 'edit_profile'}}") 
                             i.edit.icon
                             |edit profile
@@ -55,9 +55,9 @@ template(name='user_layout')
 
 
 template(name='user_info')
-    // h1.ui.center.aligned.inverted.header about #{person.name}
+    // h1.ui.center.aligned.header about #{person.name}
     with person
-        .ui.inverted.segment
+        .ui.segment
             if tags
                 each tags
                     .user_tag.ui.label #{this}
@@ -99,27 +99,27 @@ template(name='user_info')
 
 
 template(name='user_karma')
-    h1.ui.center.aligned.inverted.header #{person.name} karma
-    .ui.stackable.inverted.grid
+    h1.ui.center.aligned.header #{person.name} karma
+    .ui.stackable.grid
         .four.wide.column
             .ui.segment tag cloud
         .twelve.wide.column
             .ui.segment top posts
 
 template(name='user_achievements')
-    h1.ui.center.aligned.inverted.header 
+    h1.ui.center.aligned.header 
         i.trophy.icon
         |#{person.name} achievements
     if achievements
         each achievements
             .ui.header hi
     else
-        .ui.inverted.header no achievements
+        .ui.header no achievements
 
 
 template(name='user_contact')
-    h1.ui.center.aligned.inverted.header contact #{person.name}
-    .ui.inverted.form
+    h1.ui.center.aligned.header contact #{person.name}
+    .ui.form
         .field
             label message
             textarea#message_area(rows='5')
@@ -180,7 +180,7 @@ template(name='view_account')
             
             
 template(name='user_conversations')
-    .ui.horizontal.divider.inverted.header 
+    .ui.horizontal.divider.header 
         i.comments.icon
         |public conversations with #{user.name}
     each public_conversations_with_user
@@ -192,7 +192,7 @@ template(name='user_conversations')
             
             
 template(name='wall')
-    .ui.inverted.segment
+    .ui.segment
         .ui.form
             .field
                 |add

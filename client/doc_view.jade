@@ -1,33 +1,39 @@
-
-template(name='view_doc')        
+template(name='doc_view')        
     with doc
-
         .ui.stackable.grid
-            .eleven.wide.column
-                if template
-                    +Template.dynamic template=view_template
-                else
-                    if youtube
-                        +view_youtube
-                    if image_url
-                        .ui.image
-                            img(src=image_url)
+            .four.wide.column
+                +call_watson
+                +entities
+                +concepts
+                +personality
+                +consumption_preferences
+            .eight.wide.column
+                +semantic_roles
+                +relations
+                // if template
+                //     +Template.dynamic template=view_template
+                // else
+                //     if youtube
+                //         +view_youtube
+                //     if image_url
+                //         .ui.image
+                //             img(src=image_url)
                 
-                    +threaded_children
+                //     +threaded_children
                     // +doc_matches
-                    if watson
-                        .ui.inverted.segment
-                            +analyzed_watson_keywords
-                .ui.inverted.segment
-                    .content
-                        if title
-                            h1.ui.center.aligned.header #{title}
-                        if slug
-                            h4.ui.center.aligned.header #{slug}
-                        if content
-                            .large-text !{content}
-            .five.wide.column
-                .ui.inverted.segment
+                +keywords
+                .ui.segment
+                    .large130 !{html}
+                // .ui.segment
+                //     .content
+                //         if title
+                //             h1.ui.center.aligned.header #{title}
+                //         if slug
+                //             h4.ui.center.aligned.header #{slug}
+                //         if content
+                //             .large-text !{content}
+            .four.wide.column
+                .ui.segment
                     +author_info
                     .ui.header #{when}
                     if is_author
@@ -35,14 +41,14 @@ template(name='view_doc')
                             i.pencil.icon
 
                 if tags
-                    .ui.inverted.segment
+                    .ui.segment
                         .ui.header author tags
                         each tags 
                             .doc_tag.ui.small.compact.button(class=tag_class) #{this}
                 if template
-                    .ui.inverted.segment
+                    .ui.segment
                         .ui.header template: #{template}
-                .ui.inverted.segment
+                .ui.segment
                     if parent_id
                         +parent_link
                     // if watson

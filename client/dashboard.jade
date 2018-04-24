@@ -1,7 +1,7 @@
 template(name='user_dashboard')
     // h1.ui.header less is more, make em money, enlighten
     h1.ui.header welcome to thunderdome
-    .ui.inverted.segment
+    .ui.segment
         .ui.two.column.stackable.grid
             .column
                 +top_people
@@ -13,7 +13,7 @@ template(name='user_dashboard')
             +communication
 
 template(name='top_posts')
-    .ui.inverted.grey.segment
+    .ui.grey.segment
         .ui.header top posts
         .ui.segments
             each top_posts
@@ -29,7 +29,7 @@ template(name='top_posts')
 
     
 template(name='top_people')
-    .ui.inverted.grey.segment
+    .ui.grey.segment
         .ui.header top people
         .ui.segments
             each top_users
@@ -46,12 +46,12 @@ template(name='top_people')
 
     
 template(name='karma')
-    .ui.inverted.grey.segment
+    .ui.grey.segment
         .ui.header karma
         .ui.header your points: #{currentUser.points}
         #add_points.ui.button
             |add point
     
 template(name='communication')
-    .ui.inverted.grey.segment
+    .ui.grey.segment
         .ui.header communication

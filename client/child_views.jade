@@ -1,14 +1,14 @@
 template(name='threaded_children')
-    // .ui.inverted.header child documents
+    // .ui.header child documents
     each children
         +threaded_child
             
             
 template(name='threaded_child')
-    .ui.inverted.segment
+    .ui.segment
         .ui.fluid.accordion
             .active.title
-                .ui.inverted.header 
+                .ui.header 
                     // +icon48 name='dna-helix' classes='ui mini spaced image'
                     |children
                     i.dropdown.icon
@@ -58,16 +58,16 @@ template(name='doc_card')
             if image_url
                 .ui.image
                     img(src=image_url)
-            .ui.inverted.segment
+            .ui.segment
                 if content
-                    .ui.basic.inverted.segment
+                    .ui.basic.segment
                         .large-text !{content}
                 if parent_id
                     +parent_doc_segment
                 each tags 
                     .doc_tag.ui.small.compact.button(class=tag_class) #{this}
         .ui.four.wide.column
-            .ui.inverted.segment
+            .ui.segment
                 div 
                     +author_info
                 div 

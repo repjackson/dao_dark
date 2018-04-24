@@ -543,26 +543,31 @@ Template.edit_field.helpers
 Template.edit_html_field.events
     'blur .froala-container': (e,t)->
         html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
-        # console.log 'html', html
-        if @type is 'direct'
-            context_doc = Template.parentData(1)
-        else
-            context_doc = Template.parentData(3)
+        console.log 'html', html
+        # if @type is 'direct'
+        #     context_doc = Template.parentData(1)
+        # else
+        #     context_doc = Template.parentData(3)
 
-        Docs.update context_doc._id,
-            $set: "#{@key}": html
+        # Docs.update context_doc._id,
+        #     $set: "#{@key}": html
+                
+        Docs.update FlowRouter.getParam('doc_id'),
+            $set: html: html
+                
                 
 
 Template.edit_html_field.helpers
     getFEContext: ->
         console.log @
-        console.log Template.parentData(1)
+        doc = Template.parentData(1)
         context_doc = Template.parentData(3)
         # @current_doc = Docs.findOne FlowRouter.getParam 'doc_id'
         # @current_doc = Docs.findOne @_id
         self = @
         {
-            _value: context_doc["#{@key}"]
+            # _value: context_doc["#{@key}"]
+            _value: doc.html
             _keepMarkers: true
             _className: 'froala-reactive-meteorized-override'
             toolbarInline: false
