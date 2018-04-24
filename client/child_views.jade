@@ -59,13 +59,13 @@ template(name='doc_card')
                 .ui.image
                     img(src=image_url)
             .ui.segment
-                if content
+                if html
                     .ui.basic.segment
-                        .large-text !{content}
+                        .large-text !{html}
                 if parent_id
                     +parent_doc_segment
                 each tags 
-                    .doc_tag.ui.small.compact.button(class=tag_class) #{this}
+                    .doc_tag.ui.button(class=tag_class) #{this}
         .ui.four.wide.column
             .ui.segment
                 div 

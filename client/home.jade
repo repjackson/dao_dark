@@ -1,21 +1,20 @@
 
 
 template(name='tags')
-    .ui.center.aligned.basic.segment
-        // .ui.left.icon.small.inline.input
-        //     i.search.icon
-        //     input#search(type='text')    
-        // |&nbsp;  
-        if selected_tags
-            #clear_tags.ui.icon.large.active.button
-                i.remove.icon
-            each selected_tags
-                .unselect_tag.ui.large.active.button
-                    strong #{this}
-        each tags
-            .ui.compact.button.select_tag(class=tag_class)
-                strong #{this.name}
-            // .ui.compact.button.select_tag
+    // .ui.left.icon.small.inline.input
+    //     i.search.icon
+    //     input#search(type='text')    
+    // |&nbsp;  
+    if selected_tags
+        #clear_tags.ui.icon.large.active.button
+            i.remove.icon
+        each selected_tags
+            .unselect_tag.ui.large.active.button
+                strong #{this}
+    each tags
+        .ui.compact.button.select_tag(class=tag_class)
+            strong #{this.name}
+        // .ui.compact.button.select_tag
 
 
 
@@ -24,7 +23,7 @@ template(name='library')
     .ui.stackable.centered.grid
         // .ui.four.wide.column
         .center.aligned.row
-            .ui.fifteen.wide.column
+            .ui.sixteen.wide.column
                 +tags
         .row
             .ui.sixteen.wide.column
@@ -32,6 +31,6 @@ template(name='library')
                 // .ui.header build worlds 
                 each docs
                     // if one_doc
-                    +doc_card
+                    +doc_view
         
         

@@ -7,9 +7,9 @@ FlowRouter.route '/conversations',
 
 
 Meteor.methods
-    # add_product: (subject_id, predicate, object_id) ->
+    # add_conversation: (subject_id, predicate, object_id) ->
     #     new_id = Docs.insert
-    #         type: 'product'
+    #         type: 'conversation'
     #         subject_id: subject_id
     #         predicate: predicate
     #         object_id: object_id
@@ -26,7 +26,7 @@ if Meteor.isClient
         #         selected_location_tags.array()
         #         selected_intention_tags.array()
         #         selected_timestamp_tags.array()
-        #         type = 'product'
+        #         type = 'conversation'
         #         author_id = null
         #         parent_id = null
         #         tag_limit = 20
@@ -42,52 +42,52 @@ if Meteor.isClient
         #         )
 
     Template.conversations.helpers
-        products: -> 
+        conversations: -> 
             Docs.find {
-                type: 'product'
+                type: 'conversation'
                 }, 
                 sort: timestamp: -1
         
         
-        # products_allowed: ->
-        #     # console.log product.permission
-        #     if product.permission is 'denied' or 'default' 
-        #         # console.log 'products are denied'
+        # conversations_allowed: ->
+        #     # console.log conversation.permission
+        #     if conversation.permission is 'denied' or 'default' 
+        #         # console.log 'conversations are denied'
         #         # return false
-        #     if product.permission is 'granted'
+        #     if conversation.permission is 'granted'
         #         # console.log 'yes granted'
         #         # return true
             
             
     Template.conversations.events
-        # 'click #allow_products': ->
-        #     product.requestPermission()
+        # 'click #allow_conversations': ->
+        #     conversation.requestPermission()
         
         # 'click #mark_all_read': ->
-        #     if confirm 'Mark all products read?'
+        #     if confirm 'Mark all conversations read?'
         #         Docs.update {},
         #             $addToSet: read_by: Meteor.userId()
                     
-    Template.product.helpers
-        product_segment_class: -> if Meteor.userId() in @read_by then 'basic' else ''
+    Template.conversation.helpers
+        conversation_segment_class: -> if Meteor.userId() in @read_by then 'basic' else ''
         
         subject_name: -> if @subject_id is Meteor.userId() then 'You' else @subject().name()
         object_name: -> if @object_id is Meteor.userId() then 'you' else @object().name()
 
-    Template.product.events
+    Template.conversation.events
     
 
 if Meteor.isServer
-    publishComposite 'received_products', ->
+    publishComposite 'received_conversations', ->
         {
             find: ->
                 Docs.find
-                    type: 'product'
+                    type: 'conversation'
                     recipient_id: Meteor.userId()
             children: [
-                { find: (product) ->
+                { find: (conversation) ->
                     Meteor.users.find 
-                        _id: product.author_id
+                        _id: conversation.author_id
                     }
                 ]    
         }
@@ -109,28 +109,28 @@ if Meteor.isServer
         }
         
         
-    publishComposite 'unread_products', ->
+    publishComposite 'unread_conversations', ->
         {
             find: ->
                 Docs.find
-                    type: 'product'
+                    type: 'conversation'
                     recipient_id: Meteor.userId()
                     read: false
             children: [
-                { find: (product) ->
+                { find: (conversation) ->
                     Meteor.users.find 
-                        _id: product.author_id
+                        _id: conversation.author_id
                     }
                 ]    
         }
         
         
-    Meteor.publish 'product_subjects', (selected_subjects)->
+    Meteor.publish 'conversation_subjects', (selected_subjects)->
         self = @
         match = {}
         
         if selected_tags.length > 0 then match.tags = $all: selected_tags
-        match.type = 'product'
+        match.type = 'conversation'
 
         cloud = Docs.aggregate [
             { $match: match }
@@ -142,10 +142,10 @@ if Meteor.isServer
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
         # console.log 'cloud, ', cloud
-        cloud.forEach (product_subject, i) ->
-            self.added 'product_subjects', Random.id(),
-                name: product_subject.name
-                count: product_subject.count
+        cloud.forEach (conversation_subject, i) ->
+            self.added 'conversation_subjects', Random.id(),
+                name: conversation_subject.name
+                count: conversation_subject.count
                 index: i
     
         self.ready()

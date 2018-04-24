@@ -1,15 +1,15 @@
 template(name='doc_sentiment') 
     // .ui.dividing.header 
     //     |sentiment
-    .ui.small.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
-        .bar
-        .progress
-        .label
-            |{{ to_percent doc_sentiment_score }}%
-            if is_positive
-                | positive
-            else
-                | negative
+    // .ui.small.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
+    //     .bar
+    //     .progress
+    //     .label
+    |{{ to_percent doc_sentiment_score }}% &nbsp;
+    if is_positive
+        | positive
+    else
+        | negative
 
         // |#{doc_sentiment_label}
         // |#{sentiment_score_percent}
@@ -65,23 +65,25 @@ template(name='keywords')
 
 
 template(name='entities')
-    .ui.segment
-        .ui.header 
-            |#{watson.entities.length} entities
-        .ui.list
-            each watson.entities
-                .item
-                    |#{type}: #{text}
+    if watson.entities.length
+        .ui.segment
+            .ui.header 
+                |#{watson.entities.length} entities
+            .ui.list
+                each watson.entities
+                    .item
+                        |#{type}: #{text}
 
 template(name='concepts')
-    .ui.segment
-        .ui.header 
-            |#{watson.concepts.length} concepts
-        .ui.list
-        each watson.concepts
-            .item
-                a(href=dbpedia_resource target='_blank') #{text}
-                | {{to_percent relevance}}%
+    if watson.concepts.length
+        .ui.segment
+            .ui.header 
+                |#{watson.concepts.length} concepts
+            .ui.list
+            each watson.concepts
+                .item
+                    a(href=dbpedia_resource target='_blank') #{text}
+                    | {{to_percent relevance}}%
 
 
 
@@ -104,6 +106,11 @@ template(name='semantic_roles')
         .content
             +jsonView(json=watson.semantic_roles)
             .ui.list
+                .item subject: #{subject.text}
+                .item sentence: #{sentence}
+                .item object: #{object.text}
+                .item action:
+                
                 each watson.semantic_roles
                     .item
                         strong #{label}
@@ -115,12 +122,22 @@ template(name='relations')
         .title
             |#{watson.relations.length} relations
         .content    
-            +jsonView(json=watson.relations)
-            .ui.list
+            // +jsonView(json=watson.relations)
+            .ui.segments
                 each watson.relations
-                    .item
-                        strong #{label}
-                        |{{ to_percent score }}%
+                    .ui.segment
+                        p #{sentence}
+                        .ui.list
+                            .item type #{type}
+                            .item score: {{ to_percent score }}%
+                            .item
+                                each arguments
+                                    h4 argument text: #{text}
+                                    // h5 argument location: #{location}
+                                    each entities
+                                        h5 entity type: #{type}
+                                        h5 entity text: #{text}
+
 
 template(name='personality')
     if personality
@@ -180,11 +197,11 @@ template(name='consumption_preferences')
 
 template(name='tone')
     .ui.styled.accordion
-        .title 
+        .active.title 
             h3
                 | tone
                 i.dropdown.icon
-        .content
+        .active.content
             .ui.bulleted.list
                 each tone.document_tone.tones
                     .item #{tone_id} {{ to_percent score }}%

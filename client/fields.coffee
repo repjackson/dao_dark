@@ -543,7 +543,7 @@ Template.edit_field.helpers
 Template.edit_html_field.events
     'blur .froala-container': (e,t)->
         html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
-        console.log 'html', html
+        # console.log 'html', html
         # if @type is 'direct'
         #     context_doc = Template.parentData(1)
         # else
@@ -559,7 +559,7 @@ Template.edit_html_field.events
 
 Template.edit_html_field.helpers
     getFEContext: ->
-        console.log @
+        # console.log @
         doc = Template.parentData(1)
         context_doc = Template.parentData(3)
         # @current_doc = Docs.findOne FlowRouter.getParam 'doc_id'

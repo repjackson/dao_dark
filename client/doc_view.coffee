@@ -28,7 +28,9 @@ Template.doc_view.onRendered ->
 
 
 Template.doc_view.helpers
-    doc: -> Docs.findOne FlowRouter.getParam('doc_id')
+    doc: -> 
+        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        if doc then doc else @
     view_template: -> "#{@template}_view"
     # is_site: ->
     #     doc = Docs.findOne FlowRouter.getParam('doc_id')

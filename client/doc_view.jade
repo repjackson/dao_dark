@@ -3,27 +3,28 @@ template(name='doc_view')
         .ui.stackable.grid
             .four.wide.column
                 +call_watson
+                +doc_emotion
+                +doc_sentiment
+                +tone
                 +entities
                 +concepts
-                +personality
-                +consumption_preferences
             .eight.wide.column
+                if youtube
+                    +view_youtube
+                if image_url
+                    .ui.image
+                        img(src=image_url)
+                .ui.segment
+                    .large130 !{html}
                 +semantic_roles
                 +relations
                 // if template
                 //     +Template.dynamic template=view_template
                 // else
-                //     if youtube
-                //         +view_youtube
-                //     if image_url
-                //         .ui.image
-                //             img(src=image_url)
                 
                 //     +threaded_children
                     // +doc_matches
                 +keywords
-                .ui.segment
-                    .large130 !{html}
                 // .ui.segment
                 //     .content
                 //         if title
@@ -32,10 +33,14 @@ template(name='doc_view')
                 //             h4.ui.center.aligned.header #{slug}
                 //         if content
                 //             .large-text !{content}
+                // +comments
+                // +doc_matches
             .four.wide.column
+                +personality
+                +consumption_preferences
                 .ui.segment
                     +author_info
-                    .ui.header #{when}
+                    | #{when}
                     if is_author
                         a.ui.icon.button(href="/edit/#{_id}")
                             i.pencil.icon
@@ -60,8 +65,8 @@ template(name='doc_view')
                         div
                             +vote_button
                     +upvoted_list
-                +crowd_tags
-                +ownership
+                // +crowd_tags
+                // +ownership
             
             
             
