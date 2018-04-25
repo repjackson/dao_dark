@@ -230,6 +230,13 @@ Template.parent_doc_segment.onCreated ->
 #     'click #toggle_off_editing': -> Session.set 'editing', false
     
     
+Template.add_doc_button.events
+    'click #add_doc': ->
+        new_id = Docs.insert {}
+        FlowRouter.go "/edit/#{new_id}"
+
+    
+    
                 
             
 # Template.edit_child_fields.onCreated ->

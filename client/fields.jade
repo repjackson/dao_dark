@@ -283,21 +283,20 @@ template(name='view_array_field')
     
     
 template(name='edit_array_field')
-    // .ui.segment
-    .ui.header
-        i.tags.icon
-        |#{field_doc.title}
-        .ui.mini.input
-            input.new_entry(type='text' placeholder='add item' maxlength='50' )
-            // .ui.icon.button
-            //     i.right.arrow.icon
-        // .ui.mini.input
-        //     +inputAutocomplete settings=theme_select_settings id="theme_tag_select" class="" autocomplete="off"
-        each field_value
-            // a.ui.circular.button.doc_tag #{this}
-            a.ui.circular.white.button.doc_tag
-                i.remove.icon
-                |#{this}
+    // i.tags.icon
+    |#{field_doc.title}
+    .ui.input
+        input.new_entry(type='text' placeholder='add item' maxlength='50' )
+        // .ui.icon.button
+        //     i.right.arrow.icon
+    // .ui.mini.input
+    //     +inputAutocomplete settings=theme_select_settings id="theme_tag_select" class="" autocomplete="off"
+    // each field_value
+    each ../tags
+        // a.ui.circular.button.doc_tag #{this}
+        a.ui.button.doc_tag
+            i.remove.icon
+            |#{this}
 
     
     

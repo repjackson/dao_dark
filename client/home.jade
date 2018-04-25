@@ -20,17 +20,57 @@ template(name='tags')
 
 
 template(name='library')
-    .ui.stackable.centered.grid
+    .ui.stackable.centered.padded.grid
         // .ui.four.wide.column
         .center.aligned.row
             .ui.sixteen.wide.column
+                +add_doc_button
                 +tags
-        .row
-            .ui.sixteen.wide.column
+        .centered.row
+            .ui.five.wide.column
+                +view_toggle name='chart' label='chart' icon='chart area'
+                +view_toggle name='grid' label='grid' icon='th'
+                +view_toggle name='tree' label='tree' icon='sitemap'
+                +view_toggle name='calendar' label='calendar' icon='calendar'
+                +view_toggle name='map' label='map' icon='map'
+                +view_toggle name='table' label='table' icon='table'
                 // .ui.header facet: an ai-driven crossplatform interdimensional token cryptocurrency cafe latte full stack decentralized exchange marketplace social network 
                 // .ui.header build worlds 
-                each docs
-                    // if one_doc
-                    +doc_view
+        .row
+            .ui.sixteen.wide.column
+                if viewing_table
+                    +table_view
+                else
+                    each docs
+                        // if one_doc
+                        +doc_view
+        
+template(name='view_toggle')
+    .toggle_view.ui.large.icon.button(title=label)
+        i.icon(class=icon)
         
         
+template(name='table_view')
+    .ui.header table
+    .ui.table
+        thead
+            tr
+                th _id
+                th tags
+                // th author
+                // th html
+                th action
+        tbody
+            each table_docs
+                tr
+                    td #{_id}
+                    td 
+                        each tags
+                            .ui.label #{this}
+                    // td #{author_info}
+                    // td #{html}
+                    td
+                        +view_full_button
+                        
+                        
+template(name='calendar')

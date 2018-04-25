@@ -13,9 +13,9 @@ Template.tags.helpers
             Tags.find { 
                 # type:Template.currentData().type
                 count: $lt: doc_count
-                }, limit: 40
+                }, limit: 42
         else
-            Tags.find({}, limit: 40)
+            Tags.find({}, limit: 42)
             
             
     
@@ -46,6 +46,11 @@ Template.tags.events
     'click #clear_tags': -> selected_tags.clear()
 
 
+Template.view_toggle.events
+    'click .toggle_view': ->
+        Session.set 'view_mode', @name
+        console.log @name
+
 
 Template.library.onCreated ->
     @autorun => 
@@ -57,9 +62,13 @@ Template.library.onCreated ->
 Template.library.helpers
     one_doc: -> Docs.find().count() is 1
 
+    viewing_table: -> Session.equals 'view_mode','table'
+
     docs: -> Docs.find({},{limit:1,sort:tag_count:1})
+Template.table_view.helpers
+    table_docs: -> Docs.find({},{limit:10,sort:tag_count:1})
 
-    editing_this: -> Session.equals 'editing_id', @_id
+    # editing_this: -> Session.equals 'editing_id', @_id
 
-    is_editing: -> Session.get 'editing_id'
+    # is_editing: -> Session.get 'editing_id'
 

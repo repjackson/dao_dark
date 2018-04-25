@@ -1,6 +1,7 @@
 template(name='doc_view')        
+    +link_button link='/' icon='home'
     with doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .four.wide.column
                 +call_watson
                 +doc_emotion

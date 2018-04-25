@@ -32,7 +32,8 @@ template(name='doc_edit')
                         //     if youtube
                         //         +view_youtube
                 // +edit_textarea key='content' label='Content'
-                +edit_html_field key='html' label='html'
+                +edit_array_field key='tags'
+                +edit_html_field key='html'
             .six.wide.column
                 a.ui.icon.large.fluid.button(href="/view/#{_id}")
                     i.checkmark.icon

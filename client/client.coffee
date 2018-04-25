@@ -4,18 +4,27 @@
 #     Docs.findOne Template.parentData(1)
 
 
+Template.registerHelper 'field_value', ->
+    # console.log @
+    current_doc = Template.parentData(3)
+    # current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+    if current_doc
+        current_doc["#{@key}"]
+        
 Template.registerHelper 'page_field_value', ->
     # console.log @
     # current_doc = Template.parentData(3)
     current_doc = Docs.findOne FlowRouter.getParam('doc_id')
     current_doc["#{@key}"]
+        
+Template.registerHelper 'passed_field_doc', ->
+    field_doc = Docs.findOne @valueOf()
+    # console.log 'passed_field_doc slug',field_doc.slug
+    field_doc
+    # current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+    # current_doc["#{@key}"]
 
 
-Template.registerHelper 'page_field_value', ->
-    # console.log @
-    # current_doc = Template.parentData(3)
-    current_doc = Docs.findOne FlowRouter.getParam('doc_id')
-    current_doc["#{@key}"]
         
 Template.registerHelper 'has_role', (role)-> Meteor.user().roles and role in Meteor.user().roles   
 

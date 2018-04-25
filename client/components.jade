@@ -316,3 +316,13 @@ template(name='bounty')
         h5.ui.header offer bounty for this post
         .ui.input
             input#bounty_input(type='number' min='0')
+
+
+template(name='add_doc_button')
+    a#add_doc.ui.icon.button
+        i.plus.icon
+
+
+template(name='link_button')
+    a.ui.icon.button(href=link)
+        i.icon(class=icon)

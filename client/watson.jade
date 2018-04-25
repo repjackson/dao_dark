@@ -39,11 +39,10 @@ template(name='call_visual_analysis')
 
 template(name='keywords')
     .ui.styled.accordion
-        .title
-            .ui.header 
-                |#{watson.keywords.length} watson tags
-                i.dropdown.icon
-        .content
+        .active.title
+            |#{watson.keywords.length} watson tags
+            i.dropdown.icon
+        .active.content
             .ui.stackable.three.cards
                 each watson.keywords
                     .ui.card
@@ -118,25 +117,26 @@ template(name='semantic_roles')
 
 
 template(name='relations')
-    .ui.styled.accordion
-        .title
-            |#{watson.relations.length} relations
-        .content    
-            // +jsonView(json=watson.relations)
-            .ui.segments
-                each watson.relations
-                    .ui.segment
-                        p #{sentence}
-                        .ui.list
-                            .item type #{type}
-                            .item score: {{ to_percent score }}%
-                            .item
-                                each arguments
-                                    h4 argument text: #{text}
-                                    // h5 argument location: #{location}
-                                    each entities
-                                        h5 entity type: #{type}
-                                        h5 entity text: #{text}
+    if watson.relations.length
+        .ui.styled.accordion
+            .title
+                |#{watson.relations.length} relations
+            .content    
+                // +jsonView(json=watson.relations)
+                .ui.segments
+                    each watson.relations
+                        .ui.segment
+                            p #{sentence}
+                            .ui.list
+                                .item type #{type}
+                                .item score: {{ to_percent score }}%
+                                .item
+                                    each arguments
+                                        h4 argument text: #{text}
+                                        // h5 argument location: #{location}
+                                        each entities
+                                            h5 entity type: #{type}
+                                            h5 entity text: #{text}
 
 
 template(name='personality')
@@ -169,8 +169,7 @@ template(name='personality')
                         .ui.list
                             each personality.behavior
                                 .item #{name} {{ to_percent percentage }}%
-    else
-        p not enough words to analyze author personality
+        // p not enough words to analyze author personality
     #call_personality.ui.icon.button(title='analyze personality')
         i.refresh.icon
 
