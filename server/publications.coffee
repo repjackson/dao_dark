@@ -106,6 +106,7 @@ Meteor.publish 'user_docs', (username, selected_theme_tags)->
         
 Meteor.publish 'facet', (
     selected_tags
+    type
     editing_id
     )->
     
@@ -119,6 +120,7 @@ Meteor.publish 'facet', (
             # match.tags = $all: selected_tags
     
             if selected_tags.length > 0 then match.tags = $all: selected_tags
+            if type then match.type = type
             
             
             

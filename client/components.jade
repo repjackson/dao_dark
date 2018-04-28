@@ -1,39 +1,39 @@
-template(name='doc_matches')
-    .ui.fluid.styled.accordion
-        .title 
-            |top doc matches (#{top_doc_matches.length})
-            i.dropdown.icon
-        .content.match_content
-            if currentUser
-                #compute_doc_matches.ui.icon.button(data-tooltip='compute')
-                    i.refresh.icon
-            if top_doc_matches
-                .ui.relaxed.divided.items
-                    each top_doc_matches
-                        +doc_match
+// template(name='doc_matches')
+//     .ui.fluid.styled.accordion
+//         .title 
+//             |top doc matches (#{top_doc_matches.length})
+//             i.dropdown.icon
+//         .content.match_content
+//             if currentUser
+//                 #compute_doc_matches.ui.icon.button(data-tooltip='compute')
+//                     i.refresh.icon
+//             if top_doc_matches
+//                 .ui.relaxed.divided.items
+//                     each top_doc_matches
+//                         +doc_match
                         
-template(name='doc_match')                    
-    .item 
-        .content
-            .description
-                |intersection tags (#{intersection_tags_count})
-                each intersection_tags
-                    .ui.label #{this}
-            .description
-                | doc tags
-                each tags
-                    .ui.small.label #{this}
-            // .description
-            //     |#{match_doc.type} entry by
-            //     img.ui.avatar.image(src="{{c.url match_doc.author.profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
-            //     | #{match_doc.author.name}
-            .title
-                i.dropdown.icon
-                |content 
-            .content
-                |!{match_doc.content}
-            .extra
-                +view_full_button match_doc
+// template(name='doc_match')                    
+//     .item 
+//         .content
+//             .description
+//                 |intersection tags (#{intersection_tags_count})
+//                 each intersection_tags
+//                     .ui.label #{this}
+//             .description
+//                 | doc tags
+//                 each tags
+//                     .ui.small.label #{this}
+//             // .description
+//             //     |#{match_doc.type} entry by
+//             //     img.ui.avatar.image(src="{{c.url match_doc.author.profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+//             //     | #{match_doc.author.name}
+//             .title
+//                 i.dropdown.icon
+//                 |content 
+//             .content
+//                 |!{match_doc.content}
+//             .extra
+//                 +view_full_button match_doc
                         
                                         
 template(name='published')
@@ -165,12 +165,6 @@ template(name='parent_link')
                 |parent
                 
                 
-template(name='edit_button')
-    if is_author
-        // +call_watson
-        a.ui.icon.button(href="/edit/#{_id}")
-            i.pencil.icon
-                
 template(name='parent_doc_segment')
     if parent
         .ui.segment
@@ -278,10 +272,6 @@ template(name='crowd_tags')
             input#add_your_tag(type='text' placeholder='add')
 
 
-
-template(name='toggle_key')
-    #toggle_key.ui.compact.button(class=toggle_key_button_class) #{label}
-
 template(name='clone_button')
     .ui.icon.button
         i.fork.icon
@@ -323,6 +313,370 @@ template(name='add_doc_button')
         i.plus.icon
 
 
-template(name='link_button')
-    a.ui.icon.button(href=link)
+        
+template(name='mark_read')
+    // if read
+    //     .mark_unread.ui.button 
+    //         +icon48 name='read-message' classes='avatar'
+    //         |Mark Unread
+    // else
+    if currentUser
+        unless read
+            .mark_read.ui.icon.button(data-tooltip='Mark Read')
+                +icon48 name='message' classes='ui mini inline image'
+
+template(name='read_by_list')
+    // if read_by.count
+    .ui.segment
+        .ui.dividing.header
+            |Read by... 
+            span.floated.right (#{read_by.count})
+        .ui.divided.list
+            each read_by
+                .item
+                    img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                    .content
+                        .header
+                            |#{name}
+                        .description
+                            +tiny_color_dots
+                            // each five_tags
+                            //     .ui.label #{this}
+
+template(name='bookmarked_by_list')
+    // if read_by.count
+    .ui.segment
+        .ui.dividing.header
+            |Bookmarked by... 
+            span.floated.right (#{bookmarked_by.count})
+        .ui.divided.list
+            each bookmarked_by
+                .item
+                    img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                    .content
+                        .header
+                            |#{name}
+                        .description
+                            +tiny_color_dots
+                            // each five_tags
+                            //     .ui.label #{this}
+
+
+template(name='doc_matches')
+    .ui.fluid.styled.accordion
+        .title 
+            +icon48 name='query-inner-join' classes='avatar'
+            |Top Doc Matches (#{top_doc_matches.length})
+            i.dropdown.icon
+            if currentUser
+                #compute_doc_matches.ui.icon.button(data-tooltip='Compute Matches')
+                    i.refresh.icon
+        .content.match_content
+            if top_doc_matches
+                .ui.relaxed.divided.items
+                    each top_doc_matches
+                        +doc_match
+                        
+template(name='associated_users')
+    .ui.segment
+        .ui.header 
+            i.users.icon
+            | Users
+        .ui.list
+            each users
+                .item #{first_name} #{last_name}
+            
+template(name='set_session_button')
+    .set_session_filter.ui.button(class=filter_class)
+        |#{label}
+
+template(name='set_session_item')
+    a.set_session_filter.item 
+        |#{label}
+        
+template(name='publish_button')
+    .field
+        label Status
+        if published
+            #unpublish.ui.green.button
+                |Published
+        else
+            #publish.ui.basic.button
+                |Private
+        
+template(name='call_method')
+    .call_method.ui.button call #{name}
+    
+    
+template(name='html_create')
+    if doc
+        with doc
+            if is_editing
+                .ui.labeled.fluid.input
+                    .ui.basic.label select staff
+                    input#staff(type='text' value=staff)
+            else
+                div(class=doc_classes)
+                    |#{staff}
+            // if isInRole 'admin'
+            +session_edit_icon
+    else
+        // if isInRole 'admin'
+        .ui.header no doc found
+        .create_doc.ui.basic.button
+            i.plus.icon
+            |create html with #{template_tags}
+    
+    
+    
+
+template(name='office_map')
+    .ui.segment
+        .ui.header
+            i.map.marker.icon
+            | #{geocode.formatted_address}
+        +google_places_input
+        #map
+        
+template(name='google_places_input')
+    .ui.large.fluid.icon.input
+        i.search.icon
+        input#google_places_field(type='text' placeholder='change address...')       
+                        
+                                        
+template(name='doc_match')                    
+    .item 
+        .content
+            .description
+                +icon48 name='query-outer-join' classes='avatar'
+                |Intersection Tags (#{intersection_tags_count})
+                each intersection_tags
+                    .ui.label #{this}
+            .description
+                +icon48 name='tags' classes='avatar'
+                | Document Tags
+                each tags
+                    .ui.small.label #{this}
+            // .description
+            //     |#{match_doc.type} entry by
+            //     img.ui.avatar.image(src="{{c.url match_doc.author.profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+            //     | #{match_doc.author.name}
+            .title
+                i.dropdown.icon
+                |Content 
+            .content
+                |!{match_doc.content}
+            .extra
+                +view_full_button match_doc
+                
+                
+template(name='service_buttons')
+    .ui.dividing.header Services
+    +request_tori_feedback
+    +call_watson
+                        
+                        
+template(name='icon48')
+    img.ui.image(src="https://png.icons8.com/#{name}/color/48" width="48" height="48" class=classes title=tooltip)
+// template(name='icon24')
+//     img(src="https://png.icons8.com/#{name}/color/24" width="24" height="24" class=classes title=tooltip)
+template(name='icon96')
+    // i.icon(src="https://png.icons8.com/#{name}/color/96" width="96" height="96" class=classes title=tooltip)
+    img(src="https://png.icons8.com/#{name}/color/96" width="96" height="96" class=classes title=tooltip)
+
+    
+
+template(name='published_status')
+    if published
+        .ui.blue.large.label
+            +icon48 name='eye' classes='ui inline tiny image'
+            |Published
+    else
+        .ui.large.label
+            +icon48 name='invisible' classes='ui inline tiny image'
+            | Not Published
+            
+            
+
+// template(name='author_info')
+//     if is_anonymous
+//         |by Anonymous
+//     else
+//         | by 
+//         if is_author
+//             | you
+//         else
+//             with author
+//                 if profile.image_id
+//                     img.ui.avatar.spaced.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+//                 |&nbsp;
+//                 a(href="/profile/#{username}") #{name} 
+//                 +staus_indicator
+//     // .ui.sub.header #{when}
+
+template(name='recipient_info')
+    .ui.header requested of 
+        img.ui.avatar.image(src="{{c.url recipient.profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+        |#{recipient.name}
+        with recipient
+            +staus_indicator
+
+
+        
+template(name='published_label')
+    if is_published
+        .ui.label(data-tooltip='Published')
+            +icon48 name='eye'
+    if is_anonymous
+        .ui.label(data-tooltip='Published')
+            +icon48 name='ignore'
+    if is_private
+        .ui.label(data-tooltip='Private')
+            +icon48 name='invisible'
+
+
+template(name='named_content')
+    if named_doc
+        with named_doc
+            +content
+            +edit_button
+    else
+        #create_doc.ui.button Create Doc
+        
+        
+template(name='set_view_mode')
+    #set_view_mode.ui.big.icon.button(title=label class=view_mode_button_class)
+        i.large.icon(class=icon)
+        
+        
+template(name='add_button')
+    #add.ui.large.icon.button(title='add')
+        i.plus.icon
+        // |#{label}
+        
+// template(name='doc_edit')
+//     with doc
+//         +Template.dynamic template=type_edit
+
+// template(name='doc_view')
+//     with doc
+//         +Template.dynamic template=type_view
+                            
+
+
+template(name='save_button')
+    a.ui.big.icon.button(href="/view/#{_id}") 
+        i.checkmark.green.icon
+        // strong save
+        
+template(name='edit_button')
+    a.ui.icon.big.button(href="/edit/#{_id}" title='Edit') 
+        i.edit.icon
+        // strong edit
+
+template(name='view_button')
+    a.ui.large.icon.button(href="/view/#{_id}" title='View Details') 
+        i.chevron.right.icon
+
+
+template(name='edit_image_field')
+    .ui.segment
+        if image_id
+            .ui.image
+                img(src="{{c.url image_id }}")
+                a#remove_photo.ui.top.left.attached.link.label remove
+                // .ui.bottom.right.attached.label Image Id: #{image_id}
+        else
+            .ui.header Upload Image
+            input(type='file' name='upload_picture' accept='image/*')
+        // if isInRole 'admin'
+        //     .field
+        //         label or Choose Cloudinary Image Id
+        //         input#input_image_id(type='text')
+    
+
+
+template(name='edit_number_field')
+    .field
+        label #{label}
+        .ui.left.icon.input
+            if icon
+                i.icon(class=icon)
+            input#number_field(type='number' min='0' value=key_value)
+
+
+template(name='edit_textarea')
+    .field
+        label #{label}
+        textarea#textarea(rows='10') #{key_value}
+
+
+        
+template(name='complete')            
+    .field
+        label completed
+        #mark_complete.ui.button(class=complete_class) yes 
+        #mark_incomplete.ui.button(class=incomplete_class) no 
+
+
+template(name='list_item')
+    .item
+        i.large.icon(class=icon title=key)
+        .content
+            .description 
+                |#{label}
+                strong #{key_value}
+
+template(name='toggle_key')
+    #toggle_key.ui.button(class=toggle_key_button_class) #{label}
+
+
+template(name='link_button')    
+    a.ui.big.icon.basic.circular.button(href=link title=label)
+        i.large.icon(class=icon)
+
+
+template(name='delete_button')
+    #delete.ui.red.icon.button(title='delete')
+        i.trash.icon
+        
+        
+template(name='edit_link')
+    .field
+        label link (include http://)
+        .ui.left.icon.input
+            i.linkify.icon
+            input#link(type='text' value=url)
+
+
+template(name='toggle_boolean')
+    .toggle_boolean_button.ui.button
         i.icon(class=icon)
+        if label
+            |#{label}
+
+
+template(name='reference_office')
+    .ui.form
+        .field
+            label #{label}
+            .ui.left.icon.input
+                i.search.icon
+                +inputAutocomplete settings=settings id="search" class="" autocomplete="off" placeholder='search...'
+
+template(name='reference_customer')
+    .ui.form
+        .field
+            label #{label}
+            .ui.left.icon.input
+                i.search.icon
+                +inputAutocomplete settings=settings id="search" class="" autocomplete="off" placeholder='search...'
+
+
+
+template(name="office_result")
+    .item #{office_name} (#{jan_office_id})
+
+template(name="customer_result")
+    .item #{first_name} #{last_name}
+        

@@ -1,0 +1,113 @@
+template(name='tasks')
+    .ui.stackable.padded.grid
+        .centered.row
+            h1.ui.header tasks
+        .centered.row
+            .four.wide.column
+                +add_doc_button type='task'
+            .twelve.wide.column
+                .ui.divided.items
+                    each tasks
+                        +task_item
+                
+                
+template(name='task_item')
+    .item
+        if image_id
+            a.image(href="/view/#{_id}")
+                img.ui.rounded.image(src="{{c.url image_id  width=175 height=175 crop='fill' gravity='face' }}")
+                // each visual
+                //     .ui.basic.small.label #{class}
+        .content
+            a.header(href="/view/#{_id}") #{text}
+            .description
+                .ui.grid
+                    .twelve.wide.column
+                        .meta 
+                            .ui.horizontal.list
+                                each tags
+                                    .item #{this}
+                        if complete
+                            .ui.green.label
+                                i.checkmark.icon
+                    .four.wide.column
+                        +toggle_boolean key='complete' icon='checkmark'
+                        .meta #{when}
+                        .meta #{formal_when}
+                        // .ui.horizontal.list
+
+            
+template(name='task')
+    with task
+        .row
+            .three.wide.column
+                a.ui.button(href="/tasks")
+                    i.arrow.left.icon
+                    |task
+            .twelve.wide.center.aligned.column
+                h1.ui.header
+                    if editing
+                        |edit
+                    else
+                        |view
+                    |#{title}
+        .row
+            .ten.wide.column
+                +title
+                +content
+            .five.wide.column
+                +edit_button
+                if editing
+                    #delete_bike.ui.red.icon.button
+                        i.trash.icon
+                        
+                        
+template(name='task_edit')
+    .ui.padded.stackable.grid
+        .centered.row
+            .three.wide.column
+                +save_button
+            .ten.wide.column
+                h1.ui.center.aligned.header edit task
+            .three.wide.column
+                #delete.ui.icon.button
+                    i.trash.icon
+        .row
+            .eight.wide.column
+                .ui.form
+                    +edit_text_field key='text' label='text' icon='left align'
+                    +edit_date_field key='task_date' label='task Date' icon='calendar'
+                    +edit_text_field key='task_status' label='task Status' icon='checkmark'
+                        
+                        
+template(name='task_view')
+    .ui.padded.stackable.centered.grid
+        .centered.row
+            .three.wide.center.aligned.column
+                +link_button link='/tasks' label='tasks' icon='tasks'
+            .ten.wide.center.aligned.column
+                h1.ui.header task ##{task_number}
+            .three.wide.center.aligned.column
+                +edit_button
+
+        .row
+            .eight.wide.column
+                .ui.basic.segment
+                    .large130 #{text}
+                if image_id
+                    img.ui.centered.image(src="{{c.url image_id height=500 crop='fit'}}")
+                    +call_visual_analysis
+                    if visual
+                        each visual
+                            .ui.basic.label(title=type_hierarchy)
+                                | #{class} {{to_percent score }}%
+                +comments
+            .four.wide.column
+                .ui.segment
+                    .ui.header
+                        +author_info
+                    h2.ui.sub.header #{when}
+                    .ui.large.relaxed.list
+                    .ui.header #{formal_when}
+                .ui.hidden.divider
+                        

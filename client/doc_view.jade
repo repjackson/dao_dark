@@ -1,33 +1,33 @@
 template(name='doc_view')        
     +link_button link='/' icon='home'
     with doc
-        .ui.stackable.padded.grid
-            .four.wide.column
-                +call_watson
-                .ui.segment
-                    +doc_emotion
-                    +doc_sentiment
-                +tone
-                +entities
-                +concepts
+        // .ui.stackable.padded.grid
+        //     .four.wide.column
+                // +call_watson
+                // .ui.segment
+                //     +doc_emotion
+                //     +doc_sentiment
+                // +tone
+                // +entities
+                // +concepts
             .eight.wide.column
-                if youtube
-                    +view_youtube
-                if image_url
-                    .ui.image
-                        img(src=image_url)
-                .ui.segment
-                    .large130 !{html}
-                +comments
-                +semantic_roles
-                +relations
-                // if template
-                //     +Template.dynamic template=view_template
+                // if youtube
+                //     +view_youtube
+                // if image_url
+                //     .ui.image
+                //         img(src=image_url)
+                // .ui.segment
+                //     .large130 !{html}
+                // +comments
+                // +semantic_roles
+                // +relations
+        if template
+            +Template.dynamic template=view_template
                 // else
                 
                 //     +threaded_children
-                +doc_matches
-                +keywords
+                // +doc_matches
+                // +keywords
                 // .ui.segment
                 //     .content
                 //         if title
@@ -36,38 +36,38 @@ template(name='doc_view')
                 //             h4.ui.center.aligned.header #{slug}
                 //         if content
                 //             .large-text !{content}
-            .four.wide.column
-                +personality
-                +consumption_preferences
-                .ui.segment
-                    +author_info
-                    | #{when}
-                    if is_author
-                        a.ui.icon.button(href="/edit/#{_id}")
-                            i.pencil.icon
+            // .four.wide.column
+            //     +personality
+            //     +consumption_preferences
+            //     .ui.segment
+            //         +author_info
+            //         | #{when}
+            //         if is_author
+            //             a.ui.icon.button(href="/edit/#{_id}")
+            //                 i.pencil.icon
 
-                if tags
-                    .ui.segment
-                        .ui.header author tags
-                        each tags 
-                            .doc_tag.ui.small.compact.button(class=tag_class) #{this}
-                if template
-                    .ui.segment
-                        .ui.header template: #{template}
-                .ui.segment
-                    if parent_id
-                        +parent_link
-                    // if watson
-                    //     +doc_emotion
-                    // else
-                    //     +call_watson
-                    +add_child_button
-                    if currentUser
-                        div
-                            +vote_button
-                    +upvoted_list
-                // +crowd_tags
-                // +ownership
+            //     if tags
+            //         .ui.segment
+            //             .ui.header author tags
+            //             each tags 
+            //                 .doc_tag.ui.small.compact.button(class=tag_class) #{this}
+            //     if template
+            //         .ui.segment
+            //             .ui.header template: #{template}
+            //     .ui.segment
+            //         if parent_id
+            //             +parent_link
+            //         // if watson
+            //         //     +doc_emotion
+            //         // else
+            //         //     +call_watson
+            //         +add_child_button
+            //         if currentUser
+            //             div
+            //                 +vote_button
+            //         +upvoted_list
+            //     // +crowd_tags
+            //     // +ownership
             
             
             
