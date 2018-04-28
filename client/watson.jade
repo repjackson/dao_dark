@@ -18,9 +18,10 @@ template(name='doc_sentiment')
 
 template(name='doc_emotion') 
     with watson.emotion.document.emotion
+        |realtime google zeitgeist
         .ui.list
             .item {{to_percent sadness}}% sadness 
-            .item {{to_percent joy}}% yoy 
+            .item {{to_percent joy}}% joy 
             .item {{to_percent fear}}% fear 
             .item {{to_percent disgust}}% disgust 
             .item {{to_percent anger}}% anger 

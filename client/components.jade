@@ -3,33 +3,15 @@ template(name='doc_matches')
         .title 
             |top doc matches (#{top_doc_matches.length})
             i.dropdown.icon
-            if currentUser
-                #compute_doc_matches.ui.icon.button(data-tooltip='Compute Matches')
-                    i.refresh.icon
         .content.match_content
+            if currentUser
+                #compute_doc_matches.ui.icon.button(data-tooltip='compute')
+                    i.refresh.icon
             if top_doc_matches
                 .ui.relaxed.divided.items
                     each top_doc_matches
                         +doc_match
                         
-                        
-template(name='published')
-    div
-        if is_author
-            #publish.ui.icon.button(data-tooltip='published' class=published_class)
-                i.eye.icon
-            #publish_anonymously.ui.icon.button(data-tooltip='anonymous' class=published_anonymously_class)
-                i.eye.slash.icon
-            #unpublish.ui.icon.button(data-tooltip='private' class=private_class)
-                i.unlock.icon  
-        else
-            if is_anonymous
-                .ui.label anon
-            else if is_private
-                .ui.label private
-            else 
-                .ui.label published
-                                        
 template(name='doc_match')                    
     .item 
         .content
@@ -52,6 +34,24 @@ template(name='doc_match')
                 |!{match_doc.content}
             .extra
                 +view_full_button match_doc
+                        
+                                        
+template(name='published')
+    div
+        if is_author
+            #publish.ui.icon.button(data-tooltip='published' class=published_class)
+                i.eye.icon
+            #publish_anonymously.ui.icon.button(data-tooltip='anonymous' class=published_anonymously_class)
+                i.eye.slash.icon
+            #unpublish.ui.icon.button(data-tooltip='private' class=private_class)
+                i.unlock.icon  
+        else
+            if is_anonymous
+                .ui.label anon
+            else if is_private
+                .ui.label private
+            else 
+                .ui.label published
 
 
 template(name='response_list')

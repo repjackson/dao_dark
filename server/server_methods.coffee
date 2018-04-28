@@ -26,7 +26,27 @@ Meteor.methods
                 upvoted_list: upvoted_list
 
 
+    find_top_doc_matches: (doc_id)->
+        doc = Docs.findOne doc_id
+        match_doc_array = Docs.find({tags:$in:doc.tags}).fetch()
+        
+        matching_docs = []
+        for match_doc in match_doc_array
+            matching_tags = _.intersection match_doc.tags, doc.tags
+            matching_doc_object = {
+                _id:match_doc._id
+                matching_tags:matching_tags
+                matching_tag_count:matching_tags.length }
+            matching_docs.push matching_doc_object
+            
+        sorted_matched = _.sortBy matching_docs, 'matching_tag_count'
+        sliced_matches = sorted_matched[-10..]
+        Docs.update doc_id,
+            $set: doc_matches:sliced_matches
 
+
+
+            
     # generate_downvoted_cloud: ->
     #     match = {}
     #     match.downvoters = $in: [Meteor.userId()]
@@ -91,46 +111,46 @@ Meteor.methods
     #             html: SSR.render('message_email', email_data)
 
 
-    generate_journal_cloud: (user_id)->
-        match = {}
-        match.author_id = user_id
-        match.type = 'journal'
+    # generate_journal_cloud: (user_id)->
+    #     match = {}
+    #     match.author_id = user_id
+    #     match.type = 'journal'
         
-        # console.log 'journal match', match
-        journal_cloud = Docs.aggregate [
-            { $match: match }
-            { $project: tags: 1 }
-            { $unwind: '$tags' }
-            { $group: _id: '$tags', count: $sum: 1 }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 50 }
-            { $project: _id: 0, name: '$_id', count: 1 }
-            ]
-        journal_list = (tag.name for tag in journal_cloud)
-        Meteor.users.update user_id,
-            $set:
-                journal_cloud: journal_cloud
-                journal_list: journal_list
+    #     # console.log 'journal match', match
+    #     journal_cloud = Docs.aggregate [
+    #         { $match: match }
+    #         { $project: tags: 1 }
+    #         { $unwind: '$tags' }
+    #         { $group: _id: '$tags', count: $sum: 1 }
+    #         { $sort: count: -1, _id: 1 }
+    #         { $limit: 50 }
+    #         { $project: _id: 0, name: '$_id', count: 1 }
+    #         ]
+    #     journal_list = (tag.name for tag in journal_cloud)
+    #     Meteor.users.update user_id,
+    #         $set:
+    #             journal_cloud: journal_cloud
+    #             journal_list: journal_list
 
-    generate_checkin_cloud: (user_id)->
-        match = {}
-        match.author_id = user_id
-        match.type = 'checkin'
+    # generate_checkin_cloud: (user_id)->
+    #     match = {}
+    #     match.author_id = user_id
+    #     match.type = 'checkin'
         
-        checkin_cloud = Docs.aggregate [
-            { $match: match }
-            { $project: tags: 1 }
-            { $unwind: '$tags' }
-            { $group: _id: '$tags', count: $sum: 1 }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 50 }
-            { $project: _id: 0, name: '$_id', count: 1 }
-            ]
-        checkin_list = (tag.name for tag in checkin_cloud)
-        Meteor.users.update user_id,
-            $set:
-                checkin_cloud: checkin_cloud
-                checkin_list: checkin_list
+    #     checkin_cloud = Docs.aggregate [
+    #         { $match: match }
+    #         { $project: tags: 1 }
+    #         { $unwind: '$tags' }
+    #         { $group: _id: '$tags', count: $sum: 1 }
+    #         { $sort: count: -1, _id: 1 }
+    #         { $limit: 50 }
+    #         { $project: _id: 0, name: '$_id', count: 1 }
+    #         ]
+    #     checkin_list = (tag.name for tag in checkin_cloud)
+    #     Meteor.users.update user_id,
+    #         $set:
+    #             checkin_cloud: checkin_cloud
+    #             checkin_list: checkin_list
 
 
 

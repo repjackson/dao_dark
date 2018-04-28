@@ -9,7 +9,7 @@ Template.tags.helpers
     tags: ->
         doc_count = Docs.find({}).count()
         # if selected_tags.array().length
-        if 0 < doc_count < 3
+        if 1 < doc_count < 3
             Tags.find { 
                 # type:Template.currentData().type
                 count: $lt: doc_count
