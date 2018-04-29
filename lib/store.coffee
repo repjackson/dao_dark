@@ -1,10 +1,3 @@
-FlowRouter.route '/store', 
-    name:'store'
-    action: (params) ->
-        BlazeLayout.render 'layout',
-            main: 'store'
-
-
 
 Meteor.methods
     # add_product: (subject_id, predicate, object_id) ->

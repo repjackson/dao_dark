@@ -18,7 +18,7 @@ Template.threaded_children.onCreated ->
 
 # Template.threaded_children.helpers
     # child_docs: ->
-    #     doc_id = FlowRouter.getParam('doc_id')
+    #     doc_id = @doc_id
     #     Docs.find
     #         parent_id: doc_id
 

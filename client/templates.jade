@@ -6,22 +6,34 @@ head
     meta(name='google-site-verification', content='6osbddgiRIkUEHj3ezFR6D2yOQuooBvvXsBliSWhAZA')
     meta(name="theme-color", content="#ffffff")
 
-
-template(name='layout')
-    .inverted
-        +nav
-        +Template.dynamic template=main
+body
+    +home
+    
+template(name='home')    
+    // +nav
+    .ui.stackable.padded.grid
+        // .row
+        //     .right.floated.column
+        //         +view_toggle name='post_view' icon='file alternate'
+        //         +view_toggle name='table_view' icon='table'
+        .ui.four.wide.column
+            +tags
+            +date_facet
+            +location_facet
+        .ui.twelve.wide.column
+            +table_view
+        // +Template.dynamic template=main
         // +dev_footer
 
 
-template(name='staus_indicator')
-    if online 
-        // .ui.label(class='{{labelClass}}') 
-        i.circle.icon
-        // img.ui.avatar.image(src="https://png.icons8.com/connection-status-on/color/48" title='Online' width="48" height="48")
-        // |Online
-    else if idle
-        .ui.label(class='{{labelClass}}') Idle
-        // else 
-        //     |Offline
+// template(name='staus_indicator')
+//     if online 
+//         // .ui.label(class='{{labelClass}}') 
+//         i.circle.icon
+//         // img.ui.avatar.image(src="https://png.icons8.com/connection-status-on/color/48" title='Online' width="48" height="48")
+//         // |Online
+//     else if idle
+//         .ui.label(class='{{labelClass}}') Idle
+//         // else 
+//         //     |Offline
 

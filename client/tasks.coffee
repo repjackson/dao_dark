@@ -1,7 +1,3 @@
-FlowRouter.route '/tasks', action: ->
-    BlazeLayout.render 'layout', 
-        main: 'tasks'
-
 Template.tasks.onCreated ->
     @autorun -> Meteor.subscribe('facet', selected_tags.array(), 'task')
 
@@ -27,10 +23,10 @@ Template.tasks.events
         
 
 Template.task_item.onCreated ->
-    @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
+    @autorun -> Meteor.subscribe 'doc', @doc_id
 
 Template.task_item.helpers
-    doc: -> Docs.findOne FlowRouter.getParam('doc_id')
+    doc: -> Docs.findOne @doc_id
     
     
 Template.task_item.events
@@ -46,26 +42,7 @@ Template.task_item.events
             confirmButtonText: 'Delete'
             confirmButtonColor: '#da5347'
         }, ->
-            doc = Docs.findOne FlowRouter.getParam('doc_id')
+            doc = Docs.findOne @doc_id
             Docs.remove doc._id, ->
-                FlowRouter.go "/tasks"        
                 
                 
-                
-    
-Template.task.events
-    'click #delete': ->
-        swal {
-            title: 'Delete?'
-            # text: 'Confirm delete?'
-            type: 'error'
-            animation: false
-            showCancelButton: true
-            closeOnConfirm: true
-            cancelButtonText: 'Cancel'
-            confirmButtonText: 'Delete'
-            confirmButtonColor: '#da5347'
-        }, ->
-            bike = Docs.findOne FlowRouter.getParam('bikes_id')
-            Docs.remove bike._id, ->
-                FlowRouter.go "/tasks"        

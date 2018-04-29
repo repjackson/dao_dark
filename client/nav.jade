@@ -1,24 +1,20 @@
 template(name='nav')
     .ui.large.borderless.top.attached.menu
-        a.header.icon.item(href='/' class="{{isActiveRoute 'home'}}")
-            i.home.icon
+        // a.header.icon.item(href='/' class="{{isActiveRoute 'home'}}")
+        //     i.home.icon
             // |facet
         // .item
         //     |facking everything
-        .ui.icon.transparent.input
-            i.search.icon
-            input#query(type='text' placeholder='build worlds')
+        // .ui.icon.transparent.input
+        //     i.search.icon
+        //     input#query(type='text' placeholder='build worlds')
         // a.icon.item(href='/blocks' class="{{isActiveRoute 'blocks'}}")
         //     i.bitcoin.icon
-        // a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
-        //     i.users.icon
-        +view_toggle_item name='chart' label='chart' icon='chart area'
-        +view_toggle_item name='grid' label='grid' icon='th'
-        +view_toggle_item name='tree' label='tree' icon='sitemap'
-        +view_toggle_item name='calendar' label='calendar' icon='calendar'
-        +view_toggle_item name='map' label='map' icon='map'
-        +view_toggle_item name='table' label='table' icon='table'
-
+        a.icon.item(href='/posts' class="{{isActiveRoute 'people'}}")
+            i.file.alternate.icon
+        a.icon.item(href='/table' class="{{isActiveRoute 'table'}}")
+            i.table.icon
+        
         if currentUser
             // .ui.icon.small.transparent.input
             //     // i.plus.icon

@@ -19,19 +19,6 @@ template(name='tags')
 
 
 
-template(name='library')
-    .ui.stackable.padded.grid
-        +tags
-        p facet: an ai-driven crossplatform interdimensional token cryptocurrency cafe latte full stack decentralized exchange marketplace social network 
-        .row
-            .ui.sixteen.wide.column
-                if viewing_table
-                    +table_view
-                else
-                    each docs
-                        // if one_doc
-                        +doc_view
-        
 template(name='view_toggle')
     .toggle_view.ui.large.icon.button(title=label)
         i.icon(class=icon)
@@ -42,11 +29,10 @@ template(name='view_toggle_item')
         
         
 template(name='table_view')
-    .ui.header table
     .ui.table
         thead
             tr
-                th _id
+                // th _id
                 th tags
                 // th author
                 // th html
@@ -54,14 +40,15 @@ template(name='table_view')
         tbody
             each table_docs
                 tr
-                    td #{_id}
+                    // td #{_id}
                     td 
                         each tags
                             .ui.label #{this}
-                    // td #{author_info}
-                    // td #{html}
-                    td
-                        +view_full_button
+                    // td 
+                    //     +author_info
+                    td !{html}
+                    // td
+                    //     +view_full_button
                         
                         
 template(name='calendar')

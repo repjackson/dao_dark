@@ -24,13 +24,10 @@ ecmascript@0.10.6
 reactive-var@1.0.11
 session@1.1.7
 blaze-html-templates
-useraccounts:flow-routing
 lepozepo:cloudinary
 momentjs:moment
 kevohagan:sweetalert
 accounts-base
-kadira:flow-router
-kadira:blaze-layout
 matb33:collection-hooks
 themeteorchef:bert
 mizzao:autocomplete
@@ -40,13 +37,10 @@ juliancwirko:postcss
 less
 froala:editor-reactive@=2.4.2
 semantic:ui
-useraccounts:semantic-ui
-alanning:roles
 pacreach:jade
 reywood:publish-composite
 dburles:collection-helpers
 manuel:reactivearray
-zimme:active-route
 yasinuslu:json-view
 jeremy:geocomplete
 davesierra:fullcalendar

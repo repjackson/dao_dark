@@ -10,7 +10,7 @@ Template.reference_other_children.helpers
     available_children: ->
         # Docs.find parent_id:@doc_id
         Docs.find(type:'field')
-        # doc = Docs.findOne FlowRouter.getParam('doc_id')
+        # doc = Docs.findOne @doc_id
         # if doc["#{@key}"]
         #     Docs.find
         #         # parent_id:@doc_id
@@ -23,19 +23,19 @@ Template.reference_other_children.helpers
         
         
     selected_children: -> 
-        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        doc = Docs.findOne @doc_id
         if doc["#{@key}"]
             Docs.find
                 # parent_id:@doc_id
                 _id:$in:doc["#{@key}"]
         
     child_field_toggle_class: ->
-        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        doc = Docs.findOne @doc_id
         if doc and doc.field_ids and @_id in doc.field_ids then 'active' else ''
 
 Template.reference_other_children.events
     'click .select_child': ->
-        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        doc = Docs.findOne @doc_id
         # console.log @
         passed_key = Template.parentData(0).key
         
@@ -52,7 +52,7 @@ Template.reference_other_children.events
      
     'click .disable_child': ->
         passed_key = Template.parentData(0).key
-        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        doc = Docs.findOne @doc_id
         Docs.update doc._id,
             $pull: "#{passed_key}": @_id
         
@@ -61,7 +61,7 @@ Template.reference_other_children.events
 
 Template.ownership.events
     'click #make_author_owner': ->
-        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        doc = Docs.findOne @doc_id
         Meteor.call 'calculate_owner_ids', doc._id
         # Meteor.call 'change_ownership', doc._id, doc._author_id, 100     
 
@@ -250,12 +250,12 @@ Template.add_doc_button.events
 #         Docs.find
 #             type: 'component'
 #     # child_field_toggle_class: ->
-#     #     doc = Docs.findOne FlowRouter.getParam('doc_id')
+#     #     doc = Docs.findOne @doc_id
 #     #     if @slug in doc.child_fields then 'active' else ''
 
 # Template.edit_child_fields.events
 #     'click .toggle_child_field': ->
-#         doc = Docs.findOne FlowRouter.getParam('doc_id')
+#         doc = Docs.findOne @doc_id
 #         if doc.child_field_ids 
 #             if @_id in doc.child_field_ids
 #                 Docs.update doc._id,
@@ -280,14 +280,14 @@ Template.add_doc_button.events
     
     
 #     child_action_toggle_class: ->
-#         doc = Docs.findOne FlowRouter.getParam('doc_id')
+#         doc = Docs.findOne @doc_id
 #         if @slug in doc.child_actions then 'active' else ''
 
 
 
 # Template.edit_child_actions.events
 #     'click .toggle_child_action': ->
-#         doc = Docs.findOne FlowRouter.getParam('doc_id')
+#         doc = Docs.findOne @doc_id
 #         if doc.child_actions 
 #             if @slug in doc.child_actions
 #                 Docs.update doc._id,
@@ -313,12 +313,12 @@ Template.add_doc_button.events
 #             type: 'template'
     
 #     child_field_toggle_class: ->
-#         doc = Docs.findOne FlowRouter.getParam('doc_id')
+#         doc = Docs.findOne @doc_id
 #         if @slug is doc.template then 'active' else ''
 
 # Template.select_template.events
 #     'click .select_template': ->
-#         doc = Docs.findOne FlowRouter.getParam('doc_id')
+#         doc = Docs.findOne @doc_id
 #         if doc.template 
 #             Docs.update doc._id,
 #                 $set: template: @slug
@@ -359,9 +359,9 @@ Template.add_doc_button.events
 
 # Template.check_completion_button.events
 #     'click #check_completion': ->
-#         doc = Docs.findOne FlowRouter.getParam('doc_id')
+#         doc = Docs.findOne @doc_id
 #         # console.log 'completion_type', doc.completion_type
-#         Meteor.call 'calculate_doc_completion', FlowRouter.getParam('doc_id')
+#         Meteor.call 'calculate_doc_completion', @doc_id
 
 
 
@@ -383,34 +383,34 @@ Template.toggle_friend.events
 
 
 Template.dev_footer.onCreated ->
-    @autorun -> Meteor.subscribe('parent_doc', FlowRouter.getParam('doc_id'))
+    @autorun -> Meteor.subscribe('parent_doc', @doc_id)
     Session.setDefault 'show_child_docs', false
 Template.dev_footer.helpers
-    doc: -> Docs.findOne FlowRouter.getParam('doc_id')
+    doc: -> Docs.findOne @doc_id
 
     show_child_docs: -> Session.get 'show_child_docs'
 
 Template.dev_footer.events
     'click #create_child': ->
-        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        doc = Docs.findOne @doc_id
         Docs.insert
             parent_id: doc._id
     # 'click #trickle_down': ->
-    #     doc = Docs.findOne FlowRouter.getParam('doc_id')
-    #     Meteor.call 'calculate_child_ancestor_array', FlowRouter.getParam('doc_id')
+    #     doc = Docs.findOne @doc_id
+    #     Meteor.call 'calculate_child_ancestor_array', @doc_id
         
         
     'click #create_parent': ->
         parent_doc_id = Docs.insert {}
-        Docs.update FlowRouter.getParam('doc_id'),
+        Docs.update @doc_id,
             $set: parent_id: parent_doc_id
         FlowRouter.go "/view/#{parent_doc_id}"
 
     'click #move_above_parent': ->
-        doc = Docs.findOne FlowRouter.getParam('doc_id')
+        doc = Docs.findOne @doc_id
         parent_doc = Docs.findOne doc.parent_id
         console.log 'grandparent id', parent_doc.parent_id
-        Docs.update FlowRouter.getParam('doc_id'),
+        Docs.update @doc_id,
             $set: parent_id: parent_doc.parent_id
     
     
@@ -469,7 +469,7 @@ Template.vote_button.events
         
 Template.toggle_key.helpers
     toggle_key_button_class: -> 
-        current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+        current_doc = Docs.findOne @doc_id
         # console.log current_doc["#{@key}"]
         # console.log @key
         # console.log Template.parentData()
@@ -483,13 +483,13 @@ Template.toggle_key.events
     'click #toggle_key': ->
         # console.log @
         if @value
-            Docs.update FlowRouter.getParam('doc_id'), 
+            Docs.update @doc_id, 
                 $set: "#{@key}": "#{@value}"
         else if Template.parentData()["#{@key}"] is true
-            Docs.update FlowRouter.getParam('doc_id'), 
+            Docs.update @doc_id, 
                 $set: "#{@key}": false
         else
-            Docs.update FlowRouter.getParam('doc_id'), 
+            Docs.update @doc_id, 
                 $set: "#{@key}": true
 
 
@@ -598,7 +598,7 @@ Template.reference_office.events
         searched_value = doc["#{template.data.key}"]
         # console.log 'template ', template
         # console.log 'search value ', searched_value
-        Docs.update FlowRouter.getParam('doc_id'),
+        Docs.update @doc_id,
             $set: "#{template.data.key}": "#{doc._id}"
         $('#search').val ''
 
@@ -608,7 +608,7 @@ Template.reference_customer.events
         searched_value = doc["#{template.data.key}"]
         # console.log 'template ', template
         # console.log 'search value ', searched_value
-        Docs.update FlowRouter.getParam('doc_id'),
+        Docs.update @doc_id,
             $set: "#{template.data.key}": "#{doc._id}"
         $('#search').val ''
 
@@ -657,7 +657,7 @@ Template.delete_button.events
             confirmButtonText: 'Delete'
             confirmButtonColor: '#da5347'
         }, =>
-            # doc = Docs.findOne FlowRouter.getParam('doc_id')
+            # doc = Docs.findOne @doc_id
             # Docs.remove doc._id, ->
             #     FlowRouter.go "/docs"
             console.log template
@@ -667,17 +667,17 @@ Template.delete_button.events
 Template.edit_link.events
     'blur #link': ->
         link = $('#link').val()
-        Docs.update FlowRouter.getParam('doc_id'),
+        Docs.update @doc_id,
             $set: link: link
             
             
 Template.publish_button.events
     'click #publish': ->
-        Docs.update FlowRouter.getParam('doc_id'),
+        Docs.update @doc_id,
             $set: published: true
 
     'click #unpublish': ->
-        Docs.update FlowRouter.getParam('doc_id'),
+        Docs.update @doc_id,
             $set: published: false
             
             
@@ -737,7 +737,7 @@ Template.google_places_input.onRendered ->
                 result.lat = lat
                 result.lng = long
                 if confirm "change location to #{result.formatted_address}?"
-                    Meteor.call 'update_location', FlowRouter.getParam('doc_id'), result
+                    Meteor.call 'update_location', @doc_id, result
                 )
     )
 
@@ -748,15 +748,15 @@ Template.google_places_input.onRendered ->
 
         # result = t.autocomplete.gm_accessors_.place.jd.w3
         # console.dir result
-        # Meteor.call 'update_location', FlowRouter.getParam('doc_id'), result, (err,res)->
+        # Meteor.call 'update_location', @doc_id, result, (err,res)->
             # console./log res
         # stuff = Template.instance().autocomplete.gm_accessors_.place
-        # Docs.update FlowRouter.getParam('doc_id'),
+        # Docs.update @doc_id,
         #     $set: stuff: stuff
         # console.dir stuff.jd.formattedPrediction
         
 Template.office_map.onRendered ->
-    doc = Docs.findOne FlowRouter.getParam('doc_id')
+    doc = Docs.findOne @doc_id
     # console.log doc.location_ob.geometry
     mymap = L.map('map').setView([doc.location_lat, doc.location_lng], 15);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {

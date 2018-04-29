@@ -1,10 +1,3 @@
-FlowRouter.route '/conversations', 
-    name:'conversations'
-    action: (params) ->
-        BlazeLayout.render 'layout',
-            main: 'conversations'
-
-
 
 Meteor.methods
     # add_conversation: (subject_id, predicate, object_id) ->

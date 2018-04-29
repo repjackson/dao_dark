@@ -1,8 +1,8 @@
 Template.comments.onCreated ->
-    @autorun -> Meteor.subscribe 'comments', FlowRouter.getParam('doc_id')
+    # @autorun -> Meteor.subscribe 'comments', @doc_id
 
 Template.comments.helpers
-    comments: -> Docs.find { parent_id:FlowRouter.getParam('doc_id'), type:'comment'}
+    # comments: -> Docs.find { parent_id:@doc_id, type:'comment'}
 
 
 Template.comments.onRendered ->
@@ -21,7 +21,7 @@ Template.comments.events
                 Docs.insert
                     type:'comment'
                     text:comment
-                    parent_id:FlowRouter.getParam('doc_id')
+                    parent_id:@doc_id
              
     'click .delete_comment': ->
         if confirm 'delete comment?'

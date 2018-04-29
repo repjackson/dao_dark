@@ -4,13 +4,6 @@ Template.person.onCreated ->
     @autorun -> Meteor.subscribe('person', @_id)
 
 
-FlowRouter.route '/people', 
-    name: 'people'
-    action: ->
-        BlazeLayout.render 'layout', 
-            main: 'view_people'
-
-
 
 
 Template.view_people.helpers

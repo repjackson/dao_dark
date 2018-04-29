@@ -6,7 +6,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'user', Meteor.userId()
     
     # Template.view_account.onRendered ->
-    #     console.log Meteor.users.findOne(FlowRouter.getParam('user_id'))
+    #     console.log Meteor.users.findOne(@user_id)
     
     Template.view_account.helpers
     

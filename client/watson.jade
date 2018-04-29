@@ -44,19 +44,17 @@ template(name='keywords')
             |#{watson.keywords.length} keywords
             i.dropdown.icon
         .active.content
-            .ui.stackable.three.cards
+            .ui.list
                 each watson.keywords
-                    .ui.card
+                    .ui.item
                         .content
-                            h4
+                            .header
                                 |#{text}
-                            .meta
-                                |{{ to_percent relevance }}% relevant
-                            .meta
-                                |sentiment: {{ to_percent sentiment.score }}%
                             .description
                                 with emotion
-                                    .ui.list
+                                    .ui.horizontal.list
+                                        .item {{ to_percent ../relevance }}% relevant
+                                        .item sentiment: {{ to_percent ../sentiment.score }}%
                                         .item {{ to_percent sadness }}% sadness
                                         .item {{ to_percent joy }}% joy 
                                         .item {{ to_percent fear }}% fear

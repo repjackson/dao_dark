@@ -12,7 +12,7 @@ Meteor.users.helpers
         moment(@status?.lastLogin.date).fromNow()
 
     five_tags: -> if @tags then @tags[0.3]
-    
+
             
 Docs.before.insert (userId, doc)=>
     timestamp = Date.now()
@@ -132,20 +132,6 @@ Docs.helpers
             sort:
                 points:-1
                 timestamp:-1
-
-
-
-FlowRouter.notFound =
-    action: ->
-        BlazeLayout.render 'layout', 
-            main: 'not_found'
-
-
-FlowRouter.route '/', 
-    name:'home'
-    action: ->
-        BlazeLayout.render 'layout', 
-            main: 'library'
 
 
 
