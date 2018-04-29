@@ -16,7 +16,8 @@ Template.doc_edit.onRendered ->
 
 Template.doc_edit.helpers
     doc: -> Docs.findOne FlowRouter.getParam('doc_id')
-    edit_type_template: -> "#{@template}_edit"
+    edit_type_template: -> 
+        if @template then "#{@template}_edit" else 'post_edit'
     # templates: -> Docs.find type:'template'
 
     field_doc: -> Docs.findOne Template.parentData(1)

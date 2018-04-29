@@ -710,10 +710,10 @@ Template.edit_text_field.events
             $set: "#{@key}": value
             
 Template.edit_text_field.helpers
-    # field_value: ->
-    #     # console.log @
-    #     current_doc = Docs.findOne FlowRouter.getParam('doc_id')
-    #     current_doc["#{@key}"]
+    key_value: ->
+        # console.log @
+        current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+        current_doc["#{@key}"]
             
             
 Template.view_html_field.helpers

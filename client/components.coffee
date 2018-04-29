@@ -232,7 +232,10 @@ Template.parent_doc_segment.onCreated ->
     
 Template.add_doc_button.events
     'click #add_doc': ->
-        new_id = Docs.insert type:@type
+        new_id = 
+            Docs.insert 
+                type:@type
+                template:@type
         FlowRouter.go "/edit/#{new_id}"
 
     

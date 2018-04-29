@@ -31,7 +31,8 @@ Template.doc_view.helpers
     doc: -> 
         doc = Docs.findOne FlowRouter.getParam('doc_id')
         if doc then doc else @
-    view_template: -> "#{@template}_view"
+    view_template: -> 
+        if @template then "#{@template}_view" else 'post_view'
     # is_site: ->
     #     doc = Docs.findOne FlowRouter.getParam('doc_id')
     #     if doc.type is 'site' then true else false
