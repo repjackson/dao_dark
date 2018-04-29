@@ -8,8 +8,8 @@ template(name='doc_view')
 template(name='post_view')
     .ui.stackable.padded.grid
         .row
-                .ui.basic.segment        
-                    .large150 !{html}
+            .ui.basic.segment        
+                .large150 !{html}
         .row
             .four.wide.column
                 +call_watson
@@ -27,12 +27,11 @@ template(name='post_view')
                 // +view_full_button
                 // +edit_button
                 +comments
-                .ui.divider
                 +semantic_roles
                 +relations
     
                 +threaded_children
-                +doc_matches
+                // +doc_matches
                 +keywords
                 .content
                     if title

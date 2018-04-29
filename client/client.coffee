@@ -51,7 +51,7 @@ Template.registerHelper 'formatted_start_date', () -> moment(@start_datetime).fo
 Template.registerHelper 'formatted_end_date', () -> moment(@end_datetime).format("dddd, MMMM Do, h:mm a")
 Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
 
-Template.registerHelper 'tag_class', ()-> if @valueOf() in selected_tags.array() then 'blue' else 'basic'
+Template.registerHelper 'tag_class', ()-> if @valueOf() in selected_tags.array() then 'active' else ''
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
