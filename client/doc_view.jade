@@ -2,9 +2,6 @@ template(name='doc_view')
     with doc
         +Template.dynamic template=view_template
             
-            
-            
-            
 template(name='post_view')
     .ui.stackable.padded.grid
         .row
@@ -56,10 +53,6 @@ template(name='post_view')
                 .ui.header template: #{template}
                 if parent_id
                     +parent_link
-                if watson
-                    +doc_emotion
-                else
-                    +call_watson
                 +add_child_button
                 if currentUser
                     div
