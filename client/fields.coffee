@@ -360,63 +360,63 @@ Template.view_vimeo_field.onRendered ->
 #         if @text.toLowerCase() in doc.tags then 'disabled' else ''
 
 
-# Template.edit_author.onCreated ->
-#     Meteor.subscribe 'usernames'
+Template.edit_author.onCreated ->
+    Meteor.subscribe 'usernames'
 
-# Template.edit_author.events
-#     "autocompleteselect input": (event, template, doc) ->
-#         # console.log("selected ", doc)
-#         if confirm 'Change author?'
-#             Docs.update FlowRouter.getParam('doc_id'),
-#                 $set: author_id: doc._id
-#             $('#author_select').val("")
+Template.edit_author.events
+    "autocompleteselect input": (event, template, doc) ->
+        # console.log("selected ", doc)
+        if confirm 'Change author?'
+            Docs.update FlowRouter.getParam('doc_id'),
+                $set: author_id: doc._id
+            $('#author_select').val("")
 
 
 
-# Template.edit_author.helpers
-#     author_edit_settings: -> {
-#         position: 'bottom'
-#         limit: 10
-#         rules: [
-#             {
-#                 collection: Meteor.users
-#                 field: 'username'
-#                 matchAll: true
-#                 template: Template.user_pill
-#             }
-#             ]
-#     }
+Template.edit_author.helpers
+    author_edit_settings: -> {
+        position: 'bottom'
+        limit: 10
+        rules: [
+            {
+                collection: Meteor.users
+                field: 'username'
+                matchAll: true
+                template: Template.user_pill
+            }
+            ]
+    }
 
-    # edit_author: ->
-    #     participants = []
+    edit_author: ->
+        participants = []
         
-    #     for participant_id in @participant_ids
-    #         participants.push Meteor.users.findOne(participant_id)
-    #     participants
-# Template.edit_recipient.onCreated ->
-#     Meteor.subscribe 'usernames'
+        for participant_id in @participant_ids
+            participants.push Meteor.users.findOne(participant_id)
+        participants
+Template.edit_user_array_field.onCreated ->
+    Meteor.subscribe 'usernames'
 
-# Template.edit_recipient.events
-#     "autocompleteselect input": (event, template, doc) ->
-#         # console.log("selected ", doc)
-#         Docs.update FlowRouter.getParam('doc_id'),
-#             $set: recipient_id: doc._id
-#         $('#recipient_select').val("")
+Template.edit_user_array_field.events
+    "autocompleteselect input": (event, template, doc) ->
+        # console.log("selected ", doc)
+        Docs.update FlowRouter.getParam('doc_id'),
+            $set: recipient_id: doc._id
+        $('#recipient_select').val("")
 
 
-# Template.edit_recipient.helpers
-#     recipient_select_settings: -> {
-#         position: 'bottom'
-#         limit: 10
-#         rules: [
-#             {
-#                 collection: Meteor.users
-#                 field: 'username'
-#                 matchAll: true
-#                 template: Template.user_pill
-#             }
-#             ]
-#     }
+Template.edit_user_array_field.helpers
+    recipient_select_settings: -> {
+        position: 'bottom'
+        limit: 10
+        rules: [
+            {
+                collection: Meteor.users
+                field: 'username'
+                matchAll: true
+                template: Template.user_pill
+            }
+            ]
+    }
 
     # edit_participant: ->
     #     participants = []

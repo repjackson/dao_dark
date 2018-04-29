@@ -18,7 +18,7 @@ template(name='doc_sentiment')
 
 template(name='doc_emotion') 
     with watson.emotion.document.emotion
-        |realtime google zeitgeist
+        // |realtime google zeitgeist
         .ui.list
             .item {{to_percent sadness}}% sadness 
             .item {{to_percent joy}}% joy 
@@ -39,7 +39,7 @@ template(name='call_visual_analysis')
         |tag
 
 template(name='keywords')
-    .ui.styled.accordion
+    .ui.accordion
         .active.title
             |#{watson.keywords.length} watson tags
             i.dropdown.icon
@@ -76,31 +76,29 @@ template(name='entities')
 
 template(name='concepts')
     if watson.concepts.length
-        .ui.segment
-            .ui.header 
-                |#{watson.concepts.length} concepts
-            .ui.list
-            each watson.concepts
-                .item
-                    a(href=dbpedia_resource target='_blank') #{text}
-                    | {{to_percent relevance}}%
+        .ui.header 
+            |#{watson.concepts.length} concepts
+        .ui.list
+        each watson.concepts
+            .item
+                a(href=dbpedia_resource target='_blank') #{text}
+                | {{to_percent relevance}}%
 
 
 
 
 template(name='categories')
-    .ui.segment
-        .ui.header 
-            |#{watson.categories.length} categories
-        .ui.list
-            each watson.categories
-                .item
-                    strong #{label}
-                    |{{ to_percent score }}%
+    .ui.header 
+        |#{watson.categories.length} categories
+    .ui.list
+        each watson.categories
+            .item
+                strong #{label}
+                |{{ to_percent score }}%
 
 
 template(name='semantic_roles')
-    .ui.styled.accordion
+    .ui.accordion
         .title
             |#{watson.semantic_roles.length} semantic roles
         .content
@@ -119,7 +117,7 @@ template(name='semantic_roles')
 
 template(name='relations')
     if watson.relations.length
-        .ui.styled.accordion
+        .ui.accordion
             .title
                 |#{watson.relations.length} relations
             .content    
@@ -142,7 +140,7 @@ template(name='relations')
 
 template(name='personality')
     if personality
-        .ui.styled.accordion
+        .ui.accordion
             .title
                 h3
                     | #{author.first_name} personality 
@@ -177,7 +175,7 @@ template(name='personality')
 
 template(name='consumption_preferences')
     if personality
-        .ui.styled.accordion
+        .ui.accordion
             .title
                 h3.ui.header
                     |#{author.first_name} preferences

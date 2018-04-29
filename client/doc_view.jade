@@ -6,12 +6,11 @@ template(name='doc_view')
             
             
 template(name='post_view')
-    .ui.stackable.padded.grid
+    .ui.stackable.divided.grid
         .four.wide.column
             +call_watson
-            .ui.segment
-                +doc_emotion
-                +doc_sentiment
+            +doc_emotion
+            +doc_sentiment
             +tone
             +entities
             +concepts
@@ -21,54 +20,49 @@ template(name='post_view')
             if image_url
                 .ui.image
                     img(src=image_url)
-            .ui.segment
-                .large130 !{html}
-                +view_full_button
-                +edit_button
+            .large130 !{html}
+            +view_full_button
+            +edit_button
             +comments
+            .ui.divider
             +semantic_roles
             +relations
 
             +threaded_children
             +doc_matches
             +keywords
-            .ui.segment
-                .content
-                    if title
-                        h1.ui.center.aligned.header #{title}
-                    if slug
-                        h4.ui.center.aligned.header #{slug}
-                    if content
-                        .large-text !{content}
+            .content
+                if title
+                    h1.ui.center.aligned.header #{title}
+                if slug
+                    h4.ui.center.aligned.header #{slug}
+                if content
+                    .large-text !{content}
         .four.wide.column
+            if tags
+                .ui.header author tags
+                each tags 
+                    .doc_tag.ui.button(class=tag_class) #{this}
             +personality
             +consumption_preferences
-            .ui.segment
-                +author_info
-                | #{when}
-                if is_author
-                    a.ui.icon.button(href="/edit/#{_id}")
-                        i.pencil.icon
+            +author_info
+            | #{when}
+            if is_author
+                a.ui.icon.button(href="/edit/#{_id}")
+                    i.pencil.icon
 
-            if tags
-                .ui.segment
-                    .ui.header author tags
-                    each tags 
-                        .doc_tag.ui.small.compact.button(class=tag_class) #{this}
-            if template
-                .ui.segment
-                    .ui.header template: #{template}
             .ui.segment
-                if parent_id
-                    +parent_link
-                // if watson
-                //     +doc_emotion
-                // else
-                //     +call_watson
-                +add_child_button
-                if currentUser
-                    div
-                        +vote_button
-                +upvoted_list
-            // +crowd_tags
-            // +ownership
+                .ui.header template: #{template}
+            if parent_id
+                +parent_link
+            if watson
+                +doc_emotion
+            else
+                +call_watson
+            +add_child_button
+            if currentUser
+                div
+                    +vote_button
+            +upvoted_list
+            +crowd_tags
+            +ownership

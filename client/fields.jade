@@ -165,24 +165,24 @@ template(name='view_vimeo_field')
 
             
             
-// template(name='edit_author')
-//     .ui.labeled.input
-//         .ui.label 
-//             |Author: 
-//             with author
-//                 img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
-//                 |#{username}
-//         +inputAutocomplete settings=author_edit_settings id="author_select" class="" autocomplete="off" placeholder='Lookup..'
+template(name='edit_author')
+    .ui.labeled.input
+        .ui.label 
+            |Author: 
+            with author
+                img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                |#{username}
+        +inputAutocomplete settings=author_edit_settings id="author_select" class="" autocomplete="off" placeholder='Lookup..'
                     
                     
-// template(name='edit_recipient')
-//     .ui.labeled.input
-//         .ui.label 
-//             |Recipient: 
-//             with recipient
-//                 img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
-//                 |#{username}
-//         +inputAutocomplete settings=recipient_select_settings id="recipient_select" class="" autocomplete="off" placeholder='Lookup..'
+template(name='edit_user_array_field')
+    .ui.labeled.input
+        .ui.label 
+            |#{label}
+        +inputAutocomplete settings=recipient_select_settings id="recipient_select" class="" autocomplete="off" placeholder='Lookup..'
+    each attached_users        
+        img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+        |#{username}
                     
                         
                         
@@ -274,10 +274,10 @@ template(name='view_array_field')
     
     
 template(name='edit_array_field')
-    // i.tags.icon
-    |#{field_doc.title}
+    i.tags.icon
+    |#{key}
     .ui.input
-        input.new_entry(type='text' placeholder='add item' maxlength='50' )
+        input.new_entry(type='text' maxlength='50' )
         // .ui.icon.button
         //     i.right.arrow.icon
     // .ui.mini.input

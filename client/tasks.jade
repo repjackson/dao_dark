@@ -76,10 +76,12 @@ template(name='task_edit')
                     i.trash.icon
         .row
             .eight.wide.column
+                +edit_user_array_field key=assigned_ids label='assigned to'
+            .eight.wide.column
                 .ui.form
                     +edit_text_field key='text' label='text' icon='left align'
-                    +edit_date_field key='task_date' label='task Date' icon='calendar'
-                    +edit_text_field key='task_status' label='task Status' icon='checkmark'
+                    +edit_date_field key='task_date' label='task date' icon='calendar'
+                    +toggle_boolean key='complete' label='complete' icon='checkmark'
                         
                         
 template(name='task_view')
@@ -113,3 +115,6 @@ template(name='task_view')
                     .ui.header #{formal_when}
                 .ui.hidden.divider
                         
+                        
+template(name='user_selector')
+    

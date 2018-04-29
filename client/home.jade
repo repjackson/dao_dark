@@ -20,12 +20,8 @@ template(name='tags')
 
 
 template(name='library')
-    .ui.stackable.centered.padded.grid
-        // .ui.four.wide.column
-        .center.aligned.row
-            .ui.sixteen.wide.column
-                +add_doc_button
-                +tags
+    .ui.stackable.padded.grid
+        +tags
         .centered.row
             .ui.eight.wide.column
                 +view_toggle name='chart' label='chart' icon='chart area'

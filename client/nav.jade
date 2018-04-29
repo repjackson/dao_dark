@@ -18,7 +18,7 @@ template(name='nav')
                 input#quick_add(type='text' placeholder='quick add tags')
                 i.lightning.icon
             .right.menu
-                a#add_doc.item
+                a#add_doc.icon.item
                     i.plus.icon
                 a.icon.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute 'dashboard'}}")
                     i.line.chart.icon
@@ -26,16 +26,16 @@ template(name='nav')
                     i.exchange.icon
                 a.icon.item(href="/tasks" class="{{isActiveRoute 'tasks'}}")
                     i.tasks.icon
-                // a.icon.item(href="/store" class="{{isActiveRoute 'store'}}")
-                //     i.shopping.cart.icon
-                // a.icon.item(href="/conversations" class="{{isActiveRoute 'conversations'}}")
-                //     i.comments.icon
+                a.icon.item(href="/store" class="{{isActiveRoute 'store'}}")
+                    i.shopping.cart.icon
+                a.icon.item(href="/conversations" class="{{isActiveRoute 'conversations'}}")
+                    i.comments.icon
                 a.item(href="/user/#{currentUser.username}/karma" class="{{isActiveRoute 'karma'}}")
                     |#{currentUser.points}
-                // a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")
-                //     i.mail.icon
-                // a.icon.item(href='/notifications' class="{{isActiveRoute 'notifications'}}")
-                //     i.bell.icon
+                a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")
+                    i.mail.icon
+                a.icon.item(href='/notifications' class="{{isActiveRoute 'notifications'}}")
+                    i.bell.icon
                 a.ui.icon.dropdown.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
                     i.user.icon
                     .menu

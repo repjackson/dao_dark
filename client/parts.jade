@@ -180,31 +180,31 @@ template(name='parent_doc_segment')
                 
                 
 template(name='reference_other_children')
-    .ui.segment
-        .ui.header choose fields
-        // .ui.header 
-            // |Selected children from 
-            // if selector.icon_class
-            //     +icon24 name=selector.icon_class classes='ui inline image'
-            // |#{selector.title}
-            // small
-                // a(href="view/8SE48hfdLYhqmkFLC" target="_blank") Add/Edit
-        each available_children
-            .select_child.ui.button(class=child_field_toggle_class)
-                // +icon24 name=icon_class classes='ui inline image'
-                strong #{slug}    
-        // .ui.items
-        //     each selected_children
-        //         .item
-        //             .content
-        //                 .header
-        //                     // +icon48 name=icon_class classes='ui inline image'
-        //                     |#{title}
-        //                 .meta Slug: #{slug}
-        //                 .meta id: #{_id}
-        //             .content
-        //                 .disable_child.ui.right.floated.red.small.icon.button
-        //                     i.remove.icon
+    .ui.header choose fields
+    // .ui.header 
+        // |Selected children from 
+        // if selector.icon_class
+        //     +icon24 name=selector.icon_class classes='ui inline image'
+        // |#{selector.title}
+        // small
+            // a(href="view/8SE48hfdLYhqmkFLC" target="_blank") Add/Edit
+    each available_children
+        .select_child.ui.button(class=child_field_toggle_class)
+            // +icon24 name=icon_class classes='ui inline image'
+            strong #{slug}    
+    // .ui.items
+    //     each selected_children
+    //         .item
+    //             .content
+    //                 .header
+    //                     // +icon48 name=icon_class classes='ui inline image'
+    //                     |#{title}
+    //                 .meta Slug: #{slug}
+    //                 .meta id: #{_id}
+    //             .content
+    //                 .disable_child.ui.right.floated.red.small.icon.button
+    //                     i.remove.icon
+    
     
                 
                 
@@ -365,8 +365,9 @@ template(name='bookmarked_by_list')
 template(name='doc_matches')
     .ui.fluid.styled.accordion
         .title 
-            +icon48 name='query-inner-join' classes='avatar'
-            |Top Doc Matches (#{top_doc_matches.length})
+            // +icon48 name='query-inner-join' classes='avatar'
+            i.clone.icon
+            |(#{top_doc_matches.length})
             i.dropdown.icon
             if currentUser
                 #compute_doc_matches.ui.icon.button(data-tooltip='Compute Matches')
@@ -401,7 +402,7 @@ template(name='publish_button')
             #unpublish.ui.green.button
                 |Published
         else
-            #publish.ui.basic.button
+            #publish.ui.button
                 |Private
         
 template(name='call_method')
@@ -413,7 +414,7 @@ template(name='html_create')
         with doc
             if is_editing
                 .ui.labeled.fluid.input
-                    .ui.basic.label select staff
+                    .ui.label select staff
                     input#staff(type='text' value=staff)
             else
                 div(class=doc_classes)
@@ -423,7 +424,7 @@ template(name='html_create')
     else
         // if isInRole 'admin'
         .ui.header no doc found
-        .create_doc.ui.basic.button
+        .create_doc.ui.button
             i.plus.icon
             |create html with #{template_tags}
     
@@ -566,7 +567,7 @@ template(name='add_button')
 
 template(name='save_button')
     a.ui.big.icon.button(href="/view/#{_id}") 
-        i.checkmark.green.icon
+        i.checkmark.icon
         // strong save
         
 template(name='edit_button')
@@ -632,7 +633,7 @@ template(name='toggle_key')
 
 
 template(name='link_button')    
-    a.ui.big.icon.basic.circular.button(href=link title=label)
+    a.ui.big.icon.button(href=link title=label)
         i.large.icon(class=icon)
 
 
@@ -680,3 +681,8 @@ template(name="office_result")
 template(name="customer_result")
     .item #{first_name} #{last_name}
         
+        
+        
+        
+template(name='user_pill')
+    .item #{profile.first_name} #{profile.last_name} #{username}

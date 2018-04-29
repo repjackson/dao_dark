@@ -211,3 +211,10 @@ Meteor.publish 'transaction', (hash)->
         
         
         
+Meteor.publish 'comments', (parent_id)->
+    Docs.find
+        type:'comment'
+        parent_id:parent_id
+
+                        
+                        
