@@ -8,7 +8,7 @@ template(name='user_layout')
                     |#{name}
                     // unless is_user
                     // +staus_indicator
-                .ui.vertical.menu
+                .ui.items
                     a.item(href="/user/#{username}/dashboard/" class="{{isActiveRoute 'user_dashboard'}}")
                         i.dashboard.icon
                         |dashboard
@@ -57,21 +57,20 @@ template(name='user_layout')
 template(name='user_info')
     // h1.ui.center.aligned.header about #{person.name}
     with person
-        .ui.segment
-            if tags
-                each tags
-                    .user_tag.ui.label #{this}
-            if profile.location
-                .ui.header 
-                    i.compass.icon
-                    | #{profile.location}
-            if profile.about_me
-                h4 about: #{profile.about_me}
-            if profile.sex_position
-                h4.ui.header favorite sex position: #{profile.sex_position}
-            if profile.spirit_animal
-                h5.ui.header spirit animal: #{profile.spirit_animal}
-        +wall
+        if tags
+            each tags
+                .user_tag.ui.label #{this}
+        if profile.location
+            .ui.header 
+                i.compass.icon
+                | #{profile.location}
+        if profile.about_me
+            h4 about: #{profile.about_me}
+        // if profile.sex_position
+        //     h4.ui.header favorite sex position: #{profile.sex_position}
+        // if profile.spirit_animal
+        //     h5.ui.header spirit animal: #{profile.spirit_animal}
+        // +wall
         // .ui.header My True Colors Are:
         // +color_dots
         // if profile.if_knew_me

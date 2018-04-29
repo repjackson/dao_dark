@@ -22,16 +22,7 @@ template(name='tags')
 template(name='library')
     .ui.stackable.padded.grid
         +tags
-        .centered.row
-            .ui.eight.wide.column
-                +view_toggle name='chart' label='chart' icon='chart area'
-                +view_toggle name='grid' label='grid' icon='th'
-                +view_toggle name='tree' label='tree' icon='sitemap'
-                +view_toggle name='calendar' label='calendar' icon='calendar'
-                +view_toggle name='map' label='map' icon='map'
-                +view_toggle name='table' label='table' icon='table'
-                // .ui.header facet: an ai-driven crossplatform interdimensional token cryptocurrency cafe latte full stack decentralized exchange marketplace social network 
-                // .ui.header build worlds 
+        p facet: an ai-driven crossplatform interdimensional token cryptocurrency cafe latte full stack decentralized exchange marketplace social network 
         .row
             .ui.sixteen.wide.column
                 if viewing_table
@@ -43,6 +34,10 @@ template(name='library')
         
 template(name='view_toggle')
     .toggle_view.ui.large.icon.button(title=label)
+        i.icon(class=icon)
+        
+template(name='view_toggle_item')
+    a.toggle_view.ui.icon.item(title=label)
         i.icon(class=icon)
         
         

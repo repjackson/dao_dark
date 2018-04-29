@@ -19,7 +19,6 @@ template(name='people_cloud')
 
 template(name='view_people')
     +people_cloud
-    .ui.hidden.divider
         // .twelve.wide.column
             // +doc_content tags='people cloud,blurb'
             // .ui.hidden.divider
@@ -32,26 +31,25 @@ template(name='view_people')
 
 
 template(name='person')
-    .ui.card
-        .image
+    .image
+        a(href="/user/#{username}")
+            img.ui.fluid.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+    .content
+        .center.aligned.header
             a(href="/user/#{username}")
-                img.ui.fluid.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-        .content
-            .center.aligned.header
-                a(href="/user/#{username}")
-                    if profile.first_name
-                        | #{profile.first_name}
-                    if profile.last_name
-                        | #{profile.last_name}
-                    else    
-                        | #{username}
-                    // +staus_indicator
-            if profile.location
-                .center.aligned.meta
-                    | #{profile.location}
-            // .center.aligned.meta
-            //     +color_dots
-        // .extra.content
-        //     each ten_tags
-        //         .ui.compact.tiny.button.user_tag(class=person_tag_class) #{this}
+                if profile.first_name
+                    | #{profile.first_name}
+                if profile.last_name
+                    | #{profile.last_name}
+                else    
+                    | #{username}
+                // +staus_indicator
+        if profile.location
+            .center.aligned.meta
+                | #{profile.location}
+        // .center.aligned.meta
+        //     +color_dots
+    // .extra.content
+    //     each ten_tags
+    //         .ui.compact.tiny.button.user_tag(class=person_tag_class) #{this}
 

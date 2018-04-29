@@ -49,8 +49,8 @@ template(name='post_view')
                 if is_author
                     a.ui.icon.button(href="/edit/#{_id}")
                         i.pencil.icon
-    
-                .ui.header template: #{template}
+                if template
+                    .ui.header template: #{template}
                 if parent_id
                     +parent_link
                 +add_child_button

@@ -50,10 +50,10 @@
   },
   "themes": {
     "amazon": false,
-    "basic": false,
+    "basic": true,
     "bookish": false,
     "bootstrap3": false,
-    "chubby": false,
+    "chubby": true,
     "classic": false,
     "colored": false,
     "default": true,

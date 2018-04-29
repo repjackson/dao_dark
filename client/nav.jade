@@ -1,5 +1,5 @@
 template(name='nav')
-    .ui.large.menu
+    .ui.large.borderless.top.attached.menu
         a.header.icon.item(href='/' class="{{isActiveRoute 'home'}}")
             i.home.icon
             // |facet
@@ -7,39 +7,46 @@ template(name='nav')
         //     |facking everything
         .ui.icon.transparent.input
             i.search.icon
-            input#query(type='text')
-        a.icon.item(href='/blocks' class="{{isActiveRoute 'blocks'}}")
-            i.bitcoin.icon
-        a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
-            i.users.icon
+            input#query(type='text' placeholder='build worlds')
+        // a.icon.item(href='/blocks' class="{{isActiveRoute 'blocks'}}")
+        //     i.bitcoin.icon
+        // a.icon.item(href='/people' class="{{isActiveRoute 'people'}}")
+        //     i.users.icon
+        +view_toggle_item name='chart' label='chart' icon='chart area'
+        +view_toggle_item name='grid' label='grid' icon='th'
+        +view_toggle_item name='tree' label='tree' icon='sitemap'
+        +view_toggle_item name='calendar' label='calendar' icon='calendar'
+        +view_toggle_item name='map' label='map' icon='map'
+        +view_toggle_item name='table' label='table' icon='table'
+
         if currentUser
-            .ui.icon.small.transparent.input
-                // i.plus.icon
-                input#quick_add(type='text' placeholder='quick add tags')
-                i.lightning.icon
+            // .ui.icon.small.transparent.input
+            //     // i.plus.icon
+            //     input#quick_add(type='text')
+            //     i.lightning.icon
             .right.menu
                 a#add_doc.icon.item
                     i.plus.icon
                 a.icon.item(href="/user/#{currentUser.username}/dashboard" class="{{isActiveRoute 'dashboard'}}")
                     i.line.chart.icon
-                a.icon.item(href="/transactions" class="{{isActiveRoute 'transactions'}}")
-                    i.exchange.icon
+                // a.icon.item(href="/transactions" class="{{isActiveRoute 'transactions'}}")
+                //     i.exchange.icon
                 a.icon.item(href="/tasks" class="{{isActiveRoute 'tasks'}}")
                     i.tasks.icon
-                a.icon.item(href="/store" class="{{isActiveRoute 'store'}}")
-                    i.shopping.cart.icon
-                a.icon.item(href="/conversations" class="{{isActiveRoute 'conversations'}}")
-                    i.comments.icon
+                // a.icon.item(href="/store" class="{{isActiveRoute 'store'}}")
+                //     i.shopping.cart.icon
+                // a.icon.item(href="/conversations" class="{{isActiveRoute 'conversations'}}")
+                //     i.comments.icon
                 a.item(href="/user/#{currentUser.username}/karma" class="{{isActiveRoute 'karma'}}")
                     |#{currentUser.points}
-                a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")
-                    i.mail.icon
-                a.icon.item(href='/notifications' class="{{isActiveRoute 'notifications'}}")
-                    i.bell.icon
-                a.ui.icon.dropdown.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
-                    i.user.icon
-                    .menu
-                        .item test
+                // a.icon.item(href='/mail' class="{{isActiveRoute 'mail'}}")
+                //     i.mail.icon
+                // a.icon.item(href='/notifications' class="{{isActiveRoute 'notifications'}}")
+                //     i.bell.icon
+                // a.ui.icon.dropdown.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
+                //     i.user.icon
+                //     .menu
+                //         .item test
                 a#logout.ui.icon.item(href='#') 
                     i.sign.out.icon
         else

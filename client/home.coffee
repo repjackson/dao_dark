@@ -49,7 +49,11 @@ Template.tags.events
 Template.view_toggle.events
     'click .toggle_view': ->
         Session.set 'view_mode', @name
-        console.log @name
+        # console.log @name
+Template.view_toggle_item.events
+    'click .toggle_view': ->
+        Session.set 'view_mode', @name
+        # console.log @name
 
 
 Template.library.onCreated ->
