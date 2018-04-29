@@ -6,7 +6,7 @@ template(name='doc_view')
             
             
 template(name='post_view')
-    .ui.stackable.divided.grid
+    .ui.stackable.grid
         .four.wide.column
             +call_watson
             +doc_emotion
@@ -20,7 +20,8 @@ template(name='post_view')
             if image_url
                 .ui.image
                     img(src=image_url)
-            .large130 !{html}
+            .ui.basic.segment        
+                .large150 !{html}
             +view_full_button
             +edit_button
             +comments
@@ -51,8 +52,7 @@ template(name='post_view')
                 a.ui.icon.button(href="/edit/#{_id}")
                     i.pencil.icon
 
-            .ui.segment
-                .ui.header template: #{template}
+            .ui.header template: #{template}
             if parent_id
                 +parent_link
             if watson

@@ -1,5 +1,5 @@
 // template(name='doc_matches')
-//     .ui.fluid.styled.accordion
+//     .ui.fluid.accordion
 //         .title 
 //             |top doc matches (#{top_doc_matches.length})
 //             i.dropdown.icon
@@ -243,33 +243,31 @@ template(name='add_child_button')
         
         
 template(name='ownership')
-    .ui.segment
-        .ui.fluid.accordion
-            .title
-                .ui.header 
-                    | ownership
-                    i.dropdown.icon
-            .content
-                #make_author_owner.ui.button make author owner
-                .ui.list
-                    each ownership
-                        .item user id: #{user_id} #{percent}
-                .ui.header your ownership
-                if has_ownership
-                    |#{my_ownership} %
-                    #offer_ownership.ui.button offer ownership
-                .ui.header offers
-                .ui.header transactions
+    .ui.fluid.accordion
+        .title
+            .ui.header 
+                | ownership
+                i.dropdown.icon
+        .content
+            #make_author_owner.ui.button make author owner
+            .ui.list
+                each ownership
+                    .item user id: #{user_id} #{percent}
+            .ui.header your ownership
+            if has_ownership
+                |#{my_ownership} %
+                #offer_ownership.ui.button offer ownership
+            .ui.header offers
+            .ui.header transactions
                 
                 
 template(name='crowd_tags')
-    .ui.segment
-        .ui.header crowd tags
-        if my_review_tags
-            each my_review_tags
-                .ui.label #{this}
-        .ui.input
-            input#add_your_tag(type='text' placeholder='add')
+    .ui.header crowd tags
+    if my_review_tags
+        each my_review_tags
+            .ui.label #{this}
+    .ui.input
+        input#add_your_tag(type='text' placeholder='tag')
 
 
 template(name='clone_button')
@@ -301,11 +299,10 @@ template(name='view_youtube')
 
 
 template(name='bounty')
-    .ui.segment
-        .ui.header bounty
-        h5.ui.header offer bounty for this post
-        .ui.input
-            input#bounty_input(type='number' min='0')
+    .ui.header bounty
+    h5.ui.header offer bounty for this post
+    .ui.input
+        input#bounty_input(type='number' min='0')
 
 
 template(name='add_doc_button')
@@ -345,25 +342,24 @@ template(name='read_by_list')
 
 template(name='bookmarked_by_list')
     // if read_by.count
-    .ui.segment
-        .ui.dividing.header
-            |Bookmarked by... 
-            span.floated.right (#{bookmarked_by.count})
-        .ui.divided.list
-            each bookmarked_by
-                .item
-                    img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                    .content
-                        .header
-                            |#{name}
-                        .description
-                            +tiny_color_dots
-                            // each five_tags
-                            //     .ui.label #{this}
+    .ui.dividing.header
+        |Bookmarked by... 
+        span.floated.right (#{bookmarked_by.count})
+    .ui.divided.list
+        each bookmarked_by
+            .item
+                img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                .content
+                    .header
+                        |#{name}
+                    .description
+                        +tiny_color_dots
+                        // each five_tags
+                        //     .ui.label #{this}
 
 
 template(name='doc_matches')
-    .ui.fluid.styled.accordion
+    .ui.fluid.accordion
         .title 
             // +icon48 name='query-inner-join' classes='avatar'
             i.clone.icon
@@ -379,13 +375,12 @@ template(name='doc_matches')
                         +doc_match
                         
 template(name='associated_users')
-    .ui.segment
-        .ui.header 
-            i.users.icon
-            | Users
-        .ui.list
-            each users
-                .item #{first_name} #{last_name}
+    .ui.header 
+        i.users.icon
+        | Users
+    .ui.list
+        each users
+            .item #{first_name} #{last_name}
             
 template(name='set_session_button')
     .set_session_filter.ui.button(class=filter_class)

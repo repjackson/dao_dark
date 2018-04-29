@@ -41,7 +41,7 @@ template(name='call_visual_analysis')
 template(name='keywords')
     .ui.accordion
         .active.title
-            |#{watson.keywords.length} watson tags
+            |#{watson.keywords.length} keywords
             i.dropdown.icon
         .active.content
             .ui.stackable.three.cards
@@ -66,23 +66,22 @@ template(name='keywords')
 
 template(name='entities')
     if watson.entities.length
-        .ui.segment
-            .ui.header 
-                |#{watson.entities.length} entities
-            .ui.list
-                each watson.entities
-                    .item
-                        |#{type}: #{text}
+        .ui.header 
+            |#{watson.entities.length} entities
+        .ui.list
+            each watson.entities
+                .item
+                    |#{type}: #{text}
 
 template(name='concepts')
     if watson.concepts.length
         .ui.header 
             |#{watson.concepts.length} concepts
         .ui.list
-        each watson.concepts
-            .item
-                a(href=dbpedia_resource target='_blank') #{text}
-                | {{to_percent relevance}}%
+            each watson.concepts
+                .item
+                    a(href=dbpedia_resource target='_blank') #{text}
+                    | {{to_percent relevance}}%
 
 
 
@@ -194,7 +193,7 @@ template(name='consumption_preferences')
 
 
 template(name='tone')
-    .ui.styled.accordion
+    .ui.accordion
         .active.title 
             h3
                 | tone
