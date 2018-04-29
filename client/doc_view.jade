@@ -6,63 +6,65 @@ template(name='doc_view')
             
             
 template(name='post_view')
-    .ui.stackable.grid
-        .four.wide.column
-            +call_watson
-            +doc_emotion
-            +doc_sentiment
-            +tone
-            +entities
-            +concepts
-        .eight.wide.column
-            if youtube
-                +view_youtube
-            if image_url
-                .ui.image
-                    img(src=image_url)
-            .ui.basic.segment        
-                .large150 !{html}
-            +view_full_button
-            +edit_button
-            +comments
-            .ui.divider
-            +semantic_roles
-            +relations
-
-            +threaded_children
-            +doc_matches
-            +keywords
-            .content
-                if title
-                    h1.ui.center.aligned.header #{title}
-                if slug
-                    h4.ui.center.aligned.header #{slug}
-                if content
-                    .large-text !{content}
-        .four.wide.column
-            if tags
-                .ui.header author tags
-                each tags 
-                    .doc_tag.ui.button(class=tag_class) #{this}
-            +personality
-            +consumption_preferences
-            +author_info
-            | #{when}
-            if is_author
-                a.ui.icon.button(href="/edit/#{_id}")
-                    i.pencil.icon
-
-            .ui.header template: #{template}
-            if parent_id
-                +parent_link
-            if watson
-                +doc_emotion
-            else
+    .ui.stackable.padded.grid
+        .row
+                .ui.basic.segment        
+                    .large150 !{html}
+        .row
+            .four.wide.column
                 +call_watson
-            +add_child_button
-            if currentUser
-                div
-                    +vote_button
-            +upvoted_list
-            +crowd_tags
-            +ownership
+                +doc_emotion
+                +doc_sentiment
+                +tone
+                +entities
+                +concepts
+            .eight.wide.column
+                if youtube
+                    +view_youtube
+                if image_url
+                    .ui.image
+                        img(src=image_url)
+                // +view_full_button
+                // +edit_button
+                +comments
+                .ui.divider
+                +semantic_roles
+                +relations
+    
+                +threaded_children
+                +doc_matches
+                +keywords
+                .content
+                    if title
+                        h1.ui.center.aligned.header #{title}
+                    if slug
+                        h4.ui.center.aligned.header #{slug}
+                    if content
+                        .large-text !{content}
+            .four.wide.column
+                if tags
+                    .ui.header author tags
+                    each tags 
+                        .doc_tag.ui.button(class=tag_class) #{this}
+                +personality
+                +consumption_preferences
+                +author_info
+                | #{when}
+                if is_author
+                    a.ui.icon.button(href="/edit/#{_id}")
+                        i.pencil.icon
+    
+                .ui.header template: #{template}
+                if parent_id
+                    +parent_link
+                if watson
+                    +doc_emotion
+                else
+                    +call_watson
+                +add_child_button
+                if currentUser
+                    div
+                        +vote_button
+                +upvoted_list
+                +crowd_tags
+                +ownership
