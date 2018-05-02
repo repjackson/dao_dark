@@ -18,13 +18,19 @@ Template.home.onCreated ->
         Meteor.subscribe('facet', 
             selected_tags.array()
             )
-        Meteor.subscribe 'doc', Session.get('editing_id')
+        # Meteor.subscribe 'doc', Session.get('editing_id')
 
+Template.home.events
+    'click #save': -> Session.set 'editing_id', null
+    'click .edit': -> Session.set 'editing_id', @_id
+    'click #add': -> 
+        id = Docs.insert {}
+        Session.set 'editing_id', id
 Template.home.helpers
     one_doc: -> Docs.find().count() is 1
     view_mode: -> Session.get 'view_mode'
     viewing_table: -> Session.equals 'view_mode','table'
-
+    editing_id: -> Session.get 'editing_id'
     docs: -> Docs.find({},{limit:1,sort:tag_count:1})
 Template.table_view.helpers
     table_docs: -> Docs.find({},{limit:10,sort:tag_count:1})

@@ -1,24 +1,3 @@
-
-
-template(name='tags')
-    // .ui.left.icon.small.inline.input
-    //     i.search.icon
-    //     input#search(type='text')    
-    // |&nbsp;  
-    if selected_tags
-        #clear_tags.ui.icon.large.active.button
-            i.remove.icon
-        each selected_tags
-            .unselect_tag.ui.large.active.button
-                strong #{this}
-    each tags
-        .ui.compact.button.select_tag(class=tag_class)
-            strong #{this.name}
-        // .ui.compact.button.select_tag
-
-
-
-
 template(name='view_toggle')
     .toggle_view.ui.large.icon.button(title=label)
         i.icon(class=icon)
@@ -30,20 +9,20 @@ template(name='view_toggle_item')
         
 template(name='table_view')
     .ui.table
-        thead
-            tr
-                // th _id
-                th tags
-                // th author
-                // th html
-                th action
+        // thead
+        //     tr
+        //         // th _id
+        //         th tags
+        //         // th author
+        //         // th html
+        //         th action
         tbody
             each table_docs
                 tr
                     // td #{_id}
-                    td 
-                        each tags
-                            .ui.label #{this}
+                    // td 
+                    //     each tags
+                    //         .ui.label #{this}
                     // td 
                     //     +author_info
                     td !{html}

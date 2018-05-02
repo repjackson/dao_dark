@@ -148,10 +148,10 @@ template(name='user_social')
 
 template(name='view_account')
     h1.ui.center.aligned.header 
-        |account
+        | Account
     |{{> atForm state='changePwd'}}
     h2.ui.header 
-        |email(s)
+        |Email(s)
     .ui.segment
         .ui.divided.list
             each currentUser.emails
@@ -162,20 +162,20 @@ template(name='view_account')
                     .content
                         |#{address}
                         if verified
-                            .ui.green.basic.label verified
+                            .ui.green.basic.label Verified
                         else
-                            .ui.basic.label unverified
-                            .send_verification_email.ui.basic.button verify
+                            .ui.basic.label Unverified
+                            .send_verification_email.ui.basic.button Verify
         .ui.action.fluid.input
             input#new_email(type='email')
-            #add_email.ui.submit.button add email
+            #add_email.ui.submit.button Add Email
     h2.ui.header 
-        |change username 
+        | Change Username 
     .ui.segment
         .ui.header current: #{currentUser.username}
         .ui.action.fluid.input
             input#username(type='text')
-            #change_username.ui.submit.button submit
+            #change_username.ui.submit.button Submit
             
             
 template(name='user_conversations')
@@ -186,7 +186,7 @@ template(name='user_conversations')
         +conversation_messages_pane
     a.ui.button(href='/conversations')
         i.external.icon
-        |view all conversations
+        |view all Conversations
             
             
             

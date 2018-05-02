@@ -30,17 +30,17 @@ Template.transaction_browser.helpers
         
         
 # Template.view_doc.onCreated ->
-#     @autorun -> Meteor.subscribe 'doc', @doc_id
-#     @autorun -> Meteor.subscribe 'parent_doc', @doc_id
-#     # @autorun -> Meteor.subscribe 'delta', @doc_id
+#     @autorun -> Meteor.subscribe 'doc', Session.get('editing_id')
+#     @autorun -> Meteor.subscribe 'parent_doc', Session.get('editing_id')
+#     # @autorun -> Meteor.subscribe 'delta', Session.get('editing_id')
     
-#     # @autorun -> Meteor.subscribe 'ancestor_ids', @doc_id
-#     # @autorun -> Meteor.subscribe 'child_docs', @doc_id
+#     # @autorun -> Meteor.subscribe 'ancestor_ids', Session.get('editing_id')
+#     # @autorun -> Meteor.subscribe 'child_docs', Session.get('editing_id')
 #     # @autorun => Meteor.subscribe 'facet', 
 
 
 # # Template.view_doc.helpers
-# #     doc: -> Docs.findOne @doc_id
+# #     doc: -> Docs.findOne Session.get('editing_id')
 
 
 # Template.doc_card.onCreated ->
@@ -71,7 +71,7 @@ Template.transaction_page.events
 # # Template.your_tags.helpers
 # #     'keyup #add_your_tag': (e,t)->
 # #         if e.which is 13
-# #             doc_id = @doc_id
+# #             doc_id = Session.get('editing_id')
 # #             add_your_tag = $('#add_your_tag').val().toLowerCase().trim()
 # #             if add_your_tag.length > 0
 # #                 Docs.update doc_id,

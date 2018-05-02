@@ -1,8 +1,8 @@
 Template.comments.onCreated ->
-    # @autorun -> Meteor.subscribe 'comments', @doc_id
+    # @autorun -> Meteor.subscribe 'comments', Session.get('editing_id')
 
 Template.comments.helpers
-    # comments: -> Docs.find { parent_id:@doc_id, type:'comment'}
+    # comments: -> Docs.find { parent_id:Session.get('editing_id'), type:'comment'}
 
 
 Template.comments.onRendered ->
@@ -21,7 +21,7 @@ Template.comments.events
                 Docs.insert
                     type:'comment'
                     text:comment
-                    parent_id:@doc_id
+                    parent_id:Session.get('editing_id')
              
     'click .delete_comment': ->
         if confirm 'delete comment?'

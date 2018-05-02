@@ -23,10 +23,10 @@ Template.tasks.events
         
 
 Template.task_item.onCreated ->
-    @autorun -> Meteor.subscribe 'doc', @doc_id
+    @autorun -> Meteor.subscribe 'doc', Session.get('editing_id')
 
 Template.task_item.helpers
-    doc: -> Docs.findOne @doc_id
+    doc: -> Docs.findOne Session.get('editing_id')
     
     
 Template.task_item.events
@@ -42,7 +42,7 @@ Template.task_item.events
             confirmButtonText: 'Delete'
             confirmButtonColor: '#da5347'
         }, ->
-            doc = Docs.findOne @doc_id
+            doc = Docs.findOne Session.get('editing_id')
             Docs.remove doc._id, ->
                 
                 

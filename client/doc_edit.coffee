@@ -1,5 +1,5 @@
 # Template.doc_edit.onCreated ->
-#     @autorun -> Meteor.subscribe 'doc', @doc_id
+#     @autorun -> Meteor.subscribe 'doc', Session.get('editing_id')
 #     # @autorun -> Meteor.subscribe 'templates'
 
 # Template.doc_edit.onRendered ->
@@ -10,8 +10,8 @@
 #             , 1000
         
 
-# Template.doc_edit.helpers
-#     doc: -> Docs.findOne @doc_id
+Template.doc_edit.helpers
+    doc: -> Docs.findOne Session.get('editing_id')
 #     edit_type_template: -> 
 #         if @template then "#{@template}_edit" else 'post_edit'
 #     # templates: -> Docs.find type:'template'

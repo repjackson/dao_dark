@@ -18,7 +18,7 @@ Template.threaded_children.onCreated ->
 
 # Template.threaded_children.helpers
     # child_docs: ->
-    #     doc_id = @doc_id
+    #     doc_id = Session.get('editing_id')
     #     Docs.find
     #         parent_id: doc_id
 

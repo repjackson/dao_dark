@@ -1,11 +1,13 @@
 template(name='doc_edit')
     with doc
-        +Template.dynamic template=edit_type_template
-        else
-            // if parent_id
-            +parent_doc_segment
-            each field_ids
-                +edit_field template=field_doc.field_template key=field_doc.slug
+        +edit_array_field key='tags'
+        +edit_html_field key='html'
+        // +Template.dynamic template=edit_type_template
+        // else
+        //     // if parent_id
+        //     +parent_doc_segment
+        //     each field_ids
+        //         +edit_field template=field_doc.field_template key=field_doc.slug
     
 
 template(name='template_picker')
