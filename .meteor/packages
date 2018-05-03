@@ -29,8 +29,6 @@ momentjs:moment
 kevohagan:sweetalert
 accounts-base
 matb33:collection-hooks
-themeteorchef:bert
-mizzao:autocomplete
 
 coffeescript
 juliancwirko:postcss
@@ -40,4 +38,3 @@ semantic:ui
 pacreach:jade
 dburles:collection-helpers
 manuel:reactivearray
-davesierra:fullcalendar
