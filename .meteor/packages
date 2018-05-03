@@ -38,10 +38,6 @@ less
 froala:editor-reactive@=2.4.2
 semantic:ui
 pacreach:jade
-reywood:publish-composite
 dburles:collection-helpers
 manuel:reactivearray
-yasinuslu:json-view
-jeremy:geocomplete
 davesierra:fullcalendar
-http
