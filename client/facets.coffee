@@ -6,9 +6,9 @@ Template.tags.helpers
             Tags.find { 
                 # type:Template.currentData().type
                 count: $lt: doc_count
-                }, limit:20
+                }, limit:50
         else
-            Tags.find({}, limit:20)
+            Tags.find({}, limit:50)
             
             
     
@@ -20,15 +20,15 @@ Template.tags.helpers
         # if doc_count is 1 then 'disabled' else ''
         if doc_count is 1
             'disabled'
-        else
-            button_class = []
-            switch
-                when @index <= 10 then button_class.push 'large'
-                when @index <= 30 then button_class.push ''
-                when @index <= 50 then button_class.push 'small'
-                when @index <= 80 then button_class.push 'small '
-                when @index <= 100 then button_class.push 'tiny'
-            return button_class
+        # else
+            # button_class = []
+            # switch
+            #     when @index <= 10 then button_class.push 'large'
+            #     when @index <= 30 then button_class.push ''
+            #     when @index <= 50 then button_class.push 'small'
+            #     when @index <= 80 then button_class.push 'small '
+            #     when @index <= 100 then button_class.push 'tiny'
+            # return button_class
         
 
     selected_tags: -> selected_tags.array()

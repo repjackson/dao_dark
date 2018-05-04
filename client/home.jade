@@ -8,26 +8,8 @@ template(name='view_toggle_item')
         
         
 template(name='table_view')
-    .ui.table
-        // thead
-        //     tr
-        //         // th _id
-        //         th tags
-        //         // th author
-        //         // th html
-        //         th action
-        tbody
-            each table_docs
-                tr
-                    // td #{_id}
-                    td 
-                        each tags
-                            .ui.label #{this}
-                    // td 
-                    //     +author_info
-                    td !{html}
-                    // td
-                    //     +view_full_button
-                        
-                        
-template(name='calendar')
+    each table_docs
+        each tags
+            .ui.label #{this}
+        .ui.basic.segment !{html}
+    .ui.divider

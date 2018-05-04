@@ -11,19 +11,17 @@ body
     
 template(name='home')    
     // +nav
-    .ui.stackable.padded.grid
-        .ui.four.wide.column
-            #add.ui.icon.button
-                i.large.plus.icon
-            +tags
-            +date_facet
-            +location_facet
-        .ui.twelve.wide.column
-            if editing_id
-                +doc_edit
-                #save.ui.button save
-            else
-                +table_view
+    #add.ui.icon.button
+        i.plus.icon
+    +tags
+    +date_facet
+    +location_facet
+    .ui.hidden.divider
+    if editing_id
+        +doc_edit
+        #save.ui.button save
+    else
+        +table_view
         // +Template.dynamic template=main
         // +dev_footer
 

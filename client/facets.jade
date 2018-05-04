@@ -42,9 +42,9 @@ template(name='tags')
             .unselect_tag.ui.large.active.button
                 strong #{this}
     each tags
-        .ui.compact.button.select_tag(class=tag_class)
-            strong #{this.name}
-        // .ui.compact.button.select_tag
+        .ui.large.button.select_tag
+            | #{this.name}
+        // .ui.compact.button.select_tag(class=tag_class)
 
 
 
