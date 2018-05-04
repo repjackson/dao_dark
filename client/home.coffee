@@ -25,6 +25,7 @@ Template.home.events
     'click .edit': -> Session.set 'editing_id', @_id
     'click #add': -> 
         id = Docs.insert {}
+        selected_tags.clear()
         Session.set 'editing_id', id
 Template.home.helpers
     one_doc: -> Docs.find().count() is 1
