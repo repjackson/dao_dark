@@ -1,53 +1,34 @@
 template(name='nav')
-    #nav.ui.inverted.borderless.icon.top.attached.menu
-        // .mobile.only.ui.dropdown.icon.link.item
-        //     i.th.large.icon
-        //     .ui.menu
-        //         a.icon.item(href='/users' class="{{isActivePath '/users'}}")
-        //             i.large.users.icon
-        //             // | Users
-        //         a.icon.item(href='/incidents' class="{{isActivePath '/incidents'}}")
-        //             i.large.clipboard.icon
-        //             // | Incidents
-        //         a.icon.item(href='/offices' class="{{isActivePath '/offices'}}")
-        //             i.large.building.icon
-        //             // | Offices
-        //         a.icon.item(href='/services' class="{{isActivePath '/services'}}")
-        //             i.large.shipping.fast.icon
-        //             // | Services
+    #nav.ui.inverted.borderless.icon.top.attached.large.menu
         a.toggle_left_sidebar.icon.item 
-            i.large.bars.icon
-        a.header.item(href='/front' class="{{isActivePath '/front'}}" data-position="top center" data-content='Sales Page')
-            i.large.globe.icon
+            i.bars.icon
+        a.mobile.hidden.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" data-position="top center" data-content='Users')
+            i.dashboard.icon
+        // a.header.item(href='/front' class="{{isActivePath '/front'}}" data-position="top center" data-content='Sales Page')
+        //     i.globe.icon
             // | Home
-        a.header.item(href='/' class="{{isActivePath '/'}}" data-position="top center" data-content='Dashboard')
-            i.home.icon
+        a.header.item(href='/posts' class="{{isActivePath '/posts'}}" data-position="top center" data-content='posts')
+            i.clipboard.icon
             // | Home
         a.mobile.hidden.icon.item(href='/users' class="{{isActivePath '/users'}}" data-position="top center" data-content='Users')
-            i.large.users.icon
+            i.users.icon
             // | &nbsp; Users
         a.item(href='/charts' class="{{isActivePath '/charts'}}" data-position="top center" data-content='Chart Demo')
-            i.large.line.chart.icon
+            i.line.chart.icon
             // +avatar_sprite name='combo-chart'
             // | &nbsp; Users
-        // a.mobile.hidden.item(href='/incidents' class="{{isActivePath '/incidents'}}" data-position="top center" data-content='Incidents')
-            // +avatar_sprite name='urgent-property'
-        a.mobile.hidden.item(href='/posts' class="{{isActivePath '/posts'}}" data-position="top center" data-content='Incidents')
-            // +avatar_sprite name='urgent-property'
-            i.large.clipboard.icon
-            // | &nbsp; Incidents
         a.mobile.hidden.item(href='/offices' class="{{isActivePath '/offices'}}" data-position="top center" data-content='Offices')
             // +avatar_sprite name='organization'
-            i.large.building.icon
+            i.building.icon
             // | &nbsp; Offices
         a.mobile.hidden.icon.item(href='/services' class="{{isActivePath '/services'}}" data-position="top center" data-content='Services/Ecommerce')
-            i.large.shipping.fast.icon
+            i.shipping.fast.icon
             // +avatar_sprite name='duster'
         // a.icon.item(href='/feed' class="{{isActivePath '/feed'}}" data-position="top center" data-content='Feed')
-        //     i.large.rss.icon
+        //     i.rss.icon
         // a.mobile.hidden.disabled.icon.item(href='/schedule' class="{{isActivePath '/schedule'}}")
         a.mobile.hidden.icon.item(href='/schedule' class="{{isActivePath '/schedule'}}" data-position="top center" data-content='Schedule')
-            i.large.calendar.icon
+            i.calendar.icon
         // .mobile.hidden.item(href='/consumerables' class="{{isActivePath '/consumerables'}}" data-position="top center" data-content='Consumerables')
         // .mobile.hidden.item(data-position="top center" data-content='Consumerables')
         //     +dots name='toilet-paper'
@@ -62,14 +43,14 @@ template(name='nav')
                 // | Admin
             a.icon.mobile.hidden.item(href='/chat' class="{{isActivePath '/chat'}}" data-position="top center" data-content='Chat')
                 i.large.comments.icon
-            .icon.mobile.hidden.item(data-position="top center" data-content='Cart')
-                i.large.shopping.cart.icon
-            a.icon.mobile.hidden.item(href='/mail' class="{{isActivePath '/mail'}}" data-position="top center" data-content='Mail')
-                i.large.envelope.icon
-            a.ui.simple.dropdown.icon.mobile.hidden.item(href='/alerts' class="{{isActivePath '/alerts'}}")
-                i.large.bell.icon
-                .menu
-                    .item No alerts
+            // .icon.mobile.hidden.item(data-position="top center" data-content='Cart')
+            //     i.large.shopping.cart.icon
+            // a.icon.mobile.hidden.item(href='/mail' class="{{isActivePath '/mail'}}" data-position="top center" data-content='Mail')
+            //     i.large.envelope.icon
+            // a.ui.simple.dropdown.icon.mobile.hidden.item(href='/alerts' class="{{isActivePath '/alerts'}}")
+            //     i.large.bell.icon
+            //     .menu
+            //         .item No alerts
             if currentUser
                 a.toggle_right_sidebar.item
                     if currentUser.profile.image_id

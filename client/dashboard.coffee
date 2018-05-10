@@ -1,8 +1,8 @@
-FlowRouter.route '/front', action: ->
+FlowRouter.route '/dashboard', action: ->
     BlazeLayout.render 'layout', 
-        main: 'front'
+        main: 'dashboard'
 
-Template.front.onCreated ->
+Template.view_features.onCreated ->
     @autorun => Meteor.subscribe 'facet', 
         selected_tags.array()
         selected_keywords.array()
@@ -12,7 +12,7 @@ Template.front.onCreated ->
         type='feature'
         author_id=null
 
-Template.front.onRendered ->
+Template.dashboard.onRendered ->
     Meteor.setTimeout ->
         $('.ui.accordion').accordion()
     , 400
@@ -29,6 +29,6 @@ Template.front.onRendered ->
     # , 400
 
 
-Template.front.helpers
+Template.view_features.helpers
     features: -> Docs.find {type:'feature'}
     
