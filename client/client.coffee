@@ -58,6 +58,9 @@ Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
 Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
 
 
+
+
+
 # Meteor.startup ->
 #     Status.setTemplate('semantic_ui')
 

@@ -2,6 +2,12 @@
 @Docs = new Meteor.Collection 'docs'
 @People_tags = new Meteor.Collection 'people_tags'
 
+FlowRouter.route '/', action: ->
+    BlazeLayout.render 'layout', 
+        main: 'home'
+
+
+
 Meteor.users.helpers
     name: -> 
         if @profile?.display_name
