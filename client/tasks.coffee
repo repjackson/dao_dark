@@ -1,5 +1,14 @@
 Template.tasks.onCreated ->
-    @autorun -> Meteor.subscribe('facet', selected_tags.array(), 'task')
+    @autorun => 
+        Meteor.subscribe('facet', 
+        selected_tags.array()
+        selected_keywords.array()
+        selected_author_ids.array()
+        selected_location_tags.array()
+        selected_timestamp_tags.array()
+        type='task'
+        author_id=null
+        )
 
 FlowRouter.route '/tasks', action: (params) ->
     BlazeLayout.render 'layout',

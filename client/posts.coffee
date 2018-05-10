@@ -20,17 +20,19 @@ Template.view_toggle_item.events
 Template.posts.onCreated ->
     @autorun => 
         Meteor.subscribe('facet', 
-            selected_tags.array()
-            )
+        selected_tags.array()
+        selected_keywords.array()
+        selected_author_ids.array()
+        selected_location_tags.array()
+        selected_timestamp_tags.array()
+        type='post'
+        author_id=null
+        )
         # Meteor.subscribe 'doc', Session.get('editing_id')
 
 Template.posts.events
-    'click #save': -> Session.set 'editing_id', null
-    'click .edit': -> Session.set 'editing_id', @_id
-    'click #add': -> 
-        id = Docs.insert {}
-        selected_tags.clear()
-        Session.set 'editing_id', id
+    # 'click #save': -> Session.set 'editing_id', null
+    # 'click .edit': -> Session.set 'editing_id', @_id
 Template.posts.helpers
     one_doc: -> Docs.find().count() is 1
     view_mode: -> Session.get 'view_mode'

@@ -7,7 +7,7 @@ template(name='front')
                 | Sales Page
             // h2 Do whatever you want when you want to.
             a.ui.huge.primary.button(href='/sign-up')
-                | Get Started!
+                | Get Started
                 i.right.arrow.icon
     .ui.vertical.padded.segment
         .ui.middle.aligned.stackable.padded.relaxed.grid
@@ -27,7 +27,7 @@ template(name='front')
                             if is_admin
                                 +edit_button
             .row
-                if is_admin
+                if currentUser
                     +add_button type='feature'    
                 // .row
             //     .center.aligned.column
