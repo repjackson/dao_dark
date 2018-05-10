@@ -1,6 +1,13 @@
 Template.tasks.onCreated ->
     @autorun -> Meteor.subscribe('facet', selected_tags.array(), 'task')
 
+FlowRouter.route '/tasks', action: (params) ->
+    BlazeLayout.render 'layout',
+        nav: 'nav'
+        sub_nav: 'admin_nav'
+        main: 'tasks'
+
+
 
 Template.tasks.helpers
     tasks: -> Docs.find {type: 'task'}

@@ -21,8 +21,7 @@ template(name='nav')
             i.large.globe.icon
             // | Home
         a.header.item(href='/' class="{{isActivePath '/'}}" data-position="top center" data-content='Dashboard')
-            // i.home.icon
-            img.ui.tiny.image(src='https://jan-pro.com/wp-content/themes/underboot/img/jan-pro-white.svg')
+            i.home.icon
             // | Home
         a.mobile.hidden.icon.item(href='/users' class="{{isActivePath '/users'}}" data-position="top center" data-content='Users')
             i.large.users.icon
@@ -61,7 +60,7 @@ template(name='nav')
                 // | Admin
             a.icon.mobile.hidden.item(href='/chat' class="{{isActivePath '/chat'}}" data-position="top center" data-content='Chat')
                 i.large.comments.icon
-            .icon.mobile.hidden.disabled.item(data-position="top center" data-content='Cart')
+            .icon.mobile.hidden.item(data-position="top center" data-content='Cart')
                 i.large.shopping.cart.icon
             a.icon.mobile.hidden.item(href='/mail' class="{{isActivePath '/mail'}}" data-position="top center" data-content='Mail')
                 i.large.envelope.icon

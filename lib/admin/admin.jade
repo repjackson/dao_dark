@@ -1,0 +1,52 @@
+template(name='admin')
+    h1.ui.center.aligned.grey.header 
+        i.shield.icon
+        // |Admin
+    .ui.centered.cards
+        .card
+            .content
+                .ui.header Users
+        .card
+            .content
+                .ui.header Tasks
+        .card
+            .content
+                .ui.header Roles
+        .card
+            .content
+                .ui.header Rules
+    
+    
+    
+template(name='admin_nav')    
+    .ui.top.attached.six.item.labeled.icon.large.stackable.menu
+        a.item(href='/admin' class="{{isActivePath '/admin'}}")
+            i.large.shield.icon
+            | Admin
+        a.item(href='/users' class="{{isActivePath '/users'}}")
+            i.large.users.icon
+            | Users
+        a.item(href='/tasks' class="{{isActivePath '/tasks'}}")
+            i.large.tasks.icon
+            | Tasks
+        a.item(href='/schemas' class="{{isActivePath '/schemas'}}")
+            i.large.database.icon
+            | Schemas
+        a.item(href='/roles' class="{{isActivePath '/roles'}}")
+            i.large.users.icon
+            | Roles
+        a.item(href='/rules' class="{{isActivePath '/rules'}}")
+            i.large.code.icon
+            | Rules
+    
+    
+        
+template(name='admin_rules')
+    .ui.center.aligned.header
+        i.code.icon
+        | Rules
+    .ui.header Action pipelines/SLA managment
+    .ui.header eg, When incident of priority 'high' is created email 'local manager'
+        
+        
+        

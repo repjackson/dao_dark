@@ -1,0 +1,72 @@
+template(name='user_nav')
+    // with person
+    //     .ui.menu
+    //         .item
+    //             i.info.icon
+    //             | About
+    //         .item
+    //             | Docs
+    //         .item
+    //             | Social
+
+
+template(name='view_profile')
+    with person
+        .ui.padded.stackable.grid
+            .row
+                .four.wide.column
+                .eight.wide.column
+                    h1.header.item #{profile.first_name} #{profile.last_name}
+                .four.wide.column
+                    a(href="/profile/edit/#{_id}")
+                        i.big.link.pencil.icon
+
+            .row
+                .four.wide.column
+                    img.ui.medium.image.item(src="{{c.url profile.image_id width=500 height=500 gravity='face' crop='fill'}}")
+        
+                    if tags
+                        each tags
+                            .ui.label #{this}
+                    .ui.list
+                        .item
+                            if profile.position
+                                strong Position 
+                                | #{profile.position}
+                        .item
+                            if profile.phone
+                                strong Phone
+                                | #{profile.phone}
+                        .item    
+                            if profile.company
+                                strong Company
+                                | #{profile.company}
+                        .item    
+                            if profile.website
+                                strong Website 
+                                a(href=profile.website target='_blank') #{profile.website}
+                    .ui.hidden.divider
+                .ten.wide.column
+                    .ui.cards
+                        .ui.card
+                            .content
+                                .ui.header Following
+                        .ui.card
+                            .content
+                                .ui.header Followed By
+                        .ui.button Send Message
+                        .ui.button Tag User
+                        .ui.card
+                            .content
+                                .ui.header Incidents
+                        .ui.card
+                            .content
+                                .ui.header Affiliated Office
+                        .ui.card
+                            .content
+                                .ui.header Authored Comments
+                        .ui.card
+                            .content
+                                .ui.header Activity
+                        
+                        
