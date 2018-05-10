@@ -27,21 +27,6 @@ template(name='layout')
     +footer
         // +jsonView json=doc
     
-template(name='home')    
-    // +nav
-    if editing_id
-        +doc_edit
-        #save.ui.button save
-    else
-        #add.ui.icon.button
-            i.plus.icon
-        +tags
-        +date_facet
-        +location_facet
-        .ui.hidden.divider
-        +table_view
-        // +Template.dynamic template=main
-        // +dev_footer
 
 
 // template(name='staus_indicator')

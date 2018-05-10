@@ -1,0 +1,33 @@
+template(name='posts')    
+    .ui.stackable.grid  
+        .four.wide.column
+            #add.ui.icon.button
+                i.plus.icon
+            +tag_facet
+            +timestamp_facet
+            +location_facet
+        .twelve.wide.column
+            if editing_id
+                +doc_edit
+                #save.ui.button save
+            else
+                +table_view
+                // +Template.dynamic template=main
+                // +dev_footer
+
+
+template(name='view_toggle')
+    .toggle_view.ui.large.icon.button(title=label)
+        i.icon(class=icon)
+        
+template(name='view_toggle_item')
+    a.toggle_view.ui.icon.item(title=label)
+        i.icon(class=icon)
+        
+        
+template(name='table_view')
+    each table_docs
+        each tags
+            .ui.label #{this}
+        .ui.basic.segment !{html}
+        .ui.divider

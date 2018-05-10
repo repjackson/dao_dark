@@ -26,11 +26,13 @@ template(name='nav')
         a.mobile.hidden.icon.item(href='/users' class="{{isActivePath '/users'}}" data-position="top center" data-content='Users')
             i.large.users.icon
             // | &nbsp; Users
-        // a.item(href='/charts' class="{{isActivePath '/charts'}}" data-position="top center" data-content='Chart Demo')
-        //     i.large.line.chart.icon
+        a.item(href='/charts' class="{{isActivePath '/charts'}}" data-position="top center" data-content='Chart Demo')
+            i.large.line.chart.icon
             // +avatar_sprite name='combo-chart'
             // | &nbsp; Users
-        a.mobile.hidden.item(href='/incidents' class="{{isActivePath '/incidents'}}" data-position="top center" data-content='Incidents')
+        // a.mobile.hidden.item(href='/incidents' class="{{isActivePath '/incidents'}}" data-position="top center" data-content='Incidents')
+            // +avatar_sprite name='urgent-property'
+        a.mobile.hidden.item(href='/posts' class="{{isActivePath '/posts'}}" data-position="top center" data-content='Incidents')
             // +avatar_sprite name='urgent-property'
             i.large.clipboard.icon
             // | &nbsp; Incidents

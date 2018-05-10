@@ -1,6 +1,10 @@
 
 Session.setDefault 'view_mode', 'post_view'
 
+FlowRouter.route '/posts', action: (params) ->
+    BlazeLayout.render 'layout',
+        nav: 'nav'
+        main: 'posts'
 
 
 Template.view_toggle.events
@@ -13,21 +17,21 @@ Template.view_toggle_item.events
         # console.log @name
 
 
-Template.home.onCreated ->
+Template.posts.onCreated ->
     @autorun => 
         Meteor.subscribe('facet', 
             selected_tags.array()
             )
         # Meteor.subscribe 'doc', Session.get('editing_id')
 
-Template.home.events
+Template.posts.events
     'click #save': -> Session.set 'editing_id', null
     'click .edit': -> Session.set 'editing_id', @_id
     'click #add': -> 
         id = Docs.insert {}
         selected_tags.clear()
         Session.set 'editing_id', id
-Template.home.helpers
+Template.posts.helpers
     one_doc: -> Docs.find().count() is 1
     view_mode: -> Session.get 'view_mode'
     viewing_table: -> Session.equals 'view_mode','table'
