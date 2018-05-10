@@ -2,7 +2,7 @@ Template.edit_icon_field.events
     'blur #icon_class': (e,t)->
         val = $(e.currentTarget).closest('#icon_class').val()
 
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: icon_class: val
             
 
@@ -12,7 +12,7 @@ Template.edit_string_field.events
     'blur #value': (e,t)->
         console.log @key
         value = $(e.currentTarget).closest('#value').val()
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: "#{@key}": value
             
 
@@ -20,12 +20,12 @@ Template.edit_string_field.events
 Template.edit_number_field.events
     'change #number_field': (e,t)->
         number_value = parseInt e.currentTarget.value
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: "#{@key}": number_value
             
 Template.edit_textarea.events
     'blur #textarea': (e,t)->
-        doc_id = Session.get('editing_id')
+        doc_id = FlowRouter.getParam('doc_id')
         textarea_value = $('#textarea').val()
         Docs.update doc_id,
             $set: 
@@ -35,14 +35,14 @@ Template.edit_textarea.events
 Template.edit_date_field.events
     'change #date_field': (e,t)->
         date_value = e.currentTarget.value
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: "#{@key}": date_value
 
 
 Template.edit_text_field.events
     'change #text_field': (e,t)->
         text_value = e.currentTarget.value
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: "#{@key}": text_value
 
             
@@ -51,7 +51,7 @@ Template.edit_text_field.events
 Template.edit_link_field.events
     'blur #link': (e,t)->
         link = $(e.currentTarget).closest('#link').val()
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: link: link
             
             
@@ -68,7 +68,7 @@ Template.edit_uploaded_image_field.helpers
 
 Template.edit_uploaded_image_field.events
     "change input[type='file']": (e) ->
-        doc_id = Session.get('editing_id')
+        doc_id = FlowRouter.getParam('doc_id')
         files = e.currentTarget.files
 
 
@@ -86,7 +86,7 @@ Template.edit_uploaded_image_field.events
 
     'keydown #input_image_id': (e,t)->
         if e.which is 13
-            doc_id = Session.get('editing_id')
+            doc_id = FlowRouter.getParam('doc_id')
             image_id = $('#input_image_id').val().toLowerCase().trim()
             if image_id.length > 0
                 Docs.update doc_id,
@@ -110,8 +110,8 @@ Template.edit_uploaded_image_field.events
                 if not err
                     # Do Stuff with res
                     # console.log res
-                    # console.log @image_id, Session.get('editing_id')
-                    Docs.update Session.get('editing_id'), 
+                    # console.log @image_id, FlowRouter.getParam('doc_id')
+                    Docs.update FlowRouter.getParam('doc_id'), 
                         $unset: 
                             image_id: 1
 
@@ -122,13 +122,13 @@ Template.edit_uploaded_image_field.events
 Template.edit_linked_image_field.events
     # todo fix for dymanic
     'click #remove_image_url': ->
-        Docs.update Session.get('editing_id'), 
+        Docs.update FlowRouter.getParam('doc_id'), 
             $unset: 
                 image_url: 1
         
     'blur #image_url': ->
         image_url = $('#image_url').val()
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: image_url: image_url
 
 
@@ -136,7 +136,7 @@ Template.edit_transcript_field.events
     'blur .froala-container': (e,t)->
         html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
         
-        # doc_id = Session.get('editing_id')
+        # doc_id = FlowRouter.getParam('doc_id')
 
         Docs.update @_id,
             $set: transcript: html
@@ -144,7 +144,7 @@ Template.edit_transcript_field.events
 
 Template.edit_transcript_field.helpers
     transcript_context: ->
-        @current_doc = Docs.findOne Session.get('editing_id')
+        @current_doc = Docs.findOne FlowRouter.getParam('doc_id')
         self = @
         {
             _value: self.current_doc.transcript
@@ -206,12 +206,12 @@ Template.edit_transcript_field.helpers
 Template.edit_youtube_field.events
     'blur #youtube': (e,t)->
         youtube = $(e.currentTarget).closest('#youtube').val()
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: youtube: youtube
             
     'click #clear_youtube': (e,t)->
         $(e.currentTarget).closest('#youtube').val('')
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $unset: youtube: 1
             
 Template.edit_youtube_field.onRendered ->
@@ -229,12 +229,12 @@ Template.view_youtube_field.onRendered ->
 Template.edit_vimeo_field.events
     'blur #vimeo': (e,t)->
         vimeo = $(e.currentTarget).closest('#vimeo').val()
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: vimeo: vimeo
             
     'click #clear_vimeo': (e,t)->
         $(e.currentTarget).closest('#vimeo').val('')
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $unset: vimeo: 1
             
 Template.edit_vimeo_field.onRendered ->
@@ -256,14 +256,14 @@ Template.view_vimeo_field.onRendered ->
 # Template.participants.events
 #     "autocompleteselect input": (event, template, doc) ->
 #         # console.log("selected ", doc)
-#         Docs.update Session.get('editing_id'),
+#         Docs.update FlowRouter.getParam('doc_id'),
 #             $addToSet: participant_ids: doc._id
 #         $('#participant_select').val("")
    
 #     'click #remove_participant': (e,t)->
 #         # console.log @
-#         Docs.update Session.get('editing_id'),
-#             $pull: participant_ids: Session.get('editing_id')
+#         Docs.update FlowRouter.getParam('doc_id'),
+#             $pull: participant_ids: FlowRouter.getParam('doc_id')
 
 
 
@@ -330,7 +330,7 @@ Template.view_vimeo_field.onRendered ->
 # Template.location.events
 #     'click .clearDT': ->
 #         tagsWithoutDate = _.difference(@tags, @datearray)
-#         Docs.update Session.get('editing_id'),
+#         Docs.update FlowRouter.getParam('doc_id'),
 #             $set:
 #                 tags: tagsWithoutDate
 #                 datearray: []
@@ -341,21 +341,21 @@ Template.view_vimeo_field.onRendered ->
 
 
 #     'click #analyzeBody': ->
-#         Docs.update Session.get('editing_id'),
+#         Docs.update FlowRouter.getParam('doc_id'),
 #             $set: body: $('#body').val()
-#         Meteor.call 'analyze', Session.get('editing_id')
+#         Meteor.call 'analyze', FlowRouter.getParam('doc_id')
 
 #     'click .docKeyword': ->
-#         docId = Session.get('editing_id')
+#         docId = FlowRouter.getParam('doc_id')
 #         doc = Docs.findOne docId
 #         loweredTag = @text.toLowerCase()
 #         if @text in doc.tags
-#             Docs.update Session.get('editing_id'), $pull: tags: loweredTag
+#             Docs.update FlowRouter.getParam('doc_id'), $pull: tags: loweredTag
 #         else
-#             Docs.update Session.get('editing_id'), $push: tags: loweredTag
+#             Docs.update FlowRouter.getParam('doc_id'), $push: tags: loweredTag
 
 #     docKeywordClass: ->
-#         docId = Session.get('editing_id')
+#         docId = FlowRouter.getParam('doc_id')
 #         doc = Docs.findOne docId
 #         if @text.toLowerCase() in doc.tags then 'disabled' else ''
 
@@ -367,7 +367,7 @@ Template.edit_author.events
     "autocompleteselect input": (event, template, doc) ->
         # console.log("selected ", doc)
         if confirm 'Change author?'
-            Docs.update Session.get('editing_id'),
+            Docs.update FlowRouter.getParam('doc_id'),
                 $set: author_id: doc._id
             $('#author_select').val("")
 
@@ -399,7 +399,7 @@ Template.edit_user_array_field.onCreated ->
 Template.edit_user_array_field.events
     "autocompleteselect input": (event, template, doc) ->
         # console.log("selected ", doc)
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: recipient_id: doc._id
         $('#recipient_select').val("")
 
@@ -429,19 +429,19 @@ Template.edit_user_array_field.helpers
 # Template.start_date.events
 #     'blur #start_date': ->
 #         start_date = $('#start_date').val()
-#         Docs.update Session.get('editing_id'),
+#         Docs.update FlowRouter.getParam('doc_id'),
 #             $set: start_date: start_date
     
 # Template.end_date.events
 #     'blur #end_date': ->
 #         end_date = $('#end_date').val()
-#         Docs.update Session.get('editing_id'),
+#         Docs.update FlowRouter.getParam('doc_id'),
 #             $set: end_date: end_date
 
 # Template.time_marker.events
 #     'blur #time_marker': ->
 #         time_marker = parseFloat $('#time_marker').val()
-#         Docs.update Session.get('editing_id'),
+#         Docs.update FlowRouter.getParam('doc_id'),
 #             $set: time_marker: time_marker
 
 
@@ -459,7 +459,7 @@ Template.edit_user_array_field.helpers
 #             confirmButtonText: 'Remove'
 #             confirmButtonColor: '#da5347'
 #         }, =>
-#             parent_doc = Docs.findOne Session.get('editing_id')
+#             parent_doc = Docs.findOne FlowRouter.getParam('doc_id')
 #             Docs.update parent_doc._id, 
 #                 $unset: 
 #                     "#{self.slug}": 1
@@ -493,14 +493,14 @@ Template.edit_transcript_field.onRendered ->
 # Template.start_datetime.events
 #     'blur #start_datetime': ->
 #         start_datetime = $('#start_datetime').val()
-#         Docs.update Session.get('editing_id'),
+#         Docs.update FlowRouter.getParam('doc_id'),
 #             $set: start_datetime: start_datetime
 
 
 # Template.end_datetime.events
 #     'blur #end_datetime': ->
 #         end_datetime = $('#end_datetime').val()
-#         Docs.update Session.get('editing_id'),
+#         Docs.update FlowRouter.getParam('doc_id'),
 #             $set: end_datetime: end_datetime
 
 
@@ -552,7 +552,7 @@ Template.edit_html_field.events
         # Docs.update context_doc._id,
         #     $set: "#{@key}": html
                 
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: html: html
                 
                 
@@ -560,14 +560,14 @@ Template.edit_html_field.events
 Template.edit_html_field.helpers
     getFEContext: ->
         # console.log @
-        doc = Template.parentData(1)
-        context_doc = Template.parentData(3)
-        # @current_doc = Docs.findOne FlowRouter.getParam 'doc_id'
+        # doc = Template.parentData(1)
+        # context_doc = Template.parentData(3)
+        current_doc = Docs.findOne FlowRouter.getParam 'doc_id'
         # @current_doc = Docs.findOne @_id
         self = @
         {
             # _value: context_doc["#{@key}"]
-            _value: doc.html
+            _value: current_doc.html
             _keepMarkers: true
             _className: 'froala-reactive-meteorized-override'
             toolbarInline: false
@@ -630,7 +630,7 @@ Template.edit_html_field.helpers
 Template.edit_array_field.events
     # "autocompleteselect input": (event, template, doc) ->
     #     # console.log("selected ", doc)
-    #     Docs.update Session.get('editing_id'),
+    #     Docs.update FlowRouter.getParam('doc_id'),
     #         $addToSet: tags: doc.name
     #     $('.new_entry').val('')
    
@@ -648,16 +648,16 @@ Template.edit_array_field.events
         switch e.which
             when 13 #enter
                 unless val.length is 0
-                    Docs.update Session.get('editing_id'),
+                    Docs.update FlowRouter.getParam('doc_id'),
                         $addToSet: "#{@key}": val
                     # $('.new_entry').val ''
                     $(e.currentTarget).closest('.new_entry').val('')
 
             # when 8
             #     if val.length is 0
-            #         result = Docs.findOne(Session.get('editing_id')).tags.slice -1
+            #         result = Docs.findOne(FlowRouter.getParam('doc_id')).tags.slice -1
             #         $('.new_entry').val result[0]
-            #         Docs.update Session.get('editing_id'),
+            #         Docs.update FlowRouter.getParam('doc_id'),
             #             $pop: tags: 1
 
 
@@ -669,7 +669,7 @@ Template.edit_array_field.events
         # console.log Template.parentData(3)
 
         tag = @valueOf()
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $pull: "#{Template.parentData(0).key}": tag
         t.$('.new_entry').val(tag)
         
@@ -698,7 +698,7 @@ Template.edit_array_field.helpers
 #         field_key = Docs.findOne(Template.parentData(3)).slug
 #         value = $(e.currentTarget).closest('#text_field_input').val()
 #         # console.log value
-#         Docs.update Session.get('editing_id'),
+#         Docs.update FlowRouter.getParam('doc_id'),
 #             $set: "#{field_key}": value
             
 Template.edit_text_field.events
@@ -706,13 +706,13 @@ Template.edit_text_field.events
         # console.log @key
         value = $(e.currentTarget).closest('#value').val()
         # console.log value
-        Docs.update Session.get('editing_id'),
+        Docs.update FlowRouter.getParam('doc_id'),
             $set: "#{@key}": value
             
 Template.edit_text_field.helpers
     key_value: ->
         # console.log @
-        current_doc = Docs.findOne Session.get('editing_id')
+        current_doc = Docs.findOne FlowRouter.getParam('doc_id')
         current_doc["#{@key}"]
             
             

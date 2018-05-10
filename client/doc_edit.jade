@@ -1,13 +1,12 @@
-template(name='doc_edit')
-    with doc
-        +edit_array_field key='tags'
-        +edit_html_field key='html'
-        // +Template.dynamic template=edit_type_template
-        // else
-        //     // if parent_id
-        //     +parent_doc_segment
-        //     each field_ids
-        //         +edit_field template=field_doc.field_template key=field_doc.slug
+// template(name='post_edit')
+//     +edit_array_field key='tags'
+//     +edit_html_field key='html'
+//     // +Template.dynamic template=edit_type_template
+//     // else
+//     //     // if parent_id
+//     //     +parent_doc_segment
+//     //     each field_ids
+//     //         +edit_field template=field_doc.field_template key=field_doc.slug
     
 
 template(name='template_picker')
@@ -22,55 +21,3 @@ template(name='template_picker')
     .ui.divider
 
 
-template(name='post_edit')
-    .ui.center.aligned.header edit doc
-    .ui.stackable.padded.grid
-        .row
-            .ten.wide.column
-                // .ui.basic.segment
-                //     .ui.labeled.action.small.input
-                //         .ui.label image url
-                //         input#image_url(type='text' value=image_url)
-                //         if image_url
-                //             #clear_image_url.ui.icon.button
-                //                 i.remove.icon
-                // .ui.basic.segment
-                //     if image_url
-                //         .ui.image
-                //             img(src=image_url)
-                // .ui.basic.segment
-                //     .ui.labeled.action.small.input
-                //         .ui.label youtube
-                //         input#youtube(type='text' value=youtube)
-                //         if youtube
-                //             #clear_youtube.ui.icon.button
-                //                 i.remove.icon
-                //     if youtube
-                //         +view_youtube
-                // +edit_textarea key='content' label='Content'
-                +edit_array_field key='tags'
-                +edit_html_field key='html'
-            .six.wide.column
-                a.ui.icon.large.fluid.button(href="/view/#{_id}")
-                    i.checkmark.icon
-                +published        
-                #delete.ui.icon.button
-                    i.remove.icon
-                // +template_picker
-                // .ui.segment
-                //     .ui.header user actions
-                //     +toggle_list_items list='user_actions' value='tag_rating' label='tag rating'
-                //     +toggle_list_items list='user_actions' value='comments' label='comments'
-                //     +toggle_list_items list='user_actions' value='bounty' label='bounty'
-                //     +toggle_list_items list='user_actions' value='ownership' label='ownership'
-                // .ui.divider
-                // +reference_other_children type='field' key='field_ids'
-                // .ui.header components
-                // +reference_other_children type='component' key='component_ids'
-                // .ui.header permissions
-                // .ui.header access
-                // +toggle_key key='access' value='public' label='public'
-                // +toggle_key key='access' value='private' label='private'
-                // +toggle_key key='access' value='payment_required' label='payment_required'
-                // +toggle_key key='access' value='subscription_required' label='subscription_required'
-                            

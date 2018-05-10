@@ -1,17 +1,17 @@
-# Template.doc_edit.onCreated ->
-#     @autorun -> Meteor.subscribe 'doc', Session.get('editing_id')
-#     # @autorun -> Meteor.subscribe 'templates'
+Template.doc_edit.onCreated ->
+    @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
+    # @autorun -> Meteor.subscribe 'templates'
 
-# Template.doc_edit.onRendered ->
-#     @autorun =>
-#         if @subscriptionsReady()
-#             Meteor.setTimeout ->
-#                 $('.ui.accordion').accordion()
-#             , 1000
+Template.doc_edit.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.ui.accordion').accordion()
+            , 1000
         
 
 Template.doc_edit.helpers
-    doc: -> Docs.findOne Session.get('editing_id')
+    doc: -> Docs.findOne FlowRouter.getParam('doc_id')
 #     edit_type_template: -> 
 #         if @template then "#{@template}_edit" else 'post_edit'
 #     # templates: -> Docs.find type:'template'
