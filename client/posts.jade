@@ -1,16 +1,15 @@
 template(name='posts')    
-    +add_button type='post'
+    // +add_button type='post'
     +tag_facet
     // +timestamp_facet
     // +location_facet
-    .ui.inverted.grid    
-        if one_doc
-            each docs
-                .three.wide.column 
-                    // each tags
-                    //     .ui.label #{this}
-                    |!{html}
-        
+    .ui.hidden.divider
+    if one_doc
+        each docs
+            // each tags
+            //     .ui.label #{this}
+            |!{html}
+    
 
 template(name='view_toggle')
     .toggle_view.ui.large.icon.button(title=label)

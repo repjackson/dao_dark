@@ -11,18 +11,17 @@ template(name='tag_facet')
     // |&nbsp;    
     // .ui.header 
     //     |Tags
-    .ui.inverted.padded.equal.spaced.grid
-        if selected_tags
-            #clear_tags.ui.big.icon.active.three.wide.column
-                i.remove.icon
-            each selected_tags
-                .unselect_tag.ui.active.three.wide.column
-                    strong #{this}
-        each tags
-            .ui.three.wide.column.select_tag(class=tag_class) 
-                strong #{this.name}
-                // if isInRole 'admin'
-                //     small #{this.count}
+    if selected_tags
+        #clear_tags.ui.big.icon.active.button
+            i.remove.icon
+        each selected_tags
+            .unselect_tag.ui.active.button
+                strong #{this}
+    each tags
+        .ui.button.select_tag(class=tag_class) 
+            strong #{this.name}
+            // if isInRole 'admin'
+            //     small #{this.count}
     // .ui.divider
     // +highchartsHelper(chartId='cloud_chart' chartWidth='100%' charHeight='100%' chartObject=cloud_object)
     
