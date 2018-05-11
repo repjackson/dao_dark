@@ -6,37 +6,26 @@ head
     meta(name='google-site-verification', content='6osbddgiRIkUEHj3ezFR6D2yOQuooBvvXsBliSWhAZA')
     meta(name="theme-color", content="#ffffff")
 
+
+// body 
+//     +home
+
+
+
 template(name='layout')
     .context.example
-        +nav
+        // +nav
         // .ui.top.attached.demo.menu
         //     a.item
         //         i.sidebar.icon
         //         |     Menu
         .ui.bottom.attached.basic.segment.pushable
             // +top_sidebar
-            +left_sidebar
-            +right_sidebar
+            // +left_sidebar
+            // +right_sidebar
             .pusher
                 #main_area
                     +Template.dynamic template=cloud
                     +Template.dynamic template=sub_nav
                     +Template.dynamic template=sub_sub_nav
                     +Template.dynamic template=main
-            // +bottom_sidebar
-    +footer
-        // +jsonView json=doc
-    
-
-
-// template(name='staus_indicator')
-//     if online 
-//         // .ui.label(class='{{labelClass}}') 
-//         i.circle.icon
-//         // img.ui.avatar.image(src="https://png.icons8.com/connection-status-on/color/48" title='Online' width="48" height="48")
-//         // |Online
-//     else if idle
-//         .ui.label(class='{{labelClass}}') Idle
-//         // else 
-//         //     |Offline
-

@@ -27,9 +27,10 @@ body {
 }
  body {
 	 font-family: 'Ubuntu', sans-serif;
+   filter: invert(100%);
 }
  
- 
+
 .ui.header{
   font-family: 'Work Sans', sans-serif !important;
 }

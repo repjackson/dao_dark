@@ -17,7 +17,7 @@ Template.view_toggle_item.events
         # console.log @name
 
 
-Template.posts.onCreated ->
+Template.layout.onCreated ->
     @autorun => 
         Meteor.subscribe('facet', 
         selected_tags.array()
@@ -38,7 +38,7 @@ Template.posts.helpers
     view_mode: -> Session.get 'view_mode'
     viewing_table: -> Session.equals 'view_mode','table'
     editing_id: -> Session.get 'editing_id'
-    docs: -> Docs.find({},{limit:1,sort:tag_count:1})
+    docs: -> Docs.find({},{limit:10,sort:tag_count:1})
 Template.table_view.helpers
     table_docs: -> Docs.find({},{limit:10,sort:tag_count:1})
 

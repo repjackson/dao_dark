@@ -1,17 +1,16 @@
 template(name='posts')    
-    .ui.stackable.grid  
-        .four.wide.column
-            +add_button type='post'
-            +tag_facet
-            +timestamp_facet
-            +location_facet
-        .twelve.wide.column
-            if editing_id
-                +doc_edit
-                #save.ui.button save
-            else
-                +table_view
-                // +dev_footer
+    +add_button type='post'
+    +tag_facet
+    // +timestamp_facet
+    // +location_facet
+    .ui.celled.inverted.grid
+        each docs
+            .three.wide.column 
+                each tags
+                    .ui.label #{this}
+                |!{html}
+        
+        // +dev_footer
 
 
 template(name='view_toggle')
