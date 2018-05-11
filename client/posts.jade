@@ -3,15 +3,14 @@ template(name='posts')
     +tag_facet
     // +timestamp_facet
     // +location_facet
-    .ui.celled.inverted.grid
-        each docs
-            .three.wide.column 
-                each tags
-                    .ui.label #{this}
-                |!{html}
+    .ui.inverted.grid    
+        if one_doc
+            each docs
+                .three.wide.column 
+                    // each tags
+                    //     .ui.label #{this}
+                    |!{html}
         
-        // +dev_footer
-
 
 template(name='view_toggle')
     .toggle_view.ui.large.icon.button(title=label)

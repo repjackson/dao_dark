@@ -11,9 +11,9 @@ template(name='tag_facet')
     // |&nbsp;    
     // .ui.header 
     //     |Tags
-    .ui.celled.inverted.equal.spaced.grid
+    .ui.inverted.padded.equal.spaced.grid
         if selected_tags
-            #clear_tags.ui.icon.active.three.wide.column
+            #clear_tags.ui.big.icon.active.three.wide.column
                 i.remove.icon
             each selected_tags
                 .unselect_tag.ui.active.three.wide.column
