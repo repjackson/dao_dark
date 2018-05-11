@@ -12,25 +12,20 @@ template(name='dashboard')
 template(name='view_features')
     .ui.middle.aligned.stackable.padded.relaxed.grid
         .row
-            .fifteen.wide.column
-                h2.ui.center.aligned.header Features
+            .four.wide.column
                 +tag_facet
-        .row
-            each features
-                .five.wide.column
-                    a.ui.basic.padded.segment(href=link)
-                        h2.ui.header
-                            i.icon(class=icon)
-                            .content
-                                | #{title}
-                                .sub.header #{text}
-                        if is_admin
-                            +edit_button
-        .row
-            if currentUser
-                +add_button type='feature'    
-            // .row
-
+            .twelve.wide.column
+                each features
+                    .ui.card
+                        a.ui.basic.padded.segment(href="/view/#{_id}")
+                            h2.ui.header
+                                i.icon(class=icon)
+                                .content
+                                    | #{title}
+                                    .sub.header #{text}
+                            if is_admin
+                                +edit_button
+    
                         
 template(name='feature_view')
     .ui.padded.stackable.centered.grid
