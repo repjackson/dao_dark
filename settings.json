@@ -9,6 +9,9 @@
     }
   },
   "private": {
+    "reddit": {
+      "secret": "9y2nszPLr7kWN5Rj5nIcqCiLuUE"
+    },
     "stripe": {
       "testSecretKey": "sk_test_VmLHoYbhDWLPgrVp5GoTd0AR",
       "liveSecretKey": "sk_live_f0QHHkiCuftpYG49819oyrFr"

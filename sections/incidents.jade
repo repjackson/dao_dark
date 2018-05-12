@@ -1,0 +1,374 @@
+// template(name='incidents')
+//     .ui.stackable.padded.centered.grid
+//         .centered.row
+//             .three.wide.column
+//                 +set_view_mode view='cards' icon='clone' label='Cards View'
+//                 +set_view_mode view='list' icon='list' label='List View'
+//                 +set_view_mode view='table' icon='table' label='Table View'
+//                 +set_view_mode view='charts' icon='line chart' label='Graph View'
+//                 +add_button type='incident' label='Incident'
+//                 // .ui.basic.center.aligned.segment
+//                 .ui.hidden.divider
+//                 +timestamp_facet type='incident'
+//                 // +location_facet
+//                 +keyword_facet type='incident'
+//                 // .ui.dividing.header Level
+//                 // +set_session_button key='level' value='all' label='All'
+//                 // +set_session_button key='level' value=1 label='1'
+//                 // +set_session_button key='level' value=2 label='2'
+//                 // +set_session_button key='level' value=3 label='3'
+//                 // +set_session_button key='level' value=4 label='4'
+//                 // .ui.dividing.header Type
+//                 // +set_session_button key='type' value='missed_service' label='Missed Service'
+//                 // +set_session_button key='type' value='poor_service' label='Poor Service'
+//                 // +set_session_button key='type' value='employee_issue' label='Employee Issue'
+//                 // +set_session_button key='type' value='other' label='Other'
+//                 // .ui.dividing.header 
+//                 //     i.building.icon
+//                 //     |Office
+//                 // +set_session_button key='level' value=1 label='Denver'
+//                 // +set_session_button key='level' value=2 label='Chicago'
+//                 // +set_session_button key='level' value=3 label='NYC'
+//             .thirteen.wide.column
+//                 if viewing_list
+//                     .ui.divided.items
+//                         each incidents
+//                             +incident_item
+//                 if viewing_table
+//                     +table type='incident'
+//                 if viewing_chart
+//                     +charts
+//                 if viewing_cards
+//                     .ui.centered.stackable.cards
+//                         each incidents
+//                             +incident_card
+
+// template(name='incident_item')
+//     .ui.item
+//         if image_id
+//             a.image(href="/view/#{_id}")
+//                 img.ui.rounded.image(src="{{c.url image_id  width=175 height=175 crop='fill' gravity='face' }}")
+//                 // each visual
+//                 //     .ui.basic.small.label #{class}
+//         .content
+//             a.grey.header(href="/view/#{_id}") 
+//                 |##{incident_number}
+//             .description
+//                 .ui.stackable.grid
+//                     .twelve.wide.column
+//                         .large130 {{nl2br incident_details}}
+//                         .ui.hidden.divider
+//                         +tone
+//                         .meta 
+//                             |Keywords: 
+//                             |&nbsp;
+//                             each watson_keywords
+//                                 .ui.basic.label #{this}
+//                     .four.wide.column
+//                         +view_button
+//                         .meta #{when}
+//                         .meta #{formal_when}
+//                         // .ui.horizontal.list
+//                         //     each date_array
+//                         //         .item #{this}
+//                         if office.office_name
+//                             .ui.basic.label #{office.office_name}
+//                         +incident_type_label
+//                         if current_level
+//                             .ui.basic.label Level #{current_level}
+//                         +author_info
+//                         if comment_count
+//                             a.meta(href="/view/#{_id}")
+//                                 i.comments.icon
+//                                 |#{comment_count} comments
+//                         if watson
+//                             +doc_sentiment
+//                             +doc_emotion
+//                         // each tone.document_tone.tones
+//                         //     h4.ui.header #{tone_id} {{ to_percent score }}%
+                
+// template(name='incident_card')
+//     .ui.card
+//         a.image(href="/view/#{_id}")
+//             img.ui.rounded.image(src="{{c.url image_id  width=300 height=300 crop='fill' }}")
+//         .content
+//             .right.floated.meta
+//                 // .ui.circular.label(title='Incident Number') #{incident_number}
+//                 .ui.basic.label #{office.office_name}
+//                 .ui.basic.label level #{current_level}
+//             a.grey.header(href="/view/#{_id}") ##{incident_number}
+//         .content    
+//             .right.floated 
+//                 |logged #{when}
+//             +author_info
+//         // .content
+//         //     .ui.accordion
+//         //         .title details
+//         //         .content
+//         //             .description
+//         //                 |#{incident_details}
+//         .content
+//             +doc_sentiment
+//         .content
+//             // +call_method name='tagify_timestamp'
+//             // if date_array
+//             //     each date_array
+//             //         .ui.basic.label #{this}
+//             .right.floated
+//                 +incident_type_label
+//             i.comment.icon
+//             | #{comment_count} comments
+                
+// template(name='incident_edit')
+//     .ui.padded.stackable.centered.grid
+//         .centered.row
+//             .three.wide.center.aligned.column
+//                 #delete.ui.circular.icon.big.button
+//                     i.red.trash.icon
+//             .ten.wide.column
+//                 h1.ui.center.aligned.grey.header Edit Incident #{incident_number}
+//             .three.wide.column
+//                 +save_button
+//         .row
+//             .four.wide.column
+//                 +edit_author
+//                 .ui.large.form
+//                     +edit_number_field key='incident_number' label='Number' icon='hashtag'
+//                     +edit_date_field key='incident_date' label='Date' icon='calendar'
+                    
+//             .eight.wide.column
+//                 .ui.large.form
+//                     .field
+//                         label Type
+//                         +toggle_key key='incident_type' value='missed_service' label='Missed Service'
+//                         +toggle_key key='incident_type' value='poor_service' label='Poor Service'
+//                         +toggle_key key='incident_type' value='employee_issue' label='Employee Issue'
+//                         +toggle_key key='incident_type' value='other' label='Other'
+    
+//                     +edit_html_field
+//                     // +edit_textarea key='incident_details' label='Details'
+//             .four.wide.column
+//                 // +reference_office key='referenced_office_id' search_field='office_name' label='Change Office' type='office'
+//                 if office
+//                     with office
+//                         +office_card
+//         .row
+//             .four.wide.column
+//                 // +reference_customer key='referenced_customer_id' search_field='first_name' label='Change Customer' type='person'
+//                 with author
+//                     +user_card
+//             .eight.wide.column
+//                 +edit_image_field
+//             .four.wide.column
+        
+// template(name='incident_view')
+//     .ui.padded.stackable.centered.grid
+//         .centered.row
+//             .three.wide.center.aligned.column
+//                 +link_button link='/incidents' label='incidents' icon='clipboard'
+//             .ten.wide.center.aligned.column
+//                 h1.ui.header Incident ##{incident_number}
+//             .three.wide.center.aligned.column
+//                 +edit_button
+//         .row
+//             .ui.top.attached.tabular.large.five.item.icon.menu
+//                 a.active.icon.item(data-tab='info') 
+//                     i.large.info.icon
+//                     // |Info
+//                 a.icon.item(data-tab='talk') 
+//                     i.large.chat.icon
+//                     // |Talk
+//                 a.icon.item(data-tab='status') 
+//                     i.large.clock.icon
+//                     // |Status
+//                 a.icon.item(data-tab='analysis') 
+//                     i.large.line.chart.icon
+//                     // |Analysis
+//                 a.icon.item(data-tab='activity') 
+//                     i.large.rss.icon
+//                     // | Activity
+//             .ui.bottom.attached.active.tab.segment(data-tab='info')
+//                 .ui.padded.stackable.centered.grid
+//                     .four.wide.column
+//                         .ui.header
+//                             // | Logged
+//                             +author_info
+//                         h2.ui.sub.header #{when}
+//                         .ui.large.relaxed.list
+//                             +list_item key='customer_id' label='Customer ID' icon='user'
+//                             +list_item icon='hashtag' label='Number' key='incident_number'
+//                             +list_item icon='calendar' label='Date' key='incident_date'
+//                             // +list_item icon='file.image' label='Associated Documents'
+//                         +incident_type_label
+//                         .ui.header #{formal_when}
+//                     .eight.wide.column
+//                         .ui.basic.segment
+//                             .large130 {{nl2br incident_details}}
+//                         if image_id
+//                             img.ui.centered.image(src="{{c.url image_id height=500 crop='fit'}}")
+//                             if visual
+//                                 each visual
+//                                     .ui.basic.label(title=type_hierarchy)
+//                                         | #{class} {{to_percent score }}%
+//                             else
+//                                 +call_visual_analysis
+//                     .four.wide.column
+//                         if customer
+//                             with customer
+//                                 +user_card
+//                         with office
+//                             +office_card
+//             .ui.bottom.attached.tab.segment(data-tab='status')
+//                 .ui.padded.stackable.centered.grid
+//                     .twelve.wide.column
+//                         +incident_status
+//             .ui.bottom.attached.tab.segment(data-tab='talk')
+//                 .ui.padded.stackable.centered.grid
+//                     .four.wide.column
+//                         +notify_button
+//                     .twelve.wide.column
+//                         +comments
+//             .ui.bottom.attached.tab.segment(data-tab='activity')
+//                 .ui.padded.stackable.centered.grid
+//                     .eight.wide.column
+//                         h4 doc_feed
+//                         // +doc_feed
+//             .ui.bottom.attached.tab.segment(data-tab='analysis')
+//                 .ui.padded.stackable.centered.grid
+//                     .four.wide.column
+//                         if watson
+//                             +doc_sentiment
+//                             +doc_emotion
+//                             +concepts
+//                             +categories
+//                         else
+//                             +call_watson
+//                     .eight.wide.column
+//                         // +semantic_roles
+//                         +tone
+//                         +keywords
+//                         .ui.hidden.divider
+//                         +relations
+//                         // .ui.styled.accordion
+//                         //     .title 
+//                         //         i.code.icon
+//                         //         |full analysis data
+//                         //         i.dropdown.icon
+//                         //     .content
+//                         //         +jsonView(json=watson)
+//                     .four.wide.column
+//                         +personality
+//                         +consumption_preferences
+
+                            
+// template(name='incident_level_set')
+//     .set_level.ui.compact.button(title='Set Level')
+//         // i.checkmark.icon
+//         |#{level}
+                        
+                        
+// template(name='incident_type_label')      
+//     if incident_type_label
+//         .ui.basic.label(class=type_label_class) #{incident_type_label}
+
+
+// template(name='incident_status')
+//     .ui.padded.grid
+//         .four.wide.column
+//             .ui.header 
+//                 i.tasks.icon
+//                 |Status (current level: #{current_level})
+//         .twelve.wide.column
+//             .ui.segment
+//                 h3
+//                     i.edit.icon
+//                     | Submit
+//             .ui.divider
+//             .ui.segment
+//                 h4.ui.header
+//                     .ui.toggle.checkbox
+//                         input(type="checkbox" checked="checked")
+//                         // label 2
+
+//                     |Fields Completed
+//                 |Fill in required fields to submit for processing
+//             .ui.divider
+//             .ui.segment
+//                 h4.ui.header
+//                     .ui.toggle.checkbox
+//                         input(type="checkbox" checked="checked")
+//                         // label 2
+
+//                     |Processed
+//             .ui.divider
+//             .ui.segment
+//                 h4.ui.header
+//                     .ui.toggle.checkbox
+//                         input(type="checkbox" checked="checked")
+//                         // label 2
+
+//                     |Completed within SLA
+//             +incident_level_set level=1
+//             .ui.divider
+//             h3
+//                 i.circle.outline.icon
+//                 | Level 2
+//                 i.dropdown.icon
+//             .description
+//                 .ui.segment
+//                     h4.ui.header
+//                         .ui.toggle.checkbox
+//                             input(type="checkbox" checked="checked")
+//                             // label 2
+    
+//                         |Processed
+//                 .ui.segment
+//                     h4.ui.header
+//                         .ui.toggle.checkbox
+//                             input(type="checkbox" checked="checked")
+//                             // label 2
+    
+//                         |Completed within SLA
+//             +incident_level_set level=2
+//             .ui.divider
+//             h3
+//                 i.dot.circle.outline.icon
+//                 | Level 3
+//                 i.dropdown.icon
+//             .description
+//                 .ui.segment
+//                     h4.ui.header
+//                         .ui.toggle.checkbox
+//                             input(type="checkbox" checked="checked")
+//                             // label 2
+    
+//                         |Processed
+//                 .ui.segment
+//                     h4.ui.header
+//                         .ui.toggle.checkbox
+//                             input(type="checkbox" checked="checked")
+//                             // label 2
+    
+//                         |Completed within SLA
+//             +incident_level_set level=3
+//             .ui.divider
+//             h3
+//                 i.checkmark.icon
+//                 | Satisfaction Survey
+//                 i.dropdown.icon
+//             .description
+//                 .ui.segment
+//                     h4.ui.header
+//                         .ui.toggle.checkbox
+//                             input(type="checkbox" checked="checked")
+//                             // label 2
+    
+//                         |Processed
+//                 .ui.segment
+//                     h4.ui.header
+//                         .ui.toggle.checkbox
+//                             input(type="checkbox" checked="checked")
+//                             // label 2
+    
+//                         |SLA
+//             +incident_level_set level=4

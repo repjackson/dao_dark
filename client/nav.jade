@@ -1,7 +1,7 @@
 template(name='nav')
     #nav.ui.inverted.icon.top.attached.big.menu
-        a.toggle_left_sidebar.icon.item 
-            i.bars.icon
+        // a.toggle_left_sidebar.icon.item 
+        //     i.bars.icon
         a.mobile.hidden.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" data-position="top center" data-content='Users')
             i.dashboard.icon
         // a.header.item(href='/front' class="{{isActivePath '/front'}}" data-position="top center" data-content='Sales Page')
@@ -13,16 +13,18 @@ template(name='nav')
         a.mobile.hidden.icon.item(href='/users' class="{{isActivePath '/users'}}" data-position="top center" data-content='Users')
             i.users.icon
             // | &nbsp; Users
-        a.item(href='/charts' class="{{isActivePath '/charts'}}" data-position="top center" data-content='Chart Demo')
-            i.line.chart.icon
-            // +avatar_sprite name='combo-chart'
-            // | &nbsp; Users
-        a.mobile.hidden.item(href='/offices' class="{{isActivePath '/offices'}}" data-position="top center" data-content='Offices')
-            // +avatar_sprite name='organization'
-            i.building.icon
-            // | &nbsp; Offices
-        a.mobile.hidden.icon.item(href='/services' class="{{isActivePath '/services'}}" data-position="top center" data-content='Services/Ecommerce')
-            i.shipping.fast.icon
+        // a.item(href='/charts' class="{{isActivePath '/charts'}}" data-position="top center" data-content='Chart Demo')
+        //     i.line.chart.icon
+        //     // +avatar_sprite name='combo-chart'
+        //     // | &nbsp; Users
+        // a.mobile.hidden.item(href='/offices' class="{{isActivePath '/offices'}}" data-position="top center" data-content='Offices')
+        //     // +avatar_sprite name='organization'
+        //     i.building.icon
+        //     // | &nbsp; Offices
+        // a.mobile.hidden.icon.item(href='/services' class="{{isActivePath '/services'}}" data-position="top center" data-content='Services/Ecommerce')
+        //     i.shipping.fast.icon
+        a.mobile.hidden.icon.item(href='/reddit' class="{{isActivePath '/reddit'}}" data-position="top center" data-content='reddit')
+            i.reddit.icon
             // +avatar_sprite name='duster'
         // a.icon.item(href='/feed' class="{{isActivePath '/feed'}}" data-position="top center" data-content='Feed')
         //     i.rss.icon

@@ -25,12 +25,16 @@ Template.layout.onCreated ->
         selected_author_ids.array()
         selected_location_tags.array()
         selected_timestamp_tags.array()
-        type='post'
+        # type='post'
+        type=null
         author_id=null
         )
         # Meteor.subscribe 'doc', Session.get('editing_id')
 
 Template.posts.events
+    'click #add': -> 
+        id = Docs.insert {}
+        FlowRouter.go "/edit/#{id}"
     # 'click #save': -> Session.set 'editing_id', null
     # 'click .edit': -> Session.set 'editing_id', @_id
 Template.posts.helpers
@@ -46,3 +50,11 @@ Template.table_view.helpers
 
     # is_editing: -> Session.get 'editing_id'
 
+Template.post_view.onRendered ->
+    # Meteor.setTimeout ->
+    #     $('.ui.checkbox').checkbox()
+    # #     $('.ui.tabular.menu .item').tab()
+    # , 400
+    Meteor.setTimeout ->
+        $('.ui.tabular.menu .item').tab()
+    , 500
