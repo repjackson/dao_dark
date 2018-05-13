@@ -1,21 +1,23 @@
 template(name='reddit')
-    #dash_header.ui.vertical.masthead.center.aligned.padded.segment
-        .ui.container
+    // #dash_header.ui.vertical.masthead.center.aligned.padded.segment
+    //     .ui.container
             // .ui.hidden.divider
             // img.ui.medium.centered.image(src='https://jan-pro.com/wp-content/themes/underboot/img/jan-pro-white.svg')
-            h2.ui.inverted.header 
-                i.reddit.icon
-                |reddit
+            // h2.ui.inverted.header 
+            //     i.reddit.icon
+            //     |reddit
             // h2 Do whatever you want when you want to.
             // .ui.huge.primary.button
             //     | Get Started 
             //     i.right.arrow.icon
             // +customer_menu
     .ui.padded.stackable.grid
-        .four.wide.column
-            #call_reddit.ui.button call reddit
+        .row
+            // #call_reddit.ui.button call reddit
+            .ui.input
+                input#check_subreddit(type='text')
             +keyword_facet
-        .twelve.wide.column
+        .row
             .ui.cards
                 each docs
                     +reddit_post_card
@@ -29,6 +31,9 @@ template(name='reddit_post_card')
             // |reddit_id: #{reddit_id}
             a.ui.button(href=url target='_blank') article
             a.ui.button(href=permalink target='_blank') reddit
+        .content
+            each watson.keywords
+                .ui.label #{text}
         .content
             i.comments.icon
             | #{comment_count}

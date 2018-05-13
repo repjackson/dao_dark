@@ -31,6 +31,17 @@ Template.reddit.events
     'click #add': -> 
         id = Docs.insert {}
         FlowRouter.go "/edit/#{id}"
+        
+    'keyup #check_subreddit': (e,t)->
+        if e.which is 13
+            sub = $('#check_subreddit').val().toLowerCase().trim()
+            if sub.length > 0
+                console.log 'hi'
+                Meteor.call 'call_reddit', sub
+                # Docs.update doc_id,
+                #     $set: check_subreddit: image_id
+                $('#check_subreddit').val('')
+
     # 'click #save': -> Session.set 'editing_id', null
     # 'click .edit': -> Session.set 'editing_id', @_id
 Template.reddit.helpers
