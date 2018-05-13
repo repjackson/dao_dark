@@ -7,7 +7,7 @@
 # @Intention_tags = new Meteor.Collection 'intention_tags'
 @Timestamp_tags = new Meteor.Collection 'timestamp_tags'
 @Watson_keywords = new Meteor.Collection 'watson_keywords'
-# @People_tags = new Meteor.Collection 'people_tags'
+@Watson_concepts = new Meteor.Collection 'watson_concepts'
 @Author_ids = new Meteor.Collection 'author_ids'
 # @Participant_ids = new Meteor.Collection 'participant_ids'
 # @Upvoter_ids = new Meteor.Collection 'upvoter_ids'
@@ -19,7 +19,7 @@
 
 FlowRouter.route '/', action: ->
     BlazeLayout.render 'layout', 
-        main: 'posts'
+        main: 'reddit'
 
 
 

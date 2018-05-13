@@ -4,7 +4,7 @@ template(name='reddit')
             // .ui.hidden.divider
             // img.ui.medium.centered.image(src='https://jan-pro.com/wp-content/themes/underboot/img/jan-pro-white.svg')
             // h2.ui.inverted.header 
-            //     i.reddit.icon
+            //     i.rroueddit.icon
             //     |reddit
             // h2 Do whatever you want when you want to.
             // .ui.huge.primary.button
@@ -17,13 +17,14 @@ template(name='reddit')
             .ui.input
                 input#check_subreddit(type='text')
             +keyword_facet
+            +concept_facet
         .twelve.wide.column
             .ui.cards
                 each docs
-                    +reddit_post_card
+                    +reddit_small_card
 
-template(name='reddit_post_card')
-    .ui.card
+template(name='reddit_big_card')
+    .ui.fluid.card
         .content
             a.header(href="/view/#{_id}") #{title}
             .meta
@@ -32,9 +33,36 @@ template(name='reddit_post_card')
             a.ui.button(href=url target='_blank') article
             a.ui.button(href=permalink target='_blank') reddit
         .content
+            +tone
+        .content
             each watson.keywords
                 .ui.label #{text}
         .content
+            i.comments.icon
+            | #{comment_count}
+
+
+template(name='reddit_small_card')
+    .ui.card
+        .content
+            a.header(href="/view/#{_id}") #{title}
+            .meta
+                |domain: #{domain}
+            // |reddit_id: #{reddit_id}
+            a.ui.button(href=url target='_blank') article
+            a.ui.button(href=permalink target='_blank') reddit
+        // .content
+        //     +tone
+        // .content
+        //     each watson.keywords
+        //         .ui.label #{text}
+        .content
+            #call_this_watson.ui.icon.button
+                i.refresh.icon
+            if watson
+                i.info.icon
+            else
+                i.remove.icon
             i.comments.icon
             | #{comment_count}
 
@@ -129,6 +157,7 @@ template(name='reddit_view')
             .ui.bottom.attached.tab.segment(data-tab='analysis')
                 .ui.padded.stackable.centered.grid
                     .four.wide.column
+                        +call_watson
                         if watson
                             +doc_sentiment
                             +doc_emotion
@@ -136,8 +165,6 @@ template(name='reddit_view')
                             +categories
                             +entities
                             +concepts
-                        else
-                            +call_watson
                     .eight.wide.column
                         +semantic_roles
                         .ui.large.accordion

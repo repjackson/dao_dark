@@ -138,38 +138,38 @@ Meteor.methods
                         semantic_roles: {}
                         sentiment: {}
 
-
-            natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
-                if err
-                    console.log 'error:', err
-                else
-                    # console.log response
-                    keyword_array = _.pluck(response.keywords, 'text')
-                    lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
-                    
-                    concept_array = _.pluck(response.concepts, 'text')
-                    lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
-                    if response.analyzed_text
-                        Docs.update { _id: doc_id }, 
-                            $set:
-                                watson: response
-                                watson_keywords: lowered_keywords
-                                watson_concepts: lowered_concepts
-                                doc_sentiment_score: response.sentiment.document.score
-                                doc_sentiment_label: response.sentiment.document.label
-                                html: response.analyzed_text
+                natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
+                    if err
+                        console.log 'error:', err
                     else
-                        Docs.update { _id: doc_id }, 
-                            $set:
-                                watson: response
-                                watson_concepts: lowered_concepts
-                                watson_keywords: lowered_keywords
-                                doc_sentiment_score: response.sentiment.document.score
-                                doc_sentiment_label: response.sentiment.document.label
-                return
-            )
-        Meteor.call 'call_tone', doc_id, ->
-        Meteor.call 'call_personality', doc_id, ->
-        
+                        # console.log response
+                        keyword_array = _.pluck(response.keywords, 'text')
+                        lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
+                        
+                        concept_array = _.pluck(response.concepts, 'text')
+                        lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
+                        if response.analyzed_text
+                            Docs.update { _id: doc_id }, 
+                                $set:
+                                    watson: response
+                                    watson_keywords: lowered_keywords
+                                    watson_concepts: lowered_concepts
+                                    doc_sentiment_score: response.sentiment.document.score
+                                    doc_sentiment_label: response.sentiment.document.label
+                                    html: response.analyzed_text
+                        else
+                            Docs.update { _id: doc_id }, 
+                                $set:
+                                    watson: response
+                                    watson_concepts: lowered_concepts
+                                    watson_keywords: lowered_keywords
+                                    doc_sentiment_score: response.sentiment.document.score
+                                    doc_sentiment_label: response.sentiment.document.label
+                    return
+                )
+            Meteor.call 'call_tone', doc_id, ->
+            Meteor.call 'call_personality', doc_id, ->
+            
+
         return
         

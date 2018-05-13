@@ -28,6 +28,12 @@ Template.reddit.onCreated ->
     #     # Meteor.subscribe 'doc', Session.get('editing_id')
 
 Template.reddit.events
+    'click #call_this_watson': ->
+        # console.log @
+        Meteor.call 'call_watson', @_id, @url, ->
+
+
+
     'click #add': -> 
         id = Docs.insert {}
         FlowRouter.go "/edit/#{id}"
@@ -43,7 +49,7 @@ Template.reddit.events
 
 Template.reddit.helpers
     one_doc: -> Docs.find().count() is 1
-    docs: -> Docs.find({},{limit:10,sort:tag_count:1})
+    docs: -> Docs.find({},{limit:42,sort:tag_count:1})
 
 Template.reddit_view.onRendered ->
     # Meteor.setTimeout ->

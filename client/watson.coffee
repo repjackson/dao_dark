@@ -66,6 +66,9 @@ Template.call_watson.events
         # console.log @
         Meteor.call 'call_watson', FlowRouter.getParam('doc_id'), ->
 
+
+
+
 Template.personality.events
     'click #call_personality': ->
         # console.log @

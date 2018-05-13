@@ -186,6 +186,7 @@ Meteor.publish 'user_docs', (username, selected_theme_tags)->
 Meteor.publish 'facet', (
     selected_tags
     selected_keywords
+    selected_concepts
     selected_author_ids=[]
     selected_location_tags
     selected_timestamp_tags
@@ -212,6 +213,7 @@ Meteor.publish 'facet', (
             match.author_id = $in: selected_author_ids
         if selected_location_tags.length > 0 then match.location_tags = $all: selected_location_tags
         if selected_keywords.length > 0 then match.watson_keywords = $all: selected_keywords
+        if selected_concepts.length > 0 then match.watson_concepts = $all: selected_concepts
         if selected_timestamp_tags.length > 0 then match.timestamp_tags = $all: selected_timestamp_tags
         
 
@@ -296,6 +298,24 @@ Meteor.publish 'facet', (
             self.added 'watson_keywords', Random.id(),
                 name: keyword.name
                 count: keyword.count
+                index: i
+        
+        
+        watson_concept_cloud = Docs.aggregate [
+            { $match: match }
+            { $project: watson_concepts: 1 }
+            { $unwind: "$watson_concepts" }
+            { $group: _id: '$watson_concepts', count: $sum: 1 }
+            { $match: _id: $nin: selected_tags }
+            { $sort: count: -1, _id: 1 }
+            { $limit: 42 }
+            { $project: _id: 0, name: '$_id', count: 1 }
+            ]
+        # console.log 'watson cloud, ', watson_concept_cloud
+        watson_concept_cloud.forEach (concept, i) ->
+            self.added 'watson_concepts', Random.id(),
+                name: concept.name
+                count: concept.count
                 index: i
 
         timestamp_tags_cloud = Docs.aggregate [

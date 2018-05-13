@@ -1,6 +1,6 @@
-@selected_keywords = new ReactiveArray []
+@selected_concepts = new ReactiveArray []
 
-Template.keyword_facet.onCreated ->
+Template.concept_facet.onCreated ->
     @autorun => 
         Meteor.subscribe('facet', 
             selected_tags.array()
@@ -13,19 +13,19 @@ Template.keyword_facet.onCreated ->
             )
 
 
-Template.keyword_facet.helpers
-    keywords: ->
+Template.concept_facet.helpers
+    concepts: ->
         doc_count = Docs.find().count()
-        # if selected_keywords.array().length
+        # if selected_concepts.array().length
         if 0 < doc_count < 3
-            Watson_keywords.find { 
+            Watson_concepts.find { 
                 count: $lt: doc_count
                 }, limit:42
         else
-            Watson_keywords.find({}, limit:42)
+            Watson_concepts.find({}, limit:42)
             
             
-    cloud_keyword_class: ->
+    cloud_concept_class: ->
         button_class = []
         switch
             when @index <= 5 then button_class.push 'large '
@@ -34,14 +34,14 @@ Template.keyword_facet.helpers
             when @index <= 20 then button_class.push ' tiny'
         return button_class
 
-    selected_keywords: -> selected_keywords.array()
+    selected_concepts: -> selected_concepts.array()
     # selected_author_ids: -> selected_author_ids.array()
     settings: -> {
         position: 'bottom'
         limit: 10
         rules: [
             {
-                collection: Watson_keywords
+                collection: Watson_concepts
                 field: 'name'
                 matchAll: false
                 template: Template.tag_result
@@ -51,10 +51,10 @@ Template.keyword_facet.helpers
 
 
 
-Template.keyword_facet.events
-    'click .select_keyword': -> selected_keywords.push @name
-    'click .unselect_keyword': -> selected_keywords.remove @valueOf()
-    'click #clear_keywords': -> selected_keywords.clear()
+Template.concept_facet.events
+    'click .select_concept': -> selected_concepts.push @name
+    'click .unselect_concept': -> selected_concepts.remove @valueOf()
+    'click #clear_concepts': -> selected_concepts.clear()
 
 
 
@@ -65,17 +65,17 @@ Template.keyword_facet.events
             when 13 #enter
                 switch val
                     when 'clear'
-                        selected_keywords.clear()
+                        selected_concepts.clear()
                         $('#search').val ''
                     else
                         unless val.length is 0
-                            selected_keywords.push val.toString()
+                            selected_concepts.push val.toString()
                             $('#search').val ''
             when 8
                 if val.length is 0
-                    selected_keywords.pop()
+                    selected_concepts.pop()
                     
     'autocompleteselect #search': (event, template, doc) ->
         # console.log 'selected ', doc
-        selected_keywords.push doc.name
+        selected_concepts.push doc.name
         $('#search').val ''
