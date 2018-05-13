@@ -29,7 +29,7 @@
     "message": true,
     "modal": true,
     "nag": true,
-    "popup": true,
+    "popup": false,
     "progress": true,
     "rail": true,
     "rating": true,

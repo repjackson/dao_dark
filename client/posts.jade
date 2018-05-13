@@ -77,11 +77,11 @@ template(name='post_view')
                 a.icon.item(data-tab='talk') 
                     i.large.chat.icon
                     // |Talk
-                a.icon.item(data-tab='status') 
-                    i.large.clock.icon
-                    // |Status
+                a.icon.item(data-tab='actions') 
+                    i.large.star.icon
+                    // |actions
                 a.icon.item(data-tab='analysis') 
-                    i.large.line.chart.icon
+                    i.large.heartbeat.icon
                     // |Analysis
                 a.icon.item(data-tab='activity') 
                     i.large.rss.icon
@@ -92,7 +92,9 @@ template(name='post_view')
                         .ui.header
                             +author_info
                         h2.ui.sub.header #{when}
-                        .ui.large.relaxed.list
+                        +bookmark_button
+                        +vote_button
+                        // .ui.large.relaxed.list
                             // +list_item key='customer_id' label='Customer ID' icon='user'
                             // +list_item icon='hashtag' label='Number' key='incident_number'
                             // +list_item icon='calendar' label='Date' key='incident_date'
@@ -111,15 +113,11 @@ template(name='post_view')
                             else
                                 +call_visual_analysis
                     .four.wide.column
-                        // if customer
-                        //     with customer
-                        //         +user_card
-                        // with office
-                        //     +office_card
-            .ui.bottom.attached.tab.segment(data-tab='status')
+            .ui.bottom.attached.tab.segment(data-tab='actions')
                 .ui.padded.stackable.centered.grid
                     .twelve.wide.column
-                        // +incident_status
+                        .ui.header tag this
+                        
             .ui.bottom.attached.tab.segment(data-tab='talk')
                 .ui.padded.stackable.centered.grid
                     .four.wide.column
@@ -139,6 +137,9 @@ template(name='post_view')
                             +doc_emotion
                             +concepts
                             +categories
+                            +entities
+                            +semantic_roles
+                            +concepts
                         else
                             +call_watson
                     .eight.wide.column
@@ -158,35 +159,6 @@ template(name='post_view')
                         +personality
                         +consumption_preferences
 
-
-
-
-
-
-
-
-        // .row
-        //     .eight.wide.column
-        //         each tags
-        //             .ui.label #{this}
-        //         .ui.basic.segment
-        //             .large130 !{html}
-        //         if image_id
-        //             img.ui.centered.image(src="{{c.url image_id height=500 crop='fit'}}")
-        //             +call_visual_analysis
-        //             if visual
-        //                 each visual
-        //                     .ui.basic.label(title=type_hierarchy)
-        //                         | #{class} {{to_percent score }}%
-        //         +comments
-        //     .four.wide.column
-        //         .ui.segment
-        //             .ui.header
-        //                 +author_info
-        //             h2.ui.sub.header #{when}
-        //             .ui.large.relaxed.list
-        //             .ui.header #{formal_when}
-        
         
         
 template(name='post_edit')
@@ -220,24 +192,24 @@ template(name='post_edit')
             .six.wide.column
                 a.ui.icon.large.fluid.button(href="/view/#{_id}")
                     i.checkmark.icon
-                // +published        
+                +published        
                 #delete.ui.icon.button
                     i.remove.icon
-                // +template_picker
-                // .ui.segment
-                //     .ui.header user actions
-                //     +toggle_list_items list='user_actions' value='tag_rating' label='tag rating'
-                //     +toggle_list_items list='user_actions' value='comments' label='comments'
-                //     +toggle_list_items list='user_actions' value='bounty' label='bounty'
-                //     +toggle_list_items list='user_actions' value='ownership' label='ownership'
-                // .ui.divider
-                // +reference_other_children type='field' key='field_ids'
-                // .ui.header components
-                // +reference_other_children type='component' key='component_ids'
-                // .ui.header permissions
-                // .ui.header access
-                // +toggle_key key='access' value='public' label='public'
-                // +toggle_key key='access' value='private' label='private'
-                // +toggle_key key='access' value='payment_required' label='payment_required'
-                // +toggle_key key='access' value='subscription_required' label='subscription_required'
+                +template_picker
+                .ui.segment
+                    .ui.header user actions
+                    +toggle_list_items list='user_actions' value='tag_rating' label='tag rating'
+                    +toggle_list_items list='user_actions' value='comments' label='comments'
+                    +toggle_list_items list='user_actions' value='bounty' label='bounty'
+                    +toggle_list_items list='user_actions' value='ownership' label='ownership'
+                .ui.divider
+                +reference_other_children type='field' key='field_ids'
+                .ui.header components
+                +reference_other_children type='component' key='component_ids'
+                .ui.header permissions
+                .ui.header access
+                +toggle_key key='access' value='public' label='public'
+                +toggle_key key='access' value='private' label='private'
+                +toggle_key key='access' value='payment_required' label='payment_required'
+                +toggle_key key='access' value='subscription_required' label='subscription_required'
                                     

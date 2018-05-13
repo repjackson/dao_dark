@@ -284,37 +284,37 @@ Meteor.methods
         
         
         doc_link = "/view/#{doc._id}"
-        notification = 
+        alert = 
             Docs.findOne
-                type:'notification'
+                type:'alert'
                 object_id:doc_id
                 recipient_id:recipient_id
-        if notification
+        if alert
             throw new Meteor.Error 500, 'User already notified.'
             return
         else
             Docs.insert
-                type:'notification'
+                type:'alert'
                 object_id:doc_id
                 recipient_id:recipient_id
                 content: 
                     "<p>#{Meteor.user().name()} has notified you about <a href=#{doc_link}>#{parent.title} entry</a>.</p>"
                 
                 
-    remove_notification: (doc_id, recipient_id)->
+    remove_alert: (doc_id, recipient_id)->
         doc = Docs.findOne doc_id
         recipient = Meteor.users.findOne recipient_id
         
-        notification = 
+        alert = 
             Docs.findOne
-                type:'notification'
+                type:'alert'
                 object_id:doc_id
                 recipient_id:recipient_id
         
-        if notification 
-            Docs.remove notification._id
+        if alert 
+            Docs.remove alert._id
         else
-            console.log 'trying to remove unknown notification'
+            console.log 'trying to remove unknown alert'
                 
         return
                 

@@ -128,12 +128,12 @@ template(name='semantic_roles')
         .title
             |#{watson.semantic_roles.length} semantic roles
         .content
-            // +jsonView(json=watson.semantic_roles)
-            .ui.list
-                each watson.semantic_roles
-                    .item
-                        strong #{label}
-                        |{{ to_percent score }}%
+            +jsonView(json=watson.semantic_roles)
+            // .ui.list
+            //     each watson.semantic_roles
+            //         .item
+            //             strong #{label}
+            //             |{{ to_percent score }}%
 
 
 template(name='relations')
@@ -209,7 +209,7 @@ template(name='tone')
                 | #{text}
                 each tones
                     .ui.basic.label #{tone_id} {{ to_percent score }}%
-    unless tone                
-        #call_tone.ui.icon.button(title='Refresh Tone Analysis')
-            i.refresh.icon
+    // unless tone                
+    #call_tone.ui.icon.button
+        i.refresh.icon
             // +jsonView(json=tone)

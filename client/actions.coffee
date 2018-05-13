@@ -126,21 +126,21 @@
 #         Docs.update @_id, $set: approved: false 
         
 
-# Template.bookmark_button.helpers
-#     bookmark_button_class: -> 
-#         if Meteor.user()
-#             if @bookmarked_ids and Meteor.userId() in  @bookmarked_ids then 'blue' else ''
-#         else 'basic disabled'
+Template.bookmark_button.helpers
+    bookmark_button_class: -> 
+        if Meteor.user()
+            if @bookmarked_ids and Meteor.userId() in  @bookmarked_ids then 'blue' else ''
+        else 'basic disabled'
         
-#     bookmarked: -> Meteor.user()?.bookmarked_ids and @_id in Meteor.user().bookmarked_ids
+    bookmarked: -> Meteor.user()?.bookmarked_ids and @_id in Meteor.user().bookmarked_ids
 
 
-# Template.bookmark_button.events
-#     'click .bookmark_button': (e,t)-> 
-#         if Meteor.userId() 
-#             Meteor.call 'bookmark', Template.parentData(0)
-#             $(e.currentTarget).closest('.bookmark_button').transition('pulse')
-#         else FlowRouter.go '/sign-in'
+Template.bookmark_button.events
+    'click .bookmark_button': (e,t)-> 
+        if Meteor.userId() 
+            Meteor.call 'bookmark', Template.parentData(0)
+            $(e.currentTarget).closest('.bookmark_button').transition('pulse')
+        else FlowRouter.go '/sign-in'
 
 
 
@@ -212,42 +212,42 @@
 #         else FlowRouter.go '/sign-in'
 
 
-Template.notify_button.onRendered ->
-    @autorun =>
-        if @subscriptionsReady()
-            Meteor.setTimeout ->
-                $('.button')
-                  .popup({
-                    inline: true
-                  })
-            , 500
+# Template.notify_button.onRendered ->
+#     @autorun =>
+#         if @subscriptionsReady()
+#             Meteor.setTimeout ->
+#                 $('.button')
+#                   .popup({
+#                     inline: true
+#                   })
+#             , 500
 
 
 
 
 
-# Template.mark_read_button.events
-#     'click .mark_read': (e,t)-> 
-#         Meteor.call 'mark_read', @_id
+Template.mark_read_button.events
+    'click .mark_read': (e,t)-> 
+        Meteor.call 'mark_read', @_id
         
-#     'click .mark_unread': (e,t)-> Meteor.call 'mark_unread', @_id
+    'click .mark_unread': (e,t)-> Meteor.call 'mark_unread', @_id
 
-# Template.mark_read_button.helpers
-#     read: -> @read_by and Meteor.userId() in @read_by
-#     # read: -> true
+Template.mark_read_button.helpers
+    read: -> @read_by and Meteor.userId() in @read_by
+    # read: -> true
     
     
-# Template.read_by_list.onCreated ->
-#     @autorun => Meteor.subscribe 'read_by', Template.parentData()._id
+Template.read_by_list.onCreated ->
+    @autorun => Meteor.subscribe 'read_by', Template.parentData()._id
     
-# Template.read_by_list.helpers
-#     read_by: ->
-#         if @read_by
-#             if @read_by.length > 0
-#         # console.log @read_by
-#                 Meteor.users.find _id: $in: @read_by
-#         else 
-#             false
+Template.read_by_list.helpers
+    read_by: ->
+        if @read_by
+            if @read_by.length > 0
+        # console.log @read_by
+                Meteor.users.find _id: $in: @read_by
+        else 
+            false
             
     
     

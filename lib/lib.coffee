@@ -154,6 +154,144 @@ Docs.helpers
                 points:-1
                 timestamp:-1
 
+    only_child: -> Docs.findOne parent_id: @_id
+    parent: -> Docs.findOne @parent_id
+    recipient: -> Meteor.users.findOne @recipient_id
+    notified_users: -> 
+        if @notified_ids
+            Meteor.users.find _id:$in:@notified_ids
+    subject: -> Meteor.users.findOne @subject_id
+    object: -> Docs.findOne @object_id
+    has_children: -> if Docs.findOne(parent_id: @_id) then true else false
+    
+    has_price: -> @dollar_price or @point_price
+    
+    children: -> 
+        Docs.find {parent_id: @_id}, 
+            sort:
+                timestamp:-1
+    public_children: -> 
+        Docs.find {parent_id: @_id, published:$in:[0,1]}, 
+            sort:
+                number:1
+                timestamp:-1
+    private_children: -> 
+        Docs.find {parent_id: @_id, published:-1}, 
+            sort:
+                number:1
+                timestamp:-1
+    responded: -> 
+        response = Docs.findOne
+            author_id: Meteor.userId()
+            parent_id: @_id
+            type: 'response'
+        if response then true else false
+
+    children_count: -> Docs.find({parent_id: @_id}).count() 
+
+    published_children_count: -> Docs.find({parent_id: @_id, published:$in:[0,1]}).count()
+
+    completed: -> 
+        # console.log 'complete'
+        if @completed_ids and Meteor.userId() in @completed_ids then true else false
+
+    up_voted: -> @upvoters and Meteor.userId() in @upvoters
+    down_voted: -> @downvoters and Meteor.userId() in @downvoters
+
+    can_access: ->
+        if @access is 'available' then true
+        else if @access is 'admin_only'
+            if Roles.userIsInRole(Meteor.userId(), 'admin') and Session.equals('admin_mode', true) then true else false
+        else if Session.equals 'admin_mode', true then true
+        else
+            previous_number = @number - 1
+            previous_doc = 
+                Docs.findOne
+                    parent_id: @parent_id
+                    number: previous_number
+            if previous_doc
+                if previous_doc.completed_by and Meteor.userId() in previous_doc.completed_by then true else false
+            else
+                true
+    upvoted_users: ->
+        if @upvoters
+            upvoted_users = []
+            for upvoter_id in @upvoters
+                upvoted_users.push Meteor.users.findOne upvoter_id
+            upvoted_users
+        else []
+    
+    read: -> @read_by and Meteor.userId() in @read_by
+        
+    readers: ->
+        if @read_by
+            readers = []
+            for reader_id in @read_by
+                readers.push Meteor.users.findOne reader_id
+            readers
+        else []
+    
+    child_field_docs: ->
+        if @child_field_ids
+            Docs.find _id:$in:@child_field_ids
+    
+    public_child_authors: ->
+        if Docs.findOne({parent_id: @_id})
+            child_authors = []
+            child_documents = Docs.find(parent_id: @_id, published:1).fetch()
+            for child_document in child_documents
+                # console.log child_document.author_id
+                child_authors.push Meteor.users.findOne child_document.author_id
+            child_authors
+        else 
+            []
+            # console.log 'we aint found shit'
+    child_authors: ->
+        if Docs.findOne({parent_id: @_id})
+            child_authors = []
+            child_documents = Docs.find(parent_id: @_id).fetch()
+            for child_document in child_documents
+                # console.log child_document.author_id
+                child_authors.push Meteor.users.findOne child_document.author_id
+            child_authors
+        else 
+            []
+            # console.log 'we aint found shit'
+
+    younger_sibling: ->
+        if @number
+            previous_number = @number - 1
+            Docs.findOne
+                parent_id: @parent_id
+                number: previous_number
+
+    older_sibling: ->
+        if @number
+            next_number = @number + 1
+            Docs.findOne
+                parent_id: @parent_id
+                number: next_number
+
+
+    has_currentuser_grandchildren: ->
+        children = Docs.find({parent_id:@_id}).fetch()
+        children_count = children.length
+        console.log 'children_count', children_count
+        grandchildren_count = 0
+        for child in children
+            grandchild = 
+                Docs.findOne 
+                    parent_id: child._id
+                    author_id: Meteor.userId()
+            if grandchild then grandchildren_count++
+        console.log 'grandchildren_count', grandchildren_count
+        if grandchildren_count is children_count
+            console.log 'has all grandchildren'
+            return true
+        else
+            false
+
+
 
 
 Meteor.methods
@@ -184,7 +322,7 @@ Meteor.methods
                 $inc: points: 1
             Meteor.users.update doc.author_id, $inc: points: 1
             # Meteor.users.update Meteor.userId(), $inc: points: -1
-        # Meteor.call 'generate_upvoted_cloud', Meteor.userId()
+        Meteor.call 'generate_upvoted_cloud', Meteor.userId()
 
     vote_down: (id)->
         doc = Docs.findOne id
@@ -213,4 +351,58 @@ Meteor.methods
                 $inc: points: -1
             # Meteor.users.update doc.author_id, $inc: points: -1
             # Meteor.users.update Meteor.userId(), $inc: points: -1
-        # Meteor.call 'generate_downvoted_cloud', Meteor.userId()
+        Meteor.call 'generate_downvoted_cloud', Meteor.userId()
+
+
+    favorite: (doc)->
+        if doc.favoriters and Meteor.userId() in doc.favoriters
+            Docs.update doc._id,
+                $pull: favoriters: Meteor.userId()
+                $inc: favorite_count: -1
+        else
+            Docs.update doc._id,
+                $addToSet: favoriters: Meteor.userId()
+                $inc: favorite_count: 1
+    
+    
+    mark_complete: (doc)->
+        if doc.completed_ids and Meteor.userId() in doc.completed_ids
+            Docs.update doc._id,
+                $pull: completed_ids: Meteor.userId()
+                $inc: completed_count: -1
+        else
+            Docs.update doc._id,
+                $addToSet: completed_ids: Meteor.userId()
+                $inc: completed_count: 1
+    
+    
+    bookmark: (doc)->
+        if doc.bookmarked_ids and Meteor.userId() in doc.bookmarked_ids
+            Docs.update doc._id,
+                $pull: bookmarked_ids: Meteor.userId()
+                $inc: bookmarked_count: -1
+        else
+            Docs.update doc._id,
+                $addToSet: bookmarked_ids: Meteor.userId()
+                $inc: bookmarked_count: 1
+    
+    pin: (doc)->
+        if doc.pinned_ids and Meteor.userId() in doc.pinned_ids
+            Docs.update doc._id,
+                $pull: pinned_ids: Meteor.userId()
+                $inc: pinned_count: -1
+        else
+            Docs.update doc._id,
+                $addToSet: pinned_ids: Meteor.userId()
+                $inc: pinned_count: 1
+    
+    subscribe: (doc)->
+        if doc.subscribed_ids and Meteor.userId() in doc.subscribed_ids
+            Docs.update doc._id,
+                $pull: subscribed_ids: Meteor.userId()
+                $inc: subscribed_count: -1
+        else
+            Docs.update doc._id,
+                $addToSet: subscribed_ids: Meteor.userId()
+                $inc: subscribed_count: 1
+    

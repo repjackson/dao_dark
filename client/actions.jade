@@ -58,20 +58,20 @@
 //         .ui.basic.disabled.icon.button(data-tooltip='Reflect in Journal')
 //             +mini_sprite name='mirror' classes='ui mini inline image'
 
-// // template(name='vote_button')
-// //     .ui.basic.icon.button
-// //         i.thumbs.up.link.big.icon.vote_up(class=vote_up_button_class)
-// //     // .ui.basic.icon.button
-// //     //     i.thumbs.down.link.big.icon.vote_down(class=vote_down_button_class)
-// //         // |#{points}
+template(name='vote_button')
+    .ui.basic.icon.button
+        i.thumbs.up.link.big.icon.vote_up(class=vote_up_button_class)
+    .ui.basic.icon.button
+        i.thumbs.down.link.big.icon.vote_down(class=vote_down_button_class)
+        |#{points}
 
 
 
-// template(name='favorite_button')
-//     .ui.basic.icon.button.favorite_item(class=favorite_item_class)
-//         +avatar_sprite name='hearts' classes='ui mini inline image'
-//         if favorite_count
-//             | #{favorite_count}
+template(name='favorite_button')
+    .ui.basic.icon.button.favorite_item(class=favorite_item_class)
+        +avatar_sprite name='hearts' classes='ui mini inline image'
+        if favorite_count
+            | #{favorite_count}
 
 // template(name='mark_complete_button')
 //     .mark_complete.ui.white.button(class=complete_button_class) 
@@ -141,38 +141,38 @@ template(name='notify_button')
                 .right.floated.content
                     i.remove_notified_user.large.link.red.remove.icon
                 
-// template(name='mark_read_button')
-//     if currentUser
-//         if read
-//             .mark_unread.ui.button(data-tooltip='Mark Unread')
-//                 +mini_sprite name='read-message' classes='avatar'
-//                 |Read
-//         else
-//             .mark_read.ui.basic.button(data-tooltip='Mark Read')
-//                 +mini_sprite name='message' classes='ui mini inline image'
-//                 |Unread
-//     +read_by_list
+template(name='mark_read_button')
+    if currentUser
+        if read
+            .mark_unread.ui.button(data-tooltip='Mark Unread')
+                +mini_sprite name='read-message' classes='avatar'
+                |Read
+        else
+            .mark_read.ui.basic.button(data-tooltip='Mark Read')
+                +mini_sprite name='message' classes='ui mini inline image'
+                |Unread
+    +read_by_list
 
 
     
     
                 
-// template(name='read_by_list')
-//     if read_by.count
-//         .ui.dividing.header
-//             |Read by... 
-//             span.floated.right (#{read_by.count})
-//         .ui.divided.list
-//             each read_by
-//                 .item
-//                     img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
-//                     .content
-//                         .header
-//                             |#{name}
-//                         .description
-//                             +tiny_color_dots
-//                             // each five_tags
-//                             //     .ui.basic.label #{this}
+template(name='read_by_list')
+    if read_by.count
+        .ui.dividing.header
+            |Read by... 
+            span.floated.right (#{read_by.count})
+        .ui.divided.list
+            each read_by
+                .item
+                    img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                    .content
+                        .header
+                            |#{name}
+                        .description
+                            +tiny_color_dots
+                            // each five_tags
+                            //     .ui.basic.label #{this}
                 
                 
                 

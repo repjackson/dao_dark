@@ -58,7 +58,7 @@ Meteor.methods
             # stringed = JSON.stringify(doc.html, null, 2)
             params =
                 text:doc.html
-                content_type:'text/plain'
+                content_type:'text/html'
             tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
                 if err
                     console.log err
@@ -93,14 +93,33 @@ Meteor.methods
             )
         else return 
         
-    call_watson: (doc_id) ->
+    call_watson: (doc_id, url) ->
         # console.log 'calling watson'
         self = @
-        doc = Docs.findOne doc_id
-        if doc.html
+        if doc_id
+            doc = Docs.findOne doc_id
+            if doc.html
+                parameters = 
+                    html: doc.html
+                    features:
+                        entities:
+                            emotion: true
+                            sentiment: true
+                            # limit: 2
+                        keywords:
+                            emotion: true
+                            sentiment: true
+                            # limit: 2
+                        concepts: {}
+                        categories: {}
+                        emotion: {}
+                        # metadata: {}
+                        relations: {}
+                        semantic_roles: {}
+                        sentiment: {}
+        if url
             parameters = 
-                # 'html': doc.content
-                text: doc.html
+                url: url
                 features:
                     entities:
                         emotion: true
@@ -117,20 +136,32 @@ Meteor.methods
                     relations: {}
                     semantic_roles: {}
                     sentiment: {}
+                return_analyzed_text: true
+
 
             natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
                 if err
                     console.log 'error:', err
                 else
+                    # console.log response
                     keyword_array = _.pluck(response.keywords, 'text')
                     lowered_keywords = keyword_array.map (tag)-> tag.toLowerCase()
                     # console.dir response
-                    Docs.update { _id: doc_id }, 
-                        $set:
-                            watson: response
-                            watson_keywords: lowered_keywords
-                            doc_sentiment_score: response.sentiment.document.score
-                            doc_sentiment_label: response.sentiment.document.label
+                    if response.analyzed_text
+                        Docs.update { _id: doc_id }, 
+                            $set:
+                                watson: response
+                                watson_keywords: lowered_keywords
+                                doc_sentiment_score: response.sentiment.document.score
+                                doc_sentiment_label: response.sentiment.document.label
+                                html: response.analyzed_text
+                    else
+                        Docs.update { _id: doc_id }, 
+                            $set:
+                                watson: response
+                                watson_keywords: lowered_keywords
+                                doc_sentiment_score: response.sentiment.document.score
+                                doc_sentiment_label: response.sentiment.document.label
                 return
             )
         

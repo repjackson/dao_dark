@@ -1,7 +1,7 @@
 template(name='nav')
     #nav.ui.inverted.icon.top.attached.big.menu
-        // a.toggle_left_sidebar.icon.item 
-        //     i.bars.icon
+        a.toggle_left_sidebar.icon.item 
+            i.bars.icon
         a.mobile.hidden.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" data-position="top center" data-content='Users')
             i.dashboard.icon
         // a.header.item(href='/front' class="{{isActivePath '/front'}}" data-position="top center" data-content='Sales Page')
@@ -13,8 +13,8 @@ template(name='nav')
         a.mobile.hidden.icon.item(href='/users' class="{{isActivePath '/users'}}" data-position="top center" data-content='Users')
             i.users.icon
             // | &nbsp; Users
-        // a.item(href='/charts' class="{{isActivePath '/charts'}}" data-position="top center" data-content='Chart Demo')
-        //     i.line.chart.icon
+        a.item(href='/charts' class="{{isActivePath '/charts'}}" data-position="top center" data-content='Chart Demo')
+            i.line.chart.icon
         //     // +avatar_sprite name='combo-chart'
         //     // | &nbsp; Users
         // a.mobile.hidden.item(href='/offices' class="{{isActivePath '/offices'}}" data-position="top center" data-content='Offices')
@@ -26,31 +26,26 @@ template(name='nav')
         a.mobile.hidden.icon.item(href='/reddit' class="{{isActivePath '/reddit'}}" data-position="top center" data-content='reddit')
             i.reddit.icon
             // +avatar_sprite name='duster'
-        // a.icon.item(href='/feed' class="{{isActivePath '/feed'}}" data-position="top center" data-content='Feed')
-        //     i.rss.icon
-        // a.mobile.hidden.disabled.icon.item(href='/schedule' class="{{isActivePath '/schedule'}}")
+        a.icon.item(href='/feed' class="{{isActivePath '/feed'}}" data-position="top center" data-content='Feed')
+            i.rss.icon
         a.mobile.hidden.icon.item(href='/schedule' class="{{isActivePath '/schedule'}}" data-position="top center" data-content='Schedule')
             i.calendar.icon
-        // .mobile.hidden.item(href='/consumerables' class="{{isActivePath '/consumerables'}}" data-position="top center" data-content='Consumerables')
-        // .mobile.hidden.item(data-position="top center" data-content='Consumerables')
-        //     +dots name='toilet-paper'
-            // | &nbsp; Services
         // .mobile.hidden.item
         //     .ui.icon.transparent.inverted.disabled.input
         //         input(type='text' placeholder='Search...')
         //         i.search.icon
         .right.menu
             a.mobile.hidden.item(href='/admin' class="{{isActivePath '/admin'}}" data-position="top center" data-content='Admin')
-                i.large.shield.alternate.icon
+                i.shield.alternate.icon
                 // | Admin
             a.icon.mobile.hidden.item(href='/chat' class="{{isActivePath '/chat'}}" data-position="top center" data-content='Chat')
-                i.large.comments.icon
+                i.comments.icon
             // .icon.mobile.hidden.item(data-position="top center" data-content='Cart')
-            //     i.large.shopping.cart.icon
+            //     i.shopping.cart.icon
             // a.icon.mobile.hidden.item(href='/mail' class="{{isActivePath '/mail'}}" data-position="top center" data-content='Mail')
-            //     i.large.envelope.icon
+            //     i.envelope.icon
             // a.ui.simple.dropdown.icon.mobile.hidden.item(href='/alerts' class="{{isActivePath '/alerts'}}")
-            //     i.large.bell.icon
+            //     i.bell.icon
             //     .menu
             //         .item No alerts
             if currentUser
@@ -130,38 +125,38 @@ template(name='right_sidebar')
             |#{currentUser.username}
         a.icon.toggle_right_sidebar.item(href='/ideas' class="{{isActivePath '/ideas'}}")
             i.lightbulb.large.icon
-            | Ideas
+            | ideas
         a.icon.toggle_right_sidebar.item(href='/questions' class="{{isActivePath '/questions'}}")
             i.question.large.icon
-            | Q&A
+            | q&a
         a.icon.toggle_right_sidebar.item(href='/rankings' class="{{isActivePath '/rankings'}}")
             i.trophy.large.icon
-            | Leaderboard
+            | leaderboard
         a.toggle_right_sidebar.item(href='/alerts')
             i.bell.large.icon
-            | Alerts
+            | alerts
         a.toggle_right_sidebar.item(href='/charts')
             i.large.line.chart.icon
-            | Chart Demo
+            | charts
         a.toggle_right_sidebar.item(href='/mail')
             i.envelope.large.icon
-            | Mail
+            | mail
         a.toggle_right_sidebar.item(href='/feed')
             i.rss.large.icon
-            | Feed
+            | feed
         a.toggle_right_sidebar.item(href='/chat')
             i.chat.large.icon
-            | Chat
+            | chat
         a.toggle_right_sidebar.item(href='/bookmarks')
             i.bookmark.large.icon
-            | Bookmarks
+            | bookmarks
         a.toggle_right_sidebar.item(href='/account/settings' class="{{isActivePath '/account/settings'}}") 
             i.cog.large.icon
-            | Settings
+            | settings
         .divider
         a.toggle_right_sidebar.item(href='/admin' class="{{isActivePath '/admin'}}")
             i.shield.large.icon
-            | Admin
+            | admin
         a#logout.ui.item(href='#') 
             i.right.chevron.icon
-            | Sign Out
+            | leave
