@@ -14,14 +14,14 @@ Template.keyword_facet.onCreated ->
 
 Template.keyword_facet.helpers
     keywords: ->
-        doc_count = Docs.find(type:Template.currentData().type).count()
+        doc_count = Docs.find().count()
         # if selected_keywords.array().length
         if 0 < doc_count < 3
             Watson_keywords.find { 
                 count: $lt: doc_count
-                }, limit:10
+                }, limit:20
         else
-            Watson_keywords.find({}, limit:10)
+            Watson_keywords.find({}, limit:20)
             
             
     cloud_keyword_class: ->

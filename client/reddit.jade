@@ -17,7 +17,7 @@ template(name='reddit')
             +keyword_facet
         .twelve.wide.column
             .ui.cards
-                each reddit_posts
+                each docs
                     +reddit_post_card
 
 template(name='reddit_post_card')
@@ -39,12 +39,12 @@ template(name='reddit_post_card')
 template(name='reddit_view')
     .ui.padded.stackable.centered.grid
         .centered.row
-            .three.wide.center.aligned.column
+            .two.wide.center.aligned.column
                 +link_button link='/reddit' icon='reddit'
-            .ten.wide.center.aligned.column
+            .twelve.wide.center.aligned.column
                 h2.ui.header 
                     | #{title}
-            .three.wide.center.aligned.column
+            .two.wide.center.aligned.column
                 +edit_button
         .row
             .ui.top.attached.tabular.large.five.item.icon.menu
