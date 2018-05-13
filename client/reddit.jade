@@ -12,12 +12,12 @@ template(name='reddit')
             //     i.right.arrow.icon
             // +customer_menu
     .ui.padded.stackable.grid
-        .row
+        .four.wide.column
             // #call_reddit.ui.button call reddit
             .ui.input
                 input#check_subreddit(type='text')
             +keyword_facet
-        .row
+        .twelve.wide.column
             .ui.cards
                 each docs
                     +reddit_post_card
@@ -42,7 +42,7 @@ template(name='reddit_post_card')
 
 
 template(name='reddit_view')
-    .ui.padded.stackable.centered.grid
+    .ui.padded.stackable.grid
         .centered.row
             .two.wide.center.aligned.column
                 +link_button link='/reddit' icon='reddit'
@@ -52,7 +52,7 @@ template(name='reddit_view')
             .two.wide.center.aligned.column
                 +edit_button
         .row
-            .ui.top.attached.tabular.large.five.item.icon.menu
+            .ui.top.attached.tabular.large.three.item.icon.menu
                 a.active.icon.item(data-tab='info') 
                     i.large.info.icon
                     // |Info
@@ -69,43 +69,35 @@ template(name='reddit_view')
                 //     i.large.rss.icon
                 //     // | Activity
             .ui.bottom.attached.active.tab.segment(data-tab='info')
-                .ui.padded.stackable.centered.grid
-                    .eight.wide.column
-                        +author_info
-                        .ui.list
-                            .item _id: #{fnZBBkTcYgF4RepKx}
-                            .item reddit_id: #{reddit_id}
-                            a.item(href=url target='_blank') #{url}
-                            .item domain: #{domain}
-                            .item comment_count: #{comment_count}
-                            .item permalink: #{permalink}
-                            .item title: #{title}
-                            .item selftext: #{selftext}
-                            .item thumbnail: #{thumbnail}
-                            .item timestamp_tags: 
-                                each timestamp_tags
-                                    .ui.label #{this}
-                            .item points: #{points}
-                        
-
-                        h2.ui.sub.header #{when}
-                        +bookmark_button
-                        +vote_button
-                        // .ui.large.relaxed.list
-                            // +list_item key='customer_id' label='Customer ID' icon='user'
-                            // +list_item icon='hashtag' label='Number' key='incident_number'
-                            // +list_item icon='calendar' label='Date' key='incident_date'
-                            // +list_item icon='file.image' label='Associated Documents'
-                        // +incident_type_label
-                        // .ui.header #{formal_when}
-                    .eight.wide.column
+                .ui.padded.stackable.grid
+                    .row
+                        .twelve.wide.column
+                            +author_info
+                            .ui.list
+                                .item _id: #{fnZBBkTcYgF4RepKx}
+                                .item reddit_id: #{reddit_id}
+                                a.item(href=url target='_blank') #{url}
+                                .item domain: #{domain}
+                                .item comment_count: #{comment_count}
+                                .item permalink: #{permalink}
+                                // .item title: #{title}
+                                .item selftext: #{selftext}
+                                .item thumbnail: #{thumbnail}
+                                .item timestamp_tags: 
+                                    each timestamp_tags
+                                        .ui.label #{this}
+                                // .item points: #{points}
+                            h2.ui.sub.header #{when}
+                            // +bookmark_button
+                            // +vote_button
+                    .row
                         .ui.basic.segment
                             #get_reddit_post.ui.button get reddit post 
                             // .large130 !{html}
                             // +jsonView json=reddit_data
                             if reddit_html
                                 |!{reddit_html}
-                            if reddit_url
+                            else if reddit_url
                                 |#{reddit_url}
                                 #analyze_link.ui.button analyze link
                                 .ui.basic.segment
@@ -143,14 +135,25 @@ template(name='reddit_view')
                             +concepts
                             +categories
                             +entities
-                            +semantic_roles
                             +concepts
                         else
                             +call_watson
                     .eight.wide.column
-                        // +semantic_roles
-                        +tone
-                        +keywords
+                        +semantic_roles
+                        .ui.large.accordion
+                            .active.title 
+                                |tone
+                                i.dropdown.icon
+                            .active.content
+                                +tone
+                        +keyword_list
+                        +concept_list
+                        .ui.large.accordion
+                            .active.title
+                                |keywords
+                                i.dropdown.icon
+                            .active.content
+                                +keywords
                         .ui.hidden.divider
                         +relations
                         // .ui.styled.accordion

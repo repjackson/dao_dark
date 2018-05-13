@@ -45,11 +45,12 @@ Meteor.methods
                 site: 'reddit'
                 type: 'reddit'
                 
-                
             # console.log reddit_post
             existing_doc = Docs.findOne reddit_id:data.id
             unless existing_doc
-                Docs.insert reddit_post
+                new_reddit_post_id = Docs.insert reddit_post
+                Meteor.call 'get_reddit_post', new_reddit_post_id, data.id
+                
         )
         
     get_reddit_post: (doc_id, reddit_id)->
@@ -58,7 +59,7 @@ Meteor.methods
             else
                 if res.data.data.children[0].data.selftext
                     Docs.update doc_id, 
-                        $set: reddit_html: res.data.data.children[0].data.selftext
+                        $set: html: res.data.data.children[0].data.selftext
                 if res.data.data.children[0].data.url
                     Docs.update doc_id, 
                         $set: reddit_url: res.data.data.children[0].data.url

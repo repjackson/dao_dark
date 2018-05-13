@@ -96,27 +96,6 @@ Meteor.methods
     call_watson: (doc_id, url) ->
         # console.log 'calling watson'
         self = @
-        if doc_id
-            doc = Docs.findOne doc_id
-            if doc.html
-                parameters = 
-                    html: doc.html
-                    features:
-                        entities:
-                            emotion: true
-                            sentiment: true
-                            # limit: 2
-                        keywords:
-                            emotion: true
-                            sentiment: true
-                            # limit: 2
-                        concepts: {}
-                        categories: {}
-                        emotion: {}
-                        # metadata: {}
-                        relations: {}
-                        semantic_roles: {}
-                        sentiment: {}
         if url
             parameters = 
                 url: url
@@ -137,6 +116,27 @@ Meteor.methods
                     semantic_roles: {}
                     sentiment: {}
                 return_analyzed_text: true
+        else
+            doc = Docs.findOne doc_id
+            if doc.html
+                parameters = 
+                    html: doc.html
+                    features:
+                        entities:
+                            emotion: true
+                            sentiment: true
+                            # limit: 2
+                        keywords:
+                            emotion: true
+                            sentiment: true
+                            # limit: 2
+                        concepts: {}
+                        categories: {}
+                        emotion: {}
+                        # metadata: {}
+                        relations: {}
+                        semantic_roles: {}
+                        sentiment: {}
 
 
             natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
@@ -145,13 +145,16 @@ Meteor.methods
                 else
                     # console.log response
                     keyword_array = _.pluck(response.keywords, 'text')
-                    lowered_keywords = keyword_array.map (tag)-> tag.toLowerCase()
-                    # console.dir response
+                    lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
+                    
+                    concept_array = _.pluck(response.concepts, 'text')
+                    lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
                     if response.analyzed_text
                         Docs.update { _id: doc_id }, 
                             $set:
                                 watson: response
                                 watson_keywords: lowered_keywords
+                                watson_concepts: lowered_concepts
                                 doc_sentiment_score: response.sentiment.document.score
                                 doc_sentiment_label: response.sentiment.document.label
                                 html: response.analyzed_text
@@ -159,12 +162,14 @@ Meteor.methods
                         Docs.update { _id: doc_id }, 
                             $set:
                                 watson: response
+                                watson_concepts: lowered_concepts
                                 watson_keywords: lowered_keywords
                                 doc_sentiment_score: response.sentiment.document.score
                                 doc_sentiment_label: response.sentiment.document.label
                 return
             )
+        Meteor.call 'call_tone', doc_id, ->
+        Meteor.call 'call_personality', doc_id, ->
         
         return
-        
         

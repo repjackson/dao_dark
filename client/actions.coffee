@@ -272,6 +272,13 @@ Template.notify_button.onRendered ->
                 $('.ui.accordion').accordion()
             , 500
 
+Template.accordion.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.ui.accordion').accordion()
+            , 500
+
 
 
 Template.notify_button.onCreated ->

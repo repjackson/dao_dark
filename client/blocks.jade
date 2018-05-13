@@ -281,3 +281,12 @@ template(name='user_pill')
             // .description
             //     each five_tags
             //         .ui.basic.small.label #{this}
+
+
+template(name='accordion')
+    .ui.accordion
+        .title
+            |#{title}
+            i.dropdown.icon
+        .content
+            +Template.dynamic template=template_name data=doc

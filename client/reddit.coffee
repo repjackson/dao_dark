@@ -36,19 +36,13 @@ Template.reddit.events
         if e.which is 13
             sub = $('#check_subreddit').val().toLowerCase().trim()
             if sub.length > 0
-                console.log 'hi'
                 Meteor.call 'call_reddit', sub
                 # Docs.update doc_id,
                 #     $set: check_subreddit: image_id
                 $('#check_subreddit').val('')
 
-    # 'click #save': -> Session.set 'editing_id', null
-    # 'click .edit': -> Session.set 'editing_id', @_id
 Template.reddit.helpers
     one_doc: -> Docs.find().count() is 1
-    view_mode: -> Session.get 'view_mode'
-    viewing_table: -> Session.equals 'view_mode','table'
-    # editing_id: -> Session.get 'editing_id'
     docs: -> Docs.find({},{limit:10,sort:tag_count:1})
 
 Template.reddit_view.onRendered ->
