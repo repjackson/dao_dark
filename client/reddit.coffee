@@ -1,5 +1,3 @@
-
-
 FlowRouter.route '/reddit', action: (params) ->
     BlazeLayout.render 'layout',
         nav: 'nav'
@@ -17,18 +15,17 @@ Template.view_toggle_item.events
 
 
 Template.reddit.onCreated ->
-    @autorun => 
-        Meteor.subscribe('facet', 
-        selected_tags.array()
-        selected_keywords.array()
-        selected_author_ids.array()
-        selected_location_tags.array()
-        selected_timestamp_tags.array()
-        # type='reddit'
-        type=null
-        author_id=null
-        )
-        # Meteor.subscribe 'doc', Session.get('editing_id')
+    # @autorun => 
+    #     Meteor.subscribe('facet', 
+    #     selected_tags.array()
+    #     selected_keywords.array()
+    #     selected_author_ids.array()
+    #     selected_location_tags.array()
+    #     selected_timestamp_tags.array()
+    #     type='reddit'
+    #     author_id=null
+    #     )
+    #     # Meteor.subscribe 'doc', Session.get('editing_id')
 
 Template.reddit.events
     'click #add': -> 
@@ -40,7 +37,7 @@ Template.reddit.helpers
     one_doc: -> Docs.find().count() is 1
     view_mode: -> Session.get 'view_mode'
     viewing_table: -> Session.equals 'view_mode','table'
-    editing_id: -> Session.get 'editing_id'
+    # editing_id: -> Session.get 'editing_id'
     docs: -> Docs.find({},{limit:10,sort:tag_count:1})
 
 Template.reddit_view.onRendered ->

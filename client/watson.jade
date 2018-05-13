@@ -67,18 +67,18 @@ template(name='keywords')
                     .meta
                         |{{ to_percent relevance }}% relevant
                     .meta
-                        |Sentiment: {{ to_percent sentiment.score }}%
+                        |sentiment: {{ to_percent sentiment.score }}%
                     .description
                         with emotion
                             .ui.list
                                 .ui.blue.small.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
                                     .bar
                                     .progress
-                                    .label {{ to_percent sadness }}% Sadness
+                                    .label {{ to_percent sadness }}% sadness
                                 .ui.green.small.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
                                     .bar
                                     .progress
-                                    .label {{ to_percent joy }}% Joy 
+                                    .label {{ to_percent joy }}% joy 
                                 .ui.black.small.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
                                     .bar
                                     .progress
@@ -90,7 +90,7 @@ template(name='keywords')
                                 .ui.red.small.progress(data-percent=anger_percent title="{{to_percent joy}}% joy")
                                     .bar
                                     .progress
-                                    .label {{ to_percent anger }}% Anger 
+                                    .label {{ to_percent anger }}% anger 
 
 
 template(name='entities')
@@ -197,8 +197,7 @@ template(name='consumption_preferences')
 
 
 template(name='tone')
-    h3
-        | tone
+    h3 tone
     .ui.bulleted.list
         each tone.document_tone.tones
             .item #{tone_id} {{ to_percent score }}%

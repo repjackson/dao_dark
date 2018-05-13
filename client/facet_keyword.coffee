@@ -8,7 +8,7 @@ Template.keyword_facet.onCreated ->
             selected_author_ids.array()
             selected_location_tags.array()
             selected_timestamp_tags.array()
-            type='incident'
+            type='reddit'
             )
 
 
