@@ -58,6 +58,9 @@ Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
 Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
 
 
+Template.registerHelper 'is_admin', () -> 
+    if Meteor.user() and Meteor.user().roles
+        'admin' in Meteor.user().roles
 
 
 

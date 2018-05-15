@@ -1,16 +1,16 @@
 @selected_concepts = new ReactiveArray []
 
 Template.concept_facet.onCreated ->
-    @autorun => 
-        Meteor.subscribe('facet', 
-            selected_tags.array()
-            selected_keywords.array()
-            selected_concepts.array()
-            selected_author_ids.array()
-            selected_location_tags.array()
-            selected_timestamp_tags.array()
-            type='reddit'
-            )
+    # @autorun => 
+    #     Meteor.subscribe('facet', 
+    #         selected_tags.array()
+    #         selected_keywords.array()
+    #         selected_concepts.array()
+    #         selected_author_ids.array()
+    #         selected_location_tags.array()
+    #         selected_timestamp_tags.array()
+    #         type='reddit'
+    #         )
 
 
 Template.concept_facet.helpers

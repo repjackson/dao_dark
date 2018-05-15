@@ -1,34 +1,32 @@
 template(name='posts')    
-    // +add_button type='post'
-    #add.ui.icon.button
-        i.plus.icon
-    +tag_facet
-    // +timestamp_facet
-    // +location_facet
-    .ui.hidden.divider
-    // if one_doc
-    .ui.cards
-        each docs
-            +doc_card
-        // // each tags
-        // //     .ui.label #{this}
-        // |!{html}
+    .ui.stackable.grid
+        .four.wide.column
+            // +add_button type='post'
+            #add.ui.icon.button
+                i.plus.icon
+            +tag_facet
+            // +timestamp_facet
+            // +location_facet
+        .twelve.wide.column
+            // if one_doc
+            .ui.cards
+                each docs
+                    +post_card
     
-template(name='doc_card')
-    .ui.card
+template(name='post_card')
+    .ui.fluid.card
         a.image(href="/view/#{_id}")
             img.ui.rounded.image(src="{{c.url image_id  width=300 height=300 crop='fill' }}")
         .content
+            |type #{type}
             .right.floated.meta
                 // .ui.circular.label(title='Incident Number') #{incident_number}
         .content    
             .right.floated 
-                |logged #{when}
-            +author_info
+                |#{when}
+            // +author_info
         .content
             |!{html}
-        .content
-            +doc_sentiment
         .content
             // +call_method name='tagify_timestamp'
             // if date_array
@@ -36,8 +34,8 @@ template(name='doc_card')
             //         .ui.basic.label #{this}
             .right.floated
                 +view_full_button
-            i.comment.icon
-            | #{comment_count} comments
+            // i.comment.icon
+            // | #{comment_count} comments
 
 
 
@@ -166,6 +164,7 @@ template(name='post_edit')
     .ui.stackable.padded.grid
         .row
             .ten.wide.column
+                +edit_text_field key='type'
                 // .ui.basic.segment
                 //     .ui.labeled.action.small.input
                 //         .ui.label image url
@@ -192,24 +191,24 @@ template(name='post_edit')
             .six.wide.column
                 a.ui.icon.large.fluid.button(href="/view/#{_id}")
                     i.checkmark.icon
-                +published        
+                // +published        
                 #delete.ui.icon.button
                     i.remove.icon
-                +template_picker
-                .ui.segment
-                    .ui.header user actions
-                    +toggle_list_items list='user_actions' value='tag_rating' label='tag rating'
-                    +toggle_list_items list='user_actions' value='comments' label='comments'
-                    +toggle_list_items list='user_actions' value='bounty' label='bounty'
-                    +toggle_list_items list='user_actions' value='ownership' label='ownership'
-                .ui.divider
-                +reference_other_children type='field' key='field_ids'
-                .ui.header components
-                +reference_other_children type='component' key='component_ids'
-                .ui.header permissions
-                .ui.header access
-                +toggle_key key='access' value='public' label='public'
-                +toggle_key key='access' value='private' label='private'
-                +toggle_key key='access' value='payment_required' label='payment_required'
-                +toggle_key key='access' value='subscription_required' label='subscription_required'
+                // +template_picker
+                // .ui.segment
+                //     .ui.header user actions
+                //     +toggle_list_items list='user_actions' value='tag_rating' label='tag rating'
+                //     +toggle_list_items list='user_actions' value='comments' label='comments'
+                //     +toggle_list_items list='user_actions' value='bounty' label='bounty'
+                //     +toggle_list_items list='user_actions' value='ownership' label='ownership'
+                // .ui.divider
+                // +reference_other_children type='field' key='field_ids'
+                // .ui.header components
+                // +reference_other_children type='component' key='component_ids'
+                // .ui.header permissions
+                // .ui.header access
+                // +toggle_key key='access' value='public' label='public'
+                // +toggle_key key='access' value='private' label='private'
+                // +toggle_key key='access' value='payment_required' label='payment_required'
+                // +toggle_key key='access' value='subscription_required' label='subscription_required'
                                     

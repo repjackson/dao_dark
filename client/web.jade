@@ -1,37 +1,24 @@
-template(name='reddit')
-    // #dash_header.ui.vertical.masthead.center.aligned.padded.segment
-    //     .ui.container
-            // .ui.hidden.divider
-            // img.ui.medium.centered.image(src='https://jan-pro.com/wp-content/themes/underboot/img/jan-pro-white.svg')
-            // h2.ui.inverted.header 
-            //     i.rroueddit.icon
-            //     |reddit
-            // h2 Do whatever you want when you want to.
-            // .ui.huge.primary.button
-            //     | Get Started 
-            //     i.right.arrow.icon
-            // +customer_menu
+template(name='web')
     .ui.padded.stackable.grid
         .four.wide.column
-            // #call_reddit.ui.button call reddit
-            .ui.input
-                input#check_subreddit(type='text')
+            .ui.inverted.header website
+            +add_button type='website'
             +keyword_facet
             +concept_facet
         .twelve.wide.column
             .ui.cards
                 each docs
-                    +reddit_small_card
+                    +web_small_card
 
-template(name='reddit_big_card')
-    .ui.fluid.card
+template(name='web_big_card')
+    .ui.fluid.grey.card
         .content
             a.header(href="/view/#{_id}") #{title}
             .meta
                 |domain: #{domain}
-            // |reddit_id: #{reddit_id}
+            // |web_id: #{web_id}
             a.ui.button(href=url target='_blank') article
-            a.ui.button(href=permalink target='_blank') reddit
+            a.ui.button(href=permalink target='_blank') web
         .content
             +tone
         .content
@@ -42,15 +29,15 @@ template(name='reddit_big_card')
             | #{comment_count}
 
 
-template(name='reddit_small_card')
+template(name='web_small_card')
     .ui.card
         .content
             a.header(href="/view/#{_id}") #{title}
             .meta
                 |domain: #{domain}
-            // |reddit_id: #{reddit_id}
+            // |web_id: #{web_id}
             a.ui.button(href=url target='_blank') article
-            a.ui.button(href=permalink target='_blank') reddit
+            a.ui.button(href=permalink target='_blank') web
         // .content
         //     +tone
         // .content
@@ -69,11 +56,11 @@ template(name='reddit_small_card')
 
 
 
-template(name='reddit_view')
+template(name='web_view')
     .ui.padded.stackable.grid
         .centered.row
             .two.wide.center.aligned.column
-                +link_button link='/reddit' icon='reddit'
+                +link_button link='/web' icon='web'
             .twelve.wide.center.aligned.column
                 h2.ui.header 
                     | #{title}
@@ -103,7 +90,7 @@ template(name='reddit_view')
                             +author_info
                             .ui.list
                                 .item _id: #{fnZBBkTcYgF4RepKx}
-                                .item reddit_id: #{reddit_id}
+                                .item web_id: #{web_id}
                                 a.item(href=url target='_blank') #{url}
                                 .item domain: #{domain}
                                 .item comment_count: #{comment_count}
@@ -120,13 +107,13 @@ template(name='reddit_view')
                             // +vote_button
                     .row
                         .ui.basic.segment
-                            #get_reddit_post.ui.button get reddit post 
+                            #get_web_post.ui.button get web post 
                             // .large130 !{html}
-                            // +jsonView json=reddit_data
-                            if reddit_html
-                                |!{reddit_html}
-                            else if reddit_url
-                                |#{reddit_url}
+                            // +jsonView json=web_data
+                            if web_html
+                                |!{web_html}
+                            else if web_url
+                                |#{web_url}
                                 #analyze_link.ui.button analyze link
                                 .ui.basic.segment
                                     |!{html}
@@ -196,3 +183,18 @@ template(name='reddit_view')
                         +consumption_preferences
 
         
+template(name='website_edit')
+    .ui.center.aligned.header edit doc
+    .ui.stackable.padded.grid
+        .row
+            .ten.wide.column
+                +edit_array_field key='tags'
+                +edit_html
+                .ui.input
+                    input#check_website(type='text' placeholder='website')
+            .six.wide.column
+                a.ui.icon.large.fluid.button(href="/view/#{_id}")
+                    i.checkmark.icon
+                // +published        
+                #delete.ui.icon.button
+                    i.remove.icon

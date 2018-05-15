@@ -106,16 +106,16 @@
 #                     Bert.alert "Updated #{@label}", 'success', 'growl-top-right'
 
 
-# Template.edit_text_field.events
-#     'change #text_field': (e,t)->
-#         text_value = e.currentTarget.value
-#         Docs.update FlowRouter.getParam('doc_id'),
-#             { $set: "#{@key}": text_value }
-#             , (err,res)=>
-#                 if err
-#                     Bert.alert "Error Updating #{@label}: #{error.reason}", 'danger', 'growl-top-right'
-#                 else
-#                     Bert.alert "Updated #{@label}", 'success', 'growl-top-right'
+Template.edit_text_field.events
+    'change #text_field': (e,t)->
+        text_value = e.currentTarget.value
+        Docs.update FlowRouter.getParam('doc_id'),
+            { $set: "#{@key}": text_value }
+            , (err,res)=>
+                if err
+                    Bert.alert "Error Updating #{@label}: #{error.reason}", 'danger', 'growl-top-right'
+                else
+                    Bert.alert "Updated #{@label}", 'success', 'growl-top-right'
 
 
 

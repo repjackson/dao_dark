@@ -1,3 +1,7 @@
+Template.comments.onCreated ->
+    @autorun -> Meteor.subscribe 'current_user'
+
+
 
 Template.left_sidebar.onRendered ->
     @autorun =>

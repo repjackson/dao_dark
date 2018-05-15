@@ -4,11 +4,11 @@ template(name='nav')
             i.bars.icon
         // a.mobile.hidden.icon.item(href='/dashboard' class="{{isActivePath '/dashboard'}}" data-position="top center" data-content='Users')
         //     i.dashboard.icon
-        // a.header.item(href='/front' class="{{isActivePath '/front'}}" data-position="top center" data-content='Sales Page')
-        //     i.globe.icon
-            // | Home
-        a.header.item(href='/posts' class="{{isActivePath '/posts'}}" data-position="top center" data-content='posts')
-            i.clipboard.icon
+        a.header.item(href='/web' class="{{isActivePath '/web'}}")
+            i.globe.icon
+        if is_admin
+            a.header.item(href='/posts' class="{{isActivePath '/posts'}}" data-position="top center" data-content='posts')
+                i.clipboard.icon
             // | Home
         // a.mobile.hidden.icon.item(href='/users' class="{{isActivePath '/users'}}" data-position="top center" data-content='Users')
         //     i.users.icon

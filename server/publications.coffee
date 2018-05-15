@@ -904,6 +904,13 @@ Meteor.publish 'comments', (parent_id)->
     Docs.find
         type:'comment'
         parent_id:parent_id
+        
+        
+Meteor.publish 'current_user', ->
+    Meteor.users.find
+        _id: Meteor.userId()
 
+                        
+                        
                         
                         

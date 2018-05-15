@@ -58,137 +58,25 @@ Meteor.methods
             if err then console.error err
             else
                 if res.data.data.children[0].data.selftext
-                    Docs.update doc_id, 
+                    Docs.update doc_id, {
                         $set: html: res.data.data.children[0].data.selftext
+                    }, ->
+                        console.log 'hi'
                 if res.data.data.children[0].data.url
                     Docs.update doc_id, 
                         $set: reddit_url: res.data.data.children[0].data.url
                 # Docs.update doc_id, 
                 #     $set: reddit_data: res.data.data.children[0].data
                 # console.log res.data.children[0].data.selftext
-#     {  
-#   "kind":"Listing",
-#   "data":{  
-#       "modhash":"dj4zcvwvpv12ce724b7a1e2e6fbeac92985a7a78b9ea222cc9",
-#       "dist":1,
-#       "children":[  
-#          {  
-#             "kind":"t3",
-#             "data":{  
-#               "approved_at_utc":null,
-#               "subreddit":"technology",
-#               "selftext":"We have posted this before, but this needs to be reiterated.\n\nWe understand that many of you are emotionally driven to discuss your feelings on recent events, most notably the repeal of Net Neutrality - however inciting violence towards others is never ok. It is upsetting that we even have to post this. \n\nDo we enjoy banning people for these types of offences? No... Many of us feel as if the system has failed and want some form of repercussion. But threats of violence and harassment are not the answer here.\n\nAnd to be clear - here are some examples of what will get you banned:\n\n&gt; I hope this PoS dies in a car fire\n\n&gt; I want to punch him in the face til his teeth fall out\n\nAnd if you are trying to be slick by using this form\n\n&gt; I never condone violence but...\n\n&gt; I would never say he should die but...\n\n&gt; Im not one to wish death upon but...\n\n\nLet's keep the threads civil.\n\n**If you violate this rule, you will be banned for 30 days, no exceptions** ",
-
         
         
-        # self = @
-        # doc = Docs.findOne doc_id
-        # if doc.incident_details
-        #     params =
-        #         content: doc.incident_details,
-        #         content_type: 'text/plain',
-        #         consumption_preferences: true,
-        #         raw_scores: false
-        #     personality_insights.profile params, Meteor.bindEnvironment((err, response)->
-        #         if err
-        #             # console.log err
-        #             Docs.update { _id: doc_id},
-        #                 $set:
-        #                     personality: false
-        #         else
-        #             # console.dir response
-        #             Docs.update { _id: doc_id},
-        #                 $set:
-        #                     personality: response
-        #             # console.log(JSON.stringify(response, null, 2))
-        #     )
-        # else return 
-        
-        
-#     call_tone: (doc_id)->
-#         self = @
-#         doc = Docs.findOne doc_id
-#         # console.log doc.incident_details
-#         if doc.incident_details
-#             # stringed = JSON.stringify(doc.incident_details, null, 2)
-#             params =
-#                 text:doc.incident_details
-#                 content_type:'text/plain'
-#             tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
-#                 if err
-#                     console.log err
-#                 else
-#                     # console.dir response
-#                     Docs.update { _id: doc_id},
-#                         $set:
-#                             tone: response
-#                     # console.log(JSON.stringify(response, null, 2))
-#             )
-#         else return 
-        
-        
-        
-        
-#     call_visual: (doc_id)->
-#         self = @
-#         doc = Docs.findOne doc_id
-#         if doc.image_id
-#             params =
-#                 url:"https://res.cloudinary.com/facet/image/upload/#{doc.image_id}"
-#                 # images_file: images_file
-#                 # classifier_ids: classifier_ids
-#             visual_recognition.classify params, Meteor.bindEnvironment((err, response)->
-#                 if err
-#                     console.log err
-#                 else
-#                     Docs.update { _id: doc_id},
-#                         $set:
-#                             visual: response.images[0].classifiers[0].classes
-#                     # console.log(JSON.stringify(response.images[0].classifiers[0].classes[0].class, null, 2))
-#             )
-#         else return 
-        
-#     call_watson: (doc_id) ->
-#         # console.log 'calling watson'
-#         self = @
-#         doc = Docs.findOne doc_id
-#         if doc.incident_details
-#             parameters = 
-#                 # 'html': doc.content
-#                 text: doc.incident_details
-#                 features:
-#                     entities:
-#                         emotion: true
-#                         sentiment: true
-#                         # limit: 2
-#                     keywords:
-#                         emotion: true
-#                         sentiment: true
-#                         # limit: 2
-#                     concepts: {}
-#                     categories: {}
-#                     emotion: {}
-#                     # metadata: {}
-#                     relations: {}
-#                     semantic_roles: {}
-#                     sentiment: {}
-
-#             natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
-#                 if err
-#                     console.log 'error:', err
-#                 else
-#                     keyword_array = _.pluck(response.keywords, 'text')
-#                     lowered_keywords = keyword_array.map (tag)-> tag.toLowerCase()
-#                     # console.dir response
-#                     Docs.update { _id: doc_id }, 
-#                         $set:
-#                             watson: response
-#                             watson_keywords: lowered_keywords
-#                             doc_sentiment_score: response.sentiment.document.score
-#                             doc_sentiment_label: response.sentiment.document.label
-#                 return
-#             )
-        
-#         return
-        
-        
+    get_listing_comments: (doc_id, subreddit, reddit_id)->
+        console.log doc_id
+        console.log subreddit
+        console.log reddit_id
+        # HTTP.get "https://www.reddit.com/r/t5_#{subreddit}/comments/t3_#{reddit_id}/irrelevant_string.json", (err,res)->
+        HTTP.get "https://www.reddit.com/r/0xProject/comments/t3_#{reddit_id}/irrelevant_string.json", (err,res)->
+            if err then console.error err
+            else
+                console.log 'res', res
+            

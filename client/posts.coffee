@@ -20,14 +20,14 @@ Template.view_toggle_item.events
 Template.posts.onCreated ->
     @autorun => 
         Meteor.subscribe('facet', 
-        selected_tags.array()
-        selected_keywords.array()
-        selected_author_ids.array()
-        selected_location_tags.array()
-        selected_timestamp_tags.array()
-        # type='post'
-        type=null
-        author_id=null
+            selected_tags.array()
+            []
+            []
+            selected_author_ids.array()
+            selected_location_tags.array()
+            selected_timestamp_tags.array()
+            type='post'
+            author_id=null
         )
         # Meteor.subscribe 'doc', Session.get('editing_id')
 
