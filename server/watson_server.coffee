@@ -138,7 +138,8 @@ Meteor.methods
         return
         
 
-    call_watson_url: (doc_id, url)->
+    pull_site: (doc_id, url)->
+        this_id = doc_id
         doc = Docs.findOne doc_id
         console.log url
         parameters = 
@@ -161,17 +162,17 @@ Meteor.methods
                 sentiment: {}
             return_analyzed_text: true
 
-        natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
+        natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) =>
             if err
                 console.log 'error:', err
             else
-                # console.log response
+                console.log response
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
                 
                 concept_array = _.pluck(response.concepts, 'text')
                 lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
-                Docs.update {doc_id},
+                Docs.update {_id:this_id},
                     $set:
                         type:'website'
                         watson: response

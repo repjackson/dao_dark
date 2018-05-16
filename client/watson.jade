@@ -229,3 +229,45 @@ template(name='tone')
     #call_tone.ui.icon.button
         i.refresh.icon
             // +jsonView(json=tone)
+
+
+
+template(name='watson_view')
+    .ui.padded.stackable.centered.grid
+        .four.wide.column
+            +call_watson
+            if watson
+                +doc_sentiment
+                +doc_emotion
+                +concepts
+                +categories
+                +entities
+                +concepts
+        .eight.wide.column
+            +semantic_roles
+            .ui.large.accordion
+                .active.title 
+                    |tone
+                    i.dropdown.icon
+                .active.content
+                    +tone
+            +keyword_list
+            +concept_list
+            .ui.large.accordion
+                .active.title
+                    |keywords
+                    i.dropdown.icon
+                .active.content
+                    +keywords
+            .ui.hidden.divider
+            +relations
+            // .ui.styled.accordion
+            //     .title 
+            //         i.code.icon
+            //         |full analysis data
+            //         i.dropdown.icon
+            //     .content
+            //         +jsonView(json=watson)
+        .four.wide.column
+            +personality
+            +consumption_preferences

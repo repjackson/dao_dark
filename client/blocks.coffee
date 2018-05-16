@@ -85,3 +85,9 @@
 # # #                 Docs.update doc_id,
 # # #                     $set: add_your_tag: image_id
 # # #                 $('#add_your_tag').val('')
+
+
+Template.add_button.events
+    'click #add': -> 
+        id = Docs.insert type:@type
+        FlowRouter.go "/edit/#{id}"

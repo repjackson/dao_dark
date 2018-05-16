@@ -7,7 +7,7 @@ template(name='web')
             +concept_facet
         .twelve.wide.column
             .ui.cards
-                each docs
+                each websites
                     +web_small_card
 
 template(name='web_big_card')
@@ -53,10 +53,7 @@ template(name='web_small_card')
             i.comments.icon
             | #{comment_count}
 
-
-
-
-template(name='web_view')
+template(name='website_view')
     .ui.padded.stackable.grid
         .centered.row
             .two.wide.center.aligned.column
@@ -94,10 +91,7 @@ template(name='web_view')
                                 a.item(href=url target='_blank') #{url}
                                 .item domain: #{domain}
                                 .item comment_count: #{comment_count}
-                                .item permalink: #{permalink}
                                 // .item title: #{title}
-                                .item selftext: #{selftext}
-                                .item thumbnail: #{thumbnail}
                                 .item timestamp_tags: 
                                     each timestamp_tags
                                         .ui.label #{this}
@@ -110,13 +104,7 @@ template(name='web_view')
                             #get_web_post.ui.button get web post 
                             // .large130 !{html}
                             // +jsonView json=web_data
-                            if web_html
-                                |!{web_html}
-                            else if web_url
-                                |#{web_url}
-                                #analyze_link.ui.button analyze link
-                                .ui.basic.segment
-                                    |!{html}
+                            |!{html}
                         if image_id
                             img.ui.centered.image(src="{{c.url image_id height=500 crop='fit'}}")
                             if visual
@@ -143,55 +131,17 @@ template(name='web_view')
             //             h4 doc_feed
             //             // +doc_feed
             .ui.bottom.attached.tab.segment(data-tab='analysis')
-                .ui.padded.stackable.centered.grid
-                    .four.wide.column
-                        +call_watson
-                        if watson
-                            +doc_sentiment
-                            +doc_emotion
-                            +concepts
-                            +categories
-                            +entities
-                            +concepts
-                    .eight.wide.column
-                        +semantic_roles
-                        .ui.large.accordion
-                            .active.title 
-                                |tone
-                                i.dropdown.icon
-                            .active.content
-                                +tone
-                        +keyword_list
-                        +concept_list
-                        .ui.large.accordion
-                            .active.title
-                                |keywords
-                                i.dropdown.icon
-                            .active.content
-                                +keywords
-                        .ui.hidden.divider
-                        +relations
-                        // .ui.styled.accordion
-                        //     .title 
-                        //         i.code.icon
-                        //         |full analysis data
-                        //         i.dropdown.icon
-                        //     .content
-                        //         +jsonView(json=watson)
-                    .four.wide.column
-                        +personality
-                        +consumption_preferences
-
+                +watson_view
         
 template(name='website_edit')
-    .ui.center.aligned.header edit doc
+    .ui.center.aligned.header edit website
     .ui.stackable.padded.grid
         .row
             .ten.wide.column
+                +edit_text_field key='title' label='title'
+                +pull_site
                 +edit_array_field key='tags'
                 +edit_html
-                .ui.input
-                    input#check_website(type='text' placeholder='website')
             .six.wide.column
                 a.ui.icon.large.fluid.button(href="/view/#{_id}")
                     i.checkmark.icon

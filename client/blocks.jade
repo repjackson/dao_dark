@@ -290,3 +290,8 @@ template(name='accordion')
             i.dropdown.icon
         .content
             +Template.dynamic template=template_name data=doc
+            
+            
+template(name='pull_site')
+    .ui.input
+        input#site_input(type='text' placeholder='site...')

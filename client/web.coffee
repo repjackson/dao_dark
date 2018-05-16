@@ -19,6 +19,7 @@ Template.web.onCreated ->
         Meteor.subscribe('facet', 
         selected_tags.array()
         selected_keywords.array()
+        selected_concepts.array()
         selected_author_ids.array()
         selected_location_tags.array()
         selected_timestamp_tags.array()
@@ -33,24 +34,20 @@ Template.web.events
         Meteor.call 'call_watson', @_id, @url, ->
 
 
-Template.post_edit.events
-    'keyup #check_website': (e,t)->
+Template.pull_site.events
+    'keyup #site_input': (e,t)->
         if e.which is 13
-            website = $('#check_website').val().toLowerCase().trim()
+            website = $('#site_input').val().toLowerCase().trim()
             console.log website
             if website.length > 0
-                Meteor.call 'check_website', website, (err, new_website_doc_id)->
-                    console.log new_website_doc_id
-                    FlowRouter.go("/view/#{new_website_doc_id}")
-                # Docs.update doc_id,
-                #     $set: check_subweb: image_id
-                $('#check_website').val('')
+                Meteor.call 'pull_site', FlowRouter.getParam('doc_id'),  website, (err, res)->
+                $('#site_input').val('')
 
 Template.web.helpers
     one_doc: -> Docs.find().count() is 1
     websites: -> Docs.find({type:'website'},{limit:42,sort:tag_count:1})
 
-Template.web_view.onRendered ->
+Template.website_view.onRendered ->
     # Meteor.setTimeout ->
     #     $('.ui.checkbox').checkbox()
     # #     $('.ui.tabular.menu .item').tab()
@@ -58,3 +55,5 @@ Template.web_view.onRendered ->
     Meteor.setTimeout ->
         $('.ui.tabular.menu .item').tab()
     , 500
+
+
