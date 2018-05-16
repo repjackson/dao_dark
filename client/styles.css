@@ -16,8 +16,8 @@ body {
   /*margin-top:52px;*/
   /*font-family: 'Roboto', sans-serif !important;*/
   min-height: 500px;
-  /*background: #e1e6ea;*/
-  background: #000000;
+  background: #e1e6ea;
+  /*background: #000000;*/
 }
  .large-text {
 	 font-size: 130% !important;
@@ -27,7 +27,7 @@ body {
 }
  body {
 	 font-family: 'Ubuntu', sans-serif;
-   filter: invert(100%);
+   /*filter: invert(100%);*/
 }
  
 

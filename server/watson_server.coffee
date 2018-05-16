@@ -1,7 +1,7 @@
-ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
-VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
+ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3')
+VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3')
 NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js')
-PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3');
+PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3')
 
 tone_analyzer = new ToneAnalyzerV3(
     username: Meteor.settings.private.tone.username
@@ -99,19 +99,19 @@ Meteor.methods
                 html: doc.html
                 features:
                     entities:
-                        emotion: true
-                        sentiment: true
+                        emotion: false
+                        sentiment: false
                         # limit: 2
                     keywords:
-                        emotion: true
-                        sentiment: true
+                        emotion: false
+                        sentiment: false
                         # limit: 2
-                    concepts: {}
-                    categories: {}
-                    emotion: {}
-                    # metadata: {}
-                    relations: {}
-                    semantic_roles: {}
+                    # concepts: {}
+                    # categories: {}
+                    # emotion: {}
+                    # # metadata: {}
+                    # relations: {}
+                    # semantic_roles: {}
                     sentiment: {}
 
             natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
@@ -154,12 +154,12 @@ Meteor.methods
                     sentiment: true
                     # limit: 2
                 concepts: {}
-                categories: {}
-                emotion: {}
+                # categories: {}
+                # emotion: {}
                 # metadata: {}
-                relations: {}
-                semantic_roles: {}
-                sentiment: {}
+                # relations: {}
+                # semantic_roles: {}
+                # sentiment: {}
             return_analyzed_text: true
 
         natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) =>
@@ -174,7 +174,7 @@ Meteor.methods
                 lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
                 Docs.update {_id:this_id},
                     $set:
-                        type:'website'
+                        # type:'website'
                         watson: response
                         watson_keywords: lowered_keywords
                         watson_concepts: lowered_concepts
