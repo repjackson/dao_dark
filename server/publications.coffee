@@ -187,6 +187,7 @@ Meteor.publish 'facet', (
     selected_tags
     selected_keywords
     selected_concepts
+    selected_entities
     selected_author_ids=[]
     selected_location_tags
     selected_timestamp_tags
@@ -214,6 +215,7 @@ Meteor.publish 'facet', (
         if selected_location_tags.length > 0 then match.location_tags = $all: selected_location_tags
         if selected_keywords.length > 0 then match.watson_keywords = $all: selected_keywords
         if selected_concepts.length > 0 then match.watson_concepts = $all: selected_concepts
+        if selected_entities.length > 0 then match.watson_entities = $all: selected_entities
         if selected_timestamp_tags.length > 0 then match.timestamp_tags = $all: selected_timestamp_tags
         
 
@@ -334,6 +336,24 @@ Meteor.publish 'facet', (
                 name: timestamp_tag.name
                 count: timestamp_tag.count
                 index: i
+    
+    
+        # entities_tags_cloud = Docs.aggregate [
+        #     { $match: match }
+        #     { $project: entities_tags: 1 }
+        #     { $unwind: "$entities_tags" }
+        #     { $group: _id: '$entities_tags', count: $sum: 1 }
+        #     { $match: _id: $nin: selected_entities_tags }
+        #     { $sort: count: -1, _id: 1 }
+        #     { $limit: 10 }
+        #     { $project: _id: 0, name: '$_id', count: 1 }
+        #     ]
+        # # console.log 'entities_tags_cloud, ', entities_tags_cloud
+        # entities_tags_cloud.forEach (entities_tag, i) ->
+        #     self.added 'entities_tags', Random.id(),
+        #         name: entities_tag.name
+        #         count: entities_tag.count
+        #         index: i
     
     
         # intention_tag_cloud = Docs.aggregate [

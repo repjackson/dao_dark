@@ -7,14 +7,15 @@ FlowRouter.route '/reddit', action: (params) ->
 Template.reddit.onCreated ->
     @autorun => 
         Meteor.subscribe('facet', 
-        selected_tags.array()
-        selected_keywords.array()
-        selected_concepts.array()
-        selected_author_ids.array()
-        selected_location_tags.array()
-        selected_timestamp_tags.array()
-        type='reddit'
-        author_id=null
+            selected_tags.array()
+            selected_keywords.array()
+            selected_concepts.array()
+            selected_entities.array()
+            selected_author_ids.array()
+            selected_location_tags.array()
+            selected_timestamp_tags.array()
+            type='reddit'
+            author_id=null
         )
         # Meteor.subscribe 'doc', Session.get('editing_id')
 
@@ -33,10 +34,6 @@ Template.reddit.helpers
     docs: -> Docs.find({},{limit:42,sort:tag_count:1})
 
 Template.reddit_view.onRendered ->
-    # Meteor.setTimeout ->
-    #     $('.ui.checkbox').checkbox()
-    # #     $('.ui.tabular.menu .item').tab()
-    # , 400
     Meteor.setTimeout ->
         $('.ui.tabular.menu .item').tab()
     , 500

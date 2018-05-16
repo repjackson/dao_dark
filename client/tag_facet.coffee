@@ -51,7 +51,7 @@ Template.tag_facet.helpers
                 matchAll: false
                 template: Template.tag_result
             }
-            ]
+        ]
     }
 
 

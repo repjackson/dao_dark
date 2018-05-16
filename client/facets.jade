@@ -105,6 +105,24 @@ template(name='intention_facet')
             // if isInRole 'admin'
             //     small #{this.count}
     // .ui.divider
+    
+    
+template(name='entitie_facet')
+    .ui.header
+        | entitie Tags
+    if selected_entitie_tags
+        #clear_entitie_tags.ui.icon.button
+            i.remove.icon
+        each selected_entitie_tags
+            .unselect_entitie_tag.ui.large.button
+                strong #{this}
+    // .ui.hidden.fitted.divider
+    each entitie_tags
+        .ui.button.select_entitie_tag(class=entitie_tag_class) 
+            strong #{this.name}
+            // if isInRole 'admin'
+            //     small #{this.count}
+    // .ui.divider
 
 template(name='keyword_facet')
     .ui.dividing.header keywords

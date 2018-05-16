@@ -106,9 +106,9 @@ Meteor.methods
                         emotion: false
                         sentiment: false
                         # limit: 2
-                    # concepts: {}
+                    concepts: {}
                     # categories: {}
-                    # emotion: {}
+                    emotion: {}
                     # # metadata: {}
                     # relations: {}
                     # semantic_roles: {}
@@ -146,27 +146,27 @@ Meteor.methods
             url: url
             features:
                 entities:
-                    emotion: true
-                    sentiment: true
+                    emotion: false
+                    sentiment: false
                     # limit: 2
                 keywords:
-                    emotion: true
-                    sentiment: true
+                    emotion: false
+                    sentiment: false
                     # limit: 2
                 concepts: {}
                 # categories: {}
-                # emotion: {}
+                emotion: {}
                 # metadata: {}
                 # relations: {}
                 # semantic_roles: {}
-                # sentiment: {}
+                sentiment: {}
             return_analyzed_text: true
 
         natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) =>
             if err
                 console.log 'error:', err
             else
-                # console.log response
+                console.log response
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
                 

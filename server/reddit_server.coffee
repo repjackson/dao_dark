@@ -64,7 +64,9 @@ Meteor.methods
                         console.log 'hi'
                 if res.data.data.children[0].data.url
                     Docs.update doc_id, 
-                        $set: reddit_url: res.data.data.children[0].data.url
+                        $set: 
+                            reddit_url: res.data.data.children[0].data.url
+                            url: res.data.data.children[0].data.url
                 # Docs.update doc_id, 
                 #     $set: reddit_data: res.data.data.children[0].data
                 # console.log res.data.children[0].data.selftext

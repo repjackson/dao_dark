@@ -1,21 +1,9 @@
 template(name='reddit')
-    // #dash_header.ui.vertical.masthead.center.aligned.padded.segment
-    //     .ui.container
-            // .ui.hidden.divider
-            // img.ui.medium.centered.image(src='https://jan-pro.com/wp-content/themes/underboot/img/jan-pro-white.svg')
-            // h2.ui.inverted.header 
-            //     i.rroueddit.icon
-            //     |reddit
-            // h2 Do whatever you want when you want to.
-            // .ui.huge.primary.button
-            //     | Get Started 
-            //     i.right.arrow.icon
-            // +customer_menu
     .ui.padded.stackable.grid
         .four.wide.column
             // #call_reddit.ui.button call reddit
             .ui.input
-                input#check_subreddit(type='text')
+                input#check_subreddit(type='text' placeholder='pull 10 from subreddit')
             +keyword_facet
             +concept_facet
         .twelve.wide.column
@@ -52,17 +40,14 @@ template(name='reddit_small_card')
             a.ui.button(href=url target='_blank') article
             a.ui.button(href=permalink target='_blank') reddit
         // .content
-        //     +tone
-        // .content
-        //     each watson.keywords
-        //         .ui.label #{text}
         .content
-            #call_this_watson.ui.icon.button
-                i.refresh.icon
+            // #call_this_watson.ui.icon.button
+            //     i.refresh.icon
             if watson
                 i.info.icon
             else
                 i.remove.icon
+            |#{watson.keywords.length} keywords
             i.comments.icon
             | #{comment_count}
 
@@ -71,12 +56,11 @@ template(name='reddit_small_card')
 
 template(name='reddit_view')
     .ui.padded.stackable.grid
-        .centered.row
+        .centered.middle.aligned.row
             .two.wide.center.aligned.column
                 +link_button link='/reddit' icon='reddit'
             .twelve.wide.center.aligned.column
-                h2.ui.header 
-                    | #{title}
+                h2.ui.header #{title}
             .two.wide.center.aligned.column
                 +edit_button
         .row
@@ -114,7 +98,7 @@ template(name='reddit_view')
                         .ui.basic.segment
                             #get_reddit_post.ui.button get reddit post 
                             // .large130 !{html}
-                            // +jsonView json=reddit_data
+                            +jsonView json=reddit_data
                             if reddit_html
                                 |!{reddit_html}
                                 div
@@ -140,43 +124,5 @@ template(name='reddit_view')
                     .twelve.wide.column
                         +comments
             .ui.bottom.attached.tab.segment(data-tab='analysis')
-                .ui.padded.stackable.centered.grid
-                    .four.wide.column
-                        +call_watson
-                        if watson
-                            +doc_sentiment
-                            +doc_emotion
-                            +concepts
-                            +categories
-                            +entities
-                            +concepts
-                    .eight.wide.column
-                        +semantic_roles
-                        .ui.large.accordion
-                            .active.title 
-                                |tone
-                                i.dropdown.icon
-                            .active.content
-                                +tone
-                        +keyword_list
-                        +concept_list
-                        .ui.large.accordion
-                            .active.title
-                                |keywords
-                                i.dropdown.icon
-                            .active.content
-                                +keywords
-                        .ui.hidden.divider
-                        +relations
-                        // .ui.styled.accordion
-                        //     .title 
-                        //         i.code.icon
-                        //         |full analysis data
-                        //         i.dropdown.icon
-                        //     .content
-                        //         +jsonView(json=watson)
-                    .four.wide.column
-                        +personality
-                        +consumption_preferences
-
+                +watson_view
         
