@@ -86,23 +86,15 @@ template(name='reddit_view')
                     // |Info
                 a.icon.item(data-tab='talk') 
                     i.large.chat.icon
-                    // |Talk
-                // a.icon.item(data-tab='actions') 
-                //     i.large.star.icon
-                //     // |actions
                 a.icon.item(data-tab='analysis') 
                     i.large.heartbeat.icon
-                    // |Analysis
-                // a.icon.item(data-tab='activity') 
-                //     i.large.rss.icon
-                //     // | Activity
             .ui.bottom.attached.active.tab.segment(data-tab='info')
                 .ui.padded.stackable.grid
                     .row
                         .twelve.wide.column
                             +author_info
                             .ui.list
-                                .item _id: #{fnZBBkTcYgF4RepKx}
+                                .item _id: #{_id}
                                 .item reddit_id: #{reddit_id}
                                 a.item(href=url target='_blank') #{url}
                                 .item domain: #{domain}
@@ -125,9 +117,11 @@ template(name='reddit_view')
                             // +jsonView json=reddit_data
                             if reddit_html
                                 |!{reddit_html}
+                                div
                             else if reddit_url
                                 |#{reddit_url}
-                                #analyze_link.ui.button analyze link
+                                #pull_site.ui.button pull_site
+                                div
                                 .ui.basic.segment
                                     |!{html}
                         if image_id
@@ -138,11 +132,6 @@ template(name='reddit_view')
                                         | #{class} {{to_percent score }}%
                             else
                                 +call_visual_analysis
-            // .ui.bottom.attached.tab.segment(data-tab='actions')
-            //     .ui.padded.stackable.centered.grid
-            //         .twelve.wide.column
-            //             .ui.header tag this
-                        
             .ui.bottom.attached.tab.segment(data-tab='talk')
                 .ui.padded.stackable.centered.grid
                     .four.wide.column
@@ -150,11 +139,6 @@ template(name='reddit_view')
                         +notify_button
                     .twelve.wide.column
                         +comments
-            // .ui.bottom.attached.tab.segment(data-tab='activity')
-            //     .ui.padded.stackable.centered.grid
-            //         .eight.wide.column
-            //             h4 doc_feed
-            //             // +doc_feed
             .ui.bottom.attached.tab.segment(data-tab='analysis')
                 .ui.padded.stackable.centered.grid
                     .four.wide.column

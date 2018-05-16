@@ -1,16 +1,14 @@
 template(name='posts')    
     .ui.stackable.grid
         .four.wide.column
-            // +add_button type='post'
-            #add.ui.icon.button
-                i.plus.icon
+            +add_button type='post'
             +tag_facet
             // +timestamp_facet
             // +location_facet
         .twelve.wide.column
             // if one_doc
             .ui.cards
-                each docs
+                each posts
                     +post_card
     
 template(name='post_card')

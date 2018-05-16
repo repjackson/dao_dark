@@ -42,8 +42,8 @@ template(name='view_button')
         i.right.chevron.icon
         
 template(name='add_button')
-    #add.ui.large.icon.button(title='add')
-        i.plus.large.icon
+    #add.ui.icon.button(title='add')
+        i.plus.icon
         // +mini_inline_sprite name='plus'
 
 template(name='reference_type_single')
@@ -121,8 +121,8 @@ template(name='toggle_key')
 
 
 template(name='view_full_button')
-    a.floated.right(href="/view/#{_id}")
-        i.right.chevron.link.large.icon
+    a.ui.icon.button(href="/view/#{_id}")
+        i.right.chevron.icon
                         
 template(name='toggle_follow')
     if currentUser

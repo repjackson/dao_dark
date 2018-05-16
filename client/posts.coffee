@@ -31,18 +31,12 @@ Template.posts.onCreated ->
         )
         # Meteor.subscribe 'doc', Session.get('editing_id')
 
-Template.posts.events
-    'click #add': -> 
-        id = Docs.insert {}
-        FlowRouter.go "/edit/#{id}"
-    # 'click #save': -> Session.set 'editing_id', null
-    # 'click .edit': -> Session.set 'editing_id', @_id
 Template.posts.helpers
     one_doc: -> Docs.find().count() is 1
     view_mode: -> Session.get 'view_mode'
     viewing_table: -> Session.equals 'view_mode','table'
     editing_id: -> Session.get 'editing_id'
-    docs: -> Docs.find({},{limit:10,sort:tag_count:1})
+    posts: -> Docs.find({},{limit:10,sort:timestamp:-1})
 
 
 Template.table_view.helpers

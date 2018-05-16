@@ -1,24 +1,26 @@
 template(name='web')
     .ui.padded.stackable.grid
-        .four.wide.column
-            .ui.inverted.header website
+        .eight.wide.column
+            .ui.header web
             +add_button type='website'
             +keyword_facet
             +concept_facet
-        .twelve.wide.column
+        .eight.wide.column
             .ui.cards
                 each websites
-                    +web_small_card
+                    +web_big_card
 
 template(name='web_big_card')
     .ui.fluid.grey.card
         .content
-            a.header(href="/view/#{_id}") #{title}
+            a.header(href="/view/#{_id}") 
+                if title
+                    |#{title}
+                else |view
             .meta
-                |domain: #{domain}
+                |url: #{url}
             // |web_id: #{web_id}
-            a.ui.button(href=url target='_blank') article
-            a.ui.button(href=permalink target='_blank') web
+            +view_full_button
         .content
             +tone
         .content
@@ -32,20 +34,14 @@ template(name='web_big_card')
 template(name='web_small_card')
     .ui.card
         .content
-            a.header(href="/view/#{_id}") #{title}
+            a.header(href="/view/#{_id}") 
+                if title
+                    |#{title}
+                else
+                    |view
             .meta
                 |domain: #{domain}
-            // |web_id: #{web_id}
-            a.ui.button(href=url target='_blank') article
-            a.ui.button(href=permalink target='_blank') web
-        // .content
-        //     +tone
-        // .content
-        //     each watson.keywords
-        //         .ui.label #{text}
         .content
-            #call_this_watson.ui.icon.button
-                i.refresh.icon
             if watson
                 i.info.icon
             else
@@ -57,10 +53,13 @@ template(name='website_view')
     .ui.padded.stackable.grid
         .centered.row
             .two.wide.center.aligned.column
-                +link_button link='/web' icon='web'
+                +link_button link='/web' icon='globe'
             .twelve.wide.center.aligned.column
                 h2.ui.header 
-                    | #{title}
+                    if title
+                        | #{title}
+                    else 
+                        |view website
             .two.wide.center.aligned.column
                 +edit_button
         .row

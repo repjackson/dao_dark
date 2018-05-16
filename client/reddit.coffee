@@ -4,16 +4,6 @@ FlowRouter.route '/reddit', action: (params) ->
         main: 'reddit'
 
 
-Template.view_toggle.events
-    'click .toggle_view': ->
-        Session.set 'view_mode', @name
-        # console.log @name
-Template.view_toggle_item.events
-    'click .toggle_view': ->
-        Session.set 'view_mode', @name
-        # console.log @name
-
-
 Template.reddit.onCreated ->
     @autorun => 
         Meteor.subscribe('facet', 
@@ -29,16 +19,6 @@ Template.reddit.onCreated ->
         # Meteor.subscribe 'doc', Session.get('editing_id')
 
 Template.reddit.events
-    'click #call_this_watson': ->
-        # console.log @
-        Meteor.call 'call_watson', @_id, @url, ->
-
-
-
-    'click #add': -> 
-        id = Docs.insert {}
-        FlowRouter.go "/edit/#{id}"
-        
     'keyup #check_subreddit': (e,t)->
         if e.which is 13
             sub = $('#check_subreddit').val().toLowerCase().trim()
@@ -66,7 +46,8 @@ Template.reddit_view.onRendered ->
 Template.reddit_view.events
     'click #get_reddit_post': ->
         Meteor.call 'get_reddit_post', FlowRouter.getParam('doc_id'), @reddit_id, ->
-    'click #analyze_link': ->
-        Meteor.call 'call_watson', FlowRouter.getParam('doc_id'), @url, ->
+    'click #pull_site': ->
+        # console.log @
+        Meteor.call 'pull_site', FlowRouter.getParam('doc_id'), @url, ->
     'click #get_comments': ->
         Meteor.call 'get_listing_comments', @_id, @domain, @reddit_id, ->
