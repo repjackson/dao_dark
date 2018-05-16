@@ -78,7 +78,7 @@ Meteor.publish 'people_tags', (selected_people_tags)->
         { $group: _id: '$tags', count: $sum: 1 }
         { $match: _id: $nin: selected_people_tags }
         { $sort: count: -1, _id: 1 }
-        { $limit: 42 }
+        { $limit: 20 }
         { $project: _id: 0, name: '$_id', count: 1 }
         ]
     # console.log 'cloud, ', people_cloud
@@ -271,7 +271,7 @@ Meteor.publish 'facet', (
             { $group: _id: '$tags', count: $sum: 1 }
             { $match: _id: $nin: selected_tags }
             { $sort: count: -1, _id: 1 }
-            { $limit: 42 }
+            { $limit: 20 }
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
         # console.log 'theme theme_tag_cloud, ', theme_tag_cloud
@@ -290,7 +290,7 @@ Meteor.publish 'facet', (
             { $group: _id: '$watson_keywords', count: $sum: 1 }
             { $match: _id: $nin: selected_tags }
             { $sort: count: -1, _id: 1 }
-            { $limit: 42 }
+            { $limit: 20 }
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
         # console.log 'watson cloud, ', watson_keyword_cloud
@@ -308,7 +308,7 @@ Meteor.publish 'facet', (
             { $group: _id: '$watson_concepts', count: $sum: 1 }
             { $match: _id: $nin: selected_tags }
             { $sort: count: -1, _id: 1 }
-            { $limit: 42 }
+            { $limit: 20 }
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
         # console.log 'watson cloud, ', watson_concept_cloud

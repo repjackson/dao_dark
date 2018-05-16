@@ -36,7 +36,7 @@ Template.posts.helpers
     view_mode: -> Session.get 'view_mode'
     viewing_table: -> Session.equals 'view_mode','table'
     editing_id: -> Session.get 'editing_id'
-    posts: -> Docs.find({},{limit:10,sort:timestamp:-1})
+    posts: -> Docs.find({},{limit:1,sort:timestamp:-1})
 
 
 Template.table_view.helpers

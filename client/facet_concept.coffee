@@ -20,9 +20,9 @@ Template.concept_facet.helpers
         if 0 < doc_count < 3
             Watson_concepts.find { 
                 count: $lt: doc_count
-                }, limit:42
+                }, limit:20
         else
-            Watson_concepts.find({}, limit:42)
+            Watson_concepts.find({}, limit:20)
             
             
     cloud_concept_class: ->

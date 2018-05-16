@@ -35,7 +35,7 @@ Template.pull_site.events
 
 Template.web.helpers
     one_doc: -> Docs.find().count() is 1
-    websites: -> Docs.find({type:'website'},{limit:42,sort:tag_count:1})
+    websites: -> Docs.find({type:'website'},{limit:1,sort:tag_count:1})
 
 Template.website_view.onRendered ->
     # Meteor.setTimeout ->

@@ -20,9 +20,9 @@ Template.keyword_facet.helpers
         if 0 < doc_count < 3
             Watson_keywords.find { 
                 count: $lt: doc_count
-                }, limit:42
+                }, limit:20
         else
-            Watson_keywords.find({}, limit:42)
+            Watson_keywords.find({}, limit:20)
             
             
     cloud_keyword_class: ->

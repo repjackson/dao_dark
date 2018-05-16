@@ -141,7 +141,7 @@ Meteor.methods
     pull_site: (doc_id, url)->
         this_id = doc_id
         doc = Docs.findOne doc_id
-        console.log url
+        # console.log url
         parameters = 
             url: url
             features:
@@ -166,7 +166,7 @@ Meteor.methods
             if err
                 console.log 'error:', err
             else
-                console.log response
+                # console.log response
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
                 
