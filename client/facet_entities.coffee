@@ -1,6 +1,6 @@
 @selected_entities = new ReactiveArray []
 
-Template.entitie_facet.onCreated ->
+Template.entities_facet.onCreated ->
     # @autorun => 
     #     Meteor.subscribe('facet', 
     #         selected_tags.array()
@@ -13,7 +13,7 @@ Template.entitie_facet.onCreated ->
     #         )
 
 
-Template.entitie_facet.helpers
+Template.entities_facet.helpers
     entities: ->
         doc_count = Docs.find().count()
         # if selected_entities.array().length
@@ -51,7 +51,7 @@ Template.entitie_facet.helpers
 
 
 
-Template.entitie_facet.events
+Template.entities_facet.events
     'click .select_entitie': -> selected_entities.push @name
     'click .unselect_entitie': -> selected_entities.remove @valueOf()
     'click #clear_entities': -> selected_entities.clear()

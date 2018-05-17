@@ -24,7 +24,7 @@ Template.reddit.events
         if e.which is 13
             sub = $('#check_subreddit').val().toLowerCase().trim()
             if sub.length > 0
-                Meteor.call 'call_reddit', sub
+                Meteor.call 'pull_subreddit', sub
                 # Docs.update doc_id,
                 #     $set: check_subreddit: image_id
                 $('#check_subreddit').val('')
