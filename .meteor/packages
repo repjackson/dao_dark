@@ -11,7 +11,6 @@ jquery@1.11.10                  # Helpful client-side library
 
 
 random@1.1.0
-meteorhacks:aggregate
 
 es5-shim@4.8.0                # ECMAScript 5 compatibility for older browsers.
 
@@ -24,40 +23,20 @@ ecmascript@0.12.0
 reactive-var@1.0.11
 session@1.1.8
 blaze-html-templates
-lepozepo:cloudinary
 momentjs:moment
-kevohagan:sweetalert
 accounts-base@1.4.3
 matb33:collection-hooks
 
 coffeescript
 juliancwirko:postcss
 less@2.8.0
-froala:editor-reactive@=2.4.2
 semantic:ui
 pacreach:jade
 dburles:collection-helpers
-manuel:reactivearray
 
 
 
-kadira:flow-router
-kadira:blaze-layout
-zimme:active-route
-useraccounts:flow-routing
-raix:handlebar-helpers
-themeteorchef:bert
-mizzao:autocomplete
-useraccounts:semantic-ui
 reywood:publish-composite
-yasinuslu:json-view
-jeremy:geocomplete
-davesierra:fullcalendar
-alanning:roles
-tomwasd:flow-router-autoscroll
-maazalik:highcharts
-maazalik:highcharts-gauge
-clarencel:highcharts-drilldown
-maazalik:highcharts-3d
 http@1.4.1
 underscore
+accounts-ui
