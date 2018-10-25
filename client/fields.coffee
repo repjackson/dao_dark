@@ -69,6 +69,13 @@
 # #     #     log: -> console.log @
 
 
+Template.key_val.helpers
+    value: -> 
+        # console.log Template.parentData()
+        parent = Template.parentData()
+        parent["#{@valueOf()}"]
+
+
 
 # Template.edit_number_field.events
 #     'change #number_field': (e,t)->

@@ -32,10 +32,18 @@ Template.facet_segment.helpers
             Docs.findOne @valueOf()
 
     is_array: -> @field_type is 'array'
+    
+    keys: ->
+        if @data
+            local = Docs.findOne @data.valueOf()
+        else
+            local = Docs.findOne @valueOf()
+        _.keys local
+
 
     facet_segment_class: ->
         facet = Docs.findOne type:'facet'
-        if facet.detail_id and facet.detail_id is @_id then 'tertiary blue' else ''
+        if facet.detail_id and facet.detail_id is @_id then 'tertiary black' else ''
 
     view_full: ->
         # facet = Docs.findOne type:'facet'
@@ -178,7 +186,7 @@ Template.type_filter.helpers
 
     set_type_class: ->
         facet = Docs.findOne type:'facet'
-        if facet.filter_type and @slug in facet.filter_type then 'blue large' else ''
+        if facet.filter_type and @slug in facet.filter_type then 'black large' else ''
 
 
 Template.type_filter.events
@@ -243,7 +251,22 @@ Template.detail_pane.events
 Template.detail_pane.helpers
     detail_doc: ->
         facet = Docs.findOne type:'facet'
-        Docs.findOne facet.detail_id
+        detail = Docs.findOne facet.detail_id
+
+        console.log detail
+
+    keys: ->
+        facet = Docs.findOne type:'facet'
+        detail = Docs.findOne facet.detail_id
+        _.keys detail
+
+    value: -> 
+        # console.log Template.parentData()
+        facet = Docs.findOne type:'facet'
+        detail = Docs.findOne facet.detail_id
+        detail["#{@valueOf()}"]
+
+
 
     facet_doc: -> Docs.findOne type:'facet'
 
@@ -269,7 +292,7 @@ Template.detail_pane.helpers
 
     axon_selector_class: ->
         facet = Docs.findOne type:'facet'
-        if @axon_schema is facet.viewing_axon then 'blue' else ''
+        if @axon_schema is facet.viewing_axon then 'black' else ''
 
     fields: ->
         facet = Docs.findOne type:'facet'
@@ -392,18 +415,18 @@ Template.dao.helpers
 Template.filter.helpers
     values: ->
         facet = Docs.findOne type:'facet'
-        facet["#{@key}_return"]?[..10]
+        facet["#{@key}_return"]?[..20]
 
     set_facet_key_class: ->
         facet = Docs.findOne type:'facet'
-        if facet.query["#{@slug}"] is @value then 'blue' else ''
+        if facet.query["#{@slug}"] is @value then 'active' else ''
 
 Template.selector.helpers
     toggle_value_class: ->
         facet = Docs.findOne type:'facet'
         filter = Template.parentData()
         filter_list = facet["filter_#{filter.key}"]
-        if filter_list and @value in filter_list then 'blue' else ''
+        if filter_list and @value in filter_list then 'active' else ''
 
 Template.filter.events
     # 'click .set_facet_key': ->

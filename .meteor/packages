@@ -27,7 +27,7 @@ momentjs:moment
 accounts-base@1.4.3
 matb33:collection-hooks
 
-coffeescript
+coffeescript@=2.3.1_2
 juliancwirko:postcss
 less@2.8.0
 semantic:ui
@@ -36,7 +36,6 @@ dburles:collection-helpers
 
 
 
-reywood:publish-composite
 http@1.4.1
 underscore
 accounts-ui
