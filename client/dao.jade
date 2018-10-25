@@ -2,77 +2,35 @@ template(name='dao')
     .ui.stackable.padded.grid
         .middle.aligned.row
             .sixteen.wide.column
-                // +icon name='rhombus'
                 +loginButtons
         unless facet_doc
             .row
                 .sixteen.wide.column
                     if currentUser
-                        .create_facet.ui.button(title='Create Session')
+                        .create_facet.ui.button
                             i.plus.icon
                             |session
         if facet_doc
-            .four.wide.column.scrolling
-                +type_filter
-                .ui.icon.button.delete_facet(title='Clear Session')
+            .eight.wide.column.scrolling
+                .ui.icon.button.delete_facet(title='clear session')
                     i.remove.icon
                 .ui.icon.button.show_facet
                     i.code.icon
                 .ui.icon.button.reload
                     i.refresh.icon
-                +toggle_facet_config key='config_mode' title='Schema Configuration' icon='cog'
-                // +toggle_facet_config key='view_full' title='View Full' icon='resize-diagonal'
-                .ui.button.add_doc
-                    i.plus.icon
-                    |add #{current_type.title}
                 each faceted_fields
                     +filter
-            .twelve.wide.column
+            .eight.wide.column
                 .ui.equal.width.stackable.grid
                     .column.scrolling
-                        if is_calculating
-                            .ui.hidden.divider
-                            .ui.active.indeterminate.massive.centered.inline.loader
-                        else
-                            if facet_doc.config_mode
-                                .ui.center.aligned.header
-                                    +icon name='administrative-tools'
-                                    |schema '#{current_type.title}'
-                                .ui.header
-                                    +icon name='rename'
-                                    |&nbsp;
-                                    |fields
-                                .ui.fluid.button.add_field
-                                    i.plus.icon
-                                    | field
-                                each fields
-                                    +facet_segment data=_id
-                            else
-                                if facet_doc.result_ids
-                                    if facet_doc.result_ids.length
-                                        .ui.horizontal.list
-                                            .item
-                                                .ui.header
-                                                    if current_type.icon
-                                                        i.icon
-                                                            +icon name=current_type.icon
-                                                    |#{current_type.title}
-                                            // .item
-                                            //     if facet_doc.page_amount
-                                            //         a.ui.icon.small.page_down.button(title='Previous Page')
-                                            //             i.left.chevron.grey.icon
-                                            //         .ui.small.basic.label
-                                            //             | #{facet_doc.current_page}/#{facet_doc.page_amount}
-                                            //         a.ui.icon.small.page_up.button(title='Next Page')
-                                            //             i.right.chevron.grey.icon
-                                            //         // if show_increment
-                                            .item
-                                                .ui.basic.label #{facet_doc.total} Results
-                                        each facet_doc.result_ids
-                                            +facet_segment
-                    if facet_doc.viewing_detail
-                        .column.scrolling
-                            +detail_pane
+                        if facet_doc.result_ids
+                            if facet_doc.result_ids.length
+                                .ui.basic.label #{facet_doc.total} results
+                                each facet_doc.result_ids
+                                    +facet_segment
+                    // if facet_doc.viewing_detail
+                    //     .column.scrolling
+                    //         +detail_pane
 
 
 template(name='toggle_facet_config')
@@ -95,21 +53,13 @@ template(name='detail_pane')
                 strong #{value}
 
 
-template(name='type_filter')
-    each faceted_types
-        .ui.button.set_type(class=set_type_class)
-            if icon
-                i.icon
-                    +icon name=icon
-            |#{title}
-
-
 template(name='filter')
-    .ui.header
-        if icon
-            i.icon
-                +iconsmall name=icon
-        |#{title}
+    // .ui.header
+    //     if icon
+    //         i.icon
+    //             +iconsmall name=icon
+    //     |#{title}
+    .ui.hidden.divider
     each values
         +selector
 
@@ -144,83 +94,9 @@ template(name='facet_segment')
                 .ui.list
                     each keys
                         .item
-                            |#{this}
-                    // +key_val
-            .content
-                .ui.list
-                    if tags
-                        each tags
-                            .ui.label #{this}
-                    each field_docs
-                        if value
-                            .item
-                                if field_template
-                                    +Template.dynamic template=field_template
-                                else
-                                    .content
-                                        if icon
-                                            i.large.icon
-                                                +icon name=icon
-                                        | #{title}
-                                        |&nbsp;
-                                        if is_array
-                                            each value
-                                                .ui.basic.label #{this}
-                                        else
-                                            strong #{value}
+                            strong #{this}
+                            | #{value}
 
-
-template(name='boolean_facet')
-    .ui.header filter #{key}
-    .pick_yes.ui.button yes
-    .pick_no.ui.button no
-
-
-template(name='icon')
-    img.ui.mini.image(src="https://png.icons8.com/color/80/000000/#{name}.png" class=classes data-content=popup title=title)
-
-template(name='iconlarge')
-    img.ui.image(src="https://png.icons8.com/color/80/000000/#{name}.png")
-
-template(name='iconsmall')
-    img.ui.inline.image(src="https://png.icons8.com/color/24/000000/#{name}.png" class=classes title=title)
-
-
-template(name='tag_result')
-    .three.wide.column #{title} #{office_name} #{name}
-
-
-
-template(name='cell_number')
-    .ui.fluid.input
-        input#cell_number(type='number' min='0' value=cell_value)
-
-
-
-
-template(name='cell_date')
-    .ui.icon.fluid.input
-        input#date_field(type='date' value=cell_value)
-
-
-template(name='ticket_assignment_cell')
-    // td(class=ticket_assignment_cell_class)
-    if overdue
-        +icon name='expired' classes='inline' title='Over 5 Hours'
-    if response
-        |#{response}
-    .ui.list
-        each assigned_users
-            .item
-                // .image
-                //     img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-                .content
-                    .header
-                        // if image_id
-                        //     img.ui.avatar.spaced.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-                        |#{first_name} #{last_name}
-                    .description
-                        | @#{username}
 
 template(name='when_template')
     div(title="{{ long_format timestamp }}")

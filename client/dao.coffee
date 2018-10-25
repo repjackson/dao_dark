@@ -43,53 +43,16 @@ Template.facet_segment.helpers
 
     facet_segment_class: ->
         facet = Docs.findOne type:'facet'
-        if facet.detail_id and facet.detail_id is @_id then 'tertiary black' else ''
+        if facet.detail_id and facet.detail_id is @_id then 'tertiary' else ''
 
-    view_full: ->
-        # facet = Docs.findOne type:'facet'
-        # if facet.detail_id and facet.detail_id is @_id then true else false
-        true
 
-    field_docs: ->
-        facet = Docs.findOne type:'facet'
-        local_doc =
-            if @data
-                Docs.findOne @data.valueOf()
-            else
-                Docs.findOne @valueOf()
-        if local_doc?.type is 'field'
-            Docs.find({
-                type:'field'
-                axon:$ne:true
-                schema_slugs: $in: ['field']
-            }, {sort:{rank:1}}).fetch()
-        else
-            schema = Docs.findOne
-                type:'schema'
-                slug:facet.filter_type[0]
-            linked_fields = Docs.find({
-                type:'field'
-                schema_slugs: $in: [schema?.slug]
-                axon:$ne:true
-                visible:true
-            }, {sort:{rank:1}}).fetch()
-            
-            linked_fields.push { slug:'type',type:'string' }
-            linked_fields
+    field_docs: -> [ { slug:'type',type:'string' } ]
 
 
     value: ->
-        # console.log @
         facet = Docs.findOne type:'facet'
-        schema = Docs.findOne
-            type:'schema'
-            slug:facet.filter_type[0]
         parent = Template.parentData()
-        field_doc = Docs.findOne
-            type:'field'
-            schema_slugs:$in:[schema?.slug]
-        # console.log 'field doc', field_doc
-        parent["#{@key}"]
+        parent["#{@}"]
 
 
 
@@ -176,41 +139,6 @@ Template.selector.helpers
             when 'number' then @value
 
 
-Template.type_filter.helpers
-    faceted_types: ->
-        if Meteor.user() and Meteor.user().roles
-            Docs.find(
-                type:'schema'
-                nav_roles:$in:Meteor.user().roles
-            ).fetch()
-
-    set_type_class: ->
-        facet = Docs.findOne type:'facet'
-        if facet.filter_type and @slug in facet.filter_type then 'black large' else ''
-
-
-Template.type_filter.events
-    'click .set_type': ->
-        facet = Docs.findOne type:'facet'
-
-        Docs.update facet._id,
-            $set:
-                "filter_type": [@slug]
-                current_page: 0
-                detail_id:null
-                viewing_children:false
-                viewing_detail:false
-                editing_mode:false
-                config_mode:false
-        Session.set 'is_calculating', true
-        # console.log 'hi call'
-        Meteor.call 'fo', (err,res)->
-            if err then console.log err
-            else if res
-                # console.log 'return', res
-                Session.set 'is_calculating', false
-
-
 # Template.detail_pane.onCreated ->
 #     Meteor.setTimeout ->
 #         $('.accordion').accordion();
@@ -237,14 +165,6 @@ Template.detail_pane.events
         facet=Docs.findOne type:'facet'
         Docs.update facet._id,
             $set:editing_mode:false
-
-    'click .select_axon': ->
-        facet = Docs.findOne type:'facet'
-        Docs.update facet._id,
-            $set:
-                viewing_children:true
-                children_template:@children_template
-                viewing_axon:@axon_schema
 
 
 
@@ -290,49 +210,12 @@ Template.detail_pane.helpers
         else
             false
 
-    axon_selector_class: ->
-        facet = Docs.findOne type:'facet'
-        if @axon_schema is facet.viewing_axon then 'black' else ''
 
-    fields: ->
-        facet = Docs.findOne type:'facet'
-        detail_doc = Docs.findOne facet.detail_id
-        if detail_doc?.type is 'field'
-            Docs.find({
-                type:'field'
-                axon:$ne:true
-                schema_slugs: $in: ['field']
-            }, {sort:{rank:1}}).fetch()
-        else
-            current_type = facet.filter_type[0]
-            Docs.find({
-                type:'field'
-                axon:$ne:true
-                schema_slugs: $in: [current_type]
-            }, {sort:{rank:1}}).fetch()
-
-    axons: ->
-        facet = Docs.findOne type:'facet'
-        current_type = facet.filter_type[0]
-        Docs.find({
-            type:'field'
-            axon:true
-            schema_slugs: $in: [current_type]
-        }, {sort:{rank:1}}).fetch()
-
-
-    child_schema_docs: ->
-        Docs.find
-            type:@axon_schema
-
-    child_schema_fields: ->
-        console.log @
 
 Template.dao.helpers
     is_calculating: -> Session.get('is_calculating')
     facet_doc: -> Docs.findOne type:'facet'
 
-    pub_docs: -> Docs.find {}, limit:10
 
     visible_result_ids: ->
         facet = Docs.findOne type:'facet'
@@ -365,26 +248,6 @@ Template.dao.helpers
             false
 
 
-    ticket_types: -> Docs.find type:'ticket_type'
-
-    schema_doc: ->
-        facet = Docs.findOne type:'facet'
-        current_type = facet.filter_type[0]
-        if current_type
-            schema = Docs.findOne
-                type:'schema'
-                slug:current_type
-            # for field in schema.fields
-            #     console.log 'found field', field
-
-    field_fields: ->
-        Docs.find({
-            type:'field'
-            schema_slugs: $in: ['field']
-            axon:$ne:true
-        }, {sort:{rank:1}}).fetch()
-
-
     faceted_fields: ->
         facet = Docs.findOne type:'facet'
         current_type = facet.filter_type[0]
@@ -400,22 +263,12 @@ Template.dao.helpers
             fields = [{title:'Tags', key:'tags'}]
 
 
-    fields: ->
-        facet = Docs.findOne type:'facet'
-        current_type = facet.filter_type[0]
-        Docs.find({
-            type:'field'
-            schema_slugs: $in: [current_type]
-        }, {sort:{rank:1}}).fetch()
-
-
-
 
 
 Template.filter.helpers
     values: ->
         facet = Docs.findOne type:'facet'
-        facet["#{@key}_return"]?[..20]
+        facet["#{@key}_return"]?[..50]
 
     set_facet_key_class: ->
         facet = Docs.findOne type:'facet'
@@ -487,24 +340,3 @@ Template.edit_field_number.events
         # console.log @filter_id
         Docs.update @filter_id,
             { $set: "#{@key}": number_value }
-
-
-
-
-
-Template.ticket_assignment_cell.onCreated ->
-    @autorun =>  Meteor.subscribe 'assigned_to_users', @data._id
-
-Template.ticket_assignment_cell.helpers
-    # ticket_assignment_cell_class: ->
-    #     if @assignment_timestamp
-    #         now = Date.now()
-    #         response = @assignment_timestamp - now
-    #         calc = moment.duration(response).humanize()
-    #         hour_amount = moment.duration(response).asHours()
-    #         if hour_amount<-5 then 'negative' else 'positive'
-
-    assigned_users: ->
-        if @assigned_to
-            Meteor.users.find
-                _id: $in: @assigned_to
