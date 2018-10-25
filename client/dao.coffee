@@ -1,27 +1,18 @@
 Template.dao.onCreated ->
     @autorun -> Meteor.subscribe 'facet'
-    @autorun => Meteor.subscribe 'type', 'filter'
-    @autorun => Meteor.subscribe 'type', 'schema'
-    @autorun => Meteor.subscribe 'type', 'field'
-
-    # @autorun => Meteor.subscribe 'type', 'ticket_type'
-    Session.setDefault 'is_calculating', false
-
-Template.detail_pane.onCreated ->
-    facet = Docs.findOne type:'facet'
-    if facet
-        @autorun => Meteor.subscribe 'single_doc', facet.detail_id
 
 Template.facet_segment.onCreated ->
     @autorun => Meteor.subscribe 'single_doc', @data
 
 Template.facet_segment.events
-    'click .facet_segment': ->
-        facet = Docs.findOne type:'facet'
-        Docs.update facet._id,
-            $set:
-                viewing_detail: true
-                detail_id: @_id
+    # 'click .facet_segment': ->
+    #     facet = Docs.findOne type:'facet'
+    #     Docs.update facet._id,
+    #         $set:
+    #             viewing_detail: true
+    #             detail_id: @_id
+    'click .calc': ->
+        Meteor.call 'fi', @_id
 
 
 Template.facet_segment.helpers
@@ -139,94 +130,13 @@ Template.selector.helpers
             when 'number' then @value
 
 
-# Template.detail_pane.onCreated ->
-#     Meteor.setTimeout ->
-#         $('.accordion').accordion();
-#     , 500
-
-
-Template.detail_pane.events
-    'click .remove_doc': ->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
-        if confirm "Delete #{target_doc.title}?"
-            Docs.remove target_doc._id
-            Docs.update facet._id,
-                $set:
-                    detail_id:null
-                    editing_mode:false
-                    viewing_detail:false
-
-    'click .enable_editing': ->
-        facet=Docs.findOne type:'facet'
-        Docs.update facet._id,
-            $set:editing_mode:true
-    'click .disable_editing': ->
-        facet=Docs.findOne type:'facet'
-        Docs.update facet._id,
-            $set:editing_mode:false
-
-
-
-Template.detail_pane.helpers
-    detail_doc: ->
-        facet = Docs.findOne type:'facet'
-        detail = Docs.findOne facet.detail_id
-
-        console.log detail
-
-    keys: ->
-        facet = Docs.findOne type:'facet'
-        detail = Docs.findOne facet.detail_id
-        _.keys detail
-
-    value: -> 
-        # console.log Template.parentData()
-        facet = Docs.findOne type:'facet'
-        detail = Docs.findOne facet.detail_id
-        detail["#{@valueOf()}"]
-
-
-
-    facet_doc: -> Docs.findOne type:'facet'
-
-
-    can_edit: ->
-        facet = Docs.findOne type:'facet'
-        type_key = facet.filter_type[0]
-        schema = Docs.findOne
-            type:'schema'
-            slug:type_key
-
-        my_role = Meteor.user()?.roles?[0]
-        if my_role
-            if schema.editable_roles
-                if my_role in schema.editable_roles
-                    true
-                else
-                    false
-            else
-                false
-        else
-            false
-
-
-
 Template.dao.helpers
-    is_calculating: -> Session.get('is_calculating')
     facet_doc: -> Docs.findOne type:'facet'
-
 
     visible_result_ids: ->
         facet = Docs.findOne type:'facet'
         if facet.result_ids then facet.result_ids[..10]
 
-    current_type: ->
-        facet = Docs.findOne type:'facet'
-        type_key = facet.filter_type[0]
-        Docs.findOne
-            type:'schema'
-            slug:type_key
 
     can_add: ->
         facet = Docs.findOne type:'facet'
@@ -250,17 +160,15 @@ Template.dao.helpers
 
     faceted_fields: ->
         facet = Docs.findOne type:'facet'
-        current_type = facet.filter_type[0]
-        faceted_fields = []
-        if current_type
-            fields =
-                Docs.find({
-                    type:'field'
-                    schema_slugs:$in:[current_type]
-                    faceted: true
-                }, {sort:{rank:1}}).fetch()
-        else
-            fields = [{title:'Tags', key:'tags'}]
+        # faceted_fields = []
+        fields = [
+            # {title:'tags', key:'tags'}
+            {title:'keys', key:'keys'}
+            ]
+        for filter_key in facet.filter_keys
+            fields.push
+                key:filter_key
+        fields
 
 
 

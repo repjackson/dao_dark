@@ -32,6 +32,24 @@ template(name='dao')
                     //     .column.scrolling
                     //         +detail_pane
 
+template(name='facet_segment')
+    with local_doc
+        .ui.segment.facet_segment(class=facet_segment_class)
+            // if doc_header_fields
+            .content
+                h3.ui.header
+                    if icon
+                        +icon name=icon
+                    |#{title}
+            .content
+                .ui.list
+                    each keys
+                        .item
+                            strong #{this}
+                            | #{value}
+            .content
+                .ui.calc.icon.button
+                    i.refresh.icon
 
 template(name='toggle_facet_config')
     if boolean_true
@@ -43,14 +61,6 @@ template(name='toggle_facet_config')
             i.icon(class=icon)
             | #{label}
 
-
-template(name='detail_pane')
-    .ui.header details
-    .content
-        each keys
-            .item
-                small #{this}
-                strong #{value}
 
 
 template(name='filter')
@@ -81,21 +91,6 @@ template(name='edit_field_number')
         input.number_val(type='number' value=field_value)
 
 
-template(name='facet_segment')
-    with local_doc
-        .ui.segment.facet_segment(class=facet_segment_class)
-            // if doc_header_fields
-            .content
-                h3.ui.header
-                    if icon
-                        +icon name=icon
-                    |#{title}
-            .content
-                .ui.list
-                    each keys
-                        .item
-                            strong #{this}
-                            | #{value}
 
 
 template(name='when_template')

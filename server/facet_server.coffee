@@ -6,34 +6,44 @@ Meteor.publish 'facet', ->
 
 
 Meteor.methods
+    fum: ->
+        unkeyed = Docs.find({keys:$exists:false},{limit:1000}).fetch()
+        for doc in unkeyed
+            Meteor.call 'fi', doc._id
+        console.log 'done'
+
+
+    fi: (id)->
+        # console.log id 
+        doc = Docs.findOne id
+        keys = _.keys doc
+        # console.log keys
+        key_count = keys.length
+        Docs.update id, 
+            $set: 
+                keys:keys
+                key_count:key_count    
+        console.log 'keyed', id
+    
+    
     fo: ->
         facet = Docs.findOne
             type:'facet'
             author_id: Meteor.userId()
 
-        current_type = facet.filter_type?[0]
-
-        filter_keys = []
-
-        if facet.filter_type and facet.filter_type.length > 0
-            schema =
-                Docs.findOne
-                    type:'schema'
-                    slug:current_type
-            if schema
-                facet_fields =
-                    Docs.find(
-                        type:'field'
-                        schema_slugs:$in:[current_type]
-                        faceted:true
-                        ).fetch()
-        else
-            facet_fields = []
+        facet_fields = []
 
         built_query = {}
 
+        for filter_key in facet.filter_keys
+            facet_fields.push
+                key:filter_key
+                field_type:'array'
+        
+
+
         facet_fields.push
-            key:'tags'
+            key:'keys'
             field_type:'array'
 
 
