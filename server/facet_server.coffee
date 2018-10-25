@@ -28,13 +28,13 @@ Meteor.methods
                         faceted:true
                         ).fetch()
         else
-            return
+            facet_fields = []
 
         built_query = {}
 
         facet_fields.push
-            key:'type'
-            field_type:'string'
+            key:'tags'
+            field_type:'array'
 
 
         for facet_field in facet_fields
@@ -64,6 +64,7 @@ Meteor.methods
         #             built_query['customer_jpid'] = Meteor.user().customer_jpid
 
 
+
         results = Docs.find(built_query, {limit:limit_val}).fetch()
 
 
@@ -90,6 +91,7 @@ Meteor.methods
                                     values.push array_element
                         else
                             values.push result_value
+
 
 
             counted = _.countBy(values)
@@ -131,7 +133,7 @@ Meteor.methods
                     sort:"#{facet.sort_key}":facet.sort_direction
                     skip:skip_amount
                 }
-                )
+            )
         result_ids = []
         for result in results_cursor.fetch()
             result_ids.push result._id

@@ -61,10 +61,13 @@ Template.facet_segment.helpers
                 slug:facet.filter_type[0]
             linked_fields = Docs.find({
                 type:'field'
-                schema_slugs: $in: [schema.slug]
+                schema_slugs: $in: [schema?.slug]
                 axon:$ne:true
                 visible:true
             }, {sort:{rank:1}}).fetch()
+            
+            linked_fields.push { slug:'type',type:'string' }
+            linked_fields
 
 
     value: ->
@@ -76,41 +79,10 @@ Template.facet_segment.helpers
         parent = Template.parentData()
         field_doc = Docs.findOne
             type:'field'
-            schema_slugs:$in:[schema.slug]
+            schema_slugs:$in:[schema?.slug]
         # console.log 'field doc', field_doc
         parent["#{@key}"]
 
-    doc_header_fields: ->
-        facet = Docs.findOne type:'facet'
-        local_doc =
-            if @data
-                Docs.findOne @data.valueOf()
-            else
-                Docs.findOne @valueOf()
-        if local_doc?.type is 'field'
-            Docs.find({
-                type:'field'
-                axon:$ne:true
-                header:true
-                schema_slugs: $in: ['field']
-            }, {sort:{rank:1}}).fetch()
-        else
-            schema = Docs.findOne
-                type:'schema'
-                slug:facet.filter_type[0]
-            linked_fields = Docs.find({
-                type:'field'
-                schema_slugs: $in: [schema.slug]
-                header:true
-                axon:$ne:true
-            }, {sort:{rank:1}}).fetch()
-
-
-
-Template.dao.onRendered ->
-    Meteor.setTimeout ->
-        $('.dropdown').dropdown()
-    , 700
 
 
 
@@ -153,18 +125,6 @@ Template.dao.events
                 view_full:true
         Meteor.call 'fo', new_facet_id
 
-    'click .page_up': (e,t)->
-        facet = Docs.findOne type:'facet'
-        Docs.update facet._id,
-            $inc: current_page:1
-        Meteor.call 'fo'
-
-    'click .page_down': (e,t)->
-        facet = Docs.findOne type:'facet'
-        Docs.update facet._id,
-            $inc: current_page:-1
-        Meteor.call 'fo'
-
     'click .add_doc': (e,t)->
         facet = Docs.findOne type:'facet'
         type = facet.filter_type[0]
@@ -192,21 +152,9 @@ Template.dao.events
         facet = Docs.findOne type:'facet'
         console.log facet
 
-
-Template.set_page_size.helpers
-    page_size_class: ->
+    'click .reload': (e,t)->
         facet = Docs.findOne type:'facet'
-        if @value is facet.page_size then 'blue' else ''
-
-
-Template.set_page_size.events
-    'click .set_page_size': (e,t)->
-        facet = Docs.findOne type:'facet'
-        Docs.update facet._id,
-            $set:
-                current_page:0
-                skip_amount:0
-                page_size:@value
+        console.log facet
         Meteor.call 'fo'
 
 
@@ -223,11 +171,10 @@ Template.selector.helpers
 Template.type_filter.helpers
     faceted_types: ->
         if Meteor.user() and Meteor.user().roles
-            # if 'dev' in Meteor.user().roles and Session.equals('dev_mode', true)
-                Docs.find(
-                    type:'schema'
-                    nav_roles:$in:Meteor.user().roles
-                ).fetch()
+            Docs.find(
+                type:'schema'
+                nav_roles:$in:Meteor.user().roles
+            ).fetch()
 
     set_type_class: ->
         facet = Docs.findOne type:'facet'
@@ -290,24 +237,6 @@ Template.detail_pane.events
                 viewing_children:true
                 children_template:@children_template
                 viewing_axon:@axon_schema
-
-
-
-Template.children_view.onCreated ->
-    facet = Docs.findOne type:'facet'
-    @autorun => Meteor.subscribe 'schema_doc_by_type', facet.viewing_axon
-    @autorun => Meteor.subscribe 'type', 'schama'
-
-
-
-
-Template.children_view.helpers
-    axon_schema: ->
-        facet = Docs.findOne type:'facet'
-        res = Docs.findOne
-            type:'schema'
-            slug:facet.viewing_axon
-        res
 
 
 
@@ -376,49 +305,11 @@ Template.detail_pane.helpers
     child_schema_fields: ->
         console.log @
 
-Template.draft.events
-    'click .submit_draft': ->
-        facet = Docs.findOne type:'facet'
-        draft_doc = Docs.findOne facet.adding_id
-        Docs.update draft_doc._id,
-            $set:
-                submitted:true
-                submitted_timestamp:Date.now()
-        Docs.update facet._id,
-            $set:
-                adding_id:null
-                is_adding:false
-
-
-    'click .cancel_draft': ->
-        facet = Docs.findOne type:'facet'
-        draft_doc = Docs.findOne facet.adding_id
-        if confirm "Cancel draft?"
-            if draft_doc
-                Docs.remove draft_doc._id
-            Docs.update facet._id,
-                $set:
-                    adding_id:null
-                    is_adding:false
-
-
-Template.draft.helpers
-    draft_doc: ->
-        facet = Docs.findOne type:'facet'
-        Docs.findOne facet.adding_id
-    draft_fields: ->
-        facet = Docs.findOne type:'facet'
-        current_type = facet.filter_type[0]
-        Docs.find(
-            type:'field'
-            schema_slugs: $in: [current_type]
-            # draft:true
-        ).fetch()
-
-
 Template.dao.helpers
     is_calculating: -> Session.get('is_calculating')
     facet_doc: -> Docs.findOne type:'facet'
+
+    pub_docs: -> Docs.find {}, limit:10
 
     visible_result_ids: ->
         facet = Docs.findOne type:'facet'
@@ -482,6 +373,8 @@ Template.dao.helpers
                     schema_slugs:$in:[current_type]
                     faceted: true
                 }, {sort:{rank:1}}).fetch()
+        else
+            fields = [{title:'Tags', key:'tags'}]
 
 
     fields: ->
@@ -495,11 +388,6 @@ Template.dao.helpers
 
 
 
-
-Template.set_facet_key.helpers
-    set_facet_key_class: ->
-        facet = Docs.findOne type:'facet'
-        if facet.query["#{@key}"] is @value then 'blue' else ''
 
 Template.filter.helpers
     values: ->
