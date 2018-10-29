@@ -1,7 +1,17 @@
 template(name='dao')
     .ui.stackable.padded.grid
-        .middle.aligned.row
-            .sixteen.wide.column
+        .row
+            .item
+                .bat D
+            .icon.item.delete_facet(title='clear session')
+                i.remove.icon
+            .icon.item.show_facet
+                i.code.icon
+            .icon.item.reload
+                i.refresh.icon
+            .ui.input
+                input(type='text' placeholder='ask')
+            .item
                 +loginButtons
         unless facet_doc
             .row
@@ -11,16 +21,10 @@ template(name='dao')
                             i.plus.icon
                             |session
         if facet_doc
-            .eight.wide.column.scrolling
-                .ui.icon.button.delete_facet(title='clear session')
-                    i.remove.icon
-                .ui.icon.button.show_facet
-                    i.code.icon
-                .ui.icon.button.reload
-                    i.refresh.icon
+            .four.wide.column.scrolling
                 each faceted_fields
                     +filter
-            .eight.wide.column
+            .twelve.wide.column
                 .ui.equal.width.stackable.grid
                     .column.scrolling
                         if facet_doc.result_ids
