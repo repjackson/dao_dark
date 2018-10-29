@@ -1,70 +1,29 @@
 template(name='dao')
     .ui.stackable.padded.grid
-        .row
-            .item
-                .bat D
-            .icon.item.delete_facet(title='clear session')
-                i.remove.icon
-            .icon.item.show_facet
-                i.code.icon
-            .icon.item.reload
-                i.refresh.icon
-            .ui.input
-                input(type='text' placeholder='ask')
-            .item
+        .centered.row
+            .eight.wide.column
+                .ui.transparent.massive.inverted.input
+                    input#in(type='text' placeholder='_________')
+                .ui.icon.button.delete_session(title='clear session')
+                    i.remove.icon
+                .ui.icon.button.show_session
+                    i.code.icon
+                .ui.icon.button.reload
+                    i.refresh.icon
+            .two.wide.column
                 +loginButtons
-        unless facet_doc
+        unless session_doc
             .row
                 .sixteen.wide.column
                     if currentUser
-                        .create_facet.ui.button
+                        .create_session.ui.button
                             i.plus.icon
                             |session
-        if facet_doc
-            .four.wide.column.scrolling
-                each faceted_fields
-                    +filter
-            .twelve.wide.column
-                .ui.equal.width.stackable.grid
-                    .column.scrolling
-                        if facet_doc.result_ids
-                            if facet_doc.result_ids.length
-                                .ui.basic.label #{facet_doc.total} results
-                                each facet_doc.result_ids
-                                    +facet_segment
-                    // if facet_doc.viewing_detail
-                    //     .column.scrolling
-                    //         +detail_pane
-
-template(name='facet_segment')
-    with local_doc
-        .ui.segment.facet_segment(class=facet_segment_class)
-            // if doc_header_fields
-            .content
-                h3.ui.header
-                    if icon
-                        +icon name=icon
-                    |#{title}
-            .content
-                .ui.list
-                    each keys
-                        .item
-                            strong #{this}
-                            | #{value}
-            .content
-                .ui.calc.icon.button
-                    i.refresh.icon
-
-template(name='toggle_facet_config')
-    if boolean_true
-        .ui.blue.icon.large.button.disable_key(title=title)
-            i.icon(class=icon)
-            | #{label}
-    else
-        .ui.icon.large.button.enable_key
-            i.icon(class=icon)
-            | #{label}
-
+        if session_doc
+            .centered.row
+                .twelve.wide.column.scrolling
+                    each faceted_fields
+                        +filter
 
 
 template(name='filter')
