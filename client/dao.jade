@@ -1,17 +1,18 @@
 template(name='dao')
+    .ui.attached.inverted.menu
+        .item
+            .bat D
+        .ui.input.item
+            input#in(type='text' placeholder='search')
+        a.icon.item.delete_session(title='clear session')
+            i.remove.icon
+        a.icon.item.show_session
+            i.code.icon
+        a.icon.item.reload
+            i.refresh.icon
+        .item
+            +loginButtons
     .ui.stackable.padded.grid
-        .centered.row
-            .eight.wide.column
-                .ui.transparent.massive.inverted.input
-                    input#in(type='text' placeholder='_________')
-                .ui.icon.button.delete_session(title='clear session')
-                    i.remove.icon
-                .ui.icon.button.show_session
-                    i.code.icon
-                .ui.icon.button.reload
-                    i.refresh.icon
-            .two.wide.column
-                +loginButtons
         unless session_doc
             .row
                 .sixteen.wide.column
@@ -20,13 +21,56 @@ template(name='dao')
                             i.plus.icon
                             |session
         if session_doc
-            .centered.row
-                .twelve.wide.column.scrolling
+            .row
+                .four.wide.column.scrolling
                     each faceted_fields
                         +filter
+                    .ui.header query: #{session_doc.result}
+                    .ui.header tags
+                    each session_doc.tags_return
+                        .ui.button
+                            |#{name}
+                            |#{count}
+                .twelve.wide.column.scrolling
+                    each session_doc.result_ids
+                        +doc_card
+
+template(name='doc_card')
+    with local_doc
+        .ui.fluid.link.card.doc_card(class=doc_card_class)
+            // if doc_header_fields
+            .content
+                h3.ui.header #{title}
+                    // if icon
+                    //     +icon name=icon
+                    // each doc_header_fields
+                    //     |#{value}
+            .content
+                each tags
+                    .ui.label #{this}
+                p
+                .ui.list
+                    each field_docs
+                        if value
+                            .item
+                                if field_template
+                                    +Template.dynamic template=field_template
+                                else
+                                    .content
+                                        if icon
+                                            i.large.icon
+                                                +icon name=icon
+                                        | #{title}
+                                        |&nbsp;
+                                        if is_array
+                                            each value
+                                                .ui.basic.label #{this}
+                                        else
+                                            strong #{value}
 
 
-template(name='filter')
+
+template(name='facet')
     // .ui.header
     //     if icon
     //         i.icon
