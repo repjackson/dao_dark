@@ -6,8 +6,12 @@ if Meteor.isClient
     Template.dao.events
         'keyup #in': (e,t)->
             if e.which is 13
+                session = Docs.findOne type:'session'
                 val = t.$('#in').val()
-                Meteor.call 'fi', val
+                Docs.update session._id,
+                    $set:input:val
+
+                Meteor.call 'fi'
                     
         'click .delete_session': ->
             session = Docs.findOne type:'session'
@@ -32,42 +36,42 @@ if Meteor.isClient
     Template.dao.helpers
         session_doc: -> Docs.findOne type:'session'
     
-    
-    
+        faceted_fields: -> [
+            {
+                key:'keys'
+                type:'array'
+            },
+            {
+                key:'tags'
+                type:'array'
+            }
+        ]
     Template.facet.helpers
+        selected_values: ->
+            session = Docs.findOne type:'session'
+            session["filter_#{@key}"]
         values: ->
             session = Docs.findOne type:'session'
             session["#{@key}_return"]?[..50]
     
-        set_facet_key_class: ->
+    Template.facet.events
+        'click .unselect': (e,t)->
             session = Docs.findOne type:'session'
-            if session.query["#{@slug}"] is @value then 'active' else ''
+            Docs.update session._id,
+                $pull: "filter_#{t.data.key}": @valueOf()
     
     Template.selector.events
-        'click .toggle_value': ->
+        'click .select': ->
             # console.log @
             filter = Template.parentData()
             session = Docs.findOne type:'session'
-            filter_list = session["filter_#{filter.key}"]
-    
-            if filter_list and @value in filter_list
-                Docs.update session._id,
-                    $set:
-                        current_page:1
-                    $pull: "filter_#{filter.key}": @value
-            else
-                Docs.update session._id,
-                    $set:
-                        current_page:1
-                    $addToSet:
-                        "filter_#{filter.key}": @value
-            Session.set 'is_calculating', true
-            # console.log 'hi call'
-            Meteor.call 'fi', (err,res)->
-                if err then console.log err
-                else if res
-                    # console.log 'return', res
-                    Session.set 'is_calculating', false
+
+            Docs.update session._id,
+                $set:
+                    current_page:1
+                $addToSet:
+                    "filter_#{filter.key}": @name
+            Meteor.call 'fi'
     
     Template.doc_card.onCreated ->
         @autorun => Meteor.subscribe 'single_doc', @data
@@ -75,7 +79,7 @@ if Meteor.isClient
     Template.doc_card.events
         'click .doc_card': ->
             session = Docs.findOne type:'session'
-            Docs.update facet._id,
+            Docs.update session._id,
                 $set:
                     viewing_detail: true
                     detail_id: @_id
@@ -85,107 +89,15 @@ if Meteor.isClient
     Template.doc_card.helpers
         local_doc: -> Docs.findOne @valueOf()
     
-        is_array: -> @field_type is 'array'
-    
         doc_card_class: ->
             session = Docs.findOne type:'session'
             if session.detail_id and session.detail_id is @_id then 'raised blue' else 'secondary'
     
-        view_full: ->
-            # session = Docs.findOne type:'session'
-            # if session.detail_id and session.detail_id is @_id then true else false
-            true
-    
-        field_docs: ->
-            session = Docs.findOne type:'session'
-            local_doc =
-                if @data
-                    Docs.findOne @data.valueOf()
-                else
-                    Docs.findOne @valueOf()
-            if local_doc?.type is 'field'
-                Docs.find({
-                    type:'field'
-                    axon:$ne:true
-                    schema_slugs: $in: ['field']
-                }, {sort:{rank:1}}).fetch()
-            else
-                schema = Docs.findOne
-                    type:'schema'
-                    slug:session.filter_type[0]
-                linked_fields = Docs.find({
-                    type:'field'
-                    schema_slugs: $in: [schema.slug]
-                    axon:$ne:true
-                    visible:true
-                }, {sort:{rank:1}}).fetch()
-    
-    
-        value: ->
-            # console.log @
-            session = Docs.findOne type:'session'
-            schema = Docs.findOne
-                type:'schema'
-                slug:session.filter_type[0]
-            parent = Template.parentData()
-            field_doc = Docs.findOne
-                type:'field'
-                schema_slugs:$in:[schema.slug]
+        key_value: ->
+            local_doc = Docs.findOne Template.parentData(1)
             # console.log 'field doc', field_doc
-            parent["#{@key}"]
+            local_doc["#{@valueOf()}"]
     
-        doc_header_fields: ->
-            session = Docs.findOne type:'session'
-            local_doc =
-                if @data
-                    Docs.findOne @data.valueOf()
-                else
-                    Docs.findOne @valueOf()
-            if local_doc?.type is 'field'
-                Docs.find({
-                    type:'field'
-                    axon:$ne:true
-                    header:true
-                    schema_slugs: $in: ['field']
-                }, {sort:{rank:1}}).fetch()
-            else
-                schema = Docs.findOne
-                    type:'schema'
-                    slug:session.filter_type[0]
-                linked_fields = Docs.find({
-                    type:'field'
-                    schema_slugs: $in: [schema.slug]
-                    header:true
-                    axon:$ne:true
-                }, {sort:{rank:1}}).fetch()
-
-    
-    
-    
-    Template.edit_field_text.helpers
-        field_value: ->
-            field = Template.parentData()
-            field["#{@key}"]
-    
-    Template.edit_field_text.events
-        'change .text_val': (e,t)->
-            text_value = e.currentTarget.value
-            # console.log @filter_id
-            Docs.update @filter_id,
-                { $set: "#{@key}": text_value }
-    
-    Template.edit_field_number.helpers
-        field_value: ->
-            field = Template.parentData()
-            field["#{@key}"]
-    
-    Template.edit_field_number.events
-        'change .number_val': (e,t)->
-            number_value = parseInt e.currentTarget.value
-            # console.log @filter_id
-            Docs.update @filter_id,
-                { $set: "#{@key}": number_value }
-                
             
             
 if Meteor.isServer
@@ -195,17 +107,11 @@ if Meteor.isServer
                 author_id: Meteor.userId()
         }, {limit:1}
 
-    Meteor.publish 'single_doc', (id)->
-        Docs.find id
-
     Meteor.methods
-        fi: (input)->
+        fi: ()->
             session = Docs.findOne
                 type:'session'
                 author_id: Meteor.userId()
-    
-            Docs.update session._id,
-                $set:result:input
     
             built_query = {}
     
@@ -214,9 +120,13 @@ if Meteor.isServer
                     key:'tags'
                     type:'array'
                 }
+                {
+                    key:'keys'
+                    type:'array'
+                }
             ]
     
-            filter_keys = ['tags']
+            filter_keys = ['tags', 'keys']
     
             for key in filter_keys
                 filter_list = session["filter_#{key}"]

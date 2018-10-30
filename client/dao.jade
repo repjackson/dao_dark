@@ -23,88 +23,63 @@ template(name='dao')
         if session_doc
             .row
                 .four.wide.column.scrolling
-                    each faceted_fields
-                        +filter
                     .ui.header query: #{session_doc.result}
-                    .ui.header tags
-                    each session_doc.tags_return
-                        .ui.button
-                            |#{name}
-                            |#{count}
+                    each faceted_fields
+                        +facet
                 .twelve.wide.column.scrolling
                     each session_doc.result_ids
                         +doc_card
 
 template(name='doc_card')
     with local_doc
-        .ui.fluid.link.card.doc_card(class=doc_card_class)
+        .ui.fluid.card.doc_card(class=doc_card_class)
             // if doc_header_fields
+            // .content
+            //     h3.ui.header #{title}
             .content
-                h3.ui.header #{title}
-                    // if icon
-                    //     +icon name=icon
-                    // each doc_header_fields
-                    //     |#{value}
-            .content
+                |tags
                 each tags
                     .ui.label #{this}
-                p
+            .content
+                |keys
                 .ui.list
-                    each field_docs
-                        if value
-                            .item
-                                if field_template
-                                    +Template.dynamic template=field_template
-                                else
-                                    .content
-                                        if icon
-                                            i.large.icon
-                                                +icon name=icon
-                                        | #{title}
-                                        |&nbsp;
-                                        if is_array
-                                            each value
-                                                .ui.basic.label #{this}
-                                        else
-                                            strong #{value}
+                each keys
+                    .item 
+                        |#{this}:
+                        strong #{key_value}
+                // p
+                // .ui.list
+                //     each field_docs
+                //         if value
+                //             .item
+                //                 if field_template
+                //                     +Template.dynamic template=field_template
+                //                 else
+                //                     .content
+                //                         if icon
+                //                             i.large.icon
+                //                                 +icon name=icon
+                //                         | #{title}
+                //                         |&nbsp;
+                //                         if is_array
+                //                             each value
+                //                                 .ui.basic.label #{this}
+                //                         else
+                //                             strong #{value}
 
 
 
 template(name='facet')
-    // .ui.header
-    //     if icon
-    //         i.icon
-    //             +iconsmall name=icon
-    //     |#{title}
-    .ui.hidden.divider
+    .ui.header
+        |#{key}
+    each selected_values
+        .ui.active.button.unselect
+            |#{this}
     each values
         +selector
 
 
 template(name='selector')
-    .ui.toggle_value.button(class=toggle_value_class)
-        |#{selector_value}
+    .ui.select.button(class=toggle_value_class)
+        |#{name}
         small #{count}
-
-
-template(name='edit_field_text')
-    .ui.labeled.fluid.input
-        .ui.basic.label(title=key) #{label}
-        input.text_val(type='text' value=field_value)
-
-template(name='edit_field_number')
-    .ui.labeled.fluid.input
-        .ui.basic.label(title=key) #{label}
-        input.number_val(type='number' value=field_value)
-
-
-
-
-template(name='when_template')
-    div(title="{{ long_format timestamp }}")
-        |#{when}
-
-template(name='search_key')
-    .ui.icon.input
-        i.search.icon
-        input.search_key(type='text')
