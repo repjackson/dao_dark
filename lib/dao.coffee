@@ -46,6 +46,8 @@ if Meteor.isClient
                 type:'array'
             }
         ]
+        
+        
     Template.facet.helpers
         selected_values: ->
             session = Docs.findOne type:'session'
@@ -54,11 +56,15 @@ if Meteor.isClient
             session = Docs.findOne type:'session'
             session["#{@key}_return"]?[..50]
     
+    
+    
     Template.facet.events
         'click .unselect': (e,t)->
             session = Docs.findOne type:'session'
             Docs.update session._id,
                 $pull: "filter_#{t.data.key}": @valueOf()
+    
+    
     
     Template.selector.events
         'click .select': ->
@@ -95,9 +101,38 @@ if Meteor.isClient
     
         key_value: ->
             local_doc = Docs.findOne Template.parentData(1)
-            # console.log 'field doc', field_doc
-            local_doc["#{@valueOf()}"]
-    
+            value = local_doc["#{@valueOf()}"]
+            # console.log 'type', typeof value
+            value
+            
+        key_type: ->
+            local_doc = Docs.findOne Template.parentData(1)
+            value = local_doc["#{@valueOf()}"]
+            type = typeof value
+            type
+            
+        is_html: ->
+            local_doc = Docs.findOne Template.parentData(1)
+            value = local_doc["#{@valueOf()}"]
+            type = typeof value
+            if type is 'string'
+                html_check = /<[a-z][\s\S]*>/i
+                html_result = html_check.test value
+                html_result
+                
+        is_timestamp: ->
+            local_doc = Docs.findOne Template.parentData(1)
+            value = local_doc["#{@valueOf()}"]
+            d = Date.parse(value);
+            nan = isNaN d
+            !nan
+            
+            
+        is_array: ->
+            local_doc = Docs.findOne Template.parentData(1)
+            value = local_doc["#{@valueOf()}"]
+            $.isArray value
+            
             
             
 if Meteor.isServer

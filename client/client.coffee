@@ -43,3 +43,5 @@ Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
 Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
+
+Template.registerHelper 'from_now', (input) -> moment(input).fromNow()

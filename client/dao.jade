@@ -42,11 +42,25 @@ template(name='doc_card')
                     .ui.label #{this}
             .content
                 |keys
-                .ui.list
-                each keys
-                    .item 
-                        |#{this}:
-                        strong #{key_value}
+                .ui.bulleted.list
+                    each keys
+                        .item
+                            .content
+                                .header
+                                    |#{this}:
+                                .description
+                                    div primative :#{key_type}
+                                    // div display html: #{display_type}
+                                    if is_html
+                                        |!{key_value}
+                                    else if is_timestamp
+                                        strong time
+                                        |{{ from_now key_value }}
+                                    else if is_array
+                                        each key_value
+                                            .ui.label #{this}
+                                    else
+                                        |#{key_value} 
                 // p
                 // .ui.list
                 //     each field_docs
