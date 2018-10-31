@@ -2,6 +2,32 @@ head
     title Dao
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name="theme-color", content="#ffffff")
+    link(rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu")
 
-body 
-    +dao
+template(name='layout')
+    +nav
+    +Template.dynamic template=main
+    
+    
+    
+template(name='nav')
+    .ui.attached.inverted.menu
+        a.item(href="/")
+            .bat D
+        .ui.input.item
+            input#in(type='text' placeholder='search')
+        a.icon.item.delete_session(title='clear session')
+            i.remove.icon
+        a.icon.item.show_session
+            i.code.icon
+        a.icon.item.reload
+            i.refresh.icon
+        a.icon.item(href="/schemas")
+            i.database.icon
+        a.icon.item(href="/add")
+            i.plus.icon
+        .item
+            +loginButtons
+
+
+

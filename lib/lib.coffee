@@ -34,11 +34,11 @@ Docs.before.insert (userId, doc)=>
 
     doc.author_id = Meteor.userId()
     doc.tag_count = doc.tags?.length
-    doc.points = 0
+    # doc.points = 0
     # doc.read_by = [Meteor.userId()]
     # doc.ownership = [{user_id: Meteor.userId(),percent: 100}]
-    doc.upvoters = []
-    doc.downvoters = []
+    # doc.upvoters = []
+    # doc.downvoters = []
     # doc.published = 0
     return
 

@@ -1,9 +1,18 @@
 if Meteor.isClient
-    Template.dao.onCreated ->
+    FlowRouter.route '/',
+        name:'root'
+        action: ->
+            BlazeLayout.render 'layout',
+                main: 'root'
+
+
+    Template.root.onCreated ->
         @autorun -> Meteor.subscribe 'session'
+
+
+
     
-    
-    Template.dao.events
+    Template.root.events
         'keyup #in': (e,t)->
             if e.which is 13
                 session = Docs.findOne type:'session'
@@ -33,7 +42,7 @@ if Meteor.isClient
             Meteor.call 'fi'
     
     
-    Template.dao.helpers
+    Template.root.helpers
         session_doc: -> Docs.findOne type:'session'
     
         faceted_fields: -> [
@@ -79,11 +88,11 @@ if Meteor.isClient
                     "filter_#{filter.key}": @name
             Meteor.call 'fi'
     
-    Template.doc_card.onCreated ->
+    Template.doc_view.onCreated ->
         @autorun => Meteor.subscribe 'single_doc', @data
 
-    Template.doc_card.events
-        'click .doc_card': ->
+    Template.doc_view.events
+        'click .doc_view': ->
             session = Docs.findOne type:'session'
             Docs.update session._id,
                 $set:
@@ -92,10 +101,10 @@ if Meteor.isClient
     
         
     
-    Template.doc_card.helpers
+    Template.doc_view.helpers
         local_doc: -> Docs.findOne @valueOf()
     
-        doc_card_class: ->
+        doc_view_class: ->
             session = Docs.findOne type:'session'
             if session.detail_id and session.detail_id is @_id then 'raised blue' else 'secondary'
     

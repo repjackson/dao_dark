@@ -28,7 +28,7 @@ accounts-base@1.4.3
 matb33:collection-hooks
 
 coffeescript@=2.3.1_2
-juliancwirko:postcss
+juliancwirko:postcss@=1.2.0
 less@2.8.0
 semantic:ui
 pacreach:jade
@@ -39,3 +39,5 @@ dburles:collection-helpers
 http@1.4.1
 underscore
 accounts-ui
+kadira:flow-router
+kadira:blaze-layout

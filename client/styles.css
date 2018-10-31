@@ -124,7 +124,7 @@ body {
 
 @font-face {
   font-family: bat;
-  src: url("/batmfo__.ttf");
+  src: url("/batmfa__.ttf");
 }
 
 
@@ -133,14 +133,6 @@ body {
   font-size: 200%;
 }
 
-
-.nav_bar {
-  /*border: 0px solid transparent; */
-  border: none !important;
-  /*background: #01336C; //dark blue*/
-  background: rgba(0, 20, 137) !important;
-  box-shadow: none
-}
 
 
 .scrolling::-webkit-scrollbar {

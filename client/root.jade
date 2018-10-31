@@ -1,17 +1,4 @@
-template(name='dao')
-    .ui.attached.inverted.menu
-        .item
-            .bat D
-        .ui.input.item
-            input#in(type='text' placeholder='search')
-        a.icon.item.delete_session(title='clear session')
-            i.remove.icon
-        a.icon.item.show_session
-            i.code.icon
-        a.icon.item.reload
-            i.refresh.icon
-        .item
-            +loginButtons
+template(name='root')
     .ui.stackable.padded.grid
         unless session_doc
             .row
@@ -23,44 +10,34 @@ template(name='dao')
         if session_doc
             .row
                 .four.wide.column.scrolling
-                    .ui.header query: #{session_doc.result}
+                    if session_doc.result
+                        .ui.header query: #{session_doc.result}
                     each faceted_fields
                         +facet
                 .twelve.wide.column.scrolling
                     each session_doc.result_ids
-                        +doc_card
+                        +doc_view
 
-template(name='doc_card')
+template(name='doc_view')
     with local_doc
         .ui.fluid.card.doc_card(class=doc_card_class)
             // if doc_header_fields
             // .content
             //     h3.ui.header #{title}
             .content
-                |tags
-                each tags
-                    .ui.label #{this}
-            .content
-                |keys
-                .ui.bulleted.list
+                .ui.list
                     each keys
                         .item
-                            .content
-                                .header
-                                    |#{this}:
-                                .description
-                                    div primative :#{key_type}
-                                    // div display html: #{display_type}
-                                    if is_html
-                                        |!{key_value}
-                                    else if is_timestamp
-                                        strong time
-                                        |{{ from_now key_value }}
-                                    else if is_array
-                                        each key_value
-                                            .ui.label #{this}
-                                    else
-                                        |#{key_value} 
+                            .ui.basic.label #{this}
+                            // div primative :#{key_type}
+                            // div display html: #{display_type}
+                            if is_html
+                                |!{key_value}
+                            else if is_array
+                                each key_value
+                                    .ui.label #{this}
+                            else
+                                |#{key_value} 
                 // p
                 // .ui.list
                 //     each field_docs
@@ -94,6 +71,6 @@ template(name='facet')
 
 
 template(name='selector')
-    .ui.select.button(class=toggle_value_class)
+    .ui.select.compact.button(class=toggle_value_class)
         |#{name}
         small #{count}
