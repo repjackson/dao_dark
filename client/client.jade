@@ -10,24 +10,5 @@ template(name='layout')
     
     
     
-template(name='nav')
-    .ui.attached.inverted.menu
-        a.item(href="/")
-            .bat D
-        .ui.input.item
-            input#in(type='text' placeholder='search')
-        a.icon.item.delete_session(title='clear session')
-            i.remove.icon
-        a.icon.item.show_session
-            i.code.icon
-        a.icon.item.reload
-            i.refresh.icon
-        a.icon.item(href="/schemas")
-            i.database.icon
-        a.icon.item(href="/add")
-            i.plus.icon
-        .item
-            +loginButtons
-
 
 

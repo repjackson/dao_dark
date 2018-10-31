@@ -1,0 +1,19 @@
+template(name='edit')
+    .ui.padded.stackable.grid
+        .sixteen.wide.column
+            .ui.header add
+            with doc
+                .ui.form
+                    .field  
+                        label Title
+                        input.title(type='text' placeholder='title' value=title)
+                    .field  
+                        label Content
+                        textarea.content(rows='3') #{content}
+                    .field  
+                        .ui.labeled.fluid.input
+                            .ui.label 
+                                |tags
+                            input#add_tag(type='text')
+                        each tags
+                            .ui.basic.label.remove_tag #{this}

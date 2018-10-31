@@ -1,3 +1,8 @@
+FlowRouter.notFound =
+    action: ->
+        FlowRouter.go '/'
+
+
 Template.registerHelper 'field_value', ->
     # console.log @
     current_doc = Template.parentData(3)
