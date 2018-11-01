@@ -7,40 +7,71 @@ template(name='tickets')
                     | Tickets
                 .ui.fluid.add_ticket.button
                     i.plus.icon
-                    |Add Ticket
+                    | Ticket
             .twelve.wide.column
                 each tickets
                     +ticket_card
                     
 template(name='ticket_card')                    
     .ui.fluid.card
-        .content
-            if editing
-                .ui.labeled.input
-                    .ui.label Title
-                    input.title(type='text' value=title)
-            else
+        unless editing
+            .content
                 .header
                     |#{title}
-        .content
-            if editing
+                .meta #{when} by #{author_username}
+        if editing
+            .content
                 .ui.form
                     .field
+                        label Title
+                        input.title(type='text' value=title)
+                    .field
+                        label Details
                         textarea.details(rows='3') #{details}
-            else
-                .description
-                    |#{details}
-        .content
-            if editing
+                    .field
+                        label Due Date
+                        input.due_date(type='date' value=due_date)
+                    .field
+                        label Assigned To
+                        input.add_assignment(type='text')
+                    .field 
+                        label Tags
+                        input.add_tag(type='text' placeholder='add')
+                        each tags
+                            .ui.basic.label
+                                i.remove.link.icon.pull_tag
+                                |#{this}
+                .ui.divider
                 .ui.icon.button.save
                     i.checkmark.green.icon
-            else
+                .ui.icon.button.delete
+                    i.red.remove.icon
+        unless editing
+            .content
+                .description
+                    |#{details}
+            .content
+                if due_date
+                    .item
+                        |Due #{due_date}
+                if tags
+                    div
+                    i.tags.icon
+                    each tags   
+                        .ui.basic.label #{this}
+            .content
                 .ui.icon.button.edit
                     i.pencil.icon
-            .ui.icon.button
-                i.comment.icon
-            .ui.icon.button
-                i.thumbs.up.icon
-            .ui.icon.button
-                i.thumbs.down.icon
+                .ui.icon.button
+                    i.comment.icon
+                .ui.icon.button
+                    i.thumbs.up.icon
+                .ui.icon.button
+                    i.thumbs.down.icon
+            .content
+                .ui.header
+                    i.comment.icon
+                    |Comments
+                .ui.input
+                    input(type='text')
             

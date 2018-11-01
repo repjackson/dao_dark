@@ -75,7 +75,7 @@ if Meteor.isClient
     
     
     
-    Template.selector.events
+    Template.facet_selector.events
         'click .select': ->
             # console.log @
             filter = Template.parentData()
@@ -217,32 +217,32 @@ if Meteor.isServer
             return true
     
     
-        agg: (query, type, key)->
-            options = {
-                explain:false
-                }
-            # console.log key
-            if type is 'array'
-                pipe =  [
-                    { $match: query }
-                    { $project: "#{key}": 1 }
-                    { $unwind: "$#{key}" }
-                    { $group: _id: "$#{key}", count: $sum: 1 }
-                    { $sort: count: -1, _id: 1 }
-                    { $limit: 20 }
-                    { $project: _id: 0, name: '$_id', count: 1 }
-                ]
-            else
-                pipe =  [
-                    { $match: query }
-                    { $project: "#{key}": 1 }
-                    { $group: _id: "$#{key}", count: $sum: 1 }
-                    { $sort: count: -1, _id: 1 }
-                    { $limit: 20 }
-                    { $project: _id: 0, name: '$_id', count: 1 }
-                ]
+        # agg: (query, type, key)->
+        #     options = {
+        #         explain:false
+        #         }
+        #     # console.log key
+        #     if type is 'array'
+        #         pipe =  [
+        #             { $match: query }
+        #             { $project: "#{key}": 1 }
+        #             { $unwind: "$#{key}" }
+        #             { $group: _id: "$#{key}", count: $sum: 1 }
+        #             { $sort: count: -1, _id: 1 }
+        #             { $limit: 20 }
+        #             { $project: _id: 0, name: '$_id', count: 1 }
+        #         ]
+        #     else
+        #         pipe =  [
+        #             { $match: query }
+        #             { $project: "#{key}": 1 }
+        #             { $group: _id: "$#{key}", count: $sum: 1 }
+        #             { $sort: count: -1, _id: 1 }
+        #             { $limit: 20 }
+        #             { $project: _id: 0, name: '$_id', count: 1 }
+        #         ]
     
-            agg = Docs.rawCollection().aggregate(pipe,options)
+        #     agg = Docs.rawCollection().aggregate(pipe,options)
     
-            if agg
-                agg.toArray()
+        #     if agg
+        #         agg.toArray()

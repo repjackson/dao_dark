@@ -47,6 +47,18 @@ Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
-Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
+Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
+Template.registerHelper 'is_dev', () -> 
+    user = Meteor.user()
+    if user
+        if Meteor.user().roles
+            if 'dev' in Meteor.user().roles
+                true
+            else
+                false
+        else
+            false
+    else
+        false
 
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()

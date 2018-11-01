@@ -294,6 +294,9 @@ Meteor.publish 'parent_doc', (child_id)->
 #         self.onStop ()-> subHandle.stop()
 
 
+Meteor.publish 'me', ->
+    Meteor.users.find @userId
+
 Meteor.publish 'type', (type, limit)->
     if limit
         limit_val = limit

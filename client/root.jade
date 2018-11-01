@@ -67,10 +67,10 @@ template(name='facet')
         .ui.active.button.unselect
             |#{this}
     each values
-        +selector
+        +facet_selector
 
 
-template(name='selector')
+template(name='facet_selector')
     .ui.select.compact.button(class=toggle_value_class)
         |#{name}
         small #{count}
