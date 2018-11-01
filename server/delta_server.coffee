@@ -60,9 +60,6 @@ Meteor.methods
                 Docs.update delta._id,
                     $set: "filter_#{facet_field.key}":[]
 
-        console.log 'built', built_query
-
-
         total = Docs.find(built_query).count()
 
 

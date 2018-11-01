@@ -333,8 +333,8 @@ Template.edit_array_field.helpers
 
 Template.boolean_edit.events
     'click .toggle_field': (e,t)->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
         bool_value = target_doc["#{@key}"]
         # console.log t.data
         # console.log @
@@ -348,8 +348,8 @@ Template.boolean_edit.events
 
 Template.string_edit.events
     'blur .string_val': (e,t)->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
 
         val = e.currentTarget.value
         Docs.update target_doc._id,
@@ -359,8 +359,8 @@ Template.string_edit.events
 Template.number_edit.events
     'blur .number_val': (e,t)->
         # console.log Template.parentData()
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
 
         val = parseInt e.currentTarget.value
         Docs.update target_doc._id,
@@ -370,8 +370,8 @@ Template.number_edit.events
 Template.date_edit.events
     'blur .date_val': (e,t)->
         # console.log Template.parentData()
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
 
         val = e.currentTarget.value
         Docs.update target_doc._id,
@@ -381,8 +381,8 @@ Template.date_edit.events
 Template.textarea_edit.events
     'blur .textarea_val': (e,t)->
         # console.log Template.parentData()
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
 
         val = e.currentTarget.value
         Docs.update target_doc._id,
@@ -392,8 +392,8 @@ Template.textarea_edit.events
 Template.array_edit.events
     'keyup .add_array_element': (e,t)->
         if e.which is 13
-            facet = Docs.findOne type:'facet'
-            target_doc = Docs.findOne _id:facet.detail_id
+            delta = Docs.findOne type:'delta'
+            target_doc = Docs.findOne _id:delta.detail_id
 
             val = e.currentTarget.value
             Docs.update target_doc._id,
@@ -402,8 +402,8 @@ Template.array_edit.events
             t.$('.add_array_element').val('')
 
     'click .pull_element': (e,t)->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
         field_doc = Template.currentData()
 
         Docs.update target_doc._id,
@@ -425,8 +425,8 @@ Template.field_edit.helpers
 
 Template.boolean_edit.helpers
     bool_switch_class: ->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
         bool_value = target_doc?["#{@key}"]
         if bool_value and bool_value is true
             'blue'
@@ -435,46 +435,45 @@ Template.boolean_edit.helpers
 
 Template.string_edit.helpers
     value: ->
-        facet = Docs.findOne type:'facet'
-        editing_doc = Docs.findOne _id:facet.detail_id
-        # console.log 'target doc', editing_doc
-        value = editing_doc?["#{@key}"]
+        delta = Docs.findOne type:'delta'
+        editing_doc = Docs.findOne _id:delta.detail_id
+        console.log 'target doc', editing_doc
+        value = editing_doc["#{@key}"]
 
 Template.date_edit.helpers
     value: ->
-        facet = Docs.findOne type:'facet'
-        editing_doc = Docs.findOne _id:facet.detail_id
-        # console.log 'target doc', editing_doc
-        value = editing_do?c["#{@key}"]
+        delta = Docs.findOne type:'delta'
+        editing_doc = Docs.findOne _id:delta.detail_id
+        console.log 'target doc', editing_doc
+        value = editing_doc["#{@key}"]
 
 Template.field_view.helpers
     value: ->
-        facet = Docs.findOne type:'facet'
-        editing_doc = Docs.findOne _id:facet.detail_id
-        # console.log 'target doc', editing_doc
-        value = editing_doc?["#{@key}"]
+        delta = Docs.findOne type:'delta'
+        editing_doc = Docs.findOne _id:delta.detail_id
+        value = editing_doc["#{@slug}"]
 
     is_array: -> @field_type is 'array'
 
 Template.number_edit.helpers
     value: ->
-        facet = Docs.findOne type:'facet'
-        editing_doc = Docs.findOne _id:facet.detail_id
-        # console.log 'target doc', editing_doc
-        value = editing_doc?["#{@key}"]
+        delta = Docs.findOne type:'delta'
+        editing_doc = Docs.findOne _id:delta.detail_id
+        console.log 'target doc', editing_doc
+        value = editing_doc["#{@key}"]
 
 Template.textarea_edit.helpers
     value: ->
-        facet = Docs.findOne type:'facet'
-        editing_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        editing_doc = Docs.findOne _id:delta.detail_id
         # console.log 'target doc', editing_doc
-        value = editing_doc?["#{@key}"]
+        value = editing_doc["#{@key}"]
 
 
 Template.array_edit.helpers
     value: ->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
         target_doc?["#{@key}"]
 
 Template.multiref_edit.onCreated ->
@@ -488,13 +487,13 @@ Template.multiref_edit.helpers
             type:@ref_schema
 
     value: ->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
         target_doc["#{@key}"]
 
     element_class: ->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
         parent = Template.parentData()
 
         value =
@@ -506,8 +505,8 @@ Template.multiref_edit.helpers
 
 Template.multiref_edit.events
     'click .toggle_element': (e,t)->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
         editing_field = Template.currentData().key
         value =
             if @key then @key
@@ -525,8 +524,8 @@ Template.multiref_edit.events
 
 Template.ref_edit.events
     'click .choose_element': (e,t)->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
         editing_field = Template.currentData().key
         value =
             if @key then @key
@@ -541,8 +540,8 @@ Template.ref_edit.helpers
         Docs.find
             type:@ref_schema
     element_class: ->
-        facet = Docs.findOne type:'facet'
-        target_doc = Docs.findOne _id:facet.detail_id
+        delta = Docs.findOne type:'delta'
+        target_doc = Docs.findOne _id:delta.detail_id
         parent = Template.parentData()
 
         value =

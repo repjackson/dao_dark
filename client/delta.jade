@@ -19,7 +19,6 @@ template(name='delta')
                     .ui.header
                         i.code.icon
                         | Delta
-
                 .ui.button.delete_delta(title='Clear Session')
                     i.remove.icon
                     |Clear
@@ -37,14 +36,14 @@ template(name='delta')
                             if is_dev
                                 .ui.icon.button.show_delta
                                     i.code.icon
-                                +toggle_delta_config key='config_mode' title='Schema Configuration' label='Configure' icon='administrative-tools'
-                            +toggle_delta_config key='view_full' title='View Full' icon='resize-diagonal' label='Expand'
+                                +toggle_delta_config key='config_mode' title='Schema Configuration' label='Configure' icon='cog'
+                            +toggle_delta_config key='view_full' title='View Full' icon='expand arrows alternate' label='Expand'
                             if delta_doc.config_mode
                                 .ui.header
-                                    +icon name='administrative-tools'
+                                    i.cog.icon
                                     | Edit Schema '#{current_type.title}'
                                 .ui.small.header
-                                    +icon name='rename'
+                                    i.list.icon
                                     |&nbsp;
                                     |Fields
                                 .ui.fluid.button.add_field
@@ -89,14 +88,12 @@ template(name='delta')
 
 template(name='toggle_delta_config')
     if boolean_true
-        .ui.button.disable_key(title=title)
-            i.icon
-                +icon name=icon
+        .ui.button.active.disable_key(title=title)
+            i.icon(class=icon)
             | #{label}
     else
         .ui.button.enable_key
-            i.icon
-                +icon name=icon
+            i.icon(class=icon)
             | #{label}
 
 
@@ -145,6 +142,9 @@ template(name='detail_pane')
                     .ui.icon.fluid.button.enable_editing
                         i.pencil.large.icon
                         // |Edit
+                        
+                        
+                        
 template(name='children_view')
     if axon_schema
         .ui.header #{axon_schema.title}
@@ -163,7 +163,6 @@ template(name='set_delta_key')
 
 
 template(name='type_filter')
-    // img.ui.avatar.spaced.image(src="{{c.url 'logo_small' width=50 height=50 gravity='face' crop='fill'}}")
     .ui.button.add_schema
         i.plus.icon
         | Schema

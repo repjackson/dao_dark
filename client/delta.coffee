@@ -374,21 +374,26 @@ Template.detail_pane.helpers
         if @axon_schema is delta.viewing_axon then 'active' else ''
 
     fields: ->
-        delta = Docs.findOne type:'delta'
-        detail_doc = Docs.findOne delta.detail_id
-        if detail_doc?.type is 'field'
-            Docs.find({
-                type:'field'
-                axon:$ne:true
-                schema_slugs: $in: ['field']
-            }, {sort:{rank:1}}).fetch()
-        else
-            current_type = delta.filter_type
-            Docs.find({
-                type:'field'
-                axon:$ne:true
-                schema_slugs: $in: [current_type]
-            }, {sort:{rank:1}}).fetch()
+        res = Docs.find(type:'field').fetch()
+        console.log res
+        if res
+            res
+        # delta = Docs.findOne type:'delta'
+        # detail_doc = Docs.findOne delta.detail_id
+        # if detail_doc
+        #     if detail_doc.type is 'field'
+        #         Docs.find({
+        #             type:'field'
+        #             # axon:$ne:true
+        #             schema_slugs: $in: ['field']
+        #         }, {sort:{rank:1}}).fetch()
+        #     else
+        #         current_type = delta.filter_type
+        #         Docs.find({
+        #             type:'field'
+        #             axon:$ne:true
+        #             schema_slugs: $in: [current_type]
+        #         }, {sort:{rank:1}}).fetch()
 
     axons: ->
         delta = Docs.findOne type:'delta'
