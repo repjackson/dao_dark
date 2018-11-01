@@ -1,15 +1,17 @@
 template(name='footer')
-    .ui.fluid.inverted.segment.footer
+    .ui.footer_area.fluid.inverted.segment.footer
         .ui.stackable.equal.height.centered.padded.grid
             .row
                 .four.wide.inverted.column
                     h1.bat DAO
                     .ui.list
-                        .sitemap_list.item Why DAO
-                        .sitemap_list.item About
+                        .item Why DAO
+                        .item Services
+                        .item Marketplace
+                        .item About
                     .ui.list
-                        .sitemap_list.item Contact Us
-                        .sitemap_list.item Legal/ Privacy Policy
+                        .item Contact Us
+                        .item Legal/ Privacy Policy
                 .four.wide.column
                     if is_eric
                         +role_switcher

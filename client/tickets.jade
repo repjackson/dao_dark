@@ -1,0 +1,46 @@
+template(name='tickets')
+    .ui.stackable.padded.grid
+        .row        
+            .four.wide.column
+                .ui.header 
+                    i.ticket.icon
+                    | Tickets
+                .ui.fluid.add_ticket.button
+                    i.plus.icon
+                    |Add Ticket
+            .twelve.wide.column
+                each tickets
+                    +ticket_card
+                    
+template(name='ticket_card')                    
+    .ui.fluid.card
+        .content
+            if editing
+                .ui.labeled.input
+                    .ui.label Title
+                    input.title(type='text' value=title)
+            else
+                .header
+                    |#{title}
+        .content
+            if editing
+                .ui.form
+                    .field
+                        textarea.details(rows='3') #{details}
+            else
+                .description
+                    |#{details}
+        .content
+            if editing
+                .ui.icon.button.save
+                    i.checkmark.green.icon
+            else
+                .ui.icon.button.edit
+                    i.pencil.icon
+            .ui.icon.button
+                i.comment.icon
+            .ui.icon.button
+                i.thumbs.up.icon
+            .ui.icon.button
+                i.thumbs.down.icon
+            

@@ -1,19 +1,39 @@
 template(name='nav')
     .ui.attached.inverted.menu
+        a.icon.item
+            i.bars.icon
         a.item(href="/")
             .bat DAO
         .ui.input.item
             input#in(type='text' placeholder='search')
-        a.icon.item.delete_session(title='clear session')
-            i.remove.icon
-        a.icon.item.show_session
-            i.code.icon
-        a.icon.item.reload
-            i.refresh.icon
-        a.icon.item(href="/schemas")
+        // a.icon.item.delete_session(title='clear session')
+        //     i.remove.icon
+        // a.icon.item.show_session
+        //     i.code.icon
+        // a.icon.item.reload
+        //     i.refresh.icon
+        a.item(href="/tickets")
+            i.ticket.icon
+            | Tickets
+        a.item(href="/schemas")
             i.database.icon
+            |Schemas
+        a.item(href="/marketplace")
+            i.cart.icon
+            |Marketplace
+        a.item(href="/services")
+            i.paint.brush.icon
+            |Services
         a.icon.item.add_doc
             i.plus.icon
+        .right.menu
+            if currentUser
+                a.item
+                    i.user.icon
+                    | #{currentUser.username}
+            else
+                a.icon.item
+                    i.sign.in.alternate.icon
         .item
             +loginButtons
 
