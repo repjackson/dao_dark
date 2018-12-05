@@ -4,12 +4,51 @@ head
     meta(name="theme-color", content="#ffffff")
     link(rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu")
 
-template(name='layout')
-    +nav
-    #main_area
-        +Template.dynamic template=main
-    +footer
-    
-    
+body
+    +home
 
 
+template(name='home')
+    .ui.stackable.padded.grid
+        .centered.row
+            .four.wide.center.aligned.column
+                // if delta
+                //     .ui.icon.button.delete_delta
+                //         i.remove.link.icon
+                //     .ui.icon.button.print_delta
+                //         i.code.link.icon
+                //     .ui.icon.button.recalc
+                //         i.refresh.link.icon
+                // else
+                //     .ui.icon.button.create_delta
+                //         i.plus.link.big.icon
+            .eight.wide.column
+                .ui.header DAO
+            .four.wide.column
+        .two.column.row
+            .column
+                each delta.facets
+                    +facet
+            .column
+                each delta.results
+                    +result
+
+
+template(name='result')
+    .ui.segment
+        .ui.list
+            each keys
+                .item 
+                    |#{this}
+                    strong #{value}
+
+
+template(name='facet')
+    .ui.header #{key}
+    // each filters
+    //     .unselect.ui.blue.button #{this}
+    
+    each res
+        .ui.toggle_selection.margined.compact.button(class=toggle_value_class)
+            strong #{name}
+            small #{count}

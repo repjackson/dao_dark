@@ -60,17 +60,3 @@ template(name='doc_view')
 
 
 
-template(name='facet')
-    .ui.header
-        |#{key}
-    each selected_values
-        .ui.active.button.unselect
-            |#{this}
-    each values
-        +facet_selector
-
-
-template(name='facet_selector')
-    .ui.select.compact.button(class=toggle_value_class)
-        |#{name}
-        small #{count}
