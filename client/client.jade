@@ -14,51 +14,52 @@ template(name='nav')
 
 template(name='home')
     .ui.stackable.padded.grid
+        .centered.row
+            .sixteen.wide.center.aligned.column
+                .topcoat-button
+                    // .bat DAO
+                    i.diamond.large.icon
+                // .ui.transparent.inverted.input.item
+                //     input#in(type='text' placeholder='search')
+                a.topcoat-button.delete_session(title='clear session')
+                    i.remove.large.icon
+                a.topcoat-button.show_session
+                    i.code.large.icon
+                if delta
+                    .topcoat-button.delete_delta
+                        i.remove.link.large.icon
+                    .topcoat-button.print_delta
+                        i.code.link.large.icon
+                    .topcoat-button.recalc
+                        i.refresh.link.large.icon
+                else
+                    .topcoat-button.create_delta
+                        i.plus.link.large.icon
+                .topcoat-button
+                    +loginButtons
+                if currentUser
+                    a.topcoat-button.add_doc
+                        i.plus.large.icon
+                    a.topcoat-button
+                        i.bell.large.icon
+                    a.topcoat-button
+                        i.envelope.large.icon
+                    a.topcoat-button
+                        i.user.large.icon
+                        | #{currentUser.username}
+                else
+                    a.large.icon.item
+                        i.sign.in.alternate.icon
         .row
-            .topcoat-button
-                // .bat DAO
-                i.diamond.icon
-            // .ui.transparent.inverted.input.item
-            //     input#in(type='text' placeholder='search')
-            a.topcoat-button.delete_session(title='clear session')
-                i.remove.icon
-            a.topcoat-button.show_session
-                i.code.icon
-            if delta
-                .topcoat-button.delete_delta
-                    i.remove.link.icon
-                .topcoat-button.print_delta
-                    i.code.link.icon
-                .topcoat-button.recalc
-                    i.refresh.link.icon
-            else
-                .topcoat-button.create_delta
-                    i.plus.link.icon
-            if currentUser
-                a.topcoat-button.add_doc
-                    i.plus.icon
-                a.topcoat-button
-                    i.bell.icon
-                a.topcoat-button
-                    i.envelope.icon
-                a.topcoat-button
-                    i.user.icon
-                    | #{currentUser.username}
-            else
-                a.icon.item
-                    i.sign.in.alternate.icon
-            .item
-                +loginButtons
-        .row
-            .five.wide.column
+            .four.wide.column
                 each delta.facets
                     div
                     +facet
-            .six.wide.column
+            .eight.wide.column
                 each delta.results
                     +result
-            .five.wide.column
-                .ui.header actions
+            .four.wide.column
+                +detail_pane
     // +footer
 
 
@@ -73,7 +74,7 @@ template(name='result')
 
 template(name='facet')
     // .ui.inverted.secondary.segment
-    h3.ui.inverted.header #{key}
+    .ui.inverted.inline.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
     

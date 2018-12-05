@@ -131,10 +131,10 @@
 /*  }*/
 /*}*/
 
-/*.inline {*/
-/*  display:inline;*/
-/*  margin-right: .5em !important;*/
-/*}*/
+.inline {
+  display:inline;
+  margin-right: .5em !important;
+}
 
 
 /*@font-face {*/

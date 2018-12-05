@@ -98,16 +98,16 @@ template(name='toggle_delta_config')
 
 
 template(name='detail_pane')
-    .ui.fluid.card
+    .ui.inverted.secondary.segment
         .content
             unless delta_doc.editing_mode
-                a.ui.center.aligned.header.close_details(href='#')
+                a.ui.center.aligned.inverted.header.close_details(href='#')
                     if detail_doc.icon
                         i.icon
                             +icon name=detail_doc.icon
-                    |#{detail_doc.title} Details
+                    |#{detail_doc.title} details
             if delta_doc.editing_mode
-                a.ui.center.aligned.header.close_details(href='#')
+                a.ui.center.aligned.inverted.header.close_details(href='#')
                     if detail_doc.icon
                         i.icon
                             +icon name=detail_doc.icon
