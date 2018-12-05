@@ -9,22 +9,19 @@ body
 
 
 template(name='home')
+    +nav
     .ui.stackable.padded.grid
         .centered.row
-            .four.wide.center.aligned.column
-                // if delta
-                //     .ui.icon.button.delete_delta
-                //         i.remove.link.icon
-                //     .ui.icon.button.print_delta
-                //         i.code.link.icon
-                //     .ui.icon.button.recalc
-                //         i.refresh.link.icon
-                // else
-                //     .ui.icon.button.create_delta
-                //         i.plus.link.big.icon
-            .eight.wide.column
-                .ui.header DAO
-            .four.wide.column
+            if delta
+                .ui.icon.button.delete_delta
+                    i.remove.link.icon
+                .ui.icon.button.print_delta
+                    i.code.link.icon
+                .ui.icon.button.recalc
+                    i.refresh.link.icon
+            else
+                .ui.icon.button.create_delta
+                    i.plus.link.big.icon
         .two.column.row
             .column
                 each delta.facets
@@ -32,6 +29,7 @@ template(name='home')
             .column
                 each delta.results
                     +result
+    +footer
 
 
 template(name='result')

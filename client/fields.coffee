@@ -1,7 +1,7 @@
 
 # # Template.edit_image_field.events
 # #     "change input[type='file']": (e) ->
-# #         doc_id = FlowRouter.getParam('doc_id')
+# #         doc_id = delta.doc_id
 # #         files = e.currentTarget.files
 
 
@@ -26,7 +26,7 @@
 
 # #     'keydown #input_image_id': (e,t)->
 # #         if e.which is 13
-# #             doc_id = FlowRouter.getParam('doc_id')
+# #             doc_id = delta.doc_id
 # #             image_id = $('#input_image_id').val().toLowerCase().trim()
 # #             if image_id.length > 0
 # #                 Docs.update doc_id,
@@ -50,7 +50,7 @@
 # #                 if not err
 # #                     # Do Stuff with res
 # #                     # console.log res
-# #                     Docs.update FlowRouter.getParam('doc_id'), 
+# #                     Docs.update delta.doc_id, 
 # #                         $unset: image_id: 1
 
 # #                 else
@@ -62,7 +62,7 @@
 # #     # 		        console.log "Upload Error: #{err}"
 # #     # 		    else
 # #     #     			console.log "Upload Result: #{res}"
-# #     #                 # Docs.update FlowRouter.getParam('doc_id'), 
+# #     #                 # Docs.update delta.doc_id, 
 # #     #                 #     $unset: image_id: 1
 
 # #     # Template.edit_image.helpers
@@ -80,7 +80,7 @@ Template.key_val.helpers
 # Template.edit_number_field.events
 #     'change #number_field': (e,t)->
 #         number_value = parseInt e.currentTarget.value
-#         Docs.update FlowRouter.getParam('doc_id'),
+#         Docs.update delta.doc_id,
 #             { $set: "#{@key}": number_value }
 #             , (err,res)=>
 #                 if err
@@ -90,7 +90,7 @@ Template.key_val.helpers
             
 # Template.edit_textarea.events
 #     'blur #textarea': (e,t)->
-#         doc_id = FlowRouter.getParam('doc_id')
+#         doc_id = delta.doc_id
 #         textarea_value = $('#textarea').val()
 #         Docs.update doc_id,
 #             { $set: "#{@key}": textarea_value }
@@ -104,7 +104,7 @@ Template.key_val.helpers
 # Template.edit_date_field.events
 #     'change #date_field': (e,t)->
 #         date_value = e.currentTarget.value
-#         Docs.update FlowRouter.getParam('doc_id'),
+#         Docs.update delta.doc_id,
 #             { $set: "#{@key}": date_value } 
 #             , (err,res)=>
 #                 if err
@@ -116,7 +116,7 @@ Template.key_val.helpers
 Template.edit_text_field.events
     'change #text_field': (e,t)->
         text_value = e.currentTarget.value
-        Docs.update FlowRouter.getParam('doc_id'),
+        Docs.update delta.doc_id,
             { $set: "#{@key}": text_value }
             , (err,res)=>
                 if err
@@ -179,7 +179,7 @@ Template.edit_text_field.events
         
 # Template.toggle_key.helpers
 #     toggle_key_button_class: -> 
-#         current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+#         current_doc = Docs.findOne delta.doc_id
 #         # console.log current_doc["#{@key}"]
 #         # console.log @key
 #         # console.log Template.parentData()
@@ -194,13 +194,13 @@ Template.edit_text_field.events
 #     'click #toggle_key': ->
 #         console.log Template.parentData()
 #         # if @value
-#         #     Docs.update FlowRouter.getParam('doc_id'), 
+#         #     Docs.update delta.doc_id, 
 #         #         $set: "#{@key}": "#{@value}"
 #         # else if Template.parentData()["#{@key}"] is true
-#         #     Docs.update FlowRouter.getParam('doc_id'), 
+#         #     Docs.update delta.doc_id, 
 #         #         $set: "#{@key}": false
 #         # else
-#         #     Docs.update FlowRouter.getParam('doc_id'), 
+#         #     Docs.update delta.doc_id, 
 #         #         $set: "#{@key}": true
 
 
@@ -209,7 +209,7 @@ Template.edit_html.events
     'blur .froala-container': (e,t)->
         html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
         
-        doc_id = FlowRouter.getParam('doc_id')
+        doc_id = delta.doc_id
 
         Docs.update doc_id,
             $set: 
@@ -228,7 +228,7 @@ Template.edit_html_field.events
 
 Template.edit_html_field.helpers
     getFEContext: ->
-        @current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+        @current_doc = Docs.findOne delta.doc_id
         self = @
         {
             _value: self.current_doc.incident_details
@@ -243,7 +243,7 @@ Template.edit_html_field.helpers
 
 Template.edit_html.helpers
     getFEContext: ->
-        @current_doc = Docs.findOne FlowRouter.getParam('doc_id')
+        @current_doc = Docs.findOne delta.doc_id
         self = @
         {
             _value: self.current_doc.html
@@ -259,11 +259,11 @@ Template.edit_html.helpers
 
 # Template.toggle_boolean.events
 #     'click #make_featured': ->
-#         Docs.update FlowRouter.getParam('doc_id'),
+#         Docs.update delta.doc_id,
 #             $set: featured: true
 
 #     'click #make_unfeatured': ->
-#         Docs.update FlowRouter.getParam('doc_id'),
+#         Docs.update delta.doc_id,
 #             $set: featured: false
 
 Template.edit_array_field.events
@@ -287,7 +287,7 @@ Template.edit_array_field.events
         switch e.which
             when 13 #enter
                 unless val.length is 0
-                    Docs.update FlowRouter.getParam('doc_id'),
+                    Docs.update delta.doc_id,
                         $addToSet: "#{@key}": val
                     # $('.new_entry').val ''
                     $(e.currentTarget).closest('.new_entry').val('')
@@ -308,7 +308,7 @@ Template.edit_array_field.events
         # console.log Template.parentData(3)
 
         tag = @valueOf()
-        Docs.update FlowRouter.getParam('doc_id'),
+        Docs.update delta.doc_id,
             $pull: "#{Template.parentData(0).key}": tag
         t.$('.new_entry').val(tag)
         

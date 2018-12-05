@@ -25,7 +25,6 @@ Template.footer.events
             type:'bug'
             complete:false
             link:window.location.pathname
-        FlowRouter.go("/edit/#{new_bug_id}")
             
 
 Template.role_switcher.events

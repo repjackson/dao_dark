@@ -1,10 +1,4 @@
 if Meteor.isClient
-    FlowRouter.route '/tickets',
-        name:'tickets'
-        action: ->
-            BlazeLayout.render 'layout',
-                main: 'tickets'
-    
     Template.tickets.onCreated ->
         @autorun -> Meteor.subscribe 'tickets'
     

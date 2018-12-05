@@ -1,10 +1,3 @@
-FlowRouter.route '/delta',
-    name:'delta'
-    action: ->
-        BlazeLayout.render 'layout',
-            main: 'delta'
-
-
 Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'delta'
     # @autorun => Meteor.subscribe 'type', 'filter'
