@@ -504,12 +504,6 @@ Template.filter.helpers
         delta = Docs.findOne type:'delta'
         if delta.query["#{@slug}"] is @value then 'active' else ''
 
-Template.selector.helpers
-    toggle_value_class: ->
-        delta = Docs.findOne type:'delta'
-        filter = Template.parentData()
-        filter_list = delta["filter_#{filter.key}"]
-        if filter_list and @name in filter_list then 'active' else ''
 
 Template.filter.events
     # 'click .set_delta_key': ->

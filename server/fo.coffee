@@ -95,7 +95,7 @@ Meteor.methods
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 # { $match: _id: $nin: filters }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 20 }
+                { $limit: 50 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
         else
@@ -105,7 +105,7 @@ Meteor.methods
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 # { $match: _id: $nin: filters }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 20 }
+                { $limit: 50 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
 

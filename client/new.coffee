@@ -19,12 +19,6 @@ Template.home.helpers
         facets.push 'keys'
         facets
     
-    toggle_value_class: ->
-        delta = Docs.findOne type:'delta'
-        filter = Template.parentData()
-        filter_list = delta["filter_#{filter.key}"]
-        if filter_list and @name in filter_list then 'blue active' else ''
-        
     
 Template.result.helpers
     value: ->
@@ -62,7 +56,7 @@ Template.facet.helpers
         delta = Docs.findOne type:'delta'
 
         if facet.filters and @name in facet.filters
-            'blue'
+            'grey'
         else
             ''
 
