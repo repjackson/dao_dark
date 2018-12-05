@@ -50,3 +50,23 @@ template(name='facet')
         .ui.toggle_selection.margined.compact.button(class=toggle_value_class)
             strong #{name}
             small #{count}
+            
+            
+            
+template(name='footer')
+    .ui.bottom.fixed.inverted.menu
+        .ui.center.aligned.inverted.grey.small.header
+            .item
+                i.copyright.outline.icon
+                | 2018 Data Analytics Organization
+
+
+
+template(name='role_switcher')
+    each role_docs
+        .change_role.ui.button(class=role_button_class)
+            if icon
+                i.icon
+                    +icon name=icon
+            |#{title}
+            

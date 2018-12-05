@@ -22,7 +22,7 @@ Meteor.methods
         
         diff = stop - start
         # console.log diff
-        console.log moment(diff).format("HH:mm:ss:SS")
+        console.log 'duration', moment(diff).format("HH:mm:ss:SS")
         
     fo: ->
         delta = Docs.findOne type:'delta'
