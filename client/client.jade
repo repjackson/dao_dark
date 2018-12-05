@@ -51,25 +51,40 @@ template(name='home')
                     a.large.icon.item
                         i.sign.in.alternate.icon
         .row
-            .four.wide.column
+            .eight.wide.column
                 each delta.facets
                     div
                     +facet
             .eight.wide.column
                 each delta.results
                     +result
-            .four.wide.column
-                +detail_pane
     // +footer
 
 
 template(name='result')
-    .ui.inverted.secondary.segment
-        .ui.list
+    .topcoat-list
+        if title
+            h3.topcoat-list__header #{title}
+        ul.topcoat-list__container
             each keys
-                .item 
+                li.topcoat-list__item
                     |#{this}
                     strong #{value}
+    div
+        .topcoat-button
+            i.thumbs.up.icon
+        .topcoat-button
+            i.thumbs.down.icon
+        .topcoat-button
+            i.chat.icon
+        .topcoat-button
+            i.thumbs.up.icon
+        .topcoat-button
+            i.thumbs.up.icon
+        .topcoat-button
+            i.thumbs.up.icon
+        .topcoat-button
+            i.thumbs.up.icon
 
 
 template(name='facet')

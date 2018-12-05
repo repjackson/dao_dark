@@ -137,6 +137,10 @@
 }
 
 
+/*.white {*/
+/*  color:white !important;*/
+/*}*/
+
 /*@font-face {*/
 /*  font-family: bat;*/
 /*  src: url("/batmfa__.ttf");*/
@@ -158,12 +162,6 @@
 /*    display: none;*/
 /*}*/
 
-
-/*::-webkit-scrollbar {*/
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
-/*}*/
-/* optional: show position indicator in red */
 /*::-webkit-scrollbar-thumb {*/
 /*    background: #FF0000;*/
 /*}*/
