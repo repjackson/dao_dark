@@ -3,65 +3,67 @@ head
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name="theme-color", content="#ffffff")
     link(rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu")
+    link(rel="stylesheet" type="text/css" href="css/topcoat-mobile-dark.min.css")
+
 
 body
     +home
 
 template(name='nav')
-    .ui.top.fixed.inverted.menu
-        a.item(href="/")
-            .bat DAO
-        // .ui.transparent.inverted.input.item
-        //     input#in(type='text' placeholder='search')
-        // a.icon.item.delete_session(title='clear session')
-        //     i.remove.icon
-        // a.icon.item.show_session
-        //     i.code.icon
-        // a.icon.item.reload
-        //     i.refresh.icon
-        if delta
-            .item.delete_delta
-                i.remove.link.icon
-            .item.print_delta
-                i.code.link.icon
-            .item.recalc
-                i.refresh.link.icon
-        else
-            .item.create_delta
-                i.plus.link.icon
-        if currentUser
-            a.icon.item.add_doc
-                i.plus.icon
-            a.icon.item
-                i.bell.icon
-            a.icon.item
-                i.envelope.icon
-            a.item
-                i.user.icon
-                | #{currentUser.username}
-        else
-            a.icon.item
-                i.sign.in.alternate.icon
-        .item
-            +loginButtons
 
 
 template(name='home')
-    +nav
-    #main.ui.stackable.padded.grid
-        .two.column.row
-            .column
+    .ui.stackable.padded.grid
+        .row
+            .topcoat-button
+                // .bat DAO
+                i.diamond.icon
+            // .ui.transparent.inverted.input.item
+            //     input#in(type='text' placeholder='search')
+            a.topcoat-button.delete_session(title='clear session')
+                i.remove.icon
+            a.topcoat-button.show_session
+                i.code.icon
+            if delta
+                .topcoat-button.delete_delta
+                    i.remove.link.icon
+                .topcoat-button.print_delta
+                    i.code.link.icon
+                .topcoat-button.recalc
+                    i.refresh.link.icon
+            else
+                .topcoat-button.create_delta
+                    i.plus.link.icon
+            if currentUser
+                a.topcoat-button.add_doc
+                    i.plus.icon
+                a.topcoat-button
+                    i.bell.icon
+                a.topcoat-button
+                    i.envelope.icon
+                a.topcoat-button
+                    i.user.icon
+                    | #{currentUser.username}
+            else
+                a.icon.item
+                    i.sign.in.alternate.icon
+            .item
+                +loginButtons
+        .row
+            .five.wide.column
                 each delta.facets
                     div
                     +facet
-            .column
+            .six.wide.column
                 each delta.results
                     +result
-    +footer
+            .five.wide.column
+                .ui.header actions
+    // +footer
 
 
 template(name='result')
-    .ui.segment
+    .ui.inverted.secondary.segment
         .ui.list
             each keys
                 .item 
@@ -70,14 +72,15 @@ template(name='result')
 
 
 template(name='facet')
-    h2.ui.inline.header #{key}
+    // .ui.inverted.secondary.segment
+    h3.ui.inverted.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
     
     each res
-        .ui.toggle_selection.margined.button(class=toggle_value_class)
+        .toggle_selection.margined(class=toggle_value_class)
             strong #{name}
-            small #{count}
+            // small #{count}
             
             
             
@@ -92,7 +95,7 @@ template(name='footer')
 
 template(name='role_switcher')
     each role_docs
-        .change_role.ui.button(class=role_button_class)
+        .change_role.topcoat-button(class=role_button_class)
             if icon
                 i.icon
                     +icon name=icon
