@@ -10,8 +10,11 @@ Meteor.users.allow
 
 
 
-Meteor.publish 'delta', ->
-    Docs.find({type:'delta'})
+
+Meteor.publish 'my_deltas', ->
+    Docs.find
+        type:'delta'
+        # author_id: Meteor.userId()
 
 Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id

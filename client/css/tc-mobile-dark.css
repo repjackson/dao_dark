@@ -94,7 +94,7 @@
 .tc-button--large--cta,
 .tc-button-bar__button,
 .tc-button-bar__button--large {
-  padding: 0 1.25rem;
+  padding: 0 1rem;
   font-size: 16px;
   line-height: 3rem;
   letter-spacing: 1px;
@@ -171,7 +171,7 @@
   font-size: 1.3rem;
   font-weight: 400;
   line-height: 4.375rem;
-  padding: 0 1.25rem;
+  padding: 0 1rem;
 }
 
 .tc-button--large--quiet {
@@ -205,7 +205,7 @@
   font-size: 1.3rem;
   font-weight: 400;
   line-height: 4.375rem;
-  padding: 0 1.25rem;
+  padding: 0 1rem;
 }
 
 .button-bar,
@@ -447,8 +447,8 @@
 .tc-button--large--quiet,
 .tc-button--cta,
 .tc-button--large--cta {
-  padding: 0 1.25rem;
-  font-size: 16px;
+  padding: 0 1rem;
+  font-size: 15px;
   line-height: 3rem;
   letter-spacing: 1px;
   color: #c6c8c8;
@@ -554,7 +554,7 @@
   font-size: 1.3rem;
   font-weight: 400;
   line-height: 4.375rem;
-  padding: 0 1.25rem;
+  padding: 0 1rem;
 }
 
 /* topdoc
@@ -2428,7 +2428,7 @@ input[type="search"]::-webkit-search-cancel-button {
 */
 
 .tc-tab-bar__button {
-  padding: 0 1.25rem;
+  padding: 0 1rem;
   height: 3rem;
   line-height: 3rem;
   letter-spacing: 1px;
@@ -2508,7 +2508,7 @@ input[type="search"]::-webkit-search-cancel-button {
   line-height: 3rem;
   font-size: 16px;
   letter-spacing: 1px;
-  padding: 0 1.25rem;
+  padding: 0 1rem;
   border: 1px solid #333434;
   border-radius: 6px;
   background-color: #454646;

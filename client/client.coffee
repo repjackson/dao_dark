@@ -19,7 +19,6 @@ Template.registerHelper 'is_user', () ->  Meteor.userId() is @_id
 
 Template.registerHelper 'long_date', () -> moment(@timestamp).format("dddd, MMMM Do, h:mm a")
 
-Template.registerHelper 'formatted_end_date', () -> moment(@end_datetime).format("dddd, MMMM Do, h:mm a")
 Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
@@ -34,8 +33,19 @@ Template.registerHelper 'detail_doc', (input) ->
         Docs.findOne delta.doc_id
 
 
+
+Template.registerHelper 'my_deltas', () -> 
+    Docs.find type:'delta'
+
+
+
+
+
+
+
+
 Template.home.onCreated ->
-    @autorun -> Meteor.subscribe 'delta'
+    @autorun -> Meteor.subscribe 'my_deltas'
     delta = Docs.findOne type:'delta'
     if delta
         @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
@@ -73,6 +83,7 @@ Template.result.events
         Docs.update delta._id,
             $set:
                 editing:true
+                doc_id: @_id
 
     
 Template.result.helpers
@@ -146,6 +157,12 @@ Template.edit.events
         Docs.update delta._id,
             $set:
                 editing:false
+    
+    'click .detect_fields': ->
+        delta = Docs.findOne type:'delta'
+        editing_doc = Docs.findOne delta.doc_id
+        Meteor.call 'detect_fields', editing_doc._id      
+    
     
     'click .add_field': ->
         delta = Docs.findOne type:'delta'
