@@ -52,10 +52,10 @@ template(name='home')
                     +facet
                     div
             .eight.wide.column
-                if delta.editing
-                    +edit
-                else
-                    each delta.results
+                with delta.result
+                    if delta.editing
+                        +edit
+                    else
                         +result
     // +footer
 
@@ -63,11 +63,40 @@ template(name='home')
 template(name='edit')
     with editing_doc
         .ui.inverted.header Edit #{_id}
+        .tc-button.add_field
+            i.plus.icon
+            | Field
+        each fields
+            +field
         .tc-button.save
             i.green.checkmark.icon
     
+    
+template(name='field')
+    .ui.inverted.segment
+        .ui.inverted.form
+            .field
+                .two.fields
+                    .field
+                        label Label
+                        input.label(type='text' value=label)
+                    .field
+                        label Value
+                        input.value(type='text' value=value)
+            .field
+                .two.fields
+                    .field
+                        label Key
+                        input.key(type='text' value=key)
+                    .field
+                        label Type
+                        input.type(type='text' value=type)
+
+    
 
 template(name='result')
+    .tc-button.edit
+        i.pencil.icon
     .tc-list
         if title
             h3.tc-list__header #{title}
@@ -87,9 +116,6 @@ template(name='result')
                             .ui.grey.label #{this}
                     else
                         |#{value} 
-
-                
-                
     div
         .tc-button
             i.thumbs.up.icon

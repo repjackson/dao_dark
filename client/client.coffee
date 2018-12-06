@@ -28,14 +28,26 @@ Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
 
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
-
+Template.registerHelper 'detail_doc', (input) -> 
+    delta = Docs.findOne type:'delta'
+    if delta
+        Docs.findOne delta.doc_id
 
 
 Template.home.onCreated ->
     @autorun -> Meteor.subscribe 'delta'
+    delta = Docs.findOne type:'delta'
+    if delta
+        @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
+
 Template.edit.onCreated ->
     delta = Docs.findOne type:'delta'
     @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
+
+Template.result.onCreated ->
+    delta = Docs.findOne type:'delta'
+    if delta
+        @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
 
 Template.home.helpers
     delta: -> 
@@ -55,6 +67,13 @@ Template.home.helpers
         facets.push 'keys'
         facets
     
+Template.result.events
+    'click .edit': ->
+        delta = Docs.findOne type:'delta'
+        Docs.update delta._id,
+            $set:
+                editing:true
+
     
 Template.result.helpers
     value: ->
@@ -128,12 +147,25 @@ Template.edit.events
             $set:
                 editing:false
     
+    'click .add_field': ->
+        delta = Docs.findOne type:'delta'
+        editing_doc = Docs.findOne delta.doc_id
+        
+        new_field = {
+            label:'New Field'
+            key:'new_field'
+            type:'string'
+            }    
+    
+        Docs.update delta.doc_id,
+            $addToSet:
+                fields: new_field
+    
         
 Template.edit.helpers
     editing_doc: ->
         delta = Docs.findOne type:'delta'
         doc = Docs.findOne delta.doc_id
-        console.log delta
         doc
     
 
@@ -178,3 +210,26 @@ Template.facet.events
             Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
         else 
             Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+                
+                
+                
+Template.field.events
+    'blur .label': (e,t)->
+        delta = Docs.findOne type:'delta'
+        doc = Docs.findOne delta.doc_id
+        # val = 
+        value = e.currentTarget.value
+        Meteor.call 'update_field', delta.doc_id, @, 'label', value 
+        
+    'blur .value': ->
+        console.log @
+        
+    'blur .key': ->
+        console.log @
+        
+    'blur .type': ->
+        console.log @
+        
+        
+        
+        

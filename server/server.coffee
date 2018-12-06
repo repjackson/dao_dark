@@ -1,10 +1,7 @@
 Docs.allow
-    insert: (userId, doc) -> true
-    update: (userId, doc) -> true
-    remove: (userId, doc) -> true
-    # insert: (userId, doc) -> doc.author_id is userId
-    # update: (userId, doc) -> doc.author_id is userId
-    # remove: (userId, doc) -> doc.author_id is userId
+    insert: (userId, doc) -> doc.author_id is userId
+    update: (userId, doc) -> userId
+    remove: (userId, doc) -> doc.author_id is userId
 
 Meteor.users.allow
     insert: (userId, doc) -> userId
@@ -88,12 +85,12 @@ Meteor.methods
         # for result in results_cursor.fetch()
         #     result_ids.push result._id
 
-        results = results_cursor.fetch()
+        result = results_cursor.fetch()[0]
 
         Docs.update {_id:delta._id},
             {$set:
                 total: total
-                results:results
+                result:result
             }, ->
         return true
 

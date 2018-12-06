@@ -91,7 +91,15 @@ Meteor.methods
         Meteor.call 'fo', (err,res)->
             
             
-            
+    update_field: (doc_id, field_object, key, value)->
+        console.log doc_id
+        console.log field_object
+        console.log key
+        console.log value
+        console.log doc_id
+        Docs.update {_id:doc_id, fields:field_object},
+            { $set: "fields.$.#{key}":value }
+
             
 
 Docs.helpers
@@ -196,21 +204,6 @@ Docs.helpers
     up_voted: -> @upvoters and Meteor.userId() in @upvoters
     down_voted: -> @downvoters and Meteor.userId() in @downvoters
 
-    can_access: ->
-        if @access is 'available' then true
-        else if @access is 'admin_only'
-            if Roles.userIsInRole(Meteor.userId(), 'admin') and Session.equals('admin_mode', true) then true else false
-        else if Session.equals 'admin_mode', true then true
-        else
-            previous_number = @number - 1
-            previous_doc = 
-                Docs.findOne
-                    parent_id: @parent_id
-                    number: previous_number
-            if previous_doc
-                if previous_doc.completed_by and Meteor.userId() in previous_doc.completed_by then true else false
-            else
-                true
     upvoted_users: ->
         if @upvoters
             upvoted_users = []
