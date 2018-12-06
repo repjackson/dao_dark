@@ -4,6 +4,8 @@ head
     meta(name="theme-color", content="#ffffff")
     link(rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu")
     link(rel="stylesheet" type="text/css" href="css/topcoat-mobile-dark.min.css")
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous")
+
 
 
 body
@@ -16,42 +18,43 @@ template(name='home')
     .ui.stackable.padded.grid
         .centered.row
             .sixteen.wide.center.aligned.column
-                .topcoat-button
-                    // .bat DAO
-                    i.diamond.large.icon
                 // .ui.transparent.inverted.input.item
                 //     input#in(type='text' placeholder='search')
                 a.topcoat-button.delete_session(title='clear session')
-                    i.remove.large.icon
-                a.topcoat-button.show_session
-                    i.code.large.icon
-                if delta
-                    .topcoat-button.delete_delta
-                        i.remove.link.large.icon
-                    .topcoat-button.print_delta
-                        i.code.link.large.icon
-                    .topcoat-button.recalc
-                        i.refresh.link.large.icon
-                else
+                    i.remove.icon
+                    | Session
+                unless delta
                     .topcoat-button.create_delta
-                        i.plus.link.large.icon
+                        i.sitemap.link.icon
+                        | Session
                 .topcoat-button
                     +loginButtons
+                .topcoat-icon-button--large
+                    i.fas.fa-yin-yang.fa-2x.middle_align
                 if currentUser
                     a.topcoat-button.add_doc
-                        i.plus.large.icon
+                        i.plus.icon
                     a.topcoat-button
-                        i.bell.large.icon
+                        i.bell.icon
+                    // a.topcoat-button
+                    //     i.envelope.icon
                     a.topcoat-button
-                        i.envelope.large.icon
-                    a.topcoat-button
-                        i.user.large.icon
+                        i.user.icon
                         | #{currentUser.username}
                 else
                     a.large.icon.item
                         i.sign.in.alternate.icon
         .row
-            .eight.wide.column
+            .eight.wide.right.aligned.column
+                if delta
+                    a.topcoat-button.show_session
+                        i.code.icon
+                    .topcoat-button.delete_delta
+                        i.remove.link.icon
+                    .topcoat-button.print_delta
+                        i.code.link.icon
+                    .topcoat-button.recalc
+                        i.refresh.link.icon
                 each delta.facets
                     div
                     +facet
