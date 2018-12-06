@@ -61,9 +61,10 @@ template(name='home')
 
 
 template(name='edit')
-    .ui.inverted.header edit
-    .tc-button.save
-        i.green.checkmark.icon
+    with editing_doc
+        .ui.inverted.header Edit #{_id}
+        .tc-button.save
+            i.green.checkmark.icon
     
 
 template(name='result')

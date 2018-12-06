@@ -1,15 +1,3 @@
-Meteor.methods 
-    add_doc: (tags) ->
-        result = Docs.insert
-            tags: tags
-            author_id: Meteor.userId()
-            timestamp: Date.now()
-            published: 1
-
-# Accounts.config
-#     forbidClientAccountCreation : true
-                
-
 Docs.allow
     insert: (userId, doc) -> true
     update: (userId, doc) -> true
@@ -27,6 +15,9 @@ Meteor.users.allow
 
 Meteor.publish 'delta', ->
     Docs.find({type:'delta'})
+
+Meteor.publish 'doc_id', (doc_id)->
+    Docs.find doc_id
 
 
 # facet macro to find documents

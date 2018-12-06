@@ -33,6 +33,9 @@ Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
 Template.home.onCreated ->
     @autorun -> Meteor.subscribe 'delta'
+Template.edit.onCreated ->
+    delta = Docs.findOne type:'delta'
+    @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
 
 Template.home.helpers
     delta: -> 
@@ -126,6 +129,12 @@ Template.edit.events
                 editing:false
     
         
+Template.edit.helpers
+    editing_doc: ->
+        delta = Docs.findOne type:'delta'
+        doc = Docs.findOne delta.doc_id
+        console.log delta
+        doc
     
 
 Template.home.events
