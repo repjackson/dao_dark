@@ -52,14 +52,14 @@
 }
 
 .button,
-.topcoat-button,
-.topcoat-button--quiet,
-.topcoat-button--large,
-.topcoat-button--large--quiet,
-.topcoat-button--cta,
-.topcoat-button--large--cta,
-.topcoat-button-bar__button,
-.topcoat-button-bar__button--large {
+.tc-button,
+.tc-button--quiet,
+.tc-button--large,
+.tc-button--large--quiet,
+.tc-button--cta,
+.tc-button--large--cta,
+.tc-button-bar__button,
+.tc-button-bar__button--large {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -90,27 +90,27 @@
 }
 
 .button--disabled,
-.topcoat-button:disabled,
-.topcoat-button--quiet:disabled,
-.topcoat-button--large:disabled,
-.topcoat-button--large--quiet:disabled,
-.topcoat-button--cta:disabled,
-.topcoat-button--large--cta:disabled,
-.topcoat-button-bar__button:disabled,
-.topcoat-button-bar__button--large:disabled {
+.tc-button:disabled,
+.tc-button--quiet:disabled,
+.tc-button--large:disabled,
+.tc-button--large--quiet:disabled,
+.tc-button--cta:disabled,
+.tc-button--large--cta:disabled,
+.tc-button-bar__button:disabled,
+.tc-button-bar__button--large:disabled {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
 }
 
-.topcoat-button,
-.topcoat-button--quiet,
-.topcoat-button--large,
-.topcoat-button--large--quiet,
-.topcoat-button--cta,
-.topcoat-button--large--cta,
-.topcoat-button-bar__button,
-.topcoat-button-bar__button--large {
+.tc-button,
+.tc-button--quiet,
+.tc-button--large,
+.tc-button--large--quiet,
+.tc-button--cta,
+.tc-button--large--cta,
+.tc-button-bar__button,
+.tc-button-bar__button--large {
   padding: 0 0.563rem;
   font-size: 12px;
   line-height: 1.313rem;
@@ -124,57 +124,57 @@
   border-radius: 4px;
 }
 
-.topcoat-button:hover,
-.topcoat-button--quiet:hover,
-.topcoat-button--large:hover,
-.topcoat-button--large--quiet:hover,
-.topcoat-button-bar__button:hover,
-.topcoat-button-bar__button--large:hover {
+.tc-button:hover,
+.tc-button--quiet:hover,
+.tc-button--large:hover,
+.tc-button--large--quiet:hover,
+.tc-button-bar__button:hover,
+.tc-button-bar__button--large:hover {
   background-color: #626465;
 }
 
-.topcoat-button:focus,
-.topcoat-button--quiet:focus,
-.topcoat-button--quiet:hover:focus,
-.topcoat-button--large:focus,
-.topcoat-button--large--quiet:focus,
-.topcoat-button--large--quiet:hover:focus,
-.topcoat-button--cta:focus,
-.topcoat-button--large--cta:focus,
-.topcoat-button-bar__button:focus,
-.topcoat-button-bar__button--large:focus {
+.tc-button:focus,
+.tc-button--quiet:focus,
+.tc-button--quiet:hover:focus,
+.tc-button--large:focus,
+.tc-button--large--quiet:focus,
+.tc-button--large--quiet:hover:focus,
+.tc-button--cta:focus,
+.tc-button--large--cta:focus,
+.tc-button-bar__button:focus,
+.tc-button-bar__button--large:focus {
   border: 1px solid #0036ff;
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
   outline: 0;
 }
 
-.topcoat-button:active,
-.topcoat-button--large:active,
-.topcoat-button-bar__button:active,
-.topcoat-button-bar__button--large:active,
-:checked + .topcoat-button-bar__button {
+.tc-button:active,
+.tc-button--large:active,
+.tc-button-bar__button:active,
+.tc-button-bar__button--large:active,
+:checked + .tc-button-bar__button {
   border: 1px solid #333434;
   background-color: #3f4041;
   box-shadow: inset 0 1px rgba(0,0,0,0.05);
 }
 
-.topcoat-button--quiet {
+.tc-button--quiet {
   background: transparent;
   border: 1px solid transparent;
   box-shadow: none;
 }
 
-.topcoat-button--quiet:hover,
-.topcoat-button--large--quiet:hover {
+.tc-button--quiet:hover,
+.tc-button--large--quiet:hover {
   text-shadow: 0 -1px rgba(0,0,0,0.69);
   border: 1px solid #333434;
   box-shadow: inset 0 1px #737373;
 }
 
-.topcoat-button--quiet:active,
-.topcoat-button--quiet:focus:active,
-.topcoat-button--large--quiet:active,
-.topcoat-button--large--quiet:focus:active {
+.tc-button--quiet:active,
+.tc-button--quiet:focus:active,
+.tc-button--large--quiet:active,
+.tc-button--large--quiet:focus:active {
   color: #c6c8c8;
   text-shadow: 0 -1px rgba(0,0,0,0.69);
   background-color: #3f4041;
@@ -182,23 +182,23 @@
   box-shadow: inset 0 1px rgba(0,0,0,0.05);
 }
 
-.topcoat-button--large,
-.topcoat-button--large--quiet,
-.topcoat-button-bar__button--large {
+.tc-button--large,
+.tc-button--large--quiet,
+.tc-button-bar__button--large {
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.688rem;
   padding: 0 0.875rem;
 }
 
-.topcoat-button--large--quiet {
+.tc-button--large--quiet {
   background: transparent;
   border: 1px solid transparent;
   box-shadow: none;
 }
 
-.topcoat-button--cta,
-.topcoat-button--large--cta {
+.tc-button--cta,
+.tc-button--large--cta {
   border: 1px solid #134f7f;
   background-color: #247FC8;
   box-shadow: inset 0 1px rgba(255,255,255,0.36);
@@ -207,18 +207,18 @@
   text-shadow: 0 -1px rgba(0,0,0,0.36);
 }
 
-.topcoat-button--cta:hover,
-.topcoat-button--large--cta:hover {
+.tc-button--cta:hover,
+.tc-button--large--cta:hover {
   background-color: #3C80B6;
 }
 
-.topcoat-button--cta:active,
-.topcoat-button--large--cta:active {
+.tc-button--cta:active,
+.tc-button--large--cta:active {
   background-color: #1e7dc8;
   box-shadow: inset 0 1px rgba(0,0,0,0.12);
 }
 
-.topcoat-button--large--cta {
+.tc-button--large--cta {
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.688rem;
@@ -226,7 +226,7 @@
 }
 
 .button-bar,
-.topcoat-button-bar {
+.tc-button-bar {
   display: table;
   table-layout: fixed;
   white-space: nowrap;
@@ -235,14 +235,14 @@
 }
 
 .button-bar__item,
-.topcoat-button-bar__item {
+.tc-button-bar__item {
   display: table-cell;
   width: auto;
   border-radius: 0;
 }
 
 .button-bar__item > input,
-.topcoat-button-bar__item > input {
+.tc-button-bar__item > input {
   position: absolute;
   overflow: hidden;
   padding: 0;
@@ -269,19 +269,19 @@
   modifiers:
     :disabled: Disabled state
   markup:
-    <div class="topcoat-button-bar">
-      <div class="topcoat-button-bar__item">
-        <button class="topcoat-button-bar__button">One</button>
+    <div class="tc-button-bar">
+      <div class="tc-button-bar__item">
+        <button class="tc-button-bar__button">One</button>
       </div>
-      <div class="topcoat-button-bar__item">
-        <button class="topcoat-button-bar__button">Two</button>
+      <div class="tc-button-bar__item">
+        <button class="tc-button-bar__button">Two</button>
       </div>
-      <div class="topcoat-button-bar__item">
-        <button class="topcoat-button-bar__button">Three</button>
+      <div class="tc-button-bar__item">
+        <button class="tc-button-bar__button">Three</button>
       </div>
     </div>
   examples:
-    mobile button bar: http://codepen.io/Topcoat/pen/kdKyg
+    mobile button bar: http://codepen.io/tc/pen/kdKyg
   tags:
     - desktop
     - light
@@ -292,32 +292,32 @@
     - bar
 */
 
-.topcoat-button-bar > .topcoat-button-bar__item:first-child {
+.tc-button-bar > .tc-button-bar__item:first-child {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 
-.topcoat-button-bar > .topcoat-button-bar__item:last-child {
+.tc-button-bar > .tc-button-bar__item:last-child {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
-.topcoat-button-bar__item:first-child > .topcoat-button-bar__button,
-.topcoat-button-bar__item:first-child > .topcoat-button-bar__button--large {
+.tc-button-bar__item:first-child > .tc-button-bar__button,
+.tc-button-bar__item:first-child > .tc-button-bar__button--large {
   border-right: none;
 }
 
-.topcoat-button-bar__item:last-child > .topcoat-button-bar__button,
-.topcoat-button-bar__item:last-child > .topcoat-button-bar__button--large {
+.tc-button-bar__item:last-child > .tc-button-bar__button,
+.tc-button-bar__item:last-child > .tc-button-bar__button--large {
   border-left: none;
 }
 
-.topcoat-button-bar__button {
+.tc-button-bar__button {
   border-radius: inherit;
 }
 
-.topcoat-button-bar__button:focus,
-.topcoat-button-bar__button--large:focus {
+.tc-button-bar__button:focus,
+.tc-button-bar__button--large:focus {
   z-index: 1;
 }
 
@@ -327,15 +327,15 @@
   modifiers:
     :disabled: Disabled state
   markup:
-    <div class="topcoat-button-bar">
-      <div class="topcoat-button-bar__item">
-        <button class="topcoat-button-bar__button--large">One</button>
+    <div class="tc-button-bar">
+      <div class="tc-button-bar__item">
+        <button class="tc-button-bar__button--large">One</button>
       </div>
-      <div class="topcoat-button-bar__item">
-        <button class="topcoat-button-bar__button--large">Two</button>
+      <div class="tc-button-bar__item">
+        <button class="tc-button-bar__button--large">Two</button>
       </div>
-      <div class="topcoat-button-bar__item">
-        <button class="topcoat-button-bar__button--large">Three</button>
+      <div class="tc-button-bar__item">
+        <button class="tc-button-bar__button--large">Three</button>
       </div>
     </div>
   tags:
@@ -349,7 +349,7 @@
     - large
 */
 
-.topcoat-button-bar__button--large {
+.tc-button-bar__button--large {
   border-radius: inherit;
 }
 
@@ -462,12 +462,12 @@
 */
 
 .button,
-.topcoat-button,
-.topcoat-button--quiet,
-.topcoat-button--large,
-.topcoat-button--large--quiet,
-.topcoat-button--cta,
-.topcoat-button--large--cta {
+.tc-button,
+.tc-button--quiet,
+.tc-button--large,
+.tc-button--large--quiet,
+.tc-button--cta,
+.tc-button--large--cta {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -498,12 +498,12 @@
 }
 
 .button--disabled,
-.topcoat-button:disabled,
-.topcoat-button--quiet:disabled,
-.topcoat-button--large:disabled,
-.topcoat-button--large--quiet:disabled,
-.topcoat-button--cta:disabled,
-.topcoat-button--large--cta:disabled {
+.tc-button:disabled,
+.tc-button--quiet:disabled,
+.tc-button--large:disabled,
+.tc-button--large--quiet:disabled,
+.tc-button--cta:disabled,
+.tc-button--large--cta:disabled {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -518,10 +518,10 @@
     :hover: Hover state
     :focus: Focused
   markup:
-    <button class="topcoat-button">Button</button>
-    <button class="topcoat-button" disabled>Button</button>
+    <button class="tc-button">Button</button>
+    <button class="tc-button" disabled>Button</button>
   examples:
-    mobile button: http://codepen.io/Topcoat/pen/DpKtf
+    mobile button: http://codepen.io/tc/pen/DpKtf
   tags:
     - desktop
     - light
@@ -529,12 +529,12 @@
     - button
 */
 
-.topcoat-button,
-.topcoat-button--quiet,
-.topcoat-button--large,
-.topcoat-button--large--quiet,
-.topcoat-button--cta,
-.topcoat-button--large--cta {
+.tc-button,
+.tc-button--quiet,
+.tc-button--large,
+.tc-button--large--quiet,
+.tc-button--cta,
+.tc-button--large--cta {
   padding: 0 0.563rem;
   font-size: 12px;
   line-height: 1.313rem;
@@ -548,28 +548,28 @@
   border-radius: 4px;
 }
 
-.topcoat-button:hover,
-.topcoat-button--quiet:hover,
-.topcoat-button--large:hover,
-.topcoat-button--large--quiet:hover {
+.tc-button:hover,
+.tc-button--quiet:hover,
+.tc-button--large:hover,
+.tc-button--large--quiet:hover {
   background-color: #626465;
 }
 
-.topcoat-button:focus,
-.topcoat-button--quiet:focus,
-.topcoat-button--quiet:hover:focus,
-.topcoat-button--large:focus,
-.topcoat-button--large--quiet:focus,
-.topcoat-button--large--quiet:hover:focus,
-.topcoat-button--cta:focus,
-.topcoat-button--large--cta:focus {
+.tc-button:focus,
+.tc-button--quiet:focus,
+.tc-button--quiet:hover:focus,
+.tc-button--large:focus,
+.tc-button--large--quiet:focus,
+.tc-button--large--quiet:hover:focus,
+.tc-button--cta:focus,
+.tc-button--large--cta:focus {
   border: 1px solid #0036ff;
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
   outline: 0;
 }
 
-.topcoat-button:active,
-.topcoat-button--large:active {
+.tc-button:active,
+.tc-button--large:active {
   border: 1px solid #333434;
   background-color: #3f4041;
   box-shadow: inset 0 1px rgba(0,0,0,0.05);
@@ -584,8 +584,8 @@
     :hover: Hover state
     :focus: Focused
   markup:
-    <button class="topcoat-button--quiet">Button</button>
-    <button class="topcoat-button--quiet" disabled>Button</button>
+    <button class="tc-button--quiet">Button</button>
+    <button class="tc-button--quiet" disabled>Button</button>
   tags:
     - desktop
     - light
@@ -594,23 +594,23 @@
     - quiet
 */
 
-.topcoat-button--quiet {
+.tc-button--quiet {
   background: transparent;
   border: 1px solid transparent;
   box-shadow: none;
 }
 
-.topcoat-button--quiet:hover,
-.topcoat-button--large--quiet:hover {
+.tc-button--quiet:hover,
+.tc-button--large--quiet:hover {
   text-shadow: 0 -1px rgba(0,0,0,0.69);
   border: 1px solid #333434;
   box-shadow: inset 0 1px #737373;
 }
 
-.topcoat-button--quiet:active,
-.topcoat-button--quiet:focus:active,
-.topcoat-button--large--quiet:active,
-.topcoat-button--large--quiet:focus:active {
+.tc-button--quiet:active,
+.tc-button--quiet:focus:active,
+.tc-button--large--quiet:active,
+.tc-button--large--quiet:focus:active {
   color: #c6c8c8;
   text-shadow: 0 -1px rgba(0,0,0,0.69);
   background-color: #3f4041;
@@ -627,8 +627,8 @@
     :hover: Hover state
     :focus: Focused
   markup:
-    <button class="topcoat-button--large" >Button</button>
-    <button class="topcoat-button--large" disabled>Button</button>
+    <button class="tc-button--large" >Button</button>
+    <button class="tc-button--large" disabled>Button</button>
   tags:
     - desktop
     - light
@@ -637,8 +637,8 @@
     - large
 */
 
-.topcoat-button--large,
-.topcoat-button--large--quiet {
+.tc-button--large,
+.tc-button--large--quiet {
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.688rem;
@@ -654,8 +654,8 @@
     :hover: Hover state
     :focus: Focused
   markup:
-    <button class="topcoat-button--large--quiet" >Button</button>
-    <button class="topcoat-button--large--quiet" disabled>Button</button>
+    <button class="tc-button--large--quiet" >Button</button>
+    <button class="tc-button--large--quiet" disabled>Button</button>
   tags:
     - desktop
     - light
@@ -665,7 +665,7 @@
     - quiet
 */
 
-.topcoat-button--large--quiet {
+.tc-button--large--quiet {
   background: transparent;
   border: 1px solid transparent;
   box-shadow: none;
@@ -680,8 +680,8 @@
     :hover: Hover state
     :focus: Focused
   markup:
-    <button class="topcoat-button--cta" >Button</button>
-    <button class="topcoat-button--cta" disabled>Button</button>
+    <button class="tc-button--cta" >Button</button>
+    <button class="tc-button--cta" disabled>Button</button>
   tags:
     - desktop
     - light
@@ -690,8 +690,8 @@
     - call to action
 */
 
-.topcoat-button--cta,
-.topcoat-button--large--cta {
+.tc-button--cta,
+.tc-button--large--cta {
   border: 1px solid #134f7f;
   background-color: #247FC8;
   box-shadow: inset 0 1px rgba(255,255,255,0.36);
@@ -700,13 +700,13 @@
   text-shadow: 0 -1px rgba(0,0,0,0.36);
 }
 
-.topcoat-button--cta:hover,
-.topcoat-button--large--cta:hover {
+.tc-button--cta:hover,
+.tc-button--large--cta:hover {
   background-color: #3C80B6;
 }
 
-.topcoat-button--cta:active,
-.topcoat-button--large--cta:active {
+.tc-button--cta:active,
+.tc-button--large--cta:active {
   background-color: #1e7dc8;
   box-shadow: inset 0 1px rgba(0,0,0,0.12);
 }
@@ -720,8 +720,8 @@
     :hover: Hover state
     :focus: Focused
   markup:
-    <button class="topcoat-button--large--cta" >Button</button>
-    <button class="topcoat-button--large--cta" disabled>Button</button>
+    <button class="tc-button--large--cta" >Button</button>
+    <button class="tc-button--large--cta" disabled>Button</button>
   tags:
     - desktop
     - light
@@ -731,7 +731,7 @@
     - call to action
 */
 
-.topcoat-button--large--cta {
+.tc-button--large--cta {
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.688rem;
@@ -876,7 +876,7 @@ input[type="checkbox"] {
 }
 
 .checkbox,
-.topcoat-checkbox__checkmark {
+.tc-checkbox__checkmark {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background-clip: padding-box;
@@ -891,7 +891,7 @@ input[type="checkbox"] {
 }
 
 .checkbox__label,
-.topcoat-checkbox {
+.tc-checkbox {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -903,7 +903,7 @@ input[type="checkbox"] {
 }
 
 .checkbox--disabled,
-input[type="checkbox"]:disabled + .topcoat-checkbox__checkmark {
+input[type="checkbox"]:disabled + .tc-checkbox__checkmark {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -911,14 +911,14 @@ input[type="checkbox"]:disabled + .topcoat-checkbox__checkmark {
 
 .checkbox:before,
 .checkbox:after,
-.topcoat-checkbox__checkmark:before,
-.topcoat-checkbox__checkmark:after {
+.tc-checkbox__checkmark:before,
+.tc-checkbox__checkmark:after {
   content: '';
   position: absolute;
 }
 
 .checkbox:before,
-.topcoat-checkbox__checkmark:before {
+.tc-checkbox__checkmark:before {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background-clip: padding-box;
@@ -926,25 +926,25 @@ input[type="checkbox"]:disabled + .topcoat-checkbox__checkmark {
 
 /* topdoc
   name: Checkbox
-  description: Default skin for Topcoat checkbox
+  description: Default skin for tc checkbox
   modifiers:
     :focus: Focus state
     :disabled: Disabled state
   markup:
-    <label class="topcoat-checkbox">
+    <label class="tc-checkbox">
       <input type="checkbox">
-      <div class="topcoat-checkbox__checkmark"></div>
+      <div class="tc-checkbox__checkmark"></div>
       Default
     </label>
     <br>
     <br>
-    <label class="topcoat-checkbox">
+    <label class="tc-checkbox">
       <input type="checkbox" disabled>
-      <div class="topcoat-checkbox__checkmark"></div>
+      <div class="tc-checkbox__checkmark"></div>
       Disabled
     </label>
   examples:
-    mobile checkbox: http://codepen.io/Topcoat/pen/piHcs
+    mobile checkbox: http://codepen.io/tc/pen/piHcs
   tags:
     - desktop
     - light
@@ -952,7 +952,7 @@ input[type="checkbox"]:disabled + .topcoat-checkbox__checkmark {
     - checkbox
 */
 
-.topcoat-checkbox__checkmark {
+.tc-checkbox__checkmark {
   height: 1rem;
 }
 
@@ -965,15 +965,15 @@ input[type="checkbox"] {
   margin-left: 0;
 }
 
-input[type="checkbox"]:checked + .topcoat-checkbox__checkmark:after {
+input[type="checkbox"]:checked + .tc-checkbox__checkmark:after {
   opacity: 1;
 }
 
-.topcoat-checkbox {
+.tc-checkbox {
   line-height: 1rem;
 }
 
-.topcoat-checkbox__checkmark:before {
+.tc-checkbox__checkmark:before {
   width: 1rem;
   height: 1rem;
   background: #595b5b;
@@ -982,12 +982,12 @@ input[type="checkbox"]:checked + .topcoat-checkbox__checkmark:after {
   box-shadow: inset 0 1px #737373;
 }
 
-.topcoat-checkbox__checkmark {
+.tc-checkbox__checkmark {
   width: 1rem;
   height: 1rem;
 }
 
-.topcoat-checkbox__checkmark:after {
+.tc-checkbox__checkmark:after {
   top: 2px;
   left: 1px;
   opacity: 0;
@@ -1004,18 +1004,18 @@ input[type="checkbox"]:checked + .topcoat-checkbox__checkmark:after {
   transform: rotate(-50deg);
 }
 
-input[type="checkbox"]:focus + .topcoat-checkbox__checkmark:before {
+input[type="checkbox"]:focus + .tc-checkbox__checkmark:before {
   border: 1px solid #0036ff;
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
 }
 
-input[type="checkbox"]:active + .topcoat-checkbox__checkmark:before {
+input[type="checkbox"]:active + .tc-checkbox__checkmark:before {
   border: 1px solid #333434;
   background-color: #3f4041;
   box-shadow: inset 0 1px rgba(0,0,0,0.05);
 }
 
-input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
+input[type="checkbox"]:disabled:active + .tc-checkbox__checkmark:before {
   border: 1px solid #333434;
   background: #595b5b;
   box-shadow: inset 0 1px #737373;
@@ -1058,10 +1058,10 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
 */
 
 .button,
-.topcoat-icon-button,
-.topcoat-icon-button--quiet,
-.topcoat-icon-button--large,
-.topcoat-icon-button--large--quiet {
+.tc-icon-button,
+.tc-icon-button--quiet,
+.tc-icon-button--large,
+.tc-icon-button--large--quiet {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -1092,10 +1092,10 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
 }
 
 .button--disabled,
-.topcoat-icon-button:disabled,
-.topcoat-icon-button--quiet:disabled,
-.topcoat-icon-button--large:disabled,
-.topcoat-icon-button--large--quiet:disabled {
+.tc-icon-button:disabled,
+.tc-icon-button--quiet:disabled,
+.tc-icon-button--large:disabled,
+.tc-icon-button--large--quiet:disabled {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -1110,11 +1110,11 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
     :hover: Hover state
     :focus: Focused
   markup:
-    <button class="topcoat-icon-button">
-      <span class="topcoat-icon" style="background-color:#A5A7A7;"></span>
+    <button class="tc-icon-button">
+      <span class="tc-icon" style="background-color:#A5A7A7;"></span>
     </button>
-    <button class="topcoat-icon-button" disabled>
-      <span class="topcoat-icon" style="background-color:#A5A7A7;"></span>
+    <button class="tc-icon-button" disabled>
+      <span class="tc-icon" style="background-color:#A5A7A7;"></span>
     </button>
   tags:
     - desktop
@@ -1124,10 +1124,10 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
     - icon
 */
 
-.topcoat-icon-button,
-.topcoat-icon-button--quiet,
-.topcoat-icon-button--large,
-.topcoat-icon-button--large--quiet {
+.tc-icon-button,
+.tc-icon-button--quiet,
+.tc-icon-button--large,
+.tc-icon-button--large--quiet {
   padding: 0 0.25rem;
   line-height: 1.313rem;
   letter-spacing: 0;
@@ -1145,26 +1145,26 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
   vertical-align: middle !important;
 }
 
-.topcoat-icon-button:hover,
-.topcoat-icon-button--quiet:hover,
-.topcoat-icon-button--large:hover,
-.topcoat-icon-button--large--quiet:hover {
+.tc-icon-button:hover,
+.tc-icon-button--quiet:hover,
+.tc-icon-button--large:hover,
+.tc-icon-button--large--quiet:hover {
   background-color: #626465;
 }
 
-.topcoat-icon-button:focus,
-.topcoat-icon-button--quiet:focus,
-.topcoat-icon-button--quiet:hover:focus,
-.topcoat-icon-button--large:focus,
-.topcoat-icon-button--large--quiet:focus,
-.topcoat-icon-button--large--quiet:hover:focus {
+.tc-icon-button:focus,
+.tc-icon-button--quiet:focus,
+.tc-icon-button--quiet:hover:focus,
+.tc-icon-button--large:focus,
+.tc-icon-button--large--quiet:focus,
+.tc-icon-button--large--quiet:hover:focus {
   border: 1px solid #0036ff;
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
   outline: 0;
 }
 
-.topcoat-icon-button:active,
-.topcoat-icon-button--large:active {
+.tc-icon-button:active,
+.tc-icon-button--large:active {
   border: 1px solid #333434;
   background-color: #3f4041;
   box-shadow: inset 0 1px rgba(0,0,0,0.05);
@@ -1179,11 +1179,11 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
     :hover: Hover state
     :focus: Focused
   markup:
-    <button class="topcoat-icon-button--quiet">
-      <span class="topcoat-icon" style="background-color:#A5A7A7;"></span>
+    <button class="tc-icon-button--quiet">
+      <span class="tc-icon" style="background-color:#A5A7A7;"></span>
     </button>
-    <button class="topcoat-icon-button--quiet" disabled>
-      <span class="topcoat-icon" style="background-color:#A5A7A7;"></span>
+    <button class="tc-icon-button--quiet" disabled>
+      <span class="tc-icon" style="background-color:#A5A7A7;"></span>
     </button>
   tags:
     - desktop
@@ -1194,23 +1194,23 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
     - quiet
 */
 
-.topcoat-icon-button--quiet {
+.tc-icon-button--quiet {
   background: transparent;
   border: 1px solid transparent;
   box-shadow: none;
 }
 
-.topcoat-icon-button--quiet:hover,
-.topcoat-icon-button--large--quiet:hover {
+.tc-icon-button--quiet:hover,
+.tc-icon-button--large--quiet:hover {
   text-shadow: 0 -1px rgba(0,0,0,0.69);
   border: 1px solid #333434;
   box-shadow: inset 0 1px #737373;
 }
 
-.topcoat-icon-button--quiet:active,
-.topcoat-icon-button--quiet:focus:active,
-.topcoat-icon-button--large--quiet:active,
-.topcoat-icon-button--large--quiet:focus:active {
+.tc-icon-button--quiet:active,
+.tc-icon-button--quiet:focus:active,
+.tc-icon-button--large--quiet:active,
+.tc-icon-button--large--quiet:focus:active {
   color: #c6c8c8;
   text-shadow: 0 -1px rgba(0,0,0,0.69);
   background-color: #3f4041;
@@ -1227,11 +1227,11 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
     :hover: Hover state
     :focus: Focused
   markup:
-    <button class="topcoat-icon-button--large">
-      <span class="topcoat-icon--large" style="background-color:#A5A7A7;"></span>
+    <button class="tc-icon-button--large">
+      <span class="tc-icon--large" style="background-color:#A5A7A7;"></span>
     </button>
-    <button class="topcoat-icon-button--large" disabled>
-      <span class="topcoat-icon--large" style="background-color:#A5A7A7;"></span>
+    <button class="tc-icon-button--large" disabled>
+      <span class="tc-icon--large" style="background-color:#A5A7A7;"></span>
     </button>
   tags:
     - desktop
@@ -1242,8 +1242,8 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
     - large
 */
 
-.topcoat-icon-button--large,
-.topcoat-icon-button--large--quiet {
+.tc-icon-button--large,
+.tc-icon-button--large--quiet {
   width: 1.688rem;
   height: 1.688rem;
   line-height: 1.688rem;
@@ -1257,11 +1257,11 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
     :disabled: Disabled state
     :hover: Hover state
   markup:
-    <button class="topcoat-icon-button--large--quiet">
-      <span class="topcoat-icon--large" style="background-color:#A5A7A7;"></span>
+    <button class="tc-icon-button--large--quiet">
+      <span class="tc-icon--large" style="background-color:#A5A7A7;"></span>
     </button>
-    <button class="topcoat-icon-button--large--quiet" disabled>
-      <span class="topcoat-icon--large" style="background-color:#A5A7A7;"></span>
+    <button class="tc-icon-button--large--quiet" disabled>
+      <span class="tc-icon--large" style="background-color:#A5A7A7;"></span>
     </button>
   tags:
     - desktop
@@ -1273,14 +1273,14 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
     - quiet
 */
 
-.topcoat-icon-button--large--quiet {
+.tc-icon-button--large--quiet {
   background: transparent;
   border: 1px solid transparent;
   box-shadow: none;
 }
 
-.topcoat-icon,
-.topcoat-icon--large {
+.tc-icon,
+.tc-icon--large {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -1291,7 +1291,7 @@ input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
   top: -1px;
 }
 
-.topcoat-icon--large {
+.tc-icon--large {
   width: 1.06344rem;
   height: 1.06344rem;
   top: -2px;
@@ -1594,7 +1594,7 @@ limitations under the License.
 */
 
 .notification,
-.topcoat-notification {
+.tc-notification {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -1622,7 +1622,7 @@ limitations under the License.
   name: Notification
   description: Notification badge
   markup:
-    <span class="topcoat-notification">1</span>
+    <span class="tc-notification">1</span>
   tags:
     - desktop
     - light
@@ -1630,7 +1630,7 @@ limitations under the License.
     - notification
 */
 
-.topcoat-notification {
+.tc-notification {
   padding: 0.15em 0.5em 0.2em;
   border-radius: 2px;
   background-color: #ec514e;
@@ -1784,7 +1784,7 @@ input[type="radio"] {
 }
 
 .radio-button,
-.topcoat-radio-button__checkmark {
+.tc-radio-button__checkmark {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background-clip: padding-box;
@@ -1799,7 +1799,7 @@ input[type="radio"] {
 }
 
 .radio-button__label,
-.topcoat-radio-button {
+.tc-radio-button {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -1812,15 +1812,15 @@ input[type="radio"] {
 
 .radio-button:before,
 .radio-button:after,
-.topcoat-radio-button__checkmark:before,
-.topcoat-radio-button__checkmark:after {
+.tc-radio-button__checkmark:before,
+.tc-radio-button__checkmark:after {
   content: '';
   position: absolute;
   border-radius: 100%;
 }
 
 .radio-button:after,
-.topcoat-radio-button__checkmark:after {
+.tc-radio-button__checkmark:after {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
@@ -1829,14 +1829,14 @@ input[type="radio"] {
 }
 
 .radio-button:before,
-.topcoat-radio-button__checkmark:before {
+.tc-radio-button__checkmark:before {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background-clip: padding-box;
 }
 
 .radio-button--disabled,
-input[type="radio"]:disabled + .topcoat-radio-button__checkmark {
+input[type="radio"]:disabled + .tc-radio-button__checkmark {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -1848,36 +1848,36 @@ input[type="radio"]:disabled + .topcoat-radio-button__checkmark {
   modifiers:
   markup:
     <!-- NO LABEL -->
-    <label class="topcoat-radio-button">
-      <input type="radio" name="topcoat">
-      <div class="topcoat-radio-button__checkmark"></div>
+    <label class="tc-radio-button">
+      <input type="radio" name="tc">
+      <div class="tc-radio-button__checkmark"></div>
     </label>
     <br>
     <br>
     <!-- LEFT LABEL -->
-    <label class="topcoat-radio-button">
+    <label class="tc-radio-button">
       Left label
-      <input type="radio" name="topcoat">
-      <div class="topcoat-radio-button__checkmark"></div>
+      <input type="radio" name="tc">
+      <div class="tc-radio-button__checkmark"></div>
     </label>
     <br>
     <br>
     <!-- RIGHT LABEL -->
-    <label class="topcoat-radio-button">
-      <input type="radio" name="topcoat">
-      <div class="topcoat-radio-button__checkmark"></div>
+    <label class="tc-radio-button">
+      <input type="radio" name="tc">
+      <div class="tc-radio-button__checkmark"></div>
       Right label
     </label>
     <br>
     <br>
     <!-- DISABLED -->
-    <label class="topcoat-radio-button">
-      <input type="radio" name="topcoat" Disabled>
-      <div class="topcoat-radio-button__checkmark"></div>
+    <label class="tc-radio-button">
+      <input type="radio" name="tc" Disabled>
+      <div class="tc-radio-button__checkmark"></div>
       Disabled
     </label>
   examples:
-    Mobile Radio Button: http://codepen.io/Topcoat/pen/HDcJj
+    Mobile Radio Button: http://codepen.io/tc/pen/HDcJj
   tags:
     - desktop
     - light
@@ -1894,16 +1894,16 @@ input[type="radio"] {
   margin-left: 0;
 }
 
-input[type="radio"]:checked + .topcoat-radio-button__checkmark:after {
+input[type="radio"]:checked + .tc-radio-button__checkmark:after {
   opacity: 1;
 }
 
-.topcoat-radio-button {
+.tc-radio-button {
   color: #c6c8c8;
   line-height: 1.063rem;
 }
 
-.topcoat-radio-button__checkmark:before {
+.tc-radio-button__checkmark:before {
   width: 1.063rem;
   height: 1.063rem;
   background: #595b5b;
@@ -1911,13 +1911,13 @@ input[type="radio"]:checked + .topcoat-radio-button__checkmark:after {
   box-shadow: inset 0 1px #737373;
 }
 
-.topcoat-radio-button__checkmark {
+.tc-radio-button__checkmark {
   position: relative;
   width: 1.063rem;
   height: 1.063rem;
 }
 
-.topcoat-radio-button__checkmark:after {
+.tc-radio-button__checkmark:after {
   opacity: 0;
   width: 0.313rem;
   height: 0.313rem;
@@ -1931,18 +1931,18 @@ input[type="radio"]:checked + .topcoat-radio-button__checkmark:after {
   left: 0.313rem;
 }
 
-input[type="radio"]:focus + .topcoat-radio-button__checkmark:before {
+input[type="radio"]:focus + .tc-radio-button__checkmark:before {
   border: 1px solid #0036ff;
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
 }
 
-input[type="radio"]:active + .topcoat-radio-button__checkmark:before {
+input[type="radio"]:active + .tc-radio-button__checkmark:before {
   border: 1px solid #333434;
   background-color: #3f4041;
   box-shadow: inset 0 1px rgba(0,0,0,0.05);
 }
 
-input[type="radio"]:disabled:active + .topcoat-radio-button__checkmark:before {
+input[type="radio"]:disabled:active + .tc-radio-button__checkmark:before {
   border: 1px solid #333434;
   background: #595b5b;
   box-shadow: inset 0 1px #737373;
@@ -2039,7 +2039,7 @@ limitations under the License.
 */
 
 .range,
-.topcoat-range {
+.tc-range {
   padding: 0;
   margin: 0;
   font: inherit;
@@ -2055,18 +2055,18 @@ limitations under the License.
 }
 
 .range__thumb,
-.topcoat-range::-moz-range-thumb {
+.tc-range::-moz-range-thumb {
   cursor: pointer;
 }
 
 .range__thumb--webkit,
-.topcoat-range::-webkit-slider-thumb {
+.tc-range::-webkit-slider-thumb {
   cursor: pointer;
   -webkit-appearance: none;
 }
 
 .range:disabled,
-.topcoat-range:disabled {
+.tc-range:disabled {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -2081,17 +2081,17 @@ limitations under the License.
     :hover: Hover state
     :focus: Focused
   markup:
-    <input type="range" class="topcoat-range">
-    <input type="range" class="topcoat-range" disabled>
+    <input type="range" class="tc-range">
+    <input type="range" class="tc-range" disabled>
   examples:
-    mobile range: http://codepen.io/Topcoat/pen/BskEn
+    mobile range: http://codepen.io/tc/pen/BskEn
   tags:
     - desktop
     - mobile
     - range
 */
 
-.topcoat-range {
+.tc-range {
   border-radius: 4px;
   border: 1px solid #333434;
   background-color: #454646;
@@ -2099,7 +2099,7 @@ limitations under the License.
   border-radius: 15px;
 }
 
-.topcoat-range::-moz-range-track {
+.tc-range::-moz-range-track {
   border-radius: 4px;
   border: 1px solid #333434;
   background-color: #454646;
@@ -2107,7 +2107,7 @@ limitations under the License.
   border-radius: 15px;
 }
 
-.topcoat-range::-webkit-slider-thumb {
+.tc-range::-webkit-slider-thumb {
   height: 1.313rem;
   width: 0.75rem;
   background-color: #595b5b;
@@ -2116,7 +2116,7 @@ limitations under the License.
   box-shadow: inset 0 1px #737373;
 }
 
-.topcoat-range::-moz-range-thumb {
+.tc-range::-moz-range-thumb {
   height: 1.313rem;
   width: 0.75rem;
   background-color: #595b5b;
@@ -2125,22 +2125,22 @@ limitations under the License.
   box-shadow: inset 0 1px #737373;
 }
 
-.topcoat-range:focus::-webkit-slider-thumb {
+.tc-range:focus::-webkit-slider-thumb {
   border: 1px solid #0036ff;
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
 }
 
-.topcoat-range:focus::-moz-range-thumb {
+.tc-range:focus::-moz-range-thumb {
   border: 1px solid #0036ff;
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
 }
 
-.topcoat-range:active::-webkit-slider-thumb {
+.tc-range:active::-webkit-slider-thumb {
   border: 1px solid #333434;
   box-shadow: inset 0 1px #737373;
 }
 
-.topcoat-range:active::-moz-range-thumb {
+.tc-range:active::-moz-range-thumb {
   border: 1px solid #333434;
   box-shadow: inset 0 1px #737373;
 }
@@ -2243,8 +2243,8 @@ input[type="search"]::-webkit-search-cancel-button {
 */
 
 .search-input,
-.topcoat-search-input,
-.topcoat-search-input--large {
+.tc-search-input,
+.tc-search-input--large {
   padding: 0;
   margin: 0;
   font: inherit;
@@ -2264,8 +2264,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .search-input:disabled,
-.topcoat-search-input:disabled,
-.topcoat-search-input--large:disabled {
+.tc-search-input:disabled,
+.tc-search-input--large:disabled {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -2277,8 +2277,8 @@ input[type="search"]::-webkit-search-cancel-button {
   modifiers:
     :disabled: Disabled state
   markup:
-    <input type="search" value="" placeholder="search" class="topcoat-search-input">
-    <input type="search" value="" placeholder="search" class="topcoat-search-input" disabled>
+    <input type="search" value="" placeholder="search" class="tc-search-input">
+    <input type="search" value="" placeholder="search" class="tc-search-input" disabled>
   tags:
     - desktop
     - light
@@ -2289,8 +2289,8 @@ input[type="search"]::-webkit-search-cancel-button {
     - form
 */
 
-.topcoat-search-input,
-.topcoat-search-input--large {
+.tc-search-input,
+.tc-search-input--large {
   line-height: 1.313rem;
   height: 1.313rem;
   font-size: 12px;
@@ -2306,35 +2306,35 @@ input[type="search"]::-webkit-search-cancel-button {
   background-size: 12px;
 }
 
-.topcoat-search-input:focus,
-.topcoat-search-input--large:focus {
+.tc-search-input:focus,
+.tc-search-input--large:focus {
   background-color: #595b5b;
   color: #fff;
   border: 1px solid #0036ff;
   box-shadow: inset 0 1px 0 rgba(0,0,0,0.23), 0 0 0 2px #6fb5f1;
 }
 
-.topcoat-search-input::-webkit-search-cancel-button,
-.topcoat-search-input::-webkit-search-decoration,
-.topcoat-search-input--large::-webkit-search-cancel-button,
-.topcoat-search-input--large::-webkit-search-decoration {
+.tc-search-input::-webkit-search-cancel-button,
+.tc-search-input::-webkit-search-decoration,
+.tc-search-input--large::-webkit-search-cancel-button,
+.tc-search-input--large::-webkit-search-decoration {
   margin-right: 5px;
 }
 
-.topcoat-search-input:focus::-webkit-input-placeholder,
-.topcoat-search-input:focus::-webkit-input-placeholder {
+.tc-search-input:focus::-webkit-input-placeholder,
+.tc-search-input:focus::-webkit-input-placeholder {
   color: #c6c8c8;
 }
 
-.topcoat-search-input:disabled::-webkit-input-placeholder {
+.tc-search-input:disabled::-webkit-input-placeholder {
   color: #fff;
 }
 
-.topcoat-search-input:disabled::-moz-placeholder {
+.tc-search-input:disabled::-moz-placeholder {
   color: #fff;
 }
 
-.topcoat-search-input:disabled:-ms-input-placeholder {
+.tc-search-input:disabled:-ms-input-placeholder {
   color: #fff;
 }
 
@@ -2344,8 +2344,8 @@ input[type="search"]::-webkit-search-cancel-button {
   modifiers:
     :disabled: Disabled state
   markup:
-    <input type="search" value="" placeholder="search" class="topcoat-search-input--large">
-    <input type="search" value="" placeholder="search" class="topcoat-search-input--large" disabled>
+    <input type="search" value="" placeholder="search" class="tc-search-input--large">
+    <input type="search" value="" placeholder="search" class="tc-search-input--large" disabled>
   tags:
     - desktop
     - light
@@ -2357,7 +2357,7 @@ input[type="search"]::-webkit-search-cancel-button {
     - large
 */
 
-.topcoat-search-input--large {
+.tc-search-input--large {
   line-height: 1.688rem;
   height: 1.688rem;
   font-size: 0.875rem;
@@ -2368,19 +2368,19 @@ input[type="search"]::-webkit-search-cancel-button {
   background-size: 0.875rem;
 }
 
-.topcoat-search-input--large:disabled {
+.tc-search-input--large:disabled {
   color: #fff;
 }
 
-.topcoat-search-input--large:disabled::-webkit-input-placeholder {
+.tc-search-input--large:disabled::-webkit-input-placeholder {
   color: #fff;
 }
 
-.topcoat-search-input--large:disabled::-moz-placeholder {
+.tc-search-input--large:disabled::-moz-placeholder {
   color: #fff;
 }
 
-.topcoat-search-input--large:disabled:-ms-input-placeholder {
+.tc-search-input--large:disabled:-ms-input-placeholder {
   color: #fff;
 }
 
@@ -2513,7 +2513,7 @@ input[type="search"]::-webkit-search-cancel-button {
 */
 
 .switch,
-.topcoat-switch {
+.tc-switch {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -2523,7 +2523,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .switch__input,
-.topcoat-switch__input {
+.tc-switch__input {
   position: absolute;
   overflow: hidden;
   padding: 0;
@@ -2535,7 +2535,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .switch__toggle,
-.topcoat-switch__toggle {
+.tc-switch__toggle {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -2557,8 +2557,8 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .switch__toggle:before,
 .switch__toggle:after,
-.topcoat-switch__toggle:before,
-.topcoat-switch__toggle:after {
+.tc-switch__toggle:before,
+.tc-switch__toggle:after {
   content: '';
   position: absolute;
   z-index: -1;
@@ -2568,7 +2568,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .switch--disabled,
-.topcoat-switch__input:disabled + .topcoat-switch__toggle {
+.tc-switch__input:disabled + .tc-switch__toggle {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -2576,29 +2576,29 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* topdoc
   name: Switch
-  description: Default skin for Topcoat switch
+  description: Default skin for tc switch
   modifiers:
     :focus: Focus state
     :disabled: Disabled state
   markup:
-    <label class="topcoat-switch">
-      <input type="checkbox" class="topcoat-switch__input">
-      <div class="topcoat-switch__toggle"></div>
+    <label class="tc-switch">
+      <input type="checkbox" class="tc-switch__input">
+      <div class="tc-switch__toggle"></div>
     </label>
     <br>
     <br>
-    <label class="topcoat-switch">
-      <input type="checkbox" class="topcoat-switch__input" checked>
-      <div class="topcoat-switch__toggle"></div>
+    <label class="tc-switch">
+      <input type="checkbox" class="tc-switch__input" checked>
+      <div class="tc-switch__toggle"></div>
     </label>
     <br>
     <br>
-    <label class="topcoat-switch">
-      <input type="checkbox" class="topcoat-switch__input" disabled>
-      <div class="topcoat-switch__toggle"></div>
+    <label class="tc-switch">
+      <input type="checkbox" class="tc-switch__input" disabled>
+      <div class="tc-switch__toggle"></div>
     </label>
   examples:
-    mobile switch: http://codepen.io/Topcoat/pen/upxds
+    mobile switch: http://codepen.io/tc/pen/upxds
   tags:
     - desktop
     - light
@@ -2606,7 +2606,7 @@ input[type="search"]::-webkit-search-cancel-button {
     - switch
 */
 
-.topcoat-switch {
+.tc-switch {
   font-size: 12px;
   padding: 0 0.563rem;
   border-radius: 4px;
@@ -2615,13 +2615,13 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 3.5rem;
 }
 
-.topcoat-switch__toggle:before,
-.topcoat-switch__toggle:after {
+.tc-switch__toggle:before,
+.tc-switch__toggle:after {
   top: -1px;
   width: 2.6rem;
 }
 
-.topcoat-switch__toggle:before {
+.tc-switch__toggle:before {
   content: 'ON';
   color: #247FC8;
   background-color: #3f4041;
@@ -2629,7 +2629,7 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-left: 0.75rem;
 }
 
-.topcoat-switch__toggle {
+.tc-switch__toggle {
   line-height: 1.313rem;
   height: 1.313rem;
   width: 1rem;
@@ -2646,29 +2646,29 @@ input[type="search"]::-webkit-search-cancel-button {
   transition: margin-left 0.05s ease-in-out;
 }
 
-.topcoat-switch__toggle:after {
+.tc-switch__toggle:after {
   content: 'OFF';
   background-color: #3f4041;
   left: 0.8rem;
   padding-left: 0.6rem;
 }
 
-.topcoat-switch__input:checked + .topcoat-switch__toggle {
+.tc-switch__input:checked + .tc-switch__toggle {
   margin-left: 1.85rem;
 }
 
-.topcoat-switch__input:active + .topcoat-switch__toggle {
+.tc-switch__input:active + .tc-switch__toggle {
   border: 1px solid #333434;
   box-shadow: inset 0 1px #737373;
 }
 
-.topcoat-switch__input:focus + .topcoat-switch__toggle {
+.tc-switch__input:focus + .tc-switch__toggle {
   border: 1px solid #0036ff;
   box-shadow: 0 0 0 2px #6fb5f1;
 }
 
-.topcoat-switch__input:disabled + .topcoat-switch__toggle:after,
-.topcoat-switch__input:disabled + .topcoat-switch__toggle:before {
+.tc-switch__input:disabled + .tc-switch__toggle:after,
+.tc-switch__input:disabled + .tc-switch__toggle:before {
   background: transparent;
 }
 
@@ -2709,7 +2709,7 @@ input[type="search"]::-webkit-search-cancel-button {
 */
 
 .button,
-.topcoat-tab-bar__button {
+.tc-tab-bar__button {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -2740,14 +2740,14 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .button--disabled,
-.topcoat-tab-bar__button:disabled {
+.tc-tab-bar__button:disabled {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
 }
 
 .button-bar,
-.topcoat-tab-bar {
+.tc-tab-bar {
   display: table;
   table-layout: fixed;
   white-space: nowrap;
@@ -2756,14 +2756,14 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .button-bar__item,
-.topcoat-tab-bar__item {
+.tc-tab-bar__item {
   display: table-cell;
   width: auto;
   border-radius: 0;
 }
 
 .button-bar__item > input,
-.topcoat-tab-bar__item > input {
+.tc-tab-bar__item > input {
   position: absolute;
   overflow: hidden;
   padding: 0;
@@ -2790,22 +2790,22 @@ input[type="search"]::-webkit-search-cancel-button {
   modifiers:
     :disabled: Disabled state
   markup:
-    <div class="topcoat-tab-bar">
-      <label class="topcoat-tab-bar__item">
+    <div class="tc-tab-bar">
+      <label class="tc-tab-bar__item">
         <input type="radio" name="tab-bar">
-        <button class="topcoat-tab-bar__button">One</button>
+        <button class="tc-tab-bar__button">One</button>
       </label>
-      <label class="topcoat-tab-bar__item">
+      <label class="tc-tab-bar__item">
         <input type="radio" name="tab-bar">
-        <button class="topcoat-tab-bar__button">Two</button>
+        <button class="tc-tab-bar__button">Two</button>
       </label>
-      <label class="topcoat-tab-bar__item">
+      <label class="tc-tab-bar__item">
         <input type="radio" name="tab-bar">
-        <button class="topcoat-tab-bar__button">Three</button>
+        <button class="tc-tab-bar__button">Three</button>
       </label>
     </div>
   examples:
-    mobile tab bar: http://codepen.io/Topcoat/pen/rJICF
+    mobile tab bar: http://codepen.io/tc/pen/rJICF
   tags:
     - desktop
     - light
@@ -2816,7 +2816,7 @@ input[type="search"]::-webkit-search-cancel-button {
     - bar
 */
 
-.topcoat-tab-bar__button {
+.tc-tab-bar__button {
   padding: 0 0.563rem;
   height: 1.313rem;
   line-height: 1.313rem;
@@ -2829,16 +2829,16 @@ input[type="search"]::-webkit-search-cancel-button {
   border-top: 1px solid #333434;
 }
 
-.topcoat-tab-bar__button:active,
-.topcoat-tab-bar__button--large:active,
-:checked + .topcoat-tab-bar__button {
+.tc-tab-bar__button:active,
+.tc-tab-bar__button--large:active,
+:checked + .tc-tab-bar__button {
   color: #247FC8;
   background-color: #3f4041;
   box-shadow: inset 0 0 1px rgba(0,0,0,0.05);
 }
 
-.topcoat-tab-bar__button:focus,
-.topcoat-tab-bar__button--large:focus {
+.tc-tab-bar__button:focus,
+.tc-tab-bar__button--large:focus {
   z-index: 1;
   box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
   outline: 0;
@@ -2881,8 +2881,8 @@ input[type="search"]::-webkit-search-cancel-button {
 */
 
 .input,
-.topcoat-text-input,
-.topcoat-text-input--large {
+.tc-text-input,
+.tc-text-input--large {
   padding: 0;
   margin: 0;
   font: inherit;
@@ -2897,8 +2897,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .input:disabled,
-.topcoat-text-input:disabled,
-.topcoat-text-input--large:disabled {
+.tc-text-input:disabled,
+.tc-text-input--large:disabled {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -2912,13 +2912,13 @@ input[type="search"]::-webkit-search-cancel-button {
     :focus: Focused
     :invalid: Hover state
   markup:
-    <input type="text" class="topcoat-text-input" placeholder="text" value="">
+    <input type="text" class="tc-text-input" placeholder="text" value="">
     <br>
     <br>
-    <input type="text" class="topcoat-text-input" placeholder="text" value="" disabled>
+    <input type="text" class="tc-text-input" placeholder="text" value="" disabled>
     <br>
     <br>
-    <input type="text" class="topcoat-text-input" placeholder="text" value="fail" pattern="not-fail">
+    <input type="text" class="tc-text-input" placeholder="text" value="fail" pattern="not-fail">
   tags:
     - desktop
     - mobile
@@ -2926,8 +2926,8 @@ input[type="search"]::-webkit-search-cancel-button {
     - input
 */
 
-.topcoat-text-input,
-.topcoat-text-input--large {
+.tc-text-input,
+.tc-text-input--large {
   line-height: 1.313rem;
   font-size: 12px;
   letter-spacing: 0;
@@ -2940,27 +2940,27 @@ input[type="search"]::-webkit-search-cancel-button {
   vertical-align: top;
 }
 
-.topcoat-text-input:focus,
-.topcoat-text-input--large:focus {
+.tc-text-input:focus,
+.tc-text-input--large:focus {
   background-color: #595b5b;
   color: #fff;
   border: 1px solid #0036ff;
   box-shadow: 0 0 0 2px #6fb5f1;
 }
 
-.topcoat-text-input:disabled::-webkit-input-placeholder {
+.tc-text-input:disabled::-webkit-input-placeholder {
   color: #fff;
 }
 
-.topcoat-text-input:disabled::-moz-placeholder {
+.tc-text-input:disabled::-moz-placeholder {
   color: #fff;
 }
 
-.topcoat-text-input:disabled:-ms-input-placeholder {
+.tc-text-input:disabled:-ms-input-placeholder {
   color: #fff;
 }
 
-.topcoat-text-input:invalid {
+.tc-text-input:invalid {
   border: 1px solid #ec514e;
 }
 
@@ -2972,13 +2972,13 @@ input[type="search"]::-webkit-search-cancel-button {
     :focus: Focused
     :invalid: Hover state
   markup:
-    <input type="text" class="topcoat-text-input--large" value="" placeholder="text">
+    <input type="text" class="tc-text-input--large" value="" placeholder="text">
     <br>
     <br>
-    <input type="text" class="topcoat-text-input--large" value="" placeholder="text" disabled>
+    <input type="text" class="tc-text-input--large" value="" placeholder="text" disabled>
     <br>
     <br>
-    <input type="text" class="topcoat-text-input--large" placeholder="text" value="fail" pattern="not-fail">
+    <input type="text" class="tc-text-input--large" placeholder="text" value="fail" pattern="not-fail">
   tags:
     - desktop
     - light
@@ -2988,28 +2988,28 @@ input[type="search"]::-webkit-search-cancel-button {
     - large
 */
 
-.topcoat-text-input--large {
+.tc-text-input--large {
   line-height: 1.688rem;
   font-size: 0.875rem;
 }
 
-.topcoat-text-input--large:disabled {
+.tc-text-input--large:disabled {
   color: #fff;
 }
 
-.topcoat-text-input--large:disabled::-webkit-input-placeholder {
+.tc-text-input--large:disabled::-webkit-input-placeholder {
   color: #fff;
 }
 
-.topcoat-text-input--large:disabled::-moz-placeholder {
+.tc-text-input--large:disabled::-moz-placeholder {
   color: #fff;
 }
 
-.topcoat-text-input--large:disabled:-ms-input-placeholder {
+.tc-text-input--large:disabled:-ms-input-placeholder {
   color: #fff;
 }
 
-.topcoat-text-input--large:invalid {
+.tc-text-input--large:invalid {
   border: 1px solid #ec514e;
 }
 
@@ -3107,8 +3107,8 @@ input[type="search"]::-webkit-search-cancel-button {
 */
 
 .textarea,
-.topcoat-textarea,
-.topcoat-textarea--large {
+.tc-textarea,
+.tc-textarea--large {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background-clip: padding-box;
@@ -3124,8 +3124,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .textarea:disabled,
-.topcoat-textarea:disabled,
-.topcoat-textarea--large:disabled {
+.tc-textarea:disabled,
+.tc-textarea--large:disabled {
   opacity: 0.3;
   cursor: default;
   pointer-events: none;
@@ -3137,10 +3137,10 @@ input[type="search"]::-webkit-search-cancel-button {
   modifiers:
     :disabled: Disabled state
   markup:
-    <textarea class="topcoat-textarea" rows="6" cols="36" placeholder="Textarea"></textarea>
+    <textarea class="tc-textarea" rows="6" cols="36" placeholder="Textarea"></textarea>
     <br>
     <br>
-    <textarea class="topcoat-textarea" rows="6" cols="36" placeholder="Textarea" disabled></textarea>
+    <textarea class="tc-textarea" rows="6" cols="36" placeholder="Textarea" disabled></textarea>
   tags:
     - desktop
     - light
@@ -3150,8 +3150,8 @@ input[type="search"]::-webkit-search-cancel-button {
     - textarea
 */
 
-.topcoat-textarea,
-.topcoat-textarea--large {
+.tc-textarea,
+.tc-textarea--large {
   padding: 1rem;
   font-size: 1rem;
   font-weight: 400;
@@ -3164,23 +3164,23 @@ input[type="search"]::-webkit-search-cancel-button {
   letter-spacing: 0;
 }
 
-.topcoat-textarea:focus,
-.topcoat-textarea--large:focus {
+.tc-textarea:focus,
+.tc-textarea--large:focus {
   background-color: #595b5b;
   color: #fff;
   border: 1px solid #0036ff;
   box-shadow: 0 0 0 2px #6fb5f1;
 }
 
-.topcoat-textarea:disabled::-webkit-input-placeholder {
+.tc-textarea:disabled::-webkit-input-placeholder {
   color: #fff;
 }
 
-.topcoat-textarea:disabled::-moz-placeholder {
+.tc-textarea:disabled::-moz-placeholder {
   color: #fff;
 }
 
-.topcoat-textarea:disabled:-ms-input-placeholder {
+.tc-textarea:disabled:-ms-input-placeholder {
   color: #fff;
 }
 
@@ -3190,10 +3190,10 @@ input[type="search"]::-webkit-search-cancel-button {
   modifiers:
     :disabled: Disabled state
   markup:
-    <textarea class="topcoat-textarea--large" rows="6" cols="36" placeholder="Textarea"></textarea>
+    <textarea class="tc-textarea--large" rows="6" cols="36" placeholder="Textarea"></textarea>
     <br>
     <br>
-    <textarea class="topcoat-textarea--large" rows="6" cols="36" placeholder="Textarea" disabled></textarea>
+    <textarea class="tc-textarea--large" rows="6" cols="36" placeholder="Textarea" disabled></textarea>
   tags:
     - desktop
     - light
@@ -3203,24 +3203,24 @@ input[type="search"]::-webkit-search-cancel-button {
     - textarea
 */
 
-.topcoat-textarea--large {
+.tc-textarea--large {
   font-size: 1.3rem;
   line-height: 1.688rem;
 }
 
-.topcoat-textarea--large:disabled {
+.tc-textarea--large:disabled {
   color: #fff;
 }
 
-.topcoat-textarea--large:disabled::-webkit-input-placeholder {
+.tc-textarea--large:disabled::-webkit-input-placeholder {
   color: #fff;
 }
 
-.topcoat-textarea--large:disabled::-moz-placeholder {
+.tc-textarea--large:disabled::-moz-placeholder {
   color: #fff;
 }
 
-.topcoat-textarea--large:disabled:-ms-input-placeholder {
+.tc-textarea--large:disabled:-ms-input-placeholder {
   color: #fff;
 }
 
@@ -3255,7 +3255,7 @@ body {
   outline-style: none;
 }
 
-.topcoat-icon--menu-stack {
+.tc-icon--menu-stack {
   background: url("../img/hamburger_light.svg") no-repeat;
   background-size: cover;
 }

@@ -28,59 +28,59 @@ module.exports = function(grunt) {
 
         stylus: {
             options: {
-                paths: grunt.file.expand(__dirname + '/node_modules/topcoat-*/src/'),
+                paths: grunt.file.expand(__dirname + '/node_modules/tc-*/src/'),
                 import: ['utils'],
                 compress: false
             },
 
             mobilelight: {
                 options: {
-                    import: ['theme-topcoat-mobile-light']
+                    import: ['theme-tc-mobile-light']
                 },
 
                 files: [{
-                    src: 'node_modules/topcoat-*/src/**/*.styl',
-                    dest: 'css/topcoat-mobile-light.css'
+                    src: 'node_modules/tc-*/src/**/*.styl',
+                    dest: 'css/tc-mobile-light.css'
                 }]
             },
 
             mobiledark: {
                 options: {
-                    import: ['theme-topcoat-mobile-dark']
+                    import: ['theme-tc-mobile-dark']
                 },
 
                 files: [{
-                    src: 'node_modules/topcoat-*/src/**/*.styl',
-                    dest: 'css/topcoat-mobile-dark.css'
+                    src: 'node_modules/tc-*/src/**/*.styl',
+                    dest: 'css/tc-mobile-dark.css'
                 }]
             },
 
             desktoplight: {
                 options: {
-                    import: ['theme-topcoat-desktop-light']
+                    import: ['theme-tc-desktop-light']
                 },
                 files: [{
                     src: [
-                        'node_modules/topcoat-*/src/**/*.styl',
-                        '!node_modules/topcoat-navigation-bar/src/*.styl',
-                        '!node_modules/topcoat-list/src/*.styl'
+                        'node_modules/tc-*/src/**/*.styl',
+                        '!node_modules/tc-navigation-bar/src/*.styl',
+                        '!node_modules/tc-list/src/*.styl'
                         ],
-                    dest: 'css/topcoat-desktop-light.css'
+                    dest: 'css/tc-desktop-light.css'
                 }]
             },
 
             desktopdark: {
                 options: {
-                    import: ['theme-topcoat-desktop-dark']
+                    import: ['theme-tc-desktop-dark']
                 },
 
                 files: [{
                     src: [
-                        'node_modules/topcoat-*/src/**/*.styl',
-                        '!node_modules/topcoat-navigation-bar/src/*.styl',
-                        '!node_modules/topcoat-list/src/*.styl'
+                        'node_modules/tc-*/src/**/*.styl',
+                        '!node_modules/tc-navigation-bar/src/*.styl',
+                        '!node_modules/tc-list/src/*.styl'
                         ],
-                    dest: 'css/topcoat-desktop-dark.css'
+                    dest: 'css/tc-desktop-dark.css'
                 }]
             }
         },
@@ -92,24 +92,24 @@ module.exports = function(grunt) {
                     destination: 'demo',
                     template: 'node_modules/topdoc-theme/',
                     templateData: {
-                        "title": "Topcoat",
+                        "title": "tc",
                         "subtitle": "CSS for clean and fast web apps",
                         "download": {
-                            "url": "https://github.com/topcoat/topcoat/archive/v0.8.0.zip",
+                            "url": "https://github.com/tc/tc/archive/v0.8.0.zip",
                             "label": "Download"
                         },
-                        "homeURL": "http://topcoat.io",
+                        "homeURL": "http://tc.io",
                         "siteNav": [
                             {
-                            "url": "http://topcoat.io/topcoat",
+                            "url": "http://tc.io/tc",
                             "text": "Demo"
                         },
                             {
-                            "url": "http://bench.topcoat.io/",
+                            "url": "http://bench.tc.io/",
                             "text": "Benchmarks"
                         },
                             {
-                            "url": "http://topcoat.io/blog",
+                            "url": "http://tc.io/blog",
                             "text": "Blog"
                         }
                         ]
@@ -155,7 +155,7 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    src: ['dev/test/**/topcoat/*.html'],
+                    src: ['dev/test/**/tc/*.html'],
                     dest: '',
                     ext: '.test.html',
                 }],
@@ -171,12 +171,12 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     flatten: true,
-                    src: 'node_modules/topcoat-theme/font/**',
+                    src: 'node_modules/tc-theme/font/**',
                     dest: 'font'
                 }, {
                     expand: true,
                     flatten: true,
-                    src: 'node_modules/topcoat-theme/img/*',
+                    src: 'node_modules/tc-theme/img/*',
                     dest: 'img'
                 }]
             },
@@ -190,16 +190,16 @@ module.exports = function(grunt) {
                 }, {
                     expand: true,
                     flatten: true,
-                    src: 'node_modules/topcoat-theme/font/**',
-                    dest: path.join(chromiumSrc, 'tools/perf/page_sets/topcoat/release/font')
+                    src: 'node_modules/tc-theme/font/**',
+                    dest: path.join(chromiumSrc, 'tools/perf/page_sets/tc/release/font')
                 }, {
                     expand: true,
                     flatten: true,
-                    src: 'node_modules/topcoat-theme/img/*',
-                    dest: path.join(chromiumSrc, 'tools/perf/page_sets/topcoat/release/img')
+                    src: 'node_modules/tc-theme/img/*',
+                    dest: path.join(chromiumSrc, 'tools/perf/page_sets/tc/release/img')
                 }, {
                     src: ['css/**'],
-                    dest: path.join(chromiumSrc, 'tools/perf/page_sets/topcoat/release/')
+                    dest: path.join(chromiumSrc, 'tools/perf/page_sets/tc/release/')
                 }]
             }
         },
@@ -255,7 +255,7 @@ module.exports = function(grunt) {
     // Default task.
     grunt.registerTask('default', ['clean', 'stylus', 'autoprefixer', 'cssmin', 'topdoc', 'copy:release']);
     grunt.registerTask('release', ['default', 'clean:src']);
-    grunt.registerTask('compile', ['topcoat:compile', 'topdoc', 'copy:release']);
+    grunt.registerTask('compile', ['tc:compile', 'topdoc', 'copy:release']);
 
     grunt.registerTask('telemetry', '', function(platform, theme) {
         if (chromiumSrc === "") grunt.fail.warn("Set CHROMIUM_SRC to point to the correct location\n");

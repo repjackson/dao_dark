@@ -1,7 +1,7 @@
-Topcoat is licensed under the Apache license version 2.0, January 2004  (see LICENSE file).
+tc is licensed under the Apache license version 2.0, January 2004  (see LICENSE file).
 
-Topcoat uses the following third party libraries that may have licenses 
-differing from that of Topcoat itself. You can find the libraries and their
+tc uses the following third party libraries that may have licenses 
+differing from that of tc itself. You can find the libraries and their
 respective licenses below.
 
  - Source Code Pro ./src/font/SourceCodePro
@@ -20,7 +20,7 @@ respective licenses below.
 	This Font Software is licensed under the SIL Open Font License, Version 1.1.
 	This license is available with a FAQ at: http://scripts.sil.org/OFL
 
-The following frameworks and libraries are provided just for testing and benchmarking and, as provided, should not be included as part of Topcoat output.
+The following frameworks and libraries are provided just for testing and benchmarking and, as provided, should not be included as part of tc output.
 
  - Bootstrap - ./test/third-party/bootstrap 
 

@@ -3,7 +3,6 @@ head
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name="theme-color", content="#ffffff")
     link(rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu")
-    link(rel="stylesheet" type="text/css" href="css/topcoat-mobile-dark.min.css")
     link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous")
 
 
@@ -20,25 +19,25 @@ template(name='home')
             .sixteen.wide.center.aligned.column
                 // .ui.transparent.inverted.input.item
                 //     input#in(type='text' placeholder='search')
-                a.topcoat-button.delete_session(title='clear session')
+                a.tc-button.delete_session(title='clear session')
                     i.remove.icon
                     | Session
                 unless delta
-                    .topcoat-button.create_delta
+                    .tc-button.create_delta
                         i.sitemap.link.icon
                         | Session
-                .topcoat-button
+                .tc-button
                     +loginButtons
-                .topcoat-icon-button--large
+                .tc-icon-button--large
                     i.fas.fa-yin-yang.fa-2x.middle_align
                 if currentUser
-                    a.topcoat-button.add_doc
+                    a.tc-button.add_doc
                         i.plus.icon
-                    a.topcoat-button
+                    a.tc-button
                         i.bell.icon
-                    // a.topcoat-button
+                    // a.tc-button
                     //     i.envelope.icon
-                    a.topcoat-button
+                    a.tc-button
                         i.user.icon
                         | #{currentUser.username}
                 else
@@ -47,13 +46,13 @@ template(name='home')
         .row
             .eight.wide.right.aligned.column
                 if delta
-                    a.topcoat-button.show_session
+                    a.tc-button.show_session
                         i.code.icon
-                    .topcoat-button.delete_delta
+                    .tc-button.delete_delta
                         i.remove.link.icon
-                    .topcoat-button.print_delta
+                    .tc-button.print_delta
                         i.code.link.icon
-                    .topcoat-button.recalc
+                    .tc-button.recalc
                         i.refresh.link.icon
                 each delta.facets
                     div
@@ -69,14 +68,15 @@ template(name='home')
 
 template(name='edit')
     .ui.inverted.header edit
+    
 
 template(name='result')
-    .topcoat-list
+    .tc-list
         if title
-            h3.topcoat-list__header #{title}
-        ul.topcoat-list__container
+            h3.tc-list__header #{title}
+        ul.tc-list__container
             each keys
-                li.topcoat-list__item
+                li.tc-list__item
                     strong #{this}
                     // div primative :#{key_type}
                     // div display html: #{display_type}
@@ -87,26 +87,26 @@ template(name='result')
                         |{{ from_now value }}
                     else if is_array
                         each value
-                            .ui.basic.grey.label #{this}
+                            .ui.grey.label #{this}
                     else
                         |#{value} 
 
                 
                 
     div
-        .topcoat-button
+        .tc-button
             i.thumbs.up.icon
-        .topcoat-button
+        .tc-button
             i.thumbs.down.icon
-        .topcoat-button
+        .tc-button
             i.chat.icon
-        .topcoat-button
+        .tc-button
             i.thumbs.up.icon
-        .topcoat-button
+        .tc-button
             i.thumbs.up.icon
-        .topcoat-button
+        .tc-button
             i.thumbs.up.icon
-        .topcoat-button
+        .tc-button
             i.thumbs.up.icon
 
 
@@ -134,7 +134,7 @@ template(name='footer')
 
 template(name='role_switcher')
     each role_docs
-        .change_role.topcoat-button(class=role_button_class)
+        .change_role.tc-button(class=role_button_class)
             if icon
                 i.icon
                     +icon name=icon

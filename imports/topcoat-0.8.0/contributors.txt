@@ -1,4 +1,4 @@
-# Github accounts of the people who signed the TopCoat CLA (http://topcoat.io/dev/topcoat-cla.html).
+# Github accounts of the people who signed the tc CLA (http://tc.io/dev/tc-cla.html).
 # CLA needs to be signed before accepting pull requests.
 @yourpalsonja
 @noformnocontent
