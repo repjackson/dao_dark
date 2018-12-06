@@ -93,6 +93,7 @@ Template.result.helpers
 
     is_html: -> @type is 'html'
     is_number: -> @type is 'number'
+    is_array: -> @type is 'array'
     is_string: -> @type is 'string'
 
 

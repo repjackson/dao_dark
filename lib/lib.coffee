@@ -101,9 +101,19 @@ Meteor.methods
             { $set: "fields.$.#{key}":value }
 
 
+    crawl_fields: ->
+        found_cursor = Docs.find { fields: $exists:false}, limit:10
+        for found in found_cursor.fetch()
+            Meteor.call 'detect_fields', found._id, (err,res)->
+                console.log res
+                console.log Docs.findOne res
+                
+
+
     detect_fields: (doc_id)->
         doc = Docs.findOne doc_id
         keys = _.keys doc
+        console.log 'keys', keys
         fields = doc.fields
         for key in keys
             key_value = doc["#{key}"]
@@ -129,13 +139,16 @@ Meteor.methods
                 else
                     field_type = 'string'
                 
-                
+            label = key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
+
+                            
             Docs.update doc_id,
                 $addToSet:
                     fields: 
                         key:key
-                        label:key
+                        label:label
                         type:field_type
+        return doc_id
                         
                         
 

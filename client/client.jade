@@ -101,14 +101,11 @@ template(name='result')
         i.pencil.icon
         | Edit
     .tc-list
-        if title
-            h3.tc-list__header #{title}
         ul.tc-list__container
             each fields
                 li.tc-list__item
                     strong #{label}
-                    // div primative :#{key_type}
-                    // div display html: #{display_type}
+                    div Field Type :#{type}
                     if is_html
                         |!{value}
                     else if is_number
