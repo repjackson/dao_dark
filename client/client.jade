@@ -59,10 +59,16 @@ template(name='home')
                     div
                     +facet
             .eight.wide.column
-                each delta.results
-                    +result
+                if delta.editing
+                    +edit
+                else
+                    each delta.results
+                        +result
     // +footer
 
+
+template(name='edit')
+    .ui.inverted.header edit
 
 template(name='result')
     .topcoat-list
@@ -71,8 +77,22 @@ template(name='result')
         ul.topcoat-list__container
             each keys
                 li.topcoat-list__item
-                    |#{this}
-                    strong #{value}
+                    strong #{this}
+                    // div primative :#{key_type}
+                    // div display html: #{display_type}
+                    if is_html
+                        |!{value}
+                    else if is_timestamp
+                        strong time
+                        |{{ from_now value }}
+                    else if is_array
+                        each value
+                            .ui.basic.grey.label #{this}
+                    else
+                        |#{value} 
+
+                
+                
     div
         .topcoat-button
             i.thumbs.up.icon
@@ -92,7 +112,7 @@ template(name='result')
 
 template(name='facet')
     // .ui.inverted.secondary.segment
-    .ui.inverted.inline.header #{key}
+    .ui.inverted.small.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
     

@@ -93,6 +93,30 @@ Template.result.helpers
         filter = Template.parentData()
         filter["#{@valueOf()}"]
 
+    is_html: ->
+        local_doc = Template.parentData()
+        if local_doc
+            value = local_doc["#{@valueOf()}"]
+            type = typeof value
+            if type is 'string'
+                html_check = /<[a-z][\s\S]*>/i
+                html_result = html_check.test value
+                html_result
+            
+    is_timestamp: ->
+        local_doc = Template.parentData()
+        if local_doc
+            value = local_doc["#{@valueOf()}"]
+            d = Date.parse(value);
+            nan = isNaN d
+            !nan
+        
+        
+    is_array: ->
+        local_doc = Template.parentData()
+        if local_doc
+            value = local_doc["#{@valueOf()}"]
+            $.isArray value
 
 Template.facet.helpers
     values: ->
@@ -118,6 +142,7 @@ Template.facet.helpers
         filtered_values = []
         if delta
             delta["filter_#{@valueOf()}"]
+
 
     toggle_value_class: ->
         facet = Template.parentData()
