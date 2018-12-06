@@ -89,59 +89,14 @@ Template.result.events
 Template.result.helpers
     value: ->
         filter = Template.parentData()
-        filter["#{@valueOf()}"]
+        filter["#{@key}"]
 
-    is_html: ->
-        local_doc = Template.parentData()
-        if local_doc
-            value = local_doc["#{@valueOf()}"]
-            type = typeof value
-            if type is 'string'
-                html_check = /<[a-z][\s\S]*>/i
-                html_result = html_check.test value
-                html_result
-            
-    is_timestamp: ->
-        local_doc = Template.parentData()
-        if local_doc
-            value = local_doc["#{@valueOf()}"]
-            d = Date.parse(value);
-            nan = isNaN d
-            !nan
-        
-        
-    is_array: ->
-        local_doc = Template.parentData()
-        if local_doc
-            value = local_doc["#{@valueOf()}"]
-            $.isArray value
+    is_html: -> @type is 'html'
+    is_number: -> @type is 'number'
+    is_string: -> @type is 'string'
+
 
 Template.facet.helpers
-    values: ->
-        # console.log @
-        delta = Docs.findOne type:'delta'
-        filtered_values = []
-        if delta
-            filters = delta["filter_#{@valueOf()}"]
-            unfiltered_return = delta["#{@valueOf()}_return"]
-            if unfiltered_return and filters
-                console.log filters
-                for val in unfiltered_return
-                    if val.name in filters
-                        continue
-                    else if val.count < delta.total
-                        filtered_values.push val
-                filtered_values
-    
-    selected_values: ->
-        # console.log @
-        delta = Docs.findOne type:'delta'
-        # delta["#{@valueOf()}_return"]?[..20]
-        filtered_values = []
-        if delta
-            delta["filter_#{@valueOf()}"]
-
-
     toggle_value_class: ->
         facet = Template.parentData()
         delta = Docs.findOne type:'delta'
@@ -153,10 +108,12 @@ Template.facet.helpers
 
 Template.edit.events
     'click .save': ->
+        console.log @
         delta = Docs.findOne type:'delta'
         Docs.update delta._id,
             $set:
                 editing:false
+                result:@
     
     'click .detect_fields': ->
         delta = Docs.findOne type:'delta'
@@ -248,5 +205,11 @@ Template.field.events
         console.log @
         
         
+    'click .delete_field': ->
+        # if confirm "Remove #{@label}?"
+        delta = Docs.findOne type:'delta'
+        doc = Docs.findOne delta.doc_id
+        Docs.update delta.doc_id,
+            $pull: fields: @
         
         

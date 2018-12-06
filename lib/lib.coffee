@@ -104,25 +104,40 @@ Meteor.methods
     detect_fields: (doc_id)->
         doc = Docs.findOne doc_id
         keys = _.keys doc
-        console.log keys
         fields = doc.fields
         for key in keys
+            key_value = doc["#{key}"]
+            initial_field_type = typeof key_value
+                    
+            if initial_field_type is 'object'        
+                if Array.isArray key_value
+                    field_type = 'array'
+                else
+                    field_type = 'object'
+                    
+            else if initial_field_type is 'number'
+                # d = Date.parse(key_value)
+                # nan = isNaN d
+                # !nan
+                field_type = 'number'
+                                
+            else if initial_field_type is 'string'
+                html_check = /<[a-z][\s\S]*>/i
+                html_result = html_check.test key_value
+                if html_result
+                    field_type = 'html'
+                else
+                    field_type = 'string'
+                
+                
             Docs.update doc_id,
                 $addToSet:
                     fields: 
                         key:key
                         label:key
-                        type:'string'
-            
-            # for field in fields
-            #     if field.key and field.key is key
-            #         console.log 'found key', key
-            #     else
-            #         console.log 'didnt find key', key
-        # else
-        #     Docs.update doc_id,
-        #         $set: fields: []
-            
+                        type:field_type
+                        
+                        
 
 Docs.helpers
     author: -> Meteor.users.findOne @author_id

@@ -64,11 +64,11 @@ template(name='edit')
         .tc-button.detect_fields
             i.refresh.icon
             | Detect Fields
+        .tc-button.save
+            i.green.checkmark.icon
         
         each fields
             +field
-        .tc-button.save
-            i.green.checkmark.icon
     
     
 template(name='field')
@@ -90,6 +90,9 @@ template(name='field')
                     .field
                         label Type
                         input.type(type='text' value=type)
+            .field
+                .ui.icon.button.delete_field
+                    i.remove.icon
 
     
 
@@ -101,16 +104,17 @@ template(name='result')
         if title
             h3.tc-list__header #{title}
         ul.tc-list__container
-            each keys
+            each fields
                 li.tc-list__item
-                    strong #{this}
+                    strong #{label}
                     // div primative :#{key_type}
                     // div display html: #{display_type}
                     if is_html
                         |!{value}
-                    else if is_timestamp
-                        strong time
-                        |{{ from_now value }}
+                    else if is_number
+                        .ui.header ##{value}
+                        // strong time
+                        // |{{ from_now value }}
                     else if is_array
                         each value
                             .ui.grey.label #{this}
@@ -124,13 +128,9 @@ template(name='result')
         .tc-button
             i.chat.icon
         .tc-button
-            i.thumbs.up.icon
+            i.eye.icon
         .tc-button
-            i.thumbs.up.icon
-        .tc-button
-            i.thumbs.up.icon
-        .tc-button
-            i.thumbs.up.icon
+            i.bookmark.icon
 
 
 template(name='facet')
