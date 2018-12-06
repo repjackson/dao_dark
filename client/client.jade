@@ -10,18 +10,12 @@ head
 body
     +home
 
-template(name='nav')
-
-
 template(name='home')
     .ui.stackable.padded.grid
         .centered.row
             .sixteen.wide.center.aligned.column
                 // .ui.transparent.inverted.input.item
                 //     input#in(type='text' placeholder='search')
-                a.tc-button.delete_session(title='clear session')
-                    i.remove.icon
-                    | Session
                 unless delta
                     .tc-button.create_delta
                         i.sitemap.link.icon
@@ -55,8 +49,8 @@ template(name='home')
                     .tc-button.recalc
                         i.refresh.link.icon
                 each delta.facets
-                    div
                     +facet
+                    div
             .eight.wide.column
                 if delta.editing
                     +edit
@@ -68,6 +62,8 @@ template(name='home')
 
 template(name='edit')
     .ui.inverted.header edit
+    .tc-button.save
+        i.green.checkmark.icon
     
 
 template(name='result')

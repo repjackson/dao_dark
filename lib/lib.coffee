@@ -16,7 +16,7 @@ Meteor.users.helpers
 Docs.before.insert (userId, doc)=>
     timestamp = Date.now()
     doc.timestamp = timestamp
-    # console.log moment(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")
+    doc.timestamp_long = moment(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")
     date = moment(timestamp).format('Do')
     weekdaynum = moment(timestamp).isoWeekday()
     weekday = moment().isoWeekday(weekdaynum).format('dddd')
@@ -34,12 +34,12 @@ Docs.before.insert (userId, doc)=>
 
     doc.author_id = Meteor.userId()
     doc.tag_count = doc.tags?.length
-    # doc.points = 0
-    # doc.read_by = [Meteor.userId()]
-    # doc.ownership = [{user_id: Meteor.userId(),percent: 100}]
-    # doc.upvoters = []
-    # doc.downvoters = []
-    # doc.published = 0
+    doc.points = 0
+    doc.read_by = [Meteor.userId()]
+    doc.ownership = [{user_id: Meteor.userId(),percent: 100}]
+    doc.upvoters = []
+    doc.downvoters = []
+    doc.published = 0
     return
 
 Docs.after.update ((userId, doc, fieldNames, modifier, options) ->

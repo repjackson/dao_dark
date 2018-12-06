@@ -118,6 +118,15 @@ Template.facet.helpers
         else
             'tc-button'
 
+Template.edit.events
+    'click .save': ->
+        delta = Docs.findOne type:'delta'
+        Docs.update delta._id,
+            $set:
+                editing:false
+    
+        
+    
 
 Template.home.events
     'click .create_delta': (e,t)->
@@ -130,6 +139,8 @@ Template.home.events
     'click .add_doc': ->
         delta = Docs.findOne type:'delta'
         new_id = Docs.insert {}
+        new_doc = Docs.findOne new_id
+        console.log new_doc
         Docs.update delta._id,
             $set:
                 editing:true
