@@ -105,17 +105,28 @@ Meteor.methods
         doc = Docs.findOne doc_id
         keys = _.keys doc
         console.log keys
-        
+        fields = doc.fields
+        for key in keys
+            Docs.update doc_id,
+                $addToSet:
+                    fields: 
+                        key:key
+                        label:key
+                        type:'string'
+            
+            # for field in fields
+            #     if field.key and field.key is key
+            #         console.log 'found key', key
+            #     else
+            #         console.log 'didnt find key', key
+        # else
+        #     Docs.update doc_id,
+        #         $set: fields: []
             
 
 Docs.helpers
     author: -> Meteor.users.findOne @author_id
     when: -> moment(@timestamp).fromNow()
-
-    is_visible: -> @published in [0,1]
-    is_published: -> @published is 1
-    is_anonymous: -> @published is 0
-    is_private: -> @published is -1
 
     parent: -> Docs.findOne @parent_id
 
