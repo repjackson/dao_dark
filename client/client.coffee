@@ -217,7 +217,7 @@ Template.field.onCreated ->
         
 Template.field.helpers
     field_edit_template: ->
-        console.log "#{@field_type}_edit"
+        # console.log "#{@field_type}_edit"
         "edit_#{@field_type}"
 
     field_object: ->

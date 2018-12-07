@@ -198,11 +198,16 @@ Template.edit_text.events
 
 
 Template.edit_html.onRendered ->
+    toolbarOptions = [
+      { size: [ 'small', false, 'large', 'huge' ]}
+    ]
+
     options = 
         debug: 'info'
-        modules: toolbar: '#toolbar'
+        modules: 
+            toolbar: toolbarOptions
         placeholder: 'Compose an epic...'
-        readOnly: true
+        readOnly: false
         theme: 'snow'
 
     editor = new Quill('.editor', options)
