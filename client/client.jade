@@ -13,12 +13,19 @@ body
 template(name='home')
     .ui.stackable.padded.grid
         .centered.row
-            .sixteen.wide.center.aligned.column
+            .four.wide.center.aligned.column
                 // .ui.transparent.inverted.input.item
                 //     input#in(type='text' placeholder='search')
+                .tc-button.create_delta
+                    i.plus.icon
+                    | Session
+                each my_deltas
+                    .tc-button 1 #{title}
                 +loginButtons
+            .four.wide.center.aligned.column
                 .tc-icon-button--large
                     i.fas.fa-yin-yang.fa-2x.middle_align
+            .four.wide.center.aligned.column
                 if currentUser
                     a.tc-button.add_doc
                         i.plus.icon
@@ -28,14 +35,8 @@ template(name='home')
                 else
                     a.large.icon.item
                         i.sign.in.alternate.icon
-        .centered.row
-            .tc-button.create_delta
-                i.plus.icon
-                | Session
-            each my_deltas
-                .tc-button 1 #{title}
         .row
-            .eight.wide.right.aligned.column
+            .eight.wide.right.aligned.column.scrolling
                 if delta
                     .tc-button.delete_delta
                         i.remove.link.icon
@@ -46,7 +47,7 @@ template(name='home')
                 each delta.facets
                     +facet
                     div
-            .eight.wide.column
+            .eight.wide.column.scrolling
                 with delta.result
                     if delta.editing
                         +edit
@@ -66,7 +67,7 @@ template(name='edit')
             | Detect Fields
         .tc-button.save
             i.green.checkmark.icon
-        
+            |Save
         each fields
             +field
     
@@ -84,7 +85,7 @@ template(name='field')
                         input.value(type='text' value=value)
             .field
                 .two.fields
-                    .field
+                    .disabled.field
                         label Key
                         input.key(type='text' value=key)
                     .field

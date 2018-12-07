@@ -158,9 +158,9 @@
 
 
 
-/*.scrolling::-webkit-scrollbar {*/
-/*    display: none;*/
-/*}*/
+.scrolling::-webkit-scrollbar {
+    display: none;
+}
 
 /*::-webkit-scrollbar-thumb {*/
 /*    background: #FF0000;*/
@@ -173,11 +173,11 @@
 /*  display:flex;*/
 /*}*/
 
-/*.scrolling{*/
-  /*overflow-y:scroll;*/
-/*  overflow-y:scroll;*/
-/*  max-height:1000px;*/
-/*}*/
+.scrolling{
+  overflow-y:scroll;
+  overflow-y:scroll;
+  max-height:1000px;
+}
 
 
 /*#sub_nav.ui.inverted.menu {*/

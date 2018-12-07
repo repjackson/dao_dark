@@ -102,18 +102,15 @@ Meteor.methods
 
 
     crawl_fields: ->
-        found_cursor = Docs.find { fields: $exists:false}, limit:10
+        found_cursor = Docs.find { fields: $exists:false}, limit:1000
         for found in found_cursor.fetch()
             Meteor.call 'detect_fields', found._id, (err,res)->
-                console.log res
-                console.log Docs.findOne res
                 
 
 
     detect_fields: (doc_id)->
         doc = Docs.findOne doc_id
         keys = _.keys doc
-        console.log 'keys', keys
         fields = doc.fields
         for key in keys
             key_value = doc["#{key}"]
@@ -148,6 +145,8 @@ Meteor.methods
                         key:key
                         label:label
                         type:field_type
+        
+        console.log 'detected fields for ', doc_id, keys[..5]
         return doc_id
                         
                         
