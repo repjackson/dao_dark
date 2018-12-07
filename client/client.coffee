@@ -95,9 +95,9 @@ Template.facet.helpers
         delta = Docs.findOne type:'delta'
 
         if facet.filters and @name in facet.filters
-            'tc-button--cta'
+            'grey'
         else
-            'tc-button'
+            ''
 
 Template.edit.events
     'click .save': ->

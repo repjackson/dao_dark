@@ -4,81 +4,82 @@ head
     meta(name="theme-color", content="#ffffff")
     link(rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu")
     link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous")
-    link(href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet")
+    // link(href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet")
 
 
 
 body
     +home
 
+
 template(name='home')
-    .ui.stackable.padded.grid
-        .centered.row
-            .four.wide.center.aligned.column
-                // .ui.transparent.inverted.input.item
-                //     input#in(type='text' placeholder='search')
-                .tc-button.create_delta
-                    i.plus.icon
-                    | Session
-                each my_deltas
-                    .tc-button.select_delta 1 #{title}
-                +loginButtons
-            .four.wide.center.aligned.column
-                .tc-icon-button
-                    i.fas.fa-yin-yang.fa-lg.middle_align
-            .four.wide.center.aligned.column
+    .ui.inverted.top.fixed.menu
+        .icon.item
+            i.fas.fa-yin-yang.fa-2x
+        .item
+            +loginButtons
+        .item.create_delta
+            i.plus.icon
+            | Session
+        each my_deltas
+            a.item.select_delta 1 #{title}
+        .item
+            .ui.transparent.input.item
+                input#in(type='text' placeholder='search')
+        if currentUser
+            a.item.add_doc
+                i.plus.icon
+        .right.menu
+            .item
                 if currentUser
-                    a.tc-button.add_doc
-                        i.plus.icon
-                    a.tc-button
-                        i.user.icon
-                        | #{currentUser.username}
+                    i.user.icon
+                    | #{currentUser.username}
                 else
-                    a.large.icon.item
-                        i.sign.in.alternate.icon
+                    i.sign.in.alternate.icon
+    .ui.stackable.padded.grid
         .row
-            .eight.wide.right.aligned.column.scrolling
+            .six.wide.column.scrolling
                 if delta
-                    .tc-button.delete_delta
+                    .ui.button.delete_delta
                         i.remove.link.icon
-                    .tc-button.print_delta
+                    .ui.button.print_delta
                         i.code.link.icon
-                    .tc-button.recalc
+                    .ui.button.recalc
                         i.refresh.link.icon
                 each delta.facets
                     +facet
                     div
-            .eight.wide.column.scrolling
+            .ten.wide.column.scrolling
                 with delta.result
                     if delta.editing
                         +edit
                     else
                         +result
-    // +footer
+    +footer
 
 
 template(name='edit')
     with editing_doc
-        .ui.inverted.header Edit #{_id}
-        .tc-button.add_field
+        .ui.header Edit #{_id}
+        .ui.button.add_field
             i.plus.icon
             | Field
-        .tc-button.detect_fields
+        .ui.button.detect_fields
             i.refresh.icon
             | Detect Fields
-        .tc-button.save
+        .ui.button.save
             i.green.checkmark.icon
             |Save
         div
         each fields
-            .tc-button.set_editing_field #{label}
+            .ui.button.set_editing_field #{label}
         +field
     
     
 template(name='field')
-    .ui.inverted.secondary.segment
+    .ui.secondary.segment
         with field_object
-            .ui.inverted.form
+            .ui.form
                 .field
                     .two.fields
                         .field
@@ -115,55 +116,54 @@ template(name='set_field_key_value')
     
 
 template(name='result')
-    .tc-button.edit
+    .ui.button.edit
         i.pencil.icon
         | Edit
-    .tc-list
-        ul.tc-list__container
-            each fields
-                li.tc-list__item
-                    strong #{label}
-                    div Field Type #{type}
-                    if is_html
-                        |!{value}
-                    else if is_number
-                        .ui.inverted.header ##{value}
-                        // strong time
-                        // |{{ from_now value }}
-                    else if is_array
-                        each value
-                            .ui.grey.label #{this}
-                    else
-                        |#{value} 
+    .ui.list
+        each fields
+            .item
+                strong #{label}
+                div Field Type #{type}
+                if is_html
+                    |!{value}
+                else if is_number
+                    .ui.header ##{value}
+                    // strong time
+                    // |{{ from_now value }}
+                else if is_array
+                    each value
+                        .ui.grey.label #{this}
+                else
+                    |#{value} 
     div
-        .tc-button
+        .ui.button
             i.thumbs.up.icon
-        .tc-button
+        .ui.button
             i.thumbs.down.icon
-        .tc-button
+        .ui.button
             i.chat.icon
-        .tc-button
+        .ui.button
             i.eye.icon
-        .tc-button
+        .ui.button
             i.bookmark.icon
 
 
 template(name='facet')
-    // .ui.inverted.secondary.segment
-    .ui.inverted.small.header #{key}
+    // .ui.secondary.segment
+    .ui.small.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
     
     each res
-        .toggle_selection(class=toggle_value_class)
+        .ui.compact.button.toggle_selection(class=toggle_value_class)
             strong #{name}
             // small #{count}
             
             
             
 template(name='footer')
-    .ui.bottom.fixed.inverted.grey.small.menu
-        .ui.center.aligned.inverted.grey.small.header
+    .ui.bottom.fixed.inverted.menu
+        .ui.center.aligned.grey.small.header
             .item
                 i.creative.commons.outline.icon
                 | 2018 Data Analytics Organization
@@ -172,7 +172,7 @@ template(name='footer')
 
 template(name='role_switcher')
     each role_docs
-        .change_role.tc-button(class=role_button_class)
+        .change_role.ui.button(class=role_button_class)
             if icon
                 i.icon
                     +icon name=icon

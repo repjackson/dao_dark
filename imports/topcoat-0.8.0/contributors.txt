@@ -1,7 +1,0 @@
-# Github accounts of the people who signed the tc CLA (http://tc.io/dev/tc-cla.html).
-# CLA needs to be signed before accepting pull requests.
-@yourpalsonja
-@noformnocontent
-@jrowny
-@aparticulate
-@jlembeck
