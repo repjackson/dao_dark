@@ -1,0 +1,24 @@
+template(name='delta')    
+    .ui.stackable.padded.grid
+        .row
+            .six.wide.column.scrolling
+                if delta
+                    |Session
+                    .ui.button.delete_delta
+                        i.remove.link.icon
+                        | Delete
+                    .ui.button.print_delta
+                        i.code.link.icon
+                        | Log
+                    .ui.button.recalc
+                        i.refresh.link.icon
+                        | Refresh
+                each delta.facets
+                    +facet
+                    div
+            .ten.wide.column.scrolling
+                with delta.result
+                    if delta.editing
+                        +edit
+                    else
+                        +result

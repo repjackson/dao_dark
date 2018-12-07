@@ -41,7 +41,7 @@ Template.registerHelper 'my_deltas', () ->
 
 
 
-Template.home.onCreated ->
+Template.nav.onCreated ->
     @autorun -> Meteor.subscribe 'my_deltas'
     @autorun -> Meteor.subscribe 'me'
 
@@ -49,45 +49,22 @@ Template.edit.onCreated ->
     delta = Docs.findOne type:'delta'
     @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
 
-Template.result.onCreated ->
-    delta = Docs.findOne type:'delta'
-    if delta
-        @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
+
+Template.nav.events
+    'click .delta': ->
+        Meteor.users.update Meteor.userId(),
+            $set:current_template: 'delta'
+        console.log Meteor.user()
+
 
 Template.home.helpers
-    delta: -> 
+    main_template: ->
         if Meteor.user()
-            Docs.findOne Meteor.user().current_delta_id
-    
-    facets: ->
-        # at least keys
-        facets = []
-        delta = Docs.findOne type:'delta'
-        if delta 
-            if delta.keys_filter
-                for item in delta.keys_filter
-                    facets.push item.name
-        facets.push 'keys'
-        facets
-    
-Template.result.events
-    'click .edit': ->
-        Docs.update Meteor.user().current_delta_id,
-            $set:
-                editing:true
-                doc_id: @_id
+            Meteor.user().current_template
+        
+        
 
     
-Template.result.helpers
-    value: ->
-        filter = Template.parentData()
-        filter["#{@key}"]
-
-    is_html: -> @type is 'html'
-    is_number: -> @type is 'number'
-    is_array: -> @type is 'array'
-    is_string: -> @type is 'string'
-
 
 Template.facet.helpers
     toggle_value_class: ->
@@ -141,7 +118,7 @@ Template.edit.helpers
         doc
         
 
-Template.home.events
+Template.delta.events
     'click .create_delta': (e,t)->
         Docs.insert
             type:'delta'

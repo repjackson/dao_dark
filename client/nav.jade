@@ -1,0 +1,30 @@
+template(name='nav')
+    .ui.inverted.top.fixed.large.menu
+        a.icon.item.delta(href='#')
+            i.fas.fa-yin-yang.fa-2x
+        .item
+            +loginButtons
+        .item.create_delta
+            i.plus.icon
+            | Session
+        each my_deltas
+            a.item.select_delta 1 #{title}
+        // .item
+        //     .ui.transparent.input.item
+        //         input#in(type='text' placeholder='search')
+        if currentUser
+            a.item.add_doc
+                i.plus.icon
+                | New
+        .right.menu
+            if currentUser
+                a.icon.item.inbox(href='#')
+                    i.inbox.icon
+                a.icon.item.alerts(href='#')
+                    i.bell.icon
+            .item
+                if currentUser
+                    i.user.icon
+                    | #{currentUser.username}
+                else
+                    i.sign.in.alternate.icon

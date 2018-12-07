@@ -12,50 +12,15 @@ body
     +home
 
 
+
+
 template(name='home')
-    .ui.inverted.top.fixed.menu
-        .icon.item
-            i.fas.fa-yin-yang.fa-2x
-        .item
-            +loginButtons
-        .item.create_delta
-            i.plus.icon
-            | Session
-        each my_deltas
-            a.item.select_delta 1 #{title}
-        .item
-            .ui.transparent.input.item
-                input#in(type='text' placeholder='search')
-        if currentUser
-            a.item.add_doc
-                i.plus.icon
-        .right.menu
-            .item
-                if currentUser
-                    i.user.icon
-                    | #{currentUser.username}
-                else
-                    i.sign.in.alternate.icon
-    .ui.stackable.padded.grid
-        .row
-            .six.wide.column.scrolling
-                if delta
-                    .ui.button.delete_delta
-                        i.remove.link.icon
-                    .ui.button.print_delta
-                        i.code.link.icon
-                    .ui.button.recalc
-                        i.refresh.link.icon
-                each delta.facets
-                    +facet
-                    div
-            .ten.wide.column.scrolling
-                with delta.result
-                    if delta.editing
-                        +edit
-                    else
-                        +result
+    +nav
+    #main
+        +Template.dynamic template=main_template
     +footer
+    
+    
 
 
 template(name='edit')
