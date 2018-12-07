@@ -84,20 +84,28 @@ template(name='field')
                             label Label
                             input.label(type='text' value=label)
                         .field
-                            label Value
-                            input.value(type='text' value=value)
-                .field
-                    .two.fields
-                        .disabled.field
                             label Key
                             input.key(type='text' value=key)
-                        .field
-                            label Type
-                            input.type(type='text' value=type)
+                .field
+                    label Field Type
+                    +set_field_key_value key='field_type' value='array'
+                    +set_field_key_value key='field_type' value='string'
+                    +set_field_key_value key='field_type' value='boolean'
+                    +set_field_key_value key='field_type' value='number'
+                    +set_field_key_value key='field_type' value='boolean'
+                .field
+                    +Template.dynamic template=field_edit_template
+                .field
+                    label Value
+                    input.value(type='text' value=field_value)
                 .field
                     .ui.icon.button.delete_field
                         i.remove.icon
 
+
+template(name='set_field_key_value')
+    .ui.button.set_field_key_value(class=field_key_class)
+        |#{value}
     
 
 template(name='result')
@@ -109,11 +117,11 @@ template(name='result')
             each fields
                 li.tc-list__item
                     strong #{label}
-                    div Field Type :#{type}
+                    div Field Type #{type}
                     if is_html
                         |!{value}
                     else if is_number
-                        .ui.header ##{value}
+                        .ui.inverted.header ##{value}
                         // strong time
                         // |{{ from_now value }}
                     else if is_array
@@ -148,10 +156,10 @@ template(name='facet')
             
             
 template(name='footer')
-    .ui.bottom.fixed.inverted.menu
+    .ui.bottom.fixed.inverted.grey.small.menu
         .ui.center.aligned.inverted.grey.small.header
             .item
-                i.copyright.outline.icon
+                i.creative.commons.outline.icon
                 | 2018 Data Analytics Organization
 
 

@@ -19,6 +19,9 @@ Meteor.publish 'my_deltas', ->
 Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id
 
+Meteor.publish 'type', (type)->
+    Docs.find type:'type'
+
 
 # facet macro to find documents
 # facet micro to view into/manipulate docs
@@ -26,6 +29,52 @@ Meteor.publish 'doc_id', (doc_id)->
 
 
 Meteor.methods
+    crawl_fields: ->
+        found_cursor = Docs.find { fields: $exists:false}, limit:100
+        for found in found_cursor.fetch()
+            Meteor.call 'detect_fields', found._id, (err,res)->
+                
+    detect_fields: (doc_id)->
+        doc = Docs.findOne doc_id
+        keys = _.keys doc
+        fields = doc.fields
+        for key in keys
+            key_value = doc["#{key}"]
+            initial_field_type = typeof key_value
+                    
+            if initial_field_type is 'object'        
+                if Array.isArray key_value
+                    field_type = 'array'
+                else
+                    field_type = 'object'
+                    
+            else if initial_field_type is 'number'
+                # d = Date.parse(key_value)
+                # nan = isNaN d
+                # !nan
+                field_type = 'number'
+                                
+            else if initial_field_type is 'string'
+                html_check = /<[a-z][\s\S]*>/i
+                html_result = html_check.test key_value
+                if html_result
+                    field_type = 'html'
+                else
+                    field_type = 'string'
+                
+            label = key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
+
+                            
+            Docs.update doc_id,
+                $addToSet:
+                    fields: 
+                        key:key
+                        label:label
+                        type:field_type
+        
+        console.log 'detected fields', doc_id
+        return doc_id
+
     keys: ->
         start = Date.now()
         cursor = Docs.find({keys:$exists:false}, {limit:1000}).fetch()
@@ -112,7 +161,7 @@ Meteor.methods
                 { $unwind: "$#{key}" }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 20 }
+                { $limit: 42 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
         else
@@ -121,7 +170,7 @@ Meteor.methods
                 { $project: "#{key}": 1 }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 20 }
+                { $limit: 42 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
 

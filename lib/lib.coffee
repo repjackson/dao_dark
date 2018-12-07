@@ -92,64 +92,13 @@ Meteor.methods
             
             
     update_field: (doc_id, field_object, key, value)->
-        console.log doc_id
-        console.log field_object
-        console.log key
-        console.log value
-        console.log doc_id
-        Docs.update {_id:doc_id, fields:field_object},
-            { $set: "fields.$.#{key}":value }
+        result = Docs.update {_id:doc_id, "fields.key":field_object.key},
+            { $set: "fields.$.field_type":value }
+        console.log 'result', result
+        new_doc = Docs.findOne doc_id
+        console.log new_doc
 
 
-    crawl_fields: ->
-        found_cursor = Docs.find { fields: $exists:false}, limit:1000
-        for found in found_cursor.fetch()
-            Meteor.call 'detect_fields', found._id, (err,res)->
-                
-
-
-    detect_fields: (doc_id)->
-        doc = Docs.findOne doc_id
-        keys = _.keys doc
-        fields = doc.fields
-        for key in keys
-            key_value = doc["#{key}"]
-            initial_field_type = typeof key_value
-                    
-            if initial_field_type is 'object'        
-                if Array.isArray key_value
-                    field_type = 'array'
-                else
-                    field_type = 'object'
-                    
-            else if initial_field_type is 'number'
-                # d = Date.parse(key_value)
-                # nan = isNaN d
-                # !nan
-                field_type = 'number'
-                                
-            else if initial_field_type is 'string'
-                html_check = /<[a-z][\s\S]*>/i
-                html_result = html_check.test key_value
-                if html_result
-                    field_type = 'html'
-                else
-                    field_type = 'string'
-                
-            label = key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
-
-                            
-            Docs.update doc_id,
-                $addToSet:
-                    fields: 
-                        key:key
-                        label:label
-                        type:field_type
-        
-        console.log 'detected fields for ', doc_id, keys[..5]
-        return doc_id
-                        
-                        
 
 Docs.helpers
     author: -> Meteor.users.findOne @author_id
