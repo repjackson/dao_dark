@@ -41,26 +41,19 @@ Template.registerHelper 'my_deltas', () ->
 
 
 
-Template.nav.onCreated ->
-    @autorun -> Meteor.subscribe 'my_deltas'
-    @autorun -> Meteor.subscribe 'me'
-
 Template.edit.onCreated ->
     delta = Docs.findOne type:'delta'
     @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
 
 
-Template.nav.events
-    'click .delta': ->
-        Meteor.users.update Meteor.userId(),
-            $set:current_template: 'delta'
-        console.log Meteor.user()
 
 
 Template.home.helpers
     main_template: ->
         if Meteor.user()
             Meteor.user().current_template
+        else
+            'public'
         
         
 

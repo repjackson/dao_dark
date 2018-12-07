@@ -15,7 +15,7 @@
 }
 
 body {
-  margin-top: 2em;
+  /*margin-top: 2em;*/
   /*font-family: 'Roboto', sans-serif !important;*/
   min-height: 500px;
   font-family: 'Ubuntu', sans-serif;
@@ -109,7 +109,7 @@ body {
     
     
 #main {
-  padding: 3em 0px !important;
+  padding: 2em 0px !important;
 }
 
 @media only screen and (max-width: 700px) {

@@ -22,9 +22,24 @@ template(name='nav')
                     i.inbox.icon
                 a.icon.item.alerts(href='#')
                     i.bell.icon
-            .item
-                if currentUser
+            if currentUser
+                .item
                     i.user.icon
                     | #{currentUser.username}
-                else
+                a.icon.item.logout(href='#')
+                    i.sign.out.alternate.icon
+            else
+                .icon.item
                     i.sign.in.alternate.icon
+   
+   
+template(name='history')   
+    .ui.header History
+    .ui.breadcrumb
+        a.section Home
+        .divider  / 
+        a.section Store
+        .divider  / 
+        .active.section T-Shirt
+
+
