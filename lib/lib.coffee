@@ -96,7 +96,9 @@ Meteor.methods
             { $set: "fields.$.field_type":value }
         console.log 'result', result
         new_doc = Docs.findOne doc_id
-        console.log new_doc
+        # console.log new_doc
+        current_delta = Docs.findOne Meteor.user().current_delta_id
+        console.log current_delta
 
 
 

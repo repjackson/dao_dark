@@ -9,8 +9,6 @@ Meteor.users.allow
     remove: (userId, doc) -> userId
 
 
-
-
 Meteor.publish 'my_deltas', ->
     Docs.find
         type:'delta'
@@ -22,6 +20,8 @@ Meteor.publish 'doc_id', (doc_id)->
 Meteor.publish 'type', (type)->
     Docs.find type:'type'
 
+Meteor.publish 'me', ()->
+    Meteor.users.find Meteor.userId()
 
 # facet macro to find documents
 # facet micro to view into/manipulate docs

@@ -41,14 +41,9 @@ Template.registerHelper 'my_deltas', () ->
 
 
 
-
-
-
 Template.home.onCreated ->
     @autorun -> Meteor.subscribe 'my_deltas'
-    delta = Docs.findOne type:'delta'
-    if delta
-        @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
+    @autorun -> Meteor.subscribe 'me'
 
 Template.edit.onCreated ->
     delta = Docs.findOne type:'delta'
@@ -61,9 +56,8 @@ Template.result.onCreated ->
 
 Template.home.helpers
     delta: -> 
-        delta = Docs.findOne type:'delta'
-        if delta 
-            delta
+        if Meteor.user()
+            Docs.findOne Meteor.user().current_delta_id
     
     facets: ->
         # at least keys
@@ -175,6 +169,10 @@ Template.home.events
 
     'click .recalc': ->
         Meteor.call 'fo', (err,res)->
+
+    'click .select_delta': ->
+        Meteor.users.update Meteor.userId(),
+            $set: current_delta_id: @_id
 
 
 Template.facet.events
