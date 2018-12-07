@@ -72,8 +72,7 @@ Template.home.helpers
     
 Template.result.events
     'click .edit': ->
-        delta = Docs.findOne type:'delta'
-        Docs.update delta._id,
+        Docs.update Meteor.user().current_delta_id,
             $set:
                 editing:true
                 doc_id: @_id

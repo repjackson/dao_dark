@@ -92,15 +92,18 @@ Meteor.methods
             
             
     update_field: (doc_id, field_object, key, value)->
-        result = Docs.update {_id:doc_id, "fields.key":field_object.key},
-            { $set: "fields.$.field_type":value }
-        console.log 'result', result
-        new_doc = Docs.findOne doc_id
-        # console.log new_doc
-        current_delta = Docs.findOne Meteor.user().current_delta_id
-        console.log current_delta
-
-
+        Docs.update {_id:doc_id, "fields.key":field_object.key},
+            { $set: "fields.$.#{key}":value }
+        updated_doc = Docs.findOne doc_id
+        
+        for field in updated_doc.fields
+            if field.key is field_object.key
+                # console.log 'found field', field.key, 'with', field_object.key
+                updated_field = field
+                console.log updated_field
+                Docs.update Meteor.user().current_delta_id,
+                    $set: editing_field: updated_field
+                console.log 'current delta', Docs.findOne Meteor.user().current_delta_id
 
 Docs.helpers
     author: -> Meteor.users.findOne @author_id
@@ -276,8 +279,6 @@ Docs.helpers
             return true
         else
             false
-
-
 
 
 Meteor.methods
