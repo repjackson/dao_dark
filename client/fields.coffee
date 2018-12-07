@@ -1,5 +1,5 @@
-
-# # Template.edit_image_field.events
+import Quill from 'quill'
+# # Template.edit_image.events
 # #     "change input[type='file']": (e) ->
 # #         doc_id = delta.doc_id
 # #         files = e.currentTarget.files
@@ -69,15 +69,8 @@
 # #     #     log: -> console.log @
 
 
-Template.key_val.helpers
-    value: -> 
-        # console.log Template.parentData()
-        parent = Template.parentData()
-        parent["#{@valueOf()}"]
 
-
-
-# Template.edit_number_field.events
+# Template.edit_number.events
 #     'change #number_field': (e,t)->
 #         number_value = parseInt e.currentTarget.value
 #         Docs.update delta.doc_id,
@@ -101,7 +94,7 @@ Template.key_val.helpers
 #                     Bert.alert "Updated #{@label}", 'success', 'growl-top-right'
 
 
-# Template.edit_date_field.events
+# Template.edit_date.events
 #     'change #date_field': (e,t)->
 #         date_value = e.currentTarget.value
 #         Docs.update delta.doc_id,
@@ -113,7 +106,7 @@ Template.key_val.helpers
 #                     Bert.alert "Updated #{@label}", 'success', 'growl-top-right'
 
 
-Template.edit_text_field.events
+Template.edit_text.events
     'change #text_field': (e,t)->
         text_value = e.currentTarget.value
         Docs.update delta.doc_id,
@@ -204,57 +197,42 @@ Template.edit_text_field.events
 #         #         $set: "#{@key}": true
 
 
+Template.edit_html.onRendered ->
+    options = 
+        debug: 'info'
+        modules: toolbar: '#toolbar'
+        placeholder: 'Compose an epic...'
+        readOnly: true
+        theme: 'snow'
+
+    editor = new Quill('.editor', options)
+
 
 Template.edit_html.events
-    'blur .froala-container': (e,t)->
-        html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
+    'blur .editor': (e,t)->
+        html = t.$('editor').val()
+        console.log html
         
-        doc_id = delta.doc_id
+        # Docs.update Meteor.user().current_delta_id,
+        #     $set: 
+        #         html: html
 
-        Docs.update doc_id,
-            $set: 
-                html: html
-
-
-Template.edit_html_field.events
-    'blur .froala-container': (e,t)->
-        html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
-        
-        # doc_id = @doc_id
-
-        Docs.update @_id,
-            $set: incident_details: html
-
-
-Template.edit_html_field.helpers
-    getFEContext: ->
-        @current_doc = Docs.findOne delta.doc_id
-        self = @
-        {
-            _value: self.current_doc.incident_details
-            _keepMarkers: true
-            _className: 'froala-reactive-meteorized-override'
-            toolbarInline: false
-            initOnClick: false
-            # imageInsertButtons: ['imageBack', '|', 'imageByURL']
-            tabSpaces: false
-            height: 300
-        }
 
 Template.edit_html.helpers
-    getFEContext: ->
-        @current_doc = Docs.findOne delta.doc_id
-        self = @
-        {
-            _value: self.current_doc.html
-            _keepMarkers: true
-            _className: 'froala-reactive-meteorized-override'
-            toolbarInline: false
-            initOnClick: false
-            # imageInsertButtons: ['imageBack', '|', 'imageByURL']
-            tabSpaces: false
-            height: 300
-        }
+    # getFEContext: ->
+    #     @current_doc = Docs.findOne Meteor.user().current_delta_id
+    #     self = @
+    #     {
+    #         _value: self.current_doc.incident_details
+    #         _keepMarkers: true
+    #         _className: 'froala-reactive-meteorized-override'
+    #         toolbarInline: false
+    #         initOnClick: false
+    #         # imageInsertButtons: ['imageBack', '|', 'imageByURL']
+    #         tabSpaces: false
+    #         height: 300
+    #     }
+
 
 
 # Template.toggle_boolean.events
@@ -266,7 +244,7 @@ Template.edit_html.helpers
 #         Docs.update delta.doc_id,
 #             $set: featured: false
 
-Template.edit_array_field.events
+Template.edit_array.events
     # "autocompleteselect input": (event, template, doc) ->
     #     # console.log("selected ", doc)
     #     Docs.update @doc_id,
@@ -312,7 +290,7 @@ Template.edit_array_field.events
             $pull: "#{Template.parentData(0).key}": tag
         t.$('.new_entry').val(tag)
         
-Template.edit_array_field.helpers
+Template.edit_array.helpers
     # editing_mode: -> 
     #     console.log Session.get 'editing'
     #     if Session.equals 'editing', true then true else false
@@ -411,17 +389,6 @@ Template.array_edit.events
                 "#{field_doc.key}": @valueOf()
 
 
-
-
-
-Template.field_edit.helpers
-    can_edit: -> @editable
-
-    edit_template: ->
-        if @field_type
-            "#{@field_type}_edit"
-        else
-            "string_edit"
 
 Template.boolean_edit.helpers
     bool_switch_class: ->

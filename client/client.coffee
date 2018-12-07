@@ -217,7 +217,8 @@ Template.field.onCreated ->
         
 Template.field.helpers
     field_edit_template: ->
-        console.log @
+        console.log "#{@field_type}_edit"
+        "edit_#{@field_type}"
 
     field_object: ->
         delta = Docs.findOne type:'delta'
