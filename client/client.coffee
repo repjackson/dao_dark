@@ -122,6 +122,13 @@ Template.edit.events
         Meteor.call 'detect_fields', editing_doc._id      
     
     
+    'click .set_editing_field': ->
+        delta = Docs.findOne type:'delta'
+        console.log @
+        editing_doc = Docs.findOne delta.doc_id
+        Docs.update delta._id,
+            $set: editing_field: @
+    
     'click .add_field': ->
         delta = Docs.findOne type:'delta'
         editing_doc = Docs.findOne delta.doc_id
@@ -142,7 +149,7 @@ Template.edit.helpers
         delta = Docs.findOne type:'delta'
         doc = Docs.findOne delta.doc_id
         doc
-    
+        
 
 Template.home.events
     'click .create_delta': (e,t)->
@@ -214,3 +221,9 @@ Template.field.events
             $pull: fields: @
         
         
+Template.field.helpers
+    field_object: ->
+        delta = Docs.findOne type:'delta'
+        console.log delta.editing_field
+        @fields
+        delta.editing_field

@@ -68,32 +68,35 @@ template(name='edit')
         .tc-button.save
             i.green.checkmark.icon
             |Save
+        div
         each fields
-            +field
+            .tc-button.set_editing_field #{label}
+        +field
     
     
 template(name='field')
     .ui.inverted.secondary.segment
-        .ui.inverted.form
-            .field
-                .two.fields
-                    .field
-                        label Label
-                        input.label(type='text' value=label)
-                    .field
-                        label Value
-                        input.value(type='text' value=value)
-            .field
-                .two.fields
-                    .disabled.field
-                        label Key
-                        input.key(type='text' value=key)
-                    .field
-                        label Type
-                        input.type(type='text' value=type)
-            .field
-                .ui.icon.button.delete_field
-                    i.remove.icon
+        with field_object
+            .ui.inverted.form
+                .field
+                    .two.fields
+                        .field
+                            label Label
+                            input.label(type='text' value=label)
+                        .field
+                            label Value
+                            input.value(type='text' value=value)
+                .field
+                    .two.fields
+                        .disabled.field
+                            label Key
+                            input.key(type='text' value=key)
+                        .field
+                            label Type
+                            input.type(type='text' value=type)
+                .field
+                    .ui.icon.button.delete_field
+                        i.remove.icon
 
     
 
