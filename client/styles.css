@@ -129,18 +129,26 @@ body {
 }
 
 @font-face {
-  font-family: bat;
-  src: url("/batmfa__.ttf");
+  font-family: black_bat;
+  src: url("/black_bat.ttf");
+}
+@font-face {
+  font-family: white_bat;
+  src: url("/white_bat.ttf");
 }
 
 
-.bat_header {
-  font-family: 'bat' !important;
-  font-size: 200%;
+.font_500 {
+  font-size: 500%;
 }
-.bat {
-  font-family: 'bat' !important;
-  font-size: 150%;
+
+.black_bat {
+  font-family: 'black_bat' !important;
+}
+
+.white_bat {
+  font-family: 'white_bat' !important;
+  /*font-size: 150%;*/
 }
 
 
@@ -240,3 +248,7 @@ body {
 .footer_area .sitemap_list{
   color:white !important;
 }
+
+
+body { margin: 0; }
+canvas { width: 100%; height: 100% }
