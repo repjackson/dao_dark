@@ -6,10 +6,6 @@ Accounts.ui.config
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
-
-# Template.registerHelper 'can_edit', () ->  Meteor.userId() is @author_id or Roles.userIsInRole(Meteor.userId(), 'admin')
-# Template.registerHelper 'person', () -> Meteor.users.findOne username:@username
-
     
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
 Template.registerHelper 'is_user', () ->  Meteor.userId() is @_id
@@ -28,9 +24,10 @@ Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
 Template.registerHelper 'detail_doc', (input) -> 
-    delta = Docs.findOne type:'delta'
-    if delta
-        Docs.findOne delta.doc_id
+    if Meteor.user() and Meteor.user().current_delta_id
+        delta = Docs.findOne Meteor.user().current_delta_id
+        if delta.doc_id
+            Docs.findOne delta.doc_id
 
 
 
@@ -62,7 +59,7 @@ Template.home.helpers
 Template.facet.helpers
     toggle_value_class: ->
         facet = Template.parentData()
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
 
         if facet.filters and @name in facet.filters
             'grey'
@@ -71,26 +68,26 @@ Template.facet.helpers
 
 Template.edit.events
     'click .save': ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         Docs.update delta._id,
             $set:
                 editing:false
                 result:@
     
     'click .detect_fields': ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne delta.doc_id
         Meteor.call 'detect_fields', editing_doc._id      
     
     
     'click .set_editing_field': ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne delta.doc_id
         Docs.update delta._id,
             $set: editing_field: @
     
     'click .add_field': ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne delta.doc_id
         
         new_field = {
@@ -106,50 +103,31 @@ Template.edit.events
         
 Template.edit.helpers
     editing_doc: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         doc = Docs.findOne delta.doc_id
         doc
         
 
 Template.delta.events
-    'click .create_delta': (e,t)->
-        Docs.insert
-            type:'delta'
-            facets: [{key:'keys', res:[]}]
-            result_ids:[]
-        # Meteor.call 'fo'
-    
-    'click .add_doc': ->
-        delta = Docs.findOne type:'delta'
-        new_id = Docs.insert {}
-        new_doc = Docs.findOne new_id
-        Docs.update delta._id,
-            $set:
-                editing:true
-                doc_id: new_id
-    
-    
     'click .delete_delta': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         Docs.remove delta._id
     
     'click .print_delta': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
 
     'click .recalc': ->
+        console.log @
         Meteor.call 'fo', (err,res)->
 
-    'click .select_delta': ->
-        Meteor.users.update Meteor.userId(),
-            $set: current_delta_id: @_id
 
 
 Template.facet.events
     'click .toggle_selection': ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         facet = Template.currentData()
         
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         if facet.filters and @name in facet.filters
             Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
         else 
@@ -159,7 +137,7 @@ Template.facet.events
                 
 Template.field.events
     'blur .label': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         doc = Docs.findOne delta.doc_id
         # val = 
         value = e.currentTarget.value
@@ -177,7 +155,7 @@ Template.field.events
         
     'click .delete_field': ->
         # if confirm "Remove #{@label}?"
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         doc = Docs.findOne delta.doc_id
         Docs.update delta.doc_id,
             $pull: fields: @
@@ -191,25 +169,25 @@ Template.field.helpers
         "edit_#{@field_type}"
 
     field_object: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         @fields
         delta.editing_field
         
     field_value: -> 
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne delta.doc_id
         editing_doc["#{@key}"]
         
         
 Template.set_field_key_value.events
     'click .set_field_key_value': ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         current_field = Template.parentData()
         Meteor.call 'update_field', delta.doc_id, current_field, @key, @value 
 
 Template.set_field_key_value.helpers
     field_key_class: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne delta.doc_id
         # console.log _.find(editing_doc.fields, (field)=> 
         #     if field.key is @key 

@@ -92,60 +92,67 @@ Meteor.methods
         console.log 'duration', moment(diff).format("HH:mm:ss:SS")
         
     fo: ->
-        delta = Docs.findOne type:'delta'
-
-        built_query = { }
+        if Meteor.user()
+            if Meteor.user().current_delta_id
+                delta = Docs.findOne Meteor.user().current_delta_id
+                console.log 'found delta', delta._id
+                built_query = { }
+                
+                
+                
+                for facet in delta.facets
+                    if facet.filters and facet.filters.length > 0
+                        built_query["#{facet.key}"] = $all: facet.filters
+                    # else
+                    #     Docs.update delta._id,
+                    #         $addToSet:
+                    #             filters" 
+                    #             "filter_#{key}":[]
         
-        for facet in delta.facets
-            if facet.filters and facet.filters.length > 0
-                built_query["#{facet.key}"] = $all: facet.filters
-            # else
-            #     Docs.update delta._id,
-            #         $addToSet:
-            #             filters" 
-            #             "filter_#{key}":[]
-
-        console.log 'built query', built_query
-
-        total = Docs.find(built_query).count()
+                # console.log 'built query', built_query
         
-        # response
-        for facet in delta.facets
-            values = []
-            local_return = []
-            
-            # field type detection 
-            example_doc = Docs.findOne({"#{facet.key}":$exists:true})
-            example_value = example_doc?["#{facet.key}"]
-
-            # js arrays typeof is object
-            array_test = Array.isArray example_value
-            if array_test
-                prim = 'array'
+                total = Docs.find(built_query).count()
+                
+                # response
+                for facet in delta.facets
+                    values = []
+                    local_return = []
+                    
+                    # field type detection 
+                    example_doc = Docs.findOne({"#{facet.key}":$exists:true})
+                    example_value = example_doc?["#{facet.key}"]
+        
+                    # js arrays typeof is object
+                    array_test = Array.isArray example_value
+                    if array_test
+                        prim = 'array'
+                    else
+                        prim = typeof example_value
+                    
+                    agg_res = Meteor.call 'agg', built_query, prim, facet.key, facet.filters
+        
+                    Docs.update {_id:delta._id, "facets.key":facet.key},
+                        { $set: "facets.$.res": agg_res }
+        
+        
+                results_cursor = Docs.find built_query, limit:1
+        
+                # result_ids = []
+                # for result in results_cursor.fetch()
+                #     result_ids.push result._id
+        
+                result = results_cursor.fetch()[0]
+        
+                Docs.update {_id:delta._id},
+                    {$set:
+                        total: total
+                        result:result
+                    }, ->
+                return true
             else
-                prim = typeof example_value
-            
-            agg_res = Meteor.call 'agg', built_query, prim, facet.key, facet.filters
-
-            Docs.update {_id:delta._id, "facets.key":facet.key},
-                { $set: "facets.$.res": agg_res }
-
-
-        results_cursor = Docs.find built_query, limit:1
-
-        # result_ids = []
-        # for result in results_cursor.fetch()
-        #     result_ids.push result._id
-
-        result = results_cursor.fetch()[0]
-
-        Docs.update {_id:delta._id},
-            {$set:
-                total: total
-                result:result
-            }, ->
-        return true
-
+                return
+        else
+            return
 
     agg: (query, type, key, filters)->
         # console.log 'query agg', query

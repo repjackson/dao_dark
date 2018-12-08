@@ -7,7 +7,31 @@ Template.nav.events
     'click .delta': ->
         Meteor.users.update Meteor.userId(),
             $set:current_template: 'delta'
-        console.log Meteor.user()
+   
+    'click .create_delta': (e,t)->
+        new_delta_id = Docs.insert
+            type:'delta'
+            facets: [{key:'keys', res:[]}]
+        Meteor.users.update Meteor.userId(),
+            $set: current_delta_id: new_delta_id
+        Meteor.call 'fo'
+
+    'click .add_doc': ->
+        delta = Docs.findOne type:'delta'
+        new_id = Docs.insert {}
+        new_delta = 
+            Docs.insert 
+                type:'delta'
+                editing:true
+                doc_id: new_id
+                facets: [{key:'keys', res:[]}]
+        Meteor.users.update Meteor.userId(),
+            $set: current_delta_id: new_id
+        
+    'click .select_delta': ->
+        Meteor.users.update Meteor.userId(),
+            $set: current_delta_id: @_id
+
 
     'click .inbox': ->
         Meteor.users.update Meteor.userId(),

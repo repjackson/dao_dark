@@ -2,10 +2,10 @@ template(name='nav')
     .ui.inverted.top.fixed.large.borderless.menu
         a.icon.item.delta(href='#')
             // i.fas.fa-yin-yang.fa-2x
-            img(src='/logo.png')
+            i.shield.alternate.icon
         .item
             +loginButtons
-        .item.create_delta
+        a.item.create_delta(href='#')
             i.plus.icon
             | Session
         each my_deltas

@@ -14,10 +14,10 @@ body
 template(name='home')
     +nav
     if currentUser
-        +history
         #main
+            // +history
             +Template.dynamic template=main_template
-        +footer
+        // +footer
     else
         +public
     
