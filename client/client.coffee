@@ -52,7 +52,8 @@ Template.home.helpers
         else
             'public'
         
-        
+    show_sessions: ->
+        Meteor.user() and Meteor.user().current_template is 'delta'
 
     
 

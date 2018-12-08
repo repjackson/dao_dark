@@ -18,7 +18,8 @@ Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id
 
 Meteor.publish 'type', (type)->
-    Docs.find type:'type'
+    Docs.find 
+        type:type
 
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()

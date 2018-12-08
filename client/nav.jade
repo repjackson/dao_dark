@@ -1,23 +1,23 @@
 template(name='nav')
-    .ui.inverted.attached.large.borderless.menu
+    .ui.inverted.attached.big.borderless.menu
         a.icon.item.delta(href='#')
-            // i.fas.fa-yin-yang.fa-2x
-            i.shield.alternate.icon
-        .item
-            +loginButtons
+            .black_bat.font_150 DAO
         .right.menu
             if currentUser
-                a.item.add_doc
+                a.icon.item.add_doc
                     i.plus.icon
-                    | New
                 a.icon.item.crm(href='#')
                     i.users.icon
+                a.icon.item.schemas(href='#')
+                    i.database.icon
                 a.icon.item.inbox(href='#')
                     i.inbox.icon
                 a.icon.item.alerts(href='#')
                     i.bell.icon
             if currentUser
-                .item
+                a.icon.item.settings(href='#')
+                    i.cog.icon
+                a.item.profile(href='#')
                     i.user.icon
                     | #{currentUser.username}
                 a.icon.item.logout(href='#')
@@ -28,7 +28,7 @@ template(name='nav')
    
    
 template(name='sessions')   
-    .ui.inverted.grey.attached.menu
+    .ui.inverted.grey.attached.large.menu
         a.item.create_delta(href='#')
             i.plus.icon
             | Session

@@ -16,6 +16,28 @@ template(name='crm')
         | Users
     
     
+template(name='schemas')
+    .ui.header 
+        i.database.icon
+        | Schemas
+    .ui.button.add_schema
+        i.plus.icon
+        | Schema
+    each schemas
+        .ui.header #{title}
+    
+    
+template(name='settings')
+    .ui.header 
+        i.cog.icon
+        | Settings
     
     
     
+template(name='login')    
+    .ui.header login
+    +loginButtons
+    
+    
+template(name='profile')
+    .ui.header Profile
