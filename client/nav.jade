@@ -1,7 +1,8 @@
 template(name='nav')
-    .ui.inverted.top.fixed.large.menu
+    .ui.inverted.top.fixed.large.borderless.menu
         a.icon.item.delta(href='#')
-            i.fas.fa-yin-yang.fa-2x
+            // i.fas.fa-yin-yang.fa-2x
+            img(src='/logo.png')
         .item
             +loginButtons
         .item.create_delta
