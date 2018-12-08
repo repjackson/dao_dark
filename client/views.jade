@@ -1,0 +1,60 @@
+template(name='grid')
+    .ui.header grid
+    .ui.stackable.three.cards
+        each current_delta.results
+            .ui.card
+                +result
+
+template(name='list')
+    .ui.header list
+    each current_delta.results
+        .ui.segment
+            .ui.header #{title}        
+
+
+template(name='table')
+    each current_delta.results
+        .ui.segment
+            .ui.header #{title}        
+
+template(name='map')
+    .ui.header map
+    .ui.stackable.three.cards
+        each current_delta.results
+            .ui.card
+                +result
+
+template(name='cal')
+    +change_delta_key key='cal_view' value='day' label='Day'
+    +change_delta_key key='cal_view' value='week' label='Week'
+    +change_delta_key key='cal_view' value='month' label='Month'
+    +change_delta_key key='cal_view' value='year' label='Year'
+    +change_delta_key key='cal_view' value='agenda' label='Agenda'
+    +Template.dynamic template=current_delta.cal_view
+    
+    
+template(name='month')    
+    .ui.seven.column.celled.stackable.grid
+        .grey.row
+            .column Sun
+            .column Mon
+            .column Tues
+            .column Wed
+            .column Thurs
+            .column Fri
+            .column Sat
+            
+template(name='week')    
+    .ui.seven.column.celled.stackable.grid
+        .grey.row
+            .column Sun
+            .column Mon
+            .column Tues
+            .column Wed
+            .column Thurs
+            .column Fri
+            .column Sat
+            
+            
+            
+            

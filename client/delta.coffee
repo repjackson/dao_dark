@@ -31,17 +31,17 @@ Template.result.onCreated ->
             Docs.findOne Meteor.user().current_delta_id
     
     
-Template.change_delta_view.events
-    'click .set_delta_view': ->
+Template.change_delta_key.events
+    'click .set_delta_key': ->
         Docs.update Meteor.user().current_delta_id,
             $set: 
-                view: @slug
+                "#{@key}": @value
         
     
-Template.change_delta_view.helpers
-    view_button_class: ->
+Template.change_delta_key.helpers
+    delta_key_button_class: ->
         delta = Docs.findOne Meteor.user().current_delta_id
-        if delta and @slug is delta.view then 'grey' else ''
+        if delta and @value is delta["#{@key}"] then 'grey' else ''
         
     
 

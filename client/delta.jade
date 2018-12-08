@@ -22,43 +22,18 @@ template(name='delta')
                 if delta.editing
                     +edit
                 else
-                    +change_delta_view icon='list' label='List' slug='list'
-                    +change_delta_view icon='th' label='Grid' slug='grid'
-                    +change_delta_view icon='map' label='Map' slug='map'
-                    +change_delta_view icon='calendar' label='Calendar' slug='cal'
+                    +change_delta_key key='view' icon='list' label='List' value='list'
+                    +change_delta_key key='view' icon='th' label='Grid' value='grid'
+                    +change_delta_key key='view' icon='table' label='Table' value='grid'
+                    +change_delta_key key='view' icon='map' label='Map' value='map'
+                    +change_delta_key key='view' icon='calendar' label='Calendar' value='cal'
+                div
                 +Template.dynamic template=delta.view
                     
-                    
-                    
-template(name='grid')
-    .ui.header grid
-    .ui.stackable.three.cards
-        each current_delta.results
-            .ui.card
-                +result
-
-template(name='list')
-    .ui.header list
-    each current_delta.results
-        .ui.segment
-            .ui.header #{title}        
-
-template(name='map')
-    .ui.header map
-    .ui.stackable.three.cards
-        each current_delta.results
-            .ui.card
-                +result
-
-template(name='cal')
-    .ui.header cal
-    .ui.stackable.three.cards
-        each current_delta.results
-            .ui.card
-                +result
 
 
-template(name='change_delta_view')
-    .ui.button.set_delta_view(class=view_button_class)
-        i.icon(class=icon)
+template(name='change_delta_key')
+    .ui.button.set_delta_key(class=delta_key_button_class)
+        if icon
+            i.icon(class=icon)
         |#{label}
