@@ -82,50 +82,6 @@ template(name='set_field_key_value')
         |#{value}
     
 
-template(name='result')
-    .ui.button.edit
-        i.pencil.icon
-        | Edit
-    .ui.list
-        each fields
-            .item
-                strong #{label}
-                // div [#{type}]
-                if is_html
-                    |!{value}
-                else if is_number
-                    .ui.header ##{value}
-                    // strong time
-                    // |{{ from_now value }}
-                else if is_array
-                    each value
-                        .ui.label #{this}
-                else
-                    |#{value} 
-    div
-        .ui.button
-            i.thumbs.up.icon
-        .ui.button
-            i.thumbs.down.icon
-        .ui.button
-            i.chat.icon
-        .ui.button
-            i.eye.icon
-        .ui.button
-            i.bookmark.icon
-
-
-template(name='facet')
-    // .ui.secondary.segment
-    .ui.small.header #{key}
-    // each filters
-    //     .unselect.ui.blue.button #{this}
-    
-    each res
-        .ui.compact.button.toggle_selection(class=toggle_value_class)
-            strong #{name}
-            // small #{count}
-            
             
             
 template(name='footer')

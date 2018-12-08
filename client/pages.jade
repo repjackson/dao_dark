@@ -31,18 +31,3 @@ template(name='login')
     .ui.header login
     +loginButtons
     
-    
-template(name='profile')
-    .ui.header Profile
-    with currentUser
-        .ui.header #{username}
-    .ui.dividing.header
-        | Account
-    .ui.button
-        | Free
-    .ui.button
-        | Pro
-    .ui.button
-        | Business
-        
-        

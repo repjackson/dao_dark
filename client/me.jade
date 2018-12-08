@@ -1,0 +1,33 @@
+template(name='account')
+    .ui.segment
+        .ui.header
+            | Account
+        .ui.button
+            | Free
+        .ui.button
+            | Pro
+        .ui.button
+            | Business
+    
+    .ui.segment
+        .ui.header
+            i.fire.icon
+            | Tribes
+        .ui.icon.button.new_tribe
+            i.plus.icon
+            | New
+        each my_tribes
+            .ui.segment(class=tribe_class)
+                .ui.header #{title}
+                .ui.button.select_tribe
+                    |switch
+    
+    
+    
+    
+template(name='profile')
+    .ui.header Profile
+    with currentUser
+        .ui.header #{username}
+        
+    +account
