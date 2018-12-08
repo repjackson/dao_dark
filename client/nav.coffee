@@ -69,6 +69,10 @@ Template.nav.events
                         key:'tags'
                         res:[]
                     }
+                    {
+                        key:'title'
+                        res:[]
+                    }
                     ]
             Meteor.users.update Meteor.userId(),
                 $set: 

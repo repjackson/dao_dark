@@ -14,6 +14,7 @@ Template.result.onCreated ->
     
     'click .print_delta': (e,t)->
         delta = Docs.findOne Meteor.user().current_delta_id
+        console.log delta
 
     'click .recalc': ->
         Meteor.call 'fo', (err,res)->
@@ -29,6 +30,21 @@ Template.result.onCreated ->
         if Meteor.user()
             Docs.findOne Meteor.user().current_delta_id
     
+    
+Template.change_delta_view.events
+    'click .set_delta_view': ->
+        Docs.update Meteor.user().current_delta_id,
+            $set: 
+                view: @slug
+        
+    
+Template.change_delta_view.helpers
+    view_button_class: ->
+        delta = Docs.findOne Meteor.user().current_delta_id
+        if delta and @slug is delta.view then 'grey' else ''
+        
+    
+
 
 Template.result.events
     'click .edit': ->

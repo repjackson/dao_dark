@@ -134,18 +134,18 @@ Meteor.methods
                         { $set: "facets.$.res": agg_res }
         
         
-                results_cursor = Docs.find built_query, limit:1
+                results_cursor = Docs.find built_query, limit:10
         
                 # result_ids = []
                 # for result in results_cursor.fetch()
                 #     result_ids.push result._id
         
-                result = results_cursor.fetch()[0]
+                results = results_cursor.fetch()
         
                 Docs.update {_id:delta._id},
                     {$set:
                         total: total
-                        result:result
+                        results:results
                     }, ->
                 return true
             else

@@ -35,6 +35,11 @@ Template.registerHelper 'my_deltas', () ->
     Docs.find type:'delta'
 
 
+Template.registerHelper 'current_delta', () -> 
+    if Meteor.user() and Meteor.user().current_delta_id
+        delta = Docs.findOne Meteor.user().current_delta_id
+
+
 
 
 

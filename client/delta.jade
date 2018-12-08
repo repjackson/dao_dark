@@ -1,9 +1,9 @@
 template(name='delta')    
     .ui.stackable.padded.grid
         .row
-            .six.wide.column.scrolling
+            .four.wide.column.scrolling
                 if delta
-                    .ui.large.transparent.input
+                    .ui.large.transparent.input(title='Rename')
                         input.delta_title(type='text' value=delta.title)
                     .ui.icon.button.delete_delta
                         i.remove.link.icon
@@ -18,9 +18,47 @@ template(name='delta')
                     unless hidden
                         +facet
                         div
-            .ten.wide.column.scrolling
-                with delta.result
-                    if delta.editing
-                        +edit
-                    else
-                        +result
+            .twelve.wide.column
+                if delta.editing
+                    +edit
+                else
+                    +change_delta_view icon='list' label='List' slug='list'
+                    +change_delta_view icon='th' label='Grid' slug='grid'
+                    +change_delta_view icon='map' label='Map' slug='map'
+                    +change_delta_view icon='calendar' label='Calendar' slug='cal'
+                +Template.dynamic template=delta.view
+                    
+                    
+                    
+template(name='grid')
+    .ui.header grid
+    .ui.stackable.three.cards
+        each current_delta.results
+            .ui.card
+                +result
+
+template(name='list')
+    .ui.header list
+    each current_delta.results
+        .ui.segment
+            .ui.header #{title}        
+
+template(name='map')
+    .ui.header map
+    .ui.stackable.three.cards
+        each current_delta.results
+            .ui.card
+                +result
+
+template(name='cal')
+    .ui.header cal
+    .ui.stackable.three.cards
+        each current_delta.results
+            .ui.card
+                +result
+
+
+template(name='change_delta_view')
+    .ui.button.set_delta_view(class=view_button_class)
+        i.icon(class=icon)
+        |#{label}
