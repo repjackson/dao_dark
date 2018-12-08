@@ -15,8 +15,9 @@ template(name='delta')
                         i.refresh.link.icon
                         // | Refresh
                 each delta.facets
-                    +facet
-                    div
+                    unless hidden
+                        +facet
+                        div
             .ten.wide.column.scrolling
                 with delta.result
                     if delta.editing

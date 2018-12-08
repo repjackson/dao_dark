@@ -111,18 +111,6 @@ Template.edit.helpers
 
 
 
-Template.facet.events
-    'click .toggle_selection': ->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        facet = Template.currentData()
-        
-        delta = Docs.findOne Meteor.user().current_delta_id
-        if facet.filters and @name in facet.filters
-            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
-        else 
-            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
-                
-                
                 
 Template.field.events
     'blur .label': (e,t)->

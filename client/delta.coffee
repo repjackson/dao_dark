@@ -29,18 +29,6 @@ Template.result.onCreated ->
         if Meteor.user()
             Docs.findOne Meteor.user().current_delta_id
     
-    facets: ->
-        # at least keys
-        facets = []
-        delta = Docs.findOne Meteor.user().current_delta_id
-        if delta 
-            if delta.keys_filter
-                for item in delta.keys_filter
-                    facets.push item.name
-        facets.push 'keys'
-        facets
-    
-
 
 Template.result.events
     'click .edit': ->
@@ -60,3 +48,17 @@ Template.result.helpers
     is_array: -> @type is 'array'
     is_string: -> @type is 'string'
 
+
+
+Template.facet.events
+    'click .toggle_selection': ->
+        delta = Docs.findOne Meteor.user().current_delta_id
+        facet = Template.currentData()
+        
+        delta = Docs.findOne Meteor.user().current_delta_id
+        if facet.filters and @name in facet.filters
+            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+        else 
+            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+                
+                

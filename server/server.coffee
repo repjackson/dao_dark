@@ -99,8 +99,6 @@ Meteor.methods
                 console.log 'found delta', delta._id
                 built_query = { }
                 
-                
-                
                 for facet in delta.facets
                     if facet.filters and facet.filters.length > 0
                         built_query["#{facet.key}"] = $all: facet.filters

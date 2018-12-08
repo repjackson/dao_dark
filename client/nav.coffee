@@ -1,9 +1,8 @@
 
 Template.nav.onCreated ->
     @autorun -> Meteor.subscribe 'me'
-
-Template.sessions.onCreated ->
     @autorun -> Meteor.subscribe 'my_deltas'
+
 
 Template.sessions.helpers
     session_item_class: ->
@@ -44,9 +43,44 @@ Template.nav.events
             $set: current_delta_id: new_delta._id
         
 
-    'click .delta': ->
+    'click .dash': ->
+        existing_dash = Docs.findOne
+            type:'delta'
+            delta_template: 'dash'
+        
+        if existing_dash
+            Meteor.users.update Meteor.userId(),
+                $set: 
+                    current_template: 'delta'
+                    current_delta_id: existing_dash._id
+        else
+            new_dash_id = Docs.insert
+                type:'delta'
+                title:'Dashboard'
+                icon:'dashboard'
+                delta_template: 'dash'
+                facets: [
+                    {
+                        key:'type'
+                        filters: ['schema']
+                        hidden:true
+                    }
+                    {
+                        key:'tags'
+                        res:[]
+                    }
+                    ]
+            Meteor.users.update Meteor.userId(),
+                $set: 
+                    current_template: 'delta'
+                    current_delta_id: new_dash_id
+            Meteor.call 'fo'
+            
+        
         Meteor.users.update Meteor.userId(),
-            $set: current_template: 'delta'    
+            $set: 
+                current_template: 'delta'
+                
     
     'click .inbox': ->
         Meteor.users.update Meteor.userId(),
@@ -63,10 +97,6 @@ Template.nav.events
     'click .alerts': ->
         Meteor.users.update Meteor.userId(),
             $set: current_template: 'alerts'
-            
-    'click .settings': ->
-        Meteor.users.update Meteor.userId(),
-            $set: current_template: 'settings'
             
     'click .profile': ->
         Meteor.users.update Meteor.userId(),
