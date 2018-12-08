@@ -39,7 +39,7 @@ Template.registerHelper 'my_deltas', () ->
 
 
 Template.edit.onCreated ->
-    delta = Docs.findOne type:'delta'
+    delta = Docs.findOne Meteor.user().current_delta_id
     @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
 
 
@@ -107,18 +107,6 @@ Template.edit.helpers
         doc = Docs.findOne delta.doc_id
         doc
         
-
-Template.delta.events
-    'click .delete_delta': (e,t)->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        Docs.remove delta._id
-    
-    'click .print_delta': (e,t)->
-        delta = Docs.findOne Meteor.user().current_delta_id
-
-    'click .recalc': ->
-        console.log @
-        Meteor.call 'fo', (err,res)->
 
 
 

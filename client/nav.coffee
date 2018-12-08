@@ -17,7 +17,7 @@ Template.nav.events
         Meteor.call 'fo'
 
     'click .add_doc': ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         new_id = Docs.insert {}
         new_delta = 
             Docs.insert 

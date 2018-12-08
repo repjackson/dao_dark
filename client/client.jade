@@ -88,7 +88,7 @@ template(name='result')
         each fields
             .item
                 strong #{label}
-                div Field Type #{type}
+                // div [#{type}]
                 if is_html
                     |!{value}
                 else if is_number
@@ -97,7 +97,7 @@ template(name='result')
                     // |{{ from_now value }}
                 else if is_array
                     each value
-                        .ui.grey.label #{this}
+                        .ui.label #{this}
                 else
                     |#{value} 
     div

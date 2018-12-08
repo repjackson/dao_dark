@@ -316,7 +316,7 @@ Template.edit_array.helpers
 
 Template.boolean_edit.events
     'click .toggle_field': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
         bool_value = target_doc["#{@key}"]
         # console.log t.data
@@ -331,7 +331,7 @@ Template.boolean_edit.events
 
 Template.string_edit.events
     'blur .string_val': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
 
         val = e.currentTarget.value
@@ -342,7 +342,7 @@ Template.string_edit.events
 Template.number_edit.events
     'blur .number_val': (e,t)->
         # console.log Template.parentData()
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
 
         val = parseInt e.currentTarget.value
@@ -353,7 +353,7 @@ Template.number_edit.events
 Template.date_edit.events
     'blur .date_val': (e,t)->
         # console.log Template.parentData()
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
 
         val = e.currentTarget.value
@@ -364,7 +364,7 @@ Template.date_edit.events
 Template.textarea_edit.events
     'blur .textarea_val': (e,t)->
         # console.log Template.parentData()
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
 
         val = e.currentTarget.value
@@ -375,7 +375,7 @@ Template.textarea_edit.events
 Template.array_edit.events
     'keyup .add_array_element': (e,t)->
         if e.which is 13
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne Meteor.user().current_delta_id
             target_doc = Docs.findOne _id:delta.detail_id
 
             val = e.currentTarget.value
@@ -385,7 +385,7 @@ Template.array_edit.events
             t.$('.add_array_element').val('')
 
     'click .pull_element': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
         field_doc = Template.currentData()
 
@@ -397,7 +397,7 @@ Template.array_edit.events
 
 Template.boolean_edit.helpers
     bool_switch_class: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
         bool_value = target_doc?["#{@key}"]
         if bool_value and bool_value is true
@@ -407,21 +407,21 @@ Template.boolean_edit.helpers
 
 Template.string_edit.helpers
     value: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne _id:delta.detail_id
         console.log 'target doc', editing_doc
         value = editing_doc["#{@key}"]
 
 Template.date_edit.helpers
     value: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne _id:delta.detail_id
         console.log 'target doc', editing_doc
         value = editing_doc["#{@key}"]
 
 Template.field_view.helpers
     value: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne _id:delta.detail_id
         value = editing_doc["#{@slug}"]
 
@@ -429,14 +429,14 @@ Template.field_view.helpers
 
 Template.number_edit.helpers
     value: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne _id:delta.detail_id
         console.log 'target doc', editing_doc
         value = editing_doc["#{@key}"]
 
 Template.textarea_edit.helpers
     value: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         editing_doc = Docs.findOne _id:delta.detail_id
         # console.log 'target doc', editing_doc
         value = editing_doc["#{@key}"]
@@ -444,7 +444,7 @@ Template.textarea_edit.helpers
 
 Template.array_edit.helpers
     value: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
         target_doc?["#{@key}"]
 
@@ -459,12 +459,12 @@ Template.multiref_edit.helpers
             type:@ref_schema
 
     value: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
         target_doc["#{@key}"]
 
     element_class: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
         parent = Template.parentData()
 
@@ -477,7 +477,7 @@ Template.multiref_edit.helpers
 
 Template.multiref_edit.events
     'click .toggle_element': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
         editing_field = Template.currentData().key
         value =
@@ -496,7 +496,7 @@ Template.multiref_edit.events
 
 Template.ref_edit.events
     'click .choose_element': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
         editing_field = Template.currentData().key
         value =
@@ -512,7 +512,7 @@ Template.ref_edit.helpers
         Docs.find
             type:@ref_schema
     element_class: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id
         parent = Template.parentData()
 
