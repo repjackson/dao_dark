@@ -1,24 +1,17 @@
 template(name='nav')
-    .ui.inverted.top.fixed.large.borderless.menu
+    .ui.inverted.attached.large.borderless.menu
         a.icon.item.delta(href='#')
             // i.fas.fa-yin-yang.fa-2x
             i.shield.alternate.icon
         .item
             +loginButtons
-        a.item.create_delta(href='#')
-            i.plus.icon
-            | Session
-        each my_deltas
-            a.item.select_delta #{title}
-        // .item
-        //     .ui.transparent.input.item
-        //         input#in(type='text' placeholder='search')
-        if currentUser
-            a.item.add_doc
-                i.plus.icon
-                | New
         .right.menu
             if currentUser
+                a.item.add_doc
+                    i.plus.icon
+                    | New
+                a.icon.item.crm(href='#')
+                    i.users.icon
                 a.icon.item.inbox(href='#')
                     i.inbox.icon
                 a.icon.item.alerts(href='#')
@@ -32,6 +25,17 @@ template(name='nav')
             else
                 .icon.item
                     i.sign.in.alternate.icon
+   
+   
+template(name='sessions')   
+    .ui.inverted.grey.attached.menu
+        a.item.create_delta(href='#')
+            i.plus.icon
+            | Session
+        each my_deltas
+            a.item.select_delta(class=session_item_class)
+                |#{title}
+   
    
    
 template(name='history')   
