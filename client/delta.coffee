@@ -7,7 +7,7 @@ Template.result.onCreated ->
  
  
  
- Template.delta.events
+Template.delta.events
     'click .delete_delta': (e,t)->
         delta = Docs.findOne Meteor.user().current_delta_id
         Docs.remove delta._id
@@ -25,7 +25,7 @@ Template.result.onCreated ->
             $set: title: title_val
         
  
- Template.delta.helpers       
+Template.delta.helpers       
     delta: -> 
         if Meteor.user()
             Docs.findOne Meteor.user().current_delta_id

@@ -56,5 +56,25 @@ template(name='week')
             .column Sat
             
             
+template(name='day')    
+    .ui.two.column.celled.stackable.grid
+        each hours
+            .row
+                .column #{this}
+                .column 
+                    i.grey.plus.icon
+            
+            
+template(name='year')
+    .ui.four.column.celled.stackable.grid
+        each months
+            .column
+                .ui.small.header #{title}
+                .ui.seven.column.grid
+                    each array_days
+                        .column
+                            |#{this}
+                
+            
             
             
