@@ -333,7 +333,6 @@ Template.boolean_edit.events
 
 Template.string_edit.helpers
     value: ->
-        # console.log @
         parent = Template.parentData()
         value = parent["#{@key}"]
 
@@ -341,17 +340,14 @@ Template.string_edit.helpers
 
 Template.string_edit.events
     'blur .string_val': (e,t)->
-        console.log @
         parent = Template.parentData()
-
-        console.log parent
 
         val = e.currentTarget.value
 
         Docs.update parent._id,
             $set:
                 "#{@key}": val
-
+        Meteor.call 'fo'
 
 
 
