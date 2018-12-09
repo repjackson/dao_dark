@@ -24,6 +24,13 @@ Meteor.publish 'type', (type)->
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
 
+
+Meteor.publish 'my_tribe', ()->
+    Docs.find
+        type:'tribe'
+        _id: Meteor.user().current_tribe_id
+
+
 # facet macro to find documents
 # facet micro to view into/manipulate docs
 

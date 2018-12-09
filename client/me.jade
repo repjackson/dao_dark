@@ -19,8 +19,12 @@ template(name='account')
         each my_tribes
             .ui.segment(class=tribe_class)
                 .ui.header #{title}
-                .ui.button.select_tribe
-                    |switch
+                if selected
+                    .ui.button.unselect_tribe
+                        |Unselect
+                else
+                    .ui.button.select_tribe
+                        |Select
     
     
     

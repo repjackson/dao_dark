@@ -1,6 +1,7 @@
 
 Template.nav.onCreated ->
     @autorun -> Meteor.subscribe 'me'
+    @autorun -> Meteor.subscribe 'my_tribe'
     @autorun -> Meteor.subscribe 'my_deltas'
 
 

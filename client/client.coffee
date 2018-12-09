@@ -31,6 +31,14 @@ Template.registerHelper 'detail_doc', (input) ->
 
 
 
+Template.registerHelper 'my_tribe', () -> 
+    if Meteor.user()
+        Docs.findOne
+            _id: Meteor.user().current_tribe_id
+
+
+
+
 Template.registerHelper 'my_deltas', () -> 
     Docs.find type:'delta'
 

@@ -14,7 +14,15 @@ Template.account.events
             $set: current_tribe_id: @_id
         
         
+    'click .unselect_tribe': ->
+        Meteor.users.update Meteor.userId(),
+            $unset: current_tribe_id: 1
+        
+        
 Template.account.helpers
+    selected: ->
+        if Meteor.user().current_tribe_id and @_id is Meteor.user().current_tribe_id then true else false
+        
     my_tribes: ->
         Docs.find type:'tribe'
         
