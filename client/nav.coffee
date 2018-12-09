@@ -52,7 +52,6 @@ Template.nav.events
         Meteor.users.update Meteor.userId(),
             $set: current_delta_id: new_delta._id
         
-
     'click .dash': ->
         existing_dash = Docs.findOne
             type:'delta'
@@ -95,10 +94,10 @@ Template.nav.events
             $set: 
                 current_template: 'delta'
                 
-    'click .modules': ->
+    'click .select_module': ->
         user_module_delta = Docs.findOne
             type:'delta'
-            module_id: 'SXzYpB9d8XS7iKe6c'
+            module_id: @_id
         
         if user_module_delta
             Meteor.users.update Meteor.userId(),
@@ -108,7 +107,7 @@ Template.nav.events
         else
             new_user_module_delta_id = Docs.insert
                 type:'delta'
-                module_id: 'SXzYpB9d8XS7iKe6c'
+                module_id: @_id
                 facets: [
                     {
                         key:'type'

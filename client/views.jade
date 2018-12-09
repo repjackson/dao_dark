@@ -9,7 +9,7 @@ template(name='list')
         .ui.segment
             .ui.header #{title}
             +multiref_edit schema='tribe' title='Tribes'
-
+            +string_edit title='Slug' key='slug'
 
 template(name='table')
     each current_delta.results

@@ -106,16 +106,16 @@ import Quill from 'quill'
 #                     Bert.alert "Updated #{@label}", 'success', 'growl-top-right'
 
 
-Template.edit_text.events
-    'change #text_field': (e,t)->
-        text_value = e.currentTarget.value
-        Docs.update delta.doc_id,
-            { $set: "#{@key}": text_value }
-            , (err,res)=>
-                if err
-                    Bert.alert "Error Updating #{@label}: #{error.reason}", 'danger', 'growl-top-right'
-                else
-                    Bert.alert "Updated #{@label}", 'success', 'growl-top-right'
+# Template.edit_text.events
+#     'change #text_field': (e,t)->
+#         text_value = e.currentTarget.value
+#         Docs.update delta.doc_id,
+#             { $set: "#{@key}": text_value }
+#             , (err,res)=>
+#                 if err
+#                     Bert.alert "Error Updating #{@label}: #{error.reason}", 'danger', 'growl-top-right'
+#                 else
+#                     Bert.alert "Updated #{@label}", 'success', 'growl-top-right'
 
 
 
@@ -329,15 +329,31 @@ Template.boolean_edit.events
             Docs.update target_doc._id,
                 $set: "#{t.data.key}": true
 
+
+
+Template.string_edit.helpers
+    value: ->
+        # console.log @
+        parent = Template.parentData()
+        value = parent["#{@key}"]
+
+
+
 Template.string_edit.events
     'blur .string_val': (e,t)->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        target_doc = Docs.findOne _id:delta.detail_id
+        console.log @
+        parent = Template.parentData()
+
+        console.log parent
 
         val = e.currentTarget.value
-        Docs.update target_doc._id,
+
+        Docs.update parent._id,
             $set:
-                "#{t.data.key}": val
+                "#{@key}": val
+
+
+
 
 Template.number_edit.events
     'blur .number_val': (e,t)->
@@ -405,12 +421,6 @@ Template.boolean_edit.helpers
         else
             ''
 
-Template.string_edit.helpers
-    value: ->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        editing_doc = Docs.findOne _id:delta.detail_id
-        console.log 'target doc', editing_doc
-        value = editing_doc["#{@key}"]
 
 Template.date_edit.helpers
     value: ->
