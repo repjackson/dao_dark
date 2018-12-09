@@ -1,13 +1,13 @@
-Template.schemas.onCreated ->
-    @autorun -> Meteor.subscribe 'type', 'schema'
+Template.modules.onCreated ->
+    @autorun -> Meteor.subscribe 'type', 'module'
     
     
-Template.schemas.helpers
-    schemas: -> Docs.find type:'schema'
+Template.modules.helpers
+    modules: -> Docs.find type:'module'
     
     
-Template.schemas.events
-    'click .add_schema': ->
+Template.modules.events
+    'click .add_module': ->
         Docs.insert
-            type:'schema'
-            title: 'new schema'
+            type:'module'
+            title: 'new module'

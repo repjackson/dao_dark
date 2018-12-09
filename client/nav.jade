@@ -1,19 +1,19 @@
 template(name='nav')
     .ui.inverted.attached.big.borderless.menu(class=my_tribe.color)
-        if my_tribe
-            .item
-                |#{my_tribe.title}
-        else
+        if in_dao
             a.icon.item.dash(href='#')
                 .black_bat.font_150 DAO
+        else
+            .item
+                |#{my_tribe.title}
         .right.menu
             if currentUser
                 a.icon.item.add_doc
                     i.plus.icon
                 a.icon.item.crm(href='#')
                     i.users.icon
-                a.icon.item.schemas(href='#')
-                    i.database.icon
+                a.icon.item.modules(href='#')
+                    i.cubes.icon
                 a.icon.item.inbox(href='#')
                     i.inbox.icon
                 a.icon.item.alerts(href='#')

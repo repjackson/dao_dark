@@ -29,7 +29,8 @@ Template.registerHelper 'detail_doc', (input) ->
         if delta.doc_id
             Docs.findOne delta.doc_id
 
-
+Template.registerHelper 'in_dao', () -> 
+    Meteor.user() and Meteor.user().current_tribe_id is 'X2xn6Bo45FnbefJe5'
 
 Template.registerHelper 'my_tribe', () -> 
     if Meteor.user()

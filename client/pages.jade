@@ -16,14 +16,14 @@ template(name='crm')
         | Users
     
     
-template(name='schemas')
+template(name='modules')
     .ui.header 
-        i.database.icon
-        | Schemas
-    .ui.button.add_schema
+        i.cubes.icon
+        | Modules
+    .ui.button.add_module
         i.plus.icon
-        | Schema
-    each schemas
+        | Module
+    each modules
         .ui.header #{title}
     
     

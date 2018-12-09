@@ -22,12 +22,13 @@ Template.sessions.events
             $set: current_delta_id: new_delta_id
         Meteor.call 'fo'
         
-        
     'click .select_delta': ->
         Meteor.users.update Meteor.userId(),
             $set: 
                 current_delta_id: @_id
                 current_template: 'delta'
+
+
 
 Template.nav.events
     'click .add_doc': ->
@@ -91,9 +92,9 @@ Template.nav.events
         Meteor.users.update Meteor.userId(),
             $set: current_template: 'inbox'    
     
-    'click .schemas': ->
+    'click .modules': ->
         Meteor.users.update Meteor.userId(),
-            $set: current_template: 'schemas'    
+            $set: current_template: 'modules'
     
     'click .crm': ->
         Meteor.users.update Meteor.userId(),
