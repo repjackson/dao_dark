@@ -5,11 +5,11 @@ Template.nav.onCreated ->
     @autorun -> Meteor.subscribe 'my_deltas'
 
 
-Template.sessions.helpers
+Template.nav.helpers
     session_item_class: ->
         if Meteor.user().current_delta_id is @_id then 'active' else ''
 
-Template.sessions.events
+Template.nav.events
     'click .delta': ->
         Meteor.users.update Meteor.userId(),
             $set:current_template: 'delta'
@@ -87,14 +87,46 @@ Template.nav.events
             $set: 
                 current_template: 'delta'
                 
+    'click .modules': ->
+        user_module_delta = Docs.findOne
+            type:'delta'
+            module: 'module'
+        
+        if user_module_delta
+            Meteor.users.update Meteor.userId(),
+                $set: 
+                    current_template: 'delta'
+                    current_delta_id: user_module_delta._id
+        else
+            new_user_module_delta_id = Docs.insert
+                type:'delta'
+                module: 'module'
+                facets: [
+                    {
+                        key:'type'
+                        filters: ['module']
+                        hidden:true
+                    }
+                    {
+                        key:'tags'
+                        res:[]
+                    }
+                    {
+                        key:'title'
+                        res:[]
+                    }
+                ]
+                
+            Meteor.users.update Meteor.userId(),
+                $set: 
+                    current_template: 'delta'
+                    current_delta_id: new_user_module_delta_id
+            Meteor.call 'fo'
+            
     
     'click .inbox': ->
         Meteor.users.update Meteor.userId(),
             $set: current_template: 'inbox'    
-    
-    'click .modules': ->
-        Meteor.users.update Meteor.userId(),
-            $set: current_template: 'modules'
     
     'click .crm': ->
         Meteor.users.update Meteor.userId(),

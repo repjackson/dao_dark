@@ -66,10 +66,6 @@ Template.home.helpers
         else
             'public'
         
-    show_sessions: ->
-        Meteor.user() and Meteor.user().current_template is 'delta'
-
-    
 
 Template.facet.helpers
     toggle_value_class: ->

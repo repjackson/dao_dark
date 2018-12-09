@@ -6,8 +6,18 @@ template(name='nav')
         else
             .item
                 |#{my_tribe.title}
+        // a.icon.item.create_delta(href='#')
+        //     i.plus.icon
+        // each my_deltas
+        //     a.item.select_delta(class=session_item_class)
+        //         if icon
+        //             i.icon(class=icon)
+        //         |#{title}
         .right.menu
             if currentUser
+                each tribe_modules
+                    a.icon.item.select_module
+                        i.icon(class=icon)
                 a.icon.item.add_doc
                     i.plus.icon
                 a.icon.item.crm(href='#')
@@ -27,17 +37,6 @@ template(name='nav')
             else
                 .icon.item
                     i.sign.in.alternate.icon
-   
-   
-template(name='sessions')   
-    .ui.inverted.grey.attached.large.menu
-        a.icon.item.create_delta(href='#')
-            i.plus.icon
-        each my_deltas
-            a.item.select_delta(class=session_item_class)
-                if icon
-                    i.icon(class=icon)
-                |#{title}
    
    
    

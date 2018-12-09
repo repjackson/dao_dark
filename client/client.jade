@@ -13,8 +13,6 @@ body
 
 template(name='home')
     +nav
-    if show_sessions
-        +sessions
     #main
         if currentUser
             +Template.dynamic template=main_template
