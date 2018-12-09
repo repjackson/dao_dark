@@ -460,10 +460,10 @@ Template.multiref_edit.helpers
 
     ref_class: ->
         parent = Template.parentData(2)
-        console.log @
-        console.log parent
+        # console.log @
+        # console.log parent
         
-        if parent["#{@type}_ids"] and @_id in parent["#{@type}_ids"] then 'blue' else ''
+        if parent["#{@type}_ids"] and @_id in parent["#{@type}_ids"] then 'grey' else ''
 
 
 Template.multiref_edit.events
@@ -475,13 +475,17 @@ Template.multiref_edit.events
         if parent["#{@type}_ids"] and @_id in parent["#{@type}_ids"]
             Docs.update parent._id,
                 $pull:"#{@type}_ids": @_id
+                , ->
             Docs.update parent._id,
-                $addToSet:"#{@type}_ids": @_id
+                $pull:"#{parent.type}_ids": parent._id
+                , ->
         else
             Docs.update parent._id,
                 $addToSet:"#{@type}_ids": @_id
+                , ->
             Docs.update @_id,
                 $addToSet:"#{parent.type}_ids": parent._id
+                , ->
         Meteor.call 'fo'
 
 

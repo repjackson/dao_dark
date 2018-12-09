@@ -6,18 +6,12 @@ template(name='nav')
         else
             .item
                 |#{my_tribe.title}
-        // a.icon.item.create_delta(href='#')
-        //     i.plus.icon
-        // each my_deltas
-        //     a.item.select_delta(class=session_item_class)
-        //         if icon
-        //             i.icon(class=icon)
-        //         |#{title}
+        each tribe_modules
+            a.item.select_module
+                i.icon(class=icon)
+                |#{title}
         .right.menu
             if currentUser
-                each tribe_modules
-                    a.icon.item.select_module
-                        i.icon(class=icon)
                 a.icon.item.modules(href='#')
                     i.cubes.icon
             if currentUser

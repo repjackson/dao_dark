@@ -10,6 +10,12 @@ Template.nav.onCreated ->
 Template.nav.helpers
     session_item_class: ->
         if Meteor.user().current_delta_id is @_id then 'active' else ''
+    tribe_modules: ->
+        if Meteor.user() 
+            current_tribe = Docs.findOne Meteor.user().current_tribe_id
+            Docs.find
+                type:'module'
+                tribe_ids: $in: [Meteor.user().current_tribe_id]
 
 Template.nav.events
     'click .delta': ->
