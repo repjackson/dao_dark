@@ -3,8 +3,7 @@ template(name='delta')
         .row
             .four.wide.column.scrolling
                 if delta
-                    .ui.large.transparent.input(title='Rename')
-                        input.delta_title(type='text' value=delta.title)
+                    h2.ui.header #{current_module.title}
                     .ui.icon.button.delete_delta
                         i.remove.link.icon
                         // | Delete
@@ -24,7 +23,7 @@ template(name='delta')
                 else
                     +change_delta_key key='view' icon='list' label='List' value='list'
                     +change_delta_key key='view' icon='th' label='Grid' value='grid'
-                    +change_delta_key key='view' icon='table' label='Table' value='grid'
+                    +change_delta_key key='view' icon='table' label='Table' value='table'
                     +change_delta_key key='view' icon='map' label='Map' value='map'
                     +change_delta_key key='view' icon='calendar' label='Calendar' value='cal'
                 div
@@ -44,6 +43,7 @@ template(name='result')
         i.pencil.icon
         | Edit
     .ui.list
+        
         each fields
             .item
                 strong #{label}

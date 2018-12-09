@@ -18,9 +18,9 @@ Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id
 
 Meteor.publish 'type', (type)->
-    Docs.find 
+    Docs.find {
         type:type
-
+    }, limit: 10
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
 

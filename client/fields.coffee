@@ -449,48 +449,40 @@ Template.array_edit.helpers
         target_doc?["#{@key}"]
 
 Template.multiref_edit.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_schema
+    @autorun => Meteor.subscribe 'type', @data.schema
 Template.ref_edit.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_schema
+    @autorun => Meteor.subscribe 'type', @data.schema
 
 Template.multiref_edit.helpers
     choices: ->
         Docs.find
-            type:@ref_schema
+            type:@schema
 
-    value: ->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        target_doc = Docs.findOne _id:delta.detail_id
-        target_doc["#{@key}"]
-
-    element_class: ->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        target_doc = Docs.findOne _id:delta.detail_id
-        parent = Template.parentData()
-
-        value =
-            if @key then @key
-            else if @slug then @slug
-            else if @username then @username
-        if value in target_doc?["#{parent?.key}"] then 'blue' else ''
+    ref_class: ->
+        parent = Template.parentData(2)
+        console.log @
+        console.log parent
+        
+        if parent["#{@type}_ids"] and @_id in parent["#{@type}_ids"] then 'blue' else ''
 
 
 Template.multiref_edit.events
-    'click .toggle_element': (e,t)->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        target_doc = Docs.findOne _id:delta.detail_id
-        editing_field = Template.currentData().key
-        value =
-            if @key then @key
-            else if @slug then @slug
-            else if @username then @username
-        if value in target_doc["#{editing_field}"]
-            Docs.update target_doc._id,
-                $pull:"#{editing_field}": value
-        else
-            Docs.update target_doc._id,
-                $addToSet:"#{editing_field}": value
+    'click .toggle_ref': (e,t)->
+        parent = Template.parentData()
+        # console.log @
+        # console.log parent
 
+        if parent["#{@type}_ids"] and @_id in parent["#{@type}_ids"]
+            Docs.update parent._id,
+                $pull:"#{@type}_ids": @_id
+            Docs.update parent._id,
+                $addToSet:"#{@type}_ids": @_id
+        else
+            Docs.update parent._id,
+                $addToSet:"#{@type}_ids": @_id
+            Docs.update @_id,
+                $addToSet:"#{parent.type}_ids": parent._id
+        Meteor.call 'fo'
 
 
 
@@ -510,7 +502,7 @@ Template.ref_edit.events
 Template.ref_edit.helpers
     choices: ->
         Docs.find
-            type:@ref_schema
+            type:@schema
     element_class: ->
         delta = Docs.findOne Meteor.user().current_delta_id
         target_doc = Docs.findOne _id:delta.detail_id

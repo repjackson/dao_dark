@@ -38,7 +38,9 @@ Template.registerHelper 'my_tribe', () ->
             _id: Meteor.user().current_tribe_id
 
 
-
+Template.registerHelper 'tribes', () -> 
+    Docs.find 
+        type:'tribe'
 
 Template.registerHelper 'my_deltas', () -> 
     Docs.find type:'delta'
@@ -48,6 +50,12 @@ Template.registerHelper 'current_delta', () ->
     if Meteor.user() and Meteor.user().current_delta_id
         delta = Docs.findOne Meteor.user().current_delta_id
 
+
+Template.registerHelper 'current_module', () -> 
+    if Meteor.user() and Meteor.user().current_delta_id
+        delta = Docs.findOne Meteor.user().current_delta_id
+        if delta.module_id
+            Docs.findOne delta.module_id
 
 
 

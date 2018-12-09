@@ -18,16 +18,8 @@ template(name='nav')
                 each tribe_modules
                     a.icon.item.select_module
                         i.icon(class=icon)
-                a.icon.item.add_doc
-                    i.plus.icon
-                a.icon.item.crm(href='#')
-                    i.users.icon
                 a.icon.item.modules(href='#')
                     i.cubes.icon
-                a.icon.item.inbox(href='#')
-                    i.inbox.icon
-                a.icon.item.alerts(href='#')
-                    i.bell.icon
             if currentUser
                 a.item.profile(href='#')
                     i.user.icon

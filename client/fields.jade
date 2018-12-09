@@ -92,12 +92,12 @@ template(name='array_edit')
 
 
 template(name='multiref_edit')
-    .ui.basic.label
+    .ui.basic.large.label
         if icon
-            +icon name=icon classes='inline spaced'
-        |#{title}
+            i.icon(class=) name=icon classes
+        |#{title}        
     each choices
-        .ui.button.toggle_element(class=element_class)
+        .ui.button.toggle_ref(class=ref_class)
             if icon
                 i.icon
                     +icon name=icon

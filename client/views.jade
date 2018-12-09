@@ -1,15 +1,14 @@
 template(name='grid')
-    .ui.header grid
     .ui.stackable.three.cards
         each current_delta.results
             .ui.card
                 +result
 
 template(name='list')
-    .ui.header list
     each current_delta.results
         .ui.segment
-            .ui.header #{title}        
+            .ui.header #{title}
+            +multiref_edit schema='tribe' title='Tribes'
 
 
 template(name='table')
@@ -18,7 +17,6 @@ template(name='table')
             .ui.header #{title}        
 
 template(name='map')
-    .ui.header map
     .ui.stackable.three.cards
         each current_delta.results
             .ui.card

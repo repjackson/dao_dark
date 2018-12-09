@@ -3,6 +3,8 @@ Template.nav.onCreated ->
     @autorun -> Meteor.subscribe 'me'
     @autorun -> Meteor.subscribe 'my_tribe'
     @autorun -> Meteor.subscribe 'my_deltas'
+    @autorun -> Meteor.subscribe 'type', 'module'
+    @autorun -> Meteor.subscribe 'type', 'tribe'
 
 
 Template.nav.helpers
@@ -90,7 +92,7 @@ Template.nav.events
     'click .modules': ->
         user_module_delta = Docs.findOne
             type:'delta'
-            module: 'module'
+            module_id: 'SXzYpB9d8XS7iKe6c'
         
         if user_module_delta
             Meteor.users.update Meteor.userId(),
@@ -100,7 +102,7 @@ Template.nav.events
         else
             new_user_module_delta_id = Docs.insert
                 type:'delta'
-                module: 'module'
+                module_id: 'SXzYpB9d8XS7iKe6c'
                 facets: [
                     {
                         key:'type'
