@@ -8,6 +8,16 @@ Template.result.onCreated ->
  
  
 Template.delta.events
+    'click .add_doc': ->
+        delta = Docs.findOne Meteor.user().current_delta_id
+        current_tribe = Docs.findOne Meteor.user().current_tribe_id
+        current_module = Docs.findOne delta.module_id
+        
+        new_doc_id = 
+            Docs.insert 
+                schema: current_module.schema
+        Meteor.call 'fo'
+
     'click .delete_delta': (e,t)->
         delta = Docs.findOne Meteor.user().current_delta_id
         Docs.remove delta._id

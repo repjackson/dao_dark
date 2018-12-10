@@ -174,7 +174,7 @@ Meteor.methods
                 lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
                 Docs.update {_id:this_id},
                     $set:
-                        # type:'website'
+                        # schema:'website'
                         watson: response
                         watson_keywords: lowered_keywords
                         watson_concepts: lowered_concepts

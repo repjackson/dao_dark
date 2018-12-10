@@ -40,10 +40,10 @@ Template.registerHelper 'my_tribe', () ->
 
 Template.registerHelper 'tribes', () -> 
     Docs.find 
-        type:'tribe'
+        schema:'tribe'
 
 Template.registerHelper 'my_deltas', () -> 
-    Docs.find type:'delta'
+    Docs.find schema:'delta'
 
 
 Template.registerHelper 'current_delta', () -> 
@@ -112,7 +112,7 @@ Template.edit.events
         new_field = {
             label:'New Field'
             key:'new_field'
-            type:'string'
+            schema:'string'
             }    
     
         Docs.update delta.doc_id,
@@ -156,7 +156,7 @@ Template.field.events
             $pull: fields: @
         
 Template.field.onCreated ->
-    @autorun => Meteor.subscribe 'type', 'field_type'
+    @autorun => Meteor.subscribe 'schema', 'field_type'
         
 Template.field.helpers
     field_edit_template: ->

@@ -12,9 +12,6 @@ template(name='nav')
                 |#{title}
         .right.menu
             if currentUser
-                a.icon.item.modules(href='#')
-                    i.cubes.icon
-            if currentUser
                 a.item.profile(href='#')
                     i.user.icon
                     | #{currentUser.username}

@@ -3,8 +3,8 @@ Template.nav.onCreated ->
     @autorun -> Meteor.subscribe 'me'
     @autorun -> Meteor.subscribe 'my_tribe'
     @autorun -> Meteor.subscribe 'my_deltas'
-    @autorun -> Meteor.subscribe 'type', 'module'
-    @autorun -> Meteor.subscribe 'type', 'tribe'
+    @autorun -> Meteor.subscribe 'schema', 'module'
+    @autorun -> Meteor.subscribe 'schema', 'tribe'
 
 
 Template.nav.helpers
@@ -14,7 +14,7 @@ Template.nav.helpers
         if Meteor.user() 
             current_tribe = Docs.findOne Meteor.user().current_tribe_id
             Docs.find
-                type:'module'
+                schema:'module'
                 tribe_ids: $in: [Meteor.user().current_tribe_id]
 
 Template.nav.events
@@ -24,7 +24,7 @@ Template.nav.events
    
     'click .create_delta': (e,t)->
         new_delta_id = Docs.insert
-            type:'delta'
+            schema:'delta'
             facets: [{key:'keys', res:[]}]
         Meteor.users.update Meteor.userId(),
             $set: current_delta_id: new_delta_id
@@ -37,26 +37,12 @@ Template.nav.events
                 current_template: 'delta'
 
 
-
 Template.nav.events
-    'click .add_doc': ->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        new_id = Docs.insert {}
-        new_delta = 
-            Docs.insert 
-                type:'delta'
-                editing:true
-                title: 'Session'
-                doc_id: new_id
-                facets: [{key:'keys', res:[]}]
-        Meteor.users.update Meteor.userId(),
-            $set: current_delta_id: new_delta._id
-        
     'click .dash': ->
         existing_dash = Docs.findOne
-            type:'delta'
+            schema:'delta'
             delta_template: 'dash'
-        
+            
         if existing_dash
             Meteor.users.update Meteor.userId(),
                 $set: 
@@ -64,25 +50,30 @@ Template.nav.events
                     current_delta_id: existing_dash._id
         else
             new_dash_id = Docs.insert
-                type:'delta'
+                schema:'delta'
                 title:'Dashboard'
                 icon:'dashboard'
                 delta_template: 'dash'
                 facets: [
                     {
-                        key:'type'
-                        filters: ['schema']
+                        key:'schema'
+                        filters: ['module']
                         hidden:true
                     }
                     {
                         key:'tags'
                         res:[]
                     }
+                    # {
+                    #     key:'tribe_ids'
+                    #     filters: $in:[Meteor.user().current_tribe_id]
+                    #     res:[]
+                    # }
                     {
                         key:'title'
                         res:[]
                     }
-                    ]
+                ]
             Meteor.users.update Meteor.userId(),
                 $set: 
                     current_template: 'delta'
@@ -96,7 +87,7 @@ Template.nav.events
                 
     'click .select_module': ->
         user_module_delta = Docs.findOne
-            type:'delta'
+            schema:'delta'
             module_id: @_id
         
         if user_module_delta
@@ -106,12 +97,12 @@ Template.nav.events
                     current_delta_id: user_module_delta._id
         else
             new_user_module_delta_id = Docs.insert
-                type:'delta'
+                schema:'delta'
                 module_id: @_id
                 # need to hook into schema fields
                 facets: [
                     {
-                        key:'type'
+                        key:'schema'
                         filters: [@schema]
                         hidden:true
                     }

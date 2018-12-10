@@ -43,7 +43,7 @@ Meteor.methods
                 selftext: false
                 thumbnail: false
                 site: 'reddit'
-                type: 'reddit'
+                schema: 'reddit'
                 
             # console.log reddit_post
             existing_doc = Docs.findOne reddit_id:data.id

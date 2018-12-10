@@ -1,12 +1,12 @@
 Template.account.onCreated ->
-    @autorun -> Meteor.subscribe 'type', 'tribe'
+    @autorun -> Meteor.subscribe 'schema', 'tribe'
     
     
 Template.account.events
     'click .new_tribe': ->
         Docs.insert
             title:'new tribe'
-            type:'tribe'
+            schema:'tribe'
             
             
     'click .select_tribe': ->
@@ -24,7 +24,7 @@ Template.account.helpers
         if Meteor.user().current_tribe_id and @_id is Meteor.user().current_tribe_id then true else false
         
     my_tribes: ->
-        Docs.find type:'tribe'
+        Docs.find schema:'tribe'
         
     tribe_class: ->
         if Meteor.user().current_tribe_id and @_id is Meteor.user().current_tribe_id then 'blue' else 'secondary'

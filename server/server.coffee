@@ -11,23 +11,25 @@ Meteor.users.allow
 
 Meteor.publish 'my_deltas', ->
     Docs.find
-        type:'delta'
+        schema:'delta'
         # author_id: Meteor.userId()
 
 Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id
 
-Meteor.publish 'type', (type)->
+Meteor.publish 'schema', (schema)->
     Docs.find {
-        type:type
-    }, limit: 10
+        schema:schema
+    }, limit: 30
+    
+    
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
 
 
 Meteor.publish 'my_tribe', ()->
     Docs.find
-        type:'tribe'
+        schema:'tribe'
         _id: Meteor.user().current_tribe_id
 
 
@@ -78,7 +80,7 @@ Meteor.methods
                     fields: 
                         key:key
                         label:label
-                        type:field_type
+                        schema:field_type
         
         console.log 'detected fields', doc_id
         return doc_id
@@ -160,14 +162,14 @@ Meteor.methods
         else
             return
 
-    agg: (query, type, key, filters)->
+    agg: (query, schema, key, filters)->
         # console.log 'query agg', query
-        # console.log 'type', type
+        # console.log 'schema', schema
         # console.log 'key', key
         options = { explain:false }
             
         # intelligence
-        if type in ['array','multiref']
+        if schema in ['array','multiref']
             pipe =  [
                 { $match: query }
                 { $project: "#{key}": 1 }

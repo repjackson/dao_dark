@@ -7,9 +7,8 @@ Meteor.methods
     generate_upvoted_cloud: ->
         match = {}
         match.upvoters = $in: [Meteor.userId()]
-        match.type = 'facet'
+        match.schema = 'facet'
 
-        
         upvoted_cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }
@@ -44,38 +43,6 @@ Meteor.methods
         Docs.update doc_id,
             $set: doc_matches:sliced_matches
 
-
-
-            
-    # generate_downvoted_cloud: ->
-    #     match = {}
-    #     match.downvoters = $in: [Meteor.userId()]
-    #     match.type = 'facet'
-    #     downvoted_cloud = Docs.aggregate [
-    #         { $match: match }
-    #         { $project: tags: 1 }
-    #         { $unwind: '$tags' }
-    #         { $group: _id: '$tags', count: $sum: 1 }
-    #         { $sort: count: -1, _id: 1 }
-    #         { $limit: 100 }
-    #         { $project: _id: 0, name: '$_id', count: 1 }
-    #         ]
-    #     downvoted_list = (tag.name for tag in downvoted_cloud)
-    #     Meteor.users.update Meteor.userId(),
-    #         $set:
-    #             downvoted_cloud: downvoted_cloud
-    #             downvoted_list: downvoted_list
-            
-            
-            
-    # add_doc: (body, parent_id, tags) ->
-    #     result = Docs.insert
-    #         body: body
-    #         parent_id: parent_id
-    #         tags: tags
-    #     console.log result
-                
-                
                 
     update_username:  (username) ->
         userId = Meteor.userId()
@@ -109,48 +76,6 @@ Meteor.methods
     #             from: 'Versaclimber'
     #             subject: 'Versaclimber Administration Invitation`'
     #             html: SSR.render('message_email', email_data)
-
-
-    # generate_journal_cloud: (user_id)->
-    #     match = {}
-    #     match.author_id = user_id
-    #     match.type = 'journal'
-        
-    #     # console.log 'journal match', match
-    #     journal_cloud = Docs.aggregate [
-    #         { $match: match }
-    #         { $project: tags: 1 }
-    #         { $unwind: '$tags' }
-    #         { $group: _id: '$tags', count: $sum: 1 }
-    #         { $sort: count: -1, _id: 1 }
-    #         { $limit: 50 }
-    #         { $project: _id: 0, name: '$_id', count: 1 }
-    #         ]
-    #     journal_list = (tag.name for tag in journal_cloud)
-    #     Meteor.users.update user_id,
-    #         $set:
-    #             journal_cloud: journal_cloud
-    #             journal_list: journal_list
-
-    # generate_checkin_cloud: (user_id)->
-    #     match = {}
-    #     match.author_id = user_id
-    #     match.type = 'checkin'
-        
-    #     checkin_cloud = Docs.aggregate [
-    #         { $match: match }
-    #         { $project: tags: 1 }
-    #         { $unwind: '$tags' }
-    #         { $group: _id: '$tags', count: $sum: 1 }
-    #         { $sort: count: -1, _id: 1 }
-    #         { $limit: 50 }
-    #         { $project: _id: 0, name: '$_id', count: 1 }
-    #         ]
-    #     checkin_list = (tag.name for tag in checkin_cloud)
-    #     Meteor.users.update user_id,
-    #         $set:
-    #             checkin_cloud: checkin_cloud
-    #             checkin_list: checkin_list
 
 
 
@@ -191,7 +116,7 @@ Meteor.methods
         # console.log 'recipient_id', recipient_id
         
         found_conversation = Docs.findOne
-            type: 'conversation'
+            schema: 'conversation'
             participant_ids: $all: [Meteor.userId(), recipient_id]
             
         if found_conversation 
@@ -200,13 +125,13 @@ Meteor.methods
         else
             new_conversation_id = 
                 Docs.insert
-                    type: 'conversation'
+                    schema: 'conversation'
                     participant_ids: [Meteor.userId(), recipient_id]
             # console.log 'convo NOT found, created new one with id:', new_conversation_id
             convo_id = new_conversation_id
         new_message_id = 
             new_message_id = Docs.insert
-                type: 'message'
+                schema: 'message'
                 group_id: convo_id
                 parent_id: parent_id
                 body: text
@@ -271,7 +196,7 @@ Meteor.methods
             
     submit_contact_submission: (name, email, message)->
         Docs.insert
-            type: 'contact_submission'
+            schema: 'contact_submission'
             name: name
             email: email
             message: message
@@ -286,7 +211,7 @@ Meteor.methods
         doc_link = "/view/#{doc._id}"
         alert = 
             Docs.findOne
-                type:'alert'
+                schema:'alert'
                 object_id:doc_id
                 recipient_id:recipient_id
         if alert
@@ -294,7 +219,7 @@ Meteor.methods
             return
         else
             Docs.insert
-                type:'alert'
+                schema:'alert'
                 object_id:doc_id
                 recipient_id:recipient_id
                 content: 
@@ -307,7 +232,7 @@ Meteor.methods
         
         alert = 
             Docs.findOne
-                type:'alert'
+                schema:'alert'
                 object_id:doc_id
                 recipient_id:recipient_id
         
@@ -325,7 +250,7 @@ Meteor.methods
         Docs.insert
             recipient_id: recipient._id
             text: message
-            type:'message'
+            schema:'message'
             
             
     calculate_child_count: (doc_id)->
@@ -341,13 +266,13 @@ Meteor.methods
                 console.log res.data
                 existing_block = 
                     Docs.findOne 
-                        type:'block'
+                        schema:'block'
                         hash: res.data.hash
                 if existing_block
                     return existing_block._id
                 else
                     Docs.insert
-                        type: 'block'
+                        schema: 'block'
                         hash: res.data.hash
                         time: res.data.time
                         block_index: res.data.block_index
@@ -362,7 +287,7 @@ Meteor.methods
                 block = res.data
                 existing_block = 
                     Docs.findOne 
-                        type:'block'
+                        schema:'block'
                         hash: res.data.hash
                 if existing_block
                     # return existing_block._id
@@ -383,7 +308,7 @@ Meteor.methods
                             tx: block.tx
                 else
                     Docs.insert
-                        type: 'block'
+                        schema: 'block'
                         hash: block.hash
                         time: block.time
                         block_index: block.block_index
@@ -398,7 +323,7 @@ Meteor.methods
                 transaction = res.data
                 existing_transaction = 
                     Docs.findOne 
-                        type:'transaction'
+                        schema:'transaction'
                         hash: res.data.hash
                 if existing_transaction
                     # return existing_transaction._id
@@ -419,7 +344,7 @@ Meteor.methods
                             out: transaction.out
                 else
                     Docs.insert
-                        type: 'transaction'
+                        schema: 'transaction'
                         hash: transaction.hash
             
         

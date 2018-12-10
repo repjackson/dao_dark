@@ -4,18 +4,29 @@ template(name='grid')
             .ui.card
                 +result
 
+
+
 template(name='list')
     each current_delta.results
         .ui.segment
-            .ui.header #{title}
+            .ui.header 
+                if icon
+                    i.icon(class=icon)
+                |#{title}
+            +string_edit title='Title' key='title'
             +multiref_edit schema='tribe' title='Tribes'
             +string_edit title='Slug' key='slug'
             +string_edit title='Schema' key='schema'
+            +string_edit title='Icon' key='icon'
+
+
 
 template(name='table')
     each current_delta.results
         .ui.segment
             .ui.header #{title}        
+
+
 
 template(name='map')
     .ui.stackable.three.cards
