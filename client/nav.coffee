@@ -5,6 +5,9 @@ Template.nav.onCreated ->
     @autorun -> Meteor.subscribe 'my_deltas'
     @autorun -> Meteor.subscribe 'schema', 'module'
     @autorun -> Meteor.subscribe 'schema', 'tribe'
+    @autorun -> Meteor.subscribe 'schema', 'field'
+    @autorun -> Meteor.subscribe 'schema', 'schema'
+
 
 
 Template.nav.helpers
@@ -55,28 +58,43 @@ Template.nav.events
                 view:'list'
                 module_id: @_id
                 # need to hook into schema fields
-                facets: [
-                    {
-                        key:'schema'
-                        filters: [@child_schema]
-                        hidden:true
-                    }
-                    {
-                        key:'tags'
-                        res:[]
-                    }
-                    {
-                        key:'title'
-                        res:[]
-                    }
-                ]
                 
-            Meteor.users.update Meteor.userId(),
-                $set: 
-                    current_template: 'delta'
-                    current_delta_id: new_user_module_delta_id
-            Meteor.call 'fo'
-            
+            module_child_schema = 
+                Docs.findOne 
+                    schema:'schema'
+                    slug:@child_schema
+
+            console.log module_child_schema
+
+
+            facets = [
+                {
+                    key:'schema'
+                    filters: [@child_schema]
+                    # hidden:true
+                }
+            ]
+        
+            if module_child_schema
+                if module_child_schema.field_ids
+                    for field_id in module_child_schema.field_ids
+                        field = Docs.findOne field_id
+                        console.log field.title
+                        facets.push { key:field.slug }
+                            
+                            
+                            
+                    console.log facets
+                    
+                    Docs.update new_user_module_delta_id,
+                        $set: facets: facets
+                    
+                    Meteor.users.update Meteor.userId(),
+                        $set: 
+                            current_template: 'delta'
+                            current_delta_id: new_user_module_delta_id
+                    # Meteor.call 'fo'
+        
     
     'click .logout': ->
         Meteor.logout()

@@ -110,36 +110,16 @@ Meteor.methods
                 current_module = Docs.findOne delta.module_id
                 # console.log current_module
                 
-                if current_module
-                    module_child_schema = 
-                        Docs.findOne 
-                            schema:'schema'
-                            slug:current_module.child_schema
                             
                     # console.log module_child_schema
-                    if module_child_schema
-                        if module_child_schema.field_ids
-                            for field_id in module_child_schema.field_ids
-                                field = Docs.findOne field_id
-                                console.log 'field', field.title
-                                Docs.update delta._id,
-                                    $addToSet:
-                                        facets: 
-                                            { key:field.slug }
-                    else
-                        console.log 'no module child schema'
-                
+                    
+                    # facet every field by default, then add faceted boolean again, fields need to be unique to schema at first, maybe future cross ref
+                    
+                    
                 for facet in delta.facets
                     if facet.filters and facet.filters.length > 0
                         built_query["#{facet.key}"] = $all: facet.filters
-                    # else
-                    #     Docs.update delta._id,
-                    #         $addToSet:
-                    #             filters" 
-                    #             "filter_#{key}":[]
-        
-                # console.log 'built query', built_query
-        
+
                 total = Docs.find(built_query).count()
                 
                 # response
@@ -177,11 +157,6 @@ Meteor.methods
                         total: total
                         results:results
                     }, ->
-                return true
-            else
-                return
-        else
-            return
 
     agg: (query, schema, key, filters)->
         # console.log 'query agg', query
