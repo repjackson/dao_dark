@@ -71,7 +71,7 @@ Template.nav.events
                 {
                     key:'schema'
                     filters: [@child_schema]
-                    # hidden:true
+                    hidden:true
                 }
             ]
         
@@ -93,7 +93,7 @@ Template.nav.events
                         $set: 
                             current_template: 'delta'
                             current_delta_id: new_user_module_delta_id
-                    # Meteor.call 'fo'
+                    Meteor.call 'fo'
         
     
     'click .logout': ->
