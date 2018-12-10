@@ -92,6 +92,7 @@ template(name='array_edit')
 
 
 template(name='multiref_edit')
+    div
     .ui.basic.large.label
         if icon
             i.icon(class=) name=icon classes
@@ -99,8 +100,7 @@ template(name='multiref_edit')
     each choices
         .ui.button.toggle_ref(class=ref_class)
             if icon
-                i.icon
-                    +icon name=icon
+                i.icon(class=icon)
             |#{title}
 
 

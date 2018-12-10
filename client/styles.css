@@ -152,15 +152,10 @@ body {
 }
 
 
-/*.scrolling::-webkit-scrollbar {*/
-/*    display: none;*/
-/*}*/
 
 ::-webkit-scrollbar-thumb {
     background: #FF0000;
 }
-
-
 
 .parent_scrolling{
   height: 100%;
@@ -170,7 +165,7 @@ body {
 .scrolling{
   overflow-y:scroll;
   overflow-y:scroll;
-  max-height:1000px;
+  max-height:700px;
   padding: 1em;
 }
 

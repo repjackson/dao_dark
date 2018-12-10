@@ -105,8 +105,29 @@ Meteor.methods
         if Meteor.user()
             if Meteor.user().current_delta_id
                 delta = Docs.findOne Meteor.user().current_delta_id
-                # console.log 'found delta', delta._id
                 built_query = { }
+                
+                current_module = Docs.findOne delta.module_id
+                # console.log current_module
+                
+                if current_module
+                    module_child_schema = 
+                        Docs.findOne 
+                            schema:'schema'
+                            slug:current_module.child_schema
+                            
+                    # console.log module_child_schema
+                    if module_child_schema
+                        if module_child_schema.field_ids
+                            for field_id in module_child_schema.field_ids
+                                field = Docs.findOne field_id
+                                console.log 'field', field.title
+                                Docs.update delta._id,
+                                    $addToSet:
+                                        facets: 
+                                            { key:field.slug }
+                    else
+                        console.log 'no module child schema'
                 
                 for facet in delta.facets
                     if facet.filters and facet.filters.length > 0

@@ -25,6 +25,7 @@ Template.nav.events
     'click .create_delta': (e,t)->
         new_delta_id = Docs.insert
             schema:'delta'
+            view:'list'
             facets: [{key:'keys', res:[]}]
         Meteor.users.update Meteor.userId(),
             $set: current_delta_id: new_delta_id
@@ -38,53 +39,6 @@ Template.nav.events
 
 
 Template.nav.events
-    'click .dash': ->
-        existing_dash = Docs.findOne
-            schema:'delta'
-            delta_template: 'dash'
-            
-        if existing_dash
-            Meteor.users.update Meteor.userId(),
-                $set: 
-                    current_template: 'delta'
-                    current_delta_id: existing_dash._id
-        else
-            new_dash_id = Docs.insert
-                schema:'delta'
-                title:'Dashboard'
-                icon:'dashboard'
-                delta_template: 'dash'
-                facets: [
-                    {
-                        key:'schema'
-                        filters: ['module']
-                        hidden:true
-                    }
-                    {
-                        key:'tags'
-                        res:[]
-                    }
-                    # {
-                    #     key:'tribe_ids'
-                    #     filters: $in:[Meteor.user().current_tribe_id]
-                    #     res:[]
-                    # }
-                    {
-                        key:'title'
-                        res:[]
-                    }
-                ]
-            Meteor.users.update Meteor.userId(),
-                $set: 
-                    current_template: 'delta'
-                    current_delta_id: new_dash_id
-            Meteor.call 'fo'
-            
-        
-        Meteor.users.update Meteor.userId(),
-            $set: 
-                current_template: 'delta'
-                
     'click .select_module': ->
         user_module_delta = Docs.findOne
             schema:'delta'
@@ -124,23 +78,5 @@ Template.nav.events
             Meteor.call 'fo'
             
     
-    'click .inbox': ->
-        Meteor.users.update Meteor.userId(),
-            $set: current_template: 'inbox'    
-    
-    'click .crm': ->
-        Meteor.users.update Meteor.userId(),
-            $set: current_template: 'crm'    
-    
-    'click .alerts': ->
-        Meteor.users.update Meteor.userId(),
-            $set: current_template: 'alerts'
-            
-    'click .profile': ->
-        Meteor.users.update Meteor.userId(),
-            $set: 
-                current_template: 'profile'
-            
-            
     'click .logout': ->
         Meteor.logout()

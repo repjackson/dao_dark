@@ -1,7 +1,7 @@
 template(name='delta')    
     .ui.stackable.grid
         .row
-            .four.wide.column.scrolling
+            .five.wide.column.scrolling
                 if delta
                     h2.ui.header 
                         if current_module.icon
@@ -19,7 +19,7 @@ template(name='delta')
                     unless hidden
                         +facet
                         div
-            .twelve.wide.column
+            .eleven.wide.column.scrolling
                 if delta.editing
                     +edit
                 else

@@ -2,7 +2,8 @@ template(name='grid')
     .ui.stackable.three.cards
         each current_delta.results
             .ui.card
-                +result
+                .content
+                    +result
 
 
 
@@ -15,10 +16,12 @@ template(name='list')
                 |#{title}
             +string_edit title='Title' key='title'
             +multiref_edit schema='tribe' title='Tribes'
+            +multiref_edit schema='field' title='Fields'
             +string_edit title='Slug' key='slug'
             +string_edit title='Schema' key='schema'
             +string_edit title='Child Schema' key='child_schema'
             +string_edit title='Icon' key='icon'
+            +string_edit title='Color Icon' key='color_icon'
 
 
 
@@ -88,4 +91,6 @@ template(name='year')
                 
             
             
+// template(name='icon')
+//     img(src="https://img.icons8.com/color/48/000000/#{name}.png")
             
