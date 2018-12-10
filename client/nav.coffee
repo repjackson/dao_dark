@@ -98,12 +98,13 @@ Template.nav.events
         else
             new_user_module_delta_id = Docs.insert
                 schema:'delta'
+                view:'list'
                 module_id: @_id
                 # need to hook into schema fields
                 facets: [
                     {
                         key:'schema'
-                        filters: [@schema]
+                        filters: [@child_schema]
                         hidden:true
                     }
                     {

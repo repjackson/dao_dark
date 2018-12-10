@@ -105,7 +105,7 @@ Meteor.methods
         if Meteor.user()
             if Meteor.user().current_delta_id
                 delta = Docs.findOne Meteor.user().current_delta_id
-                console.log 'found delta', delta._id
+                # console.log 'found delta', delta._id
                 built_query = { }
                 
                 for facet in delta.facets
