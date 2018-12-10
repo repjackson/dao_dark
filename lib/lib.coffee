@@ -33,13 +33,13 @@ Docs.before.insert (userId, doc)=>
         doc.timestamp_tags = date_array
 
     doc.author_id = Meteor.userId()
-    doc.tag_count = doc.tags?.length
-    doc.points = 0
-    doc.read_by = [Meteor.userId()]
-    doc.ownership = [{user_id: Meteor.userId(),percent: 100}]
-    doc.upvoters = []
-    doc.downvoters = []
-    doc.published = 0
+    # doc.tag_count = doc.tags?.length
+    # doc.points = 0
+    # doc.read_by = [Meteor.userId()]
+    # doc.ownership = [{user_id: Meteor.userId(),percent: 100}]
+    # doc.upvoters = []
+    # doc.downvoters = []
+    # doc.published = 0
     return
 
 Docs.after.update ((userId, doc, fieldNames, modifier, options) ->

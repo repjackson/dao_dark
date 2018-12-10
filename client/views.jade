@@ -14,14 +14,18 @@ template(name='list')
                 if icon
                     i.icon(class=icon)
                 |#{title}
-            +string_edit title='Title' key='title'
-            +multiref_edit schema='tribe' title='Tribes'
-            +multiref_edit schema='field' title='Fields'
-            +string_edit title='Slug' key='slug'
-            +string_edit title='Schema' key='schema'
-            +string_edit title='Child Schema' key='child_schema'
-            +string_edit title='Icon' key='icon'
-            +string_edit title='Color Icon' key='color_icon'
+            each current_schema_fields
+                div
+                strong #{title} &nbsp;
+                |#{field_value}
+            // +string_edit title='Title' key='title'
+            // +multiref_edit schema='tribe' title='Tribes'
+            // +multiref_edit schema='field' title='Fields'
+            // +string_edit title='Slug' key='slug'
+            // +string_edit title='Schema' key='schema'
+            // +string_edit title='Child Schema' key='child_schema'
+            // +string_edit title='Icon' key='icon'
+            // +string_edit title='Color Icon' key='color_icon'
 
 
 

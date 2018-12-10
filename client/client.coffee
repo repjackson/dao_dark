@@ -58,6 +58,21 @@ Template.registerHelper 'current_module', () ->
             Docs.findOne delta.module_id
 
 
+Template.registerHelper 'current_schema_fields', () -> 
+    if Meteor.user() and Meteor.user().current_delta_id
+        delta = Docs.findOne Meteor.user().current_delta_id
+        if delta.module_id
+            current_module = Docs.findOne delta.module_id
+            Docs.find({
+                _id: $in: current_module.field_ids
+                schema:'field'
+                }).fetch()
+                
+
+Template.registerHelper 'field_value', () -> 
+    parent = Template.parentData()
+    parent["#{@slug}"]
+
 
 
 Template.edit.onCreated ->
@@ -168,10 +183,6 @@ Template.field.helpers
         @fields
         delta.editing_field
         
-    field_value: -> 
-        delta = Docs.findOne Meteor.user().current_delta_id
-        editing_doc = Docs.findOne delta.doc_id
-        editing_doc["#{@key}"]
         
         
 Template.set_field_key_value.events

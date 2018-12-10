@@ -82,8 +82,6 @@ Template.nav.events
                         console.log field.title
                         facets.push { key:field.slug }
                             
-                            
-                            
                     console.log facets
                     
                     Docs.update new_user_module_delta_id,
@@ -94,6 +92,12 @@ Template.nav.events
                             current_template: 'delta'
                             current_delta_id: new_user_module_delta_id
                     Meteor.call 'fo'
+
+
+    'click .profile': ->
+        Meteor.users.update Meteor.userId(),
+            $set: 
+                current_template: 'profile'
         
     
     'click .logout': ->
