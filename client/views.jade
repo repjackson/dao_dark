@@ -14,35 +14,35 @@ template(name='list')
                 if icon
                     i.icon(class=icon)
                 |#{title}
-            // each current_schema_fields
-            //     div
-            //     +field
+            each current_schema_fields
+                div
+                +field
             // div
             // +edit_button
-            +multiref_edit schema='tribe' title='Tribes'
-            +multiref_edit schema='field' title='Fields'
-            +string_edit title='Title' key='title'
-            +string_edit title='Slug' key='slug'
-            +string_edit title='Schema' key='schema'
-            +string_edit title='Icon' key='icon'
-            +string_edit title='Child Schema' key='child_schema'
+            // +multiref_edit schema='tribe' title='Tribes'
+            +multiref_edit schema='data_type' title='dt'
+            // +string_edit title='Title' key='title'
+            +string_edit title='DT' key='data_type'
+            // +string_edit title='Schema' key='schema'
+            // +string_edit title='Icon' key='icon'
+            // +string_edit title='Child Schema' key='child_schema'
 
                 
 template(name='field')
     // |#{this.title}
     if editing
         +Template.dynamic template=field_edit_template
-        |#{field_edit_template}
+        // |#{field_edit_template}
     else
         +Template.dynamic template=field_view_template
-        |#{field_view_template}
+        // |#{field_view_template}
                 
         // div
         // strong #{title} &nbsp;
         // |#{field_value}
-    +string_edit title='Title' key='title'
+    // +string_edit title='Title' key='title'
     // +multiref_edit schema='tribe' title='Tribes'
-    +string_edit title='Slug' key='slug'
+    // +string_edit title='Slug' key='slug'
     // +string_edit title='Schema' key='schema'
     // +string_edit title='Icon' key='icon'
     // +string_edit title='Color Icon' key='color_icon'

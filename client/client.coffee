@@ -38,10 +38,16 @@ Template.registerHelper 'my_tribe', () ->
             _id: Meteor.user().current_tribe_id
 
 Template.registerHelper 'field_edit_template', () -> 
-    "#{@data_type}_edit"
+    field = Docs.findOne
+        schema:'data_type'
+        _id: $in: @data_type_ids
+    "#{field.slug}_edit"
 
 Template.registerHelper 'field_view_template', () -> 
-    "#{@data_type}_view"
+    field = Docs.findOne
+        schema:'data_type'
+        _id: $in: @data_type_ids
+    "#{field.slug}_view"
 
         
 Template.registerHelper 'editing', () ->
@@ -90,7 +96,8 @@ Template.registerHelper 'current_schema_fields', () ->
                 
 
 Template.registerHelper 'field_value', () -> 
-    parent = Template.parentData()
+    parent = Template.parentData(2).data
+    console.log parent
     if parent["#{@slug}"]
         parent["#{@slug}"]
 
