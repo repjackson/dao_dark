@@ -34,74 +34,16 @@ template(name='field')
 
 
 
-
-// template(name='edit_text')
-//     .ui.basic.segment
-//         .ui.labeled.fluid.input
-//             .ui.label 
-//                 if icon
-//                     i.icon(class=icon)
-//                 |#{label}
-//             input#text_field(type='text' value=page_key_value)
-
         
 template(name='view_text')
     h4.ui.header #{title}: #{key_value}
 
         
-template(name='edit_html')
+template(name='html_edit')
     #toolbar
     .editor
         
         
-template(name='edit_date')            
-    .field
-        label #{label}
-        .ui.left.icon.input
-            if icon
-                i.icon(class=icon)
-            input#date_field(type='date' value=key_value)        
-
-template(name='edit_number')
-    .field
-        label #{label}
-        .ui.left.icon.input
-            if icon
-                i.icon(class=icon)
-            input#number_field(type='number' min='0' value=key_value)
-
-
-template(name='edit_textarea')
-    .field
-        label #{label}
-        textarea#textarea(rows='10') #{key_value}
-
-
-        
-template(name='view_array')
-    if field_value
-        .ui.segment
-            each field_value
-                .ui.large.label #{this}
-    
-    
-template(name='edit_array')
-    // .ui.header 
-    //     // i.tags.icon
-    //     |#{key}
-    .ui.input
-        input.new_entry(type='text' maxlength='50' placeholder='add tag')
-        // .ui.icon.button
-        //     i.right.arrow.icon
-    // .ui.mini.input
-    //     +inputAutocomplete settings=theme_select_settings id="theme_tag_select" class="" autocomplete="off"
-    // each field_value
-    each ../tags
-        // a.ui.circular.button.doc_tag #{this}
-        a.ui.button.doc_tag
-            i.remove.icon
-            |#{this}
-
 
 template(name='boolean_edit')
     .ui.button.toggle_field(class=bool_switch_class title=key)

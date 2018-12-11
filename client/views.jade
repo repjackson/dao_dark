@@ -17,10 +17,8 @@ template(name='list')
             each current_schema_fields
                 if editing
                     +Template.dynamic template=field_edit_template
-                    |editing
                 else
                     +Template.dynamic template=field_view_template
-                    |viewing
                 
                 // div
                 // strong #{title} &nbsp;
