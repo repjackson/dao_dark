@@ -18,7 +18,7 @@ template(name='list')
                 div
                 +field
             // div
-            // +edit_button
+            +edit_button
             // +multiref_edit schema='tribe' title='Tribes'
             +multiref_edit schema='data_type' title='dt'
             // +string_edit title='Title' key='title'
@@ -156,5 +156,11 @@ template(name='result')
             
             
 template(name='edit_button')
-    .ui.icon.button.edit
-        i.pencil.icon
+    if editing_this
+        .ui.icon.button.save
+            i.checkmark.green.icon
+    else
+        .ui.icon.button.edit
+            i.pencil.icon
+            
+            

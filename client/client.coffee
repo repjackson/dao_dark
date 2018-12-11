@@ -6,18 +6,8 @@ Accounts.ui.config
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
-    
-Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
-Template.registerHelper 'is_user', () ->  Meteor.userId() is @_id
-# Template.registerHelper 'is_person_by_username', () ->  Meteor.user().username is @username
-
-# Template.registerHelper 'can_edit', () ->  Meteor.userId() is @author_id or Roles.userIsInRole(Meteor.userId(), 'admin')
-
-Template.registerHelper 'long_date', () -> moment(@timestamp).format("dddd, MMMM Do, h:mm a")
-
 Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
 
-Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
 Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
 Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
 
@@ -41,13 +31,15 @@ Template.registerHelper 'field_edit_template', () ->
     field = Docs.findOne
         schema:'data_type'
         _id: $in: @data_type_ids
-    "#{field.slug}_edit"
+    if field.slug
+        "#{field.slug}_edit"
 
 Template.registerHelper 'field_view_template', () -> 
     field = Docs.findOne
         schema:'data_type'
         _id: $in: @data_type_ids
-    "#{field.slug}_view"
+    if field.slug
+        "#{field.slug}_view"
 
         
 Template.registerHelper 'editing', () ->
@@ -55,16 +47,13 @@ Template.registerHelper 'editing', () ->
     parent = Template.parentData()
     # console.log parent.schema
     # if parent._id is delta.editing_id then true else false
-    if parent._id is delta.editing_id then true else false
+    if parent and parent._id is delta.editing_id then true else false
         
 
 
 Template.registerHelper 'tribes', () -> 
     Docs.find 
         schema:'tribe'
-
-Template.registerHelper 'my_deltas', () -> 
-    Docs.find schema:'delta'
 
 
 Template.registerHelper 'current_delta', () -> 
@@ -89,15 +78,15 @@ Template.registerHelper 'current_schema_fields', () ->
                 Docs.findOne
                     schema:'schema'
                     slug: current_module?.child_schema
+                    
             Docs.find({
-                _id: $in: module_child_schema.field_ids
+                _id: $in: module_child_schema?.field_ids
                 schema:'field'
                 }).fetch()
                 
 
 Template.registerHelper 'field_value', () -> 
-    parent = Template.parentData(2).data
-    console.log parent
+    parent =  Template.parentData(5)
     if parent["#{@slug}"]
         parent["#{@slug}"]
 

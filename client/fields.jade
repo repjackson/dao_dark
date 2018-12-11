@@ -38,6 +38,19 @@
 template(name='string_view')
     h4.ui.header #{title}: #{field_value}
 
+
+template(name='string_edit')
+    .ui.fluid.labeled.input
+        .ui.basic.label
+            if icon
+                i.icon(class=icon)
+            |#{title}
+        input.string_val(type='text' value=field_value)
+
+
+
+
+
         
 template(name='html_edit')
     #toolbar
@@ -49,7 +62,7 @@ template(name='boolean_edit')
     .ui.button.toggle_field(class=bool_switch_class title=key)
         if icon
             i.icon
-                +icon name=icon
+                i.icon(class=icon)
         |#{title}
 
 
@@ -57,7 +70,7 @@ template(name='array_edit')
     .ui.fluid.labeled.right.icon.input
         .ui.basic.label
             if icon
-                +icon name=icon classes='inline spaced'
+                i.icon(class=icon)
             |#{title}
         input.add_array_element(type='text' placholder='add')
         i.plus.icon
@@ -74,7 +87,7 @@ template(name='multiref_edit')
     div
     .ui.basic.large.label
         if icon
-            i.icon(class=) name=icon classes
+            i.icon(class=icon)
         |#{title}        
     each choices
         .ui.button.toggle_ref(class=ref_class)
@@ -87,23 +100,14 @@ template(name='multiref_edit')
 template(name='ref_edit')
     .ui.basic.label
         if icon
-            +icon name=icon classes='inline spaced'
+            i.icon(class=icon)
         |#{title}
     each choices
         .ui.button.choose_element(class=element_class)
             if icon
                 i.icon
-                    +icon name=icon
+                    i.icon(class=icon)
             |#{title}
-
-
-template(name='string_edit')
-    .ui.fluid.labeled.input
-        .ui.basic.label
-            if icon
-                +icon name=icon classes='inline spaced'
-            |#{title}
-        input.string_val(type='text' value=value)
 
 
 
@@ -112,7 +116,7 @@ template(name='textarea_edit')
     .ui.fluid.labeled.input
         .ui.basic.label
             if icon
-                +icon name=icon classes='inline spaced'
+                i.icon(class=icon)
             |#{title}
         textarea.textarea_val(rows='5')
             |#{value}
@@ -124,7 +128,7 @@ template(name='number_edit')
     .ui.fluid.labeled.input
         .ui.basic.label
             if icon
-                +icon name=icon classes='inline spaced'
+                i.icon(class=icon)
             |#{title}
         input.number_val(type='number' value=value)
 
@@ -133,7 +137,7 @@ template(name='date_edit')
     .ui.fluid.labeled.input
         .ui.basic.label
             if icon
-                +icon name=icon classes='inline spaced'
+                i.icon(class=icon)
             |#{title}
         input.date_val(type='date' value=value)
 
@@ -146,7 +150,7 @@ template(name='field_view')
             else
                 if icon
                     i.icon
-                        +icon name=icon
+                        i.icon(class=icon)
                 |&nbsp;
                 |#{title}:
                 |&nbsp;

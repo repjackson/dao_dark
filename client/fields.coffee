@@ -67,8 +67,7 @@ Template.string_edit.helpers
 
 Template.string_edit.events
     'blur .string_val': (e,t)->
-        parent = Template.parentData()
-
+        parent = Template.parentData(5)
         val = e.currentTarget.value
 
         Docs.update parent._id,
