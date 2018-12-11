@@ -15,9 +15,18 @@ template(name='list')
                     i.icon(class=icon)
                 |#{title}
             each current_schema_fields
-                div
-                strong #{title} &nbsp;
-                |#{field_value}
+                if editing
+                    +Template.dynamic template=field_edit_template
+                    |editing
+                else
+                    +Template.dynamic template=field_view_template
+                    |viewing
+                
+                // div
+                // strong #{title} &nbsp;
+                // |#{field_value}
+            div
+            +edit_button
             // +string_edit title='Title' key='title'
             // +multiref_edit schema='tribe' title='Tribes'
             // +multiref_edit schema='field' title='Fields'
@@ -26,7 +35,7 @@ template(name='list')
             // +string_edit title='Child Schema' key='child_schema'
             // +string_edit title='Icon' key='icon'
             // +string_edit title='Color Icon' key='color_icon'
-
+            
 
 
 template(name='table')
@@ -98,3 +107,43 @@ template(name='year')
 // template(name='icon')
 //     img(src="https://img.icons8.com/color/48/000000/#{name}.png")
             
+            
+            
+template(name='result')
+    .ui.button.edit
+        i.pencil.icon
+        | Edit
+    .ui.list
+        
+        each fields
+            .item
+                strong #{label}
+                // div [#{type}]
+                if is_html
+                    |!{value}
+                else if is_number
+                    .ui.header ##{value}
+                    // strong time
+                    // |{{ from_now value }}
+                else if is_array
+                    each value
+                        .ui.label #{this}
+                else
+                    |#{value} 
+    div
+        .ui.button
+            i.thumbs.up.icon
+        .ui.button
+            i.thumbs.down.icon
+        .ui.button
+            i.chat.icon
+        .ui.button
+            i.eye.icon
+        .ui.button
+            i.bookmark.icon
+            
+            
+            
+template(name='edit_button')
+    .ui.icon.button.edit
+        i.pencil.icon

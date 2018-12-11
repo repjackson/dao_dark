@@ -37,6 +37,21 @@ Template.registerHelper 'my_tribe', () ->
         Docs.findOne
             _id: Meteor.user().current_tribe_id
 
+Template.registerHelper 'field_edit_template', () -> "#{@slug}_edit"
+
+        
+Template.registerHelper 'field_view_template', () -> "#{@slug}_view"
+        
+
+        
+Template.registerHelper 'editing', () ->
+    delta = Docs.findOne Meteor.user().current_delta_id
+    parent = Template.parentData()
+    # console.log parent.schema
+    # if parent._id is delta.editing_id then true else false
+    if parent._id is delta.editing_id then true else false
+        
+
 
 Template.registerHelper 'tribes', () -> 
     Docs.find 
@@ -63,15 +78,21 @@ Template.registerHelper 'current_schema_fields', () ->
         delta = Docs.findOne Meteor.user().current_delta_id
         if delta.module_id
             current_module = Docs.findOne delta.module_id
+            # console.log 'current module', current_module
+            module_child_schema = 
+                Docs.findOne
+                    schema:'schema'
+                    slug: current_module?.child_schema
             Docs.find({
-                _id: $in: current_module.field_ids
+                _id: $in: module_child_schema.field_ids
                 schema:'field'
                 }).fetch()
                 
 
 Template.registerHelper 'field_value', () -> 
     parent = Template.parentData()
-    parent["#{@slug}"]
+    if parent["#{@slug}"]
+        parent["#{@slug}"]
 
 
 
@@ -135,56 +156,8 @@ Template.edit.events
                 fields: new_field
     
         
-Template.edit.helpers
-    editing_doc: ->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        doc = Docs.findOne delta.doc_id
-        doc
-        
 
 
-
-                
-Template.field.events
-    'blur .label': (e,t)->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        doc = Docs.findOne delta.doc_id
-        # val = 
-        value = e.currentTarget.value
-        Meteor.call 'update_field', delta.doc_id, @, 'label', value 
-        
-    'blur .value': ->
-        console.log @
-        
-    'blur .key': ->
-        console.log @
-        
-    'blur .type': ->
-        console.log @
-        
-        
-    'click .delete_field': ->
-        # if confirm "Remove #{@label}?"
-        delta = Docs.findOne Meteor.user().current_delta_id
-        doc = Docs.findOne delta.doc_id
-        Docs.update delta.doc_id,
-            $pull: fields: @
-        
-Template.field.onCreated ->
-    @autorun => Meteor.subscribe 'schema', 'field_type'
-        
-Template.field.helpers
-    field_edit_template: ->
-        # console.log "#{@field_type}_edit"
-        "edit_#{@field_type}"
-
-    field_object: ->
-        delta = Docs.findOne Meteor.user().current_delta_id
-        @fields
-        delta.editing_field
-        
-        
-        
 Template.set_field_key_value.events
     'click .set_field_key_value': ->
         delta = Docs.findOne Meteor.user().current_delta_id

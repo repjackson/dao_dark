@@ -7,13 +7,13 @@ template(name='delta')
                         if current_module.icon
                             i.icon(class=current_module.icon)  
                         | #{current_module.title}
-                    .ui.icon.button.add_doc
+                    .ui.icon.large.button.add_doc
                         i.plus.icon
-                    .ui.icon.button.delete_delta
+                    .ui.icon.large.button.delete_delta
                         i.remove.icon
-                    .ui.icon.button.print_delta
+                    .ui.icon.large.button.print_delta
                         i.code.icon
-                    .ui.icon.button.recalc
+                    .ui.icon.large.button.recalc
                         i.refresh.icon
                 each delta.facets
                     unless hidden
@@ -40,38 +40,6 @@ template(name='change_delta_key')
         |#{label}
         
         
-template(name='result')
-    .ui.button.edit
-        i.pencil.icon
-        | Edit
-    .ui.list
-        
-        each fields
-            .item
-                strong #{label}
-                // div [#{type}]
-                if is_html
-                    |!{value}
-                else if is_number
-                    .ui.header ##{value}
-                    // strong time
-                    // |{{ from_now value }}
-                else if is_array
-                    each value
-                        .ui.label #{this}
-                else
-                    |#{value} 
-    div
-        .ui.button
-            i.thumbs.up.icon
-        .ui.button
-            i.thumbs.down.icon
-        .ui.button
-            i.chat.icon
-        .ui.button
-            i.eye.icon
-        .ui.button
-            i.bookmark.icon
 
 
 template(name='facet')

@@ -15,7 +15,7 @@ Template.delta.events
         
         new_doc_id = 
             Docs.insert 
-                schema: current_module.schema
+                schema: current_module.child_schema
         Meteor.call 'fo'
 
     'click .delete_delta': (e,t)->

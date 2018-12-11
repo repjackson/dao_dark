@@ -223,6 +223,46 @@ Template.edit_html.events
         #         html: html
 
 
+Template.field.onCreated ->
+    @autorun => Meteor.subscribe 'schema', 'field_type'
+        
+Template.field.helpers
+
+    field_object: ->
+        delta = Docs.findOne Meteor.user().current_delta_id
+        @fields
+        delta.editing_field
+        
+
+                
+Template.field.events
+    'blur .label': (e,t)->
+        delta = Docs.findOne Meteor.user().current_delta_id
+        doc = Docs.findOne delta.doc_id
+        # val = 
+        value = e.currentTarget.value
+        Meteor.call 'update_field', delta.doc_id, @, 'label', value 
+        
+    'blur .value': ->
+        console.log @
+        
+    'blur .key': ->
+        console.log @
+        
+    'blur .type': ->
+        console.log @
+        
+        
+    'click .delete_field': ->
+        # if confirm "Remove #{@label}?"
+        delta = Docs.findOne Meteor.user().current_delta_id
+        doc = Docs.findOne delta.doc_id
+        Docs.update delta.doc_id,
+            $pull: fields: @
+        
+        
+
+
 Template.edit_html.helpers
     # getFEContext: ->
     #     @current_doc = Docs.findOne Meteor.user().current_delta_id

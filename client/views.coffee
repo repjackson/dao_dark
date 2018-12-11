@@ -59,4 +59,11 @@ Template.year.helpers
         ]
             
             
-            
+Template.edit_button.events
+    'click .edit': ->
+        current_delta = Docs.findOne Meteor.user().current_delta_id
+        Docs.update current_delta._id,
+            $set: 
+                editing_id: @_id
+        # current_delta = Docs.findOne Meteor.user().current_delta_id
+        # console.log current_delta.editing_id
