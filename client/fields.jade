@@ -1,35 +1,35 @@
-template(name='field')
-    .ui.secondary.segment
-        with field_object
-            .ui.form
-                .field
-                    .two.fields
-                        .field
-                            label Label
-                            input.label(type='text' value=label)
-                        .field
-                            label Key
-                            input.key(type='text' value=key)
-                .field
-                    label Field Type
-                    +set_field_key_value key='field_type' value='array'
-                    +set_field_key_value key='field_type' value='string'
-                    +set_field_key_value key='field_type' value='boolean'
-                    +set_field_key_value key='field_type' value='number'
-                    +set_field_key_value key='field_type' value='html'
-                    +set_field_key_value key='field_type' value='markdown'
-                    +set_field_key_value key='field_type' value='html'
-                    +set_field_key_value key='field_type' value='html'
-                    +set_field_key_value key='field_type' value='html'
-                    +set_field_key_value key='field_type' value='html'
-                .field
-                    +Template.dynamic template=field_edit_template
-                .field
-                    label Value
-                    input.value(type='text' value=field_value)
-                .field
-                    .ui.icon.button.delete_field
-                        i.remove.icon
+// template(name='field')
+//     .ui.secondary.segment
+//         with field_object
+//             .ui.form
+//                 .field
+//                     .two.fields
+//                         .field
+//                             label Label
+//                             input.label(type='text' value=label)
+//                         .field
+//                             label Key
+//                             input.key(type='text' value=key)
+//                 .field
+//                     label Field Type
+//                     +set_field_key_value key='field_type' value='array'
+//                     +set_field_key_value key='field_type' value='string'
+//                     +set_field_key_value key='field_type' value='boolean'
+//                     +set_field_key_value key='field_type' value='number'
+//                     +set_field_key_value key='field_type' value='html'
+//                     +set_field_key_value key='field_type' value='markdown'
+//                     +set_field_key_value key='field_type' value='html'
+//                     +set_field_key_value key='field_type' value='html'
+//                     +set_field_key_value key='field_type' value='html'
+//                     +set_field_key_value key='field_type' value='html'
+//                 .field
+//                     +Template.dynamic template=field_edit_template
+//                 .field
+//                     label Value
+//                     input.value(type='text' value=field_value)
+//                 .field
+//                     .ui.icon.button.delete_field
+//                         i.remove.icon
 
 
 

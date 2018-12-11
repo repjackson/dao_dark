@@ -37,11 +37,11 @@ Template.registerHelper 'my_tribe', () ->
         Docs.findOne
             _id: Meteor.user().current_tribe_id
 
-Template.registerHelper 'field_edit_template', () -> "#{@slug}_edit"
+Template.registerHelper 'field_edit_template', () -> 
+    "#{@data_type}_edit"
 
-        
-Template.registerHelper 'field_view_template', () -> "#{@slug}_view"
-        
+Template.registerHelper 'field_view_template', () -> 
+    "#{@data_type}_view"
 
         
 Template.registerHelper 'editing', () ->
