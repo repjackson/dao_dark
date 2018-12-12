@@ -27,16 +27,15 @@ Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
 
 
+
 Meteor.publish 'my_tribe', ()->
     Docs.find
         schema:'tribe'
         _id: Meteor.user().current_tribe_id
 
 
-# facet macro to find documents
-# facet micro to view into/manipulate docs
-
-
+Accounts.onCreateUser (options, user) ->
+    user.karma = 10
 
 Meteor.methods
     crawl_fields: ->

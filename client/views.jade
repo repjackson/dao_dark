@@ -19,12 +19,12 @@ template(name='list')
                 +field
             // div
             +edit_button
-            // +multiref_edit schema='tribe' title='Tribes'
-            +multiref_edit schema='data_type' title='dt'
-            // +string_edit title='Title' key='title'
-            +string_edit title='DT' key='data_type'
-            // +string_edit title='Schema' key='schema'
-            // +string_edit title='Icon' key='icon'
+            +multiref_edit schema='tribe' title='Tribes'
+            +multiref_edit schema='field_type' title='data type'
+            +string_edit title='Title' key='title'
+            +string_edit title='Data Type' key='data_type'
+            +string_edit title='Schema' key='schema'
+            +string_edit title='Icon' key='icon'
             // +string_edit title='Child Schema' key='child_schema'
 
                 
@@ -157,10 +157,10 @@ template(name='result')
             
 template(name='edit_button')
     if editing_this
-        .ui.icon.button.save
+        .ui.icon.big.button.save
             i.checkmark.green.icon
     else
-        .ui.icon.button.edit
+        .ui.icon.big.button.edit
             i.pencil.icon
             
             

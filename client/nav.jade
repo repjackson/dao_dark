@@ -12,6 +12,8 @@ template(name='nav')
                 |#{title}
         .right.menu
             if currentUser
+                a.item.karma(href='#')
+                    | #{currentUser.karma}
                 a.item.profile(href='#')
                     i.user.icon
                     | #{currentUser.username}

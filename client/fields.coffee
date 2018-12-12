@@ -61,6 +61,7 @@ Template.field.events
 Template.string_edit.helpers
     value: ->
         parent = Template.parentData()
+        console.log parent
         value = parent["#{@key}"]
 
 
@@ -69,10 +70,10 @@ Template.string_edit.events
     'blur .string_val': (e,t)->
         parent = Template.parentData(5)
         val = e.currentTarget.value
-
+        
         Docs.update parent._id,
             $set:
-                "#{@key}": val
+                "#{@slug}": val
         Meteor.call 'fo'
 
 

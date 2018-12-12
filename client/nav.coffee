@@ -13,6 +13,7 @@ Template.nav.onCreated ->
 Template.nav.helpers
     session_item_class: ->
         if Meteor.user().current_delta_id is @_id then 'active' else ''
+    
     tribe_modules: ->
         if Meteor.user() 
             current_tribe = Docs.findOne Meteor.user().current_tribe_id
@@ -24,6 +25,10 @@ Template.nav.events
     'click .delta': ->
         Meteor.users.update Meteor.userId(),
             $set:current_template: 'delta'
+   
+    'click .karma': ->
+        Meteor.users.update Meteor.userId(),
+            $set:current_template: 'karma'
    
     'click .create_delta': (e,t)->
         new_delta_id = Docs.insert
