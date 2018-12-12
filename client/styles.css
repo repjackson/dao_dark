@@ -20,7 +20,7 @@ body {
   min-height: 500px;
   font-family: 'Ubuntu', sans-serif;
   /*filter: invert(100%);*/
-  background: #dae1e7;
+  background: black;
   /*background: #f6f8fa!important*/
 }
  .large-text {
