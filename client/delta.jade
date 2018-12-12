@@ -1,23 +1,26 @@
 template(name='delta')    
-    .five.wide.column.scrolling
+    // .five.wide.column.scrolling
+    .grey.row
         if delta
-            h2.ui.header 
-                if current_module.icon
-                    i.icon(class=current_module.icon)  
-                | #{current_module.title}
-            .ui.icon.large.button.add_doc
+            // h2.ui.header 
+            //     if current_module.icon
+            //         i.icon(class=current_module.icon)  
+            //     | #{current_module.title}
+            .ui.icon.button.add_doc
                 i.plus.icon
-            .ui.icon.large.button.delete_delta
+            .ui.icon.button.delete_delta
                 i.remove.icon
-            .ui.icon.large.button.print_delta
+            .ui.icon.button.print_delta
                 i.code.icon
-            .ui.icon.large.button.recalc
+            .ui.icon.button.recalc
                 i.refresh.icon
-        each delta.facets
+    each delta.facets
+        .row
             unless hidden
                 +facet
-                div
-    .eleven.wide.column.scrolling
+            div
+    // .eleven.wide.column.scrolling
+    .row
         if delta.editing
             +edit
         // else
@@ -41,14 +44,13 @@ template(name='change_delta_key')
 
 
 template(name='facet')
-    // .ui.secondary.segment
-    .ui.small.header #{key}
+    .ui.small.inline.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
     
     each res
         if name
-            .ui.compact.button.toggle_selection(class=toggle_value_class)
+            .ui.button.toggle_selection(class=toggle_value_class)
                 strong #{name}
                 // small #{count}
             

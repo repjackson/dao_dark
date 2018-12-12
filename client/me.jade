@@ -1,5 +1,5 @@
 template(name='account')
-    .ui.segment
+    .four.wide.column
         .ui.header
             | Account
         .ui.button
@@ -9,7 +9,7 @@ template(name='account')
         .ui.button
             | Business
     
-    .ui.segment
+    .four.wide.column
         .ui.header
             i.fire.icon
             | Tribes
@@ -30,8 +30,4 @@ template(name='account')
     
     
 template(name='profile')
-    .ui.header Profile
-    with currentUser
-        .ui.header #{username}
-        
     +account

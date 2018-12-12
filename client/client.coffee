@@ -2,7 +2,6 @@ Accounts.ui.config
     passwordSignupFields: 'USERNAME_ONLY'
 
 
-
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
@@ -22,10 +21,6 @@ Template.registerHelper 'detail_doc', (input) ->
 Template.registerHelper 'in_dao', () -> 
     Meteor.user() and Meteor.user().current_tribe_id is 'X2xn6Bo45FnbefJe5'
 
-Template.registerHelper 'my_tribe', () -> 
-    if Meteor.user()
-        Docs.findOne
-            _id: Meteor.user().current_tribe_id
 
 Template.registerHelper 'field_edit_template', () -> 
     field = Docs.findOne
@@ -99,14 +94,6 @@ Template.edit.onCreated ->
 
 
 
-Template.home.helpers
-    main_template: ->
-        if Meteor.user()
-            Meteor.user().current_template
-        else
-            'public'
-        
-
 Template.facet.helpers
     toggle_value_class: ->
         facet = Template.parentData()
@@ -145,7 +132,7 @@ Template.edit.events
             label:'New Field'
             key:'new_field'
             schema:'string'
-            }    
+        }    
     
         Docs.update delta.doc_id,
             $addToSet:
