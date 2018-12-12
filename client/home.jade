@@ -1,0 +1,41 @@
+template(name='home')
+    .ui.stackable.padded.grid
+        .center.aligned.black.row(class=my_tribe.color)
+            .four.wide.column
+                i.user.icon
+            .eight.wide.column.create_delta.pointer
+                if in_dao
+                    .black_bat.font_200 DAO
+                else
+                    |#{my_tribe.title}
+            if currentUser
+                .two.wide.column.karma.pointer
+                    | #{currentUser.karma}
+                .two.wide.column.profile.pointer
+                    i.user.icon
+                    | #{currentUser.username}
+                // .two.wide.column
+                //     .logout.pointer
+                //         i.sign.out.alternate.icon
+            else
+                .four.wide.column
+                    i.sign.in.alternate.icon
+        .centered.row
+            each tribe_modules
+                .two.wide.column.select_module.pointer
+                    i.icon(class=icon)
+                    |#{title}
+        if currentUser
+            .row
+                +Template.dynamic template=main_template
+            
+            
+template(name='history')   
+    .ui.header History
+    .ui.breadcrumb
+        a.section Home
+        .divider  / 
+        a.section Store
+        .divider  / 
+        .active.section T-Shirt
+            

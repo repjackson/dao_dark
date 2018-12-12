@@ -1,5 +1,5 @@
 
-Template.nav.onCreated ->
+Template.home.onCreated ->
     @autorun -> Meteor.subscribe 'me'
     @autorun -> Meteor.subscribe 'my_tribe'
     @autorun -> Meteor.subscribe 'my_deltas'
@@ -10,7 +10,7 @@ Template.nav.onCreated ->
 
 
 
-Template.nav.helpers
+Template.home.helpers
     session_item_class: ->
         if Meteor.user().current_delta_id is @_id then 'active' else ''
     
@@ -21,7 +21,7 @@ Template.nav.helpers
                 schema:'module'
                 tribe_ids: $in: [Meteor.user().current_tribe_id]
 
-Template.nav.events
+Template.home.events
     'click .delta': ->
         Meteor.users.update Meteor.userId(),
             $set:current_template: 'delta'
@@ -46,7 +46,7 @@ Template.nav.events
                 current_template: 'delta'
 
 
-Template.nav.events
+Template.home.events
     'click .select_module': ->
         user_module_delta = Docs.findOne
             schema:'delta'

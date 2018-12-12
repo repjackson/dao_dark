@@ -11,13 +11,6 @@ head
 body
     +home
 
-template(name='home')
-    // +nav
-    #main
-        if currentUser
-            +Template.dynamic template=main_template
-        else
-            +front
             
 
 template(name='edit')

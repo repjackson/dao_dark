@@ -1,35 +1,33 @@
 template(name='delta')    
-    .ui.stackable.grid
-        .row
-            .five.wide.column.scrolling
-                if delta
-                    h2.ui.header 
-                        if current_module.icon
-                            i.icon(class=current_module.icon)  
-                        | #{current_module.title}
-                    .ui.icon.large.button.add_doc
-                        i.plus.icon
-                    .ui.icon.large.button.delete_delta
-                        i.remove.icon
-                    .ui.icon.large.button.print_delta
-                        i.code.icon
-                    .ui.icon.large.button.recalc
-                        i.refresh.icon
-                each delta.facets
-                    unless hidden
-                        +facet
-                        div
-            .eleven.wide.column.scrolling
-                if delta.editing
-                    +edit
-                // else
-                //     +change_delta_key key='view' icon='list' label='List' value='list'
-                //     +change_delta_key key='view' icon='th' label='Grid' value='grid'
-                //     +change_delta_key key='view' icon='table' label='Table' value='table'
-                //     +change_delta_key key='view' icon='map' label='Map' value='map'
-                //     +change_delta_key key='view' icon='calendar' label='Calendar' value='cal'
-                // div
-                +Template.dynamic template=delta.view
+    .five.wide.column.scrolling
+        if delta
+            h2.ui.header 
+                if current_module.icon
+                    i.icon(class=current_module.icon)  
+                | #{current_module.title}
+            .ui.icon.large.button.add_doc
+                i.plus.icon
+            .ui.icon.large.button.delete_delta
+                i.remove.icon
+            .ui.icon.large.button.print_delta
+                i.code.icon
+            .ui.icon.large.button.recalc
+                i.refresh.icon
+        each delta.facets
+            unless hidden
+                +facet
+                div
+    .eleven.wide.column.scrolling
+        if delta.editing
+            +edit
+        // else
+        //     +change_delta_key key='view' icon='list' label='List' value='list'
+        //     +change_delta_key key='view' icon='th' label='Grid' value='grid'
+        //     +change_delta_key key='view' icon='table' label='Table' value='table'
+        //     +change_delta_key key='view' icon='map' label='Map' value='map'
+        //     +change_delta_key key='view' icon='calendar' label='Calendar' value='cal'
+        // div
+        +Template.dynamic template=delta.view
                     
 
 
