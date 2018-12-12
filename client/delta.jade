@@ -22,13 +22,13 @@ template(name='delta')
             .eleven.wide.column.scrolling
                 if delta.editing
                     +edit
-                else
-                    +change_delta_key key='view' icon='list' label='List' value='list'
-                    +change_delta_key key='view' icon='th' label='Grid' value='grid'
-                    +change_delta_key key='view' icon='table' label='Table' value='table'
-                    +change_delta_key key='view' icon='map' label='Map' value='map'
-                    +change_delta_key key='view' icon='calendar' label='Calendar' value='cal'
-                div
+                // else
+                //     +change_delta_key key='view' icon='list' label='List' value='list'
+                //     +change_delta_key key='view' icon='th' label='Grid' value='grid'
+                //     +change_delta_key key='view' icon='table' label='Table' value='table'
+                //     +change_delta_key key='view' icon='map' label='Map' value='map'
+                //     +change_delta_key key='view' icon='calendar' label='Calendar' value='cal'
+                // div
                 +Template.dynamic template=delta.view
                     
 

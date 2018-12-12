@@ -9,23 +9,26 @@ template(name='grid')
 
 template(name='list')
     each current_delta.results
-        .ui.segment
-            .ui.header 
-                if icon
-                    i.icon(class=icon)
-                |#{title}
-            each current_schema_fields
-                div
-                +field
-            // div
-            +edit_button
-            +multiref_edit schema='tribe' title='Tribes'
-            +multiref_edit schema='field_type' title='data type'
-            +string_edit title='Title' key='title'
-            +string_edit title='Data Type' key='data_type'
-            +string_edit title='Schema' key='schema'
-            +string_edit title='Icon' key='icon'
-            // +string_edit title='Child Schema' key='child_schema'
+        .ui.fluid.card
+            .content
+                +result
+        // .ui.segment
+        //     .ui.header 
+        //         if icon
+        //             i.icon(class=icon)
+        //         |#{title}
+        //     each current_schema_fields
+        //         div
+        //         +field
+        //     // div
+        //     +edit_button
+        //     +multiref_edit schema='tribe' title='Tribes'
+        //     +multiref_edit schema='field_type' title='data type'
+        //     +string_edit title='Title' key='title'
+        //     +string_edit title='Data Type' key='data_type'
+        //     +string_edit title='Schema' key='schema'
+        //     +string_edit title='Icon' key='icon'
+        //     // +string_edit title='Child Schema' key='child_schema'
 
                 
 template(name='field')

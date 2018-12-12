@@ -17,11 +17,8 @@ template(name='home')
         if currentUser
             +Template.dynamic template=main_template
         else
-            +login
-    
-    
-    
-
+            +front
+            
 
 template(name='edit')
     with editing_doc
