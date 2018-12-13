@@ -21,9 +21,26 @@ Meteor.publish 'doc_id', (doc_id)->
     
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
+        
+Meteor.methods 
+    tagify_date_time: (val)->
+        console.log moment(val).format("dddd, MMMM Do YYYY, h:mm:ss a")
+        minute = moment(val).minute()
+        hour = moment(val).format('h')
+        date = moment(val).format('Do')
+        ampm = moment(val).format('a')
+        weekdaynum = moment(val).isoWeekday()
+        weekday = moment().isoWeekday(weekdaynum).format('dddd')
 
+        month = moment(val).format('MMMM')
+        year = moment(val).format('YYYY')
 
-Meteor.methods
+        date_array = [hour, minute, ampm, weekday, month, date, year]
+        date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
+        # date_array = _.each(date_array, (el)-> console.log(typeof el))
+        console.log date_array
+        return date_array
+
     crawl_fields: ->
         start = Date.now()
 
@@ -38,84 +55,11 @@ Meteor.methods
         # console.log diff
         console.log 'duration', moment(diff).format("HH:mm:ss:SS")
 
-    detect_fields: (doc_id)->
-        doc = Docs.findOne doc_id
-        keys = _.keys doc
-        # fields = doc.fields
-        console.log 
-        
-        fields = []
-        
-        for key in keys
-            key_value = doc["#{key}"]
-            initial_field_type = typeof key_value
-                    
-            if initial_field_type is 'object'        
-                if Array.isArray key_value
-                    field_type = 'array'
-                else
-                    field_type = 'object'
-                    
-            else if initial_field_type is 'number'
-                # d = Date.parse(key_value)
-                # nan = isNaN d
-                # !nan
-                field_type = 'number'
-                                
-            else if initial_field_type is 'string'
-                html_check = /<[a-z][\s\S]*>/i
-                html_result = html_check.test key_value
-                if html_result
-                    field_type = 'html'
-                else
-                    field_type = 'string'
-                
-            label = key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
-            field_object = 
-                {
-                    key:key
-                    label:label
-                    field_type:field_type
-                }
-                
-            # console.log 'adding field object', field_object    
-            fields.push field_object
-                    
-        # console.log 'fields length', fields.length
-        # unique = _.uniq fields
-        # console.log 'unique length', unique.length
-                    
-        Docs.update doc_id,
-            $set: 
-                fields: fields
-                keys: keys
-                meta:1
-        console.log 'detected fields', doc_id
-        
-        return doc_id
-
-    keys: ->
-        start = Date.now()
-        cursor = Docs.find({keys:$exists:false}, {limit:1000}).fetch()
-        for doc in cursor
-            keys = _.keys doc
-            # console.log doc
-            Docs.update doc._id,
-                $set:keys:keys
-            
-            console.log "updated keys for doc #{doc._id}"
-        stop = Date.now()
-        
-        diff = stop - start
-        # console.log diff
-        console.log 'duration', moment(diff).format("HH:mm:ss:SS")
-        
     fo: ->
         if Meteor.user()
             if Meteor.user().current_delta_id
                 delta = Docs.findOne Meteor.user().current_delta_id
-                # built_query = { tribe:'dao' }
-                built_query = {  }
+                built_query = { schema:'reddit' }
                 
                 current_module = Docs.findOne delta.module_id
                 # console.log current_module
@@ -152,7 +96,7 @@ Meteor.methods
                         { $set: "facets.$.res": agg_res }
         
         
-                results_cursor = Docs.find built_query, limit:1
+                results_cursor = Docs.find built_query, {fields:{_id:1},limit:1}
         
                 # result_ids = []
                 # for result in results_cursor.fetch()
@@ -163,7 +107,7 @@ Meteor.methods
                 Docs.update {_id:delta._id},
                     {$set:
                         total: total
-                        results:results
+                        result:result
                     }, ->
 
     agg: (query, schema, key, filters)->

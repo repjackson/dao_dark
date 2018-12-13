@@ -52,36 +52,15 @@ template(name='home')
                         .twelve.wide.column
                             +loginButtons
                     
-template(name='result')                
-    .ui.fluid.card
-        .content
-            .ui.list
-                each fields
-                    .item
-                        strong #{label}
-                        // div [#{type}]
-                        if is_html
-                            |!{value}
-                        else if is_number
-                            .ui.header ##{value}
-                            // strong time
-                            // |{{ from_now value }}
-                        else if is_array
-                            each value
-                                .ui.label #{this}
-                        else
-                            |#{value} 
                     
 
 template(name='facet')
     .ui.small.inline.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
-    
     each res
         if name
             .ui.button.toggle_selection(class=toggle_value_class)
                 strong #{name}
                 small #{count}
             
-                            
