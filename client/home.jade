@@ -1,3 +1,18 @@
+head
+    title DAO
+    meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
+    meta(name="theme-color", content="#ffffff")
+    link(rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu")
+    // link(href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet")
+
+
+
+body
+    +home
+
+            
+
+
 template(name='home')
     .ui.stackable.padded.celled.grid
         if currentUser
@@ -31,15 +46,3 @@ template(name='home')
             .black.row
                 .twelve.wide.column
                     +login
-            
-            
-            
-template(name='history')   
-    .ui.header History
-    .ui.breadcrumb
-        a.section Home
-        .divider  / 
-        a.section Store
-        .divider  / 
-        .active.section T-Shirt
-            
