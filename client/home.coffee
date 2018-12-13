@@ -39,9 +39,17 @@ Template.home.events
         new_delta_id = Docs.insert
             schema:'delta'
             view:'list'
-            facets: [{key:'keys', res:[]}]
+            facets: [
+                {
+                    key:'keys'
+                    filters: ['tags', 'timestamp']
+                    res:[]
+                }
+            ]
         Meteor.users.update Meteor.userId(),
-            $set: current_delta_id: new_delta_id
+            $set:
+                current_template: 'delta'
+                current_delta_id: new_delta_id
         Meteor.call 'fo'
         
     'click .select_delta': ->

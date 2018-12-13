@@ -4,28 +4,27 @@ template(name='home')
             .center.aligned.black.row(class=my_tribe.color)
                 .eight.wide.column.create_delta.pointer
                     if in_dao
-                        .black_bat.font_200 DAO
+                        i.home.icon
+                        // .black_bat.font_200 DAO
                     else
                         |#{my_tribe.title}
                 if currentUser
                     .two.wide.column.karma.pointer
-                        .ui.inverted.small.horizontal.statistic
-                            .value #{currentUser.karma}
-                            .label karma
+                        | #{currentUser.karma} karma
                     .two.wide.column.profile.pointer
                         i.user.icon
                         | #{currentUser.username}
                     .one.wide.column.logout.pointer
-                        i.sign.out.large.alternate.icon
+                        i.sign.out.alternate.icon
                 else
                     .four.wide.column
                         i.sign.in.alternate.icon
-            .centered.grey.row
-                each tribe_modules
-                    .ui.button.select_module
-                        i.icon(class=icon)
-                        |#{title}
-                    // .two.wide.column.select_module.pointer
+            // .centered.grey.row
+            //     each tribe_modules
+            //         .ui.button.select_module
+            //             i.icon(class=icon)
+            //             |#{title}
+            //         // .two.wide.column.select_module.pointer
             if currentUser
                 +Template.dynamic template=currentUser.current_template
         else

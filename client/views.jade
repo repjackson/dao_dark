@@ -5,13 +5,12 @@ template(name='grid')
                 .content
                     +result
 
-
-
 template(name='list')
-    each current_delta.results
-        .ui.fluid.card
-            .content
-                +result
+    .ui.centered.stackable.cards
+        each current_delta.results
+            .ui.fluid.card
+                .content
+                    +result
         // .ui.segment
         //     .ui.header 
         //         if icon
@@ -73,7 +72,6 @@ template(name='cal')
     +change_delta_key key='cal_view' value='agenda' label='Agenda'
     +Template.dynamic template=current_delta.cal_view
     
-    
 template(name='month')    
     .ui.seven.column.celled.stackable.grid
         .grey.row
@@ -96,7 +94,6 @@ template(name='week')
             .column Fri
             .column Sat
             
-            
 template(name='day')    
     .ui.two.column.celled.stackable.grid
         each hours
@@ -104,7 +101,6 @@ template(name='day')
                 .column #{this}
                 .column 
                     i.grey.plus.icon
-            
             
 template(name='year')
     .ui.four.column.celled.stackable.grid
@@ -117,18 +113,11 @@ template(name='year')
                             |#{this}
                 
             
-            
-// template(name='icon')
-//     img(src="https://img.icons8.com/color/48/000000/#{name}.png")
-            
-            
-            
 template(name='result')
-    .ui.button.edit
-        i.pencil.icon
-        | Edit
+    // .ui.button.edit
+    //     i.pencil.icon
+    //     | Edit
     .ui.list
-        
         each fields
             .item
                 strong #{label}
@@ -144,17 +133,17 @@ template(name='result')
                         .ui.label #{this}
                 else
                     |#{value} 
-    div
-        .ui.button
-            i.thumbs.up.icon
-        .ui.button
-            i.thumbs.down.icon
-        .ui.button
-            i.chat.icon
-        .ui.button
-            i.eye.icon
-        .ui.button
-            i.bookmark.icon
+    // div
+    //     .ui.button
+    //         i.thumbs.up.icon
+    //     .ui.button
+    //         i.thumbs.down.icon
+    //     .ui.button
+    //         i.chat.icon
+    //     .ui.button
+    //         i.eye.icon
+    //     .ui.button
+    //         i.bookmark.icon
             
             
             

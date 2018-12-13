@@ -39,14 +39,24 @@ Accounts.onCreateUser (options, user) ->
 
 Meteor.methods
     crawl_fields: ->
-        found_cursor = Docs.find { fields: $exists:false}, limit:100
+        start = Date.now()
+
+        found_cursor = Docs.find {meta:$ne:1}, { fields:{_id:1},limit:10000 }
+        
         for found in found_cursor.fetch()
             Meteor.call 'detect_fields', found._id, (err,res)->
-                
+        stop = Date.now()
+        
+        diff = stop - start
+        # console.log diff
+        console.log 'duration', moment(diff).format("HH:mm:ss:SS")
+
     detect_fields: (doc_id)->
         doc = Docs.findOne doc_id
         keys = _.keys doc
-        fields = doc.fields
+        # fields = doc.fields
+        fields = []
+        
         for key in keys
             key_value = doc["#{key}"]
             initial_field_type = typeof key_value
@@ -72,16 +82,23 @@ Meteor.methods
                     field_type = 'string'
                 
             label = key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
-
-                            
-            Docs.update doc_id,
-                $addToSet:
-                    fields: 
-                        key:key
-                        label:label
-                        schema:field_type
-        
+            field_object = 
+                {
+                    key:key
+                    label:label
+                    field_type:field_type
+                }
+                
+            # console.log 'adding field object', field_object    
+            fields.push field_object
+                    
+        Docs.update doc_id,
+            $set: 
+                fields: fields
+                keys: keys
+                meta:1
         console.log 'detected fields', doc_id
+        
         return doc_id
 
     keys: ->
@@ -104,12 +121,11 @@ Meteor.methods
         if Meteor.user()
             if Meteor.user().current_delta_id
                 delta = Docs.findOne Meteor.user().current_delta_id
-                built_query = { }
+                # built_query = { tribe:'dao' }
+                built_query = {  }
                 
                 current_module = Docs.findOne delta.module_id
                 # console.log current_module
-                
-                            
                     # console.log module_child_schema
                     
                     # facet every field by default, then add faceted boolean again, fields need to be unique to schema at first, maybe future cross ref
@@ -143,7 +159,7 @@ Meteor.methods
                         { $set: "facets.$.res": agg_res }
         
         
-                results_cursor = Docs.find built_query, limit:10
+                results_cursor = Docs.find built_query, limit:1
         
                 # result_ids = []
                 # for result in results_cursor.fetch()
@@ -171,7 +187,7 @@ Meteor.methods
                 { $unwind: "$#{key}" }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 42 }
+                { $limit: 20 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
         else
@@ -180,7 +196,7 @@ Meteor.methods
                 { $project: "#{key}": 1 }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 42 }
+                { $limit: 20 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
 
