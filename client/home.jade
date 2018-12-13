@@ -1,5 +1,5 @@
 head
-    title DAO
+    title dao
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name="theme-color", content="#ffffff")
     link(rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu")
@@ -13,14 +13,8 @@ template(name='home')
         if currentUser
             .center.aligned.black.row(class=my_tribe.color)
                 .eight.wide.column.create_delta.pointer
-                    if in_dao
-                        i.home.icon
-                        // .black_bat.font_200 DAO
-                    else
-                        |#{my_tribe.title}
+                    .white_bat.font_200 DAO
                 if currentUser
-                    .two.wide.column.karma.pointer
-                        | #{currentUser.karma} karma
                     .two.wide.column.profile.pointer
                         i.user.icon
                         | #{currentUser.username}
@@ -36,8 +30,79 @@ template(name='home')
             //             |#{title}
             //         // .two.wide.column.select_module.pointer
             if currentUser
-                +Template.dynamic template=currentUser.current_template
+                +delta
         else
             .black.row
                 .twelve.wide.column
                     +loginButtons
+                    
+                    
+template(name='delta')    
+    // .five.wide.column.scrolling
+    .grey.row
+        if delta
+            // h2.ui.header 
+            //     if current_module.icon
+            //         i.icon(class=current_module.icon)  
+            //     | #{current_module.title}
+            .ui.icon.button.add_doc
+                i.plus.icon
+            .ui.icon.button.delete_delta
+                i.remove.icon
+            .ui.icon.button.print_delta
+                i.code.icon
+            .ui.icon.button.recalc
+                i.refresh.icon
+    each delta.facets
+        .row
+            unless hidden
+                +facet
+            div
+    .row
+        .ui.centered.stackable.cards
+            each current_delta.results
+                +result
+                
+template(name='result')                
+    .ui.fluid.card
+        .content
+            .ui.list
+                each fields
+                    .item
+                        strong #{label}
+                        // div [#{type}]
+                        if is_html
+                            |!{value}
+                        else if is_number
+                            .ui.header ##{value}
+                            // strong time
+                            // |{{ from_now value }}
+                        else if is_array
+                            each value
+                                .ui.label #{this}
+                        else
+                            |#{value} 
+                    
+
+
+template(name='change_delta_key')
+    .ui.button.set_delta_key(class=delta_key_button_class)
+        if icon
+            i.icon(class=icon)
+        |#{label}
+        
+        
+
+
+template(name='facet')
+    // .ui.small.inline.header #{key}
+    // each filters
+    //     .unselect.ui.blue.button #{this}
+    
+    each res
+        if name
+            .ui.button.toggle_selection(class=toggle_value_class)
+                strong #{name}
+                // small #{count}
+            
+                            

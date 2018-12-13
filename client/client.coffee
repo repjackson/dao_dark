@@ -19,6 +19,12 @@ Template.registerHelper 'field_value', () ->
         parent["#{@slug}"]
 
 
+
+Template.registerHelper 'current_delta', () -> 
+    if Meteor.user() and Meteor.user().current_delta_id
+        delta = Docs.findOne Meteor.user().current_delta_id
+
+
 Template.facet.helpers
     toggle_value_class: ->
         facet = Template.parentData()
