@@ -9,39 +9,26 @@ Meteor.users.allow
     remove: (userId, doc) -> userId
 
 
-Meteor.publish 'my_deltas', ->
-    Docs.find
+Meteor.publish 'my_delta', ->
+    Docs.find {
         schema:'delta'
+    }, limit:1
         # author_id: Meteor.userId()
 
 Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id
 
-Meteor.publish 'schema', (schema)->
-    Docs.find {
-        schema:schema
-    }, limit: 30
-    
     
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
 
 
-
-Meteor.publish 'my_tribe', ()->
-    Docs.find
-        schema:'tribe'
-        _id: Meteor.user().current_tribe_id
-
-
-Accounts.onCreateUser (options, user) ->
-    user.karma = 10
-
 Meteor.methods
     crawl_fields: ->
         start = Date.now()
 
-        found_cursor = Docs.find {meta:$ne:1}, { fields:{_id:1},limit:10000 }
+        # found_cursor = Docs.find {meta:$ne:1}, { fields:{_id:1},limit:10 }
+        found_cursor = Docs.find {fields:$exists:false}, { fields:{_id:1},limit:10000 }
         
         for found in found_cursor.fetch()
             Meteor.call 'detect_fields', found._id, (err,res)->
@@ -55,6 +42,8 @@ Meteor.methods
         doc = Docs.findOne doc_id
         keys = _.keys doc
         # fields = doc.fields
+        console.log 
+        
         fields = []
         
         for key in keys
@@ -91,6 +80,10 @@ Meteor.methods
                 
             # console.log 'adding field object', field_object    
             fields.push field_object
+                    
+        # console.log 'fields length', fields.length
+        # unique = _.uniq fields
+        # console.log 'unique length', unique.length
                     
         Docs.update doc_id,
             $set: 
@@ -187,7 +180,7 @@ Meteor.methods
                 { $unwind: "$#{key}" }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 20 }
+                { $limit: 42 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
         else
@@ -196,7 +189,7 @@ Meteor.methods
                 { $project: "#{key}": 1 }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 20 }
+                { $limit: 42 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
 

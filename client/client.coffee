@@ -21,9 +21,9 @@ Template.registerHelper 'field_value', () ->
 
 
 Template.registerHelper 'current_delta', () -> 
-    if Meteor.user() and Meteor.user().current_delta_id
-        delta = Docs.findOne Meteor.user().current_delta_id
-
+    # if Meteor.user() and Meteor.user().current_delta_id
+    #     delta = Docs.findOne Meteor.user().current_delta_id
+    Docs.findOne schema:'delta'
 
 Template.facet.helpers
     toggle_value_class: ->

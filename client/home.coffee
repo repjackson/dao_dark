@@ -1,7 +1,7 @@
 
 Template.home.onCreated ->
     @autorun -> Meteor.subscribe 'me'
-
+    @autorun -> Meteor.subscribe 'my_delta'
 
 
 Template.home.events
@@ -16,7 +16,8 @@ Template.home.events
             facets: [
                 {
                     key:'keys'
-                    filters: ['tags', 'timestamp']
+                    # filters: ['tags', 'timestamp']
+                    filters: []
                     res:[]
                 }
             ]
@@ -35,22 +36,29 @@ Template.home.events
     'click .logout': ->
         Meteor.logout()
         
+        
+Template.home.helpers
+    one_result: ->
+        delta = Docs.findOne schema:'delta'
+        if delta
+            if delta.total is 1 then true else false
+        
 
 
 
-Template.home.onCreated ->
-    @autorun -> Meteor.subscribe 'my_deltas'
 
-Template.result.onCreated ->
-    delta = Docs.findOne Meteor.user().current_delta_id
-    if delta
-        @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
+# Template.result.onCreated ->
+#     delta = Docs.findOne Meteor.user().current_delta_id
+#     if delta
+#         @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
  
  
  
 Template.home.events
     'click .delete_delta': (e,t)->
-        delta = Docs.findOne Meteor.user().current_delta_id
+        # delta = Docs.findOne Meteor.user().current_delta_id
+        delta = Docs.findOne schema:'delta'
+        
         Docs.remove delta._id
     
     'click .print_delta': (e,t)->

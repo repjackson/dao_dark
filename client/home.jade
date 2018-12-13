@@ -9,60 +9,49 @@ body
 
 
 template(name='home')
-    .ui.stackable.padded.celled.grid
+    .ui.attached.inverted.borderless.menu
+        .item.create_delta.pointer
+            .white_bat.font_200 DAO
         if currentUser
-            .center.aligned.black.row(class=my_tribe.color)
-                .eight.wide.column.create_delta.pointer
-                    .white_bat.font_200 DAO
-                if currentUser
-                    .two.wide.column.profile.pointer
-                        i.user.icon
-                        | #{currentUser.username}
-                    .one.wide.column.logout.pointer
-                        i.sign.out.alternate.icon
-                else
-                    .four.wide.column
-                        i.sign.in.alternate.icon
-            // .centered.grey.row
-            //     each tribe_modules
-            //         .ui.button.select_module
-            //             i.icon(class=icon)
-            //             |#{title}
-            //         // .two.wide.column.select_module.pointer
-            if currentUser
-                +delta
+            .item.profile.pointer
+                i.user.icon
+                | #{currentUser.username}
+            .item.logout.pointer
+                i.sign.out.alternate.icon
+            if current_delta
+                // h2.ui.header 
+                //     if current_module.icon
+                //         i.icon(class=current_module.icon)  
+                //     | #{current_module.title}
+                .pointer.icon.item.add_doc
+                    i.plus.icon
+                .pointer.icon.item.delete_delta
+                    i.remove.icon
+                .pointer.icon.item.print_delta
+                    i.code.icon
+                .pointer.icon.item.recalc
+                    i.refresh.icon
         else
-            .black.row
-                .twelve.wide.column
-                    +loginButtons
-                    
-                    
-template(name='delta')    
-    // .five.wide.column.scrolling
-    .grey.row
-        if delta
-            // h2.ui.header 
-            //     if current_module.icon
-            //         i.icon(class=current_module.icon)  
-            //     | #{current_module.title}
-            .ui.icon.button.add_doc
-                i.plus.icon
-            .ui.icon.button.delete_delta
-                i.remove.icon
-            .ui.icon.button.print_delta
-                i.code.icon
-            .ui.icon.button.recalc
-                i.refresh.icon
-    each delta.facets
+            .item
+                i.sign.in.alternate.icon
+    .ui.padded.grid
         .row
-            unless hidden
-                +facet
-            div
-    .row
-        .ui.centered.stackable.cards
-            each current_delta.results
-                +result
-                
+            .sixteen.wide.column
+                if currentUser
+                    each current_delta.facets
+                        .row
+                            unless hidden
+                                +facet
+                            div
+                    if one_result
+                        .ui.centered.stackable.cards
+                            each current_delta.results
+                                +result
+                else
+                    .black.row
+                        .twelve.wide.column
+                            +loginButtons
+                    
 template(name='result')                
     .ui.fluid.card
         .content
@@ -84,18 +73,8 @@ template(name='result')
                             |#{value} 
                     
 
-
-template(name='change_delta_key')
-    .ui.button.set_delta_key(class=delta_key_button_class)
-        if icon
-            i.icon(class=icon)
-        |#{label}
-        
-        
-
-
 template(name='facet')
-    // .ui.small.inline.header #{key}
+    .ui.small.inline.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
     
@@ -103,6 +82,6 @@ template(name='facet')
         if name
             .ui.button.toggle_selection(class=toggle_value_class)
                 strong #{name}
-                // small #{count}
+                small #{count}
             
                             
