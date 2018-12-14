@@ -1,5 +1,6 @@
 Docs.allow
-    insert: (userId, doc) -> doc.author_id is userId
+    # insert: (userId, doc) -> doc.author_id is userId
+    insert: (userId, doc) -> true
     update: (userId, doc) -> userId
     remove: (userId, doc) -> doc.author_id is userId
 
@@ -9,14 +10,20 @@ Meteor.users.allow
     remove: (userId, doc) -> userId
 
 
-Meteor.publish 'my_delta', ->
-    Docs.find {
-        schema:'delta'
-    }, limit:1
-        # author_id: Meteor.userId()
+Meteor.publish 'my_deltas', ->
+    if Meteor.user()
+        Docs.find {
+            schema:'delta'
+            author_id: Meteor.userId()
+        }, limit:1
 
 Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id
+
+Meteor.publish 'public_deltas', ->
+    Docs.find
+        schema:'delta'
+        author_id:null
 
     
 Meteor.publish 'me', ()->
@@ -105,3 +112,37 @@ Meteor.methods
         res = {}
         if agg
             agg.toArray()
+            
+    create_delta: ->
+        delta_count = Docs.find(schema:'delta').count()
+        new_delta_id = Docs.insert
+            schema:'delta'
+            number: delta_count+1
+            facets: [
+                {
+                    key:'domain'
+                    filters: []
+                    res:[]
+                }
+                {
+                    key:'watson_concepts'
+                    filters: []
+                    res:[]
+                }
+                {
+                    key:'watson_keywords'
+                    filters: []
+                    res:[]
+                }
+                {
+                    key:'doc_sentiment_label'
+                    filters: []
+                    res:[]
+                }
+                {
+                    key:'timestamp_tags'
+                    filters: []
+                    res:[]
+                }
+            ]
+                

@@ -7,52 +7,64 @@ head
 body
     +home
 
-
 template(name='home')
     .ui.attached.inverted.borderless.menu
-        .item.create_delta.pointer
-            .white_bat.font_200 DAO
-        if currentUser
-            .item.profile.pointer
-                i.user.icon
-                | #{currentUser.username}
-            .item.logout.pointer
-                i.sign.out.alternate.icon
-            if current_delta
-                // h2.ui.header 
-                //     if current_module.icon
-                //         i.icon(class=current_module.icon)  
-                //     | #{current_module.title}
-                .pointer.icon.item.add_doc
-                    i.plus.icon
-                .pointer.icon.item.delete_delta
-                    i.remove.icon
-                .pointer.icon.item.print_delta
-                    i.code.icon
-                .pointer.icon.item.recalc
-                    i.refresh.icon
-        else
-            .item
-                i.sign.in.alternate.icon
-        .item
-            +donate
+        .item.pointer
+            .black_bat.font_150 DAO
+        .right.menu
+            if currentUser
+                .item.profile.pointer
+                    i.user.icon
+                    | #{currentUser.username}
+                .item
+                    +loginButtons align='right'
+                    // i.sign.out.alternate.icon
+                // if current_delta
+                    // h2.ui.header 
+                    //     if current_module.icon
+                    //         i.icon(class=current_module.icon)  
+                    //     | #{current_module.title}
+                    // .pointer.icon.item.add_doc
+                    //     i.plus.icon
+                    // .pointer.icon.item.delete_delta
+                    //     i.remove.icon
+                    // .pointer.icon.item.print_delta
+                    //     i.code.icon
+                    // .pointer.icon.item.recalc
+                    //     i.refresh.icon
+            else
+                .item
+                    +loginButtons align='right'
+                    // i.sign.in.alternate.icon
     .ui.padded.grid
+        .grey.row
+            .sixteen.wide.column
+                .ui.small.inline.header sessions
+                .ui.icon.button.create_delta
+                    i.plus.icon
+                each public_sessions
+                    .ui.button.select_delta(class=delta_selector_class) #{number}
         .row
             .sixteen.wide.column
-                if currentUser
-                    each current_delta.facets
-                        .row
-                            unless hidden
-                                +facet
-                            div
-                    if one_result
-                        .ui.centered.stackable.cards
-                            +result
-                else
-                    .black.row
-                        .twelve.wide.column
-                            +loginButtons
-                    
+                each current_delta.facets
+                    .row
+                        unless hidden
+                            +facet
+                        div
+                if one_result
+                    .ui.centered.stackable.cards
+                        +result
+    +footer
+    
+    
+template(name='footer')
+    .ui.bottom.fixed.inverted.small.menu
+        .item
+            i.copyright.outline.icon
+            |data analysis organization
+        .right.menu
+            .item
+                +donate
                     
 
 template(name='facet')
@@ -63,7 +75,7 @@ template(name='facet')
         if name
             .ui.compact.button.toggle_selection(class=toggle_value_class)
                 strong #{name}
-                small #{count}
+                // small #{count}
             
             
 template(name='donate')

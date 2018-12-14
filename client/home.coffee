@@ -1,43 +1,17 @@
-
 Template.home.onCreated ->
     @autorun -> Meteor.subscribe 'me'
-    @autorun -> Meteor.subscribe 'my_delta'
+    @autorun -> Meteor.subscribe 'my_deltas'
+    @autorun -> Meteor.subscribe 'public_deltas'
 
 
 Template.home.events
     'click .create_delta': (e,t)->
-        new_delta_id = Docs.insert
-            schema:'delta'
-            facets: [
-                {
-                    key:'domain'
-                    filters: []
-                    res:[]
-                }
-                {
-                    key:'watson_concepts'
-                    filters: []
-                    res:[]
-                }
-                {
-                    key:'watson_keywords'
-                    filters: []
-                    res:[]
-                }
-                {
-                    key:'doc_sentiment_label'
-                    filters: []
-                    res:[]
-                }
-                {
-                    key:'timestamp_tags'
-                    filters: []
-                    res:[]
-                }
-            ]
+        Meteor.call 'create_delta', (err,res)->
+            Session.set 'current_delta_id', res
         Meteor.call 'fo'
         
     'click .select_delta': ->
+        Session.set 'current_delta_id', @_id
         Meteor.users.update Meteor.userId(),
             $set: 
                 current_delta_id: @_id
@@ -53,7 +27,13 @@ Template.home.helpers
         if delta
             if delta.total is 1 then true else false
         
+    public_sessions: ->
+        Docs.find
+            schema:'delta'
+            author_id:$exists:'false'
 
+    delta_selector_class: ->
+        if Session.equals('current_delta_id', @_id) then 'grey' else ''
 
 Template.result.onCreated ->
     delta = Docs.findOne schema:'delta'

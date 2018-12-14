@@ -12,6 +12,14 @@ Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
 
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
+Template.registerHelper 'current_delta_id', ->
+    Session.get 'current_delta_id'
+
+
+Template.registerHelper 'is_current_delta', ->
+    Session.equals 'current_delta_id', @_id
+
+
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
