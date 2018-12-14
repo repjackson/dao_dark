@@ -12,6 +12,18 @@ Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
 
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
+
+Template.registerHelper 'nl2br', (text)->
+    nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
+    new Spacebars.SafeString(nl2br)
+
+        
+Template.registerHelper 'eq', (a, b)-> 
+    console.log a
+    # a is b
+        
+        
+        
         
 Template.registerHelper 'field_value', () -> 
     parent =  Template.parentData(5)
@@ -24,6 +36,15 @@ Template.registerHelper 'current_delta', () ->
     # if Meteor.user() and Meteor.user().current_delta_id
     #     delta = Docs.findOne Meteor.user().current_delta_id
     Docs.findOne schema:'delta'
+
+
+Template.result.helpers
+    result: ->
+        delta = Docs.findOne schema:'delta'
+        Docs.findOne
+            _id: delta.result_id
+
+
 
 Template.facet.helpers
     toggle_value_class: ->

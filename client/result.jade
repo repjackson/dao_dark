@@ -1,4 +1,57 @@
 template(name='result')
-    .ui.fluid.card
-        .content
-                            
+    with result
+        .ui.fluid.card
+            .content
+                .ui.header #{title}
+                .ui.list
+                    .item #{comment_count} Comments
+                    a.item(href=url) #{permalink}
+                    .item Sub: #{domain}
+            .content
+                |{{nl2br html}}
+            .content
+                .ui.small.header Personality
+                with personality
+                    .ui.list
+                        .item Word Count #{word_count}
+                    each personality
+                        .ui.list
+                            .item Trait ID #{trait_id}
+                            .item Name #{name}
+                            .item Category #{category}
+                            .item Percentile #{percentile}
+                            .item Significant #{significant}
+                            each children
+                                .item Trait ID #{trait_id}
+                                .item Name #{name}
+                                .item Category #{category}
+                                .item Percentile #{percentile}
+                                .item Significant #{significant}
+                    each needs
+                        .ui.list
+                            .item Trait ID #{trait_id}
+                            .item Name #{name}
+                            .item Category #{category}
+                            .item Percentile #{percentile}
+                            .item Significant #{significant}
+                    each values
+                        .ui.list
+                            .item Trait ID #{trait_id}
+                            .item Name #{name}
+                            .item Category #{category}
+                            .item Percentile #{percentile}
+                            .item Significant #{significant}
+                    // each consumption_preferences
+            .content
+                .ui.header Concepts
+                each watson.concepts
+                    a.ui.large.basic.label(href=dbpedia_resource target='_blank')
+                        strong #{text}
+                        small {{ to_percent relevance }}%
+     
+     
+     
+     
+     
+     
+     
