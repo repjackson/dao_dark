@@ -47,8 +47,7 @@ template(name='home')
                             div
                     if one_result
                         .ui.centered.stackable.cards
-                            each current_delta.result_id
-                                +result
+                            +result
                 else
                     .black.row
                         .twelve.wide.column

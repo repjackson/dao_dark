@@ -5,26 +5,21 @@ Template.home.onCreated ->
 
 
 Template.home.events
-    'click .delta': ->
-        Meteor.users.update Meteor.userId(),
-            $set:current_template: 'delta'
-   
     'click .create_delta': (e,t)->
         new_delta_id = Docs.insert
             schema:'delta'
-            view:'list'
             facets: [
                 {
-                    key:'keys'
-                    # filters: ['tags', 'timestamp']
+                    key:'title'
+                    filters: []
+                    res:[]
+                }
+                {
+                    key:'timestamp_tags'
                     filters: []
                     res:[]
                 }
             ]
-        Meteor.users.update Meteor.userId(),
-            $set:
-                current_template: 'delta'
-                current_delta_id: new_delta_id
         Meteor.call 'fo'
         
     'click .select_delta': ->
@@ -45,11 +40,10 @@ Template.home.helpers
         
 
 
-
-
 Template.result.onCreated ->
-    delta = Docs.findOne Meteor.user().current_delta_id
+    delta = Docs.findOne schema:'delta'
     if delta
+        console.log delta
         @autorun -> Meteor.subscribe 'doc_id', delta.result_id
  
  
@@ -73,26 +67,18 @@ Template.home.events
         Docs.update Meteor.user().current_delta_id,
             $set: title: title_val
         
-    
 
 Template.result.helpers
     value: ->
         filter = Template.parentData()
         filter["#{@key}"]
 
-    is_html: -> @type is 'html'
-    is_number: -> @type is 'number'
-    is_array: -> @type is 'array'
-    is_string: -> @type is 'string'
-
-
 
 Template.facet.events
     'click .toggle_selection': ->
-        delta = Docs.findOne Meteor.user().current_delta_id
+        delta = Docs.findOne schema:'delta'
         facet = Template.currentData()
         
-        delta = Docs.findOne Meteor.user().current_delta_id
         if facet.filters and @name in facet.filters
             Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
         else 

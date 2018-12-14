@@ -6,9 +6,7 @@ PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3'
 tone_analyzer = new ToneAnalyzerV3(
     username: Meteor.settings.private.tone.username
     password: Meteor.settings.private.tone.password
-    version_date: '2017-09-21'
-    )
-
+    version_date: '2017-09-21')
 
 natural_language_understanding = new NaturalLanguageUnderstandingV1(
     username: Meteor.settings.private.language.username

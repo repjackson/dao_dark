@@ -66,8 +66,11 @@ Meteor.methods
             results_cursor = Docs.find built_query, {fields:{_id:1},limit:1}
     
             if total is 1
-                result_id = results_cursor.fetch()._id
+                console.log 'total is 1'
+                result_id = results_cursor.fetch()[0]._id
+                console.log result_id
             else 
+                console.log 'total is more'
                 result_id = null
     
     
@@ -75,7 +78,7 @@ Meteor.methods
                 {$set:
                     total: total
                     result_id:result_id
-                }, ->
+                }
 
     agg: (query, field_type, key, filters)->
         options = { explain:false }
