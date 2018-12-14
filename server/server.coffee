@@ -41,83 +41,46 @@ Meteor.methods
         console.log date_array
         return date_array
 
-    crawl_fields: ->
-        start = Date.now()
-
-        # found_cursor = Docs.find {meta:$ne:1}, { fields:{_id:1},limit:10 }
-        found_cursor = Docs.find {fields:$exists:false}, { fields:{_id:1},limit:10000 }
-        
-        for found in found_cursor.fetch()
-            Meteor.call 'detect_fields', found._id, (err,res)->
-        stop = Date.now()
-        
-        diff = stop - start
-        # console.log diff
-        console.log 'duration', moment(diff).format("HH:mm:ss:SS")
-
     fo: ->
         if Meteor.user()
-            if Meteor.user().current_delta_id
-                delta = Docs.findOne Meteor.user().current_delta_id
-                built_query = { schema:'reddit' }
-                
-                current_module = Docs.findOne delta.module_id
-                # console.log current_module
-                    # console.log module_child_schema
-                    
-                    # facet every field by default, then add faceted boolean again, fields need to be unique to schema at first, maybe future cross ref
-                    
-                    
-                for facet in delta.facets
-                    if facet.filters and facet.filters.length > 0
-                        built_query["#{facet.key}"] = $all: facet.filters
+            delta = Docs.findOne schema:'delta'
+            built_query = { schema:'reddit' }
+            
+            for facet in delta.facets
+                if facet.filters and facet.filters.length > 0
+                    built_query["#{facet.key}"] = $all: facet.filters
 
-                total = Docs.find(built_query).count()
+            total = Docs.find(built_query).count()
+            
+            # response
+            for facet in delta.facets
+                values = []
+                local_return = []
                 
-                # response
-                for facet in delta.facets
-                    values = []
-                    local_return = []
-                    
-                    # field type detection 
-                    example_doc = Docs.findOne({"#{facet.key}":$exists:true})
-                    example_value = example_doc?["#{facet.key}"]
-        
-                    # js arrays typeof is object
-                    array_test = Array.isArray example_value
-                    if array_test
-                        prim = 'array'
-                    else
-                        prim = typeof example_value
-                    
-                    agg_res = Meteor.call 'agg', built_query, prim, facet.key, facet.filters
-        
-                    Docs.update {_id:delta._id, "facets.key":facet.key},
-                        { $set: "facets.$.res": agg_res }
-        
-        
-                results_cursor = Docs.find built_query, {fields:{_id:1},limit:1}
-        
-                # result_ids = []
-                # for result in results_cursor.fetch()
-                #     result_ids.push result._id
-        
-                results = results_cursor.fetch()
-        
-                Docs.update {_id:delta._id},
-                    {$set:
-                        total: total
-                        result:result
-                    }, ->
+                agg_res = Meteor.call 'agg', built_query, 'array', facet.key, facet.filters
+    
+                Docs.update {_id:delta._id, "facets.key":facet.key},
+                    { $set: "facets.$.res": agg_res }
+    
+    
+            results_cursor = Docs.find built_query, {fields:{_id:1},limit:1}
+    
+            if total is 1
+                result_id = results_cursor.fetch()._id
+            else 
+                result_id = null
+    
+    
+            Docs.update {_id:delta._id},
+                {$set:
+                    total: total
+                    result_id:result_id
+                }, ->
 
-    agg: (query, schema, key, filters)->
-        # console.log 'query agg', query
-        # console.log 'schema', schema
-        # console.log 'key', key
+    agg: (query, field_type, key, filters)->
         options = { explain:false }
             
-        # intelligence
-        if schema in ['array','multiref']
+        if field_type in ['array','multiref']
             pipe =  [
                 { $match: query }
                 { $project: "#{key}": 1 }

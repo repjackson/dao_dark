@@ -47,10 +47,10 @@ Template.home.helpers
 
 
 
-# Template.result.onCreated ->
-#     delta = Docs.findOne Meteor.user().current_delta_id
-#     if delta
-#         @autorun -> Meteor.subscribe 'doc_id', delta.doc_id
+Template.result.onCreated ->
+    delta = Docs.findOne Meteor.user().current_delta_id
+    if delta
+        @autorun -> Meteor.subscribe 'doc_id', delta.result_id
  
  
  

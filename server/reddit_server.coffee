@@ -32,7 +32,7 @@ Meteor.methods
         _.each(response.data.data.children, (item)-> 
             data = item.data
             len = 200
-
+            console.log item
             reddit_post =
                 reddit_id: data.id
                 url: data.url
@@ -45,11 +45,11 @@ Meteor.methods
                 schema:'reddit'
                 
             # console.log reddit_post
-            existing_doc = Docs.findOne reddit_id:data.id
-            unless existing_doc
-                new_reddit_post_id = Docs.insert reddit_post
-                Meteor.call 'get_reddit_post', new_reddit_post_id, data.id, (err,res)->
-                    # console.log 'get post res', res
+            # existing_doc = Docs.findOne reddit_id:data.id
+            # unless existing_doc
+            #     new_reddit_post_id = Docs.insert reddit_post
+            #     Meteor.call 'get_reddit_post', new_reddit_post_id, data.id, (err,res)->
+            #         # console.log 'get post res', res
         )
         
     get_reddit_post: (doc_id, reddit_id)->
