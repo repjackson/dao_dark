@@ -30,7 +30,7 @@
     "modal": true,
     "nag": false,
     "popup": false,
-    "progress": false,
+    "progress": true,
     "rail": false,
     "rating": false,
     "reset": true,

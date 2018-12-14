@@ -67,6 +67,10 @@ Template.home.events
         Docs.update Meteor.user().current_delta_id,
             $set: title: title_val
         
+Template.result.onCreated ->
+    Meteor.setTimeout ->
+        $('.ui.progress').progress();
+    , 500
 
 Template.result.helpers
     value: ->
