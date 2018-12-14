@@ -87,7 +87,7 @@ Meteor.methods
                 { $unwind: "$#{key}" }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 42 }
+                { $limit: 20 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
         else
@@ -96,7 +96,7 @@ Meteor.methods
                 { $project: "#{key}": 1 }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 42 }
+                { $limit: 20 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
 

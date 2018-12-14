@@ -10,7 +10,22 @@ Template.home.events
             schema:'delta'
             facets: [
                 {
-                    key:'title'
+                    key:'domain'
+                    filters: []
+                    res:[]
+                }
+                {
+                    key:'watson_concepts'
+                    filters: []
+                    res:[]
+                }
+                {
+                    key:'watson_keywords'
+                    filters: []
+                    res:[]
+                }
+                {
+                    key:'doc_sentiment_label'
                     filters: []
                     res:[]
                 }
@@ -43,7 +58,6 @@ Template.home.helpers
 Template.result.onCreated ->
     delta = Docs.findOne schema:'delta'
     if delta
-        console.log delta
         @autorun -> Meteor.subscribe 'doc_id', delta.result_id
  
  
@@ -56,7 +70,7 @@ Template.home.events
         Docs.remove delta._id
     
     'click .print_delta': (e,t)->
-        delta = Docs.findOne Meteor.user().current_delta_id
+        delta = Docs.findOne schema:'delta'
         console.log delta
 
     'click .recalc': ->
@@ -77,6 +91,16 @@ Template.result.helpers
         filter = Template.parentData()
         filter["#{@key}"]
 
+Template.facet.helpers
+    filtering_res: ->
+        delta = Docs.findOne schema:'delta'
+        filtering_res = []
+        for filter in @res
+            if filter.count < delta.total
+                filtering_res.push filter
+            else if filter.name in @filters
+                filtering_res.push filter
+        filtering_res
 
 Template.facet.events
     'click .toggle_selection': ->

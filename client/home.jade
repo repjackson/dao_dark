@@ -59,9 +59,9 @@ template(name='facet')
     .ui.small.inline.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
-    each res
+    each filtering_res
         if name
-            .ui.button.toggle_selection(class=toggle_value_class)
+            .ui.compact.button.toggle_selection(class=toggle_value_class)
                 strong #{name}
                 small #{count}
             
