@@ -37,10 +37,14 @@ template(name='nav')
 
 
 template(name='root')
-    +nav
-    #main
-        +Template.dynamic template=page
-    +footer
+    if currentUser
+        +nav
+        #main
+            +Template.dynamic template=page
+        +footer
+    else
+        +Template.dynamic template=out_page
+        // +front
 
 template(name='delta')
     .ui.padded.grid

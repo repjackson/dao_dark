@@ -2,7 +2,7 @@ Template.root.onCreated ->
     @autorun -> Meteor.subscribe 'me'
     @autorun -> Meteor.subscribe 'my_deltas'
     @autorun -> Meteor.subscribe 'public_deltas'
-
+    Session.setDefault 'out_page', 'front'
 
 Template.root.events
     'click .create_delta': (e,t)->
@@ -24,13 +24,7 @@ Template.root.events
         
         
 Template.root.helpers
-    page: ->
-        if Meteor.user()
-            if Meteor.user().page then Meteor.user().page
-            else 'delta'
-        else
-            'front'
-
+    out_page: -> Session.get 'out_page'
 
 Template.delta.helpers
     card_number: ->
