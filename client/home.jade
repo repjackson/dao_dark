@@ -48,8 +48,7 @@ template(name='home')
             .sixteen.wide.column
                 each current_delta.facets
                     .row
-                        unless hidden
-                            +facet
+                        +facet
                         div
                 .ui.centered.stackable.cards(class=card_number)
                     each current_delta.result_ids
@@ -68,14 +67,15 @@ template(name='footer')
                     
 
 template(name='facet')
-    .ui.small.inline.header #{key}
-    // each filters
-    //     .unselect.ui.blue.button #{this}
-    each filtering_res
-        if name
-            .ui.compact.button.toggle_selection(class=toggle_value_class)
-                strong #{name}
-                // small #{count}
+    if filtering_res
+        .ui.small.inline.header #{key}
+        // each filters
+        //     .unselect.ui.blue.button #{this}
+        each filtering_res
+            if name
+                .ui.compact.button.toggle_selection(class=toggle_value_class)
+                    strong #{name}
+                    small #{count}
             
             
 template(name='donate')

@@ -20,6 +20,19 @@ Template.registerHelper 'is_current_delta', ->
     Session.equals 'current_delta_id', @_id
 
 
+Template.registerHelper 'is_full', ->
+    delta = Docs.findOne Session.get('current_delta_id')
+    if delta.total is 1 then true else false
+
+Template.registerHelper 'is_half', ->
+    delta = Docs.findOne Session.get('current_delta_id')
+    if delta.total is 2 then true else false
+
+Template.registerHelper 'is_grid', ->
+    delta = Docs.findOne Session.get('current_delta_id')
+    if delta.total > 2 then true else false
+
+
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')

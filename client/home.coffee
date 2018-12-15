@@ -29,9 +29,9 @@ Template.home.helpers
         if delta
             switch delta.total
                 when 1 then 'one'
-                when 2 then 'two'
-                when 3 then 'three'
-                else 'four'
+                # when 2 then 'two'
+                # when 3 then 'three'
+                else 'two'
         
         
     public_sessions: ->
@@ -40,7 +40,7 @@ Template.home.helpers
             author_id:$exists:'false'
 
     delta_selector_class: ->
-        if Session.equals('current_delta_id', @_id) then 'grey' else ''
+        if Session.equals('current_delta_id', @_id) then 'black' else ''
 
  
  
