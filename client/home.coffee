@@ -31,8 +31,7 @@ Template.home.helpers
                 when 1 then 'one'
                 # when 2 then 'two'
                 # when 3 then 'three'
-                else 'two'
-        
+                else 'one'
         
     public_sessions: ->
         Docs.find

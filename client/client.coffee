@@ -1,7 +1,6 @@
 Accounts.ui.config
     passwordSignupFields: 'USERNAME_ONLY'
 
-
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
