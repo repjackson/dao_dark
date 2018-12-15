@@ -8,24 +8,31 @@ Template.home.events
     'click .create_delta': (e,t)->
         Meteor.call 'create_delta', (err,res)->
             Session.set 'current_delta_id', res
-        Meteor.call 'fo'
+        Meteor.call 'fo', Session.get('current_delta_id')
         
     'click .select_delta': ->
         Session.set 'current_delta_id', @_id
-        Meteor.users.update Meteor.userId(),
-            $set: 
-                current_delta_id: @_id
-                current_template: 'delta'
-
+        if Meteor.user()
+            Meteor.users.update Meteor.userId(),
+                $set: 
+                    current_delta_id: @_id
+                    current_template: 'delta'
+        Meteor.call 'fo', Session.get('current_delta_id')
+        
     'click .logout': ->
         Meteor.logout()
         
         
 Template.home.helpers
-    one_result: ->
-        delta = Docs.findOne schema:'delta'
+    card_number: ->
+        delta = Docs.findOne Session.get('current_delta_id')
         if delta
-            if delta.total is 1 then true else false
+            switch delta.total
+                when 1 then 'one'
+                when 2 then 'two'
+                when 3 then 'three'
+                else 'four'
+        
         
     public_sessions: ->
         Docs.find
@@ -35,22 +42,17 @@ Template.home.helpers
     delta_selector_class: ->
         if Session.equals('current_delta_id', @_id) then 'grey' else ''
 
-Template.result.onCreated ->
-    delta = Docs.findOne schema:'delta'
-    if delta
-        @autorun -> Meteor.subscribe 'doc_id', delta.result_id
- 
  
  
 Template.home.events
     'click .delete_delta': (e,t)->
-        # delta = Docs.findOne Meteor.user().current_delta_id
-        delta = Docs.findOne schema:'delta'
+        # delta = Docs.findOne Session.get('current_delta_id')
+        delta = Docs.findOne Session.get('current_delta_id')
         
         Docs.remove delta._id
     
     'click .print_delta': (e,t)->
-        delta = Docs.findOne schema:'delta'
+        delta = Docs.findOne Session.get('current_delta_id')
         console.log delta
 
     'click .recalc': ->
@@ -61,19 +63,10 @@ Template.home.events
         Docs.update Meteor.user().current_delta_id,
             $set: title: title_val
         
-Template.result.onCreated ->
-    Meteor.setTimeout ->
-        $('.ui.progress').progress();
-    , 500
-
-Template.result.helpers
-    value: ->
-        filter = Template.parentData()
-        filter["#{@key}"]
 
 Template.facet.helpers
     filtering_res: ->
-        delta = Docs.findOne schema:'delta'
+        delta = Docs.findOne Session.get('current_delta_id')
         filtering_res = []
         for filter in @res
             if filter.count < delta.total
@@ -82,15 +75,23 @@ Template.facet.helpers
                 filtering_res.push filter
         filtering_res
 
+    toggle_value_class: ->
+        facet = Template.parentData()
+        delta = Docs.findOne Session.get('current_delta_id')
+
+        if facet.filters and @name in facet.filters
+            'grey'
+        else
+            ''
+
 Template.facet.events
     'click .toggle_selection': ->
-        delta = Docs.findOne schema:'delta'
+        delta = Docs.findOne Session.get('current_delta_id')
         facet = Template.currentData()
         
         if facet.filters and @name in facet.filters
             Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
         else 
             Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
-                
-                
-        
+      
+

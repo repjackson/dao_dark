@@ -51,8 +51,8 @@ template(name='home')
                         unless hidden
                             +facet
                         div
-                if one_result
-                    .ui.centered.stackable.cards
+                .ui.centered.stackable.cards(class=card_number)
+                    each current_delta.result_ids
                         +result
     +footer
     

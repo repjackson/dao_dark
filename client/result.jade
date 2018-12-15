@@ -1,22 +1,22 @@
 template(name='result')
     with result
-        .ui.fluid.card
+        .ui.card
             .content
                 .ui.header #{title}
                 .ui.list
-                    .item #{comment_count} Comments
-                    a.item(href=url) #{permalink}
-                    .item Sub: #{domain}
+                    .item #{comment_count} comments
+                    a.item(href=url target='_window') #{permalink}
+                    .item sub: #{domain}
                     .item #{doc_sentiment_label}
                     .item #{doc_sentiment_score}
             .content
-                .ui.header Keywords
+                .ui.header keywords
                 each watson.keywords
                     .ui.basic.label
                         |#{text}
                         small #{to_percent relevance}%
             .content
-                .ui.header Entities
+                .ui.header entities
                 each watson.entities
                     .ui.basic.label
                         .ui.label #{type}
@@ -24,7 +24,7 @@ template(name='result')
                         |#{to_percent relevance}%
                         .ui.circular.label #{count}
             .content
-                .ui.header Emotion
+                .ui.header emotion
                 .ui.list
                     with watson.emotion.document.emotion
                         .ui.blue.tiny.progress(data-percent="#{to_percent sadness}")
@@ -43,7 +43,7 @@ template(name='result')
                             .bar
                             .label anger #{to_percent anger}%
             .content
-                .ui.header Entities
+                .ui.header entities
                 each watson.entities
                     .ui.basic.label
                         .ui.label #{type}
@@ -53,7 +53,7 @@ template(name='result')
             .content
                 |{{nl2br html}}
             .content
-                .ui.small.header Personality
+                .ui.small.header personality
                 with personality
                     .ui.list
                         .item Word Count #{word_count}
@@ -86,7 +86,7 @@ template(name='result')
                             .item Significant #{significant}
                     // each consumption_preferences
             .content
-                .ui.header Concepts
+                .ui.header concepts
                 each watson.concepts
                     a.ui.large.basic.label(href=dbpedia_resource target='_blank')
                         strong #{text}

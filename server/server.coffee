@@ -48,41 +48,36 @@ Meteor.methods
         console.log date_array
         return date_array
 
-    fo: ->
-        if Meteor.user()
-            delta = Docs.findOne schema:'delta'
-            built_query = { schema:'reddit' }
-            
-            for facet in delta.facets
-                if facet.filters and facet.filters.length > 0
-                    built_query["#{facet.key}"] = $all: facet.filters
+    fo: (delta_id)->
+        delta = Docs.findOne delta_id
+        built_query = { schema:'reddit' }
+        
+        for facet in delta.facets
+            if facet.filters and facet.filters.length > 0
+                built_query["#{facet.key}"] = $all: facet.filters
 
-            total = Docs.find(built_query).count()
+        total = Docs.find(built_query).count()
+        
+        # response
+        for facet in delta.facets
+            values = []
+            local_return = []
             
-            # response
-            for facet in delta.facets
-                values = []
-                local_return = []
-                
-                agg_res = Meteor.call 'agg', built_query, 'array', facet.key, facet.filters
-    
-                Docs.update {_id:delta._id, "facets.key":facet.key},
-                    { $set: "facets.$.res": agg_res }
-    
-    
-            results_cursor = Docs.find built_query, {fields:{_id:1},limit:1}
-    
-            if total is 1
-                result_id = results_cursor.fetch()[0]._id
-            else 
-                result_id = null
-    
-    
-            Docs.update {_id:delta._id},
-                {$set:
+            agg_res = Meteor.call 'agg', built_query, 'array', facet.key, facet.filters
+
+            Docs.update {_id:delta._id, "facets.key":facet.key},
+                { $set: "facets.$.res": agg_res }
+
+        results_cursor = Docs.find built_query, { fields:{_id:1},limit:10 }
+
+        result_ids = results_cursor.fetch()
+
+        Docs.update {_id:delta._id},
+            {
+                $set:
                     total: total
-                    result_id:result_id
-                }
+                    result_ids:result_ids
+            }
 
     agg: (query, field_type, key, filters)->
         options = { explain:false }
@@ -112,6 +107,7 @@ Meteor.methods
         res = {}
         if agg
             agg.toArray()
+            
             
     create_delta: ->
         delta_count = Docs.find(schema:'delta').count()

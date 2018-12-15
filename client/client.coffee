@@ -43,23 +43,6 @@ Template.registerHelper 'field_value', () ->
 Template.registerHelper 'current_delta', () -> 
     # if Meteor.user() and Meteor.user().current_delta_id
     #     delta = Docs.findOne Meteor.user().current_delta_id
-    Docs.findOne schema:'delta'
+    Docs.findOne Session.get('current_delta_id')
 
 
-Template.result.helpers
-    result: ->
-        delta = Docs.findOne schema:'delta'
-        Docs.findOne
-            _id: delta.result_id
-
-
-
-Template.facet.helpers
-    toggle_value_class: ->
-        facet = Template.parentData()
-        delta = Docs.findOne Meteor.user().current_delta_id
-
-        if facet.filters and @name in facet.filters
-            'grey'
-        else
-            ''
