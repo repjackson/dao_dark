@@ -1,0 +1,7 @@
+<template name='brick'>
+    {{#if link}}
+        <a class="brick {{calculated_size input}}" title="{{to_percent input}} {{type}} {{count}}" href={{link}} target="_window">{{text}}</a>
+    {{else}}    
+        <span class="brick {{calculated_size input}}" title={{input}}>{{text}}</span>
+    {{/if}}    
+</template>

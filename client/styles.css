@@ -8,7 +8,6 @@
 
 
 body {
-  /*margin-top: 2em;*/
   /*font-family: 'Roboto', sans-serif !important;*/
   min-height: 500px;
   font-family: 'Ubuntu', sans-serif;
@@ -63,7 +62,9 @@ body {
 }
 
 #main {
-  padding: .5em 1em !important;
+  /*padding: .5em 1em !important;*/
+  margin-bottom: 3em;
+
 }
 
 @media only screen and (max-width: 700px) {
@@ -93,15 +94,23 @@ body {
 
 
 .f10 { font-size: 200%; }
-.f9 { font-size: 190%; }
-.f8 { font-size: 180%; }
-.f7 { font-size: 170%; }
-.f6 { font-size: 160%; }
-.f5 { font-size: 150%; }
-.f4 { font-size: 140%; }
-.f3 { font-size: 130%; }
-.f2 { font-size: 120%; }
+.f9 { font-size: 180%; }
+.f8 { font-size: 160%; }
+.f7 { font-size: 140%; }
+.f6 { font-size: 120%; }
+.f5 { font-size: 110%; }
+.f4 { font-size: 100%; }
+.f3 { font-size: 90%; }
+.f2 { font-size: 70%; }
+.f1 { font-size: 50%; }
+.f0 { display:none; }
 
+
+.brick {
+  line-height: 150%;
+  padding-right: 1em;
+  margin-bottom: 1em;
+}
 
 
 .f150 {

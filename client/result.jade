@@ -15,36 +15,24 @@ template(name='result')
                 .content
                     .ui.header keywords
                     each watson.keywords
-                        .ui.basic.label
-                            span(class=calculated_size) #{text}
-                            // small #{to_percent relevance}%
+                        +brick input=relevance text=text
                 .content
                     .ui.header emotion
-                    .ui.list
-                        with watson.emotion.document.emotion
-                            .ui.blue.tiny.progress(data-percent="#{to_percent sadness}")
-                                .bar
-                                .label sadness #{to_percent sadness}%
-                            .ui.green.tiny.progress(data-percent="#{to_percent joy}")
-                                .bar
-                                .label joy #{to_percent joy}%
-                            .ui.black.tiny.progress(data-percent="#{to_percent fear}")
-                                .bar
-                                .label fear #{to_percent fear}%
-                            .ui.yellow.tiny.progress(data-percent="#{to_percent disgust}")
-                                .bar
-                                .label disgust #{to_percent disgust}%
-                            .ui.red.tiny.progress(data-percent="#{to_percent anger}")
-                                .bar
-                                .label anger #{to_percent anger}%
+                    with watson.emotion.document.emotion
+                        span.brick(class=calculated_size) 
+                        +brick input=sadness text='sadness'
+                        +brick input=joy text='joy'
+                        +brick input=fear text='fear'
+                        +brick input=disgust text='disgust'
+                        +brick input=anger text='anger'
                 .content
                     .ui.header entities
                     each watson.entities
-                        .ui.basic.label
-                            .ui.label #{type}
-                            |#{text}
-                            |#{to_percent relevance}%
-                            .ui.circular.label #{count}
+                        // .ui.label #{type}
+                        // |#{text}
+                        +brick input=relevance text=text type=type count=count
+                        // |#{to_percent relevance}%
+                        // .ui.circular.label #{count}
                 .content
                     with personality
                         .ui.small.header personality
@@ -75,6 +63,8 @@ template(name='result')
                 .content
                     .ui.header concepts
                     each watson.concepts
-                        a.ui.large.basic.label(href=dbpedia_resource target='_blank')
-                            strong #{text}
-                            small #{ to_percent relevance }%
+                        // a.ui.large.basic.label(href=dbpedia_resource target='_blank')
+                        +brick text=text input=relevance link=dbpedia_resource
+                            
+                            // strong #{text}
+                            // small #{ to_percent relevance }%

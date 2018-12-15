@@ -10,7 +10,7 @@ body
 template(name='home')
     .ui.attached.inverted.borderless.menu
         .item.pointer
-            .black_bat.font_150 DAO
+            .black_bat.f10 DAO
         .right.menu
             if currentUser
                 .item.profile.pointer
@@ -36,23 +36,24 @@ template(name='home')
                 .item
                     +loginButtons align='right'
                     // i.sign.in.alternate.icon
-    .ui.padded.grid
-        .grey.row
-            .sixteen.wide.column
-                .ui.small.inline.header sessions
-                .ui.icon.button.create_delta
-                    i.plus.icon
-                each public_sessions
-                    .ui.button.select_delta(class=delta_selector_class) #{number}
-        .row
-            .sixteen.wide.column
-                each current_delta.facets
-                    .row
-                        +facet
-                        div
-                .ui.centered.stackable.cards(class=card_number)
-                    each current_delta.result_ids
-                        +result
+    #main
+        .ui.padded.grid
+            .grey.row
+                .sixteen.wide.column
+                    .ui.small.inline.header sessions
+                    .ui.icon.button.create_delta
+                        i.plus.icon
+                    each public_sessions
+                        .ui.button.select_delta(class=delta_selector_class) #{number}
+            .row
+                .sixteen.wide.column
+                    each current_delta.facets
+                        .row
+                            +facet
+                            div
+                    .ui.centered.stackable.cards(class=card_number)
+                        each current_delta.result_ids
+                            +result
     +footer
     
     
@@ -60,7 +61,7 @@ template(name='footer')
     .ui.bottom.fixed.inverted.small.menu
         .item
             i.copyright.outline.icon
-            |data analysis organization
+            |dao
         .right.menu
             .item
                 +donate
