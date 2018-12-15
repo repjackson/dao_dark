@@ -92,6 +92,21 @@ body {
   src: url("/white_bat.ttf");
 }
 
+.selector {
+  animation: fadein .5s;
+}
+#main {
+  animation: fadein 1s;
+}
+#result {
+  animation: fadein .5s;
+}
+@keyframes fadein {
+  from { opacity: 0; background-color: white}
+  to   { opacity: 1}
+}
+
+
 
 .f10 { font-size: 200%; }
 .f9 { font-size: 180%; }

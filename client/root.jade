@@ -5,17 +5,20 @@ head
     link(rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu")
 
 body
-    +home
+    +root
 
-template(name='home')
-    .ui.attached.inverted.borderless.menu
-        .item.pointer
-            .black_bat.f10 DAO
-        .right.menu
-            if currentUser
-                .item.profile.pointer
-                    i.user.icon
-                    | #{currentUser.username}
+
+template(name='nav')
+    .ui.padded.grid
+        .black.row
+            .two.wide.column.pointer
+                .black_bat.f10 D
+            .right.floated.three.wide.column
+                if currentUser
+                    .item.profile.pointer
+                        i.user.icon
+                        | #{currentUser.username}
+            .right.floated.three.wide.column
                 .item
                     +loginButtons align='right'
                     // i.sign.out.alternate.icon
@@ -32,10 +35,10 @@ template(name='home')
                     //     i.code.icon
                     // .pointer.icon.item.recalc
                     //     i.refresh.icon
-            else
-                .item
-                    +loginButtons align='right'
-                    // i.sign.in.alternate.icon
+
+
+template(name='root')
+    +nav
     #main
         .ui.padded.grid
             .grey.row
@@ -74,7 +77,7 @@ template(name='facet')
         //     .unselect.ui.blue.button #{this}
         each filtering_res
             if name
-                .ui.compact.button.toggle_selection(class=toggle_value_class)
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
                     strong #{name}
                     small #{count}
             

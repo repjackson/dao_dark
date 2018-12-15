@@ -24,7 +24,6 @@ Template.registerHelper 'calculated_size', (input)->
     
         
         
-        
 Template.registerHelper 'is_full', ->
     delta = Docs.findOne Session.get('current_delta_id')
     if delta.total is 1 then true else false

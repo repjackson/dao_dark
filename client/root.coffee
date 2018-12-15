@@ -1,10 +1,10 @@
-Template.home.onCreated ->
+Template.root.onCreated ->
     @autorun -> Meteor.subscribe 'me'
     @autorun -> Meteor.subscribe 'my_deltas'
     @autorun -> Meteor.subscribe 'public_deltas'
 
 
-Template.home.events
+Template.root.events
     'click .create_delta': (e,t)->
         Meteor.call 'create_delta', (err,res)->
             Session.set 'current_delta_id', res
@@ -23,7 +23,7 @@ Template.home.events
         Meteor.logout()
         
         
-Template.home.helpers
+Template.root.helpers
     card_number: ->
         delta = Docs.findOne Session.get('current_delta_id')
         if delta
@@ -43,7 +43,7 @@ Template.home.helpers
 
  
  
-Template.home.events
+Template.root.events
     'click .delete_delta': (e,t)->
         # delta = Docs.findOne Session.get('current_delta_id')
         delta = Docs.findOne Session.get('current_delta_id')
