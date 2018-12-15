@@ -24,6 +24,15 @@ Template.root.events
         
         
 Template.root.helpers
+    page: ->
+        if Meteor.user()
+            if Meteor.user().page then Meteor.user().page
+            else 'delta'
+        else
+            'delta'
+
+
+Template.delta.helpers
     card_number: ->
         delta = Docs.findOne Session.get('current_delta_id')
         if delta

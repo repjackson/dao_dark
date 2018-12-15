@@ -93,7 +93,7 @@ body {
 }
 
 .selector {
-  animation: fadein .5s;
+  animation: fadein .25s;
 }
 #main {
   animation: fadein 1s;
@@ -107,6 +107,7 @@ body {
 }
 
 
+.logo { font-size: 200%; }
 
 .f10 { font-size: 200%; }
 .f9 { font-size: 180%; }
@@ -127,23 +128,6 @@ body {
   margin-bottom: 1em;
 }
 
-
-.f150 {
-  font-size: 150%;
-  line-height: 130%;
-}
-  .large130 {
-    font-size: 130%;
-    line-height: 130%;
-}
-  .large120 {
-    font-size: 120%;
-    line-height: 120%;
-}
-  .large150 {
-    font-size: 150%;
-    line-height: 130%;
-}
 
 .black_bat {
   font-family: 'black_bat' !important;

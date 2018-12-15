@@ -32,23 +32,10 @@ Template.registerHelper 'is_half', ->
     delta = Docs.findOne Session.get('current_delta_id')
     if delta.total is 2 then true else false
 
-Template.registerHelper 'is_grid', ->
-    delta = Docs.findOne Session.get('current_delta_id')
-    if delta.total > 2 then true else false
-
-
-
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)
 
-        
-Template.registerHelper 'eq', (a, b)-> 
-    console.log a
-    # a is b
-        
-        
-        
         
 Template.registerHelper 'field_value', () -> 
     parent =  Template.parentData(5)

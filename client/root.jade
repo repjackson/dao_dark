@@ -10,12 +10,12 @@ body
 
 template(name='nav')
     .ui.padded.grid
-        .black.row
-            .two.wide.column.pointer
-                .black_bat.f10 D
+        .black.centered.row
+            .two.wide.column
+                .black_bat.logo D
             .right.floated.three.wide.column
                 if currentUser
-                    .item.profile.pointer
+                    .item.me.pointer
                         i.user.icon
                         | #{currentUser.username}
             .right.floated.three.wide.column
@@ -40,31 +40,34 @@ template(name='nav')
 template(name='root')
     +nav
     #main
-        .ui.padded.grid
-            .grey.row
-                .sixteen.wide.column
-                    .ui.small.inline.header sessions
-                    .ui.icon.button.create_delta
-                        i.plus.icon
-                    each public_sessions
-                        .ui.button.select_delta(class=delta_selector_class) #{number}
-            .row
-                .sixteen.wide.column
-                    each current_delta.facets
-                        .row
-                            +facet
-                            div
-                    .ui.centered.stackable.cards(class=card_number)
-                        each current_delta.result_ids
-                            +result
+        +Template.dynamic template=page
     +footer
+
+template(name='delta')
+    .ui.padded.grid
+        .grey.row
+            .sixteen.wide.column
+                .ui.small.inline.header sessions
+                .ui.icon.button.create_delta
+                    i.plus.icon
+                each public_sessions
+                    .ui.button.select_delta(class=delta_selector_class) #{number}
+        .row
+            .sixteen.wide.column
+                each current_delta.facets
+                    .row
+                        +facet
+                        div
+                .ui.centered.stackable.cards(class=card_number)
+                    each current_delta.result_ids
+                        +result
     
     
 template(name='footer')
     .ui.bottom.fixed.inverted.small.menu
         .item
             i.copyright.outline.icon
-            |dao
+            | The Patriarchy
         .right.menu
             .item
                 +donate
