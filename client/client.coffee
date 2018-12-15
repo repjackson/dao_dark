@@ -22,7 +22,7 @@ Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
     
-        
+
         
 Template.registerHelper 'is_full', ->
     delta = Docs.findOne Session.get('current_delta_id')

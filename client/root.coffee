@@ -29,7 +29,7 @@ Template.root.helpers
             if Meteor.user().page then Meteor.user().page
             else 'delta'
         else
-            'delta'
+            'front'
 
 
 Template.delta.helpers
