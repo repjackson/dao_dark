@@ -1,6 +1,3 @@
-Accounts.ui.config
-    passwordSignupFields: 'USERNAME_ONLY'
-
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
@@ -22,7 +19,6 @@ Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
     
-
         
 Template.registerHelper 'is_full', ->
     delta = Docs.findOne Session.get('current_delta_id')

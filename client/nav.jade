@@ -1,0 +1,23 @@
+template(name='nav')
+    .ui.padded.celled.grid
+        .black.centered.row
+            .two.wide.column.home.pointer
+                .white_bat.logo DAO
+            .pointer.right.floated.three.wide.column.me
+                if currentUser
+                    i.user.icon
+                    | #{currentUser.username}
+                    // i.sign.out.alternate.icon
+                // if current_delta
+                    // h2.ui.header 
+                    //     if current_module.icon
+                    //         i.icon(class=current_module.icon)  
+                    //     | #{current_module.title}
+                    // .pointer.icon.item.add_doc
+                    //     i.plus.icon
+                    // .pointer.icon.item.delete_delta
+                    //     i.remove.icon
+                    // .pointer.icon.item.print_delta
+                    //     i.code.icon
+                    // .pointer.icon.item.recalc
+                    //     i.refresh.icon

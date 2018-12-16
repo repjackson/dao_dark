@@ -1,34 +1,42 @@
 Template.front.helpers
     subtext: ->
         messages = [
-            'the patriarchy'
             'liberty or death'
-            'men are pigs'
-            'fuck you'
-            'nature is sexist'
-            'where have all the good men gone'
             'decentralized autonomous organization'
-            'data access object'
-            'chivalry is dead'
-            'men deserve it'
-            'am i pretty'
             'Only time can heal what reason cannot'
-            'sex is rape'
             'dont tread on me'
-            'He who is brave is free'
-            'No man was ever wise by chance'
+            'its always half'
+            'country roads take me home'
+            'the way'
+            'its not who you are'
+            'the brave are free'
+            'No one was ever wise by chance'
             'All cruelty springs from weakness'
-            'Timendi causa est nescire - Ignorance is the cause of fear'
-            'Difficulties strengthen the mind, as labor does the body'
-            'We suffer more in imagination than in reality'
-            'If a man knows not to which port he sails, no wind is favorable'
+            'ignorance is the cause of fear'
+            'Difficulties strengthen the mind as labor does the body'
+            'We suffer more in imagination than reality'
+            'no wind is favorable to an unknown port'
             'what if i need you in my darkest hour'
-            'They lose the day in expectation of the night, and the night in fear of the dawn'
+            'They lose day expecting night and night expecting day'
             ]
-        rand = messages[Math.floor(Math.random() * messages.length)];
+        rand = messages[Math.floor(Math.random() * messages.length)]
 
 
 
 Template.front.events
     'click .big':->
         Session.set 'out_page', 'login'
+        
+Template.login.events
+    'click .login': (e,t)->
+        username = $('.username').val()
+        password = $('.password').val()
+        Meteor.loginWithPassword username, password, (err,res)->
+            if err 
+                alert err
+            else console.log res
+
+
+Template.login.helpers
+    login_class: ->
+        if Meteor.loggingIn() then 'loading disabled' else ''

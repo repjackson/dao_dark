@@ -7,33 +7,6 @@ body
     +root
 
 
-template(name='nav')
-    .ui.padded.grid
-        .black.centered.row
-            .two.wide.column
-                .black_bat.logo DAO
-            .right.floated.three.wide.column
-                if currentUser
-                    .item.me.pointer
-                        i.user.icon
-                        | #{currentUser.username}
-            .right.floated.three.wide.column
-                .item
-                    +loginButtons align='right'
-                    // i.sign.out.alternate.icon
-                // if current_delta
-                    // h2.ui.header 
-                    //     if current_module.icon
-                    //         i.icon(class=current_module.icon)  
-                    //     | #{current_module.title}
-                    // .pointer.icon.item.add_doc
-                    //     i.plus.icon
-                    // .pointer.icon.item.delete_delta
-                    //     i.remove.icon
-                    // .pointer.icon.item.print_delta
-                    //     i.code.icon
-                    // .pointer.icon.item.recalc
-                    //     i.refresh.icon
 
 
 template(name='root')
@@ -70,7 +43,7 @@ template(name='footer')
     .ui.bottom.fixed.inverted.small.menu
         .item
             i.copyright.outline.icon
-            | The Violent Patriarchy
+            | DAO
         .right.menu
             .item
                 +donate
