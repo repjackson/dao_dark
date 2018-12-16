@@ -1,23 +1,43 @@
 template(name='nav')
-    .ui.padded.celled.grid
-        .black.centered.row
-            .two.wide.column.home.pointer
-                .black_bat.logo DAO
-            .pointer.right.floated.three.wide.column.me
+    .ui.top.fixed.inverted.large.menu
+        .header.icon.item.home.pointer
+            // .black_bat.logo DAO
+            i.gem.icon
+        a.icon.item.reddit(href='#')
+            i.reddit.alien.icon
+        a.icon.item.market(href='#')
+            i.dollar.icon
+        a.icon.item.tasks(href='#')
+            i.tasks.icon
+        a.icon.item.chat(href='#')
+            i.chat.icon
+        a.icon.item(href='#')
+            i.calendar.icon
+        a.icon.item(href='#')
+            i.clock.icon
+        a.icon.item.users(href='#')
+            i.users.icon
+        a.icon.item.leaderboard(href='#')
+            i.trophy.icon
+        .icon.item.mail
+            i.mail.icon
+        .right.menu
+            .pointer.me.item
                 if currentUser
                     i.user.icon
                     | #{currentUser.username}
-                    // i.sign.out.alternate.icon
-                // if current_delta
-                    // h2.ui.header 
-                    //     if current_module.icon
-                    //         i.icon(class=current_module.icon)  
-                    //     | #{current_module.title}
-                    // .pointer.icon.item.add_doc
-                    //     i.plus.icon
-                    // .pointer.icon.item.delete_delta
-                    //     i.remove.icon
-                    // .pointer.icon.item.print_delta
-                    //     i.code.icon
-                    // .pointer.icon.item.recalc
-                    //     i.refresh.icon
+            .pointer.icon.item.logout
+                i.sign.out.alternate.icon
+            // if current_delta
+                // h2.ui.header 
+                //     if current_module.icon
+                //         i.icon(class=current_module.icon)  
+                //     | #{current_module.title}
+                // .pointer.icon.item.add_doc
+                //     i.plus.icon
+                // .pointer.icon.item.delete_delta
+                //     i.remove.icon
+                // .pointer.icon.item.print_delta
+                //     i.code.icon
+                // .pointer.icon.item.recalc
+                //     i.refresh.icon
