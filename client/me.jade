@@ -1,16 +1,55 @@
 template(name='me')
-    .ui.stackable.padded.inverted.grid
-        .row
+    .ui.stackable.padded.inverted.celled.grid
+        .black.row
             .four.wide.column
                 .ui.inverted.header #{currentUser.username}
             .four.wide.column
-                .ui.icon.input
+                .ui.icon.fluid.input
                     input.new_username(type='text' placeholder='change username')
                     i.play.link.icon.change_username
-                .ui.inverted.header #{currentUser.username}
-        .four.wide.column.pointer.logout_others
-            .ui.inverted.header Logout Other Clients
-        .three.wide.column.logout.pointer
-            .ui.icon.inverted.header
-                i.sign.out.alternate.icon
-                |Sign Out
+            .four.wide.column
+                .ui.small.inverted.header change password
+                .ui.fluid.input
+                    input.old_password(type='text' placeholder='old')
+                .ui.icon.fluid.input
+                    input.new_password(type='text' placeholder='new')
+                    i.play.link.icon.change_password
+        .black.row
+            .three.wide.column
+                .ui.inverted.header
+                    |karma
+                |#{currentUser.karma}
+                .ui.inverted.header
+                    |points
+                |#{currentUser.points}
+            .four.wide.column
+                .ui.inverted.header 
+                    i.mail.icon
+                    |emails
+            .four.wide.column
+                .ui.inverted.header 
+                    i.bell.icon
+                    |alerts
+            .four.wide.column
+                .ui.inverted.header 
+                    i.user.shield.icon
+                    | roles
+                .ui.inverted.list
+                    each currentUser.roles
+                        .item #{this}
+        .black.row
+            .four.wide.column
+                .ui.inverted.header 
+                    i.users.icon
+                    | friends
+                .ui.inverted.list
+                    each currentUser.friends
+                        .item #{this}
+            .four.wide.column.pointer.logout_others
+                .ui.inverted.icon.header 
+                    i.user.times.icon
+                    |logout other clients
+            .three.wide.column.logout.pointer
+                .ui.icon.inverted.header
+                    i.sign.out.alternate.icon
+                    |sign out
