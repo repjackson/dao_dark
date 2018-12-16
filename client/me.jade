@@ -1,6 +1,16 @@
 template(name='me')
-    .ui.four.column.stackable.padded.inverted.grid
-        .column.logout.pointer
+    .ui.stackable.padded.inverted.grid
+        .row
+            .four.wide.column
+                .ui.inverted.header #{currentUser.username}
+            .four.wide.column
+                .ui.icon.input
+                    input.new_username(type='text' placeholder='change username')
+                    i.play.link.icon.change_username
+                .ui.inverted.header #{currentUser.username}
+        .four.wide.column.pointer.logout_others
+            .ui.inverted.header Logout Other Clients
+        .three.wide.column.logout.pointer
             .ui.icon.inverted.header
                 i.sign.out.alternate.icon
                 |Sign Out
