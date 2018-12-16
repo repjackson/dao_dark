@@ -24,7 +24,16 @@ Template.root.events
         
         
 Template.root.helpers
-    out_page: -> Session.get 'out_page'
+    page: -> 
+        if Session.get 'page'
+            Session.get 'page'
+        else 
+            'delta'
+    out_page: -> 
+        if Session.get 'out_page'
+            Session.get 'out_page'
+        else 
+            'delta'
 
 Template.delta.helpers
     card_number: ->

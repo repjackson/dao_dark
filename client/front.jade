@@ -1,5 +1,6 @@
 template(name='front')
     #main.ui.fluid.inverted.center.aligned.segment
+        .ui.inverted.header hi
         .white_bat.big DAO
         .ui.hidden.divider
         .ui.hidden.divider
@@ -9,8 +10,14 @@ template(name='front')
         
 template(name='login')
     #main.ui.fluid.inverted.center.aligned.segment
-        .ui.huge.inverted.header login
-        .ui.inverted.fluid.center.aligned.segment
-            .ui.inverted.transparent.huge.input
-                input(type='text' placeholder='username')
+        .white_bat.sub
+            |Abandon all hope ye who enter
+        .ui.input
+            label name
+            input(type='text' placeholder='username')
+        .ui.input
+            label password
+            input(type='password' placeholder='secret!')
+        +loginButtons
+                
             
