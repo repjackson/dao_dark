@@ -1,21 +1,20 @@
-template(name='blog')
+template(name='time')
     .ui.stackable.padded.grid
         .four.wide.column
-            .ui.inverted.header blog
-            .ui.icon.button.add_post
+            .ui.inverted.header time
+            .ui.icon.button.add_entry
                 i.plus.icon
         .twelve.wide.column
-            each posts
-                +post
+            each entries
+                +entry
                     
-template(name='post')
+template(name='entry')
     .ui.fluid.card
         .content
             .ui.form
                 +title
                 +description
                 +tags
-                +text_edit key='type' label='type'
         .content
             +edit_button
             +author_info

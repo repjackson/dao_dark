@@ -5,8 +5,10 @@ if Meteor.isClient
         
     Template.blog.helpers
         posts: -> 
-            Docs.find
-                type:'post'
+            if Meteor.user().editing_id
+                Docs.find Meteor.user().editing_id
+            else
+                Docs.find { type:'post' }, sort:timestamp:-1
         
         
     Template.blog.events

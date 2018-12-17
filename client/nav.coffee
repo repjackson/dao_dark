@@ -15,6 +15,14 @@ Template.nav.events
         Meteor.users.update Meteor.userId(),
             $set:current_page:'tasks'
             
+    'click .library': ->
+        Meteor.users.update Meteor.userId(),
+            $set:current_page:'library'
+            
+    'click .time': ->
+        Meteor.users.update Meteor.userId(),
+            $set:current_page:'time'
+            
     'click .chat': ->
         Meteor.users.update Meteor.userId(),
             $set:current_page:'conversations'
@@ -22,6 +30,10 @@ Template.nav.events
     'click .users': ->
         Meteor.users.update Meteor.userId(),
             $set:current_page:'users'
+            
+    'click .mail': ->
+        Meteor.users.update Meteor.userId(),
+            $set:current_page:'mail'
             
     'click .blog': ->
         Meteor.users.update Meteor.userId(),

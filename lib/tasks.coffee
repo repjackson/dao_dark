@@ -5,18 +5,13 @@ if Meteor.isClient
         
     Template.tasks.helpers
         tasks: -> 
-            Docs.find
-                type:'task'
+            Docs.find { type:'task' }, sort:timestamp:-1
         
         
     Template.tasks.events
         'click .add_task': ->
             Docs.insert
                 type:'task'
-        
-        
-        
-        
         
         
         

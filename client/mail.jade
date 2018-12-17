@@ -1,21 +1,20 @@
-template(name='blog')
+template(name='mail')
     .ui.stackable.padded.grid
         .four.wide.column
-            .ui.inverted.header blog
-            .ui.icon.button.add_post
+            .ui.inverted.header mail
+            .ui.icon.button.add_entry
                 i.plus.icon
         .twelve.wide.column
-            each posts
-                +post
+            each messages
+                +message
                     
-template(name='post')
+template(name='messages')
     .ui.fluid.card
         .content
             .ui.form
                 +title
                 +description
                 +tags
-                +text_edit key='type' label='type'
         .content
             +edit_button
             +author_info

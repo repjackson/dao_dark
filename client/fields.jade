@@ -14,7 +14,14 @@ template(name='description')
             textarea.edit_description(rows='3') #{description}
     else
         .ui.basic.segment
-            |#{description}    
+            |#{nl2br description}    
+    
+template(name='text_edit')
+    .field
+        label #{label}
+        input.edit_text(type='text' value=value placeholder=label)
+
+    
     
     
 template(name='tags') 
@@ -57,3 +64,14 @@ template(name='complete_toggle_button')
             i.unchecked.checkbox.icon
             |incomplete
     
+template(name='author_info')
+    with author
+        strong #{username}
+        
+template(name='creation_info')
+    strong #{when}
+        
+        
+        
+        
+        
