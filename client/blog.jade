@@ -1,19 +1,20 @@
-template(name='conversations')
+template(name='blog')
     .ui.stackable.padded.grid
         .four.wide.column
-            .ui.inverted.header conversations
-            .ui.icon.button.add_conversation
+            .ui.inverted.header blog
+            .ui.icon.button.add_post
                 i.plus.icon
         .twelve.wide.column
-            each conversations
-                +conversation
+            each posts
+                +post
                     
-template(name='conversation')
+template(name='post')
     .ui.fluid.card
         .content
             .ui.form
                 +title
                 +description
                 +tags
+        .content
             +edit_button
-    
+            

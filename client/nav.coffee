@@ -23,9 +23,9 @@ Template.nav.events
         Meteor.users.update Meteor.userId(),
             $set:current_page:'users'
             
-    'click .cal': ->
+    'click .blog': ->
         Meteor.users.update Meteor.userId(),
-            $set:current_page:'cal'
+            $set:current_page:'blog'
             
     'click .bookmarks': ->
         Meteor.users.update Meteor.userId(),

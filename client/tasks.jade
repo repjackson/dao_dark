@@ -11,27 +11,10 @@ template(name='tasks')
 template(name='task')
     .ui.fluid.card
         .content
-            .ui.large.input
-                input(type='text' value=title placeholder='title')
             .ui.form
-                .field
-                    label description
-                    textarea(rows='3') #{description}
-                .field
-                    i.tags.icon
-                    |tags
-                    each tags
-                        .ui.label #{this}
-                    .ui.icon.input
-                        input(type='text')
-                        i.plus.icon
-            .ui.button
-                i.checkmark.icon
-                |mark complete
-            .ui.button
-                i.pencil.icon
-                |edit
-            .ui.button
-                i.checkmark.icon
-                |save
-    
+                +title
+                +description
+                +tags
+        .content
+            +edit_button
+            

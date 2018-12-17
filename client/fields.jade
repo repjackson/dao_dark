@@ -1,11 +1,39 @@
 template(name='title')
     if editing
-        .ui.large.input
-            input(type='text' value=title placeholder='title')
+        .field
+            label title
+            input.edit_title(type='text' value=title placeholder='title')
     else 
         .ui.header #{title}
         
         
+template(name='description')
+    if editing
+        .field
+            label description
+            textarea.edit_description(rows='3') #{description}
+    else
+        .ui.basic.segment
+            |#{description}    
+    
+    
+template(name='tags') 
+    .field
+        label
+            i.tags.icon
+            |tags
+        if editing
+            each tags
+                .ui.label 
+                    i.remove.link.icon.remove_tag
+                    |#{this}
+            .ui.icon.input
+                input.new_tag(type='text')
+                i.plus.icon
+        else
+            each tags
+                .ui.label #{this}
+            
         
 template(name='edit_button')
     if editing
@@ -16,3 +44,16 @@ template(name='edit_button')
         .ui.button.edit
             i.pencil.icon
             |edit
+
+
+
+template(name='complete_toggle_button')
+    if complete
+        .ui.button
+            i.checkmark.icon
+            |complete
+    else
+        .ui.button
+            i.unchecked.checkbox.icon
+            |incomplete
+    
