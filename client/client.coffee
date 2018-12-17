@@ -38,6 +38,10 @@ Template.registerHelper 'field_value', () ->
     if parent["#{@slug}"]
         parent["#{@slug}"]
 
+Template.registerHelper 'editing', ()->
+    if Meteor.user() and Meteor.user().editing_id
+        if @_id is Meteor.user().editing_id then true else false
+
 
 
 Template.registerHelper 'current_delta', () -> 

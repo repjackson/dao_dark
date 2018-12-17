@@ -1,0 +1,18 @@
+template(name='title')
+    if editing
+        .ui.large.input
+            input(type='text' value=title placeholder='title')
+    else 
+        .ui.header #{title}
+        
+        
+        
+template(name='edit_button')
+    if editing
+        .ui.button.save
+            i.checkmark.icon
+            |save
+    else
+        .ui.button.edit
+            i.pencil.icon
+            |edit

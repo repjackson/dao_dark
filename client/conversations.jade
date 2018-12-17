@@ -1,0 +1,31 @@
+template(name='conversations')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.inverted.header conversations
+            .ui.icon.button.add_conversation
+                i.plus.icon
+        .twelve.wide.column
+            each conversations
+                +conversation
+                    
+template(name='conversation')
+    .ui.fluid.card
+        .content
+            +title
+            .ui.form
+                .field
+                    label description
+                    textarea(rows='3') #{description}
+                .field
+                    i.tags.icon
+                    |tags
+                    each tags
+                        .ui.label #{this}
+                    .ui.icon.input
+                        input(type='text')
+                        i.plus.icon
+            +edit_button
+            .ui.button
+                i.checkmark.icon
+                |mark complete
+    

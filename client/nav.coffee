@@ -17,7 +17,11 @@ Template.nav.events
             
     'click .chat': ->
         Meteor.users.update Meteor.userId(),
-            $set:current_page:'chat'
+            $set:current_page:'conversations'
+    
+    'click .users': ->
+        Meteor.users.update Meteor.userId(),
+            $set:current_page:'users'
             
     'click .cal': ->
         Meteor.users.update Meteor.userId(),

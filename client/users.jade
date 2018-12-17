@@ -1,0 +1,15 @@
+template(name='users')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.inverted.header users
+            .ui.icon.button.add_user
+                i.plus.icon
+        .twelve.wide.column
+            each users
+                +user
+                    
+template(name='user')
+    .ui.fluid.card
+        .content
+            .ui.header #{username}
+    
