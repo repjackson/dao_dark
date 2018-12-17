@@ -1,14 +1,14 @@
-template(name='time')
+template(name='school')
     .ui.stackable.padded.grid
         .four.wide.column
-            .ui.inverted.header time tracking
+            .ui.inverted.header calendar
             .ui.icon.button.add_entry
                 i.plus.icon
         .twelve.wide.column
-            each entries
-                +entry
+            each courses
+                +course
                     
-template(name='entry')
+template(name='course')
     .ui.fluid.card
         .content
             .ui.form

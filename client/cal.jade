@@ -5,10 +5,10 @@ template(name='calendar')
             .ui.icon.button.add_entry
                 i.plus.icon
         .twelve.wide.column
-            each messages
-                +message
+            each events
+                +event
                     
-template(name='messages')
+template(name='event')
     .ui.fluid.card
         .content
             .ui.form

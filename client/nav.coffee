@@ -35,6 +35,10 @@ Template.nav.events
         Meteor.users.update Meteor.userId(),
             $set:current_page:'mail'
             
+    'click .school': ->
+        Meteor.users.update Meteor.userId(),
+            $set:current_page:'school'
+            
     'click .blog': ->
         Meteor.users.update Meteor.userId(),
             $set:current_page:'blog'
