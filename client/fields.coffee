@@ -1,14 +1,3 @@
-Template.edit_button.events
-    'click .edit': ->
-        Meteor.users.update Meteor.userId(), 
-            $set:editing_id:@_id
-            
-    'click .save': ->
-        Meteor.users.update Meteor.userId(),
-            $set:editing_id:null
-            
-            
-            
 Template.title.events
     'blur .edit_title': (e,t)->
         title_val = t.$('.edit_title').val()

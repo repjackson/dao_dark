@@ -1,0 +1,14 @@
+template(name='view_button')
+    .ui.icon.button.view(title='view')
+        i.play.icon
+        
+        
+        
+template(name='edit_button')
+    if editing
+        .ui.icon.button.save(title='save')
+            i.checkmark.icon
+    else
+        .ui.icon.button.edit(title='edit')
+            i.pencil.icon
+        

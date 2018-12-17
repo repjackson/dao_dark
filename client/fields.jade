@@ -42,18 +42,6 @@ template(name='tags')
                 .ui.label #{this}
             
         
-template(name='edit_button')
-    if editing
-        .ui.button.save
-            i.checkmark.icon
-            |save
-    else
-        .ui.button.edit
-            i.pencil.icon
-            |edit
-
-
-
 template(name='complete_toggle_button')
     if complete
         .ui.button

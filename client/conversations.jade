@@ -16,4 +16,10 @@ template(name='conversation')
                 +description
                 +tags
             +edit_button
+            +view_button template='view_conversation'
     
+    
+template(name='view_conversation')
+    .ui.inverted.header hi
+    with viewing_doc
+        .ui.header #{title}

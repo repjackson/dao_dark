@@ -19,7 +19,7 @@ Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
     
-        
+    
 Template.registerHelper 'is_full', ->
     delta = Docs.findOne Session.get('current_delta_id')
     if delta.total is 1 then true else false
@@ -38,9 +38,16 @@ Template.registerHelper 'field_value', () ->
     if parent["#{@slug}"]
         parent["#{@slug}"]
 
+
+
 Template.registerHelper 'editing', ()->
     if Meteor.user() and Meteor.user().editing_id
         if @_id is Meteor.user().editing_id then true else false
+
+Template.registerHelper 'viewing_doc', ->
+    if Meteor.user() and Meteor.user().editing_id
+        Docs.findOne Meteor.user().viewing_id
+
 
 
 
