@@ -34,7 +34,6 @@ Template.delta.events
         # Meteor.call 'fo', Session.get('current_delta_id')
         
     'click .select_delta': ->
-        console.log @
         Session.set 'current_delta_id', @_id
         if Meteor.user()
             Meteor.users.update Meteor.userId(),
@@ -55,7 +54,6 @@ Template.result.helpers
             _id: Template.currentData()._id
 
     result_template: ->
-        console.log @type
         if @type
             "#{@type}"
         else
