@@ -7,29 +7,31 @@ template(name='title')
         .ui.header #{title}
         
         
-template(name='description')
+template(name='field')
+    // .ui.header #{key}
+    // .ui.header #{field_type}
+    +Template.dynamic template=field_type
+        
+template(name='textarea')
     if editing
-        .field
-            label description
-            textarea.edit_description(rows='3') #{description}
+        .ui.form
+            .field
+                label #{key}
+                textarea.edit_textarea(rows='3') #{value}
     else
         .ui.basic.segment
-            |#{nl2br description}    
+            |#{nl2br value}    
     
 template(name='text')
-    .field
-        label #{label}
-        input.edit_text(type='text' value=value placeholder=label)
-    // if editing
-    //     .field
-    //         label #{label}
-    //         input.edit_text(type='text' value=value placeholder=label)
-    // else 
-    //     div
-    //     strong #{label} 
-    //     |&nbsp;
-    //     |#{value}
-    
+    if editing
+        .ui.labeled.fluid.input
+            .ui.label #{key}
+            input.edit_text(type='text' value=value placeholder=label)
+    else 
+        div
+        | #{key}: &nbsp;
+        strong #{value}
+    div    
     
     
 template(name='tags') 
@@ -71,18 +73,23 @@ template(name='creation_info')
         
 template(name='children')
     .ui.small.header #{label}
-        .ui.segment
-            if editing
-                .ui.button.add_child
-                    i.plus.icon
-                    |child
-            each children
-                +child
+    .ui.segment
+        if editing
+            .ui.button.add_child
+                i.plus.icon
+                |child
+        each children
+            +child
                 
 
 template(name='child')
     .ui.segment
-        +title
-        +text key='key' label='Key'
-        +text key='field_type' label='Field Type'
+        +text key='key'
+        +text key='field_type'
         +remove_button
+        
+        
+        
+template(name='boolean')
+    .ui.button
+        |#{key}

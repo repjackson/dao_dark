@@ -1,3 +1,8 @@
+Template.field.helpers
+    field_template: ->
+        "#{@field_type}_field
+
+
 Template.title.events
     'blur .edit_title': (e,t)->
         title_val = t.$('.edit_title').val()
@@ -38,9 +43,10 @@ Template.text.helpers
             
 Template.text.events                
     'blur .edit_text': (e,t)->
+        parent = Template.parentData()
         val = t.$('.edit_text').val()
-        parent_id = Meteor.user().editing_id
-        Docs.update parent_id, 
+        # parent_id = Meteor.user().editing_id
+        Docs.update parent._id, 
             $set:"#{@key}":val
 
 

@@ -4,7 +4,11 @@ template(name='edit')
             .four.wide.column
             .twelve.wide.column
                 .ui.segment
-                    +Template.dynamic template=edit_template
+                    // with edit_doc_schema
+                    //     |#{title}
+                    each edit_doc_schema_fields
+                        +field key=key field_type=field_type
+                    // +Template.dynamic template=edit_template
                     // .ui.form
                     //     +title
                     //     +description
