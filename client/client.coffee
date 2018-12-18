@@ -44,7 +44,7 @@ Template.registerHelper 'field_value', () ->
 
 Template.registerHelper 'editing', ()->
     if Meteor.user() and Meteor.user().editing_id
-        if @_id is Meteor.user().editing_id then true else false
+        if @_id is Meteor.user().editing_id or Session.equals('editing', true) then true else false
 
 Template.registerHelper 'viewing_doc', ->
     if Meteor.user() and Meteor.user().editing_id

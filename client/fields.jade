@@ -76,3 +76,13 @@ template(name='children')
                 .ui.button.add_child
                     i.plus.icon
                     |child
+            each children
+                +child
+                
+
+template(name='child')
+    .ui.segment
+        +title
+        +text key='key' label='Key'
+        +text key='field_type' label='Field Type'
+        +remove_button

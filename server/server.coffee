@@ -29,7 +29,7 @@ Meteor.publish 'public_deltas', ->
 Meteor.publish 'children', (type, parent)->
     Docs.find
         type:type
-        parent_id:parent
+        parent_id:parent._id
 
     
 Meteor.publish 'me', ()->

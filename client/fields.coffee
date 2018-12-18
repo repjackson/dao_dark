@@ -45,10 +45,26 @@ Template.text.events
 
 
 Template.children.onCreated ->
-    console.log Template.parentData()
-    @autorun => Meteor.subscribe 'children', @data.type
-
+    @autorun => Meteor.subscribe 'children', @data.type, Template.parentData()
 
 
 Template.children.helpers
+    children: ->
+        field = @
+        parent = Template.parentData()
+        Docs.find
+            type: @type
+            parent_id: parent._id
+                        
+
     
+Template.children.events
+    'click .add_child': ->
+        field = @
+        parent = Template.parentData()
+        Docs.insert
+            type: @type
+            parent_id: parent._id
+            
+            
+            

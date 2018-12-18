@@ -12,14 +12,10 @@ if Meteor.isClient
             Docs.findOne doc_id 
             
         edit_template: ->
-            console.log @
             if @type
                 "#{@type}"
             else
                 "default"
-        
-        
-        
         
         
 if Meteor.isServer

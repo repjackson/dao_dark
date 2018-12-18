@@ -2,6 +2,10 @@ template(name='view_button')
     a.ui.icon.button.view(title='view' href="/view/#{_id}")
         i.play.icon
         
+template(name='remove_button')
+    a.ui.icon.button.remove(title='remove')
+        i.remove.icon
+        
         
         
 template(name='edit_button')
@@ -13,4 +17,7 @@ template(name='edit_button')
         a.ui.button.edit(title='edit' href="/edit/#{_id}")
             i.pencil.icon
             |edit
+        
+        
+        
         
