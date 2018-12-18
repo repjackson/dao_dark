@@ -49,7 +49,8 @@ Meteor.methods
         Docs.update { _id:delta_id, "facets.key":key},
             $pull: "facets.$.filters": filter
         Meteor.call 'fo', delta_id, (err,res)->
-            
+
+Package['kadira:flow-router'] = Package['ostrio:flow-router-extra'];
             
 Docs.helpers
     author: -> Meteor.users.findOne @author_id

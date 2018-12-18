@@ -3,22 +3,11 @@ head
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name="theme-color", content="#ffffff")
 
-body
-    +root
-
-
-
-
-template(name='root')
-    if currentUser
-        +nav
-        #main
-            +Template.dynamic template=page
-        +footer
-    else
-        +Template.dynamic template=out_page
-        // +front
-
+template(name='layout')
+    +nav
+    #main
+        +yield
+    +footer
 
 
 template(name='delta')
@@ -31,11 +20,12 @@ template(name='delta')
                 each public_sessions
                     .ui.button.select_delta(class=delta_selector_class) #{number}
         .row
-            .sixteen.wide.column
+            .six.wide.column
                 each current_delta.facets
                     .row
                         +facet
                         div
+            .ten.wide.column
                 .ui.centered.stackable.cards(class=card_number)
                     each current_delta.result_ids
                         +result

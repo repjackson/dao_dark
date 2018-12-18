@@ -1,10 +1,33 @@
-Template.root.onCreated ->
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
+Template.layout.onCreated ->
     @autorun -> Meteor.subscribe 'me'
     @autorun -> Meteor.subscribe 'my_deltas'
     @autorun -> Meteor.subscribe 'public_deltas'
     Session.setDefault 'out_page', 'front'
 
-Template.root.events
+FlowRouter.route '/',
+    name: 'index'
+    action: -> @render 'layout','delta'
+
+FlowRouter.route '/blog',
+    name: 'index'
+    action: -> @render 'layout','blog'
+
+Template.layout.helpers
+    page: -> 
+        if Meteor.user().current_page
+            Meteor.user().current_page
+        else 
+            'delta'
+    out_page: -> 
+        if Session.get 'out_page'
+            Session.get 'out_page'
+        else 
+            'delta'
+
+ 
+Template.layout.events
     'click .create_delta': (e,t)->
         Meteor.call 'create_delta', (err,res)->
             Session.set 'current_delta_id', res
@@ -22,21 +45,6 @@ Template.root.events
     'click .logout': ->
         Meteor.logout()
         
-        
-Template.root.helpers
-    page: -> 
-        if Meteor.user().current_page
-            Meteor.user().current_page
-        else 
-            'delta'
-    out_page: -> 
-        if Session.get 'out_page'
-            Session.get 'out_page'
-        else 
-            'delta'
-
- 
-Template.root.events
     'click .delete_delta': (e,t)->
         # delta = Docs.findOne Session.get('current_delta_id')
         delta = Docs.findOne Session.get('current_delta_id')

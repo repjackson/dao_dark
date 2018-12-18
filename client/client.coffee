@@ -38,6 +38,8 @@ Template.registerHelper 'field_value', () ->
     if parent["#{@slug}"]
         parent["#{@slug}"]
 
+# window.onpopstate = (e)->
+#     console.log e.currentTarget.location.pathname
 
 
 Template.registerHelper 'editing', ()->

@@ -11,7 +11,7 @@ template(name='nav')
             i.large.tasks.icon
         a.icon.item.chat(href='#')
             i.large.chat.icon
-        a.icon.item.blog(href='#')
+        a.icon.item.blog(href='/blog')
             i.large.newspaper.icon
         a.icon.item.school(href='#')
             i.large.graduation.cap.icon
@@ -26,6 +26,8 @@ template(name='nav')
         a.icon.item.mail(href='#')
             i.large.mail.icon
         .right.menu
+            .item.test
+                |test
             .pointer.me.item
                 if currentUser
                     i.large.user.icon
