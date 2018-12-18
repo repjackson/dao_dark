@@ -25,7 +25,7 @@ FlowRouter.route '/d/:type',
  
 FlowRouter.route '/edit/:doc_id',
     name: 'edit_doc'
-    action: -> @render 'layout','edit_doc'
+    action: -> @render 'layout','edit'
 
  
 Template.layout.events

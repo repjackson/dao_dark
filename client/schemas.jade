@@ -11,13 +11,14 @@ template(name='task')
             +creation_info
 
 
-template(name='task')
+template(name='schema')
     .ui.fluid.card
         .content
             .ui.form
                 +title
                 +description
                 +tags
+                +children type='field' label='fields'
         .content
             +edit_button
             +author_info

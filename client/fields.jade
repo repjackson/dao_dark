@@ -69,5 +69,10 @@ template(name='creation_info')
         
         
         
-        
-        
+template(name='children')
+    .ui.small.header #{label}
+        .ui.segment
+            if editing
+                .ui.button.add_child
+                    i.plus.icon
+                    |child

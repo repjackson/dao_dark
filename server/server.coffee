@@ -26,6 +26,12 @@ Meteor.publish 'public_deltas', ->
         author_id:null
 
     
+Meteor.publish 'children', (type, parent)->
+    Docs.find
+        type:type
+        parent_id:parent
+
+    
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
         

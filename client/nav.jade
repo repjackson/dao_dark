@@ -32,13 +32,13 @@ template(name='nav')
         .right.menu
             a.me.item.add(href='#')
                 i.plus.icon
-            
-            .pointer.me.item
-                if currentUser
-                    i.user.icon
-                    | #{currentUser.username}
-            .pointer.icon.item.logout
-                i.sign.out.alternate.icon
+            if currentUser
+                .pointer.me.item
+                    if currentUser
+                        i.user.icon
+                        | #{currentUser.username}
+                .pointer.icon.item.logout
+                    i.sign.out.alternate.icon
             // if current_delta
                 // h2.ui.header 
                 //     if current_module.icon

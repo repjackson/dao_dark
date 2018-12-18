@@ -42,3 +42,13 @@ Template.text.events
         parent_id = Meteor.user().editing_id
         Docs.update parent_id, 
             $set:"#{@key}":val
+
+
+Template.children.onCreated ->
+    console.log Template.parentData()
+    @autorun => Meteor.subscribe 'children', @data.type
+
+
+
+Template.children.helpers
+    

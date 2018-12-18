@@ -1,14 +1,16 @@
 template(name='view_button')
-    .ui.icon.button.view(title='view')
+    a.ui.icon.button.view(title='view' href="/view/#{_id}")
         i.play.icon
         
         
         
 template(name='edit_button')
     if editing
-        .ui.icon.button.save(title='save')
+        .ui.button.save(title='save')
             i.checkmark.icon
+            |save
     else
-        .ui.icon.button.edit(title='edit')
+        a.ui.button.edit(title='edit' href="/edit/#{_id}")
             i.pencil.icon
+            |edit
         

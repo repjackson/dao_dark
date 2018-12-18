@@ -1,17 +1,18 @@
-template(name='edit_doc')
+template(name='edit')
     with editing_doc
         .ui.stackable.padded.grid
             .four.wide.column
             .twelve.wide.column
                 .ui.segment
-                    .ui.form
-                        +title
-                        +description
-                        +tags
-                        +text key='icon' label='icon'
-                        +text key='slug' label='slug'
-                        +text key='type' label='type'
-                    .content
-                        +edit_button
-                        +author_info
-                        +creation_info
+                    +Template.dynamic template=edit_template
+                    // .ui.form
+                    //     +title
+                    //     +description
+                    //     +tags
+                    //     +text key='icon' label='icon'
+                    //     +text key='slug' label='slug'
+                    //     +text key='type' label='type'
+                    // .content
+                    //     +edit_button
+                    //     +author_info
+                    //     +creation_info
