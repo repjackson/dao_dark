@@ -1,0 +1,21 @@
+template(name='delta')
+    .ui.padded.grid
+        .grey.row
+            .sixteen.wide.column
+                .ui.small.inline.header sessions
+                .ui.icon.button.create_delta
+                    i.plus.icon
+                each public_sessions
+                    .ui.button.select_delta(class=delta_selector_class) #{number}
+        .row
+            .six.wide.column
+                each current_delta.facets
+                    .row
+                        +facet
+                        div
+            .ten.wide.column
+                .ui.centered.stackable.cards(class=card_number)
+                    each current_delta.result_ids
+                        +result
+    
+

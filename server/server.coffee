@@ -50,7 +50,7 @@ Meteor.methods
 
     fo: (delta_id)->
         delta = Docs.findOne delta_id
-        built_query = { schema:'reddit' }
+        built_query = { }
         
         for facet in delta.facets
             if facet.filters and facet.filters.length > 0
@@ -116,29 +116,77 @@ Meteor.methods
             number: delta_count+1
             facets: [
                 {
-                    key:'domain'
+                    key:'type'
                     filters: []
                     res:[]
                 }
-                {
-                    key:'watson_concepts'
-                    filters: []
-                    res:[]
-                }
-                {
-                    key:'watson_keywords'
-                    filters: []
-                    res:[]
-                }
-                {
-                    key:'doc_sentiment_label'
-                    filters: []
-                    res:[]
-                }
+                
+                # {
+                #     key:'domain'
+                #     filters: []
+                #     res:[]
+                # }
+                # {
+                #     key:'watson_concepts'
+                #     filters: []
+                #     res:[]
+                # }
+                # {
+                #     key:'watson_keywords'
+                #     filters: []
+                #     res:[]
+                # }
+                # {
+                #     key:'doc_sentiment_label'
+                #     filters: []
+                #     res:[]
+                # }
                 {
                     key:'timestamp_tags'
                     filters: []
                     res:[]
                 }
             ]
+    
+    select_section: (section)->
+        console.log section
+        delta_count = Docs.find(schema:'delta').count()
+        
+        section_schema = 
+            Docs.findOne 
+                type:'schema'
+                section: section.slug
+        
+        
+        
+        # new_delta_id = Docs.insert
+        #     schema:'delta'
+        #     number: delta_count+1
+        #     facets: [
+        #         {
+        #             key:'domain'
+        #             filters: []
+        #             res:[]
+        #         }
+        #         {
+        #             key:'watson_concepts'
+        #             filters: []
+        #             res:[]
+        #         }
+        #         {
+        #             key:'watson_keywords'
+        #             filters: []
+        #             res:[]
+        #         }
+        #         {
+        #             key:'doc_sentiment_label'
+        #             filters: []
+        #             res:[]
+        #         }
+        #         {
+        #             key:'timestamp_tags'
+        #             filters: []
+        #             res:[]
+        #         }
+        #     ]
                 

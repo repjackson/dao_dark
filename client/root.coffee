@@ -7,24 +7,25 @@ Template.layout.onCreated ->
     Session.setDefault 'out_page', 'front'
 
 FlowRouter.route '/',
-    name: 'index'
+    name: 'home'
     action: -> @render 'layout','delta'
 
-FlowRouter.route '/blog',
-    name: 'index'
-    action: -> @render 'layout','blog'
+FlowRouter.route '/enter',
+    name: 'enter'
+    action: -> @render 'layout','enter'
 
-Template.layout.helpers
-    page: -> 
-        if Meteor.user().current_page
-            Meteor.user().current_page
-        else 
-            'delta'
-    out_page: -> 
-        if Session.get 'out_page'
-            Session.get 'out_page'
-        else 
-            'delta'
+FlowRouter.route '/me',
+    name: 'me'
+    action: -> @render 'layout','me'
+
+FlowRouter.route '/d/:type',
+    name: 'delta'
+    action: -> @render 'layout','delta'
+
+ 
+FlowRouter.route '/edit/:doc_id',
+    name: 'edit_doc'
+    action: -> @render 'layout','edit_doc'
 
  
 Template.layout.events

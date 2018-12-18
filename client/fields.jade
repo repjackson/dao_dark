@@ -16,11 +16,19 @@ template(name='description')
         .ui.basic.segment
             |#{nl2br description}    
     
-template(name='text_edit')
+template(name='text')
     .field
         label #{label}
         input.edit_text(type='text' value=value placeholder=label)
-
+    // if editing
+    //     .field
+    //         label #{label}
+    //         input.edit_text(type='text' value=value placeholder=label)
+    // else 
+    //     div
+    //     strong #{label} 
+    //     |&nbsp;
+    //     |#{value}
     
     
     

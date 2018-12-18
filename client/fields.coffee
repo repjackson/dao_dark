@@ -30,13 +30,13 @@ Template.description.events
         
             
             
-Template.text_edit.helpers
+Template.text.helpers
     value: ->
         parent = Template.parentData()
         parent["#{@key}"]
         
             
-Template.text_edit.events                
+Template.text.events                
     'blur .edit_text': (e,t)->
         val = t.$('.edit_text').val()
         parent_id = Meteor.user().editing_id

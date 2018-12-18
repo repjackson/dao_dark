@@ -1,25 +1,27 @@
-template(name='conversations')
+template(name='sections')
     .ui.stackable.padded.grid
         .four.wide.column
-            .ui.inverted.header conversations
-            .ui.icon.button.add_conversation
+            .ui.inverted.header sections
+            .ui.icon.button.add_section
                 i.plus.icon
         .twelve.wide.column
-            each conversations
-                +conversation
+            each sections
+                +section
                     
-template(name='conversation')
+template(name='section')
     .ui.fluid.card
         .content
             .ui.form
                 +title
                 +description
                 +tags
+                +text key='slug' label='slug'
+                +text key='icon' label='icon'
             +edit_button
-            +view_button template='view_conversation'
+            +view_button template='view_section'
     
     
-template(name='view_conversation')
+template(name='view_section')
     .ui.inverted.header hi
     with viewing_doc
         .ui.header #{title}
