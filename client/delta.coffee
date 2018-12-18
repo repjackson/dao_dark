@@ -42,4 +42,21 @@ Template.delta.events
                     current_delta_id: @_id
                     current_template: 'delta'
         Meteor.call 'fo', Session.get('current_delta_id')
-        
+    
+    
+    
+Template.result.onCreated ->
+    @autorun => Meteor.subscribe 'doc_id', @data._id
+
+    
+Template.result.helpers
+    result: ->
+        Docs.findOne
+            _id: Template.currentData()._id
+
+    result_template: ->
+        console.log @type
+        if @type
+            "#{@type}"
+        else
+            "default"

@@ -19,3 +19,21 @@ template(name='delta')
                         +result
     
 
+template(name='result')
+    .ui.fluid.card
+        .content
+            with result
+                +Template.dynamic template=result_template
+        
+        
+template(name='default')
+    .ui.header #{title}
+    .ui.header #{timestamp}            
+    .ui.form
+        +title
+        +description
+        +tags
+        +text key='slug' label='slug'
+        +text key='icon' label='icon'
+    +edit_button
+    +view_button template='view_section'
