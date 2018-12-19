@@ -54,8 +54,25 @@ Meteor.methods
         console.log date_array
         return date_array
 
-    fo: (delta_id)->
-        delta = Docs.findOne delta_id
+    fo: ()->
+        delta = Docs.findOne 
+            type:'delta'
+            author_id: Meteor.userId()
+        
+        unless delta
+            new_id = Docs.insert
+                type:'delta'
+                author_id: Meteor.userId()
+                facets: [
+                    {
+                        key:'type'
+                        filters: []
+                        res:[]
+                    }
+                ]
+                
+            delta = Docs.findOne new_id
+            
         built_query = { }
         
         for facet in delta.facets
@@ -116,10 +133,8 @@ Meteor.methods
             
             
     create_delta: ->
-        delta_count = Docs.find(schema:'delta').count()
         new_delta_id = Docs.insert
-            schema:'delta'
-            number: delta_count+1
+            type:'delta'
             facets: [
                 {
                     key:'type'
@@ -154,45 +169,3 @@ Meteor.methods
                 }
             ]
     
-    select_section: (section)->
-        console.log section
-        delta_count = Docs.find(schema:'delta').count()
-        
-        section_schema = 
-            Docs.findOne 
-                type:'schema'
-                section: section.slug
-        
-        
-        
-        # new_delta_id = Docs.insert
-        #     schema:'delta'
-        #     number: delta_count+1
-        #     facets: [
-        #         {
-        #             key:'domain'
-        #             filters: []
-        #             res:[]
-        #         }
-        #         {
-        #             key:'watson_concepts'
-        #             filters: []
-        #             res:[]
-        #         }
-        #         {
-        #             key:'watson_keywords'
-        #             filters: []
-        #             res:[]
-        #         }
-        #         {
-        #             key:'doc_sentiment_label'
-        #             filters: []
-        #             res:[]
-        #         }
-        #         {
-        #             key:'timestamp_tags'
-        #             filters: []
-        #             res:[]
-        #         }
-        #     ]
-                

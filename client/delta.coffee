@@ -1,6 +1,6 @@
 Template.delta.helpers
     card_number: ->
-        delta = Docs.findOne Session.get('current_delta_id')
+        delta = Docs.findOne type:'delta'
         if delta
             switch delta.total
                 when 1 then 'one'
@@ -16,31 +16,39 @@ Template.delta.helpers
     delta_selector_class: ->
         if Session.equals('current_delta_id', @_id) then 'black' else ''
 
+
+Template.facet.events
+    'click .toggle_selection': ->
+        delta = Docs.findOne type:'delta'
+        facet = Template.currentData()
+        
+        if facet.filters and @name in facet.filters
+            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+        else 
+            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+      
+
  
-Template.delta.events
-    'click .create_delta': (e,t)->
-        Meteor.call 'create_delta', (err,res)->
-            Session.set 'current_delta_id', res
-        Meteor.call 'fo', Session.get('current_delta_id')
-        
-    'click .select_section': ->
-        console.log @
-        # Session.set 'current_delta_id', @_id
-        # if Meteor.user()
-        #     Meteor.users.update Meteor.userId(),
-        #         $set: 
-        #             current_delta_id: @_id
-        #             current_template: 'delta'
-        # Meteor.call 'fo', Session.get('current_delta_id')
-        
-    'click .select_delta': ->
-        Session.set 'current_delta_id', @_id
-        if Meteor.user()
-            Meteor.users.update Meteor.userId(),
-                $set: 
-                    current_delta_id: @_id
-                    current_template: 'delta'
-        Meteor.call 'fo', Session.get('current_delta_id')
+    
+Template.facet.helpers
+    filtering_res: ->
+        delta = Docs.findOne type:'delta'
+        filtering_res = []
+        for filter in @res
+            if filter.count < delta.total
+                filtering_res.push filter
+            else if filter.name in @filters
+                filtering_res.push filter
+        filtering_res
+
+    toggle_value_class: ->
+        facet = Template.parentData()
+        delta = Docs.findOne type:'delta'
+
+        if facet.filters and @name in facet.filters
+            'grey'
+        else
+            ''
     
     
     

@@ -2,7 +2,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 if Meteor.isClient
     Template.nav.onCreated ->
-        @autorun -> Meteor.subscribe 'sections'
+        @autorun -> Meteor.subscribe 'delta'
         
         
     Template.nav.events
@@ -10,9 +10,8 @@ if Meteor.isClient
             Meteor.users.update Meteor.userId(),
                 $set:current_page:'me'
                 
-        'click .select_section': ->
-            console.log @
-            Meteor.call 'select_section', @
+        'click .home': ->
+            Meteor.call 'fo'
                 
         'click .add': ->
             new_id = Docs.insert {}
@@ -21,13 +20,10 @@ if Meteor.isClient
                 
         'click .logout': -> Meteor.logout()
                 
-    Template.nav.helpers
-        sections: ->
-            Docs.find 
-                type:'section'
+
                 
-                
-if Meteor.isSever
-    Meteor.publish 'sections', ->
+if Meteor.isServer
+    Meteor.publish 'delta', ->
         Docs.find 
-            type:'section'
+            type:'delta'
+            # author_id:  Meteor.userId()

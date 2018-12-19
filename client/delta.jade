@@ -1,12 +1,5 @@
 template(name='delta')
     .ui.padded.stackable.grid
-        .grey.row
-            .sixteen.wide.column
-                .ui.small.inline.header sessions
-                .ui.icon.button.create_delta
-                    i.plus.icon
-                each public_sessions
-                    .ui.button.select_delta(class=delta_selector_class) #{number}
         .row
             .six.wide.column
                 each current_delta.facets
@@ -14,7 +7,7 @@ template(name='delta')
                         +facet
                         div
             .ten.wide.column
-                .ui.centered.stackable.cards(class=card_number)
+                .ui.centered.stackable.cards
                     each current_delta.result_ids
                         +result
     
@@ -27,7 +20,23 @@ template(name='result')
                 each result_schema_fields
                     +Template.dynamic template=field_type
                 +edit_button
+                +view_button
 
+        
+
+template(name='facet')
+    if filtering_res
+        .ui.small.inline.inverted.header #{key}
+        // each filters
+        //     .unselect.ui.blue.button #{this}
+        each filtering_res
+            if name
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                    strong #{name}
+                    small #{count}
+            
+            
+        
         
         
 template(name='default')

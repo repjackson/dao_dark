@@ -1,14 +1,14 @@
-template(name='edit')
-    with editing_doc
+template(name='view')
+    with viewing_doc
         .ui.stackable.padded.grid
             .four.wide.column
             .twelve.wide.column
                 .ui.segment
-                    // with edit_doc_schema
+                    // with view_doc_schema
                     //     |#{title}
-                    each edit_doc_schema_fields
+                    each view_doc_schema_fields
                         +Template.dynamic template=field_type
-                    // +Template.dynamic template=edit_template
+                    // +Template.dynamic template=view_template
                     // .ui.form
                     //     +title
                     //     +description
@@ -17,6 +17,6 @@ template(name='edit')
                     //     +text key='slug' label='slug'
                     //     +text key='type' label='type'
                     .content
-                        +edit_button
+                        +view_button
                         +author_info
                         +creation_info

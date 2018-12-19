@@ -12,9 +12,6 @@ Template.registerHelper 'current_delta_id', ->
     Session.get 'current_delta_id'
 
 
-Template.registerHelper 'is_current_delta', ->
-    Session.equals 'current_delta_id', @_id
-
 Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
@@ -56,6 +53,8 @@ Template.registerHelper 'viewing_doc', ->
 Template.registerHelper 'current_delta', () -> 
     # if Meteor.user() and Meteor.user().current_delta_id
     #     delta = Docs.findOne Meteor.user().current_delta_id
-    Docs.findOne Session.get('current_delta_id')
+    Docs.findOne
+        type:'delta'
+        author_id:Meteor.userId()
 
 

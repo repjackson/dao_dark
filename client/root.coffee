@@ -2,9 +2,6 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Template.layout.onCreated ->
     @autorun -> Meteor.subscribe 'me'
-    @autorun -> Meteor.subscribe 'my_deltas'
-    @autorun -> Meteor.subscribe 'public_deltas'
-    Session.setDefault 'out_page', 'front'
 
 FlowRouter.route '/',
     name: 'home'
@@ -26,6 +23,11 @@ FlowRouter.route '/d/:type',
 FlowRouter.route '/edit/:doc_id',
     name: 'edit_doc'
     action: -> @render 'layout','edit'
+
+ 
+FlowRouter.route '/view/:doc_id',
+    name: 'view_doc'
+    action: -> @render 'layout','view'
 
  
 Template.layout.events
@@ -65,34 +67,4 @@ Template.layout.events
             $set: title: title_val
         
 
-Template.facet.helpers
-    filtering_res: ->
-        delta = Docs.findOne Session.get('current_delta_id')
-        filtering_res = []
-        for filter in @res
-            if filter.count < delta.total
-                filtering_res.push filter
-            else if filter.name in @filters
-                filtering_res.push filter
-        filtering_res
-
-    toggle_value_class: ->
-        facet = Template.parentData()
-        delta = Docs.findOne Session.get('current_delta_id')
-
-        if facet.filters and @name in facet.filters
-            'grey'
-        else
-            ''
-
-Template.facet.events
-    'click .toggle_selection': ->
-        delta = Docs.findOne Session.get('current_delta_id')
-        facet = Template.currentData()
-        
-        if facet.filters and @name in facet.filters
-            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
-        else 
-            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
-      
 

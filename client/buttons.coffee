@@ -12,10 +12,11 @@ Template.edit_button.events
             
 Template.view_button.events
     'click .view': ->
-        Meteor.users.update Meteor.userId(), 
-            $set:
-                current_page: @template
-                viewing_id:parent._id
+        # Meteor.users.update Meteor.userId(), 
+        #     $set:
+        #         current_page: @template
+        #         viewing_id:parent._id
+        
             
             
 Template.remove_button.events
