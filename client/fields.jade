@@ -7,11 +7,6 @@ template(name='title')
         .ui.header #{title}
         
         
-template(name='field')
-    // .ui.header #{key}
-    // .ui.header #{field_type}
-    +Template.dynamic template=field_type
-        
 template(name='textarea')
     if editing
         .ui.form

@@ -25,7 +25,7 @@ template(name='result')
             with result
                 .ui.header hi
                 each result_schema_fields
-                    +field key=key field_type=field_type
+                    +Template.dynamic template=field_type
                 +edit_button
 
         

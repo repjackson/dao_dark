@@ -4,7 +4,7 @@ Template.title.events
         parent_id = Template.parentData(6)
         Docs.update parent_id, 
             $set:title:title_val
-        
+    
 Template.tags.events
     'keyup .new_tag': (e,t)->
         if e.which is 13
@@ -32,8 +32,12 @@ Template.textarea.events
             
 Template.text.helpers
     value: ->
-        parent = Template.parentData(6)
-        console.log parent
+        parent = Template.parentData(5)
+        parent["#{@key}"]
+        
+Template.textarea.helpers
+    value: ->
+        parent = Template.parentData(5)
         parent["#{@key}"]
         
             
