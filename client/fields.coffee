@@ -1,7 +1,7 @@
 Template.title.events
     'blur .edit_title': (e,t)->
         title_val = t.$('.edit_title').val()
-        parent_id = Meteor.user().editing_id
+        parent_id = Template.parentData(6)
         Docs.update parent_id, 
             $set:title:title_val
         
@@ -9,14 +9,14 @@ Template.tags.events
     'keyup .new_tag': (e,t)->
         if e.which is 13
             tag_val = t.$('.new_tag').val()
-            parent_id = Meteor.user().editing_id
+            parent_id = Template.parentData(6)
             Docs.update parent_id, 
                 $addToSet:tags:tag_val
             t.$('.new_tag').val('')
         
     'click .remove_tag': (e,t)->
         tag_val = t.$('.edit_tag').val()
-        parent_id = Meteor.user().editing_id
+        parent_id = Template.parentData(6)
         Docs.update parent_id, 
             $addToSet:tags:tag_val
         
@@ -24,23 +24,24 @@ Template.tags.events
 Template.textarea.events
     'blur .edit_textarea': (e,t)->
         textarea_val = t.$('.edit_textarea').val()
-        parent_id = Meteor.user().editing_id
+        parent_id = Template.parentData(6)
         Docs.update parent_id, 
-            $set:textarea:textarea_val
+            $set:description:textarea_val
         
             
             
 Template.text.helpers
     value: ->
-        parent = Template.parentData()
+        parent = Template.parentData(6)
+        console.log parent
         parent["#{@key}"]
         
             
 Template.text.events                
     'blur .edit_text': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(6)
         val = t.$('.edit_text').val()
-        # parent_id = Meteor.user().editing_id
+        # parent_id = Template.parentData(6)
         Docs.update parent._id, 
             $set:"#{@key}":val
 

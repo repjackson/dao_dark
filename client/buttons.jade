@@ -10,13 +10,11 @@ template(name='remove_button')
         
 template(name='edit_button')
     if editing
-        .ui.button.save(title='save')
+        .ui.icon.button.save(title='save')
             i.checkmark.icon
-            |save
     else
-        a.ui.button.edit(title='edit' href="/edit/#{_id}")
+        a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
             i.pencil.icon
-            |edit
         
         
         
