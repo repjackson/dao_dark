@@ -1,8 +1,3 @@
-Template.field.helpers
-    field_template: ->
-        "#{@field_type}_field
-
-
 Template.title.events
     'blur .edit_title': (e,t)->
         title_val = t.$('.edit_title').val()
@@ -26,12 +21,12 @@ Template.tags.events
             $addToSet:tags:tag_val
         
             
-Template.description.events
-    'blur .edit_description': (e,t)->
-        description_val = t.$('.edit_description').val()
+Template.textarea.events
+    'blur .edit_textarea': (e,t)->
+        textarea_val = t.$('.edit_textarea').val()
         parent_id = Meteor.user().editing_id
         Docs.update parent_id, 
-            $set:description:description_val
+            $set:textarea:textarea_val
         
             
             

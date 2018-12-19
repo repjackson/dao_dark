@@ -26,16 +26,11 @@ if Meteor.isClient
                 type:'schema'
                 slug: edit_doc.type
             
-            Docs.find
-                type:'field'
-                parent_id:schema._id
+            if schema
+                Docs.find
+                    type:'field'
+                    parent_id:schema._id
             
-            
-        edit_template: ->
-            if @type
-                "#{@type}"
-            else
-                "default"
         
         
 if Meteor.isServer

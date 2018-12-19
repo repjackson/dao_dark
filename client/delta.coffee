@@ -46,6 +46,9 @@ Template.delta.events
     
 Template.result.onCreated ->
     @autorun => Meteor.subscribe 'doc_id', @data._id
+    @autorun => Meteor.subscribe 'edit_doc', @data._id
+    @autorun => Meteor.subscribe 'edit_doc_schema', @data._id
+    @autorun => Meteor.subscribe 'edit_doc_schema_fields', @data._id
 
     
 Template.result.helpers
@@ -53,8 +56,21 @@ Template.result.helpers
         Docs.findOne
             _id: Template.currentData()._id
 
-    result_template: ->
-        if @type
-            "#{@type}"
-        else
-            "default"
+    result_schema: ->
+        doc_id = Template.currentData()._id
+        edit_doc = Docs.findOne doc_id 
+        Docs.findOne
+            type:'schema'
+            slug: edit_doc.type
+        
+    result_schema_fields: ->
+        doc_id = Template.currentData()._id
+        edit_doc = Docs.findOne doc_id 
+        schema = Docs.findOne
+            type:'schema'
+            slug: edit_doc.type
+        
+        if schema
+            Docs.find
+                type:'field'
+                parent_id:schema._id

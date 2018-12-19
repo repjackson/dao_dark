@@ -1,5 +1,5 @@
 template(name='delta')
-    .ui.padded.grid
+    .ui.padded.stackable.grid
         .grey.row
             .sixteen.wide.column
                 .ui.small.inline.header sessions
@@ -23,7 +23,9 @@ template(name='result')
     .ui.fluid.card
         .content
             with result
-                +Template.dynamic template=result_template
+                each result_schema_fields
+                    +field key=key field_type=field_type
+
         
         
 template(name='default')
