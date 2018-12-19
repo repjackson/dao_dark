@@ -4,19 +4,16 @@ template(name='edit')
             .four.wide.column
             .twelve.wide.column
                 .ui.segment
-                    // with edit_doc_schema
-                    //     |#{title}
+                    +single_ref schema='schema'
                     each edit_doc_schema_fields
                         +Template.dynamic template=field_type
-                    // +Template.dynamic template=edit_template
-                    // .ui.form
-                    //     +title
-                    //     +description
-                    //     +tags
-                    //     +text key='icon' label='icon'
-                    //     +text key='slug' label='slug'
-                    //     +text key='type' label='type'
                     .content
                         +edit_button
                         +author_info
                         +creation_info
+
+
+template(name='single_ref')
+    each choices
+        .ui.button.select_choice
+            |#{title}
