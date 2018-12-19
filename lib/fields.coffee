@@ -76,14 +76,20 @@ if Meteor.isClient
                 
                 
     Template.single_ref.onCreated ->
-        console.log @data
         @autorun => Meteor.subscribe 'ref_choices', @data.schema
     Template.single_ref.helpers
         choices: ->
-            console.log @
             Docs.find
                 type:@schema
+                
     Template.single_ref.events
+        'click .select_choice': ->
+            selection = @
+            single_ref_field = Template.currentData()
+            target = Template.parentData(1)
+            Docs.update target._id,
+                $set: "#{single_ref_field.key}": @slug
+            
     
     
 if Meteor.isServer

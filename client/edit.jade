@@ -4,7 +4,8 @@ template(name='edit')
             .four.wide.column
             .twelve.wide.column
                 .ui.segment
-                    +single_ref schema='schema'
+                    +single_ref key='type' schema='schema'
+                    |#{type}
                     each edit_doc_schema_fields
                         +Template.dynamic template=field_type
                     .content
@@ -16,4 +17,6 @@ template(name='edit')
 template(name='single_ref')
     each choices
         .ui.button.select_choice
+            if icon
+                i.icon(class=icon)
             |#{title}
