@@ -71,7 +71,7 @@ Meteor.methods
             
         built_query = { }
         
-        key_response = Meteor.call 'agg', built_query, 'array', 'keys', []
+        key_response = Meteor.call 'agg', built_query, 'keys', []
         
         # console.log key_response
         
@@ -80,7 +80,6 @@ Meteor.methods
         # console.log new_facets       
         
         for key_res in key_response
-            # if key is ixisting in delta, don't overwrite, just update response from agg
             existing = _.findWhere(new_facets, {key:key_res.name})
             unless existing
                 facet_ob = {
@@ -93,7 +92,6 @@ Meteor.methods
 
         # console.log 'new_facets', new_facets
 
-
         for facet in new_facets
             if facet.filters and facet.filters.length > 0
                 built_query["#{facet.key}"] = $all: facet.filters
@@ -104,17 +102,18 @@ Meteor.methods
             {
                 $set:
                     facets: new_facets
-            }        
+            }
+            
         # response
         for facet in new_facets
             values = []
             local_return = []
             
-            agg_res = Meteor.call 'agg', built_query, 'array', facet.key, facet.filters
+            agg_res = Meteor.call 'agg', built_query, facet.key, facet.filters
 
-
-            Docs.update {_id:delta._id, "facets.key":facet.key},
-                { $set: "facets.$.res": agg_res }
+            if agg_res
+                Docs.update { _id:delta._id, "facets.key":facet.key},
+                    { $set: "facets.$.res": agg_res }
 
         results_cursor = Docs.find built_query, { fields:{_id:1},limit:1 }
 
@@ -128,31 +127,37 @@ Meteor.methods
                     result_ids:result_ids
             }
 
-    agg: (query, field_type, key, filters)->
+    agg: (query, key, filters)->
+        test_doc = Docs.findOne "#{key}":$exists:true
+        fo = _.findWhere(test_doc.fields, {key:key})
+        console.log fo
+        
         options = { explain:false }
-        unless field_type is 'html'
-            if field_type in ['array','multiref']
+        if fo.array
+            # if fo.array
+            pipe =  [
+                { $match: query }
+                { $project: "#{key}": 1 }
+                { $unwind: "$#{key}" }
+                { $group: _id: "$#{key}", count: $sum: 1 }
+                { $sort: count: -1, _id: 1 }
+                { $limit: 10 }
+                { $project: _id: 0, name: '$_id', count: 1 }
+            ]
+        else if fo.string
+            unless fo.html
                 pipe =  [
                     { $match: query }
                     { $project: "#{key}": 1 }
-                    { $unwind: "$#{key}" }
                     { $group: _id: "$#{key}", count: $sum: 1 }
                     { $sort: count: -1, _id: 1 }
                     { $limit: 10 }
                     { $project: _id: 0, name: '$_id', count: 1 }
                 ]
-            else
-                pipe =  [
-                    { $match: query }
-                    { $project: "#{key}": 1 }
-                    { $group: _id: "$#{key}", count: $sum: 1 }
-                    { $sort: count: -1, _id: 1 }
-                    { $limit: 10 }
-                    { $project: _id: 0, name: '$_id', count: 1 }
-                ]
-
-        agg = Docs.rawCollection().aggregate(pipe,options)
-
-        res = {}
-        if agg
-            agg.toArray()
+        if pipe
+            agg = Docs.rawCollection().aggregate(pipe,options)
+            res = {}
+            if agg
+                agg.toArray()
+            else 
+                return null
