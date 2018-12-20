@@ -17,42 +17,44 @@ Meteor.methods
         doc = Docs.findOne doc_id
         keys = _.keys doc
         # fields = doc.fields
-        console.log 
-        
         fields = []
         
         for key in keys
-            key_value = doc["#{key}"]
-            initial_field_type = typeof key_value
-                    
-            if initial_field_type is 'object'        
-                if Array.isArray key_value
-                    field_type = 'array'
+            value = doc["#{key}"]
+            js_type = typeof value
+            field_object = {}        
+            label = key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
+            field_object.label = label
+            field_object.key = key
+            field_object.js_type = js_type
+
+            if js_type is 'object'        
+                if Array.isArray value
+                    field_object.object_type = 'array'
                 else
-                    field_type = 'object'
+                    field_object.object_type = 'object'
+                
                     
-            else if initial_field_type is 'number'
-                # d = Date.parse(key_value)
+            else if js_type is 'number'
+                # d = Date.parse(value)
                 # nan = isNaN d
                 # !nan
-                field_type = 'number'
+                
                                 
-            else if initial_field_type is 'string'
+            else if js_type is 'string'
                 html_check = /<[a-z][\s\S]*>/i
-                html_result = html_check.test key_value
+                html_result = html_check.test value
                 if html_result
-                    field_type = 'html'
+                    string_type = 'html'
                 else
-                    field_type = 'string'
+                    string_type = 'string'
+                field_object = 
+                    {
+                        field_type: 'string'
+                        string_type: string_type
+                    }
                 
-            label = key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
-            field_object = 
-                {
-                    key:key
-                    label:label
-                    field_type:field_type
-                }
-                
+            
             # console.log 'adding field object', field_object    
             fields.push field_object
                     

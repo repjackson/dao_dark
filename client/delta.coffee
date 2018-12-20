@@ -60,7 +60,7 @@ Template.result.helpers
                 type:'field'
                 parent_id:schema._id
                 
-    is_html: -> @type is 'html'
-    is_number: -> @type is 'number'
-    is_array: -> @type is 'array'
-    is_string: -> @type is 'string'
+    is_html: -> @field_type is 'html'
+    is_number: -> @field_type is 'number'
+    is_array: -> @field_type is 'array'
+    is_string: -> @field_type is 'string'
