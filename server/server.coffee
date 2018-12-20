@@ -76,20 +76,20 @@ Meteor.methods
         # console.log key_response
         
         new_facets = delta.facets
+        
+        console.log new_facets       
+        
         for key_res in key_response
-                # existing = _.find(delta.facets, (facet)-> 
-                #     console.log '
-                #     facet.key is key_res.name )
-                # if existing
-                #     console.log 'existing', key.name
-                # else
-            facet_ob = {
-                key:key_res.name
-                filters:[]
-                res:[]
-            }
+            # if key is ixisting in delta, don't overwrite, just update response from agg
+            existing = _.findWhere(new_facets, {key:key_res.name})
+            unless existing
+                facet_ob = {
+                    key:key_res.name
+                    filters:[]
+                    res:[]
+                }
             
-            new_facets.push facet_ob
+                new_facets.push facet_ob
 
         # console.log 'new_facets', new_facets
 
