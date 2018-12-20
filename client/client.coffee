@@ -8,7 +8,6 @@ Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
 
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
-
 Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
@@ -29,10 +28,6 @@ Template.registerHelper 'value', () ->
     parent =  Template.parentData()
     if parent["#{@key}"]
         parent["#{@key}"]
-
-
-
-
 
 Template.registerHelper 'current_delta', () -> 
     # if Meteor.user() and Meteor.user().current_delta_id

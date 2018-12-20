@@ -1,12 +1,12 @@
 template(name='delta')
     .ui.padded.stackable.grid
         .row
-            .six.wide.column
+            .eight.wide.column
                 each current_delta.facets
                     .row
                         +facet
                         div
-            .ten.wide.column
+            .eight.wide.column
                 .ui.centered.stackable.cards
                     each current_delta.result_ids
                         +result
@@ -19,8 +19,20 @@ template(name='result')
                 // div auto fields
                 .ui.list
                     each fields
-                        .item #{label}
-                            strong #{value}
+                        .item
+                            strong #{label}
+                            // div [#{type}]
+                            if is_html
+                                |!{value}
+                            else if is_number
+                                .ui.header ##{value}
+                                // strong time
+                                // |{{ from_now value }}
+                            else if is_array
+                                each value
+                                    .ui.label #{this}
+                            else
+                                |#{value} 
                 // div schema fields
                 // each result_schema_fields
                 //     +Template.dynamic template=field_type

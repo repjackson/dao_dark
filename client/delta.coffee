@@ -59,3 +59,8 @@ Template.result.helpers
             Docs.find
                 type:'field'
                 parent_id:schema._id
+                
+    is_html: -> @type is 'html'
+    is_number: -> @type is 'number'
+    is_array: -> @type is 'array'
+    is_string: -> @type is 'string'

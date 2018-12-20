@@ -60,25 +60,49 @@ Meteor.methods
                         filters: []
                         res:[]
                     }
-                    {
-                        key:'type'
-                        filters: []
-                        res:[]
-                    }
+                    # {
+                    #     key:'type'
+                    #     filters: []
+                    #     res:[]
+                    # }
                 ]
                 
             delta = Docs.findOne new_id
             
         built_query = { }
         
-        for facet in delta.facets
+        key_response = Meteor.call 'agg', built_query, 'array', 'keys', []
+        
+        console.log key_response
+        
+        new_facets = delta.facets
+        for key_res in key_response
+                # existing = _.find(delta.facets, (facet)-> 
+                #     console.log '
+                #     facet.key is key_res.name )
+                # if existing
+                #     console.log 'existing', key.name
+                # else
+            facet_ob = {
+                key:key_res.name
+                filters:[]
+                res:[]
+            }
+            
+            new_facets.push facet_ob
+
+        console.log 'new_facets', new_facets
+
+
+        for facet in new_facets
             if facet.filters and facet.filters.length > 0
                 built_query["#{facet.key}"] = $all: facet.filters
 
         total = Docs.find(built_query).count()
         
+        
         # response
-        for facet in delta.facets
+        for facet in new_facets
             values = []
             local_return = []
             
@@ -87,7 +111,7 @@ Meteor.methods
             Docs.update {_id:delta._id, "facets.key":facet.key},
                 { $set: "facets.$.res": agg_res }
 
-        results_cursor = Docs.find built_query, { fields:{_id:1},limit:10 }
+        results_cursor = Docs.find built_query, { fields:{_id:1},limit:1 }
 
         result_ids = results_cursor.fetch()
 
@@ -95,6 +119,7 @@ Meteor.methods
             {
                 $set:
                     total: total
+                    facets: new_facets
                     result_ids:result_ids
             }
 
@@ -126,42 +151,3 @@ Meteor.methods
         res = {}
         if agg
             agg.toArray()
-            
-            
-    create_delta: ->
-        new_delta_id = Docs.insert
-            type:'delta'
-            facets: [
-                {
-                    key:'type'
-                    filters: []
-                    res:[]
-                }
-                
-                # {
-                #     key:'domain'
-                #     filters: []
-                #     res:[]
-                # }
-                # {
-                #     key:'watson_concepts'
-                #     filters: []
-                #     res:[]
-                # }
-                # {
-                #     key:'watson_keywords'
-                #     filters: []
-                #     res:[]
-                # }
-                # {
-                #     key:'doc_sentiment_label'
-                #     filters: []
-                #     res:[]
-                # }
-                {
-                    key:'timestamp_tags'
-                    filters: []
-                    res:[]
-                }
-            ]
-    
