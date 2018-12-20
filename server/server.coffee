@@ -73,7 +73,7 @@ Meteor.methods
         
         key_response = Meteor.call 'agg', built_query, 'array', 'keys', []
         
-        console.log key_response
+        # console.log key_response
         
         new_facets = delta.facets
         for key_res in key_response
@@ -91,7 +91,7 @@ Meteor.methods
             
             new_facets.push facet_ob
 
-        console.log 'new_facets', new_facets
+        # console.log 'new_facets', new_facets
 
 
         for facet in new_facets
@@ -100,13 +100,18 @@ Meteor.methods
 
         total = Docs.find(built_query).count()
         
-        
+        Docs.update {_id:delta._id},
+            {
+                $set:
+                    facets: new_facets
+            }        
         # response
         for facet in new_facets
             values = []
             local_return = []
             
             agg_res = Meteor.call 'agg', built_query, 'array', facet.key, facet.filters
+
 
             Docs.update {_id:delta._id, "facets.key":facet.key},
                 { $set: "facets.$.res": agg_res }
@@ -119,7 +124,7 @@ Meteor.methods
             {
                 $set:
                     total: total
-                    facets: new_facets
+                    # facets: new_facets
                     result_ids:result_ids
             }
 
@@ -133,7 +138,7 @@ Meteor.methods
                 { $unwind: "$#{key}" }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 20 }
+                { $limit: 10 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
         else
@@ -142,7 +147,7 @@ Meteor.methods
                 { $project: "#{key}": 1 }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 20 }
+                { $limit: 10 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
 

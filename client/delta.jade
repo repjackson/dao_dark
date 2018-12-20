@@ -42,15 +42,15 @@ template(name='result')
         
 
 template(name='facet')
-    if filtering_res
-        .ui.small.inline.inverted.header #{key}
-        // each filters
-        //     .unselect.ui.blue.button #{this}
-        each filtering_res
-            if name
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
-                    strong #{name}
-                    small #{count}
+    // if filtering_res
+    .ui.small.inline.inverted.header #{key}
+    // each filters
+    //     .unselect.ui.blue.button #{this}
+    each filtering_res
+        // if name
+        .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+            strong #{name}
+            small #{count}
             
             
         
