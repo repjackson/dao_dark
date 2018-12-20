@@ -22,13 +22,13 @@ template(name='result')
                         .item
                             strong #{label}
                             // div [#{type}]
-                            if is_html
+                            if html
                                 |!{value}
-                            else if is_number
+                            else if number
                                 .ui.header ##{value}
                                 // strong time
                                 // |{{ from_now value }}
-                            else if is_array
+                            else if array
                                 each value
                                     .ui.label #{this}
                             else
@@ -36,9 +36,7 @@ template(name='result')
                 // div schema fields
                 // each result_schema_fields
                 //     +Template.dynamic template=field_type
-                +edit_button
-                +view_button
-
+                +jsonView json=fields
         
 
 template(name='facet')
