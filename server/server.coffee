@@ -10,22 +10,13 @@ Meteor.users.allow
     remove: (userId, doc) -> userId
 
 
-Meteor.publish 'my_deltas', ->
-    if Meteor.user()
-        Docs.find {
-            schema:'delta'
-            author_id: Meteor.userId()
-        }, limit:1
-
 Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id
 
-Meteor.publish 'public_deltas', ->
+Meteor.publish 'type', (schema)->
     Docs.find
-        schema:'delta'
-        author_id:null
+        type:schema
 
-    
 Meteor.publish 'children', (type, parent)->
     Docs.find
         type:type
@@ -64,6 +55,11 @@ Meteor.methods
                 type:'delta'
                 author_id: Meteor.userId()
                 facets: [
+                    {
+                        key:'keys'
+                        filters: []
+                        res:[]
+                    }
                     {
                         key:'type'
                         filters: []

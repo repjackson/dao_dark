@@ -1,12 +1,12 @@
 if Meteor.isClient
-    Template.title.events
+    Template.title_edit.events
         'blur .edit_title': (e,t)->
             title_val = t.$('.edit_title').val()
             parent_id = Template.parentData(6)
             Docs.update parent_id, 
                 $set:title:title_val
         
-    Template.tags.events
+    Template.tags_edit.events
         'keyup .new_tag': (e,t)->
             if e.which is 13
                 tag_val = t.$('.new_tag').val()
@@ -22,7 +22,7 @@ if Meteor.isClient
                 $addToSet:tags:tag_val
             
                 
-    Template.textarea.events
+    Template.textarea_edit.events
         'blur .edit_textarea': (e,t)->
             textarea_val = t.$('.edit_textarea').val()
             parent_id = Template.parentData(6)
@@ -31,18 +31,7 @@ if Meteor.isClient
             
                 
                 
-    Template.text.helpers
-        value: ->
-            parent = Template.parentData(5)
-            parent["#{@key}"]
-            
-    Template.textarea.helpers
-        value: ->
-            parent = Template.parentData(5)
-            parent["#{@key}"]
-            
-                
-    Template.text.events                
+    Template.text_edit.events                
         'blur .edit_text': (e,t)->
             parent = Template.parentData(6)
             val = t.$('.edit_text').val()
@@ -51,11 +40,11 @@ if Meteor.isClient
                 $set:"#{@key}":val
     
     
-    Template.children.onCreated ->
+    Template.children_edit.onCreated ->
         @autorun => Meteor.subscribe 'children', @data.type, Template.parentData()
     
     
-    Template.children.helpers
+    Template.children_edit.helpers
         children: ->
             field = @
             parent = Template.parentData()
@@ -65,7 +54,7 @@ if Meteor.isClient
                             
     
         
-    Template.children.events
+    Template.children_edit.events
         'click .add_child': ->
             field = @
             parent = Template.parentData()
@@ -75,20 +64,30 @@ if Meteor.isClient
                 
                 
                 
-    Template.single_ref.onCreated ->
+    Template.ref_edit.onCreated ->
         @autorun => Meteor.subscribe 'ref_choices', @data.schema
-    Template.single_ref.helpers
-        choices: ->
-            Docs.find
-                type:@schema
+    
+    Template.ref_edit.helpers
+        choices: -> Docs.find type:@schema
+        choice_class: -> 
+            
                 
-    Template.single_ref.events
+    Template.ref_edit.events
         'click .select_choice': ->
             selection = @
-            single_ref_field = Template.currentData()
+            ref_field = Template.currentData()
             target = Template.parentData(1)
-            Docs.update target._id,
-                $set: "#{single_ref_field.key}": @slug
+
+            console.log ref_field
+            
+            if ref_field.ref_type is 'single'
+                Docs.update target._id,
+                    $set: "#{ref_field.key}": @_id
+            else if ref_field.ref_type is 'multi'
+                Docs.update target._id,
+                    $addToSet: "#{ref_field.key}": @_id
+                
+            
             
     
     

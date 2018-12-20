@@ -29,7 +29,7 @@ if Meteor.isClient
             if schema
                 Docs.find
                     type:'field'
-                    parent_id:schema._id
+                    _id:schema.field_ids
             
         
         
@@ -53,7 +53,7 @@ if Meteor.isServer
         fields = 
             Docs.find
                 type:'field'
-                parent_id:schema._id
+                _id:schema.field_ids
         
         
         

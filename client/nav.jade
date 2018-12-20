@@ -3,8 +3,12 @@ template(name='nav')
         a.header.icon.item.home.pointer(href='/')
             .black_bat.logo DAO
         .right.menu
-            a.me.item.add(href='#')
+            a.item.add(href='#')
                 i.plus.icon
+            a.item.reset(href='#')
+                i.refresh.icon
+            a.item.print_delta(href='#')
+                i.code.icon
             if currentUser
                 .pointer.me.item
                     if currentUser

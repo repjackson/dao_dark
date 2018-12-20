@@ -8,22 +8,11 @@ Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
 
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
-Template.registerHelper 'current_delta_id', ->
-    Session.get 'current_delta_id'
-
 
 Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
     
-    
-Template.registerHelper 'is_full', ->
-    delta = Docs.findOne Session.get('current_delta_id')
-    if delta.total is 1 then true else false
-
-Template.registerHelper 'is_half', ->
-    delta = Docs.findOne Session.get('current_delta_id')
-    if delta.total is 2 then true else false
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
@@ -32,20 +21,15 @@ Template.registerHelper 'nl2br', (text)->
         
 Template.registerHelper 'field_value', () -> 
     parent =  Template.parentData(5)
-    if parent["#{@slug}"]
-        parent["#{@slug}"]
-
-# window.onpopstate = (e)->
-#     console.log e.currentTarget.location.pathname
+    if parent["#{@key}"]
+        parent["#{@key}"]
 
 
-Template.registerHelper 'editing', ()->
-    if Meteor.user() and Meteor.user().editing_id
-        if @_id is Meteor.user().editing_id or Session.equals('editing', true) then true else false
+Template.registerHelper 'value', () -> 
+    parent =  Template.parentData()
+    if parent["#{@key}"]
+        parent["#{@key}"]
 
-Template.registerHelper 'viewing_doc', ->
-    if Meteor.user() and Meteor.user().editing_id
-        Docs.findOne Meteor.user().viewing_id
 
 
 

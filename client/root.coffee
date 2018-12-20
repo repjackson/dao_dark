@@ -11,6 +11,7 @@ FlowRouter.route '/enter',
     name: 'enter'
     action: -> @render 'layout','enter'
 
+
 FlowRouter.route '/me',
     name: 'me'
     action: -> @render 'layout','me'
@@ -32,30 +33,18 @@ FlowRouter.route '/view/:doc_id',
  
 Template.layout.events
     'click .create_delta': (e,t)->
-        Meteor.call 'create_delta', (err,res)->
-            Session.set 'current_delta_id', res
-        Meteor.call 'fo', Session.get('current_delta_id')
-        
-    'click .select_delta': ->
-        Session.set 'current_delta_id', @_id
-        if Meteor.user()
-            Meteor.users.update Meteor.userId(),
-                $set: 
-                    current_delta_id: @_id
-                    current_template: 'delta'
-        Meteor.call 'fo', Session.get('current_delta_id')
         
     'click .logout': ->
         Meteor.logout()
         
-    'click .delete_delta': (e,t)->
-        # delta = Docs.findOne Session.get('current_delta_id')
-        delta = Docs.findOne Session.get('current_delta_id')
-        
+    'click .reset': (e,t)->
+        # delta = Docs.findOne type:'delta'
+        delta = Docs.findOne type:'delta'
         Docs.remove delta._id
+        Meteor.call 'fo'
     
     'click .print_delta': (e,t)->
-        delta = Docs.findOne Session.get('current_delta_id')
+        delta = Docs.findOne type:'delta'
         console.log delta
 
     'click .recalc': ->

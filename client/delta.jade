@@ -16,9 +16,14 @@ template(name='result')
     .ui.fluid.card
         .content
             with result
-                .ui.header hi
-                each result_schema_fields
-                    +Template.dynamic template=field_type
+                // div auto fields
+                .ui.list
+                    each fields
+                        .item #{label}
+                            strong #{value}
+                // div schema fields
+                // each result_schema_fields
+                //     +Template.dynamic template=field_type
                 +edit_button
                 +view_button
 

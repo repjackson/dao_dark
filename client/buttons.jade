@@ -6,15 +6,20 @@ template(name='remove_button')
     a.ui.icon.button.remove(title='remove')
         i.remove.icon
         
+template(name='add_button')
+    a.ui.icon.button.add(title='add')
+        i.plus.icon
+        |#{type}
         
+
         
 template(name='edit_button')
-    if editing
-        .ui.icon.button.save(title='save')
-            i.checkmark.icon
-    else
-        a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
-            i.pencil.icon
+    a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
+        i.pencil.icon
+
+template(name='save_button')
+    a.ui.icon.button.save(title='save' href="/view/#{_id}")
+        i.checkmark.icon
         
         
         
