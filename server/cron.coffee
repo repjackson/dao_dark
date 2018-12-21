@@ -12,7 +12,7 @@ SyncedCron.add(
             parser.text 'every 10 seconds'
         job: ->
             console.log 'pulling 10 famous quotes'
-            Meteor.call 'famous_quote', (err,res)->
+            Meteor.call 'movie_quote', (err,res)->
                 if err then console.error err
     }
     {
@@ -28,5 +28,5 @@ SyncedCron.add(
 
 
 # if Meteor.isProduction
-SyncedCron.start()
+# SyncedCron.start()
 

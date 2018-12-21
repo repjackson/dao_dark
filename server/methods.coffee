@@ -2,7 +2,7 @@ Meteor.methods
     crawl_fields: ->
         start = Date.now()
 
-        found_cursor = Docs.find {}, { fields:{_id:1},limit:10000 }
+        found_cursor = Docs.find {fields:$exists:false}, { fields:{_id:1},limit:10000 }
         
         for found in found_cursor.fetch()
             Meteor.call 'detect_fields', found._id, (err,res)->

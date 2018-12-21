@@ -23,6 +23,14 @@ Meteor.methods
 
     
     movie_quote: ()->
-        unirest.post('https://andruxnet-random-famous-quotes.p.rapidapi.com/?count=10&cat=movies').header('X-RapidAPI-Key', 'MwkK2zjrEFmsh75gjcFekcmnQgUfp1V3vYjjsns5chPqEsUmAH').header('Content-Type', 'application/x-www-form-urlencoded').end (result) ->
+        unirest.post('https://andruxnet-random-famous-quotes.p.rapidapi.com/?count=10&cat=movies').header('X-RapidAPI-Key', 'MwkK2zjrEFmsh75gjcFekcmnQgUfp1V3vYjjsns5chPqEsUmAH').header('Content-Type', 'application/x-www-form-urlencoded').end Meteor.bindEnvironment((result) ->
             for quote in result.body
                 console.log quote
+                new_quote_doc = Docs.findOne quote
+                
+                unless new_quote_doc
+                    quote_id = Docs.insert quote
+                    console.log 'added quote', quote
+                else
+                    console.log 'existing quote', quote
+        )
