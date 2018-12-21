@@ -46,7 +46,7 @@ Meteor.methods
                 if value < 0
                     fo.negative = true
                 else if value > 0
-                    fo.negative = false
+                    fo.positive = false
                     
                 integer = Number.isInteger(value)
                 if integer

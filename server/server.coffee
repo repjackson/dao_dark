@@ -2,7 +2,7 @@ Docs.allow
     # insert: (userId, doc) -> doc.author_id is userId
     insert: (userId, doc) -> true
     update: (userId, doc) -> userId
-    remove: (userId, doc) -> doc.author_id is userId
+    remove: (userId, doc) -> userId
 
 Meteor.users.allow
     insert: (userId, doc) -> userId
@@ -42,7 +42,7 @@ Meteor.methods
         date_array = [hour, minute, ampm, weekday, month, date, year]
         date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
         # date_array = _.each(date_array, (el)-> console.log(typeof el))
-        console.log date_array
+        # console.log date_array
         return date_array
 
     fo: ()->
@@ -73,11 +73,9 @@ Meteor.methods
         
         key_response = Meteor.call 'agg', built_query, 'keys', []
         
-        # console.log key_response
         
         new_facets = delta.facets
         
-        # console.log new_facets       
         
         for key_res in key_response
             existing = _.findWhere(new_facets, {key:key_res.name})
@@ -90,7 +88,6 @@ Meteor.methods
             
                 new_facets.push facet_ob
 
-        # console.log 'new_facets', new_facets
 
         for facet in new_facets
             if facet.filters and facet.filters.length > 0
@@ -130,7 +127,6 @@ Meteor.methods
     agg: (query, key, filters)->
         test_doc = Docs.findOne "#{key}":$exists:true
         fo = _.findWhere(test_doc.fields, {key:key})
-        console.log fo
         
         options = { explain:false }
         if fo.array
@@ -141,7 +137,7 @@ Meteor.methods
                 { $unwind: "$#{key}" }
                 { $group: _id: "$#{key}", count: $sum: 1 }
                 { $sort: count: -1, _id: 1 }
-                { $limit: 10 }
+                { $limit: 20 }
                 { $project: _id: 0, name: '$_id', count: 1 }
             ]
         else if fo.string
@@ -151,7 +147,7 @@ Meteor.methods
                     { $project: "#{key}": 1 }
                     { $group: _id: "$#{key}", count: $sum: 1 }
                     { $sort: count: -1, _id: 1 }
-                    { $limit: 10 }
+                    { $limit: 20 }
                     { $project: _id: 0, name: '$_id', count: 1 }
                 ]
         if pipe

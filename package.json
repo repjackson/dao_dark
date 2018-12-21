@@ -2,6 +2,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.1.2",
 		"bcrypt": "^2.0.0",
+		"unirest": "^0.5.1",
 		"watson-developer-cloud": "^3.3.0"
 	},
 	"devDependencies": {

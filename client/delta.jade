@@ -31,12 +31,15 @@ template(name='result')
                             else if array
                                 each value
                                     .ui.label #{this}
+                            else if object
+                                unless array
+                                    +jsonView json=value
                             else
                                 |#{value} 
                 // div schema fields
                 // each result_schema_fields
                 //     +Template.dynamic template=field_type
-                +jsonView json=fields
+                // +jsonView json=fields
         
 
 template(name='facet')
@@ -48,7 +51,7 @@ template(name='facet')
         // if name
         .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
             strong #{name}
-            small #{count}
+            // small #{count}
             
             
         
