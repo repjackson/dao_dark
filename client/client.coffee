@@ -1,3 +1,8 @@
+Session.setDefault 'loading', false
+
+Template.registerHelper 'is_loading', () -> 
+    Session.equals 'loading', true
+
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
 
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id

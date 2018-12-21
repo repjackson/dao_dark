@@ -13,48 +13,50 @@ template(name='delta')
     
 
 template(name='result')
-    .ui.fluid.card
-        .content
-            with result
-                // div auto fields
-                .ui.list
-                    each fields
-                        .item
-                            strong #{label}
-                            // div [#{type}]
-                            if html
-                                |!{value}
-                            else if number
-                                .ui.header ##{value}
-                                // strong time
-                                // |{{ from_now value }}
-                            else if array
-                                each value
-                                    .ui.label #{this}
-                            else if object
-                                unless array
-                                    +jsonView json=value
-                            else
-                                |#{value} 
-                // div schema fields
-                // each result_schema_fields
-                //     +Template.dynamic template=field_type
-                // +jsonView json=fields
+    if loading
+        .ui.center.aligned.inverted.segment
+            .ui.active.centered.inline.loader
+    else
+        .ui.fluid.card
+            .content
+                with result
+                    // div auto fields
+                    .ui.list
+                        each fields
+                            .item
+                                strong #{label}
+                                // div [#{type}]
+                                if html
+                                    |!{value}
+                                else if number
+                                    .ui.header ##{value}
+                                    // strong time
+                                    // |{{ from_now value }}
+                                else if array
+                                    each value
+                                        .ui.label #{this}
+                                else if object
+                                    unless array
+                                        +jsonView json=value
+                                else
+                                    |#{value} 
+                    // div schema fields
+                    // each result_schema_fields
+                    //     +Template.dynamic template=field_type
+                    // +jsonView json=fields
         
 
 template(name='facet')
-    // if filtering_res
-    .ui.small.inline.inverted.header #{key}
-    // each filters
-    //     .unselect.ui.blue.button #{this}
-    each filtering_res
-        // if name
-        .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
-            strong #{name}
-            // small #{count}
+    if filtering_res
+        .ui.small.inline.inverted.header #{key}
+        // each filters
+        //     .unselect.ui.blue.button #{this}
+        each filtering_res
+            if name
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                    strong #{name}
+                    // small #{count}
             
-            
-        
         
         
 template(name='default')

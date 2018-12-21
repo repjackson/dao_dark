@@ -127,33 +127,35 @@ Meteor.methods
     agg: (query, key, filters)->
         test_doc = Docs.findOne "#{key}":$exists:true
         fo = _.findWhere(test_doc.fields, {key:key})
-        
-        options = { explain:false }
-        if fo.array
-            # if fo.array
-            pipe =  [
-                { $match: query }
-                { $project: "#{key}": 1 }
-                { $unwind: "$#{key}" }
-                { $group: _id: "$#{key}", count: $sum: 1 }
-                { $sort: count: -1, _id: 1 }
-                { $limit: 40 }
-                { $project: _id: 0, name: '$_id', count: 1 }
-            ]
-        else if fo.string
-            unless fo.html
+        if fo
+            options = { explain:false }
+            if fo.array
+                # if fo.array
                 pipe =  [
                     { $match: query }
                     { $project: "#{key}": 1 }
+                    { $unwind: "$#{key}" }
                     { $group: _id: "$#{key}", count: $sum: 1 }
                     { $sort: count: -1, _id: 1 }
-                    { $limit: 40 }
+                    { $limit: 20 }
                     { $project: _id: 0, name: '$_id', count: 1 }
                 ]
-        if pipe
-            agg = Docs.rawCollection().aggregate(pipe,options)
-            res = {}
-            if agg
-                agg.toArray()
+            else if fo.string
+                unless fo.html
+                    pipe =  [
+                        { $match: query }
+                        { $project: "#{key}": 1 }
+                        { $group: _id: "$#{key}", count: $sum: 1 }
+                        { $sort: count: -1, _id: 1 }
+                        { $limit: 20 }
+                        { $project: _id: 0, name: '$_id', count: 1 }
+                    ]
+            if pipe
+                agg = Docs.rawCollection().aggregate(pipe,options)
+                res = {}
+                if agg
+                    agg.toArray()
             else 
-                return null
+                return null            
+        else 
+            return null

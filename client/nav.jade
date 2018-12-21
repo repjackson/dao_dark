@@ -2,6 +2,9 @@ template(name='nav')
     .ui.top.fixed.inverted.borderless.menu
         a.header.icon.item.home.pointer(href='/')
             .black_bat.logo DAO
+        if is_loading
+            .ui.item
+                i.loading.refresh.icon
         .right.menu
             a.item.add(href='#')
                 i.plus.icon

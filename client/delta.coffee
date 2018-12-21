@@ -2,11 +2,13 @@ Template.facet.events
     'click .toggle_selection': ->
         delta = Docs.findOne type:'delta'
         facet = Template.currentData()
-        
+        Session.set 'loading', true
         if facet.filters and @name in facet.filters
             Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
         else 
             Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
       
 
  
@@ -25,11 +27,11 @@ Template.facet.helpers
     toggle_value_class: ->
         facet = Template.parentData()
         delta = Docs.findOne type:'delta'
-
-        if facet.filters and @name in facet.filters
-            'grey'
+        if Session.equals 'loading', true
+             'disabled'
         else
-            ''
+            if facet.filters.length > 0 and @name in facet.filters
+                'grey'
     
     
     
@@ -60,7 +62,3 @@ Template.result.helpers
                 type:'field'
                 parent_id:schema._id
                 
-    is_html: -> @field_type is 'html'
-    is_number: -> @field_type is 'number'
-    is_array: -> @field_type is 'array'
-    is_string: -> @field_type is 'string'
