@@ -40,22 +40,19 @@ template(name='result')
                                         +jsonView json=value
                                 else
                                     |#{value} 
-                    // div schema fields
-                    // each result_schema_fields
-                    //     +Template.dynamic template=field_type
                     // +jsonView json=fields
         
 
 template(name='facet')
-    if filtering_res
-        .ui.small.inline.inverted.header #{key}
-        // each filters
-        //     .unselect.ui.blue.button #{this}
-        each filtering_res
-            if name
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
-                    strong #{name}
-                    // small #{count}
+    // if filtering_res
+    .ui.small.inline.inverted.header #{key}
+    // each filters
+    //     .unselect.ui.blue.button #{this}
+    each filtering_res
+        // if name
+        .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+            strong #{name}
+            small #{count}
             
         
         

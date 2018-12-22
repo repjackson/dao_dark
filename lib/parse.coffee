@@ -25,3 +25,21 @@ if Meteor.isServer
                 else
                     new_id = Docs.insert doc
                     console.log 'added', new_id
+                    
+                    
+        update_crime_stats: ->
+            count = Docs.find(
+                'X':$exists:true
+                fields:$exists:false
+                ).count()
+            # example = Docs.findOne(
+            #     'X':$exists:true
+            #     fields:$exists:true
+            #     )
+            console.log count
+            # result = Docs.update {
+            #     'X':$exists:true
+            #     fields:$exists:false
+            # }, { $set: fields: example.fields }, {multi:true}
+            
+            # console.log result

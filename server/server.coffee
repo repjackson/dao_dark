@@ -48,7 +48,7 @@ Meteor.methods
     fo: ()->
         delta = Docs.findOne 
             type:'delta'
-            author_id: Meteor.userId()
+            # author_id: Meteor.userId()
         
         unless delta
             new_id = Docs.insert
@@ -60,25 +60,40 @@ Meteor.methods
                         filters: []
                         res:[]
                     }
-                    # {
-                    #     key:'type'
-                    #     filters: []
-                    #     res:[]
-                    # }
                 ]
                 
             delta = Docs.findOne new_id
             
         built_query = { }
         
+        for facet in delta.facets
+            if facet.filters.length > 0
+                built_query["#{facet.key}"] = $all: facet.filters
+        
+        console.log built_query
+        
         key_response = Meteor.call 'agg', built_query, 'keys', []
         
+        console.log 'key response', key_response
         
-        new_facets = delta.facets
+        filtered_facets = [
+            {
+                key:'keys'
+                filters: []
+                res:key_response
+            }
+        ]
+
+        
+        for facet in delta.facets
+            if facet.filters.length > 0 then filtered_facets.push facet
+                # built_query["#{facet.key}"] = $all: facet.filters
+        
+        # filtered_facets = delta.facets
         
         
         for key_res in key_response
-            existing = _.findWhere(new_facets, {key:key_res.name})
+            existing = _.findWhere(filtered_facets, {key:key_res.name})
             unless existing
                 facet_ob = {
                     key:key_res.name
@@ -86,31 +101,32 @@ Meteor.methods
                     res:[]
                 }
             
-                new_facets.push facet_ob
+                filtered_facets.push facet_ob
 
 
-        for facet in new_facets
-            if facet.filters and facet.filters.length > 0
-                built_query["#{facet.key}"] = $all: facet.filters
+        # for facet in filtered_facets
+        #     if facet.filters and facet.filters.length > 0
+        #         built_query["#{facet.key}"] = $all: facet.filters
 
         total = Docs.find(built_query).count()
         
         Docs.update {_id:delta._id},
             {
                 $set:
-                    facets: new_facets
+                    facets: filtered_facets
             }
             
         # response
-        for facet in new_facets
-            values = []
-            local_return = []
-            
-            agg_res = Meteor.call 'agg', built_query, facet.key, facet.filters
-
-            if agg_res
-                Docs.update { _id:delta._id, "facets.key":facet.key},
-                    { $set: "facets.$.res": agg_res }
+        for facet in filtered_facets
+            unless facet.key in ['keys','_id','timestamp']
+                values = []
+                local_return = []
+                
+                agg_res = Meteor.call 'agg', built_query, facet.key, facet.filters
+    
+                if agg_res
+                    Docs.update { _id:delta._id, "facets.key":facet.key},
+                        { $set: "facets.$.res": agg_res }
 
         results_cursor = Docs.find built_query, { fields:{_id:1},limit:1 }
 
@@ -120,13 +136,16 @@ Meteor.methods
             {
                 $set:
                     total: total
-                    # facets: new_facets
+                    # facets: filtered_facets
                     result_ids:result_ids
             }
 
     agg: (query, key, filters)->
         test_doc = Docs.findOne "#{key}":$exists:true
         fo = _.findWhere(test_doc.fields, {key:key})
+        # console.log fo
+        if key is 'keys' then limit=42 else limit=20
+        
         if fo
             options = { explain:false }
             if fo.array
@@ -137,17 +156,17 @@ Meteor.methods
                     { $unwind: "$#{key}" }
                     { $group: _id: "$#{key}", count: $sum: 1 }
                     { $sort: count: -1, _id: 1 }
-                    { $limit: 20 }
+                    { $limit: limit }
                     { $project: _id: 0, name: '$_id', count: 1 }
                 ]
-            else if fo.string
+            else if fo.string or fo.number
                 unless fo.html
                     pipe =  [
                         { $match: query }
                         { $project: "#{key}": 1 }
                         { $group: _id: "$#{key}", count: $sum: 1 }
                         { $sort: count: -1, _id: 1 }
-                        { $limit: 20 }
+                        { $limit: limit }
                         { $project: _id: 0, name: '$_id', count: 1 }
                     ]
             if pipe

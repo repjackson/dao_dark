@@ -41,10 +41,13 @@ Template.layout.events
     'click .logout': ->
         Meteor.logout()
         
+    'click .delete_delta': (e,t)->
+        delta = Docs.findOne type:'delta'
+        if delta
+            Docs.remove delta._id
+
     'click .reset': (e,t)->
         # delta = Docs.findOne type:'delta'
-        delta = Docs.findOne type:'delta'
-        Docs.remove delta._id
         Meteor.call 'fo'
     
     'click .print_delta': (e,t)->

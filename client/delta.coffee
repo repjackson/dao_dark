@@ -10,8 +10,6 @@ Template.facet.events
             Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
                 Session.set 'loading', false
       
-
- 
     
 Template.facet.helpers
     filtering_res: ->

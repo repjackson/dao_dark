@@ -10,6 +10,8 @@ template(name='nav')
                 i.plus.icon
             a.item.reset(href='#')
                 i.refresh.icon
+            a.icon.item.delete_delta
+                i.remove.icon
             a.item.print_delta(href='#')
                 i.code.icon
             if currentUser
@@ -26,8 +28,6 @@ template(name='nav')
                 //     | #{current_module.title}
                 // .pointer.icon.item.add_doc
                 //     i.plus.icon
-                // .pointer.icon.item.delete_delta
-                //     i.remove.icon
                 // .pointer.icon.item.print_delta
                 //     i.code.icon
                 // .pointer.icon.item.recalc

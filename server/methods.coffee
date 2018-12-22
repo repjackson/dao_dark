@@ -85,7 +85,7 @@ Meteor.methods
 
     keys: ->
         start = Date.now()
-        cursor = Docs.find({}, {limit:1000}).fetch()
+        cursor = Docs.find({}, {limit:100000}).fetch()
         for doc in cursor
             keys = _.keys doc
             # console.log doc
