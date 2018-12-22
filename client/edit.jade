@@ -1,21 +1,23 @@
 template(name='edit')
     with editing_doc
-        .ui.stackable.padded.grid
-            .four.wide.column
-            .twelve.wide.column
-                .ui.segment
-                    // +ref_edit ref_type='single' key='type' schema='schema'
-                    // +ref_edit ref_type='multi' key='fields' schema='field'
-                    |#{type}
-                    each edit_doc_schema_fields
-                        +Template.dynamic template="#{field_type}_edit"
-                    div field_ids
-                        each field_ids
-                            |#{this}
-                    .content
-                        +edit_button
-                        +author_info
-                        +creation_info
-
-
+        .ui.segment.container
+            .content
+                .ui.input
+                    input.new_key(type='text' placeholder='new key name')
+            .content
+                each _keys
+                    +field
+                    
+                    
+                    
+template(name='field')
+    .ui.segment
+        .ui.small.header #{this}
+        .ui.input
+            input.change_label(type='text')
+        .ui.icon.button.remove_field
+            i.remove.icon
+                        
+                
+        
 

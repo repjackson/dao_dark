@@ -3,9 +3,6 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 if Meteor.isClient
     Template.nav.onCreated ->
         @autorun -> Meteor.subscribe 'delta'
-        @autorun -> Meteor.subscribe 'type', 'schema'
-        @autorun -> Meteor.subscribe 'type', 'fields'
-        
         
     Template.nav.events
         'click .home': ->

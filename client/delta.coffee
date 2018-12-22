@@ -35,8 +35,8 @@ Template.facet.helpers
     
 Template.result.onCreated ->
     @autorun => Meteor.subscribe 'doc_id', @data._id
-    @autorun => Meteor.subscribe 'edit_doc_schema', @data._id
-    @autorun => Meteor.subscribe 'edit_doc_schema_fields', @data._id
+    # @autorun => Meteor.subscribe 'edit_doc_schema', @data._id
+    # @autorun => Meteor.subscribe 'edit_doc_schema_fields', @data._id
 
     
 Template.result.helpers
