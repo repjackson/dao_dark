@@ -4,8 +4,8 @@ template(name='edit')
             .four.wide.column
             .twelve.wide.column
                 .ui.segment
-                    +ref_edit ref_type='single' key='type' schema='schema'
-                    +ref_edit ref_type='multi' key='fields' schema='field'
+                    // +ref_edit ref_type='single' key='type' schema='schema'
+                    // +ref_edit ref_type='multi' key='fields' schema='field'
                     |#{type}
                     each edit_doc_schema_fields
                         +Template.dynamic template="#{field_type}_edit"

@@ -57,7 +57,7 @@ Meteor.methods
                 facets: [
                     {
                         key:'keys'
-                        filters: []
+                        filters:[]
                         res:[]
                     }
                 ]
@@ -70,11 +70,11 @@ Meteor.methods
             if facet.filters.length > 0
                 built_query["#{facet.key}"] = $all: facet.filters
         
-        console.log built_query
+        # console.log built_query
         
         key_response = Meteor.call 'agg', built_query, 'keys', []
         
-        console.log 'key response', key_response
+        # console.log 'key response', key_response
         
         filtered_facets = [
             {
@@ -143,7 +143,7 @@ Meteor.methods
     agg: (query, key, filters)->
         test_doc = Docs.findOne "#{key}":$exists:true
         fo = _.findWhere(test_doc.fields, {key:key})
-        # console.log fo
+        console.log key
         if key is 'keys' then limit=42 else limit=20
         
         if fo
