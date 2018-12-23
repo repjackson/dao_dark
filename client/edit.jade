@@ -18,12 +18,19 @@ template(name='field')
     .ui.segment
         .ui.header key:
             strong #{this}
+        div
+        .ui.labeled.input
+            .ui.label key: #{key}
+            input.change_key(type='text' placeholder='key' value=key)
+        div
         .ui.labeled.input
             .ui.label label: #{meta.label}
             input.change_label(type='text' placeholder='label' value=meta.label)
+        div
         .ui.labeled.input
             .ui.label value
             input(type='text' value=key_value)
+        div
         .ui.icon.button.remove_field
             i.remove.icon
                         

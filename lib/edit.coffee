@@ -30,6 +30,18 @@ if Meteor.isClient
                     $set: "_#{key_string}.label": label
                 
                     
+        'keyup .change_key': (e,t)->
+            if e.which is 13
+                old_string = @valueOf()
+                console.log old_string
+                new_key = t.$('.change_key').val()    
+                parent = Template.parentData()
+                current_keys = Template.parentData()._keys
+                
+                Meteor.call 'rename_key', old_string, new_key, parent 
+                
+                
+                    
         'click .remove_field': ->
             key_name = @valueOf()
             # console.log key_name
@@ -42,6 +54,8 @@ if Meteor.isClient
         
         
     Template.field.helpers
+        key: ->
+            key_string = @valueOf()
         meta: ->
             key_string = @valueOf()
             parent = Template.parentData()

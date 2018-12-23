@@ -50,6 +50,18 @@ Meteor.methods
             $pull: "facets.$.filters": filter
         Meteor.call 'fo', delta_id, (err,res)->
 
+    rename_key:(old_key,new_key,parent)->
+        Docs.update parent._id,
+            $pull:_keys:old_key
+        Docs.update parent._id,
+            $addToSet:_keys:new_key
+        Docs.update parent._id,
+            $rename: 
+                "#{old_key}": new_key
+                "_#{old_key}": "_#{new_key}"
+
+
+
 Package['kadira:flow-router'] = Package['ostrio:flow-router-extra'];
             
 Docs.helpers
