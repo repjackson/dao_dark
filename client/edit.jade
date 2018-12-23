@@ -5,7 +5,8 @@ template(name='edit')
             each _keys
                 .ui.label #{this}                
             .content
-                .ui.input
+                .ui.labeled.input
+                    .ui.label new key
                     input.new_key(type='text' placeholder='new key name')
             .content
                 each _keys
@@ -15,9 +16,14 @@ template(name='edit')
                     
 template(name='field')
     .ui.segment
-        .ui.small.header #{this}
-        .ui.input
-            input.change_label(type='text')
+        .ui.header key:
+            strong #{this}
+        .ui.labeled.input
+            .ui.label label: #{meta.label}
+            input.change_label(type='text' placeholder='label' value=meta.label)
+        .ui.labeled.input
+            .ui.label value
+            input(type='text' value=key_value)
         .ui.icon.button.remove_field
             i.remove.icon
                         
