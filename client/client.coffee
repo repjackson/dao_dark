@@ -1,3 +1,6 @@
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
+
 Session.setDefault 'loading', false
 
 Template.registerHelper 'is_loading', () -> 
@@ -16,6 +19,13 @@ Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
+    
+    
+Template.registerHelper 'doc', ()->
+    doc_id = FlowRouter.getParam('doc_id')
+    Docs.findOne doc_id 
+
+    
     
 
 Template.registerHelper 'nl2br', (text)->

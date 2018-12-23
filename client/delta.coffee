@@ -1,3 +1,7 @@
+Template.delta.onCreated ->
+    @autorun -> Meteor.subscribe 'delta'
+
+
 Template.facet.events
     'click .toggle_selection': ->
         delta = Docs.findOne type:'delta'

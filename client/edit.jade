@@ -1,6 +1,9 @@
 template(name='edit')
-    with editing_doc
+    with doc
         .ui.segment.container
+            .ui.button.print print
+            each _keys
+                .ui.label #{this}                
             .content
                 .ui.input
                     input.new_key(type='text' placeholder='new key name')

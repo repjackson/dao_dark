@@ -3,8 +3,11 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 if Meteor.isClient
     Template.edit.onCreated ->
         @autorun => Meteor.subscribe 'edit_doc', FlowRouter.getParam('doc_id')
-        
+    
     Template.edit.events
+        'click .print': (e,t)->
+            console.log Docs.findOne FlowRouter.getParam('doc_id')
+        
         'keyup .new_key': (e,t)->
             if e.which is 13
                 key = t.$('.new_key').val()    
@@ -20,34 +23,18 @@ if Meteor.isClient
                     
         'click .remove_field': ->
             key_name = @valueOf()
-            parent_field = Template.parentData()["#{key_name}"]
-            console.log parent_field
+            console.log key_name
+            parent = Template.parentData()
+            console.log parent
+            if confirm "remove #{key_name}?"
+                Docs.update parent._id,
+                    $unset: "#{key_name}": 1
+                    $pull: _keys: key_name
         
         
         
     Template.edit.helpers
-        editing_doc: -> 
-            doc_id = FlowRouter.getParam('doc_id')
-            Docs.findOne doc_id 
             
-        edit_doc_schema: ->
-            doc_id = FlowRouter.getParam('doc_id')
-            edit_doc = Docs.findOne doc_id 
-            Docs.findOne
-                type:'schema'
-                slug: edit_doc.type
-            
-        edit_doc_schema_fields: ->
-            doc_id = FlowRouter.getParam('doc_id')
-            edit_doc = Docs.findOne doc_id 
-            schema = Docs.findOne
-                type:'schema'
-                slug: edit_doc.type
-            
-            if schema
-                Docs.find
-                    type:'field'
-                    _id:schema.field_ids
             
         
         

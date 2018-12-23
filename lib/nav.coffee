@@ -1,9 +1,6 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 if Meteor.isClient
-    Template.nav.onCreated ->
-        @autorun -> Meteor.subscribe 'delta'
-        
     Template.nav.events
         'click .home': ->
             Meteor.call 'fo'
