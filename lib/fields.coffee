@@ -2,42 +2,43 @@ if Meteor.isClient
     Template.title_edit.events
         'blur .edit_title': (e,t)->
             title_val = t.$('.edit_title').val()
-            parent_id = Template.parentData(6)
-            Docs.update parent_id, 
+            parent = Template.parentData(5)
+            Docs.update parent._id, 
                 $set:title:title_val
+        
         
     Template.tags_edit.events
         'keyup .new_tag': (e,t)->
             if e.which is 13
                 tag_val = t.$('.new_tag').val()
-                parent_id = Template.parentData(6)
-                Docs.update parent_id, 
-                    $addToSet:tags:tag_val
+                parent = Template.parentData(5)
+                Docs.update parent._id, 
+                    $addToSet:"#{@valueOf()}":tag_val
                 t.$('.new_tag').val('')
             
         'click .remove_tag': (e,t)->
             tag_val = t.$('.edit_tag').val()
-            parent_id = Template.parentData(6)
-            Docs.update parent_id, 
-                $addToSet:tags:tag_val
+            parent = Template.parentData(5)
+            Docs.update parent._id, 
+                $addToSet:"#{@valueOf()}":tag_val
             
                 
     Template.textarea_edit.events
         'blur .edit_textarea': (e,t)->
             textarea_val = t.$('.edit_textarea').val()
-            parent_id = Template.parentData(6)
-            Docs.update parent_id, 
-                $set:description:textarea_val
+            parent = Template.parentData(5)
+            Docs.update parent._id, 
+                $set:"#{@valueOf()}":textarea_val
             
                 
                 
     Template.text_edit.events                
         'blur .edit_text': (e,t)->
-            parent = Template.parentData(6)
+            parent = Template.parentData(5)
             val = t.$('.edit_text').val()
-            # parent_id = Template.parentData(6)
+            console.log parent
             Docs.update parent._id, 
-                $set:"#{@key}":val
+                $set:"#{@valueOf()}":val
     
     
     Template.children_edit.onCreated ->
@@ -47,7 +48,7 @@ if Meteor.isClient
     Template.children_edit.helpers
         children: ->
             field = @
-            parent = Template.parentData()
+            parent = Template.parentData(5)
             Docs.find
                 type: @type
                 parent_id: parent._id
@@ -57,7 +58,7 @@ if Meteor.isClient
     Template.children_edit.events
         'click .add_child': ->
             field = @
-            parent = Template.parentData()
+            parent = Template.parentData(5)
             Docs.insert
                 type: @type
                 parent_id: parent._id

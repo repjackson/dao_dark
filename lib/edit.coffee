@@ -25,10 +25,10 @@ if Meteor.isClient
             # meta = Template.parentData()["_#{key_string}"]
             
             parent_doc = Template.parentData(2)
-            console.log parent_doc
+            # console.log parent_doc
             
             Docs.update parent_doc._id,
-                $set: "_#{current_field_key}.field_type": new_type
+                $set: "_#{current_field_key}.brick": new_type
                 
                 
                 
@@ -39,9 +39,14 @@ if Meteor.isClient
                 'textarea'
                 'youtube'
                 'link'
+                'tags'
             ]    
         
-                    
+        brick_template: ->
+            key_string = @valueOf()
+            meta = Template.parentData()["_#{key_string}"]
+            "#{meta.brick}_edit"
+            
                     
                     
                     

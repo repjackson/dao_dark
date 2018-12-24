@@ -27,16 +27,16 @@ template(name='field')
             .ui.label label: #{meta.label}
             input.change_label(type='text' placeholder='label' value=meta.label)
         div
-        .ui.labeled.input
-            .ui.label value
-            input(type='text' value=key_value)
+        .ui.icon.button.remove_field
+            i.remove.icon
         div
-        .ui.label field type: #{meta.field_type}
+        .ui.label brick: #{meta.brick}
         each bricks
             +change_brick
         div
-        .ui.icon.button.remove_field
-            i.remove.icon
+        +Template.dynamic template=brick_template
+        
+        
         
         
 template(name='change_brick')        
