@@ -11,7 +11,6 @@ if Meteor.isClient
         'keyup .new_key': (e,t)->
             if e.which is 13
                 key = t.$('.new_key').val()    
-                console.log key
                 Docs.update @_id,
                     $addToSet: _keys: key
                     $set:
@@ -19,6 +18,17 @@ if Meteor.isClient
                         "_#{key}": {}
                   
     Template.field.events      
+        'keyup .field_type': (e,t)->
+            if e.which is 13
+                key_string = @valueOf()
+                field_type = t.$('.field_type').val()    
+                parent = Template.parentData()
+                meta = Template.parentData()["_#{key_string}"]
+                
+                Docs.update parent._id,
+                    $set: "_#{key_string}.field_type": field_type
+                
+                    
         'keyup .change_label': (e,t)->
             if e.which is 13
                 key_string = @valueOf()
@@ -46,7 +56,6 @@ if Meteor.isClient
             key_name = @valueOf()
             # console.log key_name
             parent = Template.parentData()
-            console.log parent
             if confirm "remove #{key_name}?"
                 Docs.update parent._id,
                     $unset: "#{key_name}": 1
@@ -54,8 +63,7 @@ if Meteor.isClient
         
         
     Template.field.helpers
-        key: ->
-            key_string = @valueOf()
+        key: -> @valueOf()
         meta: ->
             key_string = @valueOf()
             parent = Template.parentData()

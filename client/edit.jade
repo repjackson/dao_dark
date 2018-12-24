@@ -31,6 +31,10 @@ template(name='field')
             .ui.label value
             input(type='text' value=key_value)
         div
+        .ui.labeled.input
+            .ui.label field type: #{meta.field_type}
+            input.field_type(type='text' value=meta.field_type)
+        div
         .ui.icon.button.remove_field
             i.remove.icon
                         
