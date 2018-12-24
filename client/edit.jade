@@ -31,12 +31,18 @@ template(name='field')
             .ui.label value
             input(type='text' value=key_value)
         div
-        .ui.labeled.input
-            .ui.label field type: #{meta.field_type}
-            input.field_type(type='text' value=meta.field_type)
+        .ui.label field type: #{meta.field_type}
+        each bricks
+            +change_brick
         div
         .ui.icon.button.remove_field
             i.remove.icon
+        
+        
+template(name='change_brick')        
+    .ui.button.set_brick
+        |#{this}
+            
                         
                 
         

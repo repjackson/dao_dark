@@ -17,18 +17,35 @@ if Meteor.isClient
                         "#{key}": 'test'
                         "_#{key}": {}
                   
-    Template.field.events      
-        'keyup .field_type': (e,t)->
-            if e.which is 13
-                key_string = @valueOf()
-                field_type = t.$('.field_type').val()    
-                parent = Template.parentData()
-                meta = Template.parentData()["_#{key_string}"]
+                  
+    Template.change_brick.events      
+        'click .set_brick': (e,t)->
+            new_type = @valueOf()    
+            current_field_key = Template.parentData()
+            # meta = Template.parentData()["_#{key_string}"]
+            
+            parent_doc = Template.parentData(2)
+            console.log parent_doc
+            
+            Docs.update parent_doc._id,
+                $set: "_#{current_field_key}.field_type": new_type
                 
-                Docs.update parent._id,
-                    $set: "_#{key_string}.field_type": field_type
                 
+                
+    Template.field.helpers
+        bricks: ->
+            [
+                'text'
+                'textarea'
+                'youtube'
+                'link'
+            ]    
+        
                     
+                    
+                    
+                    
+    Template.field.events      
         'keyup .change_label': (e,t)->
             if e.which is 13
                 key_string = @valueOf()
@@ -50,8 +67,7 @@ if Meteor.isClient
                 
                 Meteor.call 'rename_key', old_string, new_key, parent 
                 
-                
-                    
+            
         'click .remove_field': ->
             key_name = @valueOf()
             # console.log key_name
@@ -75,9 +91,8 @@ if Meteor.isClient
             # console.log Template.parentData()
             parent = Template.parentData()
             parent["#{key_string}"]
-            
-            
-        
+           
+           
         
 if Meteor.isServer
     Meteor.publish 'edit_doc', (doc_id)->
