@@ -39,7 +39,8 @@ if Meteor.isClient
                 'textarea'
                 'youtube'
                 'link'
-                'tags'
+                'boolean'
+                'array'
             ]    
         
         brick_template: ->

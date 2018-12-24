@@ -7,7 +7,7 @@ if Meteor.isClient
                 $set:title:title_val
         
         
-    Template.tags_edit.events
+    Template.array_edit.events
         'keyup .new_tag': (e,t)->
             if e.which is 13
                 tag_val = t.$('.new_tag').val()
@@ -40,6 +40,14 @@ if Meteor.isClient
             console.log parent
             Docs.update parent._id, 
                 $set:"#{@valueOf()}":val
+    
+    Template.youtube_edit.events                
+        'blur .youtube_id': (e,t)->
+            parent = Template.parentData(5)
+            val = t.$('.youtube_id').val()
+            console.log parent
+            Docs.update parent._id, 
+                $set:"_#{@valueOf()}.youtube_id":val
     
     
     Template.children_edit.onCreated ->
