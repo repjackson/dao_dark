@@ -25,6 +25,9 @@ Template.registerHelper 'doc', ()->
     doc_id = FlowRouter.getParam('doc_id')
     Docs.findOne doc_id 
 
+
+Template.registerHelper 'parent_doc', ()->
+    Template.parentData(5)
     
     
 
@@ -33,10 +36,10 @@ Template.registerHelper 'nl2br', (text)->
     new Spacebars.SafeString(nl2br)
 
         
-Template.registerHelper 'field_value', () -> 
+Template.registerHelper 'brick_value', () -> 
     parent =  Template.parentData(5)
-    if parent["#{@key}"]
-        parent["#{@key}"]
+    if parent["#{@valueOf()}"]
+        parent["#{@valueOf()}"]
 
 
 Template.registerHelper 'value', () -> 

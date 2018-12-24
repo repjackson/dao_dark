@@ -35,7 +35,7 @@ template(name='tags_edit')
         label
             i.tags.icon
             |tags
-        each tags
+        each brick_value
             .ui.label 
                 i.remove.link.icon.remove_tag
                 |#{this}

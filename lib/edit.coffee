@@ -26,10 +26,10 @@ if Meteor.isClient
             
             parent_doc = Template.parentData(2)
             # console.log parent_doc
-            
-            Docs.update parent_doc._id,
-                $set: "_#{current_field_key}.brick": new_type
-                
+            if confirm 'change brick?  this will delete value'
+                Docs.update parent_doc._id,
+                    $set: "_#{current_field_key}.brick": new_type
+                    $unset: "#{current_field_key}": 1
                 
                 
     Template.field.helpers
@@ -48,7 +48,13 @@ if Meteor.isClient
             "#{meta.brick}_edit"
             
                     
-                    
+        field_value: () -> 
+            parent = Template.parentData(1)
+            # console.log @
+            # console.log parent
+            if parent["#{@valueOf()}"]
+                parent["#{@valueOf()}"]
+       
                     
     Template.field.events      
         'keyup .change_label': (e,t)->

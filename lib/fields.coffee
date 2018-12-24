@@ -12,6 +12,7 @@ if Meteor.isClient
             if e.which is 13
                 tag_val = t.$('.new_tag').val()
                 parent = Template.parentData(5)
+                console.log tag_val
                 Docs.update parent._id, 
                     $addToSet:"#{@valueOf()}":tag_val
                 t.$('.new_tag').val('')

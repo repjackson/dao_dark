@@ -17,7 +17,7 @@ template(name='edit')
 template(name='field')
     .ui.segment
         .ui.header key:
-            strong #{this}
+            strong #{this} [#{field_value}]
         div
         .ui.labeled.input
             .ui.label key: #{key}
