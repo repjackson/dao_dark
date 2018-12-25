@@ -8,31 +8,16 @@ if Meteor.isClient
         'click .print': (e,t)->
             console.log Docs.findOne FlowRouter.getParam('doc_id')
         
-        'keyup .new_key': (e,t)->
-            if e.which is 13
-                key = t.$('.new_key').val()    
-                Docs.update @_id,
-                    $addToSet: _keys: key
-                    $set:
-                        "#{key}": 'test'
-                        "_#{key}": {}
-                  
-                  
-    Template.change_brick.events      
-        'click .set_brick': (e,t)->
-            new_type = @valueOf()    
-            current_field_key = Template.parentData()
-            # meta = Template.parentData()["_#{key_string}"]
+        'click .add_brick': (e,t)->
+            doc = Docs.findOne FlowRouter.getParam('doc_id')
             
-            parent_doc = Template.parentData(2)
-            # console.log parent_doc
-            if confirm 'change brick?  this will delete value'
-                Docs.update parent_doc._id,
-                    $set: "_#{current_field_key}.brick": new_type
-                    $unset: "#{current_field_key}": 1
+            Docs.update doc._id,
+                $addToSet: _keys: 'new_brick'
+                $set:
+                    "_new_brick": { brick:@valueOf() }
                 
                 
-    Template.field_edit.helpers
+    Template.edit.helpers
         bricks: ->
             [
                 'text'
@@ -43,6 +28,7 @@ if Meteor.isClient
                 'array'
             ]    
         
+    Template.field_edit.helpers
         brick_edit: ->
             key_string = @valueOf()
             meta = Template.parentData()["_#{key_string}"]

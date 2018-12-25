@@ -7,9 +7,10 @@ template(name='edit')
                     each _keys
                         .ui.label #{this}                
                     .content
-                        .ui.labeled.fluid.input
-                            .ui.label new key
-                            input.new_key(type='text' placeholder='new key name')
+                        .ui.small.header add brick
+                        each bricks
+                            .ui.button.add_brick
+                                |#{this}
                     a.ui.fluid.button(href="/view/#{_id}")
                         i.checkmark.icon
             .twelve.wide.column
@@ -20,9 +21,9 @@ template(name='edit')
                     
 template(name='field_edit')
     .ui.segment
-        .ui.header key:
-            strong #{this} [#{field_value}]
-        div
+        // .ui.header key:
+        //     strong #{this} [#{field_value}]
+        // div
         .ui.labeled.input
             .ui.label key: #{key}
             input.change_key(type='text' placeholder='key' value=key)
@@ -33,21 +34,7 @@ template(name='field_edit')
         div
         .ui.icon.button.remove_field
             i.remove.icon
-        div
-        .ui.label brick: #{meta.brick}
-        each bricks
-            +change_brick
+        div brick: #{meta.brick}
         div
         +Template.dynamic template=brick_edit
         
-        
-        
-        
-template(name='change_brick')        
-    .ui.button.set_brick
-        |#{this}
-            
-                        
-                
-        
-
