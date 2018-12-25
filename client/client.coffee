@@ -39,6 +39,7 @@ Template.registerHelper 'nl2br', (text)->
 Template.registerHelper 'brick_value', () -> 
     parent =  Template.parentData(5)
     if parent["#{@valueOf()}"]
+        # console.log parent["#{@valueOf()}"]
         parent["#{@valueOf()}"]
 
 Template.registerHelper 'brick_meta', () -> 

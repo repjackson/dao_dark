@@ -19,6 +19,11 @@ template(name='textarea_view')
         |#{nl2br brick_value}    
     
     
+template(name='html_edit')
+    #toolbar
+    .editor
+
+
     
 template(name='text_edit')
     .ui.labeled.fluid.input
@@ -30,13 +35,45 @@ template(name='text_view')
     strong #{brick_value}
     
     
+    
+    
+template(name='number_edit')
+    .ui.labeled.fluid.input
+        .ui.label #{brick_key}
+        input.edit_number(type='number' value=brick_value placeholder=label)
+
+template(name='number_view')
+    | #{brick_key}: &nbsp;
+    strong #{brick_value}
+    
+    
+    
+    
+template(name='date_edit')
+    .ui.labeled.fluid.input
+        .ui.label #{brick_key}
+        input.edit_date(type='date' value=brick_value placeholder=label)
+
+template(name='date_view')
+    | #{brick_key}: &nbsp;
+    strong #{brick_value}
+    
+    
+
+
+    
+    
+    
+    
 template(name='array_edit') 
     .field
-        label #{brick_key}
-        each brick_value
-            .ui.label 
-                i.remove.link.icon.remove_element
-                |#{this}
+        // label #{brick_key}
+        // |#{brick_value}
+        if brick_value
+            each brick_value
+                .ui.label 
+                    i.remove.link.icon.remove_element
+                    |#{this}
         .ui.icon.input
             input.new_element(type='text')
             i.plus.icon

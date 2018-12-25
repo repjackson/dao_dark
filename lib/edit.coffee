@@ -21,7 +21,10 @@ if Meteor.isClient
         bricks: ->
             [
                 'text'
+                'number'
+                'date'
                 'textarea'
+                'html'
                 'youtube'
                 'link'
                 'boolean'
@@ -44,17 +47,6 @@ if Meteor.isClient
        
                     
     Template.field_edit.events      
-        'keyup .change_label': (e,t)->
-            if e.which is 13
-                key_string = @valueOf()
-                label = t.$('.change_label').val()    
-                parent = Template.parentData()
-                meta = Template.parentData()["_#{key_string}"]
-                
-                Docs.update parent._id,
-                    $set: "_#{key_string}.label": label
-                
-                    
         'keyup .change_key': (e,t)->
             if e.which is 13
                 old_string = @valueOf()

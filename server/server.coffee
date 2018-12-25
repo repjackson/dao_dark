@@ -22,6 +22,10 @@ Meteor.publish 'children', (type, parent)->
         type:type
         parent_id:parent._id
 
+Meteor.publish 'ref_choices', (schema)->
+    Docs.find
+        type:schema    
+    
     
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
