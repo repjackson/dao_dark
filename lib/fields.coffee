@@ -8,20 +8,21 @@ if Meteor.isClient
         
         
     Template.array_edit.events
-        'keyup .new_tag': (e,t)->
+        'keyup .new_element': (e,t)->
             if e.which is 13
-                tag_val = t.$('.new_tag').val().trim()
+                element_val = t.$('.new_element').val().trim()
                 parent = Template.parentData(5)
-                # console.log tag_val
+                # console.log element_val
                 Docs.update parent._id, 
-                    $addToSet:"#{@valueOf()}":tag_val
-                t.$('.new_tag').val('')
+                    $addToSet:"#{@valueOf()}":element_val
+                t.$('.new_element').val('')
             
-        'click .remove_tag': (e,t)->
-            tag_val = t.$('.edit_tag').val()
+        'click .remove_element': (e,t)->
+            element = @valueOf()
+            field_key = Template.parentData(4)
             parent = Template.parentData(5)
             Docs.update parent._id, 
-                $addToSet:"#{@valueOf()}":tag_val
+                $pull:"#{field_key}":element
             
                 
     Template.textarea_edit.events

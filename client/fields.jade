@@ -35,10 +35,10 @@ template(name='array_edit')
         label #{brick_key}
         each brick_value
             .ui.label 
-                i.remove.link.icon.remove_tag
+                i.remove.link.icon.remove_element
                 |#{this}
         .ui.icon.input
-            input.new_tag(type='text')
+            input.new_element(type='text')
             i.plus.icon
 
 

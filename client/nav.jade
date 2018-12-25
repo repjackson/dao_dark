@@ -1,26 +1,25 @@
 template(name='nav')
-    .ui.top.fixed.inverted.borderless.menu
+    .ui.top.attached.inverted.borderless.menu
         a.header.icon.item.home.pointer(href='/')
             .black_bat.logo DAO
         if is_loading
             .ui.item
                 i.large.loading.refresh.icon
-        .right.menu
-            a.item.add(href='#')
-                i.large.plus.icon
-            a.item.reset(href='#')
-                i.large.refresh.icon
-            a.icon.item.delete_delta
-                i.large.remove.icon
-            a.item.print_delta(href='#')
-                i.large.code.icon
-            if currentUser
-                .pointer.me.item
-                    if currentUser
-                        i.large.user.icon
-                        | #{currentUser.username}
-                .pointer.icon.item.logout
-                    i.large.sign.out.alternate.icon
+        a.item.add(href='#')
+            i.large.plus.icon
+        a.item.reset(href='#')
+            i.large.refresh.icon
+        a.icon.item.delete_delta
+            i.large.remove.icon
+        a.item.print_delta(href='#')
+            i.large.code.icon
+        if currentUser
+            .pointer.me.item
+                if currentUser
+                    i.large.user.icon
+                    | #{currentUser.username}
+            .pointer.icon.item.logout
+                i.large.sign.out.alternate.icon
             // if current_delta
                 // h2.ui.header 
                 //     if current_module.icon
