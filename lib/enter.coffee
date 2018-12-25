@@ -1,3 +1,5 @@
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
+
 if Meteor.isClient
     Template.enter.events
         'keyup .username': ->
@@ -19,6 +21,8 @@ if Meteor.isClient
                         Session.set 'message', "#{username} not found"
                         Session.set 'enter_mode', 'register'
                         Session.set 'username', "#{username}"
+                else
+                    FlowRouter.go('/')
     
     
     Template.enter.helpers

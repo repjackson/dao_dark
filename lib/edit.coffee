@@ -1,4 +1,4 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 if Meteor.isClient
     Template.edit.onCreated ->

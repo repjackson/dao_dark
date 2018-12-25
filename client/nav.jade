@@ -1,37 +1,29 @@
 template(name='nav')
-    .ui.top.attached.inverted.borderless.menu
+    .ui.attached.inverted.borderless.menu
         a.header.icon.item.home.pointer(href='/')
             .black_bat.logo DAO
         if is_loading
             .ui.item
                 i.large.loading.refresh.icon
-        a.item.add(href='#')
-            i.large.plus.icon
-        a.item.reset(href='#')
-            i.large.refresh.icon
-        a.icon.item.delete_delta
-            i.large.remove.icon
-        a.item.print_delta(href='#')
-            i.large.code.icon
         if currentUser
-            .pointer.me.item
+            a.item.add(href='#')
+                i.large.plus.icon
+            a.item.reset(href='#')
+                i.large.refresh.icon
+            a.icon.item.delete_delta
+                i.large.remove.icon
+            a.item.print_delta(href='#')
+                i.large.code.icon
+        if currentUser
+            a.me.item(href='/me')
                 if currentUser
                     i.large.user.icon
                     | #{currentUser.username}
-            .pointer.icon.item.logout
+            a.icon.item.logout(href="#")
                 i.large.sign.out.alternate.icon
-            // if current_delta
-                // h2.ui.header 
-                //     if current_module.icon
-                //         i.icon(class=current_module.icon)  
-                //     | #{current_module.title}
-                // .pointer.icon.item.add_doc
-                //     i.plus.icon
-                // .pointer.icon.item.print_delta
-                //     i.code.icon
-                // .pointer.icon.item.recalc
-                //     i.refresh.icon
-
+        else
+            a.icon.item(href="/enter")
+                i.large.sign.in.alternate.icon
 
     
 template(name='footer')
