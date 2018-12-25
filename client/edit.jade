@@ -1,20 +1,24 @@
 template(name='edit')
     with doc
-        .ui.segment.container
-            .ui.button.print print
-            each _keys
-                .ui.label #{this}                
-            .content
-                .ui.labeled.input
-                    .ui.label new key
-                    input.new_key(type='text' placeholder='new key name')
-            .content
+        .ui.stackable.grid
+            .four.wide.column
+                .ui.segment
+                    .ui.button.print print
+                    each _keys
+                        .ui.label #{this}                
+                    .content
+                        .ui.labeled.fluid.input
+                            .ui.label new key
+                            input.new_key(type='text' placeholder='new key name')
+                    a.ui.fluid.button(href="/view/#{_id}")
+                        i.checkmark.icon
+            .twelve.wide.column
                 each _keys
-                    +field
+                    +field_edit
                     
                     
                     
-template(name='field')
+template(name='field_edit')
     .ui.segment
         .ui.header key:
             strong #{this} [#{field_value}]
@@ -34,7 +38,7 @@ template(name='field')
         each bricks
             +change_brick
         div
-        +Template.dynamic template=brick_template
+        +Template.dynamic template=brick_edit
         
         
         

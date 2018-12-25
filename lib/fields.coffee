@@ -10,9 +10,9 @@ if Meteor.isClient
     Template.array_edit.events
         'keyup .new_tag': (e,t)->
             if e.which is 13
-                tag_val = t.$('.new_tag').val()
+                tag_val = t.$('.new_tag').val().trim()
                 parent = Template.parentData(5)
-                console.log tag_val
+                # console.log tag_val
                 Docs.update parent._id, 
                     $addToSet:"#{@valueOf()}":tag_val
                 t.$('.new_tag').val('')
@@ -45,7 +45,6 @@ if Meteor.isClient
         'blur .youtube_id': (e,t)->
             parent = Template.parentData(5)
             val = t.$('.youtube_id').val()
-            console.log parent
             Docs.update parent._id, 
                 $set:"_#{@valueOf()}.youtube_id":val
     
@@ -61,8 +60,6 @@ if Meteor.isClient
             Docs.find
                 type: @type
                 parent_id: parent._id
-                            
-    
         
     Template.children_edit.events
         'click .add_child': ->
@@ -71,8 +68,6 @@ if Meteor.isClient
             Docs.insert
                 type: @type
                 parent_id: parent._id
-                
-                
                 
     Template.ref_edit.onCreated ->
         @autorun => Meteor.subscribe 'ref_choices', @data.schema

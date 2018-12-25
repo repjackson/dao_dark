@@ -32,7 +32,7 @@ if Meteor.isClient
                     $unset: "#{current_field_key}": 1
                 
                 
-    Template.field.helpers
+    Template.field_edit.helpers
         bricks: ->
             [
                 'text'
@@ -43,7 +43,7 @@ if Meteor.isClient
                 'array'
             ]    
         
-        brick_template: ->
+        brick_edit: ->
             key_string = @valueOf()
             meta = Template.parentData()["_#{key_string}"]
             "#{meta.brick}_edit"
@@ -57,7 +57,7 @@ if Meteor.isClient
                 parent["#{@valueOf()}"]
        
                     
-    Template.field.events      
+    Template.field_edit.events      
         'keyup .change_label': (e,t)->
             if e.which is 13
                 key_string = @valueOf()
@@ -90,7 +90,7 @@ if Meteor.isClient
                     $pull: _keys: key_name
         
         
-    Template.field.helpers
+    Template.field_edit.helpers
         key: -> @valueOf()
         meta: ->
             key_string = @valueOf()

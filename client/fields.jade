@@ -11,30 +11,28 @@ template(name='title_view')
 template(name='textarea_edit')
     .ui.form
         .field
-            label #{key}
-            textarea.edit_textarea(rows='3') #{field_value}
+            label #{brick_key}
+            textarea.edit_textarea(rows='3') #{brick_value}
 
 template(name='textarea_view')
     .ui.basic.segment
-        |#{nl2br field_value}    
+        |#{nl2br brick_value}    
     
     
     
 template(name='text_edit')
     .ui.labeled.fluid.input
-        .ui.label #{key}
-        input.edit_text(type='text' value=field_value placeholder=label)
+        .ui.label #{brick_key}
+        input.edit_text(type='text' value=brick_value placeholder=label)
 
 template(name='text_view')
-    | #{key}: &nbsp;
-    strong #{field_value}
+    | #{brick_key}: &nbsp;
+    strong #{brick_value}
     
     
 template(name='array_edit') 
     .field
-        label
-            i.tags.icon
-            |tags
+        label #{brick_key}
         each brick_value
             .ui.label 
                 i.remove.link.icon.remove_tag
@@ -44,23 +42,11 @@ template(name='array_edit')
             i.plus.icon
 
 
-template(name='tags_view') 
-    each tags
+template(name='array_view') 
+    each brick_value
         .ui.label #{this}
             
         
-template(name='complete_toggle_button')
-    if complete
-        .ui.button
-            i.checkmark.icon
-            |complete
-    else
-        .ui.button
-            i.unchecked.checkbox.icon
-            |incomplete
-    
-    
-    
     
 template(name='author_info')
     with author
@@ -88,6 +74,9 @@ template(name='youtube_edit')
         input.youtube_id(type='text' value=brick_meta.youtube_id)
     iframe(width='560' height='315' src="https://www.youtube.com/embed/#{brick_meta.youtube_id}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
+template(name='youtube_view')
+    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{brick_meta.youtube_id}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+
 
 template(name='child')
     .ui.segment
@@ -95,11 +84,14 @@ template(name='child')
         +text key='field_type'
         +remove_button
         
-        
-        
 template(name='boolean_edit')
     .ui.button
-        |#{key}
+        |#{brick_key}
+        
+        
+template(name='boolean_view')
+    .ui.button
+        |#{brick_key}
         
         
 template(name='ref_edit')

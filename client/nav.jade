@@ -4,23 +4,23 @@ template(name='nav')
             .black_bat.logo DAO
         if is_loading
             .ui.item
-                i.loading.refresh.icon
+                i.large.loading.refresh.icon
         .right.menu
             a.item.add(href='#')
-                i.plus.icon
+                i.large.plus.icon
             a.item.reset(href='#')
-                i.refresh.icon
+                i.large.refresh.icon
             a.icon.item.delete_delta
-                i.remove.icon
+                i.large.remove.icon
             a.item.print_delta(href='#')
-                i.code.icon
+                i.large.code.icon
             if currentUser
                 .pointer.me.item
                     if currentUser
-                        i.user.icon
+                        i.large.user.icon
                         | #{currentUser.username}
                 .pointer.icon.item.logout
-                    i.sign.out.alternate.icon
+                    i.large.sign.out.alternate.icon
             // if current_delta
                 // h2.ui.header 
                 //     if current_module.icon

@@ -1,22 +1,18 @@
 template(name='view')
-    with viewing_doc
+    with doc
         .ui.stackable.padded.grid
             .four.wide.column
-            .twelve.wide.column
                 .ui.segment
-                    // with view_doc_schema
-                    //     |#{title}
-                    each view_doc_schema_fields
-                        +Template.dynamic template=field_type
-                    // +Template.dynamic template=view_template
-                    // .ui.form
-                    //     +title
-                    //     +description
-                    //     +tags
-                    //     +text key='icon' label='icon'
-                    //     +text key='slug' label='slug'
-                    //     +text key='type' label='type'
-                    .content
-                        +view_button
-                        +author_info
-                        +creation_info
+                    +author_info
+                    +creation_info
+                    a.ui.fluid.button(href="/edit/#{_id}")
+                        i.pencil.icon
+            .twelve.wide.column
+                each _keys
+                    +field_view
+
+
+template(name='field_view')
+    .ui.segment 
+        .ui.header #{this}
+        +Template.dynamic template=brick_view

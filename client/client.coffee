@@ -44,8 +44,10 @@ Template.registerHelper 'brick_value', () ->
 Template.registerHelper 'brick_meta', () -> 
     parent =  Template.parentData(5)
     if parent["_#{@valueOf()}"]
-        console.log parent["_#{@valueOf()}"]
+        # console.log parent["_#{@valueOf()}"]
         parent["_#{@valueOf()}"]
+
+Template.registerHelper 'brick_key', () -> @valueOf()
 
 
 Template.registerHelper 'value', () -> 
