@@ -16,69 +16,66 @@ Meteor.methods
     detect_fields: (doc_id)->
         doc = Docs.findOne doc_id
         keys = _.keys doc
-        # fields = doc.fields
-        fields = []
+        light_fields = _.reject( keys, (key)-> key.startsWith '_' )
+        # console.log light_fields
         
-        for key in keys
+        # Docs.update doc._id,
+        #     $set:_keys:light_fields
+        
+        for key in light_fields
             fo = {} #field object    
             value = doc["#{key}"]
             
-            fo.key = key
+            meta = {}
             
             js_type = typeof value
             
-            label = key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
-            fo.label = label
+            console.log js_type
 
             if js_type is 'object'        
-                fo.object = true
+                meta.object = true
                 if Array.isArray value
-                    fo.array = true
-                    fo.length = value.length
-                    fo.array_element_type = typeof value[0]
+                    meta.array = true
+                    meta.length = value.length
+                    meta.array_element_type = typeof value[0]
                 
                     
             else if js_type is 'number'
-                fo.number = true
+                meta.number = true
                 d = Date.parse(value)
                 # nan = isNaN d
                 # !nan
                 if value < 0
-                    fo.negative = true
+                    meta.negative = true
                 else if value > 0
-                    fo.positive = false
+                    meta.positive = false
                     
                 integer = Number.isInteger(value)
                 if integer
-                    fo.integer = true
+                    meta.integer = true
                 
                                 
             else if js_type is 'string'
-                fo.string = true
+                meta.string = true
                 html_check = /<[a-z][\s\S]*>/i
                 html_result = html_check.test value
                 
                 if html_result
-                    fo.html = true
+                    meta.html = true
                 user_check = Meteor.users.findOne value
                 if user_check
-                    fo.user_id = true
+                    meta.user_id = true
                 
                 doc_check = Docs.findOne value
                 if doc_check
-                    fo.doc_id = true
+                    meta.doc_id = true
                 
-            # console.log 'adding field object', fo    
-            fields.push fo
+            # console.log 'adding field object', meta    
+            console.log 'result meta', meta
+            Docs.update doc_id,
+                $set: 
+                    "_#{key}": meta
                     
-        # console.log 'fields length', fields.length
-        # unique = _.uniq fields
-        # console.log 'unique length', unique.length
-                    
-        Docs.update doc_id,
-            $set: 
-                fields: fields
-                keys: keys
         console.log 'detected fields', doc_id
         
         return doc_id
@@ -119,10 +116,7 @@ Meteor.methods
         console.log 'hi'
         result = Docs.update({}, {
             $rename:
-                keys:'_keys'
-                timestamp_tags:'_timestamp_tags'
-                author_id:'_author_id'
-                key_count: '_key_count'
+                timestamp_long: '_timestamp_long'
             }, {multi:true})
         console.log result
         console.log 'hi'

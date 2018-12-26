@@ -93,7 +93,6 @@ Template.text_edit.events
     'blur .edit_text': (e,t)->
         parent = Template.parentData(5)
         val = t.$('.edit_text').val()
-        console.log parent
         Docs.update parent._id, 
             $set:"#{@valueOf()}":val
 
@@ -103,7 +102,6 @@ Template.number_edit.events
     'blur .edit_number': (e,t)->
         parent = Template.parentData(5)
         val = t.$('.edit_number').val()
-        console.log parent
         Docs.update parent._id, 
             $set:"#{@valueOf()}":val
 
@@ -113,7 +111,6 @@ Template.date_edit.events
     'blur .edit_date': (e,t)->
         parent = Template.parentData(5)
         val = t.$('.edit_date').val()
-        console.log parent
         Docs.update parent._id, 
             $set:"#{@valueOf()}":val
 

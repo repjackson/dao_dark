@@ -39,28 +39,16 @@ Template.facet.helpers
     
 Template.result.onCreated ->
     @autorun => Meteor.subscribe 'doc_id', @data._id
-    # @autorun => Meteor.subscribe 'edit_doc_schema', @data._id
-    # @autorun => Meteor.subscribe 'edit_doc_schema_fields', @data._id
 
     
 Template.result.helpers
     result: -> Docs.findOne @_id
-
-    result_schema: ->
+    
+    
+Template.result.events
+    'click .detect_fields': ->
         console.log @
-        # doc_id = Template.currentData()._id
-        # edit_doc = Docs.findOne doc_id 
-        Docs.findOne
-            type:'schema'
-            slug: edit_doc.type
-        
-    result_schema_fields: ->
-        schema = Docs.findOne
-            type:'schema'
-            slug: @type
-        
-        if schema
-            Docs.find
-                type:'field'
-                parent_id:schema._id
-                
+        Meteor.call 'detect_fields', @_id
+    
+    
+    

@@ -21,27 +21,30 @@ template(name='result')
             .content
                 with result
                     // div auto fields
+                    .ui.button.detect_fields
+                        i.dna.icon
+                        |detect fields
                     .ui.list
                         each _keys
                             .ui.label #{this}
-                        each fields
-                            .item
-                                strong #{label}
-                                // div [#{type}]
-                                if html
-                                    |!{value}
-                                else if number
-                                    .ui.header ##{value}
-                                    // strong time
-                                    // |{{ from_now value }}
-                                else if array
-                                    each value
-                                        .ui.label #{this}
-                                else if object
-                                    unless array
-                                        +jsonView json=value
-                                else
-                                    |#{value} 
+                            +field_view
+                            // .item
+                            //     strong #{label}
+                            //     // div [#{type}]
+                            //     if html
+                            //         |!{value}
+                            //     else if number
+                            //         .ui.header ##{value}
+                            //         // strong time
+                            //         // |{{ from_now value }}
+                            //     else if array
+                            //         each value
+                            //             .ui.label #{this}
+                            //     else if object
+                            //         unless array
+                            //             +jsonView json=value
+                            //     else
+                            //         |#{value} 
                     // +jsonView json=fields
         
 

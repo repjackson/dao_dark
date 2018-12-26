@@ -51,7 +51,7 @@ if Meteor.isClient
         'keyup .change_key': (e,t)->
             if e.which is 13
                 old_string = @valueOf()
-                console.log old_string
+                # console.log old_string
                 new_key = t.$('.change_key').val()    
                 parent = Template.parentData()
                 current_keys = Template.parentData()._keys

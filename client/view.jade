@@ -7,6 +7,13 @@ template(name='view')
                     +creation_info
                     a.ui.fluid.button(href="/edit/#{_id}")
                         i.pencil.icon
+                .ui.segment
+                    .ui.button
+                        i.fork.icon
+                        |clone
+                    .ui.button
+                        i.dna.icon
+                        |detect fields
             .twelve.wide.column
                 each _keys
                     +field_view
