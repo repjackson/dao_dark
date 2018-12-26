@@ -16,5 +16,5 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'delta', ->
         Docs.find 
-            type:'delta'
+            _type:'delta'
             # author_id:  Meteor.userId()

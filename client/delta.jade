@@ -2,7 +2,7 @@ template(name='delta')
     .ui.padded.stackable.grid
         .row
             .eight.wide.column
-                each current_delta.facets
+                each current_delta._facets
                     .row
                         +facet
                         div
@@ -22,6 +22,8 @@ template(name='result')
                 with result
                     // div auto fields
                     .ui.list
+                        each _keys
+                            .ui.label #{this}
                         each fields
                             .item
                                 strong #{label}
@@ -48,7 +50,8 @@ template(name='facet')
     .ui.small.inline.inverted.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
-    each filtering_res
+    // each filtering_res
+    each res
         // if name
         .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
             strong #{name}

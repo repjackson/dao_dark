@@ -4,7 +4,7 @@ Template.delta.onCreated ->
 
 Template.facet.events
     'click .toggle_selection': ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne _type:'delta'
         facet = Template.currentData()
         Session.set 'loading', true
         if facet.filters and @name in facet.filters
@@ -17,7 +17,7 @@ Template.facet.events
     
 Template.facet.helpers
     filtering_res: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne _type:'delta'
         filtering_res = []
         for filter in @res
             if filter.count < delta.total
@@ -28,7 +28,7 @@ Template.facet.helpers
 
     toggle_value_class: ->
         facet = Template.parentData()
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne _type:'delta'
         if Session.equals 'loading', true
              'disabled'
         else

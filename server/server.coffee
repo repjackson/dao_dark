@@ -49,18 +49,18 @@ Meteor.methods
         # console.log date_array
         return date_array
 
-    fo: ()->
+    fum: ()->
         delta = Docs.findOne 
-            type:'delta'
+            _type:'delta'
             # author_id: Meteor.userId()
         
         unless delta
             new_id = Docs.insert
-                type:'delta'
-                author_id: Meteor.userId()
-                facets: [
+                _type:'delta'
+                _author_id: Meteor.userId()
+                _facets: [
                     {
-                        key:'keys'
+                        key:'_keys'
                         filters:[]
                         res:[]
                     }
@@ -70,26 +70,26 @@ Meteor.methods
             
         built_query = { }
         
-        for facet in delta.facets
+        for facet in delta._facets
             if facet.filters.length > 0
                 built_query["#{facet.key}"] = $all: facet.filters
         
         # console.log built_query
         
-        key_response = Meteor.call 'agg', built_query, 'keys', []
+        key_response = Meteor.call 'agg', built_query, '_keys', []
         
-        # console.log 'key response', key_response
+        console.log 'key response', key_response
         
         filtered_facets = [
             {
-                key:'keys'
+                key:'_keys'
                 filters: []
                 res:key_response
             }
         ]
 
         
-        for facet in delta.facets
+        for facet in delta._facets
             if facet.filters.length > 0 then filtered_facets.push facet
                 # built_query["#{facet.key}"] = $all: facet.filters
         
@@ -117,20 +117,20 @@ Meteor.methods
         Docs.update {_id:delta._id},
             {
                 $set:
-                    facets: filtered_facets
+                    _facets: filtered_facets
             }
             
         # response
         for facet in filtered_facets
-            unless facet.key in ['keys','_id','timestamp']
+            unless facet.key in ['_keys','_id','_timestamp']
                 values = []
                 local_return = []
                 
                 agg_res = Meteor.call 'agg', built_query, facet.key, facet.filters
     
                 if agg_res
-                    Docs.update { _id:delta._id, "facets.key":facet.key},
-                        { $set: "facets.$.res": agg_res }
+                    Docs.update { _id:delta._id, "_facets.key":facet.key},
+                        { $set: "_facets.$.res": agg_res }
 
         results_cursor = Docs.find built_query, { fields:{_id:1},limit:1 }
 
@@ -146,39 +146,35 @@ Meteor.methods
 
     agg: (query, key, filters)->
         test_doc = Docs.findOne "#{key}":$exists:true
-        fo = _.findWhere(test_doc.fields, {key:key})
+        # fo = _.findWhere(test_doc.fields, {key:key})
         console.log key
-        if key is 'keys' then limit=42 else limit=20
+        if key is '_keys' then limit=20 else limit=20
         
-        if fo
-            options = { explain:false }
-            if fo.array
-                # if fo.array
-                pipe =  [
-                    { $match: query }
-                    { $project: "#{key}": 1 }
-                    { $unwind: "$#{key}" }
-                    { $group: _id: "$#{key}", count: $sum: 1 }
-                    { $sort: count: -1, _id: 1 }
-                    { $limit: limit }
-                    { $project: _id: 0, name: '$_id', count: 1 }
-                ]
-            else if fo.string or fo.number
-                unless fo.html
-                    pipe =  [
-                        { $match: query }
-                        { $project: "#{key}": 1 }
-                        { $group: _id: "$#{key}", count: $sum: 1 }
-                        { $sort: count: -1, _id: 1 }
-                        { $limit: limit }
-                        { $project: _id: 0, name: '$_id', count: 1 }
-                    ]
-            if pipe
-                agg = Docs.rawCollection().aggregate(pipe,options)
-                res = {}
-                if agg
-                    agg.toArray()
-            else 
-                return null            
+        options = { explain:false }
+        # if fo.array
+        pipe =  [
+            { $match: query }
+            { $project: "#{key}": 1 }
+            { $unwind: "$#{key}" }
+            { $group: _id: "$#{key}", count: $sum: 1 }
+            { $sort: count: -1, _id: 1 }
+            { $limit: limit }
+            { $project: _id: 0, name: '$_id', count: 1 }
+        ]
+        # else if fo.string or fo.number
+        #     unless fo.html
+        #         pipe =  [
+        #             { $match: query }
+        #             { $project: "#{key}": 1 }
+        #             { $group: _id: "$#{key}", count: $sum: 1 }
+        #             { $sort: count: -1, _id: 1 }
+        #             { $limit: limit }
+        #             { $project: _id: 0, name: '$_id', count: 1 }
+        #         ]
+        if pipe
+            agg = Docs.rawCollection().aggregate(pipe,options)
+            res = {}
+            if agg
+                agg.toArray()
         else 
-            return null
+            return null            

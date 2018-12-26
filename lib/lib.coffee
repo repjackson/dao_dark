@@ -23,13 +23,13 @@ Docs.before.insert (userId, doc)=>
     doc._author_id = Meteor.userId()
     return
 
-Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
-    if doc.tags
-        doc.tag_count = doc.tags.length
-    # console.log doc
-    # doc.child_count = Meteor.call('calculate_child_count', doc._id)
-    # console.log Meteor.call 'calculate_child_count', doc._id, (err, res)-> return res
-), fetchPrevious: true
+# Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
+#     if doc.tags
+#         doc._tag_count = doc.tags.length
+#     # console.log doc
+#     # doc.child_count = Meteor.call('calculate_child_count', doc._id)
+#     # console.log Meteor.call 'calculate_child_count', doc._id, (err, res)-> return res
+# ), fetchPrevious: true
 
 
 Meteor.methods
@@ -37,18 +37,18 @@ Meteor.methods
         # if key is 'keys'
         #     Docs.update { _id:delta_id },
         #         $addToSet: facets: key:filter
-        Docs.update { _id:delta_id, "facets.key":key},
-            $addToSet: "facets.$.filters": filter
-        Meteor.call 'fo', delta_id, (err,res)->
+        Docs.update { _id:delta_id, "_facets.key":key},
+            $addToSet: "_facets.$.filters": filter
+        Meteor.call 'fum', delta_id, (err,res)->
             
             
     remove_facet_filter: (delta_id, key, filter)->
         # if key is 'keys'
         #     Docs.update { _id:delta_id },
         #         $pull:facets: key:filter
-        Docs.update { _id:delta_id, "facets.key":key},
-            $pull: "facets.$.filters": filter
-        Meteor.call 'fo', delta_id, (err,res)->
+        Docs.update { _id:delta_id, "_facets.key":key},
+            $pull: "_facets.$.filters": filter
+        Meteor.call 'fum', delta_id, (err,res)->
 
     rename_key:(old_key,new_key,parent)->
         Docs.update parent._id,

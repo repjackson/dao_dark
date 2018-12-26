@@ -85,12 +85,16 @@ Meteor.methods
 
     keys: ->
         start = Date.now()
-        cursor = Docs.find({}, {limit:100000}).fetch()
+        cursor = Docs.find({}, {limit:50000}).fetch()
         for doc in cursor
             keys = _.keys doc
             # console.log doc
+            
+            light_fields = _.reject( keys, (key)-> key.startsWith '_' )
+            # console.log light_fields
+            
             Docs.update doc._id,
-                $set:keys:keys
+                $set:_keys:light_fields
             
             console.log "updated keys for doc #{doc._id}"
         stop = Date.now()
@@ -98,3 +102,29 @@ Meteor.methods
         diff = stop - start
         # console.log diff
         console.log 'duration', moment(diff).format("HH:mm:ss:SS")
+
+    remove: ->
+        console.log 'start'
+        result = Docs.update({}, {
+            $unset: tag_count: 1
+            }, {multi:true})
+        console.log result
+    
+    
+    clear_crime: ->
+        count = Docs.remove({'X':$exists:true})
+        console.log count
+    
+    rename: ->
+        console.log 'hi'
+        result = Docs.update({}, {
+            $rename:
+                keys:'_keys'
+                timestamp_tags:'_timestamp_tags'
+                author_id:'_author_id'
+                key_count: '_key_count'
+            }, {multi:true})
+        console.log result
+        console.log 'hi'
+        
+        

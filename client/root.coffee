@@ -42,20 +42,20 @@ Template.layout.events
         Meteor.logout()
         
     'click .delete_delta': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne _type:'delta'
         if delta
             Docs.remove delta._id
 
     'click .reset': (e,t)->
-        # delta = Docs.findOne type:'delta'
-        Meteor.call 'fo'
+        # delta = Docs.findOne _type:'delta'
+        Meteor.call 'fum'
     
     'click .print_delta': (e,t)->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne _type:'delta'
         console.log delta
 
     'click .recalc': ->
-        Meteor.call 'fo', (err,res)->
+        Meteor.call 'fum', (err,res)->
 
     'blur .delta_title': (e,t)->
         title_val = t.$('.delta_title').val()
