@@ -2,6 +2,12 @@ template(name='delta')
     .ui.padded.stackable.grid
         .row
             .eight.wide.column
+                with current_delta
+                    .ui.inverted.header names
+                    each _keys_out
+                        .ui.button
+                            strong #{name}
+                            small #{count}
                 each current_delta._facets
                     .row
                         +facet

@@ -49,11 +49,36 @@ Meteor.methods
         # console.log date_array
         return date_array
 
+
+    fi: ->
+        delta = Docs.findOne 
+            _type:'delta'
+            # author_id: Meteor.userId()
+        unless delta
+            new_id = Docs.insert
+                _type:'delta'
+                # _author_id: Meteor.userId()
+                
+            delta = Docs.findOne new_id
+      
+        built_query = { }
+      
+        # for facet in delta._facets
+        #     if facet.filters.length > 0
+        #         # console.log facet
+        #         built_query["#{facet.key}"] = $all: facet.filters
+        
+        console.log 'fi built_query', built_query
+            
+        _keys_out = Meteor.call 'agg', built_query, '_keys', []
+            
+        Docs.update delta._id,
+            $set: _keys_out: _keys_out
+
     fum: ()->
         delta = Docs.findOne 
             _type:'delta'
             # author_id: Meteor.userId()
-        
         unless delta
             new_id = Docs.insert
                 _type:'delta'
@@ -72,56 +97,56 @@ Meteor.methods
         
         for facet in delta._facets
             if facet.filters.length > 0
+                # console.log facet
                 built_query["#{facet.key}"] = $all: facet.filters
         
-        # console.log built_query
+        console.log 'bq',built_query
         
-        key_response = Meteor.call 'agg', built_query, '_keys', []
         
-        # console.log 'key response', key_response
+        console.log 'key response', key_response
         
-        filtered_facets = [
+        body_facets = [
             {
                 key:'_keys'
-                filters: []
+                filters: key_facet.filters
                 res:key_response
             }
         ]
 
         
-        for facet in delta._facets
-            if facet.filters.length > 0 then filtered_facets.push facet
+        # for facet in body_facets
+        #     if facet.filters.length > 0 then filtered_facets.push facet
                 # built_query["#{facet.key}"] = $all: facet.filters
         
         # filtered_facets = delta.facets
         
         
-        for key_res in key_response
-            existing = _.findWhere(filtered_facets, {key:key_res.name})
-            unless existing
-                facet_ob = {
-                    key:key_res.name
-                    filters:[]
-                    res:[]
-                }
+        # for key_res in key_response
+        #     existing = _.findWhere(filtered_facets, {key:key_res.name})
+        #     unless existing
+        #         facet_ob = {
+        #             key:key_res.name
+        #             filters:[]
+        #             res:[]
+        #         }
             
-                filtered_facets.push facet_ob
+        #         filtered_facets.push facet_ob
 
 
-        # for facet in filtered_facets
-        #     if facet.filters and facet.filters.length > 0
-        #         built_query["#{facet.key}"] = $all: facet.filters
+        for facet in body_facets
+            if facet.filters and facet.filters.length > 0
+                built_query["#{facet.key}"] = $all: facet.filters
 
         total = Docs.find(built_query).count()
         
-        Docs.update {_id:delta._id},
-            {
-                $set:
-                    _facets: filtered_facets
-            }
+        # Docs.update {_id:delta._id},
+        #     {
+        #         $set:
+        #             _facets: filtered_facets
+        #     }
             
         # response
-        for facet in filtered_facets
+        for facet in body_facets
             unless facet.key in ['_keys','_id','_timestamp']
                 values = []
                 local_return = []
@@ -140,7 +165,7 @@ Meteor.methods
             {
                 $set:
                     total: total
-                    # facets: filtered_facets
+                    # _facets: filtered_facets
                     result_ids:result_ids
             }
 

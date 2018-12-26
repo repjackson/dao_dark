@@ -37,7 +37,10 @@ Meteor.methods
                     meta.array = true
                     meta.length = value.length
                     meta.array_element_type = typeof value[0]
-                
+                    meta.brick = 'array'
+                else
+                    meta.brick = 'object'
+                    
                     
             else if js_type is 'number'
                 meta.number = true
@@ -52,6 +55,7 @@ Meteor.methods
                 integer = Number.isInteger(value)
                 if integer
                     meta.integer = true
+                meta.brick = 'number'
                 
                                 
             else if js_type is 'string'
@@ -64,15 +68,15 @@ Meteor.methods
                 url_check = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
                 url_result = url_check.test value
 
-                if url_result
+                if html_result
+                    meta.html = true
+                    meta.brick = 'html'
+                else if url_result
                     meta.url = true
                     meta.brick = 'url'
                 else if value.length is 11
                     meta.youtube = true
                     meta.brick = 'youtube'
-                else if html_result
-                    meta.html = true
-                    meta.brick = 'html'
                 else if Meteor.users.findOne value
                     meta.user_id = true
                     meta.brick = 'user_ref'

@@ -34,18 +34,18 @@ Docs.before.insert (userId, doc)=>
 
 Meteor.methods
     add_facet_filter: (delta_id, key, filter)->
-        # if key is 'keys'
-        #     Docs.update { _id:delta_id },
-        #         $addToSet: facets: key:filter
+        if key is '_keys'
+            Docs.update { _id:delta_id },
+                $addToSet: _facets: key:filter
         Docs.update { _id:delta_id, "_facets.key":key},
             $addToSet: "_facets.$.filters": filter
         Meteor.call 'fum', delta_id, (err,res)->
             
             
     remove_facet_filter: (delta_id, key, filter)->
-        # if key is 'keys'
-        #     Docs.update { _id:delta_id },
-        #         $pull:facets: key:filter
+        if key is '_keys'
+            Docs.update { _id:delta_id },
+                $pull:_facets: key:filter
         Docs.update { _id:delta_id, "_facets.key":key},
             $pull: "_facets.$.filters": filter
         Meteor.call 'fum', delta_id, (err,res)->

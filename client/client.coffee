@@ -37,7 +37,7 @@ Template.registerHelper 'nl2br', (text)->
 
         
 Template.registerHelper 'brick_value', () -> 
-    console.log @
+    # console.log @
     parent =  Template.parentData(5)
     if parent["#{@valueOf()}"]
         # console.log parent["#{@valueOf()}"]
