@@ -23,7 +23,6 @@ Meteor.methods
         #     $set:_keys:light_fields
         
         for key in light_fields
-            fo = {} #field object    
             value = doc["#{key}"]
             
             meta = {}
@@ -57,29 +56,36 @@ Meteor.methods
                                 
             else if js_type is 'string'
                 meta.string = true
+                meta.length = value.length
+
                 html_check = /<[a-z][\s\S]*>/i
                 html_result = html_check.test value
                 
-                meta.length = value.length
-                if value.length is 11
+                url_check = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
+                url_result = url_check.test value
+
+                if url_result
+                    meta.url = true
+                    meta.brick = 'url'
+                else if value.length is 11
                     meta.youtube = true
                     meta.brick = 'youtube'
-                
-                if html_result
+                else if html_result
                     meta.html = true
-                user_check = Meteor.users.findOne value
-                if user_check
+                    meta.brick = 'html'
+                else if Meteor.users.findOne value
                     meta.user_id = true
-                
-                doc_check = Docs.findOne value
-                if doc_check
+                    meta.brick = 'user_ref'
+                else if Docs.findOne value
                     meta.doc_id = true
-                
-            # console.log 'adding field object', meta    
-            # console.log 'result meta', meta
+                    meta.brick = 'doc_ref'
+                else if meta.length > 20
+                    meta.brick = 'textarea'
+                else
+                    meta.brick = 'text'
+
             Docs.update doc_id,
-                $set: 
-                    "_#{key}": meta
+                $set: "_#{key}": meta
                     
         console.log 'detected fields', doc_id
         
