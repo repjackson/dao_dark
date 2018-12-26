@@ -120,10 +120,10 @@ template(name='youtube_edit')
     .ui.labeled.fluid.input
         .ui.label youtube id
         input.youtube_id(type='text' value=brick_meta.youtube_id)
-    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{brick_meta.youtube_id}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{brick_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 template(name='youtube_view')
-    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{brick_meta.youtube_id}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{brick_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 
 template(name='child')
