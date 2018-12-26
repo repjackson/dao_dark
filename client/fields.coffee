@@ -10,6 +10,8 @@ Template.title_edit.events
         Docs.update parent._id, 
             $set:title:title_val
   
+  
+ 
 Template.html_edit.onRendered ->
     toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike']
@@ -168,3 +170,18 @@ Template.ref_edit.events
             Docs.update target._id,
                 $addToSet: "#{ref_field.key}": @_id
             
+            
+            
+            
+
+Template.code_edit.onRendered ->
+    ace.require("ace/ext/language_tools");
+
+    editor = ace.edit('ace')
+    editor.session.setMode("ace/mode/html");
+    editor.setTheme("ace/theme/twilight");
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: false
+    });

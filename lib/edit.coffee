@@ -21,6 +21,7 @@ if Meteor.isClient
         bricks: ->
             [
                 'text'
+                'code'
                 'number'
                 'date'
                 'textarea'
