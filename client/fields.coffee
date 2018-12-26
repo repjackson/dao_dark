@@ -1,4 +1,5 @@
 import Quill from 'quill'
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 
 
@@ -11,35 +12,54 @@ Template.title_edit.events
   
 Template.html_edit.onRendered ->
     toolbarOptions = [
-      { size: [ 'small', false, 'large', 'huge' ]}
+        ['bold', 'italic', 'underline', 'strike']
+        ['blockquote', 'code-block']
+        
+        [{ 'header': 1 }, { 'header': 2 }]
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }]
+        [{ 'script': 'sub'}, { 'script': 'super' }]
+        [{ 'indent': '-1'}, { 'indent': '+1' }]
+        [{ 'direction': 'rtl' }]
+        
+        [{ 'size': ['small', false, 'large', 'huge'] }]
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }]
+        
+        [{ 'color': [] }, { 'background': [] }]
+        [{ 'font': [] }]
+        [{ 'align': [] }]
+        
+        ['clean']
     ]
 
     options = 
-        debug: 'info'
+        # debug: 'info'
         modules: 
             toolbar: toolbarOptions
-        placeholder: 'Compose an epic...'
+        placeholder: '...'
         readOnly: false
         theme: 'snow'
 
-    editor = new Quill('.editor', options)
+    @editor = new Quill('.editor', options)
+
+    doc = Docs.findOne FlowRouter.getParam('doc_id')
+
+    @editor.clipboard.dangerouslyPasteHTML(doc.html)
 
 
 Template.html_edit.events
     'blur .editor': (e,t)->
-        html = t.$('editor').val()
-        console.log html
-        
-        # Docs.update Meteor.user().current_delta_id,
-        #     $set: 
-        #         html: html
+        # console.log @
+        # console.log t.editor
+        delta = t.editor.getContents();
+        html = t.editor.root.innerHTML
+        parent = Template.parentData(5)
+        Docs.update parent._id,
+            $set: 
+                "#{@valueOf()}": html
+                "_#{@valueOf()}.delta_ob": delta
 
   
   
-  
-  
-    
-    
 Template.array_edit.events
     'keyup .new_element': (e,t)->
         if e.which is 13
