@@ -78,7 +78,7 @@ Meteor.methods
         
         key_response = Meteor.call 'agg', built_query, '_keys', []
         
-        console.log 'key response', key_response
+        # console.log 'key response', key_response
         
         filtered_facets = [
             {
@@ -145,32 +145,37 @@ Meteor.methods
             }
 
     agg: (query, key, filters)->
-        test_doc = Docs.findOne "#{key}":$exists:true
-        # fo = _.findWhere(test_doc.fields, {key:key})
-        console.log key
+        unless key is '_keys'
+            test_doc = 
+                Docs.findOne 
+                    "_#{key}":$exists:true
+            console.log key
+            meta = test_doc["_#{key}"]
+        else
+            meta = {array:true}
         if key is '_keys' then limit=20 else limit=20
         
         options = { explain:false }
-        # if fo.array
-        pipe =  [
-            { $match: query }
-            { $project: "#{key}": 1 }
-            { $unwind: "$#{key}" }
-            { $group: _id: "$#{key}", count: $sum: 1 }
-            { $sort: count: -1, _id: 1 }
-            { $limit: limit }
-            { $project: _id: 0, name: '$_id', count: 1 }
-        ]
-        # else if fo.string or fo.number
-        #     unless fo.html
-        #         pipe =  [
-        #             { $match: query }
-        #             { $project: "#{key}": 1 }
-        #             { $group: _id: "$#{key}", count: $sum: 1 }
-        #             { $sort: count: -1, _id: 1 }
-        #             { $limit: limit }
-        #             { $project: _id: 0, name: '$_id', count: 1 }
-        #         ]
+        if meta.array
+            pipe =  [
+                { $match: query }
+                { $project: "#{key}": 1 }
+                { $unwind: "$#{key}" }
+                { $group: _id: "$#{key}", count: $sum: 1 }
+                { $sort: count: -1, _id: 1 }
+                { $limit: limit }
+                { $project: _id: 0, name: '$_id', count: 1 }
+            ]
+        else if meta.string or meta.number
+            unless meta.html
+                pipe =  [
+                    { $match: query }
+                    { $project: "#{key}": 1 }
+                    { $group: _id: "$#{key}", count: $sum: 1 }
+                    { $sort: count: -1, _id: 1 }
+                    { $limit: limit }
+                    { $project: _id: 0, name: '$_id', count: 1 }
+                ]
         if pipe
             agg = Docs.rawCollection().aggregate(pipe,options)
             res = {}
