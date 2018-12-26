@@ -27,24 +27,9 @@ template(name='result')
                         each _keys
                             .ui.label #{this}
                             +field_view
-                            // .item
-                            //     strong #{label}
-                            //     // div [#{type}]
-                            //     if html
-                            //         |!{value}
-                            //     else if number
-                            //         .ui.header ##{value}
-                            //         // strong time
-                            //         // |{{ from_now value }}
-                            //     else if array
-                            //         each value
-                            //             .ui.label #{this}
-                            //     else if object
-                            //         unless array
-                            //             +jsonView json=value
-                            //     else
-                            //         |#{value} 
-                    // +jsonView json=fields
+                    a.ui.button(href="/view/#{_id}") 
+                        |view
+                        i.right.arrow.icon
         
 
 template(name='facet')

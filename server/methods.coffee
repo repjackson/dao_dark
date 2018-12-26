@@ -60,6 +60,11 @@ Meteor.methods
                 html_check = /<[a-z][\s\S]*>/i
                 html_result = html_check.test value
                 
+                meta.length = value.length
+                if value.length is 11
+                    meta.youtube = true
+                    meta.brick = 'youtube'
+                
                 if html_result
                     meta.html = true
                 user_check = Meteor.users.findOne value
