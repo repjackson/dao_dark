@@ -1,6 +1,33 @@
 Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'delta'
 
+Template.delta.events
+    'click .filter_key': ->
+        delta = Docs.findOne _type:'delta'
+        facet_ob = {
+            key:@name
+            filters:[]
+            res:[]
+        }
+
+        Docs.update delta._id,
+            $addToSet: 
+                keys_in: @name
+                facets: facet_ob
+        Meteor.call 'fi'
+
+    'click .unfilter_key': ->
+        delta = Docs.findOne _type:'delta'
+            
+        facet_to_remove = _.findWhere(delta.facets, {key:@valueOf()})
+        
+        Docs.update delta._id,
+            $pull: 
+                keys_in: @valueOf()
+                facets: facet_to_remove
+        
+        Meteor.call 'fi'
+
 
 Template.facet.events
     'click .toggle_selection': ->
