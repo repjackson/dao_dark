@@ -3,12 +3,12 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 
 
-Template.title_edit.events
-    'blur .edit_title': (e,t)->
-        title_val = t.$('.edit_title').val()
+Template.url_edit.events
+    'blur .edit_url': (e,t)->
+        url_val = t.$('.edit_url').val()
         parent = Template.parentData(5)
         Docs.update parent._id, 
-            $set:title:title_val
+            $set:"#{@valueOf()}":url_val
   
   
  

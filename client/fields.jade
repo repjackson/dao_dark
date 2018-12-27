@@ -1,11 +1,11 @@
-template(name='title_edit')
+template(name='url_edit')
     .field
-        label title
-        input.edit_title(type='text' value=title placeholder='title')
+        label link
+        input.edit_url(type='url' value=brick_value placeholder='url')
 
 
-template(name='title_view')
-    .ui.header #{title}
+template(name='url_view')
+    a(href=brick_value target='_window') #{brick_value}
         
         
 template(name='textarea_edit')

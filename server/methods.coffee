@@ -2,16 +2,21 @@ Meteor.methods
     crawl_fields: ->
         start = Date.now()
 
-        found_cursor = Docs.find {}, { fields:{_id:1},limit:20000 }
+        found_cursor = Docs.find {detected:$ne:1}, { fields:{_id:1},limit:10000 }
+        
+        undetected = found_cursor.count()
+        current_number = 0
         
         for found in found_cursor.fetch()
-            Meteor.call 'detect_fields', found._id, (err,res)->
+            res = Meteor.call 'detect_fields', found._id
+            console.log 'detected',res, current_number, 'of', undetected
+            current_number++
                 # console.log Docs.findOne res
         stop = Date.now()
         
         diff = stop - start
         doc_count = found_cursor.count()
-        console.log 'duration', moment(diff).format("HH:mm:ss:SS"), 'for ', doc_count, 'docs'
+        console.log 'duration', moment(diff).format("HH:mm:ss:SS"), 'for', doc_count, 'docs'
 
     detect_fields: (doc_id)->
         doc = Docs.findOne doc_id
@@ -91,7 +96,9 @@ Meteor.methods
             Docs.update doc_id,
                 $set: "_#{key}": meta
                     
-        console.log 'detected fields', doc_id
+        Docs.update doc_id, 
+            $set:detected:1
+        # console.log 'detected fields', doc_id
         
         return doc_id
 
