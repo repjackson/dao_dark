@@ -49,9 +49,9 @@ Meteor.methods
             }
 
     agg: (query, key, filters)->
-        console.log 'agg query', query
-        console.log 'agg key', key
-        console.log 'agg filters', filters
+        # console.log 'agg query', query
+        # console.log 'agg key', key
+        # console.log 'agg filters', filters
         unless key is '_keys'
             test_doc = 
                 Docs.findOne 
@@ -60,7 +60,7 @@ Meteor.methods
             meta = test_doc["_#{key}"]
         else
             meta = {array:true}
-        if key is '_keys' then limit=20 else limit=20
+        if key is '_keys' then limit=42 else limit=42
         
         options = { explain:false }
         if meta.array

@@ -24,8 +24,8 @@ Meteor.methods
         light_fields = _.reject( keys, (key)-> key.startsWith '_' )
         # console.log light_fields
         
-        # Docs.update doc._id,
-        #     $set:_keys:light_fields
+        Docs.update doc._id,
+            $set:_keys:light_fields
         
         for key in light_fields
             value = doc["#{key}"]
@@ -76,6 +76,9 @@ Meteor.methods
                 url_check = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
                 url_result = url_check.test value
 
+                youtube_check = /((\w|-){11})(?:\S+)?$/
+                youtube_result = youtube_check.test value
+
                 if html_result
                     meta.html = true
                     meta.brick = 'html'
@@ -87,7 +90,7 @@ Meteor.methods
                         meta.brick = 'image'
                     else
                         meta.brick = 'url'
-                else if value.length is 11
+                else if youtube.result
                     meta.youtube = true
                     meta.brick = 'youtube'
                 else if Meteor.users.findOne value
@@ -151,4 +154,14 @@ Meteor.methods
         console.log result
         console.log 'hi'
         
+        
+        
+    move_youtube: ->
+        found = Docs.find({"_video.youtube_id":$exists:true}).fetch()
+        
+        for doc in found
+            Docs.update( doc._id, {
+                $set: video:doc._video.youtube_id
+                }, {multi:true})
+            
         
