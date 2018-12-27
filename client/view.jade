@@ -20,6 +20,8 @@ template(name='view')
 
 
 template(name='field_view')
-    .ui.segment 
-        .ui.header #{this}
-        +Template.dynamic template=brick_view
+    .item   
+        .content
+            .header #{this}
+            .description
+                +Template.dynamic template=brick_view

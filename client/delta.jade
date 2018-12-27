@@ -1,14 +1,14 @@
 template(name='delta')
     .ui.padded.stackable.grid
         .row
-            .eight.wide.column
+            .four.wide.column
                 with current_delta
                     .ui.inverted.header names
                 each current_delta.facets
                     .row
                         +facet
                         div
-            .eight.wide.column
+            .twelve.wide.column
                 .ui.centered.stackable.cards
                     each current_delta.result_ids
                         +result
@@ -25,9 +25,8 @@ template(name='result')
                     .ui.button.detect_fields
                         i.dna.icon
                         |detect fields
-                    .ui.list
+                    .ui.divided.list
                         each _keys
-                            // .ui.label #{this}
                             +field_view
                     a.ui.button(href="/view/#{_id}") 
                         |view
