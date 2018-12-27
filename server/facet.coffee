@@ -20,13 +20,21 @@ Meteor.methods
             $set: keys_out: keys_out
 
         if delta.facets
-            Meteor.call 'fo', built_query, delta
+            Meteor.call 'fo', delta._id
 
 
-    fo: (built_query, delta)->
+    fo: (delta_id)->
+        
+        delta = Docs.findOne delta_id
         
         # for key_in in keys_in
-            
+        console.log 'delta', delta
+        
+        if delta.keys_in.length > 0
+            built_query = { _keys: $all: delta.keys_in }
+        else built_query = {}
+
+        
         
         for facet in delta.facets
             if facet.filters.length > 0
@@ -59,6 +67,9 @@ Meteor.methods
             }
 
     agg: (query, key, filters)->
+        console.log 'agg query', query
+        console.log 'agg key', key
+        console.log 'agg filters', filters
         unless key is '_keys'
             test_doc = 
                 Docs.findOne 
