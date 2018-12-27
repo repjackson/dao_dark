@@ -34,7 +34,7 @@ Meteor.methods
             
             js_type = typeof value
             
-            # console.log js_type
+            console.log 'key type', key, js_type
 
             if js_type is 'object'        
                 meta.object = true
@@ -46,6 +46,9 @@ Meteor.methods
                 else
                     meta.brick = 'object'
                     
+            else if js_type is 'boolean'
+                meta.boolean = true
+                meta.brick = 'boolean'
                     
             else if js_type is 'number'
                 meta.number = true
@@ -78,7 +81,12 @@ Meteor.methods
                     meta.brick = 'html'
                 else if url_result
                     meta.url = true
-                    meta.brick = 'url'
+                    image_check = (/\.(gif|jpg|jpeg|tiff|png)$/i).test value
+                    if image_check
+                        meta.image = true
+                        meta.brick = 'image'
+                    else
+                        meta.brick = 'url'
                 else if value.length is 11
                     meta.youtube = true
                     meta.brick = 'youtube'

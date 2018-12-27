@@ -8,6 +8,10 @@ template(name='url_view')
     a(href=brick_value target='_window') #{brick_value}
         
         
+template(name='image_view')
+    img.ui.image(src=brick_value)    
+    
+        
 template(name='textarea_edit')
     .ui.form
         .field
@@ -33,7 +37,7 @@ template(name='text_edit')
         input.edit_text(type='text' value=brick_value placeholder=label)
 
 template(name='text_view')
-    | #{brick_key}: &nbsp;
+    // | #{brick_key}: &nbsp;
     strong #{brick_value}
     
     
@@ -138,8 +142,12 @@ template(name='boolean_edit')
         
         
 template(name='boolean_view')
-    .ui.button
-        |#{brick_key}
+    .ui.label
+        if brick_value
+            |true
+        else
+            |false
+        // |#{brick_key} #{brick_value}
         
         
 template(name='ref_edit')
