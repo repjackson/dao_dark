@@ -1,40 +1,22 @@
 Meteor.methods
-    fi: ->
+    fum: ->
         delta = Docs.findOne 
             _type:'delta'
             # author_id: Meteor.userId()
         unless delta
             new_id = Docs.insert
                 _type:'delta'
-                keys_in: []
-                
+                facets: [
+                    {
+                        key:'_keys'
+                        filters:[]
+                        res:[]
+                    }
+                ]
+            
             delta = Docs.findOne new_id
         
-        if delta.keys_in.length > 0
-            built_query = { _keys: $all: delta.keys_in }
-        else built_query = {}
-        
-        keys_out = Meteor.call 'agg', built_query, '_keys', []
-            
-        Docs.update delta._id,
-            $set: keys_out: keys_out
-
-        if delta.facets
-            Meteor.call 'fo', delta._id
-
-
-    fo: (delta_id)->
-        
-        delta = Docs.findOne delta_id
-        
-        # for key_in in keys_in
-        console.log 'delta', delta
-        
-        if delta.keys_in.length > 0
-            built_query = { _keys: $all: delta.keys_in }
-        else built_query = {}
-
-        
+        built_query = {}
         
         for facet in delta.facets
             if facet.filters.length > 0

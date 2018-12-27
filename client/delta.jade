@@ -4,13 +4,6 @@ template(name='delta')
             .eight.wide.column
                 with current_delta
                     .ui.inverted.header names
-                    each keys_in
-                        .ui.grey.button.unfilter_key
-                            |#{this}
-                    each keys_out
-                        .ui.button.filter_key
-                            strong #{name}
-                            small #{count}
                 each current_delta.facets
                     .row
                         +facet

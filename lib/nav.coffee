@@ -3,7 +3,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 if Meteor.isClient
     Template.nav.events
         'click .home': ->
-            Meteor.call 'fi'
+            Meteor.call 'fum'
                 
         'click .add': ->
             new_id = Docs.insert {}
