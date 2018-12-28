@@ -17,13 +17,13 @@ template(name='view')
                     +comments
                 .twelve.wide.column
                     .ui.segment
-                        each _keys
-                            +field_view
-            .row
-                .sixteen.wide.column
-                    .ui.segment
                         with doc
                             +watson_view
+                    // .ui.segment
+                    //     each _keys
+                    //         +field_view
+            // .row
+            //     .sixteen.wide.column
 
 template(name='field_view')
     .item   

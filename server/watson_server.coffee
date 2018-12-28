@@ -98,19 +98,19 @@ Meteor.methods
             html: doc.html
             features:
                 entities:
-                    emotion: false
-                    sentiment: false
+                    emotion: true
+                    sentiment: true
                     # limit: 2
                 keywords:
-                    emotion: false
-                    sentiment: false
+                    emotion: true
+                    sentiment: true
                     # limit: 2
                 concepts: {}
                 # categories: {}
                 emotion: {}
                 # # metadata: {}
-                relations: {}
-                semantic_roles: {}
+                # relations: {}
+                # semantic_roles: {}
                 sentiment: {}
 
         natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
@@ -133,7 +133,7 @@ Meteor.methods
             return
         )
         Meteor.call 'call_tone', doc_id, ->
-        Meteor.call 'call_personality', doc_id, ->
+        # Meteor.call 'call_personality', doc_id, ->
         return
         
 

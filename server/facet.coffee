@@ -6,6 +6,7 @@ Meteor.methods
         unless delta
             new_id = Docs.insert
                 _type:'delta'
+                _limit: 5
                 facets: [
                     {
                         key:'_keys'
