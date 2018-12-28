@@ -109,8 +109,8 @@ Meteor.methods
                 # categories: {}
                 emotion: {}
                 # # metadata: {}
-                # relations: {}
-                # semantic_roles: {}
+                relations: {}
+                semantic_roles: {}
                 sentiment: {}
 
         natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
@@ -118,18 +118,18 @@ Meteor.methods
                 console.log 'error:', err
             else
                 # console.log response
-                keyword_array = _.pluck(response.keywords, 'text')
-                lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
-                
-                concept_array = _.pluck(response.concepts, 'text')
-                lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
+                keywords = _.pluck(response.keywords, 'text')
+                concepts = _.pluck(response.concepts, 'text')
+                entities = _.pluck(response.entities, 'text')
+        
                 Docs.update { _id: doc_id }, 
                     $set:
                         watson: response
-                        concepts: lowered_concepts
-                        keywords: lowered_keywords
-                        doc_sentiment_score: response.sentiment.document.score
-                        doc_sentiment_label: response.sentiment.document.label
+                        concepts: concept_array
+                        keywords: keyword_array
+                        entities: entities
+                        sentiment_score: response.sentiment.document.score
+                        sentiment_label: response.sentiment.document.label
             return
         )
         Meteor.call 'call_tone', doc_id, ->
