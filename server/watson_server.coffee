@@ -68,72 +68,72 @@ Meteor.methods
             )
         else return 
         
-    call_visual: (doc_id)->
-        self = @
-        doc = Docs.findOne doc_id
-        if doc.image_id
-            params =
-                url:"https://res.cloudinary.com/facet/image/upload/#{doc.image_id}"
-                # images_file: images_file
-                # classifier_ids: classifier_ids
-            visual_recognition.classify params, Meteor.bindEnvironment((err, response)->
-                if err
-                    console.log err
-                else
-                    Docs.update { _id: doc_id},
-                        $set:
-                            visual: response.images[0].classifiers[0].classes
-                    # console.log(JSON.stringify(response.images[0].classifiers[0].classes[0].class, null, 2))
-            )
-        else return 
+    # call_visual: (doc_id, key)->
+    #     self = @
+    #     doc = Docs.findOne doc_id
+    #     console.log doc
+    #     params =
+    #         url: doc["#{key}"]
+    #         # url:"https://res.cloudinary.com/facet/image/upload/#{doc.image_id}"
+    #         # images_file: images_file
+    #         # classifier_ids: classifier_ids
+    #     visual_recognition.classify params, Meteor.bindEnvironment((err, response)->
+    #         if err
+    #             console.log err
+    #         else
+    #             # console.log response
+    #             # Docs.update { _id: doc_id},
+    #             #     $set:
+    #             #         visual: response.images[0].classifiers[0].classes
+    #             console.log(JSON.stringify(response.images[0].classifiers[0].classes[0].class, null, 2))
+    #     )
         
-    call_watson: (doc_id) ->
+    call_watson: (doc_id, key) ->
         console.log 'calling watson'
         self = @
         doc = Docs.findOne doc_id
         console.log doc
         
-        if doc.html
-            parameters = 
-                html: doc.html
-                features:
-                    entities:
-                        emotion: false
-                        sentiment: false
-                        # limit: 2
-                    keywords:
-                        emotion: false
-                        sentiment: false
-                        # limit: 2
-                    concepts: {}
-                    # categories: {}
-                    emotion: {}
-                    # # metadata: {}
-                    # relations: {}
-                    # semantic_roles: {}
-                    sentiment: {}
+        parameters = 
+            html: doc.html
+            features:
+                entities:
+                    emotion: false
+                    sentiment: false
+                    # limit: 2
+                keywords:
+                    emotion: false
+                    sentiment: false
+                    # limit: 2
+                concepts: {}
+                # categories: {}
+                emotion: {}
+                # # metadata: {}
+                # relations: {}
+                # semantic_roles: {}
+                sentiment: {}
 
-            natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
-                if err
-                    console.log 'error:', err
-                else
-                    # console.log response
-                    keyword_array = _.pluck(response.keywords, 'text')
-                    lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
-                    
-                    concept_array = _.pluck(response.concepts, 'text')
-                    lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
-                    Docs.update { _id: doc_id }, 
-                        $set:
-                            watson: response
-                            watson_concepts: lowered_concepts
-                            watson_keywords: lowered_keywords
-                            doc_sentiment_score: response.sentiment.document.score
-                            doc_sentiment_label: response.sentiment.document.label
-                return
-            )
-            Meteor.call 'call_tone', doc_id, ->
-            Meteor.call 'call_personality', doc_id, ->
+        natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
+            if err
+                console.log 'error:', err
+            else
+                # console.log response
+                keyword_array = _.pluck(response.keywords, 'text')
+                lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
+                
+                concept_array = _.pluck(response.concepts, 'text')
+                lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
+                Docs.update { _id: doc_id }, 
+                    $set:
+                        watson: response
+                        concepts: lowered_concepts
+                        keywords: lowered_keywords
+                        doc_sentiment_score: response.sentiment.document.score
+                        doc_sentiment_label: response.sentiment.document.label
+            return
+        )
+        Meteor.call 'call_tone', doc_id, ->
+        Meteor.call 'call_personality', doc_id, ->
         return
         
 

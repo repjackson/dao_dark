@@ -20,7 +20,6 @@ Meteor.methods
         
         for facet in delta.facets
             if facet.filters.length > 0
-                # console.log facet
                 built_query["#{facet.key}"] = $all: facet.filters
         
         total = Docs.find(built_query).count()
@@ -53,16 +52,12 @@ Meteor.methods
             }
 
     agg: (query, key, filters)->
-        # console.log 'agg query', query
-        # console.log 'agg key', key
-        # console.log 'agg filters', filters
         
         
         unless key is '_keys'
             test_doc = 
                 Docs.findOne 
                     "_#{key}":$exists:true
-            console.log key
             meta = test_doc["_#{key}"]
         else
             meta = {array:true}

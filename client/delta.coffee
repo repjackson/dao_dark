@@ -58,10 +58,5 @@ Template.result.helpers
     result: -> Docs.findOne @_id
     
     
-Template.result.events
-    'click .detect_fields': ->
-        console.log @
-        Meteor.call 'detect_fields', @_id
-    
     
     

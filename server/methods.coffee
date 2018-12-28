@@ -34,7 +34,7 @@ Meteor.methods
             
             js_type = typeof value
             
-            console.log 'key type', key, js_type
+            # console.log 'key type', key, js_type
 
             if js_type is 'object'        
                 meta.object = true
@@ -44,7 +44,10 @@ Meteor.methods
                     meta.array_element_type = typeof value[0]
                     meta.brick = 'array'
                 else
-                    meta.brick = 'object'
+                    if key is 'watson'
+                        meta.brick = 'watson'
+                    else
+                        meta.brick = 'object'
                     
             else if js_type is 'boolean'
                 meta.boolean = true
@@ -90,7 +93,7 @@ Meteor.methods
                         meta.brick = 'image'
                     else
                         meta.brick = 'url'
-                else if youtube.result
+                else if youtube_result
                     meta.youtube = true
                     meta.brick = 'youtube'
                 else if Meteor.users.findOne value
@@ -113,25 +116,38 @@ Meteor.methods
         
         return doc_id
 
-    keys: ->
+    keys: (specific_key)->
         start = Date.now()
-        cursor = Docs.find({}, {limit:50000}).fetch()
-        for doc in cursor
-            keys = _.keys doc
-            # console.log doc
+        
+        console.log 're-keying docs with', specific_key
+        
+        cursor = Docs.find({ "#{specific_key}":$exists:true}, { fields:{_id:1} })
+
+        found = cursor.count()
+        console.log 'found', found, 'docs with', specific_key
+
+        for doc in cursor.fetch()
+            Meteor.call 'key', doc._id
             
-            light_fields = _.reject( keys, (key)-> key.startsWith '_' )
-            # console.log light_fields
-            
-            Docs.update doc._id,
-                $set:_keys:light_fields
-            
-            console.log "updated keys for doc #{doc._id}"
         stop = Date.now()
         
         diff = stop - start
         # console.log diff
         console.log 'duration', moment(diff).format("HH:mm:ss:SS")
+            
+    key: (doc_id)->
+        doc = Docs.findOne doc_id
+        
+        keys = _.keys doc
+        # console.log doc
+        
+        light_fields = _.reject( keys, (key)-> key.startsWith '_' )
+        # console.log light_fields
+        
+        Docs.update doc._id,
+            $set:_keys:light_fields
+        
+        console.log "keyed #{doc._id}"
 
     remove: ->
         console.log 'start'
@@ -145,14 +161,22 @@ Meteor.methods
         count = Docs.remove({'X':$exists:true})
         console.log count
     
-    rename: ->
-        console.log 'hi'
-        result = Docs.update({}, {
+    rename: (old_keyname, new_keyname)->
+        result = Docs.update({old_keyname:$exists:true}, {
             $rename:
-                timestamp_long: '_timestamp_long'
+                old_keyname: new_keyname
+                "_#{old_keyname}": "_#{new_keyname}"
             }, {multi:true})
+        
+        cursor = Docs.find({new_keyname:$exists:true}, { fields:_id:1 })
+
+        for doc in cursor.fetch()
+            Meteor.call 'key', doc._id
+
+            
         console.log result
-        console.log 'hi'
+        
+        
         
         
         

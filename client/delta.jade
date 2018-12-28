@@ -36,10 +36,8 @@ template(name='result')
     else
         .ui.fluid.card
             .content
-                with result
-                    .ui.button.detect_fields
-                        i.dna.icon
-                        |detect fields
+                with result 
+                    +detect_fields_button
                     .ui.divided.list
                         each _keys
                             +field_view

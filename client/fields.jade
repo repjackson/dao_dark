@@ -1,7 +1,8 @@
 template(name='url_edit')
-    .field
-        label link
-        input.edit_url(type='url' value=brick_value placeholder='url')
+    .ui.form
+        .field
+            label link
+            input.edit_url(type='url' value=brick_value placeholder='url')
 
 
 template(name='url_view')
@@ -17,7 +18,8 @@ template(name='image_edit')
             label image
             input.edit_image(type='text' value=brick_value placeholder='image link')
     img.ui.image(src=brick_value)    
-    
+    // +call_visual_analysis
+        
         
 template(name='textarea_edit')
     .ui.form

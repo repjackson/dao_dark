@@ -47,8 +47,8 @@ template(name='doc_emotion')
             
 template(name='call_watson')
     #call_watson.ui.button 
-        |call watson
         i.chess.knight.icon
+        |call watson
         
 
 template(name='call_visual_analysis')
@@ -104,14 +104,14 @@ template(name='entities')
 
 template(name='keyword_list')
     .ui.header 
-        |#{watson_keywords.length} keywords
-    each watson_keywords
+        |#{keywords.length} keywords
+    each keywords
         .ui.label #{this}
 
 template(name='concept_list')
     .ui.header 
-        |#{watson_concepts.length} concepts
-    each watson_concepts
+        |#{concepts.length} concepts
+    each concepts
         .ui.label #{this}
 
 
@@ -253,21 +253,21 @@ template(name='watson_view')
                     +tone
             +keyword_list
             +concept_list
-            // .ui.large.accordion
-            //     .active.title
-            //         |keywords
-            //         i.dropdown.icon
-            //     .active.content
-            //         +keywords
-            // .ui.hidden.divider
-            // +relations
-            // .ui.styled.accordion
-            //     .title 
-            //         i.code.icon
-            //         |full analysis data
-            //         i.dropdown.icon
-            //     .content
-            //         +jsonView(json=watson)
+            .ui.large.accordion
+                .active.title
+                    |keywords
+                    i.dropdown.icon
+                .active.content
+                    +keywords
+            .ui.hidden.divider
+            +relations
+            .ui.styled.accordion
+                .title 
+                    i.code.icon
+                    |full analysis data
+                    i.dropdown.icon
+                .content
+                    +jsonView(json=watson)
         .four.wide.column
             +personality
             +consumption_preferences

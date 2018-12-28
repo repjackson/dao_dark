@@ -10,3 +10,10 @@ Template.remove_button.events
             Docs.remove @_id
             
             
+            
+    
+Template.detect_fields_button.events
+    'click .detect_fields': ->
+        console.log @
+        Meteor.call 'detect_fields', @_id
+            

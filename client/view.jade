@@ -9,12 +9,8 @@ template(name='view')
                         a.ui.fluid.button(href="/edit/#{_id}")
                             i.pencil.icon
                     .ui.segment
-                        .ui.button
-                            i.fork.icon
-                            |clone
-                        .ui.button
-                            i.dna.icon
-                            |detect fields
+                        +clone_button
+                        +detect_fields_button
                     .ui.segment
                         +bookmark_button
                         +voting_buttons

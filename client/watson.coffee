@@ -79,11 +79,12 @@ Template.personality.events
 
 Template.call_visual_analysis.events
     'click #call_visual': ->
-        Meteor.call 'call_visual', delta.doc_id, ->
+        console.log @
+        Meteor.call 'call_visual', FlowRouter.getParam('doc_id'), @valueOf(),->
 
 Template.tone.events
     'click #call_tone': ->
-        Meteor.call 'call_tone', delta.doc_id, ->
+        Meteor.call 'call_tone', FlowRouter.getParam('doc_id'),@valueOf() ->
 
 
 
