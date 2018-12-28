@@ -7,14 +7,14 @@ template(name='delta')
                         +facet
                         div
             .ten.wide.column
-                .ui.inverted.inline.header visible fields
-                each current_delta.facets
-                    .ui.button #{this.key}
-                .ui.inverted.inline.header view options
-                .ui.button grid
-                .ui.button list
-                .ui.button map
-                .ui.button calendar
+                // .ui.inverted.inline.header visible fields
+                // each current_delta.facets
+                //     .ui.button #{this.key}
+                // .ui.inverted.inline.header view options
+                // .ui.button grid
+                // .ui.button list
+                // .ui.button map
+                // .ui.button calendar
                 +set_view_limit amount=1
                 +set_view_limit amount=5
                 +set_view_limit amount=10
@@ -38,6 +38,7 @@ template(name='result')
             .content
                 with result 
                     +detect_fields_button
+                    +call_watson
                     .ui.divided.list
                         each _keys
                             +field_view
@@ -56,13 +57,13 @@ template(name='facet')
     // each filtering_res
     each res
         if name
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+            .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
                 strong #{name}
-                small #{count}
+                // small #{count}
         else
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+            .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
                 strong [null]
-                small #{count}
+                // small #{count}
             
         
         

@@ -1,15 +1,20 @@
 Meteor.methods
-    crawl_fields: ->
+    crawl_fields: (specific_key)->
         start = Date.now()
-
-        found_cursor = Docs.find {detected:$ne:1}, { fields:{_id:1},limit:10000 }
         
-        undetected = found_cursor.count()
+        if specific_key
+            filter = { "#{specific_key}":$exists:true }
+        else
+            filter = {}
+        
+        found_cursor = Docs.find filter, { fields:{_id:1},limit:10000 }
+        
+        count = found_cursor.count()
         current_number = 0
         
         for found in found_cursor.fetch()
             res = Meteor.call 'detect_fields', found._id
-            console.log 'detected',res, current_number, 'of', undetected
+            console.log 'detected',res, current_number, 'of', count
             current_number++
                 # console.log Docs.findOne res
         stop = Date.now()
@@ -82,7 +87,10 @@ Meteor.methods
                 youtube_check = /((\w|-){11})(?:\S+)?$/
                 youtube_result = youtube_check.test value
 
-                if html_result
+                if key is 'html'
+                    meta.html = true
+                    meta.brick = 'html'
+                else if html_result
                     meta.html = true
                     meta.brick = 'html'
                 else if url_result
@@ -93,9 +101,9 @@ Meteor.methods
                         meta.brick = 'image'
                     else
                         meta.brick = 'url'
-                else if youtube_result
-                    meta.youtube = true
-                    meta.brick = 'youtube'
+                # else if youtube_result
+                #     meta.youtube = true
+                #     meta.brick = 'youtube'
                 else if Meteor.users.findOne value
                     meta.user_id = true
                     meta.brick = 'user_ref'
@@ -149,12 +157,17 @@ Meteor.methods
         
         console.log "keyed #{doc._id}"
 
-    remove: ->
-        console.log 'start'
-        result = Docs.update({}, {
-            $unset: tag_count: 1
+    remove_field_globally: (keyname)->
+        console.log 'removing', keyname, 'globally' 
+        result = Docs.update({"#{keyname}":$exists:true}, {
+            $unset: 
+                "#{keyname}": 1
+                "_#{keyname}": 1
+            $pull:_keys:keyname
             }, {multi:true})
         console.log result
+        console.log 'removed', keyname, 'globally' 
+        
     
     
     clear_crime: ->

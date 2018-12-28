@@ -182,3 +182,9 @@ Template.code_edit.onRendered ->
         enableSnippets: true,
         enableLiveAutocompletion: false
     });
+
+
+
+Template.object_view.helpers
+    json_options: ->
+        { collapsed:true}

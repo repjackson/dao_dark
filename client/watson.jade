@@ -94,6 +94,13 @@ template(name='keywords')
                                 .label {{ to_percent anger }}% anger 
 
 
+template(name='entity_list')
+    .ui.header 
+        |#{entities.length} entities
+    each entities
+        .ui.label #{this}
+
+
 template(name='entities')
     .ui.header 
         |#{watson.entities.length} entities
@@ -242,6 +249,7 @@ template(name='watson_view')
                 +doc_emotion
                 +concepts
                 +categories
+                +entity_list
                 +entities
         .eight.wide.column
             +semantic_roles

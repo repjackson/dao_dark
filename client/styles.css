@@ -1,6 +1,6 @@
 .ui.button, .ui.label.tag {
-	 margin-top: 0.1em !important;
-	 margin-bottom: 0.1em !important;
+	 margin-top: 0.05em !important;
+	 margin-bottom: 0.05em !important;
 }
  .meta .ui.button {
 	 margin: 0.2em !important;

@@ -125,8 +125,8 @@ Meteor.methods
                 Docs.update { _id: doc_id }, 
                     $set:
                         watson: response
-                        concepts: concept_array
-                        keywords: keyword_array
+                        concepts: concepts
+                        keywords: keywords
                         entities: entities
                         sentiment_score: response.sentiment.document.score
                         sentiment_label: response.sentiment.document.label
