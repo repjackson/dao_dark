@@ -2,7 +2,21 @@ template(name='view')
     with doc
         .ui.stackable.padded.grid
             .row
+                .twelve.wide.column
+                    .ui.segment
+                        with doc
+                            +watson_view
                 .four.wide.column
+                    .ui.segment
+                        +call_watson
+                        +doc_sentiment
+                        +doc_emotion
+                        +concepts
+                        +categories
+                        +entity_list
+                        +entities
+                        +personality
+                        +consumption_preferences
                     .ui.segment
                         +author_info
                         +creation_info
@@ -15,10 +29,6 @@ template(name='view')
                         +bookmark_button
                         +voting_buttons
                     +comments
-                .twelve.wide.column
-                    .ui.segment
-                        with doc
-                            +watson_view
                     // .ui.segment
                     //     each _keys
                     //         +field_view
