@@ -47,7 +47,6 @@ Meteor.methods
             )
         else return 
         
-        
     call_tone: (doc_id)->
         self = @
         doc = Docs.findOne doc_id
@@ -89,9 +88,11 @@ Meteor.methods
         else return 
         
     call_watson: (doc_id) ->
-        # console.log 'calling watson'
+        console.log 'calling watson'
         self = @
         doc = Docs.findOne doc_id
+        console.log doc
+        
         if doc.html
             parameters = 
                 html: doc.html

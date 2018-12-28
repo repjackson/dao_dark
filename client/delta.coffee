@@ -1,33 +1,19 @@
 Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'delta'
 
-Template.delta.events
-    'click .filter_key': ->
+Template.set_view_limit.helpers
+    limit_class: ->
         delta = Docs.findOne _type:'delta'
-        facet_ob = {
-            key:@name
-            filters:[]
-            res:[]
-        }
+        if delta
+            if @amount is delta._limit then 'grey' else ''
 
-        Docs.update delta._id,
-            $addToSet: 
-                keys_in: @name
-                facets: facet_ob
-        Meteor.call 'fi'
-
-    'click .unfilter_key': ->
+Template.set_view_limit.events
+    'click .set_limit': ->
+        console.log @amount
         delta = Docs.findOne _type:'delta'
-            
-        facet_to_remove = _.findWhere(delta.facets, {key:@valueOf()})
-        
-        Docs.update delta._id,
-            $pull: 
-                keys_in: @valueOf()
-                facets: facet_to_remove
-        
-        Meteor.call 'fi'
-
+        Docs.update delta._id, 
+            $set:_limit: @amount
+        Meteor.call 'fum'
 
 Template.facet.events
     'click .toggle_selection': ->

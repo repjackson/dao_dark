@@ -1,14 +1,12 @@
 template(name='delta')
     .ui.padded.stackable.grid
         .row
-            .four.wide.column
-                with current_delta
-                    .ui.inverted.header names
+            .six.wide.column
                 each current_delta.facets
                     .row
                         +facet
                         div
-            .twelve.wide.column
+            .ten.wide.column
                 .ui.inverted.inline.header visible fields
                 each current_delta.facets
                     .ui.button #{this.key}
@@ -17,13 +15,19 @@ template(name='delta')
                 .ui.button list
                 .ui.button map
                 .ui.button calendar
-                .ui.button 10
-                .ui.button 20
+                +set_view_limit amount=1
+                +set_view_limit amount=5
+                +set_view_limit amount=10
+                +set_view_limit amount=20
                 
                 .ui.centered.stackable.cards
                     each current_delta.result_ids
                         +result
     
+template(name='set_view_limit')
+    .ui.compact.small.button.set_limit(class=limit_class)
+        |#{amount}
+
 
 template(name='result')
     if loading
@@ -42,6 +46,8 @@ template(name='result')
                     a.ui.button(href="/view/#{_id}") 
                         |view
                         i.right.arrow.icon
+                    +author_info
+                    +creation_info
         
 
 template(name='facet')
@@ -51,10 +57,14 @@ template(name='facet')
     //     .unselect.ui.blue.button #{this}
     // each filtering_res
     each res
-        // if name
-        .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
-            strong #{name}
-            small #{count}
+        if name
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                strong #{name}
+                small #{count}
+        else
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                strong [null]
+                small #{count}
             
         
         

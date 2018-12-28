@@ -11,12 +11,20 @@ template(name='url_view')
 template(name='image_view')
     img.ui.image(src=brick_value)    
     
+template(name='image_edit')
+    .ui.form
+        .field
+            label image
+            input.edit_image(type='text' value=brick_value placeholder='image link')
+    img.ui.image(src=brick_value)    
+    
         
 template(name='textarea_edit')
     .ui.form
         .field
             label #{brick_key}
             textarea.edit_textarea(rows='20') #{brick_value}
+        +call_watson
 
 template(name='textarea_view')
     .ui.basic.segment
@@ -26,7 +34,10 @@ template(name='textarea_view')
 template(name='html_edit')
     #toolbar
     .editor
-
+    +call_watson
+    with doc
+        +watson_view
+    
 template(name='html_view')
     |!{brick_value}
 

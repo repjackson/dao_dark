@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "accordion": false,
+    "accordion": true,
     "ad": false,
     "api": false,
     "breadcrumb": true,
@@ -30,7 +30,7 @@
     "modal": true,
     "nag": false,
     "popup": false,
-    "progress": false,
+    "progress": true,
     "rail": false,
     "rating": false,
     "reset": true,

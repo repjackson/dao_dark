@@ -71,5 +71,5 @@ Meteor.methods
 Package['kadira:flow-router'] = Package['ostrio:flow-router-extra'];
             
 Docs.helpers
-    author: -> Meteor.users.findOne @author_id
+    author: -> Meteor.users.findOne @_author_id
     when: -> moment(@timestamp).fromNow()

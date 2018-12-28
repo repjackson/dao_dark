@@ -1,0 +1,12 @@
+template(name='comments')
+    .ui.segment
+        .ui.header 
+            i.chat.outline.icon
+            |comments
+        .ui.fluid.input
+            input(type='text' placeholder='comment')
+        .ui.comments
+            each comments
+                .comment
+                    .content
+                        .header #{text}

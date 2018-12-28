@@ -14,16 +14,19 @@ template(name='nav')
                 i.large.remove.icon
             a.item.print_delta(href='#')
                 i.large.code.icon
-        if currentUser
-            a.me.item(href='/me')
-                if currentUser
-                    i.large.user.icon
-                    | #{currentUser.username}
-            a.icon.item.logout(href="#")
-                i.large.sign.out.alternate.icon
-        else
-            a.icon.item(href="/enter")
-                i.large.sign.in.alternate.icon
+            a.item(href='/parse')
+                i.large.upload.icon
+        .right.menu
+            if currentUser
+                a.me.item(href='/me')
+                    if currentUser
+                        i.large.user.icon
+                        | #{currentUser.username}
+                a.icon.item.logout(href="#")
+                    i.large.sign.out.alternate.icon
+            else
+                a.icon.item(href="/enter")
+                    i.large.sign.in.alternate.icon
 
     
 template(name='footer')

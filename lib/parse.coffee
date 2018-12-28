@@ -21,7 +21,9 @@ if Meteor.isServer
             for doc in data
                 # console.log doc
                 existing = Docs.findOne doc
-                unless existing
+                if existing
+                    console.log 'existing', existing._id
+                else
                     new_id = Docs.insert doc
                     console.log 'added', new_id
                     

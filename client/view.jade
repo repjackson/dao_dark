@@ -1,23 +1,33 @@
 template(name='view')
     with doc
         .ui.stackable.padded.grid
-            .four.wide.column
-                .ui.segment
-                    +author_info
-                    +creation_info
-                    a.ui.fluid.button(href="/edit/#{_id}")
-                        i.pencil.icon
-                .ui.segment
-                    .ui.button
-                        i.fork.icon
-                        |clone
-                    .ui.button
-                        i.dna.icon
-                        |detect fields
-            .twelve.wide.column
-                each _keys
-                    +field_view
-
+            .row
+                .four.wide.column
+                    .ui.segment
+                        +author_info
+                        +creation_info
+                        a.ui.fluid.button(href="/edit/#{_id}")
+                            i.pencil.icon
+                    .ui.segment
+                        .ui.button
+                            i.fork.icon
+                            |clone
+                        .ui.button
+                            i.dna.icon
+                            |detect fields
+                    .ui.segment
+                        +bookmark_button
+                        +voting_buttons
+                    +comments
+                .twelve.wide.column
+                    .ui.segment
+                        each _keys
+                            +field_view
+            .row
+                .sixteen.wide.column
+                    .ui.segment
+                        with doc
+                            +watson_view
 
 template(name='field_view')
     .item   

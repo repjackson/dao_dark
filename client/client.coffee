@@ -11,7 +11,7 @@ Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
 Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
 
-Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
+Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
 
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()

@@ -36,7 +36,11 @@ Meteor.methods
                 Docs.update { _id:delta._id, "facets.key":facet.key},
                     { $set: "facets.$.res": agg_res }
 
-        results_cursor = Docs.find built_query, { fields:{_id:1},limit:1 }
+        delta = Docs.findOne _type:'delta'
+
+        if delta._limit then limit=delta._limit else limit=1
+
+        results_cursor = Docs.find built_query, { fields:{_id:1},limit:limit }
 
         result_ids = results_cursor.fetch()
 
@@ -52,6 +56,8 @@ Meteor.methods
         # console.log 'agg query', query
         # console.log 'agg key', key
         # console.log 'agg filters', filters
+        
+        
         unless key is '_keys'
             test_doc = 
                 Docs.findOne 

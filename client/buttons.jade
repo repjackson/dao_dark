@@ -12,6 +12,18 @@ template(name='add_button')
         |#{type}
         
 
+template(name='bookmark_button')
+    .ui.button
+        i.bookmark.icon
+        |bookmark
+        
+        
+template(name='voting_buttons')
+    .ui.icon.button
+        i.thumbs.up.icon
+    .ui.icon.button
+        i.thumbs.down.icon
+        
         
 template(name='edit_button')
     a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
