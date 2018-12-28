@@ -3,9 +3,8 @@ template(name='view')
         .ui.stackable.padded.grid
             .row
                 .twelve.wide.column
-                    .ui.segment
-                        with doc
-                            +watson_view
+                    with doc
+                        +watson_view
                 .four.wide.column
                     .ui.segment
                         +call_watson

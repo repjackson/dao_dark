@@ -1,12 +1,12 @@
 template(name='delta')
     .ui.padded.stackable.grid
         .row
-            .six.wide.column
+            .four.wide.column
                 each current_delta.facets
                     .row
                         +facet
                         div
-            .ten.wide.column
+            .twelve.wide.column
                 // .ui.inverted.inline.header visible fields
                 // each current_delta.facets
                 //     .ui.button #{this.key}
@@ -15,10 +15,10 @@ template(name='delta')
                 // .ui.button list
                 // .ui.button map
                 // .ui.button calendar
-                +set_view_limit amount=1
-                +set_view_limit amount=5
-                +set_view_limit amount=10
-                +set_view_limit amount=20
+                // +set_view_limit amount=1
+                // +set_view_limit amount=5
+                // +set_view_limit amount=10
+                // +set_view_limit amount=20
                 
                 .ui.centered.stackable.cards
                     each current_delta.result_ids
@@ -37,16 +37,45 @@ template(name='result')
         .ui.fluid.card
             .content
                 with result 
-                    +detect_fields_button
-                    +call_watson
-                    .ui.divided.list
-                        each _keys
-                            +field_view
-                    a.ui.button(href="/view/#{_id}") 
-                        |view
-                        i.right.arrow.icon
-                    +author_info
-                    +creation_info
+                    .ui.stackable.padded.grid
+                        .row
+                            .twelve.wide.column
+                                .ui.header #{title}
+                                +watson_view
+                            .four.wide.column
+                                .ui.segment
+                                    +call_watson
+                                    +doc_sentiment
+                                    +doc_emotion
+                                    +concepts
+                                    +categories
+                                    +entity_list
+                                    +entities
+                                    +personality
+                                    +consumption_preferences
+                                .ui.segment
+                                    +author_info
+                                    +creation_info
+                                    a.ui.fluid.button(href="/edit/#{_id}")
+                                        i.pencil.icon
+                                .ui.segment
+                                    +clone_button
+                                    +detect_fields_button
+                                .ui.segment
+                                    +bookmark_button
+                                    +voting_buttons
+                                +comments
+        
+                    // +detect_fields_button
+                    // +call_watson
+                    // .ui.divided.list
+                    //     each _keys
+                    //         +field_view
+                    // a.ui.button(href="/view/#{_id}") 
+                    //     |view
+                    //     i.right.arrow.icon
+                    // +author_info
+                    // +creation_info
         
 
 template(name='facet')

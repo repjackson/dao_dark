@@ -228,7 +228,8 @@ template(name='tone')
     //         .item #{tone_id} {{ to_percent score }}%
     .ui.list
         each tone.sentences_tone
-            .item(title=sentence_id)
+            // .item(title=sentence_id)
+            .item
                 // strong #{sentence_id}: 
                 | #{text}
                 each tones
@@ -252,10 +253,10 @@ template(name='watson_view')
     +keywords
     // .ui.hidden.divider
     // +relations
-    .ui.styled.accordion
-        .title 
-            i.code.icon
-            |full analysis data
-            i.dropdown.icon
-        .content
-            +jsonView(json=watson)
+    // .ui.styled.accordion
+    //     .title 
+    //         i.code.icon
+    //         |full analysis data
+    //         i.dropdown.icon
+    //     .content
+    //         +jsonView(json=watson)
