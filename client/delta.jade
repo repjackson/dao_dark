@@ -82,8 +82,7 @@ template(name='facet')
     .ui.small.inline.inverted.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
-    // each filtering_res
-    each res
+    each filtering_res
         if name
             .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
                 strong #{name}

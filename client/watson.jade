@@ -24,6 +24,9 @@ template(name='doc_emotion')
     // .ui.header 
     //     | emotion
     with watson.emotion.document.emotion
+        .w3-light-grey
+            .w3-red.w3-small(style="height:20px;width:{{to_percent sadness}}%" title="{{to_percent sadness}}% sadness")
+                |&nbsp; #{to_percent sadness}% sad
         .ui.blue.disabled.small.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
             .bar
             .progress
