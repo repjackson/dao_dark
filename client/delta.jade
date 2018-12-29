@@ -35,33 +35,29 @@ template(name='result')
         with result 
             .ui.stackable.padded.grid
                 .row
-                    .twelve.wide.column
-                        .ui.secondary.segment
-                            .ui.header #{title}
-                            .ui.small.header tags
-                            each tags
-                                .ui.label #{this}
-                        
-                            +tone
-                            +keyword_list
-                            +concept_list
-                            +keywords
-                    .four.wide.column
-                        .ui.secondary.segment
-                            +call_watson
-                            +doc_sentiment
-                            +doc_emotion
-                            +concepts
-                            +categories
-                            // +entity_list
-                            +entities
-                            +personality
-                            +consumption_preferences
-                        .ui.secondary.segment
-                            +author_info
-                            +creation_info
-                            a.ui.fluid.button(href="/edit/#{_id}")
-                                i.pencil.icon
+                    .twelve.wide.black.column
+                        .ui.inverted.header #{title}
+                        .ui.small.inverted.header tags
+                        each tags
+                            .ui.label #{this}
+                        +tone
+                        +keyword_list
+                        +concept_list
+                        +keywords
+                    .four.wide.black.column
+                        +call_watson
+                        +doc_sentiment
+                        +doc_emotion
+                        +concepts
+                        +categories
+                        // +entity_list
+                        +entities
+                        +personality
+                        +consumption_preferences
+                        +author_info
+                        +creation_info
+                        a.ui.fluid.button(href="/edit/#{_id}")
+                            i.pencil.icon
                         // .ui.segment
                         //     +clone_button
                         //     +detect_fields_button
