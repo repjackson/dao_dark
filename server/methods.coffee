@@ -175,7 +175,8 @@ Meteor.methods
         console.log count
     
     rename: (old_keyname, new_keyname)->
-        result = Docs.update({old_keyname:$exists:true}, {
+        console.log 'start renaming', old_keyname, 'to', new_keyname
+        result = Docs.update({"#{old_keyname}":$exists:true}, {
             $rename:
                 old_keyname: new_keyname
                 "_#{old_keyname}": "_#{new_keyname}"
@@ -186,11 +187,9 @@ Meteor.methods
         for doc in cursor.fetch()
             Meteor.call 'key', doc._id
 
+        console.log 'done renaming', old_keyname, 'to', new_keyname
             
         console.log result
-        
-        
-        
         
         
     move_youtube: ->

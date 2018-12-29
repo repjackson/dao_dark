@@ -47,6 +47,8 @@ Meteor.methods
             )
         else return 
         
+        
+        
     call_tone: (doc_id)->
         self = @
         doc = Docs.findOne doc_id
@@ -54,7 +56,7 @@ Meteor.methods
         if doc.html
             # stringed = JSON.stringify(doc.html, null, 2)
             params =
-                text:doc.html
+                tone_input:doc.html
                 content_type:'text/html'
             tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
                 if err
@@ -129,7 +131,7 @@ Meteor.methods
                         keywords: keywords
                         entities: entities
                         sentiment_score: response.sentiment.document.score
-                        sentiment_label: response.sentiment.document.label
+                        sentiment: response.sentiment.document.label
             return
         )
         Meteor.call 'call_tone', doc_id, ->

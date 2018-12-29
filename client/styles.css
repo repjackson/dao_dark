@@ -1,6 +1,6 @@
-.ui.button, .ui.label.tag {
-	 margin-top: 0.05em !important;
-	 margin-bottom: 0.05em !important;
+.ui.button, .ui.label {
+	 margin-top: 0.1em !important;
+	 margin-bottom: 0.1em !important;
 }
  .meta .ui.button {
 	 margin: 0.2em !important;
@@ -8,10 +8,11 @@
 
 
 body {
-  /*font-family: 'Roboto', sans-serif !important;*/
+  font-family: 'Ubuntu', sans-serif !important;
   min-height: 500px;
-  font-family: 'Ubuntu', sans-serif;
   /*filter: invert(100%);*/
+  font-size: 120% !important;
+  line-height: 120% !important;
   background: #1b1c1d !important
 }
  .large-text {
@@ -32,7 +33,7 @@ body {
 
 
 .ui.progress {
-  margin-bottom:5px !important;
+  margin-bottom:3px !important;
 }
 
 

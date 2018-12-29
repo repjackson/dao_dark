@@ -1,5 +1,5 @@
 template(name='doc_sentiment') 
-    .ui.dividing.header 
+    .ui.header 
         |sentiment
     .ui.small.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
         .bar
@@ -21,7 +21,7 @@ template(name='small_sentiment')
         .progress
 
 template(name='doc_emotion') 
-    // .ui.dividing.header 
+    // .ui.header 
     //     | emotion
     with watson.emotion.document.emotion
         .ui.blue.disabled.small.progress(data-percent=sadness_percent)

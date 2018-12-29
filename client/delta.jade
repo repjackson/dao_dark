@@ -34,37 +34,36 @@ template(name='result')
         .ui.center.aligned.inverted.segment
             .ui.active.centered.inline.loader
     else
-        .ui.fluid.card
-            .content
-                with result 
-                    .ui.stackable.padded.grid
-                        .row
-                            .twelve.wide.column
-                                .ui.header #{title}
-                                +watson_view
-                            .four.wide.column
-                                .ui.segment
-                                    +call_watson
-                                    +doc_sentiment
-                                    +doc_emotion
-                                    +concepts
-                                    +categories
-                                    +entity_list
-                                    +entities
-                                    +personality
-                                    +consumption_preferences
-                                .ui.segment
-                                    +author_info
-                                    +creation_info
-                                    a.ui.fluid.button(href="/edit/#{_id}")
-                                        i.pencil.icon
-                                .ui.segment
-                                    +clone_button
-                                    +detect_fields_button
-                                .ui.segment
-                                    +bookmark_button
-                                    +voting_buttons
-                                +comments
+        with result 
+            .ui.stackable.padded.grid
+                .row
+                    .twelve.wide.column
+                        .ui.segment
+                            .ui.header #{title}
+                            +watson_view
+                    .four.wide.column
+                        .ui.segment
+                            +call_watson
+                            +doc_sentiment
+                            +doc_emotion
+                            +concepts
+                            +categories
+                            +entity_list
+                            +entities
+                            +personality
+                            +consumption_preferences
+                        .ui.segment
+                            +author_info
+                            +creation_info
+                            a.ui.fluid.button(href="/edit/#{_id}")
+                                i.pencil.icon
+                        .ui.segment
+                            +clone_button
+                            +detect_fields_button
+                        .ui.segment
+                            +bookmark_button
+                            +voting_buttons
+                        +comments
         
                     // +detect_fields_button
                     // +call_watson
