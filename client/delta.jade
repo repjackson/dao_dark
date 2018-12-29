@@ -1,12 +1,11 @@
 template(name='delta')
     .ui.padded.stackable.grid
         .row
-            .four.wide.column
+            .sixteen.wide.column
                 each current_delta.facets
-                    .row
-                        +facet
-                        div
-            .twelve.wide.column
+                    +facet
+        .row
+            .sixteen.wide.column
                 // .ui.inverted.inline.header visible fields
                 // each current_delta.facets
                 //     .ui.button #{this.key}
@@ -48,7 +47,7 @@ template(name='result')
                             +doc_emotion
                             +concepts
                             +categories
-                            +entity_list
+                            // +entity_list
                             +entities
                             +personality
                             +consumption_preferences

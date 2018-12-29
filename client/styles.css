@@ -6,6 +6,11 @@
 	 margin: 0.2em !important;
 }
 
+.spaced {
+  margin:.3em !important;
+  /*text-decoration: underline !important;*/
+}
+
 
 body {
   font-family: 'Ubuntu', sans-serif !important;
@@ -82,7 +87,7 @@ body {
 
 .inline {
   display:inline;
-  margin-right: .5em !important;
+  margin: .5em !important;
 }
 
 
@@ -122,10 +127,12 @@ body {
 
 .f10 { 
   font-size: 200%; 
-  height-size: 200%; }
+  line-height: 120%;
+  margin-bottom: 10px; }
 .f9 { 
   font-size: 180%; 
-  line-height: 180%; }
+  line-height: 120%;
+  margin-bottom: 5px; }
 .f8 { 
   font-size: 160%; 
   line-height: 160%; }
