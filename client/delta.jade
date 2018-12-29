@@ -19,9 +19,8 @@ template(name='delta')
                 // +set_view_limit amount=10
                 // +set_view_limit amount=20
                 
-                .ui.centered.stackable.cards
-                    each current_delta.result_ids
-                        +result
+                each current_delta.result_ids
+                    +result
     
 template(name='set_view_limit')
     .ui.compact.small.button.set_limit(class=limit_class)
@@ -37,9 +36,16 @@ template(name='result')
             .ui.stackable.padded.grid
                 .row
                     .twelve.wide.column
-                        .ui.segment
+                        .ui.secondary.segment
                             .ui.header #{title}
-                            +watson_view
+                            .ui.small.header tags
+                            each tags
+                                .ui.label #{this}
+                        
+                            +tone
+                            +keyword_list
+                            +concept_list
+                            +keywords
                     .four.wide.column
                         .ui.secondary.segment
                             +call_watson
@@ -85,11 +91,11 @@ template(name='facet')
         if name
             .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
                 strong #{name}
-                // small #{count}
+                small #{count}
         else
             .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
                 strong [null]
-                // small #{count}
+                small #{count}
                 
         
         
