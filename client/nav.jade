@@ -1,7 +1,8 @@
 template(name='nav')
-    .ui.fixed.inverted.borderless.menu
+    .ui.fixed.inverted.borderless.large.menu
         a.header.icon.item.home.pointer(href='/')
-            .black_bat.logo DAO
+            // .black_bat.logo DAO
+            i.user.shield.icon
         if is_loading
             .ui.item
                 i.loading.refresh.icon
@@ -11,10 +12,11 @@ template(name='nav')
             i.refresh.icon
         a.icon.item.delete_delta
             i.remove.icon
-        a.item.print_delta(href='#')
-            i.code.icon
-        a.item(href='/parse')
-            i.upload.icon
+        if is_dev
+            a.item.print_delta(href='#')
+                i.code.icon
+            a.item(href='/parse')
+                i.upload.icon
         .right.menu
             if currentUser
                 a.me.item(href='/me')

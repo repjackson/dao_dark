@@ -30,6 +30,14 @@ Template.registerHelper 'parent_doc', ()->
     Template.parentData(5)
     
     
+Template.registerHelper 'is_dev', ()->
+    if Meteor.user()
+        if Meteor.user().roles
+            if 'dev' in Meteor.user().roles
+                return true 
+            
+            
+    
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
