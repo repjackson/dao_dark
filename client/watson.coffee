@@ -4,7 +4,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 Template.doc_emotion.onCreated ->
     Meteor.setTimeout ->
         $('.progress').progress()
-    , 1000
+    , 2000
     Meteor.setTimeout ->
         $('.ui.accordion').accordion()
     , 1000
@@ -12,7 +12,7 @@ Template.doc_emotion.onCreated ->
 Template.small_sentiment.onCreated ->
     Meteor.setTimeout ->
         $('.progress').progress()
-    , 1000
+    , 2000
 
 Template.small_sentiment.helpers
     sentiment_score_percent: -> 

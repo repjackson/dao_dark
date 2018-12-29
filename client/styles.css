@@ -13,7 +13,7 @@ body {
   /*filter: invert(100%);*/
   font-size: 120% !important;
   line-height: 120% !important;
-  background: #1b1c1d !important
+  background: black !important
 }
  .large-text {
 	 font-size: 130% !important;
@@ -33,7 +33,7 @@ body {
 
 
 .ui.progress {
-  margin-bottom:3px !important;
+  margin:2px !important;
 }
 
 

@@ -16,7 +16,7 @@ template(name='doc_sentiment')
 
 
 template(name='small_sentiment') 
-    .ui.tiny.disabled.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
+    .ui.small.disabled.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
         .bar
         .progress
 
@@ -24,26 +24,21 @@ template(name='doc_emotion')
     // .ui.header 
     //     | emotion
     with watson.emotion.document.emotion
-        .ui.blue.disabled.small.progress(data-percent=sadness_percent)
+        .ui.blue.disabled.small.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
             .bar
             .progress
-        .label {{to_percent sadness}}% sadness 
-        .ui.green.disabled.small.progress(data-percent=joy_percent)
+        .ui.green.disabled.small.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
             .bar
             .progress
-        .label {{to_percent joy}}% joy 
-        .ui.black.disabled.small.progress(data-percent=fear_percent)
+        .ui.black.disabled.small.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
             .bar
             .progress
-        .label {{to_percent fear}}% fear 
-        .ui.yellow.disabled.small.progress(data-percent=disgust_percent)
+        .ui.yellow.disabled.small.progress(data-percent=disgust_percent title="{{to_percent disgust}}% disgust")
             .bar
             .progress
-        .label {{to_percent disgust}}% disgust 
-        .ui.red.disabled.small.progress(data-percent="{{to_percent anger}}")
+        .ui.red.disabled.small.progress(data-percent="{{to_percent anger}}" title="{{to_percent anger}}% anger")
             .bar
             .progress
-        .label {{to_percent anger}}% anger 
             
 template(name='call_watson')
     #call_watson.ui.button 
@@ -72,26 +67,26 @@ template(name='keywords')
                     .description
                         with emotion
                             .ui.list
-                                .ui.blue.tiny.disabled.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
+                                .ui.blue.small.disabled.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
                                     .bar
                                     .progress
-                                div {{ to_percent sadness }}% sadness
-                                .ui.green.tiny.disabled.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
+                                // div {{ to_percent sadness }}% sadness
+                                .ui.green.small.disabled.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
                                     .bar
                                     .progress
-                                div {{ to_percent joy }}% joy 
-                                .ui.black.tiny.disabled.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
+                                // div {{ to_percent joy }}% joy 
+                                .ui.black.small.disabled.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
                                     .bar
                                     .progress
-                                div {{ to_percent fear }}% fear
-                                .ui.yellow.tiny.disabled.progress(data-percent=disgust_percent title="{{to_percent joy}}% joy")
+                                // div {{ to_percent fear }}% fear
+                                .ui.yellow.small.disabled.progress(data-percent=disgust_percent title="{{to_percent joy}}% joy")
                                     .bar
                                     .progress
-                                div {{ to_percent disgust }}% disgust 
-                                .ui.red.tiny.disabled.progress(data-percent=anger_percent title="{{to_percent joy}}% joy")
+                                // div {{ to_percent disgust }}% disgust 
+                                .ui.red.small.disabled.progress(data-percent=anger_percent title="{{to_percent joy}}% joy")
                                     .bar
                                     .progress
-                                div {{ to_percent anger }}% anger 
+                                // div {{ to_percent anger }}% anger 
 
 
 template(name='entity_list')

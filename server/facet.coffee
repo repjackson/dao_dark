@@ -9,7 +9,17 @@ Meteor.methods
                 _limit: 1
                 facets: [
                     {
-                        key:'_keys'
+                        key:'concepts'
+                        filters:[]
+                        res:[]
+                    }
+                    {
+                        key:'keywords'
+                        filters:[]
+                        res:[]
+                    }
+                    {
+                        key:'entities'
                         filters:[]
                         res:[]
                     }
