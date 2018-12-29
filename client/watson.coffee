@@ -3,24 +3,9 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Template.doc_emotion.onCreated ->
     Meteor.setTimeout ->
-        $('.progress').progress()
-    , 2000
-    Meteor.setTimeout ->
         $('.ui.accordion').accordion()
     , 1000
 
-Template.small_sentiment.onCreated ->
-    Meteor.setTimeout ->
-        $('.progress').progress()
-    , 2000
-
-Template.small_sentiment.helpers
-    sentiment_score_percent: -> 
-        if @doc_sentiment_score > 0
-            (@doc_sentiment_score*100).toFixed()
-        else
-            (@doc_sentiment_score*-100).toFixed()
-    sentiment_bar_class: -> if @doc_sentiment_label is 'positive' then 'green' else 'red'
 
 
 Template.doc_emotion.helpers
@@ -57,9 +42,6 @@ Template.keywords.helpers
 
 Template.keywords.onRendered ->
     Meteor.setTimeout ->
-        $('.progress').progress()
-    , 2000
-    Meteor.setTimeout ->
         $('.ui.accordion').accordion()
     , 2000
     
@@ -90,9 +72,6 @@ Template.tone.events
 
 
 Template.doc_sentiment.onRendered ->
-    Meteor.setTimeout ->
-        $('.progress').progress()
-    , 2000
 
 
 Template.doc_sentiment.helpers

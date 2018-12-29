@@ -4,29 +4,29 @@ template(name='nav')
             .black_bat.logo DAO
         if is_loading
             .ui.item
-                i.large.loading.refresh.icon
+                i.loading.refresh.icon
         if currentUser
             a.item.add(href='#')
-                i.large.plus.icon
+                i.plus.icon
             a.item.reset(href='#')
-                i.large.refresh.icon
+                i.refresh.icon
             a.icon.item.delete_delta
-                i.large.remove.icon
+                i.remove.icon
             a.item.print_delta(href='#')
-                i.large.code.icon
+                i.code.icon
             a.item(href='/parse')
-                i.large.upload.icon
+                i.upload.icon
         .right.menu
             if currentUser
                 a.me.item(href='/me')
                     if currentUser
-                        i.large.user.icon
+                        i.user.icon
                         | #{currentUser.username}
                 a.icon.item.logout(href="#")
-                    i.large.sign.out.alternate.icon
+                    i.sign.out.alternate.icon
             else
                 a.icon.item(href="/enter")
-                    i.large.sign.in.alternate.icon
+                    i.sign.in.alternate.icon
 
     
 template(name='footer')
