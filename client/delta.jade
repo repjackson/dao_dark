@@ -41,7 +41,7 @@ template(name='result')
                             .ui.header #{title}
                             +watson_view
                     .four.wide.column
-                        .ui.segment
+                        .ui.secondary.segment
                             +call_watson
                             +doc_sentiment
                             +doc_emotion
@@ -51,7 +51,7 @@ template(name='result')
                             +entities
                             +personality
                             +consumption_preferences
-                        .ui.segment
+                        .ui.secondary.segment
                             +author_info
                             +creation_info
                             a.ui.fluid.button(href="/edit/#{_id}")
@@ -81,8 +81,7 @@ template(name='facet')
     .ui.small.inline.inverted.header #{key}
     // each filters
     //     .unselect.ui.blue.button #{this}
-    // each filtering_res
-    each res
+    each filtering_res
         if name
             .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
                 strong #{name}
