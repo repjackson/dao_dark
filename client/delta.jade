@@ -5,7 +5,7 @@ template(name='delta')
             .four.wide.column.scrolling
                 each current_delta.facets
                     +facet
-            .twelve.wide.column.scrolling
+            .twelve.wide.column
                 // .ui.inverted.inline.header visible fields
                 // each current_delta.facets
                 //     .ui.button #{this.key}
@@ -35,7 +35,7 @@ template(name='result')
         with result 
             .ui.stackable.padded.grid
                 .row
-                    .twelve.wide.black.column
+                    .twelve.wide.black.column.scrolling
                         .ui.inverted.header #{title}
                         .ui.small.inverted.header tags
                         each tags
@@ -44,7 +44,8 @@ template(name='result')
                         +keyword_list
                         +concept_list
                         +keywords
-                    .four.wide.black.column
+                        
+                    .four.wide.black.column.scrolling
                         +call_watson
                         +doc_sentiment
                         +doc_emotion
