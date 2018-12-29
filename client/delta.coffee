@@ -22,6 +22,13 @@ Template.set_view_limit.events
             $set:_limit: @amount
         Meteor.call 'fum'
 
+Template.facet.onCreated ->
+    Meteor.setTimeout ->
+        $('.ui.accordion').accordion()
+    , 1000
+
+
+
 Template.facet.events
     'click .toggle_selection': ->
         delta = Docs.findOne type:'delta'

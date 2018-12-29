@@ -57,8 +57,9 @@ template(name='result')
                         +consumption_preferences
                         +author_info
                         +creation_info
-                        a.ui.fluid.button(href="/edit/#{_id}")
-                            i.pencil.icon
+                        if can_edit
+                            a.ui.fluid.button(href="/edit/#{_id}")
+                                i.pencil.icon
                         // .ui.segment
                         //     +clone_button
                         //     +detect_fields_button
@@ -81,18 +82,21 @@ template(name='result')
 
 template(name='facet')
     // if filtering_res
-    .ui.small.inline.inverted.header #{key}
-    // each filters
-    //     .unselect.ui.blue.button #{this}
-    each filtering_res
-        if name
-            .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
-                strong #{name}
-                small #{count}
-        else
-            .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
-                strong [null]
-                small #{count}
+    .ui.unstyled.accordion
+        .active.title
+            .ui.small.inverted.header #{key}
+        .active.content
+            // each filters
+            //     .unselect.ui.blue.button #{this}
+            each filtering_res
+                if name
+                    .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
+                        strong #{name}
+                        small #{count}
+                else
+                    .selector.ui.compact.small.button.toggle_selection(class=toggle_value_class)
+                        strong [null]
+                        small #{count}
                 
         
         
