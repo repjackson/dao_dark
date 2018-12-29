@@ -15,15 +15,15 @@ template(name='doc_emotion')
     //     | emotion
     with watson.emotion.document.emotion
         .w3-white
-            .w3-blue.w3-small(style="height:20px;width:{{to_percent sadness}}%" title="{{to_percent sadness}}% sad") &nbsp; sad
+            .w3-blue.w3(style="height:20px;width:{{to_percent sadness}}%" title="{{to_percent sadness}}% sad") &nbsp; sad
         .w3-white
-            .w3-green.w3-small(style="height:20px;width:{{to_percent joy}}%" title="{{to_percent joy}}% joy") &nbsp; joy
+            .w3-green.w3(style="height:20px;width:{{to_percent joy}}%" title="{{to_percent joy}}% joy") &nbsp; joy
         .w3-white
-            .w3-black.w3-small(style="height:20px;width:{{to_percent fear}}%" title="{{to_percent fear}}% fear") &nbsp; fear
+            .w3-black.w3(style="height:20px;width:{{to_percent fear}}%" title="{{to_percent fear}}% fear") &nbsp; fear
         .w3-white
-            .w3-yellow.w3-small(style="height:20px;width:{{to_percent disgust}}%" title="{{to_percent disgust}}% disgust") &nbsp; disgust
+            .w3-yellow.w3(style="height:20px;width:{{to_percent disgust}}%" title="{{to_percent disgust}}% disgust") &nbsp; disgust
         .w3-white
-            .w3-red.w3-small(style="height:20px;width:{{to_percent anger}}%" title="{{to_percent anger}}% anger") &nbsp; anger
+            .w3-red.w3(style="height:20px;width:{{to_percent anger}}%" title="{{to_percent anger}}% anger") &nbsp; anger
             
 template(name='call_watson')
     #call_watson.ui.button 
@@ -39,7 +39,7 @@ template(name='call_visual_analysis')
 template(name='keywords')
     .ui.small.header 
         |#{watson.keywords.length} keywords
-    .ui.four.column.stackable.grid
+    .ui.five.column.stackable.grid
         each watson.keywords
             .column
                 h4
@@ -66,7 +66,7 @@ template(name='entity_list')
     .ui.small.header 
         |#{entities.length} entities
     each entities
-        .ui.basic.label #{this}
+        .ui.label #{this}
 
 
 template(name='entities')
@@ -82,13 +82,13 @@ template(name='keyword_list')
     .ui.small.header 
         |#{keywords.length} keywords
     each keywords
-        .ui.basic.label #{this}
+        .ui.label #{this}
 
 template(name='concept_list')
     .ui.small.header 
         |#{concepts.length} concepts
     each concepts
-        .ui.basic.label #{this}
+        .ui.label #{this}
 
 
 
@@ -199,14 +199,14 @@ template(name='tone')
             // .item(title=sentence_id)
             .item
                 // strong #{sentence_id}: 
-                | #{text}
-                each tones
-                    // span.spaced(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
-                    .ui.basic.label(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
+                .large120 #{text}
+                    each tones
+                        // span.spaced(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
+                        .ui.label(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
     // unless tone                
-    #call_tone.ui.icon.button
-        i.refresh.icon
-            // +jsonView(json=tone)
+    // #call_tone.ui.icon.button
+    //     i.refresh.icon
+    //         // +jsonView(json=tone)
 
 
 

@@ -5,17 +5,16 @@ template(name='nav')
         if is_loading
             .ui.item
                 i.loading.refresh.icon
-        if currentUser
-            a.item.add(href='#')
-                i.plus.icon
-            a.item.reset(href='#')
-                i.refresh.icon
-            a.icon.item.delete_delta
-                i.remove.icon
-            a.item.print_delta(href='#')
-                i.code.icon
-            a.item(href='/parse')
-                i.upload.icon
+        a.item.add(href='#')
+            i.plus.icon
+        a.item.reset(href='#')
+            i.refresh.icon
+        a.icon.item.delete_delta
+            i.remove.icon
+        a.item.print_delta(href='#')
+            i.code.icon
+        a.item(href='/parse')
+            i.upload.icon
         .right.menu
             if currentUser
                 a.me.item(href='/me')
@@ -45,4 +44,4 @@ template(name='donate')
         // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
         button.ui.inverted.basic.button(type='submit')
-            |donate
+            |Donate

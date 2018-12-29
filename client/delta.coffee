@@ -1,23 +1,30 @@
 Template.delta.onCreated ->
-    @autorun -> Meteor.subscribe 'delta'
+
+
+Template.delta.helpers
+    current_delta: -> 
+        Docs.findOne
+            type:'delta'
+
+
 
 Template.set_view_limit.helpers
     limit_class: ->
-        delta = Docs.findOne _type:'delta'
+        delta = Docs.findOne type:'delta'
         if delta
-            if @amount is delta._limit then 'grey' else ''
+            if @amount is delta._limit then 'grey large' else ''
 
 Template.set_view_limit.events
     'click .set_limit': ->
         console.log @amount
-        delta = Docs.findOne _type:'delta'
+        delta = Docs.findOne type:'delta'
         Docs.update delta._id, 
             $set:_limit: @amount
         Meteor.call 'fum'
 
 Template.facet.events
     'click .toggle_selection': ->
-        delta = Docs.findOne _type:'delta'
+        delta = Docs.findOne type:'delta'
         facet = Template.currentData()
         Session.set 'loading', true
         if facet.filters and @name in facet.filters
@@ -30,7 +37,7 @@ Template.facet.events
     
 Template.facet.helpers
     filtering_res: ->
-        delta = Docs.findOne _type:'delta'
+        delta = Docs.findOne type:'delta'
         filtering_res = []
         for filter in @res
             if filter.count < delta.total
@@ -41,12 +48,12 @@ Template.facet.helpers
 
     toggle_value_class: ->
         facet = Template.parentData()
-        delta = Docs.findOne _type:'delta'
+        delta = Docs.findOne type:'delta'
         if Session.equals 'loading', true
              'disabled'
         else
             if facet.filters.length > 0 and @name in facet.filters
-                'grey'
+                'grey large'
     
     
     

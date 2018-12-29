@@ -1,6 +1,10 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 if Meteor.isClient
+    Template.nav.onCreated ->
+        @autorun -> Meteor.subscribe 'delta'
+
+    
     Template.nav.events
         'click .home': ->
             Meteor.call 'fum'
@@ -16,5 +20,5 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'delta', ->
         Docs.find 
-            _type:'delta'
-            # author_id:  Meteor.userId()
+            type:'delta'
+            author_id:  Meteor.userId()

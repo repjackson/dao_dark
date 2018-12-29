@@ -1,12 +1,16 @@
 Meteor.methods
     fum: ->
+        console.log 'first userid', Meteor.userId()
         delta = Docs.findOne 
-            _type:'delta'
-            # author_id: Meteor.userId()
+            type:'delta'
+            author_id: Meteor.userId()
+        
+        console.log 'first delta', delta
         unless delta
             new_id = Docs.insert
-                _type:'delta'
-                _limit: 1
+                type:'delta'
+                # author_id: Meteor.userId()
+                limit: 1
                 facets: [
                     {
                         key:'concepts'
@@ -46,13 +50,20 @@ Meteor.methods
                 Docs.update { _id:delta._id, "facets.key":facet.key},
                     { $set: "facets.$.res": agg_res }
 
-        delta = Docs.findOne _type:'delta'
+        delta = Docs.findOne type:'delta'
 
-        if delta._limit then limit=delta._limit else limit=1
+        if delta.limit then limit=delta.limit else limit=1
+
+        console.log 'built query', built_query
 
         results_cursor = Docs.find built_query, { fields:{_id:1},limit:limit }
 
         result_ids = results_cursor.fetch()
+
+        console.log 'result ids', result_ids
+
+        console.log 'delta', delta
+        console.log Meteor.userId()
 
         Docs.update {_id:delta._id},
             {
@@ -63,8 +74,6 @@ Meteor.methods
             }
 
     agg: (query, key, filters)->
-        
-        
         unless key is '_keys'
             test_doc = 
                 Docs.findOne 

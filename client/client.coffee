@@ -57,11 +57,6 @@ Template.registerHelper 'value', () ->
     if parent["#{@key}"]
         parent["#{@key}"]
 
-Template.registerHelper 'current_delta', () -> 
-    # if Meteor.user() and Meteor.user().current_delta_id
-    #     delta = Docs.findOne Meteor.user().current_delta_id
-    Docs.findOne
-        _type:'delta'
-        _author_id:Meteor.userId()
+    
 
 

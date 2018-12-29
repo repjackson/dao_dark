@@ -5,7 +5,11 @@ Template.layout.onCreated ->
 
 FlowRouter.route '/',
     name: 'home'
-    action: -> @render 'layout','delta'
+    action: -> 
+        if Meteor.userId()
+            @render 'layout','delta'
+        else
+            @render 'layout','enter'
 
 FlowRouter.route '/enter',
     name: 'enter'
@@ -42,16 +46,16 @@ Template.layout.events
         Meteor.logout()
         
     'click .delete_delta': (e,t)->
-        delta = Docs.findOne _type:'delta'
+        delta = Docs.findOne type:'delta'
         if delta
             Docs.remove delta._id
 
     'click .reset': (e,t)->
-        # delta = Docs.findOne _type:'delta'
+        # delta = Docs.findOne type:'delta'
         Meteor.call 'fum'
     
     'click .print_delta': (e,t)->
-        delta = Docs.findOne _type:'delta'
+        delta = Docs.findOne type:'delta'
         console.log delta
 
     'click .recalc': ->
