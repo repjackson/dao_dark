@@ -22,7 +22,22 @@ if Meteor.isClient
                         Session.set 'enter_mode', 'register'
                         Session.set 'username', "#{username}"
                 else
-                    FlowRouter.go('/')
+                    FlowRouter.go('/delta')
+    
+        'click .new_demo': (e,t)->
+            Meteor.call 'new_demo_user', (err,res)->
+                console.log 'res',res
+                
+                Meteor.loginWithPassword "#{res.username}", "#{res.username}", (err,res)=>
+                    if err 
+                        if err.error is 403
+                            Session.set 'message', "#{username} not found"
+                            Session.set 'enter_mode', 'register'
+                            Session.set 'username', "#{username}"
+                    else
+                        FlowRouter.go('/')
+    
+            
     
     
     Template.enter.helpers
@@ -42,3 +57,19 @@ if Meteor.isServer
         find_username: (username)->
             res = Accounts.findUserByUsername(username)
             return res
+
+        new_demo_user: ->
+            current_user_count = Meteor.users.find().count()
+            console.log 'current_user_count', current_user_count
+            
+            options = {
+                username:"user#{current_user_count}"
+                password:"user#{current_user_count}"
+                }
+            
+            create = Accounts.createUser options
+            console.log 'create', create
+            new_user = Meteor.users.findOne create
+            return new_user
+
+

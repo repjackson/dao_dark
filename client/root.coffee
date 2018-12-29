@@ -7,9 +7,9 @@ FlowRouter.route '/',
     name: 'home'
     action: -> 
         if Meteor.userId()
-            @render 'layout','delta'
+            FlowRouter.go '/delta'
         else
-            @render 'layout','enter'
+            FlowRouter.go '/enter'
 
 FlowRouter.route '/enter',
     name: 'enter'
@@ -24,9 +24,13 @@ FlowRouter.route '/me',
     name: 'me'
     action: -> @render 'layout','me'
 
-FlowRouter.route '/d/:type',
+FlowRouter.route '/delta',
     name: 'delta'
     action: -> @render 'layout','delta'
+
+# FlowRouter.route '/d/:type',
+#     name: 'delta'
+#     action: -> @render 'layout','delta'
 
  
 FlowRouter.route '/edit/:doc_id',

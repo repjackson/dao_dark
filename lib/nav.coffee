@@ -13,7 +13,9 @@ if Meteor.isClient
             new_id = Docs.insert {}
             FlowRouter.go "/edit/#{new_id}"
                 
-        'click .logout': -> Meteor.logout()
+        'click .logout': -> 
+            Meteor.logout()
+            FlowRouter.go "/enter"
                 
 
                 

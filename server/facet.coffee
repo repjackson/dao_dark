@@ -9,7 +9,7 @@ Meteor.methods
         unless delta
             new_id = Docs.insert
                 type:'delta'
-                # author_id: Meteor.userId()
+                author_id: Meteor.userId()
                 limit: 1
                 facets: [
                     {
@@ -49,8 +49,6 @@ Meteor.methods
             if agg_res
                 Docs.update { _id:delta._id, "facets.key":facet.key},
                     { $set: "facets.$.res": agg_res }
-
-        delta = Docs.findOne type:'delta'
 
         if delta.limit then limit=delta.limit else limit=1
 
