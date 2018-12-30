@@ -46,22 +46,24 @@ Template.facet.helpers
     filtering_res: ->
         delta = Docs.findOne type:'delta'
         filtering_res = []
-        for filter in @res
-            if filter.count < delta.total
-                filtering_res.push filter
-            else if filter.name in @filters
-                filtering_res.push filter
-        filtering_res
+        if @key is '_keys'
+            return [{name:'entities'}, {name:'keywords'},{name:'concepts'}]
+        else
+            for filter in @res
+                if filter.count < delta.total
+                    filtering_res.push filter
+                else if filter.name in @filters
+                    filtering_res.push filter
+            filtering_res
 
     toggle_value_class: ->
         facet = Template.parentData()
         delta = Docs.findOne type:'delta'
         if Session.equals 'loading', true
              'disabled'
-        else
-            if facet.filters.length > 0 and @name in facet.filters
-                'grey large'
-    
+        else if facet.filters.length > 0 and @name in facet.filters
+            'grey'
+        else 'small'
     
     
 Template.result.onCreated ->
