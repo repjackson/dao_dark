@@ -1,10 +1,10 @@
 template(name='delta')
     +nav
-    each current_delta.facets
-        +facet
     .ui.stackable.grid
-        // .row
-            // .sixteen.wide.column.scrolling
+        .row
+            .sixteen.wide.column.scrolling
+                each current_delta.facets
+                    +facet
         .row
             .sixteen.wide.column
                 // .ui.inverted.inline.header visible fields
@@ -62,9 +62,9 @@ template(name='result')
                         +consumption_preferences
                         +author_info
                         +creation_info
-                        if can_edit
-                            a.ui.fluid.button(href="/edit/#{_id}")
-                                i.pencil.icon
+                        // if can_edit
+                        //     a.ui.fluid.button(href="/edit/#{_id}")
+                        //         i.pencil.icon
                         // .ui.segment
                             +clone_button
                             +detect_fields_button
@@ -73,9 +73,9 @@ template(name='result')
                             +voting_buttons
         
                         +detect_fields_button
-                        a.ui.button(href="/view/#{_id}") 
-                            |view
-                            i.right.arrow.icon
+                        // a.ui.button(href="/view/#{_id}") 
+                        //     |view
+                        //     i.right.arrow.icon
                         +author_info
                         +creation_info
         
