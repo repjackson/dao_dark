@@ -37,6 +37,9 @@ template(name='result')
             .ui.stackable.padded.grid
                 .row
                     .twelve.wide.black.column.scrolling
+                        .ui.divided.inverted.list
+                            each _keys
+                                +field_view
                         .ui.inverted.header #{title}
                         .ui.small.inverted.header tags
                         each tags
@@ -45,6 +48,7 @@ template(name='result')
                         +keyword_list
                         +concept_list
                         +keywords
+                        +comments
                         
                     .four.wide.black.column.scrolling
                         +call_watson
@@ -62,23 +66,18 @@ template(name='result')
                             a.ui.fluid.button(href="/edit/#{_id}")
                                 i.pencil.icon
                         // .ui.segment
-                        //     +clone_button
-                        //     +detect_fields_button
-                        // .ui.segment
-                        //     +bookmark_button
-                        //     +voting_buttons
-                        // +comments
+                            +clone_button
+                            +detect_fields_button
+                        .ui.segment
+                            +bookmark_button
+                            +voting_buttons
         
-                    // +detect_fields_button
-                    // +call_watson
-                    // .ui.divided.list
-                    //     each _keys
-                    //         +field_view
-                    // a.ui.button(href="/view/#{_id}") 
-                    //     |view
-                    //     i.right.arrow.icon
-                    // +author_info
-                    // +creation_info
+                        +detect_fields_button
+                        a.ui.button(href="/view/#{_id}") 
+                            |view
+                            i.right.arrow.icon
+                        +author_info
+                        +creation_info
         
 
 template(name='facet')
