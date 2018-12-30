@@ -6,13 +6,9 @@ template(name='nav')
         if is_loading
             .ui.item
                 i.loading.refresh.icon
-        a.item.add(href='#')
-            i.plus.icon
-        a.item.reset(href='#')
-            i.refresh.icon
-        a.icon.item.delete_delta
-            i.remove.icon
         if is_dev
+            a.item.add(href='#')
+                i.plus.icon
             a.item.print_delta(href='#')
                 i.code.icon
             a.item(href='/parse')

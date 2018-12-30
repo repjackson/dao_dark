@@ -70,10 +70,10 @@ Template.facet.helpers
         facet = Template.parentData()
         delta = Docs.findOne type:'delta'
         if Session.equals 'loading', true
-             'disabled'
+             'disabled black'
         else if facet.filters.length > 0 and @name in facet.filters
             'inverted'
-        else 'small'
+        else 'small black'
     
     
 Template.result.onCreated ->

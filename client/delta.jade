@@ -5,6 +5,8 @@ template(name='delta')
     .ui.stackable.grid
         .row
             .sixteen.wide.column
+                unless current_delta
+                    .ui.reset.black.button reload session
                 // .ui.inverted.inline.header visible fields
                 // each current_delta.facets
                 //     .ui.button #{this.key}
@@ -46,7 +48,8 @@ template(name='result')
                         +comments
                         
                     .four.wide.black.column.scrolling
-                        +call_watson
+                        if html
+                            +call_watson
                         +doc_sentiment
                         +doc_emotion
                         +concepts
@@ -64,29 +67,29 @@ template(name='result')
                             +clone_button
                             +detect_fields_button
                         +bookmark_button
+                        div
                         +voting_buttons
-        
+                        div
                         +detect_fields_button
                         // a.ui.button(href="/view/#{_id}") 
                         //     |view
                         //     i.right.arrow.icon
                         +author_info
-                        +creation_info
         
 
 template(name='facet')
     // if filtering_res
     div
-    .ui.small.inverted.inline.header #{key}
+    .ui.inverted.inline.header #{key}
             // each filters
             //     .unselect.ui.blue.button #{this}
     each filtering_res
         if name
-            .selector.ui.compact.black.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
                 // small #{count}
         else
-            .selector.ui.compact.black.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                 strong [null]
                 // small #{count}
                 

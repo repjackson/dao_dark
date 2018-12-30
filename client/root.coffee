@@ -55,7 +55,9 @@ Template.layout.events
             Docs.remove delta._id
 
     'click .reset': (e,t)->
-        # delta = Docs.findOne type:'delta'
+        delta = Docs.findOne type:'delta'
+        if delta
+            Docs.remove delta._id
         Meteor.call 'fum'
     
     'click .print_delta': (e,t)->

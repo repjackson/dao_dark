@@ -1,16 +1,17 @@
 template(name='doc_sentiment') 
     // .ui.small.header 
     //     |sentiment
-    if is_positive
-        .w3-black
-            .w3-green.w3-xlarge(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% positive")
-    else
-        .w3-black
-            .w3-red.w3-xlarge(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% negative")
+    if sentiment_score
+        if is_positive
+            .w3-black
+                .w3-green.w3-xlarge(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% positive")
+        else
+            .w3-black
+                .w3-red.w3-xlarge(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% negative")
         // |#{sentiment_label}
         // |#{sentiment_score_percent}
-    .ui.compact.fitted.divider
-    div
+        .ui.compact.fitted.divider
+        div
 
 template(name='doc_emotion') 
     // .ui.small.header 
@@ -175,8 +176,9 @@ template(name='personality')
                         .item(class="{{calculated_size percentile}}" title="{{to_percent percentile}}%") #{name}
     else
         // p Not enough words to analyze author personality
-    #call_personality.ui.icon.button(title='analyze personality')
-        i.refresh.icon
+    if html
+        #call_personality.ui.icon.button(title='analyze personality')
+            i.refresh.icon
 
 
 template(name='consumption_preferences')

@@ -14,21 +14,6 @@ Meteor.methods
                 facets: [
                     {
                         key:'_keys'
-                        filters:['concepts', 'keywords', 'entities']
-                        res:[]
-                    }
-                    {
-                        key:'concepts'
-                        filters:[]
-                        res:[]
-                    }
-                    {
-                        key:'keywords'
-                        filters:[]
-                        res:[]
-                    }
-                    {
-                        key:'entities'
                         filters:[]
                         res:[]
                     }
