@@ -47,14 +47,23 @@ Template.facet.helpers
         delta = Docs.findOne type:'delta'
         filtering_res = []
         if @key is '_keys'
-            return [{name:'entities'}, {name:'keywords'},{name:'concepts'}]
+            filtered_list = [
+                'entities'
+                'keywords'
+                'concepts'
+                'tags'
+                'youtube'
+                'type'
+            ]
+            for filter in @res
+                if filter.name in filtered_list then filtering_res.push filter
         else
             for filter in @res
                 if filter.count < delta.total
                     filtering_res.push filter
                 else if filter.name in @filters
                     filtering_res.push filter
-            filtering_res
+        filtering_res
 
     toggle_value_class: ->
         facet = Template.parentData()

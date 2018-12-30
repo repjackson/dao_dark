@@ -1,10 +1,10 @@
 template(name='delta')
     +nav
-    .ui.padded.stackable.grid
-        .row
-            .sixteen.wide.column.scrolling
-                each current_delta.facets
-                    +facet
+    each current_delta.facets
+        +facet
+    .ui.stackable.grid
+        // .row
+            // .sixteen.wide.column.scrolling
         .row
             .sixteen.wide.column
                 // .ui.inverted.inline.header visible fields
@@ -83,21 +83,19 @@ template(name='result')
 
 template(name='facet')
     // if filtering_res
-    .ui.unstyled.accordion
-        .active.title
-            .ui.small.inverted.header #{key}
-        .active.content
+    div
+    .ui.small.inverted.inline.header #{key}
             // each filters
             //     .unselect.ui.blue.button #{this}
-            each filtering_res
-                if name
-                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
-                        strong #{name}
-                        small #{count}
-                else
-                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
-                        strong [null]
-                        small #{count}
+    each filtering_res
+        if name
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                strong #{name}
+                small #{count}
+        else
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+                strong [null]
+                small #{count}
                 
         
         
