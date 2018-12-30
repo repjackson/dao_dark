@@ -2,28 +2,30 @@ template(name='doc_sentiment')
     // .ui.small.header 
     //     |sentiment
     if is_positive
-        .w3-white
-            .w3-green.w3-small(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% positive") &nbsp; positive
+        .w3-black
+            .w3-green.w3-xlarge(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% positive")
     else
-        .w3-white
-            .w3-red.w3-small(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% negative") &nbsp; negative
+        .w3-black
+            .w3-red.w3-xlarge(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% negative")
         // |#{sentiment_label}
         // |#{sentiment_score_percent}
+    .ui.compact.fitted.divider
+    div
 
 template(name='doc_emotion') 
     // .ui.small.header 
     //     | emotion
     with watson.emotion.document.emotion
-        .w3-white
-            .w3-blue.w3(style="height:20px;width:{{to_percent sadness}}%" title="{{to_percent sadness}}% sad") &nbsp; sad
-        .w3-white
-            .w3-green.w3(style="height:20px;width:{{to_percent joy}}%" title="{{to_percent joy}}% joy") &nbsp; joy
-        .w3-white
-            .w3-black.w3(style="height:20px;width:{{to_percent fear}}%" title="{{to_percent fear}}% fear") &nbsp; fear
-        .w3-white
-            .w3-yellow.w3(style="height:20px;width:{{to_percent disgust}}%" title="{{to_percent disgust}}% disgust") &nbsp; disgust
-        .w3-white
-            .w3-red.w3(style="height:20px;width:{{to_percent anger}}%" title="{{to_percent anger}}% anger") &nbsp; anger
+        .w3-b
+            .w3-blue.w3(style="height:20px;width:{{to_percent sadness}}%" title="{{to_percent sadness}}% sad")
+        .w3-b
+            .w3-green.w3(style="height:20px;width:{{to_percent joy}}%" title="{{to_percent joy}}% joy")
+        .w3-b
+            .w3-black.w3(style="height:20px;width:{{to_percent fear}}%" title="{{to_percent fear}}% fear")
+        .w3-b
+            .w3-yellow.w3(style="height:20px;width:{{to_percent disgust}}%" title="{{to_percent disgust}}% disgust")
+        .w3-b
+            .w3-red.w3(style="height:20px;width:{{to_percent anger}}%" title="{{to_percent anger}}% anger")
             
 template(name='call_watson')
     #call_watson.ui.button 
@@ -37,8 +39,9 @@ template(name='call_visual_analysis')
         |tag
 
 template(name='keywords')
-    .ui.inverted.header 
-        |#{watson.keywords.length} keywords
+    if watson.keywords.length
+        .ui.inverted.header 
+            |#{watson.keywords.length} keywords
     .ui.five.column.stackable.grid
         each watson.keywords
             .column
@@ -50,21 +53,22 @@ template(name='keywords')
                 //     |sentiment: {{ to_percent sentiment.score }}%
                 .description
                     with emotion
-                        .w3-white
+                        .w3-black
                             .w3-blue.w3-small(style="height:20px;width:{{to_percent sadness}}%" title="{{to_percent sadness}}% sad")
-                        .w3-white
+                        .w3-black
                             .w3-green.w3-small(style="height:20px;width:{{to_percent joy}}%" title="{{to_percent joy}}% joy")
-                        .w3-white
+                        .w3-black
                             .w3-black.w3-small(style="height:20px;width:{{to_percent fear}}%" title="{{to_percent fear}}% fear")
-                        .w3-white
+                        .w3-black
                             .w3-yellow.w3-small(style="height:20px;width:{{to_percent disgust}}%" title="{{to_percent disgust}}% disgust")
-                        .w3-white
+                        .w3-black
                             .w3-red.w3-small(style="height:20px;width:{{to_percent anger}}%" title="{{to_percent anger}}% anger")
 
 
 template(name='entity_list')
-    .ui.inverted.header 
-        |#{entities.length} entities
+    if entities.length
+        .ui.inverted.header 
+            |#{entities.length} entities
     each entities
         .ui.label #{this}
 
@@ -79,14 +83,16 @@ template(name='entities')
                 strong #{text}
 
 template(name='keyword_list')
-    .ui.inverted.header 
-        |#{keywords.length} keywords
+    if keywords.length
+        .ui.inverted.header 
+            |#{keywords.length} keywords
     each keywords
         .ui.label #{this}
 
 template(name='concept_list')
-    .ui.inverted.header 
-        |#{concepts.length} concepts
+    if concepts.length
+        .ui.inverted.header 
+            |#{concepts.length} concepts
     each concepts
         .ui.label #{this}
 
@@ -178,7 +184,7 @@ template(name='consumption_preferences')
         // h3.ui.small.header
         //     |#{customer.first_name} preferences
         each personality.consumption_preferences
-            h3.ui.small.header #{name}
+            h3.ui.small.inverted.header #{name}
             .ui.list
                 each consumption_preferences
                     if score

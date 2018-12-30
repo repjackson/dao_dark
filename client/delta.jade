@@ -1,10 +1,8 @@
 template(name='delta')
     +nav
+    each current_delta.facets
+        +facet
     .ui.stackable.grid
-        .row
-            .sixteen.wide.column.scrolling
-                each current_delta.facets
-                    +facet
         .row
             .sixteen.wide.column
                 // .ui.inverted.inline.header visible fields
@@ -37,17 +35,14 @@ template(name='result')
             .ui.stackable.padded.grid
                 .row
                     .twelve.wide.black.column.scrolling
-                        .ui.divided.inverted.list
-                            each _keys
-                                +field_view
                         .ui.inverted.header #{title}
-                        .ui.small.inverted.header tags
-                        each tags
-                            .ui.label #{this}
                         +tone
                         +keyword_list
                         +concept_list
                         +keywords
+                        .ui.divided.inverted.list
+                            each _keys
+                                +field_view
                         +comments
                         
                     .four.wide.black.column.scrolling
@@ -68,9 +63,8 @@ template(name='result')
                         // .ui.segment
                             +clone_button
                             +detect_fields_button
-                        .ui.segment
-                            +bookmark_button
-                            +voting_buttons
+                        +bookmark_button
+                        +voting_buttons
         
                         +detect_fields_button
                         // a.ui.button(href="/view/#{_id}") 
@@ -88,13 +82,13 @@ template(name='facet')
             //     .unselect.ui.blue.button #{this}
     each filtering_res
         if name
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+            .selector.ui.compact.black.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
-                small #{count}
+                // small #{count}
         else
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class)
+            .selector.ui.compact.black.button.toggle_selection(class=toggle_value_class title=count)
                 strong [null]
-                small #{count}
+                // small #{count}
                 
         
         
