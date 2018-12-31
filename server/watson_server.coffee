@@ -97,10 +97,10 @@ Meteor.methods
         # console.log doc
         parameters = []
         
-        if doc.url
-            parameters['url'] = doc.url
         if doc.html
             parameters['html'] = doc.html
+        else if doc.url
+            parameters['url'] = doc.url
         
         parameters['return_analyzed_text'] = true
         
