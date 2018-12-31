@@ -90,36 +90,44 @@ Meteor.methods
     #             console.log(JSON.stringify(response.images[0].classifiers[0].classes[0].class, null, 2))
     #     )
         
-    call_watson: (doc_id, key) ->
+    call_watson: (doc_id, key, url) ->
         console.log 'calling watson'
         self = @
         doc = Docs.findOne doc_id
-        console.log doc
+        # console.log doc
+        parameters = []
         
-        parameters = 
-            html: doc.html
-            features:
-                entities:
-                    emotion: true
-                    sentiment: true
-                    # limit: 2
-                keywords:
-                    emotion: true
-                    sentiment: true
-                    # limit: 2
-                concepts: {}
-                # categories: {}
-                emotion: {}
-                # # metadata: {}
-                # relations: {}
-                # semantic_roles: {}
-                sentiment: {}
+        if doc.url
+            parameters['url'] = doc.url
+        if doc.html
+            parameters['html'] = doc.html
+        
+        parameters['return_analyzed_text'] = true
+        
+        
+        parameters['features'] = {
+            entities:
+                emotion: true
+                sentiment: true
+                # limit: 2
+            keywords:
+                emotion: true
+                sentiment: true
+                # limit: 2
+            concepts: {}
+            # categories: {}
+            emotion: {}
+            # # metadata: {}
+            # relations: {}
+            # semantic_roles: {}
+            sentiment: {}
+        }            
 
         natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
             if err
                 console.log 'error:', err
             else
-                # console.log response
+                console.log response.analyzed_text
                 keywords = _.pluck(response.keywords, 'text')
                 concepts = _.pluck(response.concepts, 'text')
                 entities = _.pluck(response.entities, 'text')
@@ -132,54 +140,9 @@ Meteor.methods
                         entities: entities
                         sentiment_score: response.sentiment.document.score
                         sentiment: response.sentiment.document.label
+                        html: response.analyzed_text
             return
         )
         Meteor.call 'call_tone', doc_id, ->
         # Meteor.call 'call_personality', doc_id, ->
         return
-        
-
-    pull_site: (doc_id, url)->
-        this_id = doc_id
-        doc = Docs.findOne doc_id
-        # console.log url
-        parameters = 
-            url: url
-            features:
-                entities:
-                    emotion: false
-                    sentiment: false
-                    # limit: 2
-                keywords:
-                    emotion: false
-                    sentiment: false
-                    # limit: 2
-                concepts: {}
-                # categories: {}
-                emotion: {}
-                # metadata: {}
-                # relations: {}
-                # semantic_roles: {}
-                sentiment: {}
-            return_analyzed_text: true
-
-        natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) =>
-            if err
-                console.log 'error:', err
-            else
-                console.log response
-                keyword_array = _.pluck(response.keywords, 'text')
-                lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
-                
-                concept_array = _.pluck(response.concepts, 'text')
-                lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
-                Docs.update {_id:this_id},
-                    $set:
-                        # schema:'website'
-                        watson: response
-                        watson_keywords: lowered_keywords
-                        watson_concepts: lowered_concepts
-                        doc_sentiment_score: response.sentiment.document.score
-                        doc_sentiment_label: response.sentiment.document.label
-                        html: response.analyzed_text
-        )

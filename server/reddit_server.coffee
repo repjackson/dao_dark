@@ -4,9 +4,10 @@ Meteor.methods
         # return response.content
         
         _.each(response.data.data.children, (item)-> 
+            # console.log item
             data = item.data
             len = 200
-            # console.log item.data
+            console.log item.data
             reddit_post =
                 reddit_id: data.id
                 url: data.url
@@ -18,7 +19,7 @@ Meteor.methods
                 # thumbnail: false
                 schema:'reddit'
                 
-            # # console.log reddit_post
+            # console.log reddit_post
             existing_doc = Docs.findOne reddit_id:data.id
             if existing_doc
                 Meteor.call 'get_reddit_post', existing_doc._id, data.id, (err,res)->
@@ -39,16 +40,16 @@ Meteor.methods
                     }, ->
                     #     Meteor.call 'pull_site', doc_id, url
                         # console.log 'hi'
-                # if res.data.data.children[0].data.url
-                #     url = res.data.data.children[0].data.url
-                #     Docs.update doc_id, {
-                #         $set: 
-                #             reddit_url: url
-                #             url: url
-                #     }, ->
-                #         Meteor.call 'pull_site', doc_id, url
-                # Docs.update doc_id, 
-                #     $set: reddit_data: res.data.data.children[0].data
+                if res.data.data.children[0].data.url
+                    url = res.data.data.children[0].data.url
+                    Docs.update doc_id, {
+                        $set: 
+                            reddit_url: url
+                            url: url
+                    }, ->
+                        Meteor.call 'pull_site', doc_id, url
+                Docs.update doc_id, 
+                    $set: reddit_data: res.data.data.children[0].data
         
         
     get_listing_comments: (doc_id, subreddit, reddit_id)->

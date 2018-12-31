@@ -18,8 +18,6 @@ Template.registerHelper 'can_edit', () ->
                 return true 
         else if Meteor.userId() is @author_id
             true
-        
-
 
 Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
 
@@ -31,7 +29,6 @@ Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
-    
     
 Template.registerHelper 'doc', ()->
     doc_id = FlowRouter.getParam('doc_id')
@@ -48,8 +45,6 @@ Template.registerHelper 'is_dev', ()->
             if 'dev' in Meteor.user().roles
                 return true 
             
-            
-    
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')

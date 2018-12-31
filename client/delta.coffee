@@ -72,8 +72,8 @@ Template.facet.helpers
         if Session.equals 'loading', true
              'disabled black'
         else if facet.filters.length > 0 and @name in facet.filters
-            'inverted'
-        else 'small black'
+            'grey'
+        else 'black'
     
     
 Template.result.onCreated ->

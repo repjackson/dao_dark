@@ -1,7 +1,7 @@
 import Papa from 'papaparse'
 
 if Meteor.isClient
-    Template.parse.events
+    Template.import.events
         'change .upload': (e,t)->
             imported = t.find('.upload').files[0]
             Papa.parse(imported, {
@@ -14,6 +14,16 @@ if Meteor.isClient
                         #     console.log res
                     )
             })    
+            
+        'keyup .import_subreddit': (e,t)->
+            if e.which is 13
+                subreddit = t.$('.import_subreddit').val()    
+                
+                Meteor.call 'pull_subreddit', subreddit
+                
+
+            
+            
             
 if Meteor.isServer
     Meteor.methods

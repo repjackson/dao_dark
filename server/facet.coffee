@@ -69,7 +69,7 @@ Meteor.methods
             meta = test_doc["_#{key}"]
         else
             meta = {array:true}
-        if key is '_keys' then limit=20 else limit=20
+        if key is '_keys' then limit=42 else limit=42
         
         options = { explain:false }
         if meta.array

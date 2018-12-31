@@ -15,9 +15,9 @@ FlowRouter.route '/enter',
     name: 'enter'
     action: -> @render 'layout','enter'
 
-FlowRouter.route '/parse',
-    name: 'parse'
-    action: -> @render 'layout','parse'
+FlowRouter.route '/import',
+    name: 'import'
+    action: -> @render 'layout','import'
 
 
 FlowRouter.route '/me',

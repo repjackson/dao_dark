@@ -2,17 +2,17 @@ template(name='nav')
     .ui.top.attached.inverted.borderless.menu
         a.header.icon.item.home.pointer(href='/')
             // .black_bat.logo DAO
-            i.user.shield.icon
+            i.user.shield.large.icon
         if is_loading
             .ui.item
                 i.loading.refresh.icon
         if is_dev
             a.item.add(href='#')
-                i.plus.icon
+                i.plus.large.icon
             a.item.print_delta(href='#')
-                i.code.icon
-            a.item(href='/parse')
-                i.upload.icon
+                i.code.large.icon
+        a.item(href='/import' title='import')
+            i.upload.large.icon
         .right.menu
             if currentUser
                 a.me.item(href='/me')
@@ -32,14 +32,13 @@ template(name='footer')
             i.creative.commons.outline.icon
             | DAO
         .right.menu
-            .item
-                form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                    input(type='hidden', name='cmd', value='_s-xclick')
-                    input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                    // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                    img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                    button.ui.inverted.basic.button(type='submit')
-                        |Donate
-                // +donate
+            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                input(type='hidden', name='cmd', value='_s-xclick')
+                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                button.ui.inverted.basic.button(type='submit')
+                    |Donate
+        // +donate
                     
 template(name='donate')

@@ -29,7 +29,7 @@ template(name='doc_emotion')
             .w3-red.w3(style="height:20px;width:{{to_percent anger}}%" title="{{to_percent anger}}% anger")
             
 template(name='call_watson')
-    #call_watson.ui.button 
+    #call_watson.ui.grey.button 
         i.chess.knight.icon
         |call watson
         
@@ -71,7 +71,7 @@ template(name='entity_list')
         .ui.inverted.header 
             |#{entities.length} entities
     each entities
-        .ui.label #{this}
+        .ui.black.label #{this}
 
 
 template(name='entities')
@@ -88,14 +88,14 @@ template(name='keyword_list')
         .ui.inverted.header 
             |#{keywords.length} keywords
     each keywords
-        .ui.label #{this}
+        .ui.black.label #{this}
 
 template(name='concept_list')
     if concepts.length
         .ui.inverted.header 
             |#{concepts.length} concepts
     each concepts
-        .ui.label #{this}
+        .ui.black.label #{this}
 
 
 
@@ -210,30 +210,9 @@ template(name='tone')
                 .large120 #{text}
                     each tones
                         // span.spaced(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
-                        .ui.label(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
+                        .ui.grey.label(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
     // unless tone                
     // #call_tone.ui.icon.button
     //     i.refresh.icon
     //         // +jsonView(json=tone)
 
-
-
-// template(name='watson_view')
-//     +tone
-//     +keyword_list
-//     +concept_list
-//     // .ui.accordion
-//     //     .active.title
-//     //         |keywords
-//     //         i.dropdown.icon
-//     //     .active.content
-//     +keywords
-//     // .ui.hidden.divider
-//     // +relations
-//     // .ui.styled.accordion
-//     //     .title 
-//     //         i.code.icon
-//     //         |full analysis data
-//     //         i.dropdown.icon
-//     //     .content
-//     //         +jsonView(json=watson)
