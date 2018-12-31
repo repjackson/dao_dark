@@ -18,7 +18,7 @@ Docs.before.insert (userId, doc)=>
         date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
     # date_array = _.each(date_array, (el)-> console.log(typeof el))
     # console.log date_array
-        doc._timestamp_tags = date_array
+        doc.timestamp_tags = date_array
 
     doc.author_id = Meteor.userId()
     return
@@ -56,15 +56,6 @@ Meteor.methods
             $pull: "facets.$.filters": filter
         Meteor.call 'fum', delta_id, (err,res)->
 
-    rename_key:(old_key,new_key,parent)->
-        Docs.update parent._id,
-            $pull:_keys:old_key
-        Docs.update parent._id,
-            $addToSet:_keys:new_key
-        Docs.update parent._id,
-            $rename: 
-                "#{old_key}": new_key
-                "_#{old_key}": "_#{new_key}"
 
 
 

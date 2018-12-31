@@ -49,4 +49,13 @@ Meteor.methods
         # console.log date_array
         return date_array
 
+    rename_key:(old_key,new_key,parent)->
+        Docs.update parent._id,
+            $pull:_keys:old_key
+        Docs.update parent._id,
+            $addToSet:_keys:new_key
+        Docs.update parent._id,
+            $rename: 
+                "#{old_key}": new_key
+                "_#{old_key}": "_#{new_key}"
 

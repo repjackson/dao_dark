@@ -15,7 +15,8 @@
 body {
   font-family: 'Ubuntu', sans-serif !important;
   /*min-height: 500px;*/
-  /*filter: invert(100%);*/
+  min-height: 100%;
+  filter: invert(100%);
   /*font-size: 110% !important;*/
   /*line-height: 120% !important;*/
   background: black !important
