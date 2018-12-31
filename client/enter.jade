@@ -1,15 +1,15 @@
 template(name='enter')
-    .ui.text.inverted.segment.container
+    .ui.hidden.divider
+    .ui.text.container
         h1.ui.center.aligned.header 
             | DAO
         if message
-            h4.ui.center.aligned.inverted.header #{message}
-        .ui.inverted.fluid.input(class=login_class)
+            h4.ui.center.aligned.header #{message}
+        .ui.fluid.input(class=login_class)
             input.username(type='text' placeholder='username')
-        .ui.hidden.divider
-        .ui.inverted.fluid.input(class=login_class)
+        .ui.fluid.input(class=login_class)
             input.password(type='password' placeholder='password')
-        .ui.inverted.basic.fluid.icon.large.button.enter(class=enter_class)
+        .ui.fluid.icon.large.button.enter(class=enter_class)
             if registering
                 |Register #{username}
             else
@@ -17,7 +17,7 @@ template(name='enter')
         .ui.hidden.divider
         .row
             .ten.wide.column
-                .ui.inverted.basic.fluid.icon.large.button.new_demo
+                .ui.fluid.icon.large.button.new_demo
                     i.plus.icon
                     | Anon Session
                 
