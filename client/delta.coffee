@@ -70,10 +70,10 @@ Template.facet.helpers
         facet = Template.parentData()
         delta = Docs.findOne type:'delta'
         if Session.equals 'loading', true
-             'disabled black'
+             'disabled '
         else if facet.filters.length > 0 and @name in facet.filters
             'grey'
-        else 'black'
+        else ''
     
     
 Template.result.onCreated ->

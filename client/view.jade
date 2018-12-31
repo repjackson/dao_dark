@@ -3,7 +3,7 @@ template(name='view')
     with doc
         .ui.stackable.padded.grid
             .row
-                .twelve.wide.black.column
+                .twelve.wide.column
                     +tone
                     +keyword_list
                     +concept_list
@@ -11,7 +11,7 @@ template(name='view')
                     each _keys
                         +field_view
 
-                .four.wide.black.column
+                .four.wide.column
                     +call_watson
                     +doc_sentiment
                     +doc_emotion

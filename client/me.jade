@@ -1,7 +1,7 @@
 template(name='me')
     +nav
     .ui.stackable.padded.inverted.celled.grid
-        .black.row
+        .row
             .four.wide.column
                 .ui.inverted.header #{currentUser.username}
             .four.wide.column
@@ -15,7 +15,7 @@ template(name='me')
                 .ui.icon.fluid.input
                     input.new_password(type='text' placeholder='new')
                     i.play.link.icon.change_password
-        .black.row
+        .row
             .three.wide.column
                 .ui.inverted.header
                     |karma
@@ -38,7 +38,7 @@ template(name='me')
                 .ui.inverted.list
                     each currentUser.roles
                         .item #{this}
-        .black.row
+        .row
             .four.wide.column
                 .ui.inverted.header 
                     i.users.icon

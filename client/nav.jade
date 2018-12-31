@@ -1,18 +1,18 @@
 template(name='nav')
     .ui.top.attached.inverted.borderless.menu
         a.header.icon.item.home.pointer(href='/')
-            // .black_bat.logo DAO
-            i.user.shield.large.icon
+            .black_bat.logo DAO
+            // i.user.shield.large.icon
         if is_loading
             .ui.item
                 i.loading.refresh.icon
         if is_dev
             a.item.add(href='#')
-                i.plus.large.icon
+                i.plus.icon
             a.item.print_delta(href='#')
-                i.code.large.icon
+                i.code.icon
         a.item(href='/import' title='import')
-            i.upload.large.icon
+            i.upload.icon
         .right.menu
             if currentUser
                 a.me.item(href='/me')

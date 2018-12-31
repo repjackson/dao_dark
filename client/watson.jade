@@ -3,10 +3,10 @@ template(name='doc_sentiment')
     //     |sentiment
     if sentiment_score
         if is_positive
-            .w3-black
+            .w3
                 .w3-green.w3-xlarge(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% positive")
         else
-            .w3-black
+            .w3
                 .w3-red.w3-xlarge(style="height:20px;width:{{to_percent sentiment_score}}%" title="{{to_percent sentiment_score}}% negative")
         // |#{sentiment_label}
         // |#{sentiment_score_percent}
@@ -17,19 +17,19 @@ template(name='doc_emotion')
     // .ui.small.header 
     //     | emotion
     with watson.emotion.document.emotion
-        .w3-b
+        .w3-grey
             .w3-blue.w3(style="height:20px;width:{{to_percent sadness}}%" title="{{to_percent sadness}}% sad")
-        .w3-b
+        .w3-grey
             .w3-green.w3(style="height:20px;width:{{to_percent joy}}%" title="{{to_percent joy}}% joy")
-        .w3-b
+        .w3-grey
             .w3-black.w3(style="height:20px;width:{{to_percent fear}}%" title="{{to_percent fear}}% fear")
-        .w3-b
+        .w3-grey
             .w3-yellow.w3(style="height:20px;width:{{to_percent disgust}}%" title="{{to_percent disgust}}% disgust")
-        .w3-b
+        .w3-grey
             .w3-red.w3(style="height:20px;width:{{to_percent anger}}%" title="{{to_percent anger}}% anger")
             
 template(name='call_watson')
-    #call_watson.ui.grey.fluid.button 
+    #call_watson.ui.fluid.button 
         i.chess.knight.icon
         | Analyse
         
@@ -41,7 +41,7 @@ template(name='call_visual_analysis')
 
 template(name='keywords')
     if watson.keywords.length
-        .ui.inverted.header 
+        .ui.header 
             |#{watson.keywords.length} keywords
     .ui.five.column.stackable.grid
         each watson.keywords
@@ -54,24 +54,24 @@ template(name='keywords')
                 //     |sentiment: {{ to_percent sentiment.score }}%
                 .description
                     with emotion
-                        .w3-black
+                        .w3-grey
                             .w3-blue.w3-small(style="height:20px;width:{{to_percent sadness}}%" title="{{to_percent sadness}}% sad")
-                        .w3-black
+                        .w3-grey
                             .w3-green.w3-small(style="height:20px;width:{{to_percent joy}}%" title="{{to_percent joy}}% joy")
-                        .w3-black
+                        .w3-grey
                             .w3-black.w3-small(style="height:20px;width:{{to_percent fear}}%" title="{{to_percent fear}}% fear")
-                        .w3-black
+                        .w3-grey
                             .w3-yellow.w3-small(style="height:20px;width:{{to_percent disgust}}%" title="{{to_percent disgust}}% disgust")
-                        .w3-black
+                        .w3-grey
                             .w3-red.w3-small(style="height:20px;width:{{to_percent anger}}%" title="{{to_percent anger}}% anger")
 
 
 template(name='entity_list')
     if entities.length
-        .ui.inverted.header 
+        .ui.header 
             |#{entities.length} entities
     each entities
-        .ui.black.label #{this}
+        .ui.label #{this}
 
 
 template(name='entities')
@@ -85,17 +85,17 @@ template(name='entities')
 
 template(name='keyword_list')
     if keywords.length
-        .ui.inverted.header 
+        .ui.header 
             |#{keywords.length} keywords
     each keywords
-        .ui.black.label #{this}
+        .ui.label #{this}
 
 template(name='concept_list')
     if concepts.length
-        .ui.inverted.header 
+        .ui.header 
             |#{concepts.length} concepts
     each concepts
-        .ui.black.label #{this}
+        .ui.label #{this}
 
 
 
@@ -186,7 +186,7 @@ template(name='consumption_preferences')
         // h3.ui.small.header
         //     |#{customer.first_name} preferences
         each personality.consumption_preferences
-            h3.ui.small.inverted.header #{name}
+            h3.ui.small.header #{name}
             .ui.list
                 each consumption_preferences
                     if score
@@ -210,7 +210,7 @@ template(name='tone')
                 .large120 #{text}
                     each tones
                         // span.spaced(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
-                        .ui.grey.label(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
+                        .ui.label(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
     // unless tone                
     // #call_tone.ui.icon.button
     //     i.refresh.icon

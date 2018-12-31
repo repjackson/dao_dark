@@ -6,11 +6,11 @@ template(name='delta')
         .row
             .sixteen.wide.column
                 unless current_delta
-                    .ui.reset.black.button reload session
-                // .ui.inverted.inline.header visible fields
+                    .ui.reset.button reload session
+                // .ui.inline.header visible fields
                 // each current_delta.facets
                 //     .ui.button #{this.key}
-                // .ui.inverted.inline.header view options
+                // .ui.inline.header view options
                 // .ui.button grid
                 // .ui.button list
                 // .ui.button map
@@ -30,24 +30,24 @@ template(name='set_view_limit')
 
 template(name='result')
     if loading
-        .ui.center.aligned.inverted.segment
+        .ui.center.aligned.segment
             .ui.active.centered.inline.loader
     else
         with result 
             .ui.stackable.padded.grid
                 .row
-                    .twelve.wide.black.column.scrolling
-                        .ui.inverted.header #{title}
+                    .twelve.wide.column.scrolling
+                        .ui.header #{title}
                         +tone
                         +keyword_list
                         +concept_list
                         +keywords
-                        .ui.inverted.large.list
+                        .ui.large.list
                             each _keys
                                 +field_view
                         +comments
                         
-                    .four.wide.black.column.scrolling
+                    .four.wide.column.scrolling
                         +call_watson
                         +doc_sentiment
                         +doc_emotion
@@ -80,8 +80,8 @@ template(name='facet')
     // if filtering_res
     .facet
         // .active.title
-        .ui.inverted.inline.header 
-            // i.dropdown.inverted.icon
+        .ui.inline.header 
+            // i.dropdown.icon
             |#{key}
             // each filters
             //     .unselect.ui.blue.button #{this}
