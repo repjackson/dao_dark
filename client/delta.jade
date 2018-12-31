@@ -78,24 +78,24 @@ template(name='result')
 
 template(name='facet')
     // if filtering_res
-    .ui.accordion
-        .active.title
-            .ui.inverted.inline.header 
-                i.dropdown.inverted.icon
-                |#{key}
-                // each filters
-                //     .unselect.ui.blue.button #{this}
-        .active.content
-            each filtering_res
-                if name
-                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                        strong #{name}
-                        // small #{count}
-                else
-                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                        strong [null]
-                        // small #{count}
-                
+    .facet
+        // .active.title
+        .ui.inverted.inline.header 
+            // i.dropdown.inverted.icon
+            |#{key}
+            // each filters
+            //     .unselect.ui.blue.button #{this}
+        // .active.content
+        each filtering_res
+            if name
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    strong #{name}
+                    // small #{count}
+            else
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    // small #{count}
+            
         
         
 template(name='default')

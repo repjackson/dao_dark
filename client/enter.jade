@@ -1,30 +1,24 @@
 template(name='enter')
-    .ui.centered.grid
-        .row
-            .ten.wide.column
-                .ui.fluid.inverted.center.aligned.segment
-                    .white_bat.sub
-                        |DAO
+    .ui.text.inverted.segment.container
+        h1.ui.center.aligned.header 
+            | DAO
         if message
-            .row
-                h4.ui.center.aligned.inverted.header #{message}
-        .row
-            .ten.wide.column
-                .ui.inverted.fluid.input(class=login_class)
-                    input.username(type='text' placeholder='username')
-                .ui.hidden.divider
-                .ui.inverted.fluid.input(class=login_class)
-                    input.password(type='password' placeholder='password')
-        .row
-            .ten.wide.column
-                .ui.inverted.basic.fluid.icon.large.button.enter(class=enter_class)
-                    if registering
-                        |register #{username}
-                    else
-                        |login #{username}
-        .row
-            .ten.wide.column
+            h4.ui.center.aligned.inverted.header #{message}
+        .ui.inverted.fluid.input(class=login_class)
+            input.username(type='text' placeholder='username')
+        .ui.hidden.divider
+        .ui.inverted.fluid.input(class=login_class)
+            input.password(type='password' placeholder='password')
+        .ui.inverted.basic.fluid.icon.large.button.enter(class=enter_class)
+            if registering
+                |Register #{username}
+            else
+                |Login #{username}
+        .ui.hidden.divider
+        .black.row
+            .ten.wide.black.column
                 .ui.inverted.basic.fluid.icon.large.button.new_demo
-                    | anon session
+                    i.plus.icon
+                    | Anon Session
                 
                 
