@@ -29,9 +29,8 @@ template(name='doc_emotion')
             .w3-red.w3(style="height:20px;width:{{to_percent anger}}%" title="{{to_percent anger}}% anger")
             
 template(name='call_watson')
-    #call_watson.ui.fluid.button 
+    #call_watson.ui.icon.button(title='analyze') 
         i.chess.knight.icon
-        | Analyse
         
 
 template(name='call_visual_analysis')

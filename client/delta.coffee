@@ -72,7 +72,7 @@ Template.facet.helpers
         if Session.equals 'loading', true
              'disabled '
         else if facet.filters.length > 0 and @name in facet.filters
-            'grey large'
+            'grey'
         else ''
     
     
