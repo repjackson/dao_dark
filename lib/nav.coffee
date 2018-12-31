@@ -7,6 +7,9 @@ if Meteor.isClient
     
     Template.nav.events
         'click .home': ->
+            delta = Docs.findOne type:'delta'
+            if delta
+                Docs.remove delta._id
             Meteor.call 'fum'
                 
         'click .add': ->
