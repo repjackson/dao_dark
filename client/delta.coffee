@@ -41,6 +41,16 @@ Template.facet.events
             Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
                 Session.set 'loading', false
       
+    'keyup .add_filter': (e,t)->
+        if e.which is 13
+            delta = Docs.findOne type:'delta'
+            concept = t.$('.add_filter').val()
+            Meteor.call 'add_facet_filter', delta._id, 'concepts', concept, ->
+                Session.set 'loading', false
+            concept = t.$('.add_filter').val('')
+            
+        
+      
     
 Template.facet.helpers
     filtering_res: ->
@@ -65,6 +75,8 @@ Template.facet.helpers
                 else if filter.name in @filters
                     filtering_res.push filter
         filtering_res
+
+    
 
     toggle_value_class: ->
         facet = Template.parentData()

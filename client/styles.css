@@ -16,11 +16,11 @@ body {
   font-family: 'Ubuntu', sans-serif !important;
   /*min-height: 500px;*/
   min-height: 100%;
-  filter: invert(100%);
+  /*filter: invert(100%);*/
   /*font-size: 110% !important;*/
   /*line-height: 120% !important;*/
-  background: black !important
-  /*background: lightgrey !important*/
+  /*background: black !important*/
+  background: lightgrey !important
 }
  .large-text {
 	 font-size: 130% !important;

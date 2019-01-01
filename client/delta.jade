@@ -35,6 +35,8 @@ template(name='result')
             .ui.basic.segment.container
                 .ui.header #{title}
                 +tone
+                if cleaned_html
+                    |!{cleaned_html}
             // .ui.stackable.padded.grid
                 .row
                     // .twelve.wide.column.scrolling
@@ -81,6 +83,8 @@ template(name='facet')
         // each filters
         //     .unselect.ui.blue.button #{this}
     // .active.content
+    .ui.input
+        input.add_filter(type='text')
     each filtering_res
         if name
             .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
