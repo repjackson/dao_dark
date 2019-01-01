@@ -3,16 +3,16 @@ template(name='nav')
         a.header.icon.item.home.pointer(href='/')
             // .black_bat.logo D
             i.user.shield.large.icon
-        if is_loading
-            .ui.item
-                i.loading.refresh.icon
+        // if is_loading
+        //     .ui.item
+        //         i.loading.refresh.icon
         if is_dev
             a.item.add(href='#')
                 i.plus.icon
             a.item.print_delta(href='#')
                 i.code.icon
-        a.item(href='/import' title='import')
-            i.upload.icon
+            a.item(href='/import' title='import')
+                i.upload.icon
         .right.menu
             if currentUser
                 a.me.item(href='/me')

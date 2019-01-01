@@ -159,7 +159,7 @@ Meteor.methods
         
         console.log "keyed #{doc._id}"
 
-    remove_field_globally: (keyname)->
+    global_remove: (keyname)->
         console.log 'removing', keyname, 'globally' 
         result = Docs.update({"#{keyname}":$exists:true}, {
             $unset: 
@@ -170,6 +170,10 @@ Meteor.methods
         console.log result
         console.log 'removed', keyname, 'globally' 
         
+        
+    count_key: (key)->
+        count = Docs.find({"#{key}":$exists:true}).count()
+        console.log 'key count', count
     
     
     clear_crime: ->
@@ -186,18 +190,11 @@ Meteor.methods
         console.log 'found',new_count,'of',new_keyname
         
         
-        result = Docs.update({"#{old_keyname}":$exists:true}, {
-            $rename:
-                old_keyname: new_keyname
-                # "_#{old_keyname}": "_#{new_keyname}"
-            }, {multi:true})
+        result2 = Docs.update({"#{old_keyname}":$exists:true}, {$rename:"_#{old_keyname}":"_#{new_keyname}"}, {multi:true})
+        result = Docs.update({"#{old_keyname}":$exists:true}, {$rename:old_keyname:new_keyname}, {multi:true})
         
-        result2 = Docs.update({"#{old_keyname}":$exists:true}, {
-            $rename:
-                # old_keyname: new_keyname
-                "_#{old_keyname}": "_#{new_keyname}"
-            }, {multi:true})
-        
+        # > Docs.update({doc_sentiment_score:{$exists:true}},{$rename:{doc_sentiment_score:"sentiment_score"}},{multi:true})
+
         console.log 'mongo update call finished:',result
         
         cursor = Docs.find({new_keyname:$exists:true}, { fields:_id:1 })
@@ -219,4 +216,30 @@ Meteor.methods
                 $set: video:doc._video.youtube_id
                 }, {multi:true})
             
+    timestamp_tag: ->
+        timestamp_cursor = 
+            Docs.find {
+                _timestamp:$exists:true
+                timestamp_tags:$exists:false
+            }, limit:10000
+        count = timestamp_cursor.count()
+        console.log 'found',count,'docs with timestamp'
         
+        for doc in timestamp_cursor.fetch()
+            date = moment(doc._timestamp).format('Do')
+            weekdaynum = moment(doc._timestamp).isoWeekday()
+            weekday = moment().isoWeekday(weekdaynum).format('dddd')
+        
+        
+            month = moment(doc._timestamp).format('MMMM')
+            year = moment(doc._timestamp).format('YYYY')
+        
+            date_array = [weekday, month, date, year]
+            if _
+                date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
+                # date_array = _.each(date_array, (el)-> console.log(typeof el))
+                console.log date_array
+                Docs.update doc._id,
+                    timestamp_tags: date_array
+
+                

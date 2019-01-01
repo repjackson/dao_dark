@@ -13,7 +13,7 @@ Meteor.methods
                 limit: 1
                 facets: [
                     {
-                        key:'_keys'
+                        key:'concepts'
                         filters:[]
                         res:[]
                     }
@@ -74,7 +74,7 @@ Meteor.methods
             meta = test_doc["_#{key}"]
         else
             meta = {array:true}
-        if key is '_keys' then limit=42 else limit=42
+        if key is '_keys' then limit=42 else limit=100
         
         options = { explain:false }
         if meta.array

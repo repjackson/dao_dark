@@ -32,46 +32,47 @@ template(name='result')
             .ui.active.centered.inline.loader
     else
         with result 
-            .ui.stackable.padded.grid
+            .ui.basic.segment.container
+                .ui.header #{title}
+                +tone
+            // .ui.stackable.padded.grid
                 .row
-                    .twelve.wide.column.scrolling
-                        .ui.header #{title}
-                        +tone
+                    // .twelve.wide.column.scrolling
                         // +keyword_list
-                        +concept_list
-                        +keywords
+                        // +concept_list
+                        // +keywords
                         // .ui.large.list
                         //     each _keys
                         //         +field_view
                         // +comments
                         
-                    .four.wide.column.scrolling
-                        +call_watson
-                        +doc_sentiment
-                        +doc_emotion
-                        +concepts
-                        +categories
-                        // +entity_list
-                        +entities
-                        +personality
-                        +consumption_preferences
-                        +author_info
-                        +creation_info
-                        // if can_edit
-                        //     a.ui.fluid.button(href="/edit/#{_id}")
-                        //         i.pencil.icon
-                        // .ui.segment
-                            +clone_button
-                            +detect_fields_button
-                        +bookmark_button
-                        div
-                        +voting_buttons
-                        div
-                        +detect_fields_button
-                        // a.ui.button(href="/view/#{_id}") 
-                        //     |view
-                        //     i.right.arrow.icon
-                        +author_info
+                    // .four.wide.column.scrolling
+                    //     +call_watson
+                    //     +doc_sentiment
+                    //     +doc_emotion
+                    //     +concepts
+                    //     +categories
+                    //     // +entity_list
+                    //     +entities
+                    //     +personality
+                    //     +consumption_preferences
+                    //     +author_info
+                    //     +creation_info
+                    //     // if can_edit
+                    //     //     a.ui.fluid.button(href="/edit/#{_id}")
+                    //     //         i.pencil.icon
+                    //     // .ui.segment
+                    //         +clone_button
+                    //         +detect_fields_button
+                    //     +bookmark_button
+                    //     div
+                    //     +voting_buttons
+                    //     div
+                    //     +detect_fields_button
+                    //     // a.ui.button(href="/view/#{_id}") 
+                    //     //     |view
+                    //     //     i.right.arrow.icon
+                    //     +author_info
         
 
 template(name='facet')

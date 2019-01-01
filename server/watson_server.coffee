@@ -105,21 +105,21 @@ Meteor.methods
         
         
         parameters['features'] = {
-            entities:
-                emotion: true
-                sentiment: true
+            # entities:
+            #     emotion: true
+            #     sentiment: true
                 # limit: 2
-            keywords:
-                emotion: true
-                sentiment: true
+            # keywords:
+            #     emotion: true
+                # sentiment: true
                 # limit: 2
             concepts: {}
             # categories: {}
-            emotion: {}
+            # emotion: {}
             # # metadata: {}
             # relations: {}
             # semantic_roles: {}
-            sentiment: {}
+            # sentiment: {}
         }            
 
         natural_language_understanding.analyze parameters, Meteor.bindEnvironment((err, response) ->
