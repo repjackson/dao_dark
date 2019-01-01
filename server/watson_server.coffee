@@ -127,23 +127,23 @@ Meteor.methods
                 console.log 'error:', err
             else
                 # console.log response.analyzed_text
-                keywords = _.pluck(response.keywords, 'text')
+                # keywords = _.pluck(response.keywords, 'text')
                 concepts = _.pluck(response.concepts, 'text')
-                entities = _.pluck(response.entities, 'text')
+                # entities = _.pluck(response.entities, 'text')
         
                 Docs.update { _id: doc_id }, 
                     $set:
-                        watson: response
+                        # watson: response
                         concepts: concepts
-                        keywords: keywords
-                        entities: entities
-                        sentiment_score: response.sentiment.document.score
-                        sentiment: response.sentiment.document.label
-                        html: response.analyzed_text
+                        # keywords: keywords
+                        # entities: entities
+                        # sentiment_score: response.sentiment.document.score
+                        # sentiment: response.sentiment.document.label
+                        cleaned_html: response.analyzed_text
                 doc = Docs.findOne doc_id
-                console.log 'found', doc.keywords[..20]
-                Meteor.call 'detect_fields', doc_id
-                Meteor.call 'call_tone', doc_id, ->
+                console.log 'found', doc.concepts[..20]
+                # Meteor.call 'detect_fields', doc_id
+                # Meteor.call 'call_tone', doc_id, ->
 
             return
         )

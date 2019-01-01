@@ -9,7 +9,7 @@ FlowRouter.route '/',
         if Meteor.userId()
             FlowRouter.go '/delta'
         else
-            FlowRouter.go '/enter'
+            FlowRouter.go '/delta'
 
 FlowRouter.route '/enter',
     name: 'enter'

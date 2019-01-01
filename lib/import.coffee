@@ -19,6 +19,7 @@ if Meteor.isClient
             if e.which is 13
                 subreddit = t.$('.import_subreddit').val()    
                 Meteor.call 'pull_subreddit', subreddit
+                t.$('.import_subreddit').val('')    
                 
 
             
