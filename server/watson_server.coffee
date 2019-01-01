@@ -91,10 +91,9 @@ Meteor.methods
     #     )
         
     call_watson: (doc_id, key, url) ->
-        console.log 'calling watson'
+        # console.log 'calling watson'
         self = @
         doc = Docs.findOne doc_id
-        # console.log doc
         parameters = []
         
         if doc.html
@@ -127,7 +126,7 @@ Meteor.methods
             if err
                 console.log 'error:', err
             else
-                console.log response.analyzed_text
+                # console.log response.analyzed_text
                 keywords = _.pluck(response.keywords, 'text')
                 concepts = _.pluck(response.concepts, 'text')
                 entities = _.pluck(response.entities, 'text')
@@ -141,8 +140,12 @@ Meteor.methods
                         sentiment_score: response.sentiment.document.score
                         sentiment: response.sentiment.document.label
                         html: response.analyzed_text
+                doc = Docs.findOne doc_id
+                console.log 'found', doc.keywords[..20]
+                Meteor.call 'detect_fields', doc_id
+                Meteor.call 'call_tone', doc_id, ->
+
             return
         )
-        Meteor.call 'call_tone', doc_id, ->
         # Meteor.call 'call_personality', doc_id, ->
         return

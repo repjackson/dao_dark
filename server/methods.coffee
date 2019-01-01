@@ -3,7 +3,9 @@ Meteor.methods
         start = Date.now()
         
         if specific_key
-            filter = { "#{specific_key}":$exists:true }
+            filter = 
+                "#{specific_key}": $exists:true 
+                _keys: $nin: ["#{specific_key}"]
         else
             filter = {}
         

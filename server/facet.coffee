@@ -5,7 +5,7 @@ Meteor.methods
             type:'delta'
             author_id: Meteor.userId()
         
-        console.log 'first delta', delta
+        # console.log 'first delta', delta
         unless delta
             new_id = Docs.insert
                 type:'delta'
@@ -17,11 +17,16 @@ Meteor.methods
                         filters:[]
                         res:[]
                     }
+                    # {
+                    #     key:'concepts'
+                    #     filters:[]
+                    #     res:[]
+                    # }
                 ]
             
             delta = Docs.findOne new_id
         
-        built_query = {}
+        built_query = {keywords:$exists:true}
         
         for facet in delta.facets
             if facet.filters.length > 0
@@ -42,16 +47,16 @@ Meteor.methods
 
         if delta.limit then limit=delta.limit else limit=1
 
-        console.log 'built query', built_query
+        # console.log 'built query', built_query
 
-        results_cursor = Docs.find built_query, { fields:{_id:1},limit:limit }
+        results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit}
 
         result_ids = results_cursor.fetch()
 
         console.log 'result ids', result_ids
 
-        console.log 'delta', delta
-        console.log Meteor.userId()
+        # console.log 'delta', delta
+        # console.log Meteor.userId()
 
         Docs.update {_id:delta._id},
             {
@@ -69,7 +74,7 @@ Meteor.methods
             meta = test_doc["_#{key}"]
         else
             meta = {array:true}
-        if key is '_keys' then limit=20 else limit=20
+        if key is '_keys' then limit=42 else limit=42
         
         options = { explain:false }
         if meta.array

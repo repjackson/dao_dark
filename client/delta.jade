@@ -1,27 +1,25 @@
 template(name='delta')
     +nav
-    each current_delta.facets
-        +facet
-    .ui.stackable.grid
-        .row
-            .sixteen.wide.column
-                unless current_delta
-                    .ui.reset.button reload session
-                // .ui.inline.header visible fields
-                // each current_delta.facets
-                //     .ui.button #{this.key}
-                // .ui.inline.header view options
-                // .ui.button grid
-                // .ui.button list
-                // .ui.button map
-                // .ui.button calendar
-                // +set_view_limit amount=1
-                // +set_view_limit amount=5
-                // +set_view_limit amount=10
-                // +set_view_limit amount=20
-                
-                each current_delta.result_ids
-                    +result
+    .facets
+        each current_delta.facets
+            +facet
+        unless current_delta
+            .ui.reset.button reload session
+        // .ui.inline.header visible fields
+        // each current_delta.facets
+        //     .ui.button #{this.key}
+        // .ui.inline.header view options
+        // .ui.button grid
+        // .ui.button list
+        // .ui.button map
+        // .ui.button calendar
+        // +set_view_limit amount=1
+        // +set_view_limit amount=5
+        // +set_view_limit amount=10
+        // +set_view_limit amount=20
+        
+        each current_delta.result_ids
+            +result
     
 template(name='set_view_limit')
     .ui.compact.small.button.set_limit(class=limit_class)
@@ -39,13 +37,13 @@ template(name='result')
                     .twelve.wide.column.scrolling
                         .ui.header #{title}
                         +tone
-                        +keyword_list
+                        // +keyword_list
                         +concept_list
                         +keywords
-                        .ui.large.list
-                            each _keys
-                                +field_view
-                        +comments
+                        // .ui.large.list
+                        //     each _keys
+                        //         +field_view
+                        // +comments
                         
                     .four.wide.column.scrolling
                         +call_watson
@@ -77,18 +75,18 @@ template(name='result')
         
 
 template(name='facet')
-    .ui.inline.header 
-        |#{key}
+    // .ui.inline.header 
+    //     |#{key}
         // each filters
         //     .unselect.ui.blue.button #{this}
     // .active.content
     each filtering_res
         if name
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
                 // small #{count}
         else
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                 strong [null]
                 // small #{count}
             

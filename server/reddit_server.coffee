@@ -3,7 +3,7 @@ Meteor.methods
         response = HTTP.get("http://reddit.com/r/#{subreddit}.json")
         # return response.content
         
-        _.each(response.data.data.children[..1], (item)-> 
+        _.each(response.data.data.children, (item)-> 
             # console.log item
             data = item.data
             len = 200
@@ -15,18 +15,17 @@ Meteor.methods
                 comment_count: data.num_comments
                 permalink: data.permalink
                 title: data.title
-                # selftext: false
+                selftext: true
                 # thumbnail: false
                 schema:'reddit'
                 
             # console.log reddit_post
             existing_doc = Docs.findOne reddit_id:data.id
             if existing_doc
-                Meteor.call 'get_reddit_post', existing_doc._id, data.id, (err,res)->
+                Meteor.call 'get_reddit_post', existing_doc._id, data.id
             else
                 new_reddit_post_id = Docs.insert reddit_post
-                Meteor.call 'get_reddit_post', new_reddit_post_id, data.id, (err,res)->
-                console.log 'new local doc', new_reddit_post_id
+                Meteor.call 'get_reddit_post', new_reddit_post_id, data.id
         )
         
     get_reddit_post: (doc_id, reddit_id)->
@@ -48,7 +47,8 @@ Meteor.methods
                     }, ->
                 Docs.update doc_id, 
                     $set: reddit_data: res.data.data.children[0].data
-        
+                Meteor.call 'call_watson', doc_id
+
         
     get_listing_comments: (doc_id, subreddit, reddit_id)->
         console.log doc_id
