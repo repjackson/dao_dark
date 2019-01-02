@@ -1,8 +1,9 @@
 template(name='enter')
     .ui.hidden.divider
     .ui.text.container
-        h1.ui.center.aligned.header
-            i.user.shield.icon
+        .ui.center.aligned.header
+            a(href='/delta')
+                i.user.shield.big.link.icon
         if message
             h4.ui.center.aligned.header #{message}
         .ui.fluid.input(class=login_class)
@@ -21,6 +22,11 @@ template(name='enter')
             .ten.wide.column
                 .ui.fluid.icon.large.button.new_demo
                     i.plus.icon
-                    | anon
+                    | anon account
+        .row
+            .ten.wide.column
+                a.ui.fluid.icon.large.button(href='/delta')
+                    i.right.arrow.icon
+                    | view
                 
                 
