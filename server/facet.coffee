@@ -5,10 +5,11 @@ Meteor.methods
 
         if delta
             built_query = {}
+
+            built_query = {}
             if delta.facet_in 
-                built_query.tags = $all: delta.facet_in
-            else
-                built_query = {}
+                if delta.facet_in.length > 0 
+                    built_query.tags = $all: delta.facet_in
             
             total = Docs.find(built_query).count()
             console.log 'built query', built_query
@@ -44,7 +45,7 @@ Meteor.methods
 
     agg: (query)->
         limit=42
-        
+        console.log 'agg query', query
         options = { explain:false }
         pipe =  [
             { $match: query }

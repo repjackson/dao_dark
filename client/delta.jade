@@ -41,15 +41,15 @@ template(name='delta')
                         with delta_doc
                             if facet_in
                                 each facet_in
-                                    .ui.grey.button
+                                    .ui.grey.button.pull_filter
                                         |#{this}
                             each facet_out
                                 if name
-                                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                                    .selector.ui.compact.button.add_filter(class=toggle_value_class title=count)
                                         strong #{name}
                                         // small #{count}
                                 else
-                                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                                    .selector.ui.compact.button.add_filter(class=toggle_value_class title=count)
                                         strong [null]
                                         // small #{count}
                     each delta_doc.result_ids
