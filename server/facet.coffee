@@ -11,21 +11,12 @@ Meteor.methods
                 type:'delta'
                 # author_id: Meteor.userId()
                 limit: 1
-                facets: [
-                    {
-                        key:'tags'
-                        filters:[]
-                        res:[]
-                    }
-                ]
             
             delta = Docs.findOne new_id
         
         built_query = {}
         
-        for facet in delta.facets
-            if facet.filters.length > 0
-                built_query["#{facet.key}"] = $all: facet.filters
+        built_query.tags = $all: delta.facet_in
         
         total = Docs.find(built_query).count()
         
@@ -34,11 +25,11 @@ Meteor.methods
             values = []
             local_return = []
             
-            agg_res = Meteor.call 'agg', built_query, facet.key, facet.filters
+            agg_res = Meteor.call 'agg', built_query, 'tags', delta.facet_in
 
             if agg_res
-                Docs.update { _id:delta._id, "facets.key":facet.key},
-                    { $set: "facets.$.res": agg_res }
+                Docs.update { delta._id},
+                    { $set: facet_out: agg_res }
 
         if delta.limit then limit=delta.limit else limit=1
 
