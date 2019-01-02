@@ -1,3 +1,6 @@
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
+
+
 Template.delta.onCreated ->
 
 
@@ -8,6 +11,31 @@ Template.delta.helpers
 
 
 Template.delta.events
+    'click .create_delta': (e,t)->
+        
+    'click .logout': ->
+        Meteor.logout()
+        
+    'click .delete_delta': (e,t)->
+        delta = Docs.findOne Session.get('delta_id')
+        if delta
+            if confirm "delete  #{delta._id}?"
+                Docs.remove delta._id
+
+    'click .print_delta': (e,t)->
+        delta = Docs.findOne Session.get('delta_id')
+        console.log delta
+
+    'click .recalc': ->
+        Meteor.call 'fum', (err,res)->
+
+    'blur .delta_title': (e,t)->
+        title_val = t.$('.delta_title').val()
+        Docs.update Meteor.user().current_delta_id,
+            $set: title: title_val
+
+
+
     'keyup .new_tag': (e,t)->
         if e.which is 13
             tag = t.$('.new_tag').val()    
@@ -19,35 +47,14 @@ Template.delta.events
                 
                 
     'click .new_temp_session': ->
-        console.log @
         new_delta = Docs.insert type:'delta'
-        Session.set 'delta_id', new_delta
+        
+        console.log new_delta
+        Session.set('delta_id', new_delta)
         Meteor.call 'fum', Session.get('delta_id')
 
 
 
-Template.set_view_limit.helpers
-    limit_class: ->
-        delta = Docs.findOne type:'delta'
-        if delta
-            if @amount is delta._limit then 'grey large' else ''
-
-Template.set_view_limit.events
-    'click .set_limit': ->
-        console.log @amount
-        delta = Docs.findOne type:'delta'
-        Docs.update delta._id, 
-            $set:_limit: @amount
-        Meteor.call 'fum'
-
-Template.facet.onCreated ->
-    Meteor.setTimeout ->
-        $('.ui.accordion').accordion()
-    , 1000
-
-
-
-Template.delta.events
     'click .toggle_selection': ->
         delta = Docs.findOne type:'delta'
         facet = Template.currentData()
@@ -68,8 +75,35 @@ Template.delta.events
             concept = t.$('.add_filter').val('')
             
         
-      
-    
+
+Template.delta.onCreated ->
+    @autorun -> Meteor.subscribe 'delta', Session.get('delta_id')
+
+
+Template.delta.events
+    'click .home': ->
+        delta = Docs.findOne type:'delta'
+        if delta
+            Docs.remove delta._id
+        new_delta_id = Docs.insert type:'delta'
+        Session.set 'delta_id', new_delta_id
+        
+    'click .reset': ->    
+        console.log 'calling fum', Session.get('delta_id')
+        Meteor.call 'fum', Session.get('delta_id')
+            
+            
+            
+    'click .add': ->
+        new_id = Docs.insert {}
+        FlowRouter.go "/edit/#{new_id}"
+            
+    'click .logout': -> 
+        Meteor.logout()
+        FlowRouter.go "/enter"
+            
+
+                
 Template.delta.helpers
     filtering_res: ->
         delta = Docs.findOne type:'delta'

@@ -7,8 +7,6 @@ template(name='delta')
                 if is_dev
                     a.ui.icon.button.add(href='#')
                         i.plus.icon
-                    a.ui.icon.button.print_delta(href='#')
-                        i.code.icon
                     a.ui.icon.button(href='/import' title='import')
                         i.upload.icon
             .eight.wide.center.aligned.column
@@ -27,12 +25,16 @@ template(name='delta')
                     else
                         a.icon.ui.icon.button(href="/enter")
                             i.sign.in.alternate.icon
-                // .ui.reset.icon.small.button(title='reset')
-                //     i.refresh.icon
         .row   
             .sixteen.wide.column
-                if session_delta_id
-                    |#{session_delta_id}
+                if delta_doc
+                    .ui.icon.button.print_delta
+                        i.code.icon
+                    .ui.reset.icon.button(title='reset')
+                        i.refresh.icon
+                    .ui.delete_delta.icon.button(title='delete delta')
+                        i.trash.icon
+                    |session did: #{session_delta_id}
                     .ui.transparent.left.icon.input
                         i.search.icon
                         input.add_filter(type='text' placeholder='search')

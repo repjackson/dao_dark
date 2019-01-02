@@ -5,7 +5,9 @@ Session.setDefault 'delta_id', null
 Session.setDefault 'loading', false
 
 Template.registerHelper 'session_delta_id', () -> 
-    Session.get 'delta_id'
+    did = Session.get 'delta_id'
+    console.log did
+    did
 
 
 Template.registerHelper 'delta_doc', () -> 

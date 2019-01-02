@@ -10,6 +10,7 @@ Meteor.methods
             built_query.tags = $all: facet_in
             
             total = Docs.find(built_query).count()
+            console.log 'built query', built_query
             
             # response
             agg_res = Meteor.call 'agg', built_query, 'tags', facet_in
@@ -19,7 +20,6 @@ Meteor.methods
     
             if delta.limit then limit=delta.limit else limit=1
     
-            # console.log 'built query', built_query
     
             results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit}
     
@@ -37,6 +37,9 @@ Meteor.methods
                         # _facets: filtered_facets
                         result_ids:result_ids
                 }
+                
+            delta = Docs.findOne delta_id    
+            console.log 'delta', delta
 
     agg: (query, key, filters)->
         limit=42

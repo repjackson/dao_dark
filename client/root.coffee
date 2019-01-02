@@ -43,34 +43,3 @@ FlowRouter.route '/view/:doc_id',
     action: -> @render 'layout','view'
 
  
-Template.layout.events
-    'click .create_delta': (e,t)->
-        
-    'click .logout': ->
-        Meteor.logout()
-        
-    'click .delete_delta': (e,t)->
-        delta = Docs.findOne type:'delta'
-        if delta
-            Docs.remove delta._id
-
-    'click .reset': (e,t)->
-        delta = Docs.findOne type:'delta'
-        if delta
-            Docs.remove delta._id
-        Meteor.call 'fum'
-    
-    'click .print_delta': (e,t)->
-        delta = Docs.findOne type:'delta'
-        console.log delta
-
-    'click .recalc': ->
-        Meteor.call 'fum', (err,res)->
-
-    'blur .delta_title': (e,t)->
-        title_val = t.$('.delta_title').val()
-        Docs.update Meteor.user().current_delta_id,
-            $set: title: title_val
-        
-
-

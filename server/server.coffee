@@ -26,6 +26,10 @@ Meteor.publish 'ref_choices', (schema)->
     Docs.find
         type:schema    
     
+Meteor.publish 'delta', (delta_id)->
+    Docs.find delta_id
+    
+    
     
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
