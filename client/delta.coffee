@@ -53,8 +53,6 @@ Template.delta.events
         Session.set('delta_id', new_delta)
         Meteor.call 'fum', Session.get('delta_id')
 
-
-
     'click .toggle_selection': ->
         delta = Docs.findOne type:'delta'
         facet = Template.currentData()
@@ -62,7 +60,13 @@ Template.delta.events
         if facet.filters and @name in facet.filters
             Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
                 Session.set 'loading', false
+            remove_facet_filter: (delta_id, key, filter)->
+                Docs.update did, $pull: facet_in: filter
+                Meteor.call 'fum', delta_id, (err,res)->
         else 
+            did = Session.get('delta_id')
+            Docs.update did, $addToSet: facet_in: filter
+            Meteor.call 'fum', delta_id, (err,res)->
             Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
                 Session.set 'loading', false
       
