@@ -1,25 +1,38 @@
 template(name='delta')
-    // +nav
-    .ui.reset.icon.small.button(title='reset')
-        i.refresh.icon
-    each current_delta.facets
-        +facet
-    // unless current_delta
-    // .ui.inline.header visible fields
-    // each current_delta.facets
-    //     .ui.button #{this.key}
-    // .ui.inline.header view options
-    // .ui.button grid
-    // .ui.button list
-    // .ui.button map
-    // .ui.button calendar
-    // +set_view_limit amount=1
-    // +set_view_limit amount=5
-    // +set_view_limit amount=10
-    // +set_view_limit amount=20
-    
-    each current_delta.result_ids
-        +result
+    .ui.padded.grid
+        .centered.row
+            .four.wide.center.aligned.column
+                i.plus.icon
+            .eight.wide.center.aligned.column
+                a.header.icon.home.pointer(href='/')
+                    // .black_bat.logo D
+                    i.user.big.shield.icon
+            .four.wide.center.aligned.column
+                if is_dev
+                    a.item.add(href='#')
+                        i.plus.icon
+                    a.item.print_delta(href='#')
+                        i.code.icon
+                    a.item(href='/import' title='import')
+                        i.upload.icon
+                .right.menu
+                    if currentUser
+                        a.me.item(href='/me')
+                            if currentUser
+                                i.user.icon
+                                | #{currentUser.username}
+                        a.icon.item.logout(href="#")
+                            i.sign.out.alternate.icon
+                    else
+                        a.icon.item(href="/enter")
+                            i.sign.in.alternate.icon
+                .ui.reset.icon.small.button(title='reset')
+                    i.refresh.icon
+        .centered.row    
+            each current_delta.facets
+                +facet
+            each current_delta.result_ids
+                +result
     
 template(name='set_view_limit')
     .ui.compact.small.button.set_limit(class=limit_class)
@@ -39,13 +52,17 @@ template(name='result')
                         |!{cleaned_html}
                 else
                     +tone
+                div #{body}
+                div #{html}
+                div #{content}
             // .ui.inline.header 
             //     i.tags.icon
-            .ui.fluid.large.icon.transparent.input
-                i.plus.icon
-                input.new_tag(type='text' placeholder='add tag')
-            each tags
-                .ui.label #{this}
+            .facet_res
+                .ui.fluid.large.icon.transparent.input
+                    i.plus.icon
+                    input.new_tag(type='text' placeholder='add tag')
+                each tags
+                    .ui.label #{this}
             
             // .ui.stackable.padded.grid
                 .row

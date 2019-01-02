@@ -3,13 +3,13 @@ Meteor.methods
         console.log 'first userid', Meteor.userId()
         delta = Docs.findOne 
             type:'delta'
-            author_id: Meteor.userId()
+            # author_id: Meteor.userId()
         
         # console.log 'first delta', delta
         unless delta
             new_id = Docs.insert
                 type:'delta'
-                author_id: Meteor.userId()
+                # author_id: Meteor.userId()
                 limit: 1
                 facets: [
                     {
@@ -17,11 +17,6 @@ Meteor.methods
                         filters:[]
                         res:[]
                     }
-                    # {
-                    #     key:'concepts'
-                    #     filters:[]
-                    #     res:[]
-                    # }
                 ]
             
             delta = Docs.findOne new_id
@@ -67,36 +62,28 @@ Meteor.methods
             }
 
     agg: (query, key, filters)->
-        unless key is '_keys'
-            test_doc = 
-                Docs.findOne 
-                    "_#{key}":$exists:true
-            meta = test_doc["_#{key}"]
-        else
-            meta = {array:true}
-        if key is '_keys' then limit=20 else limit=20
+        limit=42
         
         options = { explain:false }
-        if meta.array
-            pipe =  [
-                { $match: query }
-                { $project: "#{key}": 1 }
-                { $unwind: "$#{key}" }
-                { $group: _id: "$#{key}", count: $sum: 1 }
-                { $sort: count: -1, _id: 1 }
-                { $limit: limit }
-                { $project: _id: 0, name: '$_id', count: 1 }
-            ]
-        else if meta.string or meta.number
-            unless meta.html
-                pipe =  [
-                    { $match: query }
-                    { $project: "#{key}": 1 }
-                    { $group: _id: "$#{key}", count: $sum: 1 }
-                    { $sort: count: -1, _id: 1 }
-                    { $limit: limit }
-                    { $project: _id: 0, name: '$_id', count: 1 }
-                ]
+        pipe =  [
+            { $match: query }
+            { $project: "#{key}": 1 }
+            { $unwind: "$#{key}" }
+            { $group: _id: "$#{key}", count: $sum: 1 }
+            { $sort: count: -1, _id: 1 }
+            { $limit: limit }
+            { $project: _id: 0, name: '$_id', count: 1 }
+        ]
+        # else if meta.string or meta.number
+        #     unless meta.html
+        #         pipe =  [
+        #             { $match: query }
+        #             { $project: "#{key}": 1 }
+        #             { $group: _id: "$#{key}", count: $sum: 1 }
+        #             { $sort: count: -1, _id: 1 }
+        #             { $limit: limit }
+        #             { $project: _id: 0, name: '$_id', count: 1 }
+        #         ]
         if pipe
             agg = Docs.rawCollection().aggregate(pipe,options)
             res = {}
