@@ -2,7 +2,7 @@ template(name='delta')
     .ui.padded.grid
         .centered.row
             .four.wide.center.aligned.column
-                if is_dev
+                // if is_dev
                     // a.ui.icon.button.add(href='#')
                     //     i.plus.icon
                     // a.ui.icon.button(href='/import' title='import')
@@ -14,7 +14,7 @@ template(name='delta')
             .four.wide.center.aligned.column
                 .right.menu
                     if currentUser
-                        a.me.ui.icon.button(href='/me')
+                        .ui.button
                             if currentUser
                                 i.user.icon
                                 | #{currentUser.username}
@@ -26,13 +26,14 @@ template(name='delta')
         .row   
             .sixteen.wide.column
                 if delta_doc
-                    .ui.icon.button.print_delta
-                        i.code.icon
-                    .ui.reset.icon.button(title='reset')
-                        i.refresh.icon
-                    .ui.delete_delta.icon.button(title='delete delta')
-                        i.trash.icon
-                    |session did: #{session_delta_id}
+                    if is_dev
+                        .ui.icon.button.print_delta
+                            i.code.icon
+                        .ui.reset.icon.button(title='reset')
+                            i.refresh.icon
+                        .ui.delete_delta.icon.button(title='delete delta')
+                            i.trash.icon
+                        |did: #{session_delta_id}
                     .ui.transparent.left.icon.input
                         i.search.icon
                         input#add_filter(type='text' placeholder='search')
