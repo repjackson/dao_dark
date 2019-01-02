@@ -54,29 +54,26 @@ Template.delta.events
         Meteor.call 'fum', Session.get('delta_id')
 
     'click .toggle_selection': ->
-        delta = Docs.findOne type:'delta'
-        facet = Template.currentData()
+        did = Session.get('delta_id')
+        delta = Docs.findOne did
         Session.set 'loading', true
-        if facet.filters and @name in facet.filters
-            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
-                Session.set 'loading', false
-            remove_facet_filter: (delta_id, key, filter)->
-                Docs.update did, $pull: facet_in: filter
-                Meteor.call 'fum', delta_id, (err,res)->
+        console.log @
+        if delta.facet_in and @name in delta.facet_in
+            Docs.update did, $pull: facet_in: @name
         else 
-            did = Session.get('delta_id')
-            Docs.update did, $addToSet: facet_in: filter
-            Meteor.call 'fum', delta_id, (err,res)->
-            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
-                Session.set 'loading', false
+            Docs.update did, $addToSet: facet_in: @name
+        Meteor.call 'fum', did, (err,res)->
+            Session.set 'loading', false
       
     'keyup .add_filter': (e,t)->
         if e.which is 13
+            did = Session.get('delta_id')
             delta = Docs.findOne type:'delta'
-            concept = t.$('.add_filter').val()
-            Meteor.call 'add_facet_filter', delta._id, 'concepts', concept, ->
+            tag = t.$('.add_filter').val()
+            Docs.update did, $addToSet: facet_in:tag
+            Meteor.call 'fum', did, (err,res)->
+                t.$('.add_filter').val('')
                 Session.set 'loading', false
-            concept = t.$('.add_filter').val('')
             
         
 
