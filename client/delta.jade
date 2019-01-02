@@ -2,37 +2,46 @@ template(name='delta')
     .ui.padded.grid
         .centered.row
             .four.wide.center.aligned.column
-                i.plus.icon
+                .ui.icon.button
+                    i.plus.icon
+                if is_dev
+                    a.ui.icon.button.add(href='#')
+                        i.plus.icon
+                    a.ui.icon.button.print_delta(href='#')
+                        i.code.icon
+                    a.ui.icon.button(href='/import' title='import')
+                        i.upload.icon
             .eight.wide.center.aligned.column
                 a.header.icon.home.pointer(href='/')
                     // .black_bat.logo D
                     i.user.big.shield.icon
             .four.wide.center.aligned.column
-                if is_dev
-                    a.item.add(href='#')
-                        i.plus.icon
-                    a.item.print_delta(href='#')
-                        i.code.icon
-                    a.item(href='/import' title='import')
-                        i.upload.icon
                 .right.menu
                     if currentUser
-                        a.me.item(href='/me')
+                        a.me.ui.icon.button(href='/me')
                             if currentUser
                                 i.user.icon
                                 | #{currentUser.username}
-                        a.icon.item.logout(href="#")
+                        a.icon.ui.icon.button.logout(href="#")
                             i.sign.out.alternate.icon
                     else
-                        a.icon.item(href="/enter")
+                        a.icon.ui.icon.button(href="/enter")
                             i.sign.in.alternate.icon
-                .ui.reset.icon.small.button(title='reset')
-                    i.refresh.icon
-        .centered.row    
-            each current_delta.facets
-                +facet
-            each current_delta.result_ids
-                +result
+                // .ui.reset.icon.small.button(title='reset')
+                //     i.refresh.icon
+        .row   
+            .sixteen.wide.column
+                if session_delta_id
+                    each current_delta.facets
+                        +facet
+                    each current_delta.result_ids
+                        +result
+                else
+                    .ui.center.aligned.header no session
+                    div
+                    unless currentUser
+                        .ui.new_temp_session.button new temp session
+                    
     
 template(name='set_view_limit')
     .ui.compact.small.button.set_limit(class=limit_class)
@@ -64,44 +73,6 @@ template(name='result')
                 each tags
                     .ui.label #{this}
             
-            // .ui.stackable.padded.grid
-                .row
-                    // .twelve.wide.column.scrolling
-                        // +keyword_list
-                        // +concept_list
-                        // +keywords
-                        // .ui.large.list
-                        //     each _keys
-                        //         +field_view
-                        // +comments
-                        
-                    // .four.wide.column.scrolling
-                    //     +call_watson
-                    //     +doc_sentiment
-                    //     +doc_emotion
-                    //     +concepts
-                    //     +categories
-                    //     // +entity_list
-                    //     +entities
-                    //     +personality
-                    //     +consumption_preferences
-                    //     +author_info
-                    //     +creation_info
-                    //     // if can_edit
-                    //     //     a.ui.fluid.button(href="/edit/#{_id}")
-                    //     //         i.pencil.icon
-                    //     // .ui.segment
-                    //         +clone_button
-                    //         +detect_fields_button
-                    //     +bookmark_button
-                    //     div
-                    //     +voting_buttons
-                    //     div
-                    //     +detect_fields_button
-                    //     // a.ui.button(href="/view/#{_id}") 
-                    //     //     |view
-                    //     //     i.right.arrow.icon
-                    //     +author_info
 
 
 template(name='facet')
@@ -110,9 +81,10 @@ template(name='facet')
         // each filters
         //     .unselect.ui.blue.button #{this}
     // .active.content
-    .ui.transparent.large.input
-        input.add_filter(type='text' placeholder='search')
     .facet_res
+        .ui.transparent.left.icon.input
+            i.search.icon
+            input.add_filter(type='text' placeholder='search')
         each filtering_res
             if name
                 .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)

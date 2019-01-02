@@ -17,6 +17,12 @@ Template.delta.events
                 $addToSet: tags: tag
             t.$('.new_tag').val('')    
                 
+                
+    'click .new_temp_session': ->
+        console.log @
+        new_delta = Docs.insert type:'delta'
+        Session.set 'delta_id', new_delta
+        
 
 
 
