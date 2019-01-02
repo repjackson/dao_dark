@@ -81,6 +81,12 @@ body {
 
 }
 
+.facet_res {
+  text-align: center !important;
+  padding: 3px !important;
+  
+}
+
 @media only screen and (max-width: 700px) {
   .ui.fixed.menu {
     display: none !important;
@@ -235,7 +241,7 @@ body {
 }
   .large130 {
     font-size: 130%;
-    line-height: 130%;
+    line-height: 150%;
 }
   .large120 {
     font-size: 120%;

@@ -1,26 +1,25 @@
 template(name='delta')
     // +nav
-    .facets
-        .ui.reset.icon.small.button(title='reset')
-            i.refresh.icon
-        each current_delta.facets
-            +facet
-        // unless current_delta
-        // .ui.inline.header visible fields
-        // each current_delta.facets
-        //     .ui.button #{this.key}
-        // .ui.inline.header view options
-        // .ui.button grid
-        // .ui.button list
-        // .ui.button map
-        // .ui.button calendar
-        // +set_view_limit amount=1
-        // +set_view_limit amount=5
-        // +set_view_limit amount=10
-        // +set_view_limit amount=20
-        
-        each current_delta.result_ids
-            +result
+    .ui.reset.icon.small.button(title='reset')
+        i.refresh.icon
+    each current_delta.facets
+        +facet
+    // unless current_delta
+    // .ui.inline.header visible fields
+    // each current_delta.facets
+    //     .ui.button #{this.key}
+    // .ui.inline.header view options
+    // .ui.button grid
+    // .ui.button list
+    // .ui.button map
+    // .ui.button calendar
+    // +set_view_limit amount=1
+    // +set_view_limit amount=5
+    // +set_view_limit amount=10
+    // +set_view_limit amount=20
+    
+    each current_delta.result_ids
+        +result
     
 template(name='set_view_limit')
     .ui.compact.small.button.set_limit(class=limit_class)
@@ -33,18 +32,20 @@ template(name='result')
             .ui.active.centered.inline.loader
     else
         with result 
-            .ui.basic.segment.container
+            .facet_res
                 .ui.header #{title}
                 if cleaned_html
-                    |!{cleaned_html}
+                    .large130 
+                        |!{cleaned_html}
                 else
                     +tone
-            .ui.inline.header 
-                i.tags.icon
+            // .ui.inline.header 
+            //     i.tags.icon
+            .ui.fluid.large.icon.transparent.input
+                i.plus.icon
+                input.new_tag(type='text' placeholder='add tag')
             each tags
                 .ui.label #{this}
-            .ui.input
-                input.new_tag(type='text' placeholder='add tag')
             
             // .ui.stackable.padded.grid
                 .row
@@ -94,15 +95,16 @@ template(name='facet')
     // .active.content
     .ui.transparent.large.input
         input.add_filter(type='text' placeholder='search')
-    each filtering_res
-        if name
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                strong #{name}
-                // small #{count}
-        else
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                strong [null]
-                // small #{count}
+    .facet_res
+        each filtering_res
+            if name
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    strong #{name}
+                    // small #{count}
+            else
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    // small #{count}
             
         
         

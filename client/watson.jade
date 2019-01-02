@@ -208,8 +208,8 @@ template(name='tone')
                 // strong #{sentence_id}: 
                 .large120 #{text}
                     each tones
-                        // span.spaced(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
-                        .ui.label(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
+                        span.spaced(class="{{calculated_size score}}" style="color:grey;" title="{{to_percent score}}%") #{tone_id}
+                        // .ui.small.label(class="{{calculated_size score}}" title="{{to_percent score}}%") #{tone_id}
     // unless tone                
     // #call_tone.ui.icon.button
     //     i.refresh.icon
