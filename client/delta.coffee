@@ -2,11 +2,21 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 
 Template.delta.onCreated ->
+    @autorun -> Meteor.subscribe 'delta', Session.get('delta_id')
+    @autorun -> Meteor.subscribe 'deltas'
 
 
 Template.delta.helpers
     current_delta: -> 
         Docs.findOne
+            type:'delta'
+
+    public_sessions: ->
+        Docs.find
+            type:'delta'
+
+    my_sessions: ->
+        Docs.find
             type:'delta'
 
 
@@ -46,14 +56,14 @@ Template.delta.events
             t.$('.new_tag').val('')    
                 
                 
-    'click .new_temp_session': ->
+    'click .new_session': ->
         new_delta = Docs.insert type:'delta'
         
         console.log new_delta
         Session.set('delta_id', new_delta)
         Meteor.call 'fum', Session.get('delta_id')
 
-    'click .add_filter': ->
+    'click .select_filter': ->
         did = Session.get('delta_id')
         delta = Docs.findOne did
         Session.set 'loading', true
@@ -70,7 +80,7 @@ Template.delta.events
         Meteor.call 'fum', did, (err,res)->
             Session.set 'loading', false
       
-    'keyup .add_filter': (e,t)->
+    'keyup #add_filter': (e,t)->
         if e.which is 13
             did = Session.get('delta_id')
             delta = Docs.findOne type:'delta'
@@ -80,10 +90,10 @@ Template.delta.events
                 t.$('.add_filter').val('')
                 Session.set 'loading', false
             
-        
+    'click .select_session': ->
+        console.log @
+        Session.set 'delta_id', @_id
 
-Template.delta.onCreated ->
-    @autorun -> Meteor.subscribe 'delta', Session.get('delta_id')
 
 
 Template.delta.events

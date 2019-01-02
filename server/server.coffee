@@ -10,6 +10,10 @@ Meteor.users.allow
     remove: (userId, doc) -> userId
 
 
+Meteor.publish 'deltas', ->
+    Docs.find
+        type:'delta'
+
 Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id
 

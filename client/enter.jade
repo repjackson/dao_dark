@@ -9,16 +9,18 @@ template(name='enter')
             input.username(type='text' placeholder='username')
         .ui.fluid.input(class=login_class)
             input.password(type='password' placeholder='password')
-        .ui.fluid.icon.large.button.enter(class=enter_class)
+        .ui.fluid.large.button.enter(class=enter_class)
             if registering
-                |Register #{username}
+                i.plus.icon
+                |#{username}
             else
-                |Login #{username}
+                i.play.icon
+                | #{username}
         .ui.hidden.divider
         .row
             .ten.wide.column
                 .ui.fluid.icon.large.button.new_demo
                     i.plus.icon
-                    | Anon Session
+                    | anon
                 
                 
