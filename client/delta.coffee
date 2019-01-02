@@ -95,14 +95,11 @@ Template.delta.events
         Session.set 'delta_id', @_id
 
 
-
-Template.delta.events
     'click .home': ->
         delta = Docs.findOne type:'delta'
         if delta
             Docs.remove delta._id
-        new_delta_id = Docs.insert type:'delta'
-        Session.set 'delta_id', new_delta_id
+        Session.set 'delta_id', null
         
     'click .reset': ->    
         console.log 'calling fum', Session.get('delta_id')
