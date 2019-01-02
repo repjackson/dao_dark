@@ -1,10 +1,11 @@
 template(name='delta')
     // +nav
     .facets
+        .ui.reset.icon.small.button(title='reset')
+            i.refresh.icon
         each current_delta.facets
             +facet
-        unless current_delta
-            .ui.reset.button reload session
+        // unless current_delta
         // .ui.inline.header visible fields
         // each current_delta.facets
         //     .ui.button #{this.key}
@@ -34,9 +35,17 @@ template(name='result')
         with result 
             .ui.basic.segment.container
                 .ui.header #{title}
-                +tone
                 if cleaned_html
                     |!{cleaned_html}
+                else
+                    +tone
+            .ui.inline.header 
+                i.tags.icon
+            each tags
+                .ui.label #{this}
+            .ui.input
+                input.new_tag(type='text' placeholder='add tag')
+            
             // .ui.stackable.padded.grid
                 .row
                     // .twelve.wide.column.scrolling
@@ -75,7 +84,7 @@ template(name='result')
                     //     //     |view
                     //     //     i.right.arrow.icon
                     //     +author_info
-        
+
 
 template(name='facet')
     // .ui.inline.header 
@@ -83,15 +92,15 @@ template(name='facet')
         // each filters
         //     .unselect.ui.blue.button #{this}
     // .active.content
-    .ui.input
-        input.add_filter(type='text')
+    .ui.transparent.large.input
+        input.add_filter(type='text' placeholder='search')
     each filtering_res
         if name
-            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
                 // small #{count}
         else
-            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                 strong [null]
                 // small #{count}
             

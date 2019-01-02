@@ -25,6 +25,7 @@ Meteor.methods
                 Meteor.call 'get_reddit_post', existing_doc._id, data.id
             else
                 new_reddit_post_id = Docs.insert reddit_post
+                console.log 'new id', new_reddit_post_id
                 Meteor.call 'get_reddit_post', new_reddit_post_id, data.id
         )
         

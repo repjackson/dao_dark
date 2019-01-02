@@ -7,6 +7,18 @@ Template.delta.helpers
             type:'delta'
 
 
+Template.delta.events
+    'keyup .new_tag': (e,t)->
+        if e.which is 13
+            tag = t.$('.new_tag').val()    
+            # Meteor.call 'pull_subreddit', subreddit
+            # console.log @
+            Docs.update @_id,
+                $addToSet: tags: tag
+            t.$('.new_tag').val('')    
+                
+
+
 
 Template.set_view_limit.helpers
     limit_class: ->

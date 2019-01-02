@@ -26,7 +26,7 @@ Meteor.methods
             
             delta = Docs.findOne new_id
         
-        built_query = {keywords:$exists:true}
+        built_query = {concepts:$exists:true}
         
         for facet in delta.facets
             if facet.filters.length > 0
@@ -74,7 +74,7 @@ Meteor.methods
             meta = test_doc["_#{key}"]
         else
             meta = {array:true}
-        if key is '_keys' then limit=42 else limit=100
+        if key is '_keys' then limit=20 else limit=20
         
         options = { explain:false }
         if meta.array
