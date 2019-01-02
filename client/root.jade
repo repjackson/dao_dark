@@ -11,7 +11,7 @@ template(name='layout')
         +nav
         #main
             +yield
-    // +footer
+    +footer
 
 
 template(name='nav')
@@ -36,3 +36,9 @@ template(name='nav')
                     a.icon.ui.icon.button(href="/enter")
                         i.sign.in.alternate.icon
 
+
+template(name='footer')
+    .ui.bottom.fixed.menu
+        .ui.header.item hi
+        .item
+            i.right.arrow.icon
