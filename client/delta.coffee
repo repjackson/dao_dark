@@ -22,7 +22,7 @@ Template.delta.events
         console.log @
         new_delta = Docs.insert type:'delta'
         Session.set 'delta_id', new_delta
-        
+        Meteor.call 'fum', Session.get('delta_id')
 
 
 
@@ -47,7 +47,7 @@ Template.facet.onCreated ->
 
 
 
-Template.facet.events
+Template.delta.events
     'click .toggle_selection': ->
         delta = Docs.findOne type:'delta'
         facet = Template.currentData()
@@ -70,28 +70,15 @@ Template.facet.events
         
       
     
-Template.facet.helpers
+Template.delta.helpers
     filtering_res: ->
         delta = Docs.findOne type:'delta'
         filtering_res = []
-        if @key is '_keys'
-            filtered_list = [
-                'entities'
-                'keywords'
-                'concepts'
-                'tags'
-                'youtube'
-                'type'
-            ]
-            filtering_res = @res
-            # for filter in @res
-                # if filter.name in filtered_list then filtering_res.push filter
-        else
-            for filter in @res
-                if filter.count < delta.total
-                    filtering_res.push filter
-                else if filter.name in @filters
-                    filtering_res.push filter
+        for filter in @facet_out
+            if filter.count < delta.total
+                filtering_res.push filter
+            else if filter.name in @facet_in
+                filtering_res.push filter
         filtering_res
 
     
@@ -101,8 +88,6 @@ Template.facet.helpers
         delta = Docs.findOne type:'delta'
         if Session.equals 'loading', true
              'disabled '
-        else if facet.filters.length > 0 and @name in facet.filters
-            'grey'
         else ''
     
     

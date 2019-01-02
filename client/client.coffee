@@ -7,6 +7,10 @@ Session.setDefault 'loading', false
 Template.registerHelper 'session_delta_id', () -> 
     Session.get 'delta_id'
 
+
+Template.registerHelper 'delta_doc', () -> 
+    Docs.findOne Session.get('delta_id')
+
 Template.registerHelper 'is_loading', () -> 
     Session.equals 'loading', true
 

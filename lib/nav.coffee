@@ -2,7 +2,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 if Meteor.isClient
     Template.delta.onCreated ->
-        @autorun -> Meteor.subscribe 'delta'
+        @autorun -> Meteor.subscribe 'delta', Session.get('delta_id')
 
     
     Template.delta.events
@@ -25,7 +25,5 @@ if Meteor.isClient
 
                 
 if Meteor.isServer
-    Meteor.publish 'delta', ->
-        Docs.find 
-            type:'delta'
-            # author_id:  Meteor.userId()
+    Meteor.publish 'delta', (delta_id)->
+        Docs.find delta_id

@@ -1,56 +1,42 @@
 Meteor.methods
-    fum: ->
-        console.log 'first userid', Meteor.userId()
-        delta = Docs.findOne 
-            type:'delta'
-            # author_id: Meteor.userId()
-        
-        # console.log 'first delta', delta
-        unless delta
-            new_id = Docs.insert
-                type:'delta'
-                # author_id: Meteor.userId()
-                limit: 1
+    fum: (delta_id)->
+        console.log 'running fum', delta_id
+        delta = Docs.findOne delta_id
+
+        if delta
+            built_query = {}
+            if delta.facet_in then facet_in=delta.facet_in else facet_in=[]
             
-            delta = Docs.findOne new_id
-        
-        built_query = {}
-        
-        built_query.tags = $all: delta.facet_in
-        
-        total = Docs.find(built_query).count()
-        
-        # response
-        for facet in delta.facets
-            values = []
-            local_return = []
+            built_query.tags = $all: facet_in
             
-            agg_res = Meteor.call 'agg', built_query, 'tags', delta.facet_in
-
-            if agg_res
-                Docs.update { delta._id},
-                    { $set: facet_out: agg_res }
-
-        if delta.limit then limit=delta.limit else limit=1
-
-        # console.log 'built query', built_query
-
-        results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit}
-
-        result_ids = results_cursor.fetch()
-
-        console.log 'result ids', result_ids
-
-        # console.log 'delta', delta
-        # console.log Meteor.userId()
-
-        Docs.update {_id:delta._id},
-            {
-                $set:
-                    total: total
-                    # _facets: filtered_facets
-                    result_ids:result_ids
-            }
+            total = Docs.find(built_query).count()
+            
+            # response
+            agg_res = Meteor.call 'agg', built_query, 'tags', facet_in
+    
+            Docs.update delta_id,
+                { $set: facet_out: agg_res }
+    
+            if delta.limit then limit=delta.limit else limit=1
+    
+            # console.log 'built query', built_query
+    
+            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit}
+    
+            result_ids = results_cursor.fetch()
+    
+            console.log 'result ids', result_ids
+    
+            # console.log 'delta', delta
+            # console.log Meteor.userId()
+    
+            Docs.update {_id:delta_id},
+                {
+                    $set:
+                        total: total
+                        # _facets: filtered_facets
+                        result_ids:result_ids
+                }
 
     agg: (query, key, filters)->
         limit=42

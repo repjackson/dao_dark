@@ -32,9 +32,25 @@ template(name='delta')
         .row   
             .sixteen.wide.column
                 if session_delta_id
-                    each current_delta.facets
-                        +facet
-                    each current_delta.result_ids
+                    |#{session_delta_id}
+                    .ui.transparent.left.icon.input
+                        i.search.icon
+                        input.add_filter(type='text' placeholder='search')
+                        with delta_doc
+                            if facet_in
+                                each facet_in
+                                    .ui.grey.button
+                                        |#{this}
+                            each facet_out
+                                if name
+                                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                                        strong #{name}
+                                        // small #{count}
+                                else
+                                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                                        strong [null]
+                                        // small #{count}
+                    each delta_doc.result_ids
                         +result
                 else
                     .ui.center.aligned.header no session
