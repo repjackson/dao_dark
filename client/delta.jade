@@ -1,78 +1,54 @@
 template(name='delta')
-    .ui.padded.grid
-        .centered.row
-            .four.wide.center.aligned.column
-                // if is_dev
-                    // a.ui.icon.button.add(href='#')
-                    //     i.plus.icon
-                    // a.ui.icon.button(href='/import' title='import')
-                    //     i.upload.icon
-            .eight.wide.center.aligned.column
-                a.header.icon.home.pointer(href='/')
-                    // .black_bat.logo D
-                    i.user.big.shield.icon
-            .four.wide.center.aligned.column
-                .right.menu
-                    if currentUser
-                        .ui.button
-                            if currentUser
-                                i.user.icon
-                                | #{currentUser.username}
-                        a.icon.ui.icon.button.logout(href="#")
-                            i.sign.out.alternate.icon
-                    else
-                        a.icon.ui.icon.button(href="/enter")
-                            i.sign.in.alternate.icon
-        .row   
-            .sixteen.wide.column
-                if delta_doc
-                    if is_dev
-                        .ui.icon.button.print_delta
-                            i.code.icon
-                        .ui.reset.icon.button(title='reset')
-                            i.refresh.icon
-                        .ui.delete_delta.icon.button(title='delete delta')
-                            i.trash.icon
-                        |did: #{session_delta_id}
-                    .ui.transparent.left.icon.input
-                        i.search.icon
-                        input#add_filter(type='text' placeholder='search')
-                    with delta_doc
-                        if facet_in
-                            each facet_in
-                                .ui.grey.button.pull_filter
-                                    |#{this}
-                        each facet_out
-                            if name
-                                .ui.compact.button.select_filter(class=toggle_value_class title=count)
-                                    strong #{name}
-                                    // small #{count}
+    .row   
+        .sixteen.wide.column
+            if delta_doc
+                if is_dev
+                    .ui.icon.button.print_delta
+                        i.code.icon
+                    .ui.reset.icon.button(title='reset')
+                        i.refresh.icon
+                    .ui.delete_delta.icon.button(title='delete delta')
+                        i.trash.icon
+                    |did: #{session_delta_id}
+                .ui.transparent.left.icon.input
+                    i.search.icon
+                    input#add_filter(type='text' placeholder='search')
+                with delta_doc
+                    if facet_in
+                        each facet_in
+                            .ui.grey.button.pull_filter
+                                |#{this}
+                    each facet_out
+                        if name
+                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
+                                strong #{name}
+                                // small #{count}
+                        else
+                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
+                                strong [null]
+                                // small #{count}
+                each delta_doc.result_ids
+                    +result
+            else
+                .ui.center.aligned.header no session
+                if currentUser
+                    .ui.inline.header my sessions
+                    each my_sessions
+                        .ui.button.select_session
+                            if title
+                                |#{title}
                             else
-                                .ui.compact.button.select_filter(class=toggle_value_class title=count)
-                                    strong [null]
-                                    // small #{count}
-                    each delta_doc.result_ids
-                        +result
+                                | @
                 else
-                    .ui.center.aligned.header no session
-                    if currentUser
-                        .ui.inline.header my sessions
-                        each my_sessions
-                            .ui.button.select_session
-                                if title
-                                    |#{title}
-                                else
-                                    | @
-                    else
-                        .ui.inline.header public sessions
-                        each public_sessions
-                            .ui.button.select_session
-                                if title
-                                    |#{title}
-                                else
-                                    | @
-                        
-                    .ui.new_session.button + session
+                    .ui.inline.header public sessions
+                    each public_sessions
+                        .ui.button.select_session
+                            if title
+                                |#{title}
+                            else
+                                | @
+                    
+                .ui.new_session.button + session
                     
     
 template(name='set_view_limit')

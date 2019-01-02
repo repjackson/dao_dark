@@ -1,22 +1,12 @@
 template(name='edit')
     with doc
         .ui.stackable.grid
-            .four.wide.column
-                .ui.segment
-                    .ui.button.print print
-                    each _keys
-                        .ui.label #{this}                
-                    .content
-                        .ui.small.header add brick
-                        each bricks
-                            .ui.button.add_brick
-                                |#{this}
-                    a.ui.fluid.button(href="/view/#{_id}")
-                        i.checkmark.icon
             .twelve.wide.column
-                each _keys
-                    +field_edit
-                    
+                .ui.header tags and body        
+                .ui.button.print print
+                .content
+                a.ui.fluid.button(href="/view/#{_id}")
+                    i.checkmark.icon
                     
                     
 template(name='field_edit')

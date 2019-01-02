@@ -73,7 +73,7 @@ Template.delta.events
             Session.set 'loading', false
     
     'click .pull_filter': ->
-        console.log @
+        # console.log @
         did = Session.get('delta_id')
         Session.set 'loading', true
         Docs.update did, $pull: facet_in: @valueOf()
