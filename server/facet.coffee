@@ -5,15 +5,16 @@ Meteor.methods
 
         if delta
             built_query = {}
-            if delta.facet_in then facet_in=delta.facet_in else facet_in=[]
-            
-            built_query.tags = $all: facet_in
+            if delta.facet_in 
+                built_query.tags = $all: delta.facet_in
+            else
+                built_query = {}
             
             total = Docs.find(built_query).count()
             console.log 'built query', built_query
             
             # response
-            agg_res = Meteor.call 'agg', built_query, 'tags', facet_in
+            agg_res = Meteor.call 'agg', built_query
     
             Docs.update delta_id,
                 { $set: facet_out: agg_res }
@@ -41,29 +42,19 @@ Meteor.methods
             delta = Docs.findOne delta_id    
             console.log 'delta', delta
 
-    agg: (query, key, filters)->
+    agg: (query)->
         limit=42
         
         options = { explain:false }
         pipe =  [
             { $match: query }
-            { $project: "#{key}": 1 }
-            { $unwind: "$#{key}" }
-            { $group: _id: "$#{key}", count: $sum: 1 }
+            { $project: "tags": 1 }
+            { $unwind: "$tags" }
+            { $group: _id: "$tags", count: $sum: 1 }
             { $sort: count: -1, _id: 1 }
             { $limit: limit }
             { $project: _id: 0, name: '$_id', count: 1 }
         ]
-        # else if meta.string or meta.number
-        #     unless meta.html
-        #         pipe =  [
-        #             { $match: query }
-        #             { $project: "#{key}": 1 }
-        #             { $group: _id: "$#{key}", count: $sum: 1 }
-        #             { $sort: count: -1, _id: 1 }
-        #             { $limit: limit }
-        #             { $project: _id: 0, name: '$_id', count: 1 }
-        #         ]
         if pipe
             agg = Docs.rawCollection().aggregate(pipe,options)
             res = {}
