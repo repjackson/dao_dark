@@ -13,7 +13,7 @@ Meteor.methods
                 limit: 1
                 facets: [
                     {
-                        key:'concepts'
+                        key:'tags'
                         filters:[]
                         res:[]
                     }
@@ -26,7 +26,7 @@ Meteor.methods
             
             delta = Docs.findOne new_id
         
-        built_query = {concepts:$exists:true}
+        built_query = {}
         
         for facet in delta.facets
             if facet.filters.length > 0
