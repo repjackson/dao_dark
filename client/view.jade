@@ -1,23 +1,23 @@
 template(name='view')  
     with doc
-        .twelve.wide.column
-            each tags
-                .ui.label #{this}
-            .large120 #{body}
-
-        .four.wide.column
-            .ui.header points #{points}
-            +author_info
-            +creation_info
-            a.ui.fluid.button(href="/edit/#{_id}")
-                i.pencil.icon
-            +clone_button
-            // +detect_fields_button
-            +bookmark_button
-            +voting_buttons
-            // +comments
-        // .row
-        //     .sixteen.wide.column
+        .ui.grid
+            .row
+                .twelve.wide.column
+                    each tags
+                        .ui.label #{this}
+                    .large120 #{body}
+        
+                .four.wide.column
+                    .ui.header points #{points}
+                    +author_info
+                    +creation_info
+                    a.ui.fluid.button(href="/edit/#{_id}")
+                        i.pencil.icon
+                    +clone_button
+                    // +detect_fields_button
+                    +bookmark_button
+                    +voting_buttons
+                    // +comments
 
 template(name='field_view')
     .item   

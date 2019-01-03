@@ -31,8 +31,11 @@ template(name='layout')
                 +yield
         .equal.width.row
             .column
-                i.creative.commons.outline.icon
-                | dao
+                .ui.header
+                    i.creative.commons.outline.icon
+                    | dao
+                .ui.header
+                    |crowdsourced ai
             if is_dev
                 .column.refresh_stat
                     i.link.refresh.icon
