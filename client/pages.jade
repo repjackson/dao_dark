@@ -23,3 +23,12 @@ template(name='alerts')
     .ui.header my messages #{currentUser.karma}
     
             
+template(name='chat')
+    .ui.header
+        i.chat.icon
+    each chats
+        .ui.item
+            .content
+                |#{body}
+    .ui.fluid.input
+        input.new_chat(type='text' placeholder='new chat')
