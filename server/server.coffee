@@ -13,6 +13,9 @@ Meteor.users.allow
 Meteor.publish 'username', (username)->
     Meteor.users.find username:username
 
+Meteor.publish 'users', ()->
+    Meteor.users.find {}
+
 
 Meteor.publish 'deltas', ->
     Docs.find

@@ -13,11 +13,17 @@ Template.karma.helpers
             
 Template.chat.onCreated ->
     @autorun -> Meteor.subscribe 'type', 'chat'
+Template.users.onCreated ->
+    @autorun -> Meteor.subscribe 'users'
             
 Template.chat.helpers
     chats: -> 
         Docs.find
             type:'chat'
+        
+Template.users.helpers
+    users: -> 
+        Meteor.users.find {}
         
 Template.chat.events
     'keyup .add_chat': (e,t)->

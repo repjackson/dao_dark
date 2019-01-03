@@ -125,6 +125,11 @@ FlowRouter.route '/chat',
 FlowRouter.route '/karma',
     name: 'karma'
     action: -> @render 'layout','karma'
+
+FlowRouter.route '/users',
+    name: 'users'
+    action: -> @render 'layout','users'
+
 FlowRouter.route '/mail',
     name: 'mail'
     action: -> @render 'layout','mail'

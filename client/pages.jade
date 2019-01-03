@@ -32,3 +32,9 @@ template(name='chat')
                 |#{body}
     .ui.fluid.input
         input.add_chat(type='text' placeholder='new chat')
+        
+template(name='users')
+    .ui.header users
+    each users
+        div #{username}
+        

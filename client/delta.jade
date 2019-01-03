@@ -14,6 +14,7 @@ template(name='delta')
                     i.search.icon
                     input#add_filter(type='text' placeholder='search')
                 with delta_doc
+                    .ui.header tags
                     if facet_in
                         each facet_in
                             .ui.grey.button.pull_filter
@@ -40,7 +41,6 @@ template(name='delta')
             .ten.wide.column
                 each delta_doc.result_ids
                     +result
-                    .ui.divider
         unless delta_doc
             .ui.center.aligned.header no session
             if currentUser
@@ -64,7 +64,7 @@ template(name='delta')
                 
     
 template(name='result')
-    .ui.item
+    .ui.secondary.segment
         with result 
             each tags
                 .ui.big.label #{this}
