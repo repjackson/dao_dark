@@ -7,7 +7,7 @@ head
 
 
 template(name='layout')
-    .ui.inverted.attached.menu
+    .ui.inverted.attached.large.menu
         a.item(href='/delta')
             i.home.icon
             // |DAO
@@ -33,13 +33,11 @@ template(name='layout')
                         i.user.icon
                         | #{currentUser.username}
                 .item.logout
-                    
-                        i.sign.out.alternate.icon
+                    i.sign.out.alternate.icon
             else
                 .column
                     a.icon.item(href="/enter")
-                        .ui.small.header
-                            i.sign.in.alternate.icon
+                        i.sign.in.alternate.icon
     .ui.padded.grid
         .row
             .sixteen.wide.column
@@ -56,7 +54,7 @@ template(name='layout')
                 |#{doc_count} docs
                 |#{user_count} users
         .item
-            .ui.transparent.large.input
+            .ui.inverted.transparent.large.input
                 input#quick_add(type='text' placeholder='quick add')
         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
             input(type='hidden', name='cmd', value='_s-xclick')

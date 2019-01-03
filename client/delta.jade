@@ -1,7 +1,7 @@
 template(name='delta')
-    .row   
-        .sixteen.wide.column
-            if delta_doc
+    .ui.grid
+        .row   
+            .four.wide.column
                 if is_dev
                     // .ui.icon.button.print_delta
                     //     i.code.icon
@@ -20,46 +20,47 @@ template(name='delta')
                                 |#{this}
                     each facet_out
                         if name
-                            .ui.button.select_filter(class=toggle_value_class title=count)
+                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
                                 strong #{name}
                                 // small #{count}
                         else
-                            .ui.button.select_filter(class=toggle_value_class title=count)
+                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
                                 strong [null]
                                 // small #{count}
-                    // each ts_out
-                    //     if name
-                    //         .ui.button.select_filter(class=toggle_value_class title=count)
-                    //             strong #{name}
-                    //             // small #{count}
-                    //     else
-                    //         .ui.button.select_filter(class=toggle_value_class title=count)
-                    //             strong [null]
-                    //             // small #{count}
-            each delta_doc.result_ids
-                +result
-                .ui.divider
-            unless delta_doc
-                .ui.center.aligned.header no session
-                if currentUser
-                    .ui.inline.header my sessions
-                    each my_sessions
-                        .ui.button.select_session
-                            if title
-                                |#{title}
-                            else
-                                | @
-                else
-                    .ui.inline.header public sessions
-                    each public_sessions
-                        .ui.button.select_session
-                            if title
-                                |#{title}
-                            else
-                                | @
-                    
-                .ui.new_session.button + session
-                    
+                // each ts_out
+                //     if name
+                //         .ui.button.select_filter(class=toggle_value_class title=count)
+                //             strong #{name}
+                //             // small #{count}
+                //     else
+                //         .ui.button.select_filter(class=toggle_value_class title=count)
+                //             strong [null]
+                //             // small #{count}
+            .twelve.wide.column
+                each delta_doc.result_ids
+                    +result
+                    .ui.divider
+        unless delta_doc
+            .ui.center.aligned.header no session
+            if currentUser
+                .ui.inline.header my sessions
+                each my_sessions
+                    .ui.button.select_session
+                        if title
+                            |#{title}
+                        else
+                            | @
+            else
+                .ui.inline.header public sessions
+                each public_sessions
+                    .ui.button.select_session
+                        if title
+                            |#{title}
+                        else
+                            | @
+                
+            .ui.new_session.button + session
+                
     
 template(name='result')
     .ui.item
