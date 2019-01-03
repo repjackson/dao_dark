@@ -1,7 +1,7 @@
 template(name='delta')
     .ui.grid
         .row   
-            .four.wide.column
+            .six.wide.column
                 if is_dev
                     // .ui.icon.button.print_delta
                     //     i.code.icon
@@ -27,16 +27,17 @@ template(name='delta')
                             .ui.compact.button.select_filter(class=toggle_value_class title=count)
                                 strong [null]
                                 // small #{count}
-                // each ts_out
-                //     if name
-                //         .ui.button.select_filter(class=toggle_value_class title=count)
-                //             strong #{name}
-                //             // small #{count}
-                //     else
-                //         .ui.button.select_filter(class=toggle_value_class title=count)
-                //             strong [null]
-                //             // small #{count}
-            .twelve.wide.column
+                    .ui.header when
+                    each ts_out
+                        if name
+                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
+                                strong #{name}
+                                // small #{count}
+                        else
+                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
+                                strong [null]
+                                // small #{count}
+            .ten.wide.column
                 each delta_doc.result_ids
                     +result
                     .ui.divider
