@@ -29,10 +29,10 @@ Meteor.publish 'type', (schema)->
     Docs.find
         type:schema
 
-Meteor.publish 'children', (type, parent)->
+Meteor.publish 'children', (type, parent_id)->
     Docs.find
         type:type
-        parent_id:parent._id
+        parent_id:parent_id
 
 Meteor.publish 'ref_choices', (schema)->
     Docs.find

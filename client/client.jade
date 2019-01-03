@@ -31,7 +31,7 @@ template(name='layout')
                     i.user.shield.icon
                     span(title='points') #{currentUser.points}
             if currentUser
-                a.column(href='/me')
+                a.column(href='/u/#{currentUser.username}')
                     .ui.small.inverted.header
                         i.user.icon
                         | #{currentUser.username}

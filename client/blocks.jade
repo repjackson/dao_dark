@@ -1,9 +1,9 @@
 template(name='comments')
     .ui.fluid.icon.input
         i.chat.icon
-        input(type='text' placeholder='comment')
+        input.add_comment(type='text' placeholder='comment')
     .ui.comments
-        each comments
+        each doc_comments
             .comment
                 .content
-                    .header #{text}
+                    .header #{body}

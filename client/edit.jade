@@ -1,22 +1,32 @@
 template(name='edit')
     with doc
-        .sixteen.wide.column
-            .ui.form
-                .field
-                    each tags
-                        .ui.big.label 
-                            i.remove.link.icon.remove_tag
-                            |#{this}
-                    .ui.icon.input
-                        input.new_tag(type='text' placeholder='add tag')
-                        i.plus.icon
-                .field
-                    textarea.edit_body(rows='20') #{body}
-            // if is_dev
-            //     .ui.button.print log
-            a.ui.fluid.icon.button(href="/view/#{_id}")
-                i.checkmark.icon
+        .ui.grid
+            .twelve.wide.column
+                .ui.form
+                    .field
+                        label tags
+                        each tags
+                            .ui.large.label 
+                                i.remove.link.icon.remove_tag
+                                |#{this}
+                        .ui.icon.input
+                            input.new_tag(type='text' placeholder='add tag')
+                            i.plus.icon
+                    .field
+                        label body
+                        textarea.edit_body(rows='20') #{body}
+                // if is_dev
+                //     .ui.button.print log
+            .four.wide.column
+                +user_relations
+                a.ui.fluid.icon.button(href="/view/#{_id}")
+                    i.checkmark.icon
+                    
                 
+template(name='user_relations')
+    .ui.header user relations
+    each users
+        .ui.item #{username}
                     
 template(name='field_edit')
     .ui.segment

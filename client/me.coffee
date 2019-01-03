@@ -1,9 +1,9 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
-Template.profile.onCreated ->
+Template.user.onCreated ->
     @autorun => Meteor.subscribe 'username', FlowRouter.getParam('username')
 
-Template.profile.helpers
+Template.user.helpers
     user: ->
         Meteor.users.findOne username:FlowRouter.getParam('username')
 

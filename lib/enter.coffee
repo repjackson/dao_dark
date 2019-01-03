@@ -24,6 +24,19 @@ if Meteor.isClient
                 else
                     FlowRouter.go('/delta')
     
+        'keyup .password': (e,t)->
+            if e.which is 13
+                username = $('.username').val()
+                password = $('.password').val()
+                Meteor.loginWithPassword username, password, (err,res)=>
+                    if err 
+                        if err.error is 403
+                            Session.set 'message', "#{username} not found"
+                            Session.set 'enter_mode', 'register'
+                            Session.set 'username', "#{username}"
+                    else
+                        FlowRouter.go('/delta')
+    
         'click .new_demo': (e,t)->
             Meteor.call 'new_demo_user', (err,res)->
                 console.log 'res',res

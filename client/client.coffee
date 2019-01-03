@@ -130,19 +130,15 @@ FlowRouter.route '/alerts',
     action: -> @render 'layout','alerts'
 
 FlowRouter.route '/u/:username',
-    name: 'profile'
-    action: -> @render 'layout','profile'
+    name: 'user'
+    action: -> @render 'layout','user'
 
  
 FlowRouter.route '/edit/:doc_id',
-    name: 'edit_doc'
+    name: 'edit'
     action: -> @render 'layout','edit'
 
  
-FlowRouter.route '/product_edit/:doc_id',
-    name: 'edit_product'
-    action: -> @render 'layout','product_edit'
-
  
 FlowRouter.route '/view/:doc_id',
     name: 'view_doc'
