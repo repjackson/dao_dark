@@ -13,15 +13,18 @@ template(name='layout')
                 .ui.small.inverted.header
                     i.home.icon
                     // |DAO
-            a.column.add(href='#')
+            a.column.pointer.add(href='#')
                 .ui.small.inverted.header
                     i.link.plus.icon
-            a.column.add(href='/mail')
+            a.column.pointer.add(href='/mail')
                 .ui.small.inverted.header
                     i.link.mail.icon
-            a.column(href='/alerts')
+            a.column.pointer(href='/alerts')
                 .ui.small.inverted.header
                     i.link.bell.icon
+            a.column.pointer(href='/settings')
+                .ui.small.inverted.header
+                    i.link.cog.icon
             .column
                 a.ui.small.inverted.header(href='/karma')
                     span(title='karma') #{currentUser.karma}

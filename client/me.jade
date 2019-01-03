@@ -1,4 +1,4 @@
-template(name='me')
+template(name='settings')
     .ui.stackable.padded.celled.grid
         .row
             .four.wide.column
@@ -46,10 +46,15 @@ template(name='me')
                     each currentUser.friends
                         .item #{this}
             .four.wide.column.pointer.logout_others
-                .ui.icon.header 
+                .ui.header 
                     i.user.times.icon
                     |logout other clients
             .three.wide.column.logout.pointer
-                .ui.icon.header
+                .ui.header
                     i.sign.out.alternate.icon
                     |sign out
+                    
+                    
+template(name='profile')
+    with user
+        .ui.header #{username}

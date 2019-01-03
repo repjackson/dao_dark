@@ -111,6 +111,9 @@ FlowRouter.route '/enter',
 FlowRouter.route '/me',
     name: 'me'
     action: -> @render 'layout','me'
+FlowRouter.route '/settings',
+    name: 'settings'
+    action: -> @render 'layout','settings'
 
 FlowRouter.route '/delta',
     name: 'delta'
@@ -126,9 +129,9 @@ FlowRouter.route '/alerts',
     name: 'alerts'
     action: -> @render 'layout','alerts'
 
-# FlowRouter.route '/d/:type',
-#     name: 'delta'
-#     action: -> @render 'layout','delta'
+FlowRouter.route '/u/:username',
+    name: 'profile'
+    action: -> @render 'layout','profile'
 
  
 FlowRouter.route '/edit/:doc_id',

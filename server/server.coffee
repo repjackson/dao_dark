@@ -10,6 +10,10 @@ Meteor.users.allow
     remove: (userId, doc) -> userId
 
 
+Meteor.publish 'username', (username)->
+    Meteor.users.find username:username
+
+
 Meteor.publish 'deltas', ->
     Docs.find
         type:'delta'
@@ -43,6 +47,10 @@ Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
         
 Meteor.methods 
+    change_username: (user_id, new_username)->
+        Accounts.setUsername(user_id, new_username)
+
+
     tagify_date_time: (val)->
         console.log moment(val).format("dddd, MMMM Do YYYY, h:mm:ss a")
         minute = moment(val).minute()
