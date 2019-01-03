@@ -39,8 +39,15 @@ template(name='delta')
                                 strong [null]
                                 // small #{count}
             .ten.wide.column
-                each delta_doc.result_ids
-                    +result
+                .row
+                    .ui.button 10
+                    .ui.button 20
+                    .ui.button sort by
+                    .ui.button 20
+                    .ui.button 20
+                .row
+                    each delta_doc.result_ids
+                        +result
         unless delta_doc
             .ui.center.aligned.header no session
             if currentUser

@@ -35,6 +35,15 @@ template(name='chat')
         
 template(name='users')
     .ui.header users
-    each users
-        div #{username}
+    .ui.four.cards
+        each users
+            .card
+                .content 
+                    .ui.header #{username}
+                    .ui.list
+                        .ui.item #{points} points
+                        .ui.item #{karma} karma
+                    
+                    a.ui.icon.button(href="/u/#{username}")
+                        i.right.arrow.icon
         
