@@ -8,29 +8,22 @@ if Meteor.isClient
         'click .print': (e,t)->
             console.log Docs.findOne FlowRouter.getParam('doc_id')
         
-        'click .add_brick': (e,t)->
-            doc = Docs.findOne FlowRouter.getParam('doc_id')
+        'keyup .new_tag': (e,t)->
+            if e.which is 13
+                tag_val = t.$('.new_tag').val().trim()
+                parent = Docs.findOne FlowRouter.getParam('doc_id')
+                Docs.update parent._id, 
+                    $addToSet: tags: tag_val
+                t.$('.new_tag').val('')
             
-            Docs.update doc._id,
-                $addToSet: _keys: 'new_brick'
-                $set:
-                    "_new_brick": { brick:@valueOf() }
+        'click .remove_tag': (e,t)->
+            tag = @valueOf()
+            parent = Docs.findOne FlowRouter.getParam('doc_id')
+            Docs.update parent._id, 
+                $pull:tags:tag
+            
+            
                 
-                
-    Template.edit.helpers
-        bricks: ->
-            [
-                'text'
-                'code'
-                'number'
-                'date'
-                'textarea'
-                'html'
-                'youtube'
-                'link'
-                'boolean'
-                'array'
-            ]    
         
     Template.field_edit.helpers
         brick_edit: ->
