@@ -14,23 +14,23 @@ template(name='view')
                     +field_view
 
             .four.wide.column
-                // +call_watson
+                +call_watson
                 +doc_sentiment
-                // +doc_emotion
-                // +concepts
-                // +categories
-                // +entity_list
-                // +entities
-                // +personality
-                // +consumption_preferences
+                +doc_emotion
+                +concepts
+                +categories
+                +entity_list
+                +entities
+                +personality
+                +consumption_preferences
                 +author_info
                 +creation_info
                 a.ui.fluid.button(href="/edit/#{_id}")
                     i.pencil.icon
-                // +clone_button
+                +clone_button
                 // +detect_fields_button
-                // +bookmark_button
-                // +voting_buttons
+                +bookmark_button
+                +voting_buttons
                 // +comments
             // .row
             //     .sixteen.wide.column

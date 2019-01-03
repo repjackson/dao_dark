@@ -15,15 +15,15 @@ template(name='layout')
 
 
 template(name='nav')
-    #nav.ui.top.attached.menu
+    #nav.ui.top.attached.large.menu
         a.icon.home.item(href='/')
             // .black_bat.logo D
             i.user.shield.grey.icon
         a.ui.icon.item.add(href='#' title='add')
-            i.plus.icon
+            i.grey.plus.icon
         .right.menu
             if currentUser
-                .item
+                a.item(href='/me')
                     if currentUser
                         i.user.icon
                         | #{currentUser.username}
@@ -38,7 +38,7 @@ template(name='footer')
     #footer.ui.bottom.fixed.menu
         .grey.item
             i.creative.commons.outline.icon
-            | DAO
+            | dao
         if is_dev
             .icon.item.refresh_stat
                 i.link.refresh.icon
@@ -48,11 +48,13 @@ template(name='footer')
             .item
                 |#{user_count} users
             .item
-                |Invest
+                | invest
             .item
-                |Sell
+                | sell
             .item
-                |Earn
+                | earn
+            .item
+                | advertise
         .right.menu
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 input(type='hidden', name='cmd', value='_s-xclick')
@@ -60,5 +62,5 @@ template(name='footer')
                 // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
                 button.ui.basic.button(type='submit')
-                    | Advertise 
+                    | donate 
         

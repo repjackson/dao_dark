@@ -1,48 +1,56 @@
 template(name='view_button')
-    a.ui.icon.button.view(title='view' href="/view/#{_id}")
+    a.ui.button.view(title='view' href="/view/#{_id}")
         i.play.icon
+        |view
         
 template(name='remove_button')
-    a.ui.icon.button.remove(title='remove')
+    a.ui.button.remove(title='remove')
         i.remove.icon
         
 template(name='add_button')
-    a.ui.icon.button.add(title='add')
+    a.ui.button.add(title='add')
         i.plus.icon
         |#{type}
+        |add
         
 
 template(name='bookmark_button')
     .ui.button(title='bookmark')
         i.bookmark.icon
+        |bookmark
         
 
 template(name='clone_button')
     .ui.button
         i.fork.icon
-        |Clone
+        |clone
 
 
 template(name='detect_fields_button')
-    .ui.icon.button.detect_fields(title='detect fields')
+    .ui.button.detect_fields(title='detect fields')
         i.dna.icon
-        
+        |detect fields 
         
         
 template(name='voting_buttons')
-    .ui.icon.button
+    .ui.button
         i.thumbs.up.icon
-    .ui.icon.button
+        |upvote
+    .ui.button
         i.thumbs.down.icon
+        |downvote
         
         
 template(name='edit_button')
-    a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
+    a.ui.button.edit(title='edit' href="/edit/#{_id}")
         i.pencil.icon
+        |edit
+
 
 template(name='save_button')
-    a.ui.icon.button.save(title='save' href="/view/#{_id}")
+    a.ui.button.save(title='save' href="/view/#{_id}")
         i.checkmark.icon
+        |save
         
         
         

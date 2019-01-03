@@ -58,23 +58,23 @@ template(name='result')
     else
         with result 
             .facet_res
-                .ui.header #{title}
-                if cleaned_html
-                    .large130 
-                        |!{cleaned_html}
-                else
-                    +tone
-                div #{body}
-                div #{html}
-                div #{content}
+                each tags
+                    .ui.label #{this}
+                .large130 
+                    |#{body}
+                +tone
+                // div #{body}
+                // div #{html}
+                // div #{content}
             // .ui.inline.header 
             //     i.tags.icon
             .facet_res
                 .ui.fluid.large.icon.transparent.input
                     i.plus.icon
                     input.new_tag(type='text' placeholder='add tag')
-                each tags
-                    .ui.label #{this}
+            +view_button
+            +edit_button
+            +bookmark_button
             
 
 
