@@ -17,3 +17,20 @@ Template.detect_fields_button.events
         console.log @
         Meteor.call 'detect_fields', @_id
             
+            
+Template.voting_buttons.events
+    'click .upvote': ->
+        console.log @
+        Docs.update @_id,
+            $addToSet: upvoter_ids:Meteor.userId()
+            $inc:points:1
+            
+            
+    'click .downvote': ->
+        console.log @
+        Docs.update @_id,
+            $addToSet: upvoter_ids:Meteor.userId()
+            $inc:points:-1
+            
+            
+            

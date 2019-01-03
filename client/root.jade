@@ -19,8 +19,9 @@ template(name='nav')
         a.grey.header.item(href='/delta')
             i.user.shield.grey.icon
             |DAO
-        a.ui.icon.item.add(href='#' title='add')
+        a.ui.item.add(href='#' title='add')
             i.grey.plus.icon
+            |add
         .right.menu
             if currentUser
                 a.item(href='/me')
@@ -35,7 +36,7 @@ template(name='nav')
 
 
 template(name='footer')
-    #footer.ui.bottom.fixed.menu
+    #footer.ui.bottom.fixed.large.menu
         .grey.item
             i.creative.commons.outline.icon
             | dao
@@ -57,7 +58,7 @@ template(name='footer')
             | membership
         .item
             | advertise
-        .ui.input
+        .ui.transparent.large.input
             input#quick_add(type='text' placeholder='quick add')
         .right.menu
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
