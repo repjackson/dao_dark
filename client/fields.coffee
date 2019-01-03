@@ -1,4 +1,3 @@
-import Quill from 'quill'
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 
@@ -12,55 +11,6 @@ Template.url_edit.events
   
   
  
-Template.html_edit.onRendered ->
-    toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike']
-        ['blockquote', 'code-block']
-        
-        [{ 'header': 1 }, { 'header': 2 }]
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }]
-        [{ 'script': 'sub'}, { 'script': 'super' }]
-        [{ 'indent': '-1'}, { 'indent': '+1' }]
-        [{ 'direction': 'rtl' }]
-        
-        [{ 'size': ['small', false, 'large', 'huge'] }]
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }]
-        
-        [{ 'color': [] }, { 'background': [] }]
-        [{ 'font': [] }]
-        [{ 'align': [] }]
-        
-        ['clean']
-    ]
-
-    options = 
-        # debug: 'info'
-        modules: 
-            toolbar: toolbarOptions
-        placeholder: '...'
-        readOnly: false
-        theme: 'snow'
-
-    @editor = new Quill('.editor', options)
-
-    doc = Docs.findOne FlowRouter.getParam('doc_id')
-
-    @editor.clipboard.dangerouslyPasteHTML(doc.html)
-
-
-Template.html_edit.events
-    'blur .editor': (e,t)->
-        # console.log @
-        # console.log t.editor
-        delta = t.editor.getContents();
-        html = t.editor.root.innerHTML
-        parent = Template.parentData(5)
-        Docs.update parent._id,
-            $set: 
-                "#{@valueOf()}": html
-                "_#{@valueOf()}.delta_ob": delta
-
-  
   
 Template.array_edit.events
     'keyup .new_element': (e,t)->
@@ -160,23 +110,3 @@ Template.ref_edit.events
                 $addToSet: "#{ref_field.key}": @_id
             
             
-            
-            
-
-Template.code_edit.onRendered ->
-    ace.require("ace/ext/language_tools");
-
-    editor = ace.edit('ace')
-    editor.session.setMode("ace/mode/html");
-    editor.setTheme("ace/theme/twilight");
-    editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: false
-    });
-
-
-
-Template.object_view.helpers
-    json_options: ->
-        { collapsed:true}
