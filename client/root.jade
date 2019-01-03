@@ -9,21 +9,24 @@ head
 template(name='layout')
     .ui.padded.grid
         .equal.width.row
-            .two.wide.column
-                a.header(href='/delta')
+            a.column(href='/delta')
+                .ui.header
                     i.user.shield.icon
                     |DAO
-            .two.wide.column.add(href='add')
-                i.link.plus.icon
-                |add
+            a.column.add(href='add')
+                .ui.header
+                    i.link.plus.icon
+                    |add
             if currentUser
-                a.two.wide.column(href='/me')
-                    i.user.icon
-                    | #{currentUser.username}
-                .two.wide.column.logout
-                    i.sign.out.alternate.link.icon
+                a.column(href='/me')
+                    .ui.header
+                        i.user.icon
+                        | #{currentUser.username}
+                .column.logout
+                    .ui.header
+                        i.sign.out.alternate.link.icon
             else
-                .two.wide.column
+                .column
                     a.icon.item(href="/enter")
                         i.sign.in.alternate.icon
         .row
