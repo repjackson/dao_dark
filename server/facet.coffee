@@ -15,10 +15,14 @@ Meteor.methods
             console.log 'built query', built_query
             
             # response
-            agg_res = Meteor.call 'agg', built_query
+            tags_res = Meteor.call 'agg', built_query, 'tags'
+            ts_res = Meteor.call 'agg', built_query, 'timestamp_tags'
     
             Docs.update delta_id,
-                { $set: facet_out: agg_res }
+                { $set: 
+                    facet_out: tags_res
+                    ts_out: ts_res
+                }
     
             if delta.limit then limit=delta.limit else limit=10
     
@@ -43,15 +47,15 @@ Meteor.methods
             delta = Docs.findOne delta_id    
             console.log 'delta', delta
 
-    agg: (query)->
+    agg: (query, key)->
         limit=42
         console.log 'agg query', query
         options = { explain:false }
         pipe =  [
             { $match: query }
-            { $project: "tags": 1 }
-            { $unwind: "$tags" }
-            { $group: _id: "$tags", count: $sum: 1 }
+            { $project: "#{key}": 1 }
+            { $unwind: "$#{key}" }
+            { $group: _id: "$#{key}", count: $sum: 1 }
             { $sort: count: -1, _id: 1 }
             { $limit: limit }
             { $project: _id: 0, name: '$_id', count: 1 }
