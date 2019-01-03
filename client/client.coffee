@@ -118,6 +118,9 @@ FlowRouter.route '/settings',
 FlowRouter.route '/delta',
     name: 'delta'
     action: -> @render 'layout','delta'
+FlowRouter.route '/chat',
+    name: 'chat'
+    action: -> @render 'layout','chat'
 
 FlowRouter.route '/karma',
     name: 'karma'

@@ -11,37 +11,40 @@ template(name='layout')
         a.item(href='/delta')
             i.home.icon
             // |DAO
-        a.item.pointer.add(href='#')
-            i.link.plus.icon
-        a.item.pointer.add(href='/mail')
-            i.link.mail.icon
-        a.item.pointer(href='/alerts')
-            i.link.bell.icon
-        a.item.pointer(href='/settings')
-            i.link.cog.icon
+        a.item.add(href='#')
+            i.plus.icon
+        a.item.add(href='/mail')
+            i.mail.icon
+        a.item(href='/alerts')
+            i.bell.icon
+        a.item(href='/chat')
+            i.chat.icon
+        a.item(href='/settings')
+            i.cog.icon
         .item
             a(href='/karma')
                 span(title='karma') #{currentUser.karma}
                 i.user.shield.icon
                 span(title='points') #{currentUser.points}
-        if currentUser
-            a.item(href='/u/#{currentUser.username}')
-                
-                    i.user.icon
-                    | #{currentUser.username}
-            .item.logout
-                
-                    i.sign.out.alternate.link.icon
-        else
-            .column
-                a.icon.item(href="/enter")
-                    .ui.small.header
-                        i.sign.in.alternate.icon
+        .right.menu
+            if currentUser
+                a.item(href='/u/#{currentUser.username}')
+                    
+                        i.user.icon
+                        | #{currentUser.username}
+                .item.logout
+                    
+                        i.sign.out.alternate.icon
+            else
+                .column
+                    a.icon.item(href="/enter")
+                        .ui.small.header
+                            i.sign.in.alternate.icon
     .ui.padded.grid
         .row
             .sixteen.wide.column
                 +yield
-    .ui.bottom.fixed.inverted.menu
+    .ui.bottom.fixed.inverted.large.menu
         .item
             i.creative.commons.outline.icon
             | dao
@@ -53,20 +56,12 @@ template(name='layout')
                 |#{doc_count} docs
                 |#{user_count} users
         .item
-            .ui.list
-                .item invest
-                .item sell
-                .item earn
-                .item membership
-                .item advertise
-        .item
             .ui.transparent.large.input
                 input#quick_add(type='text' placeholder='quick add')
-        .item
-            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                input(type='hidden', name='cmd', value='_s-xclick')
-                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.basic.button(type='submit')
-                    | donate 
+        form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+            input(type='hidden', name='cmd', value='_s-xclick')
+            input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+            // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+            img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+            button.ui.button(type='submit')
+                | donate 
