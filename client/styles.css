@@ -58,7 +58,7 @@ body {
   font-family: 'Ubuntu', sans-serif !important;
 }
 #nav {
-  background: rgba(0,0,0,.01) !important;
+  background: rgba(0,0,0,.1) !important;
 }
 
 #footer {
@@ -66,7 +66,7 @@ body {
   /*bottom: 0;*/
   /*width: 100%;*/
   /*margin: 0 !important;*/
-  background: rgba(0,0,0,.01) !important;
+  background: rgba(0,0,0,.1) !important;
 }
 
 .grey_car{

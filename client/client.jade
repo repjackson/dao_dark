@@ -8,25 +8,32 @@ head
 
 template(name='layout')
     .ui.padded.grid
-        .equal.width.row
+        .equal.width.grey.row
             a.column(href='/delta')
-                .ui.small.header
-                    i.user.shield.icon
+                .ui.small.inverted.header
+                    i.home.icon
                     // |DAO
             a.column.add(href='#')
-                .ui.small.header
+                .ui.small.inverted.header
                     i.link.plus.icon
+            a.column.add(href='/mail')
+                .ui.small.inverted.header
+                    i.link.mail.icon
+            a.column(href='/alerts')
+                .ui.small.inverted.header
+                    i.link.bell.icon
             .column
-                a.ui.small.header(href='/karma')
-                    |#{currentUser.karma}
-                    | karma
+                a.ui.small.inverted.header(href='/karma')
+                    span(title='karma') #{currentUser.karma}
+                    i.user.shield.icon
+                    span(title='points') #{currentUser.points}
             if currentUser
                 a.column(href='/me')
-                    .ui.small.header
+                    .ui.small.inverted.header
                         i.user.icon
                         | #{currentUser.username}
                 .column.logout
-                    .ui.small.header
+                    .ui.small.inverted.header
                         i.sign.out.alternate.link.icon
             else
                 .column

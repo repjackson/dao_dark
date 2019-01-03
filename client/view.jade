@@ -5,7 +5,7 @@ template(name='view')
                 .twelve.wide.column
                     each tags
                         .ui.big.label #{this}
-                    .large120 #{body}
+                    .ui.basic.segment.large120 #{body}
                     +comments
         
                 .four.wide.column
@@ -14,8 +14,7 @@ template(name='view')
                     +creation_info
                     div
                     +voting
-                    a.ui.fluid.button(href="/edit/#{_id}")
-                        i.pencil.icon
+                    +edit_button
                     +bookmark_button
 
 template(name='field_view')

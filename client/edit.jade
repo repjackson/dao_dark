@@ -12,11 +12,10 @@ template(name='edit')
                         i.plus.icon
                 .field
                     textarea.edit_body(rows='20') #{body}
-            if is_dev
-                .ui.button.print log
-            a.ui.fluid.button(href="/view/#{_id}")
+            // if is_dev
+            //     .ui.button.print log
+            a.ui.fluid.icon.button(href="/view/#{_id}")
                 i.checkmark.icon
-                |save
                 
                     
 template(name='field_edit')
