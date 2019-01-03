@@ -1,7 +1,6 @@
 template(name='view_button')
-    a.ui.button.view(title='view' href="/view/#{_id}")
+    a.ui.icon.button.view(title='view' href="/view/#{_id}")
         i.play.icon
-        |view
         
 template(name='remove_button')
     a.ui.button.remove(title='remove')
@@ -15,17 +14,15 @@ template(name='add_button')
         
 
 template(name='bookmark_button')
-    .ui.bookmark.button(title='bookmark')
+    .ui.icon.bookmark.button(title='bookmark')
         i.bookmark.icon
-        |bookmark
     each bookmarkers
         |#{username}
         
 
 template(name='clone_button')
-    .ui.button
+    .ui.icon.button(title='clone')
         i.fork.icon
-        |clone
 
 
 template(name='detect_fields_button')
@@ -45,15 +42,13 @@ template(name='voting')
         |#{this}
         
 template(name='edit_button')
-    a.ui.button.edit(title='edit' href="/edit/#{_id}")
+    a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
         i.pencil.icon
-        |edit
 
 
 template(name='save_button')
-    a.ui.button.save(title='save' href="/view/#{_id}")
+    a.ui.icon.button.save(title='save' href="/view/#{_id}")
         i.checkmark.icon
-        |save
         
         
         

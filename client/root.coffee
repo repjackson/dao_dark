@@ -28,9 +28,9 @@ FlowRouter.route '/delta',
     name: 'delta'
     action: -> @render 'layout','delta'
 
-FlowRouter.route '/bank',
-    name: 'bank'
-    action: -> @render 'layout','bank'
+FlowRouter.route '/karma',
+    name: 'karma'
+    action: -> @render 'layout','karma'
 
 # FlowRouter.route '/d/:type',
 #     name: 'delta'

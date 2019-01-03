@@ -68,12 +68,14 @@ template(name='result')
                 .ui.big.label #{this}
             .large130 
                 |#{body}
-        .ui.icon.transparent.input
-            i.plus.icon
-            input.new_tag(type='text' placeholder='add tag')
-        +view_button
-        +edit_button
-        +bookmark_button
+            div #{points} points
+            .ui.icon.transparent.input
+                i.plus.icon
+                input.new_tag(type='text' placeholder='add tag')
+            +view_button
+            +edit_button
+            +voting
+            +bookmark_button
             
     
     

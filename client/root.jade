@@ -12,12 +12,12 @@ template(name='layout')
             a.column(href='/delta')
                 .ui.small.header
                     i.user.shield.icon
-                    |DAO
+                    // |DAO
             a.column.add(href='#')
                 .ui.small.header
                     i.link.plus.icon
             .column
-                .ui.small.header
+                a.ui.small.header(href='/karma')
                     |#{currentUser.karma}
                     | karma
             if currentUser

@@ -27,14 +27,14 @@ Template.voting.events
         Docs.update @_id,
             $addToSet: upvoter_ids:Meteor.userId()
             $pull: downvoter_ids:Meteor.userId()
-            $inc:karma:1
+            $inc:points:1
         Meteor.users.update @author_id,
             $inc:karma:1
     'click .downvote': ->
         Docs.update @_id,
             $addToSet: downvoter_ids:Meteor.userId()
             $pull: upvoter_ids:Meteor.userId()
-            $inc:karma:-1
+            $inc:points:-1
         Meteor.users.update @author_id,
             $inc:karma:-1
             
