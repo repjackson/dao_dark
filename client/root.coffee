@@ -4,6 +4,9 @@ Template.layout.onCreated ->
     @autorun -> Meteor.subscribe 'me'
     @autorun -> Meteor.subscribe 'stats'
     
+    
+    
+    
 FlowRouter.route '/',
     name: 'home'
     action: -> 
@@ -47,6 +50,15 @@ FlowRouter.route '/view/:doc_id',
 Template.footer.events
     'click .refresh_stat': ->
         Meteor.call 'site_stat', ->
+            
+    'keyup #quick_add': (e,t)->
+        if e.which is 13
+            body = t.$('#quick_add').val()
+            new_id = 
+                Docs.insert
+                    body:body
+            FlowRouter.go "/edit/#{new_id}"
+            t.$('#quick_add').val('')
         
 Template.footer.onCreated ->
     

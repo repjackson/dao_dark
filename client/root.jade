@@ -16,9 +16,9 @@ template(name='layout')
 
 template(name='nav')
     #nav.ui.top.attached.large.menu
-        a.icon.home.item(href='/')
-            // .black_bat.logo D
+        a.grey.header.item(href='/delta')
             i.user.shield.grey.icon
+            |DAO
         a.ui.icon.item.add(href='#' title='add')
             i.grey.plus.icon
         .right.menu
@@ -47,14 +47,18 @@ template(name='footer')
                 |#{doc_count} docs
             .item
                 |#{user_count} users
-            .item
-                | invest
-            .item
-                | sell
-            .item
-                | earn
-            .item
-                | advertise
+        .item
+            | invest
+        .item
+            | sell
+        .item
+            | earn
+        .item
+            | membership
+        .item
+            | advertise
+        .ui.input
+            input#quick_add(type='text' placeholder='quick add')
         .right.menu
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 input(type='hidden', name='cmd', value='_s-xclick')
