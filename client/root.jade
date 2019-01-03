@@ -9,20 +9,22 @@ head
 template(name='layout')
     .ui.padded.grid
         +nav
-        // #main
-        +yield
-    +footer
+        .row
+            +yield
+        +footer
 
 
 template(name='nav')
-    #nav.ui.top.attached.large.menu
-        a.grey.header.item(href='/delta')
-            i.user.shield.grey.icon
-            |DAO
-        a.ui.item.add(href='#' title='add')
-            i.grey.plus.icon
-            |add
-        .right.menu
+    .inverted.row
+        .two.wide.column
+            a.grey.header(href='/delta')
+                i.user.shield.grey.icon
+                |DAO
+        .two.wide.column
+            a.ui.item.add(href='#' title='add')
+                i.grey.plus.icon
+                |add
+        .eight.wide.right.aligned.column
             if currentUser
                 a.item(href='/me')
                     if currentUser
@@ -36,30 +38,31 @@ template(name='nav')
 
 
 template(name='footer')
-    #footer.ui.bottom.fixed.large.menu
-        .grey.item
+    .inverted.row
+        .column
             i.creative.commons.outline.icon
             | dao
         if is_dev
-            .icon.item.refresh_stat
+            .icon.column.refresh_stat
                 i.link.refresh.icon
         with site_stat
-            .item
+            .column
                 |#{doc_count} docs
-            .item
+            .column
                 |#{user_count} users
-        .item
+        .column
             | invest
-        .item
+        .column
             | sell
-        .item
+        .column
             | earn
-        .item
+        .column
             | membership
-        .item
+        .column
             | advertise
-        .ui.transparent.large.input
-            input#quick_add(type='text' placeholder='quick add')
+        .column
+            .ui.transparent.large.input
+                input#quick_add(type='text' placeholder='quick add')
         .right.menu
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 input(type='hidden', name='cmd', value='_s-xclick')
