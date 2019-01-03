@@ -32,12 +32,9 @@ dburles:collection-helpers
 
 
 
-http@1.4.1
 underscore@1.0.10
 juliancwirko:postcss
 semantic:ui
 ecmascript
 es5-shim
 ostrio:flow-router-extra
-yasinuslu:json-view
-percolate:synced-cron
