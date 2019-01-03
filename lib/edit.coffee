@@ -22,7 +22,14 @@ if Meteor.isClient
             Docs.update parent._id, 
                 $pull:tags:tag
             
+        'blur .edit_body': (e,t)->
+            body_val = t.$('.edit_body').val()
+            parent = Docs.findOne FlowRouter.getParam('doc_id')
+            Docs.update parent._id, 
+                $set: body:body_val
+        
             
+  
                 
         
     Template.field_edit.helpers

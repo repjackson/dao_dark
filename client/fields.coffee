@@ -80,14 +80,6 @@ Template.array_edit.events
             $pull:"#{field_key}":element
         
             
-Template.textarea_edit.events
-    'blur .edit_textarea': (e,t)->
-        textarea_val = t.$('.edit_textarea').val()
-        parent = Template.parentData(5)
-        Docs.update parent._id, 
-            $set:"#{@valueOf()}":textarea_val
-        
-            
             
 Template.text_edit.events                
     'blur .edit_text': (e,t)->
