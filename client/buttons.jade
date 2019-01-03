@@ -39,7 +39,10 @@ template(name='voting')
         i.thumbs.up.icon
     .ui.large.icon.button.downvote
         i.thumbs.down.icon
-        
+    each upvoter_ids
+        |#{this}
+    each downvoter_ids
+        |#{this}
         
 template(name='edit_button')
     a.ui.button.edit(title='edit' href="/edit/#{_id}")
