@@ -28,7 +28,8 @@ template(name='delta')
                                 strong [null]
                                 // small #{count}
                 each delta_doc.result_ids
-                    +result
+                    .ui.items
+                        +result
             else
                 .ui.center.aligned.header no session
                 if currentUser
@@ -52,32 +53,21 @@ template(name='delta')
                     
     
 template(name='result')
-    if loading
-        .ui.center.aligned.segment
-            .ui.active.centered.inline.loader
-    else
+    .ui.item
         with result 
-            .facet_res
-                each tags
-                    .ui.label #{this}
-                .large130 
-                    |#{body}
-                +tone
-                // div #{body}
-                // div #{html}
-                // div #{content}
-            // .ui.inline.header 
-            //     i.tags.icon
-            .facet_res
-                .ui.fluid.large.icon.transparent.input
-                    i.plus.icon
-                    input.new_tag(type='text' placeholder='add tag')
-            +view_button
-            +edit_button
-            +bookmark_button
+            each tags
+                .ui.big.label #{this}
+            .large130 
+                |#{body}
+        .ui.fluid.large.icon.transparent.input
+            i.plus.icon
+            input.new_tag(type='text' placeholder='add tag')
+        +view_button
+        +edit_button
+        +bookmark_button
             
-
-
+    
+    
         
 template(name='default')
     .ui.header #{title}
