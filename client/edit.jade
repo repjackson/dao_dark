@@ -1,24 +1,23 @@
 template(name='edit')
     with doc
-        .centered.row
-            .twelve.wide.column
-                .ui.form
-                    .field
-                        each tags
-                            .ui.label 
-                                i.remove.link.icon.remove_tag
-                                |#{this}
-                        .ui.icon.input
-                            input.new_tag(type='text' placeholder='add tag')
-                            i.plus.icon
-                    .field
-                        textarea.edit_body(rows='20') #{body}
-                if is_dev
-                    .ui.button.print log
-                a.ui.fluid.button(href="/view/#{_id}")
-                    i.checkmark.icon
-                    |save
-                    
+        .sixteen.wide.column
+            .ui.form
+                .field
+                    each tags
+                        .ui.label 
+                            i.remove.link.icon.remove_tag
+                            |#{this}
+                    .ui.icon.input
+                        input.new_tag(type='text' placeholder='add tag')
+                        i.plus.icon
+                .field
+                    textarea.edit_body(rows='20') #{body}
+            if is_dev
+                .ui.button.print log
+            a.ui.fluid.button(href="/view/#{_id}")
+                i.checkmark.icon
+                |save
+                
                     
 template(name='field_edit')
     .ui.segment

@@ -1,5 +1,5 @@
 template(name='delta')
-    #main.row   
+    .row   
         .sixteen.wide.column
             if delta_doc
                 if is_dev
@@ -27,10 +27,10 @@ template(name='delta')
                             .ui.button.select_filter(class=toggle_value_class title=count)
                                 strong [null]
                                 // small #{count}
-                each delta_doc.result_ids
-                    .ui.items
-                        +result
-            else
+            each delta_doc.result_ids
+                +result
+                .ui.divider
+            unless delta_doc
                 .ui.center.aligned.header no session
                 if currentUser
                     .ui.inline.header my sessions

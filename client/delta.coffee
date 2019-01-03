@@ -20,12 +20,6 @@ Template.delta.helpers
             type:'delta'
 
 
-Template.nav.events
-    'click .create_delta': (e,t)->
-        
-    'click .logout': ->
-        Meteor.logout()
-        
 Template.delta.events
     'click .delete_delta': (e,t)->
         delta = Docs.findOne Session.get('delta_id')
@@ -96,27 +90,6 @@ Template.delta.events
         Session.set 'delta_id', @_id
 
 
-Template.nav.events
-    'click .home': ->
-        delta = Docs.findOne type:'delta'
-        if delta
-            Docs.remove delta._id
-        Session.set 'delta_id', null
-        
-    'click .reset': ->    
-        console.log 'calling fum', Session.get('delta_id')
-        Meteor.call 'fum', Session.get('delta_id')
-            
-            
-            
-    'click .add': ->
-        new_id = Docs.insert {}
-        FlowRouter.go "/edit/#{new_id}"
-            
-    'click .logout': -> 
-        Meteor.logout()
-        FlowRouter.go "/enter"
-            
 
                 
 Template.delta.helpers

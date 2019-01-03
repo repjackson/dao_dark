@@ -43,7 +43,7 @@ FlowRouter.route '/view/:doc_id',
     action: -> @render 'layout','view'
 
  
-Template.footer.events
+Template.layout.events
     'click .refresh_stat': ->
         Meteor.call 'site_stat', ->
             
@@ -56,6 +56,31 @@ Template.footer.events
             FlowRouter.go "/edit/#{new_id}"
             t.$('#quick_add').val('')
         
-Template.footer.onCreated ->
+Template.layout.onCreated ->
     
-    
+Template.layout.events
+    'click .home': ->
+        delta = Docs.findOne type:'delta'
+        if delta
+            Docs.remove delta._id
+        Session.set 'delta_id', null
+        
+    'click .reset': ->    
+        console.log 'calling fum', Session.get('delta_id')
+        Meteor.call 'fum', Session.get('delta_id')
+            
+            
+            
+    'click .add': ->
+        new_id = Docs.insert {}
+        FlowRouter.go "/edit/#{new_id}"
+            
+    'click .logout': -> 
+        Meteor.logout()
+        FlowRouter.go "/enter"
+            
+    'click .create_delta': (e,t)->
+        
+    'click .logout': ->
+        Meteor.logout()
+        

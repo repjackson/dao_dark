@@ -8,67 +8,53 @@ head
 
 template(name='layout')
     .ui.padded.grid
-        +nav
-        .row
-            +yield
-        +footer
-
-
-template(name='nav')
-    .inverted.row
-        .two.wide.column
-            a.grey.header(href='/delta')
-                i.user.shield.grey.icon
-                |DAO
-        .two.wide.column
-            a.ui.item.add(href='#' title='add')
-                i.grey.plus.icon
+        .equal.width.row
+            .two.wide.column
+                a.header(href='/delta')
+                    i.user.shield.icon
+                    |DAO
+            .two.wide.column.add(href='add')
+                i.link.plus.icon
                 |add
-        .eight.wide.right.aligned.column
             if currentUser
-                a.item(href='/me')
-                    if currentUser
-                        i.user.icon
-                        | #{currentUser.username}
-                a.icon.item.logout(href="#")
-                    i.sign.out.alternate.icon
+                a.two.wide.column(href='/me')
+                    i.user.icon
+                    | #{currentUser.username}
+                .two.wide.column.logout
+                    i.sign.out.alternate.link.icon
             else
-                a.icon.item(href="/enter")
-                    i.sign.in.alternate.icon
-
-
-template(name='footer')
-    .inverted.row
-        .column
-            i.creative.commons.outline.icon
-            | dao
-        if is_dev
-            .icon.column.refresh_stat
-                i.link.refresh.icon
-        with site_stat
+                .two.wide.column
+                    a.icon.item(href="/enter")
+                        i.sign.in.alternate.icon
+        .row
+            .sixteen.wide.column
+                +yield
+        .equal.width.row
             .column
-                |#{doc_count} docs
+                i.creative.commons.outline.icon
+                | dao
+            if is_dev
+                .column.refresh_stat
+                    i.link.refresh.icon
+            with site_stat
+                .column
+                    |#{doc_count} docs
+                    |#{user_count} users
             .column
-                |#{user_count} users
-        .column
-            | invest
-        .column
-            | sell
-        .column
-            | earn
-        .column
-            | membership
-        .column
-            | advertise
-        .column
-            .ui.transparent.large.input
-                input#quick_add(type='text' placeholder='quick add')
-        .right.menu
-            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                input(type='hidden', name='cmd', value='_s-xclick')
-                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.basic.button(type='submit')
-                    | donate 
-        
+                .ui.list
+                .item invest
+                .item sell
+                .item earn
+                .item membership
+                .item advertise
+            .three.wide.column
+                .ui.transparent.large.input
+                    input#quick_add(type='text' placeholder='quick add')
+            .column
+                form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                    input(type='hidden', name='cmd', value='_s-xclick')
+                    input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                    // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                    img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                    button.ui.basic.button(type='submit')
+                        | donate 
