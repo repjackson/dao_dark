@@ -22,26 +22,19 @@ Template.detect_fields_button.events
         Meteor.call 'detect_fields', @_id
             
             
-Template.send_karma_button.events
-    'click .send_karma': ->
-        Docs.update @_id,
-            $addToSet: upvoter_ids:Meteor.userId()
-            $inc:points:1
-        Meteor.users.update Meteor.userId(),
-            $inc:karma:-1
-        Meteor.users.update @author_id,
-            $inc:karma:1
-            
-            
-Template.send_karma_button.events
+Template.voting.events
     'click .upvote': ->
         Docs.update @_id,
             $addToSet: upvoter_ids:Meteor.userId()
-            $inc:points:1
-        Meteor.users.update Meteor.userId(),
-            $inc:karma:-1
+            $inc:karma:1
         Meteor.users.update @author_id,
             $inc:karma:1
+    'click .downvote': ->
+        Docs.update @_id,
+            $addToSet: downvoter_ids:Meteor.userId()
+            $inc:karma:-1
+        Meteor.users.update @author_id,
+            $inc:karma:-1
             
             
             

@@ -10,29 +10,28 @@ template(name='layout')
     .ui.padded.grid
         .equal.width.row
             a.column(href='/delta')
-                .ui.header
+                .ui.small.header
                     i.user.shield.icon
                     |DAO
             a.column.add(href='#')
-                .ui.header
+                .ui.small.header
                     i.link.plus.icon
-                    |add
             .column
-                .ui.header
+                .ui.small.header
                     |#{currentUser.karma}
                     | karma
             if currentUser
                 a.column(href='/me')
-                    .ui.header
+                    .ui.small.header
                         i.user.icon
                         | #{currentUser.username}
                 .column.logout
-                    .ui.header
+                    .ui.small.header
                         i.sign.out.alternate.link.icon
             else
                 .column
                     a.icon.item(href="/enter")
-                        .ui.header
+                        .ui.small.header
                             i.sign.in.alternate.icon
         .row
             .sixteen.wide.column
