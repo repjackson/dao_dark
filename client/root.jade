@@ -7,10 +7,10 @@ head
 
 
 template(name='layout')
-    .ui.grid
+    .ui.padded.grid
         +nav
-        #main
-            +yield
+        // #main
+        +yield
     +footer
 
 
@@ -22,7 +22,7 @@ template(name='nav')
         .eight.wide.center.aligned.column
             a.header.icon.home.pointer(href='/')
                 // .black_bat.logo D
-                i.user.big.shield.icon
+                i.user.shield.big.grey.icon
         .four.wide.center.aligned.column
             .right.menu
                 if currentUser
@@ -38,7 +38,7 @@ template(name='nav')
 
 
 template(name='footer')
-    .ui.bottom.fixed.menu
+    #footer.ui.bottom.fixed.menu
         .ui.header.item hi
         .item
             i.right.arrow.icon

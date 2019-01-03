@@ -1,32 +1,28 @@
 template(name='enter')
-    .ui.hidden.divider
-    .ui.text.container
-        .ui.center.aligned.header
-            a(href='/delta')
-                i.user.shield.big.link.icon
-        if message
-            h4.ui.center.aligned.header #{message}
-        .ui.fluid.input(class=login_class)
-            input.username(type='text' placeholder='username')
-        .ui.fluid.input(class=login_class)
-            input.password(type='password' placeholder='password')
-        .ui.fluid.large.button.enter(class=enter_class)
-            if registering
-                i.plus.icon
-                |#{username}
-            else
-                i.play.icon
-                | #{username}
-        .ui.hidden.divider
-        .row
-            .ten.wide.column
-                .ui.fluid.icon.large.button.new_demo
+    .centered.row
+        .ten.wide.column
+            if message
+                h4.ui.center.aligned.header #{message}
+            .ui.fluid.input(class=login_class)
+                input.username(type='text' placeholder='username')
+            .ui.fluid.input(class=login_class)
+                input.password(type='password' placeholder='password')
+            .ui.fluid.large.button.enter(class=enter_class)
+                if registering
                     i.plus.icon
-                    | anon account
-        .row
-            .ten.wide.column
-                a.ui.fluid.icon.large.button(href='/delta')
-                    i.right.arrow.icon
-                    | view
-                
+                    |#{username}
+                else
+                    i.play.icon
+                    | #{username}
+    .centered.row
+        .ten.wide.column
+            .ui.fluid.icon.large.button.new_demo
+                i.plus.icon
+                | anon account
+    .centered.row
+        .ten.wide.column
+            a.ui.fluid.icon.large.button(href='/delta')
+                i.right.arrow.icon
+                | view
+            
                 

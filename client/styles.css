@@ -19,7 +19,7 @@ body {
   filter: invert(100%);
   /*font-size: 110% !important;*/
   /*line-height: 120% !important;*/
-  background: black !important
+  background: #262626 !important
   /*background: lightgrey !important*/
 }
  .large-text {
@@ -59,11 +59,11 @@ body {
 }
 
 #footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  margin: 0 !important;
-  /*background: #0a4a7b !important;*/
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  /*width: 100%;*/
+  /*margin: 0 !important;*/
+  background: rgba(0,0,0,.01) !important;
 }
 
 .grey_car{

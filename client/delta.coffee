@@ -20,12 +20,13 @@ Template.delta.helpers
             type:'delta'
 
 
-Template.delta.events
+Template.nav.events
     'click .create_delta': (e,t)->
         
     'click .logout': ->
         Meteor.logout()
         
+Template.delta.events
     'click .delete_delta': (e,t)->
         delta = Docs.findOne Session.get('delta_id')
         if delta

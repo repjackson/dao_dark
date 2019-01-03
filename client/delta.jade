@@ -1,5 +1,5 @@
 template(name='delta')
-    .row   
+    #main.row   
         .sixteen.wide.column
             if delta_doc
                 if is_dev
@@ -20,11 +20,11 @@ template(name='delta')
                                 |#{this}
                     each facet_out
                         if name
-                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
+                            .ui.button.select_filter(class=toggle_value_class title=count)
                                 strong #{name}
                                 // small #{count}
                         else
-                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
+                            .ui.button.select_filter(class=toggle_value_class title=count)
                                 strong [null]
                                 // small #{count}
                 each delta_doc.result_ids
@@ -51,11 +51,6 @@ template(name='delta')
                 .ui.new_session.button + session
                     
     
-template(name='set_view_limit')
-    .ui.compact.small.button.set_limit(class=limit_class)
-        |#{amount}
-
-
 template(name='result')
     if loading
         .ui.center.aligned.segment
@@ -83,27 +78,6 @@ template(name='result')
             
 
 
-template(name='facet')
-    // .ui.inline.header 
-    //     |#{key}
-        // each filters
-        //     .unselect.ui.blue.button #{this}
-    // .active.content
-    .facet_res
-        .ui.transparent.left.icon.input
-            i.search.icon
-            input.add_filter(type='text' placeholder='search')
-        each filtering_res
-            if name
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong #{name}
-                    // small #{count}
-            else
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong [null]
-                    // small #{count}
-            
-        
         
 template(name='default')
     .ui.header #{title}
