@@ -13,17 +13,12 @@ Template.karma.helpers
             
 Template.chat.onCreated ->
     @autorun -> Meteor.subscribe 'type', 'chat'
-Template.users.onCreated ->
-    @autorun -> Meteor.subscribe 'users'
             
 Template.chat.helpers
     chats: -> 
         Docs.find
             type:'chat'
         
-Template.users.helpers
-    users: -> 
-        Meteor.users.find {}
         
 Template.chat.events
     'keyup .add_chat': (e,t)->
@@ -35,4 +30,24 @@ Template.chat.events
                 type:'chat'
                 body:chat
             t.$('.add_chat').val('')
+       
+       
             
+Template.users.onCreated ->
+    @autorun -> Meteor.subscribe 'users'
+Template.users.helpers
+    users: -> 
+        Meteor.users.find {}
+        
+Template.user.events
+    'click .send_point': ->
+        if confirm "send 1 point? you have #{Meteor.user().points}."
+            Meteor.users.update Meteor.userId(),
+                $inc:points:-1
+        
+    'click .send_karma': ->
+        if confirm "send 1 karma? you have #{Meteor.user().karma}."
+            Meteor.users.update Meteor.userId(),
+                $inc:karma:-1
+                
+                

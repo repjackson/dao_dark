@@ -33,17 +33,3 @@ template(name='chat')
     .ui.fluid.input
         input.add_chat(type='text' placeholder='new chat')
         
-template(name='users')
-    .ui.header users
-    .ui.four.cards
-        each users
-            .card
-                .content 
-                    .ui.header #{username}
-                    .ui.list
-                        .ui.item #{points} points
-                        .ui.item #{karma} karma
-                    
-                    a.ui.icon.button(href="/u/#{username}")
-                        i.right.arrow.icon
-        
