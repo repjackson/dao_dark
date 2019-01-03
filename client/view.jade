@@ -1,35 +1,37 @@
 template(name='view')  
     with doc
-        .ui.stackable.padded.grid
-            .row
-                .twelve.wide.column
-                    +tone
-                    +keyword_list
-                    +concept_list
-                    +keywords
-                    each _keys
-                        .ui.label #{this}
-                        +field_view
+        .row
+            .twelve.wide.column
+                each tags
+                    .ui.label #{this}
+                .large120 #{body}
+                +tone
+                +keyword_list
+                +concept_list
+                +keywords
+                each _keys
+                    .ui.label #{this}
+                    +field_view
 
-                .four.wide.column
-                    +call_watson
-                    +doc_sentiment
-                    +doc_emotion
-                    +concepts
-                    +categories
-                    +entity_list
-                    +entities
-                    +personality
-                    +consumption_preferences
-                    +author_info
-                    +creation_info
-                    a.ui.fluid.button(href="/edit/#{_id}")
-                        i.pencil.icon
-                    +clone_button
-                    +detect_fields_button
-                    +bookmark_button
-                    +voting_buttons
-                    +comments
+            .four.wide.column
+                // +call_watson
+                +doc_sentiment
+                // +doc_emotion
+                // +concepts
+                // +categories
+                // +entity_list
+                // +entities
+                // +personality
+                // +consumption_preferences
+                +author_info
+                +creation_info
+                a.ui.fluid.button(href="/edit/#{_id}")
+                    i.pencil.icon
+                // +clone_button
+                // +detect_fields_button
+                // +bookmark_button
+                // +voting_buttons
+                // +comments
             // .row
             //     .sixteen.wide.column
 
