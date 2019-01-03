@@ -29,6 +29,14 @@ if Meteor.isClient
                 $set: body:body_val
         
             
+        'change .value': (e,t)->
+            value_val = parseInt t.$('.value').val()
+            console.log value_val
+            parent = Docs.findOne FlowRouter.getParam('doc_id')
+            Docs.update parent._id, 
+                $set: value:value_val
+        
+            
   
                 
         

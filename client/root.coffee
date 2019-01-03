@@ -42,6 +42,11 @@ FlowRouter.route '/edit/:doc_id',
     action: -> @render 'layout','edit'
 
  
+FlowRouter.route '/product_edit/:doc_id',
+    name: 'edit_product'
+    action: -> @render 'layout','product_edit'
+
+ 
 FlowRouter.route '/view/:doc_id',
     name: 'view_doc'
     action: -> @render 'layout','view'

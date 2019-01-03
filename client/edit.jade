@@ -12,6 +12,9 @@ template(name='edit')
                         i.plus.icon
                 .field
                     textarea.edit_body(rows='20') #{body}
+                .field
+                    label value
+                    input.value(type='number' value=value)
             if is_dev
                 .ui.button.print log
             a.ui.fluid.button(href="/view/#{_id}")

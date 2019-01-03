@@ -19,12 +19,8 @@ template(name='layout')
                     |add
             .column
                 .ui.header
-                    |#{currentUser.karma}
-                    |karma
-            a.column(href='/bank')
-                .ui.header
-                    i.university.icon
-                    |bank
+                    |#{currentUser.points}
+                    |points
             if currentUser
                 a.column(href='/me')
                     .ui.header
