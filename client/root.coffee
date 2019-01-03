@@ -2,7 +2,8 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Template.layout.onCreated ->
     @autorun -> Meteor.subscribe 'me'
-
+    @autorun -> Meteor.subscribe 'stats'
+    
 FlowRouter.route '/',
     name: 'home'
     action: -> 
@@ -43,3 +44,10 @@ FlowRouter.route '/view/:doc_id',
     action: -> @render 'layout','view'
 
  
+Template.footer.events
+    'click .refresh_stat': ->
+        Meteor.call 'site_stat', ->
+        
+Template.footer.onCreated ->
+    
+    

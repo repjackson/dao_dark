@@ -13,6 +13,10 @@ Meteor.users.allow
 Meteor.publish 'deltas', ->
     Docs.find
         type:'delta'
+        
+Meteor.publish 'stats', ->
+    Docs.find
+        type:'stat'
 
 Meteor.publish 'doc_id', (doc_id)->
     Docs.find doc_id
@@ -67,3 +71,11 @@ Meteor.methods
                 "#{old_key}": new_key
                 "_#{old_key}": "_#{new_key}"
 
+
+    site_stat: ->
+        doc_count = Docs.find({}).count()
+        user_count = Meteor.users.find({}).count()
+        Docs.insert
+            type:'stat'
+            doc_count:doc_count
+            user_count:user_count

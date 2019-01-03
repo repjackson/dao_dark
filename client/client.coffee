@@ -9,6 +9,10 @@ Template.registerHelper 'session_delta_id', () ->
     console.log did
     did
 
+Template.registerHelper 'site_stat', ->
+    Docs.findOne
+        type:'stat'
+
 
 Template.registerHelper 'delta_doc', () -> 
     Docs.findOne Session.get('delta_id')

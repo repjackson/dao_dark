@@ -42,6 +42,14 @@ template(name='footer')
         .grey.item
             i.creative.commons.outline.icon
             | DAO
+        if is_dev
+            .icon.item.refresh_stat
+                i.link.refresh.icon
+        with site_stat
+            .item
+                |#{doc_count} docs
+            .item
+                |#{user_count} users
         .right.menu
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 input(type='hidden', name='cmd', value='_s-xclick')
