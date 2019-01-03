@@ -15,9 +15,11 @@ template(name='add_button')
         
 
 template(name='bookmark_button')
-    .ui.button(title='bookmark')
+    .ui.bookmark.button(title='bookmark')
         i.bookmark.icon
         |bookmark
+    each bookmarkers
+        |#{username}
         
 
 template(name='clone_button')

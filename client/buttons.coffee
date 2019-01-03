@@ -20,17 +20,24 @@ Template.detect_fields_button.events
             
 Template.voting_buttons.events
     'click .upvote': ->
-        console.log @
         Docs.update @_id,
             $addToSet: upvoter_ids:Meteor.userId()
             $inc:points:1
             
             
     'click .downvote': ->
-        console.log @
         Docs.update @_id,
             $addToSet: upvoter_ids:Meteor.userId()
             $inc:points:-1
             
             
-            
+Template.bookmark_button.helpers
+    bookmarkers: ->
+        Meteor.users.find _id:$in:@bookmarker_ids
+Template.bookmark_button.events
+    'click .bookmark': ->
+        Docs.update @_id,
+            $addToSet: bookmarker_ids:Meteor.userId()
+    
+    
+    

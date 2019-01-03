@@ -20,7 +20,7 @@ Meteor.methods
             Docs.update delta_id,
                 { $set: facet_out: agg_res }
     
-            if delta.limit then limit=delta.limit else limit=1
+            if delta.limit then limit=delta.limit else limit=10
     
     
             results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit}
