@@ -15,26 +15,23 @@ template(name='layout')
 
 
 template(name='nav')
-    .centered.row
-        .four.wide.center.aligned.column
-            a.ui.icon.button.add(href='#' title='add')
-                i.plus.icon
-        .eight.wide.center.aligned.column
-            a.header.icon.home.pointer(href='/')
-                // .black_bat.logo D
-                i.user.shield.big.grey.icon
-        .four.wide.center.aligned.column
-            .right.menu
-                if currentUser
-                    .ui.button
-                        if currentUser
-                            i.user.icon
-                            | #{currentUser.username}
-                    a.icon.ui.icon.button.logout(href="#")
-                        i.sign.out.alternate.icon
-                else
-                    a.icon.ui.icon.button(href="/enter")
-                        i.sign.in.alternate.icon
+    #nav.ui.top.attached.menu
+        a.icon.home.item(href='/')
+            // .black_bat.logo D
+            i.user.shield.grey.icon
+        a.ui.icon.item.add(href='#' title='add')
+            i.plus.icon
+        .right.menu
+            if currentUser
+                .item
+                    if currentUser
+                        i.user.icon
+                        | #{currentUser.username}
+                a.icon.item.logout(href="#")
+                    i.sign.out.alternate.icon
+            else
+                a.icon.item(href="/enter")
+                    i.sign.in.alternate.icon
 
 
 template(name='footer')
@@ -50,6 +47,12 @@ template(name='footer')
                 |#{doc_count} docs
             .item
                 |#{user_count} users
+            .item
+                |Invest
+            .item
+                |Sell
+            .item
+                |Earn
         .right.menu
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 input(type='hidden', name='cmd', value='_s-xclick')

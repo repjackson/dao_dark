@@ -96,6 +96,7 @@ Template.delta.events
         Session.set 'delta_id', @_id
 
 
+Template.nav.events
     'click .home': ->
         delta = Docs.findOne type:'delta'
         if delta
