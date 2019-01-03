@@ -13,10 +13,18 @@ template(name='layout')
                 .ui.header
                     i.user.shield.icon
                     |DAO
-            a.column.add(href='add')
+            a.column.add(href='#')
                 .ui.header
                     i.link.plus.icon
                     |add
+            .column
+                .ui.header
+                    |#{currentUser.karma}
+                    |karma
+            a.column(href='/bank')
+                .ui.header
+                    i.university.icon
+                    |bank
             if currentUser
                 a.column(href='/me')
                     .ui.header
@@ -28,7 +36,8 @@ template(name='layout')
             else
                 .column
                     a.icon.item(href="/enter")
-                        i.sign.in.alternate.icon
+                        .ui.header
+                            i.sign.in.alternate.icon
         .row
             .sixteen.wide.column
                 +yield

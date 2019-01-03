@@ -34,13 +34,15 @@ template(name='detect_fields_button')
         |detect fields 
         
         
-template(name='voting_buttons')
+template(name='send_karma_button')
+    .ui.button.send_karma
+        i.send.icon
+        |send karma
+        
+template(name='upvote')
     .ui.button.upvote
         i.thumbs.up.icon
         |upvote
-    .ui.button.downvote
-        i.thumbs.down.icon
-        |downvote
         
         
 template(name='edit_button')

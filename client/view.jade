@@ -6,6 +6,7 @@ template(name='view')
                     each tags
                         .ui.big.label #{this}
                     .large120 #{body}
+                    +comments
         
                 .four.wide.column
                     .ui.header points #{points}
@@ -13,11 +14,7 @@ template(name='view')
                     +creation_info
                     a.ui.fluid.button(href="/edit/#{_id}")
                         i.pencil.icon
-                    +clone_button
-                    // +detect_fields_button
                     +bookmark_button
-                    +voting_buttons
-                    // +comments
 
 template(name='field_view')
     .item   

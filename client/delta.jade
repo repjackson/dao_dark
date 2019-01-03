@@ -27,15 +27,15 @@ template(name='delta')
                             .ui.button.select_filter(class=toggle_value_class title=count)
                                 strong [null]
                                 // small #{count}
-                    each ts_out
-                        if name
-                            .ui.button.select_filter(class=toggle_value_class title=count)
-                                strong #{name}
-                                // small #{count}
-                        else
-                            .ui.button.select_filter(class=toggle_value_class title=count)
-                                strong [null]
-                                // small #{count}
+                    // each ts_out
+                    //     if name
+                    //         .ui.button.select_filter(class=toggle_value_class title=count)
+                    //             strong #{name}
+                    //             // small #{count}
+                    //     else
+                    //         .ui.button.select_filter(class=toggle_value_class title=count)
+                    //             strong [null]
+                    //             // small #{count}
             each delta_doc.result_ids
                 +result
                 .ui.divider
