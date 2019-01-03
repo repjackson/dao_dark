@@ -19,8 +19,8 @@ template(name='layout')
                     |add
             .column
                 .ui.header
-                    |#{currentUser.points}
-                    |points
+                    |#{currentUser.karma}
+                    | karma
             if currentUser
                 a.column(href='/me')
                     .ui.header

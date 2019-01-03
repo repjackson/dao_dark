@@ -29,12 +29,12 @@ if Meteor.isClient
                 $set: body:body_val
         
             
-        'change .value': (e,t)->
-            value_val = parseInt t.$('.value').val()
-            console.log value_val
+        'change .points': (e,t)->
+            points_val = parseInt t.$('.points').val()
+            console.log points_val
             parent = Docs.findOne FlowRouter.getParam('doc_id')
             Docs.update parent._id, 
-                $set: value:value_val
+                $set: points:points_val
         
             
   
