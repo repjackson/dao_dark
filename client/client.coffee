@@ -1,6 +1,3 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-
 Session.setDefault 'delta_id', null
 Session.setDefault 'loading', false
 
@@ -22,17 +19,6 @@ Template.registerHelper 'is_loading', () ->
 
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
 
-Template.registerHelper 'is_author', () ->  
-    Meteor.userId() is @author_id
-
-Template.registerHelper 'can_edit', () ->
-    if Meteor.user()
-        if Meteor.user().roles
-            if 'dev' in Meteor.user().roles
-                return true 
-        else if Meteor.userId() is @author_id
-            true
-
 Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
 
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
@@ -53,13 +39,6 @@ Template.registerHelper 'parent_doc', ()->
     Template.parentData(5)
     
     
-Template.registerHelper 'is_dev', ()->
-    if Meteor.user()
-        if Meteor.user().roles
-            if 'dev' in Meteor.user().roles
-                return true 
-            
-
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)
@@ -89,70 +68,10 @@ Template.registerHelper 'value', () ->
     
 
 Template.layout.onCreated ->
-    @autorun -> Meteor.subscribe 'me'
-    @autorun -> Meteor.subscribe 'stats'
     
     
     
     
-FlowRouter.route '/',
-    name: 'home'
-    action: -> 
-        if Meteor.userId()
-            FlowRouter.go '/delta'
-        else
-            FlowRouter.go '/delta'
-
-FlowRouter.route '/enter',
-    name: 'enter'
-    action: -> @render 'layout','enter'
-
-
-FlowRouter.route '/me',
-    name: 'me'
-    action: -> @render 'layout','me'
-FlowRouter.route '/settings',
-    name: 'settings'
-    action: -> @render 'layout','settings'
-
-FlowRouter.route '/delta',
-    name: 'delta'
-    action: -> @render 'layout','delta'
-FlowRouter.route '/chat',
-    name: 'chat'
-    action: -> @render 'layout','chat'
-
-FlowRouter.route '/karma',
-    name: 'karma'
-    action: -> @render 'layout','karma'
-
-FlowRouter.route '/users',
-    name: 'users'
-    action: -> @render 'layout','users'
-
-FlowRouter.route '/mail',
-    name: 'mail'
-    action: -> @render 'layout','mail'
-FlowRouter.route '/alerts',
-    name: 'alerts'
-    action: -> @render 'layout','alerts'
-
-FlowRouter.route '/u/:username',
-    name: 'user'
-    action: -> @render 'layout','user'
-
- 
-FlowRouter.route '/edit/:doc_id',
-    name: 'edit'
-    action: -> @render 'layout','edit'
-
- 
- 
-FlowRouter.route '/view/:doc_id',
-    name: 'view_doc'
-    action: -> @render 'layout','view'
-
- 
 Template.layout.events
     'click .refresh_stat': ->
         Meteor.call 'site_stat', ->

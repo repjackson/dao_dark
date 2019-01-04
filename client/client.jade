@@ -5,16 +5,12 @@ head
     link(href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet")
 
 
-// body
-//     +layout
+body
+    +layout
 
 
 template(name='layout')
     .ui.padded.grid
-        .row
-            .sixteen.wide.center.aligned.column
-                .ui.inverted.large.input
-                    input#quick_add(type='text' placeholder='add')
         .row
             .sixteen.wide.center.aligned.column
                 .new_session.ui.icon.button.pointer(title='new session')
@@ -83,6 +79,10 @@ template(name='layout')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
                 button.ui.white.icon.basic.button(type='submit' title='donate')
                     i.checkmark.icon
+        .row
+            .sixteen.wide.center.aligned.column
+                .ui.inverted.large.input
+                    input#quick_add(type='text' placeholder='add')
                 
     // .ui.bottom.fixed.inverted.grey.menu
     //     .item

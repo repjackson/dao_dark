@@ -67,7 +67,6 @@ Meteor.methods
 
     site_stat: ->
         doc_count = Docs.find({}).count()
-        user_count = Meteor.users.find({}).count()
         Docs.insert
             type:'stat'
             doc_count:doc_count

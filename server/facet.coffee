@@ -34,7 +34,6 @@ Meteor.methods
             # console.log 'result ids', result_ids
     
             # console.log 'delta', delta
-            # console.log Meteor.userId()
     
             Docs.update {_id:delta_id},
                 {

@@ -1,6 +1,3 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
-
-
 Template.layout.onCreated ->
     @autorun -> Meteor.subscribe 'delta', Session.get('delta_id')
     @autorun -> Meteor.subscribe 'deltas'
@@ -38,11 +35,6 @@ Template.layout.events
 
     'click .recalc': ->
         Meteor.call 'fum', (err,res)->
-
-    'blur .delta_title': (e,t)->
-        title_val = t.$('.delta_title').val()
-        Docs.update Meteor.user().current_delta_id,
-            $set: title: title_val
 
 
 

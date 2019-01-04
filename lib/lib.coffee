@@ -20,7 +20,6 @@ Docs.before.insert (userId, doc)=>
     # console.log date_array
         doc.timestamp_tags = date_array
 
-    doc.author_id = Meteor.userId()
     return
 
 # Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
@@ -34,10 +33,8 @@ Docs.before.insert (userId, doc)=>
 
 
 
-Package['kadira:flow-router'] = Package['ostrio:flow-router-extra'];
             
 Docs.helpers
-    author: -> Meteor.users.findOne @author_id
     when: -> moment(@timestamp).fromNow()
 
 Meteor.methods
