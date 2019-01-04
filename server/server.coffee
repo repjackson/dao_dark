@@ -46,14 +46,6 @@ Meteor.methods
                 "#{old_key}": new_key
                 "_#{old_key}": "_#{new_key}"
 
-
-    site_stat: ->
-        doc_count = Docs.find({}).count()
-        Docs.insert
-            type:'stat'
-            doc_count:doc_count
-            user_count:user_count
-
     fum: (delta_id)->
         console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
@@ -61,49 +53,30 @@ Meteor.methods
         if delta
             built_query = {}
             
-            for facet in delta.facets
-                if facet.filters.length > 0
-                    built_query["#{facet.key}"] = $all: facet.filters
+            built_query["tags"] = $all: delta.fi
             
             total = Docs.find(built_query).count()
             console.log 'built query', built_query
             
             # response
-            for facet in delta.facets
-                values = []
-                local_return = []
-                
-                agg_res = Meteor.call 'agg', built_query, facet.key, facet.filters
+            agg_res = Meteor.call 'agg', built_query, facet.fi
     
-                if agg_res
-                    Docs.update { _id:delta._id, "facets.key":facet.key},
-                        { $set: "facets.$.res": agg_res }
-    
-            if delta.limit then limit=delta.limit else limit=1
-    
-    
-            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit}
+            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:1}
     
             result_ids = results_cursor.fetch()
-    
-            # console.log 'result ids', result_ids
-    
-            # console.log 'delta', delta
     
             Docs.update {_id:delta_id},
                 {
                     $set:
-                        total: total
-                        # _facets: filtered_facets
-                        result_ids:result_ids
+                        fo:agg_res
+                        result_id:result_id
                 }
                 
             delta = Docs.findOne delta_id    
             console.log 'delta', delta
 
-    agg: (query, key)->
+    agg: (query)->
         limit=20
-        console.log 'agg query', query
         options = { explain:false }
         pipe =  [
             { $match: query }

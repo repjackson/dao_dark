@@ -88,14 +88,14 @@ Template.layout.events
         did = Session.get('delta_id')
         delta = Docs.findOne did
         Session.set 'loading', true
-        Docs.update did, $addToSet: facet_in: @name
+        Docs.update did, $addToSet: fi: @name
         Meteor.call 'fum', did, (err,res)->
             Session.set 'loading', false
     
     'click .pull_filter': ->
         did = Session.get('delta_id')
         Session.set 'loading', true
-        Docs.update did, $pull: facet_in: @valueOf()
+        Docs.update did, $pull: fi: @valueOf()
         Meteor.call 'fum', did, (err,res)->
             Session.set 'loading', false
       
@@ -104,7 +104,7 @@ Template.layout.events
             did = Session.get('delta_id')
             delta = Docs.findOne type:'delta'
             tag = t.$('.add_filter').val()
-            Docs.update did, $addToSet: facet_in:tag
+            Docs.update did, $addToSet: fi:tag
             Meteor.call 'fum', did, (err,res)->
                 t.$('.add_filter').val('')
                 Session.set 'loading', false

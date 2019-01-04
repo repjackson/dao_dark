@@ -21,8 +21,15 @@ template(name='layout')
                         |#{title}
         .row   
             .eight.wide.right.aligned.column
-                each current_delta.facets
-                    +facet
+                each fo
+                    if name
+                        .selector.ui.button.toggle_selection(class=toggle_value_class)
+                            strong #{name}
+                            // small #{count}
+                    else
+                        .selector.ui.button.toggle_selection(class=toggle_value_class)
+                            strong [null]
+                            // small #{count}                
             .eight.wide.column
                 .row
                     each current_delta.result_ids
