@@ -28,6 +28,14 @@ template(name='result')
             //             .ui.label #{this}
             //             +field_view
             
+            
+template(name='field_view')
+    .item   
+        .content
+            .header #{this}
+            .description
+                +Template.dynamic template=brick_view            
+            
 template(name='facet')
     // .ui.small.inline.header #{key}
     // each filters
