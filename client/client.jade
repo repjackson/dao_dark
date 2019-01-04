@@ -11,8 +11,8 @@ template(name='layout')
         i.plus.icon
     each my_sessions
         .ui.button.select_session.pointer(class=session_selector_class)
-            |#{title}
             i.remove.link.delete_delta.icon
+            |#{title}
     .ui.padded.grid
         // .black.row
         //     .one.wide.column.home.pointer.black_bat
@@ -54,7 +54,7 @@ template(name='layout')
                 //         i.refresh.icon
                 //     .ui.delete_delta.icon.button(title='delete delta')
                 //         i.trash.icon
-                |did: #{session_delta_id}
+                // |did: #{session_delta_id}
                 each current_delta.facets
                     +facet
             .ten.wide.column.scrolling
