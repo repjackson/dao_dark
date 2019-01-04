@@ -7,39 +7,37 @@ head
 
 
 template(name='layout')
-    .ui.inverted.attached.big.menu
-        a.icon.item.pointer.black_bat(href='/delta')
-            // i.home.icon
-            .large120 D
-        a.icon.item.pointer(href='/chat')
-            i.chat.icon
-        a.icon.item.pointer(href='/users')
-            i.users.icon
-        .item
-            a(href='/karma')
+    .ui.padded.grid
+        .black.row
+            .one.wide.column.pointer.black_bat
+                // i.home.icon
+                .large120 D
+            .one.wide.column.pointer
+                i.chat.icon
+            .one.wide.column.pointer
+                i.users.icon
+            .two.wide.column.pointer
                 span(title='karma') #{currentUser.karma}
                 i.user.shield.icon
                 span(title='points') #{currentUser.points}
-        .right.menu
-            a.item.add(href='#')
+            .one.wide.column.pointer.add
                 i.plus.icon
             if currentUser
-                a.item(href='/mail')
+                .one.wide.column.pointer.mail
                     i.mail.icon
-                a.item(href='/alerts')
+                .one.wide.column.pointer.alerts
                     i.bell.icon
-                a.item(href='/settings')
+                .one.wide.column.pointer.settings
                     i.cog.icon
-                a.item(href='/u/#{currentUser.username}')
+                .two.wide.column.pointer.add
                     i.user.icon
                     | #{currentUser.username}
-                .item.logout
+                .one.wide.column.pointer.add
                     i.sign.out.alternate.icon
             else
                 .column
-                    a.icon.item(href="/enter")
+                    a.one.wide.column(href="/enter")
                         i.sign.in.alternate.icon
-    .ui.grid
         .row
             .sixteen.wide.column
                 +yield
