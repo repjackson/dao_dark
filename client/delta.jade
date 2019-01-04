@@ -1,24 +1,11 @@
 template(name='delta')
+    .ui.inverted.grey.menu
+        .new_session.icon.item(title='new session')
+            i.plus.icon
+        each my_sessions
+            .item.select_session(class=session_selector_class)
+                |#{_timestamp_long}
     .ui.grid
-        .row   
-            .sixteen.wide.column
-                .ui.new_session.button + session
-                if currentUser
-                    .ui.inline.header my sessions
-                    each my_sessions
-                        .ui.button.select_session
-                            if title
-                                |#{title}
-                            else
-                                | @
-                else
-                    .ui.inline.header public sessions
-                    each public_sessions
-                        .ui.button.select_session
-                            if title
-                                |#{title}
-                            else
-                                | @
         .row   
             .six.wide.column.scrolling
                 if is_dev
@@ -32,12 +19,11 @@ template(name='delta')
                 each current_delta.facets
                     +facet
             .ten.wide.column.scrolling
-                .row
-                    .ui.button 10
-                    .ui.button 20
-                    .ui.button sort by
-                    .ui.button 20
-                    .ui.button 20
+                // .row
+                //     .ui.labeled.input(title='show')
+                //         .ui.label #
+                //         input(type='number')
+                //     .ui.button sort
                 .row
                     each current_delta.result_ids
                         +result
@@ -48,11 +34,13 @@ template(name='result')
         with result 
             if title
                 .ui.header #{title}
-            |!{nl2br html}
+            if html
+                |!{nl2br html}
             each tags
                 .ui.big.label #{this}
-            .large130 
-                |#{nl2br body}
+            if body
+                .large130 
+                    |#{nl2br body}
             div #{points} points
             .ui.icon.transparent.input
                 i.plus.icon

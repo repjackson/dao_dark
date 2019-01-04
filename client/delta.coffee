@@ -8,8 +8,10 @@ Template.delta.onCreated ->
 
 Template.delta.helpers
     current_delta: -> 
-        Docs.findOne
-            type:'delta'
+        Docs.findOne Session.get('delta_id')
+
+    session_selector_class: ->
+        if @_id is Session.get('delta_id') then 'active' else ''
 
     public_sessions: ->
         Docs.find
@@ -19,6 +21,9 @@ Template.delta.helpers
         Docs.find
             type:'delta'
 
+
+    session_label: ->
+        console.log @
 
 Template.delta.events
     'click .delete_delta': (e,t)->

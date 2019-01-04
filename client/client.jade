@@ -31,9 +31,8 @@ template(name='layout')
                 a.item(href='/settings')
                     i.cog.icon
                 a.item(href='/u/#{currentUser.username}')
-                    
-                        i.user.icon
-                        | #{currentUser.username}
+                    i.user.icon
+                    | #{currentUser.username}
                 .item.logout
                     i.sign.out.alternate.icon
             else
