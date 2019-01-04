@@ -7,13 +7,15 @@ head
 
 
 template(name='layout')
-    .new_session.ui.icon.button.pointer(title='new session')
-        i.plus.icon
-    each my_sessions
-        .ui.button.select_session.pointer(class=session_selector_class)
-            i.remove.link.delete_delta.icon
-            |#{title}
     .ui.padded.grid
+        .row
+            .sixteen.wide.center.aligned.column
+                .new_session.ui.icon.button.pointer(title='new session')
+                    i.plus.icon
+                each my_sessions
+                    .ui.button.select_session.pointer(class=session_selector_class)
+                        i.remove.link.delete_delta.icon
+                        |#{title}
         // .black.row
         //     .one.wide.column.home.pointer.black_bat
         //         // i.home.icon
@@ -46,7 +48,7 @@ template(name='layout')
         //         a.one.wide.column(href="/enter")
         //             i.sign.in.alternate.icon
         .row   
-            .six.wide.column.scrolling
+            .eight.wide.right.aligned.column
                 // if is_dev
                 //     .ui.icon.button.print_delta
                 //         i.code.icon
@@ -57,7 +59,7 @@ template(name='layout')
                 // |did: #{session_delta_id}
                 each current_delta.facets
                     +facet
-            .ten.wide.column.scrolling
+            .eight.wide.column
                 // .row
                 //     .ui.labeled.input(title='show')
                 //         .ui.label #
