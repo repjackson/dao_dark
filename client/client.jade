@@ -10,12 +10,16 @@ template(name='layout')
     .ui.padded.grid
         .row
             .sixteen.wide.center.aligned.column
-                .new_session.ui.icon.button.pointer(title='new session')
-                    i.plus.icon
-                each my_sessions
-                    .ui.button.select_session.pointer(class=session_selector_class)
-                        i.remove.link.delete_delta.icon
-                        |#{title}
+                .ui.inverted.large.input
+                    input#quick_add(type='text' placeholder='add')
+        // .row
+        //     .sixteen.wide.center.aligned.column
+        //         .new_session.ui.icon.button.pointer(title='new session')
+        //             i.plus.icon
+        //         each my_sessions
+        //             .ui.button.select_session.pointer(class=session_selector_class)
+        //                 i.remove.link.delete_delta.icon
+        //                 |#{title}
         // .black.row
         //     .one.wide.column.home.pointer.black_bat
         //         // i.home.icon
@@ -75,7 +79,7 @@ template(name='layout')
                 // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
                 button.ui.white.icon.basic.button(type='submit' title='donate')
-                    i.dollar.sign.icon
+                    i.checkmark.icon
                 
     // .ui.bottom.fixed.inverted.grey.menu
     //     .item

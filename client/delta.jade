@@ -2,17 +2,16 @@ template(name='delta')
                     
     
 template(name='result')
-    .ui.tertiary.segment
-        with result 
-            if title
-                .ui.header #{title}
-            if html
-                |!{nl2br html}
-            each tags
-                .ui.big.label #{this}
-            if body
-                .large130 
-                    |#{nl2br body}
+    with result 
+        if title
+            .ui.header #{title}
+        if html
+            |!{nl2br html}
+        each tags
+            .ui.big.label #{this}
+        if body
+            .large130 
+                |#{nl2br body}
             // div #{points} points
             // .ui.icon.transparent.input
             //     i.plus.icon
