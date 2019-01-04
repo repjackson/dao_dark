@@ -13,42 +13,38 @@ template(name='result')
             if body
                 .large130 
                     |#{nl2br body}
-            div #{points} points
-            .ui.icon.transparent.input
-                i.plus.icon
-                input.new_tag(type='text' placeholder='add tag')
-            +view_button
-            +edit_button
-            +voting
-            +toggle_button key='bookmark_ids' label='bookmark' icon='bookmark'
-            .ui.accordion
-                .title details
-                    i.dropdown.icon
-                .content
-                    each _keys
-                        .ui.label #{this}
-                        +field_view
+            // div #{points} points
+            // .ui.icon.transparent.input
+            //     i.plus.icon
+            //     input.new_tag(type='text' placeholder='add tag')
+            // +view_button
+            // +edit_button
+            // +voting
+            // +toggle_button key='bookmark_ids' label='bookmark' icon='bookmark'
+            // .ui.accordion
+            //     .title details
+            //         i.dropdown.icon
+            //     .content
+            //         each _keys
+            //             .ui.label #{this}
+            //             +field_view
             
 template(name='facet')
-    .ui.accordion
-        .active.title
-            i.dropdown.icon
-            .ui.small.inline.header #{key}
-            // each filters
-            //     .unselect.ui.blue.button #{this}
-        .active.content
-            // .ui.transparent.left.icon.input
-            //     i.search.icon
-            //     input.add_filter(type='text' placeholder='search')
-            each filtering_res
-                if name
-                    .selector.ui.small.compact.button.toggle_selection(class=toggle_value_class title=count)
-                        strong #{name}
-                        // small #{count}
-                else
-                    .selector.ui.small.compact.button.toggle_selection(class=toggle_value_class title=count)
-                        strong [null]
-                        // small #{count}
+    // .ui.small.inline.header #{key}
+    // each filters
+    //     .unselect.ui.blue.button #{this}
+    // .ui.transparent.left.icon.input
+    //     i.search.icon
+    //     input.add_filter(type='text' placeholder='search')
+    each filtering_res
+        if name
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                strong #{name}
+                // small #{count}
+        else
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                strong [null]
+                // small #{count}
     
     
         
