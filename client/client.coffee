@@ -16,96 +16,182 @@ Template.registerHelper 'delta_doc', () ->
 Template.registerHelper 'is_loading', () -> 
     Session.equals 'loading', true
 
-Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
-
-Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
-
-Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
-Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
-
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
-Template.registerHelper 'calculated_size', (input)->
-    whole = parseInt input*10
-    "f#{whole}"
-    
-Template.registerHelper 'doc', ()->
-    doc_id = FlowRouter.getParam('doc_id')
-    Docs.findOne doc_id 
-
-
-Template.registerHelper 'parent_doc', ()->
-    Template.parentData(5)
-    
     
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)
 
         
-Template.registerHelper 'brick_value', () -> 
-    parent =  Template.parentData(5)
-    if parent["#{@valueOf()}"]
-        parent["#{@valueOf()}"]
-
-Template.registerHelper 'brick_meta', () -> 
-    parent =  Template.parentData(5)
-    if parent["_#{@valueOf()}"]
-        parent["_#{@valueOf()}"]
-
-Template.registerHelper 'brick_key', () -> @valueOf()
-
-
-Template.registerHelper 'value', () -> 
-    parent =  Template.parentData()
-    if parent["#{@key}"]
-        parent["#{@key}"]
-
-    
-
-Template.layout.onCreated ->
-    
-    
-    
-    
 Template.layout.events
-    'click .refresh_stat': ->
-        Meteor.call 'site_stat', ->
-            
     'keyup #quick_add': (e,t)->
         if e.which is 13
             body = t.$('#quick_add').val()
             new_id = 
                 Docs.insert
                     body:body
-            FlowRouter.go "/edit/#{new_id}"
+            console.log Docs.findOne new_id
             t.$('#quick_add').val('')
         
-Template.layout.onCreated ->
-    
-Template.layout.events
-    'click .home': ->
-        delta = Docs.findOne type:'delta'
-        if delta
-            Docs.remove delta._id
-        Session.set 'delta_id', null
-        
-    'click .reset': ->    
-        Meteor.call 'fum', Session.get('delta_id')
-            
-            
-            
-    'click .add': ->
-        new_id = Docs.insert {}
-        FlowRouter.go "/edit/#{new_id}"
-            
-    'click .logout': -> 
-        Meteor.logout()
-        FlowRouter.go "/enter"
-            
-    'click .create_delta': (e,t)->
-        
-    'click .logout': ->
-        Meteor.logout()
-        
 
+Template.layout.onCreated ->
+    @autorun -> Meteor.subscribe 'delta', Session.get('delta_id')
+    @autorun -> Meteor.subscribe 'deltas'
+
+
+Template.layout.helpers
+    current_delta: -> 
+        Docs.findOne Session.get('delta_id')
+
+    session_selector_class: ->
+        if @_id is Session.get('delta_id') then 'grey' else ''
+
+    public_sessions: ->
+        Docs.find
+            type:'delta'
+
+    my_sessions: ->
+        Docs.find
+            type:'delta'
+
+Template.layout.events
+    'click .delete_delta': (e,t)->
+        delta = Docs.findOne Session.get('delta_id')
+        if delta
+            if confirm "delete  #{delta._id}?"
+                Docs.remove delta._id
+
+    'keyup .new_tag': (e,t)->
+        if e.which is 13
+            tag = t.$('.new_tag').val()    
+            # Meteor.call 'pull_subreddit', subreddit
+            Docs.update @_id,
+                $addToSet: tags: tag
+            t.$('.new_tag').val('')    
+                
+                
+    'click .new_session': ->
+        new_delta = 
+            Docs.insert 
+                type:'delta'
+                title:'d'
+                facets: [
+                    {
+                        key:'tags'
+                        filters:[]
+                        res:[]
+                    }
+                ]
+        
+        Session.set('delta_id', new_delta)
+        Meteor.call 'fum', Session.get('delta_id')
+    
+
+    'click .select_filter': ->
+        did = Session.get('delta_id')
+        delta = Docs.findOne did
+        Session.set 'loading', true
+        Docs.update did, $addToSet: facet_in: @name
+        Meteor.call 'fum', did, (err,res)->
+            Session.set 'loading', false
+    
+    'click .pull_filter': ->
+        did = Session.get('delta_id')
+        Session.set 'loading', true
+        Docs.update did, $pull: facet_in: @valueOf()
+        Meteor.call 'fum', did, (err,res)->
+            Session.set 'loading', false
+      
+    'keyup #add_filter': (e,t)->
+        if e.which is 13
+            did = Session.get('delta_id')
+            delta = Docs.findOne type:'delta'
+            tag = t.$('.add_filter').val()
+            Docs.update did, $addToSet: facet_in:tag
+            Meteor.call 'fum', did, (err,res)->
+                t.$('.add_filter').val('')
+                Session.set 'loading', false
+            
+    'click .select_session': ->
+        Session.set 'delta_id', @_id
+
+
+
+                
+# Template.delta.helpers
+#     filtering_res: ->
+#         delta = Docs.findOne type:'delta'
+#         filtering_res = []
+#         for filter in @facet_out
+#             if filter.count < delta.total
+#                 filtering_res.push filter
+#             else if filter.name in @facet_in
+#                 filtering_res.push filter
+#         filtering_res
+
+    
+
+#     toggle_value_class: ->
+#         facet = Template.parentData()
+#         delta = Docs.findOne type:'delta'
+#         if Session.equals 'loading', true
+#              'disabled '
+#         else ''
+    
+    
+Template.result.onCreated ->
+    @autorun => Meteor.subscribe 'doc_id', @data._id
+
+    
+Template.result.helpers
+    result: -> Docs.findOne @_id
+    
+    
+    
+Template.facet.events
+    'click .toggle_selection': ->
+        delta = Docs.findOne Session.get('delta_id')
+        facet = Template.currentData()
+        Session.set 'loading', true
+        if facet.filters and @name in facet.filters
+            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
+        else 
+            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
+      
+    'keyup .add_filter': (e,t)->
+        if e.which is 13
+            delta = Docs.findOne Session.get('delta_id')
+            concept = t.$('.add_filter').val()
+            Meteor.call 'add_facet_filter', delta._id, 'concepts', concept, ->
+                Session.set 'loading', false
+            concept = t.$('.add_filter').val('')
+            
+        
+      
+    
+Template.facet.helpers
+    filtering_res: ->
+        delta = Docs.findOne type:'delta'
+        filtering_res = []
+        for filter in @res
+            if filter.count < delta.total
+                filtering_res.push filter
+            else if filter.name in @filters
+                filtering_res.push filter
+        filtering_res
+
+    
+
+    toggle_value_class: ->
+        facet = Template.parentData()
+        delta = Docs.findOne type:'delta'
+        if Session.equals 'loading', true
+             'disabled '
+        else if facet.filters.length > 0 and @name in facet.filters
+            'grey'
+        else ''
+    
+    

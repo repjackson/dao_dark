@@ -10,7 +10,7 @@ body
 
 
 template(name='layout')
-    .ui.padded.grid
+    .ui.padded.stackable.grid
         .row
             .sixteen.wide.center.aligned.column
                 .new_session.ui.icon.button.pointer(title='new session')
@@ -19,55 +19,11 @@ template(name='layout')
                     .ui.button.select_session.pointer(class=session_selector_class)
                         i.remove.link.delete_delta.icon
                         |#{title}
-        // .black.row
-        //     .one.wide.column.home.pointer.black_bat
-        //         // i.home.icon
-        //         .large120 D
-        //     .one.wide.column.new_journal.pointer
-        //         i.book.icon
-        //     .one.wide.column.pointer
-        //         i.chat.icon
-        //     .one.wide.column.pointer
-        //         i.users.icon
-        //     .two.wide.column.pointer
-        //         span(title='karma') #{currentUser.karma}
-        //         i.user.shield.icon
-        //         span(title='points') #{currentUser.points}
-        //     .one.wide.column.pointer.add
-        //         i.plus.icon
-        //     if currentUser
-        //         .one.wide.column.pointer.mail
-        //             i.mail.icon
-        //         .one.wide.column.pointer.alerts
-        //             i.bell.icon
-        //         .one.wide.column.pointer.settings
-        //             i.cog.icon
-        //         .two.wide.column.pointer.add
-        //             i.user.icon
-        //             | #{currentUser.username}
-        //         .one.wide.column.pointer.add
-        //             i.sign.out.alternate.icon
-        //     else
-        //         a.one.wide.column(href="/enter")
-        //             i.sign.in.alternate.icon
         .row   
             .eight.wide.right.aligned.column
-                // if is_dev
-                //     .ui.icon.button.print_delta
-                //         i.code.icon
-                //     .ui.reset.icon.button(title='reset')
-                //         i.refresh.icon
-                //     .ui.delete_delta.icon.button(title='delete delta')
-                //         i.trash.icon
-                // |did: #{session_delta_id}
                 each current_delta.facets
                     +facet
             .eight.wide.column
-                // .row
-                //     .ui.labeled.input(title='show')
-                //         .ui.label #
-                //         input(type='number')
-                //     .ui.button sort
                 .row
                     each current_delta.result_ids
                         +result
@@ -84,28 +40,32 @@ template(name='layout')
                 .ui.inverted.large.input
                     input#quick_add(type='text' placeholder='add')
                 
-    // .ui.bottom.fixed.inverted.grey.menu
-    //     .item
-    //         +ad
-    //     if is_dev
-    //         .item.refresh_stat
-    //             i.link.refresh.icon
-    //     with site_stat
-    //         .item
-    //             |#{doc_count} docs
-    //             |#{user_count} users
-    //     .item
-    //         .ui.inverted.transparent.large.input
-    //             input#quick_add(type='text' placeholder='quick add')
-    //     .right.menu
-    //         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-    //             input(type='hidden', name='cmd', value='_s-xclick')
-    //             input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-    //             // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-    //             img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-    //             button.ui.grey.icon.inverted.button(type='submit' title='donate')
-    //                 i.dollar.sign.icon
                     
-                    
-template(name='ad')
-    |show the shadow
+template(name='result')
+    with result 
+        if title
+            .ui.header #{title}
+        if html
+            |!{nl2br html}
+        each tags
+            .ui.big.label #{this}
+        if body
+            .large130 
+                |#{nl2br body}
+            .ui.icon.transparent.input
+                i.plus.icon
+                input.new_tag(type='text' placeholder='add tag')
+            
+            
+            
+template(name='facet')
+    // .ui.small.inline.header #{key}
+    each filtering_res
+        if name
+            .selector.ui.button.toggle_selection(class=toggle_value_class)
+                strong #{name}
+                // small #{count}
+        else
+            .selector.ui.button.toggle_selection(class=toggle_value_class)
+                strong [null]
+                // small #{count}    
