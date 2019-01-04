@@ -71,6 +71,27 @@ Template.layout.events
         console.log new_delta
         Session.set('delta_id', new_delta)
         Meteor.call 'fum', Session.get('delta_id')
+    
+    'click .new_journal': ->
+        new_delta = 
+            Docs.insert 
+                type:'delta'
+                facets: [
+                    {
+                        key:'tags'
+                        filters:[]
+                        res:[]
+                    }
+                    {
+                        key:'type'
+                        filters:[]
+                        res:[]
+                    }
+                ]
+        
+        console.log new_delta
+        Session.set('delta_id', new_delta)
+        Meteor.call 'fum', Session.get('delta_id')
 
     'click .select_filter': ->
         did = Session.get('delta_id')
