@@ -11,8 +11,6 @@ template(name='layout')
         a.item(href='/delta')
             i.home.icon
             // |DAO
-        a.item.add(href='#')
-            i.plus.icon
         a.item(href='/chat')
             i.chat.icon
         a.item(href='/users')
@@ -23,6 +21,8 @@ template(name='layout')
                 i.user.shield.icon
                 span(title='points') #{currentUser.points}
         .right.menu
+            a.item.add(href='#')
+                i.plus.icon
             if currentUser
                 a.item(href='/mail')
                     i.mail.icon
@@ -46,8 +46,7 @@ template(name='layout')
                 +yield
     .ui.bottom.fixed.inverted.large.menu
         .item
-            i.creative.commons.outline.icon
-            | dao
+            +ad
         if is_dev
             .item.refresh_stat
                 i.link.refresh.icon
@@ -64,5 +63,9 @@ template(name='layout')
                 input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
                 // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.button(type='submit')
+                button.ui.grey.inverted.button(type='submit')
                     | donate 
+                    
+                    
+template(name='ad')
+    |hi

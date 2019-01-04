@@ -30,6 +30,7 @@ Template.voting.events
             $inc:points:1
         Meteor.users.update @author_id,
             $inc:karma:1
+    
     'click .downvote': ->
         Docs.update @_id,
             $addToSet: downvoter_ids:Meteor.userId()
@@ -41,15 +42,16 @@ Template.voting.events
             
             
             
-Template.bookmark_button.helpers
-    bookmarkers: ->
-        Meteor.users.find _id:$in:@bookmarker_ids
+Template.toggle_button.helpers
+    selected: ->
+        Meteor.users.find _id:$in:@key
         
         
-Template.bookmark_button.events
-    'click .bookmark': ->
-        Docs.update @_id,
-            $addToSet: bookmarker_ids:Meteor.userId()
+Template.toggle_button.events
+    'click .toggle': ->
+        parent = Template.parentData()
+        Docs.update parent._id,
+            $addToSet: "#{@key}":Meteor.userId()
     
     
     

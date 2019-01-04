@@ -1,7 +1,7 @@
 template(name='delta')
     .ui.grid
         .row   
-            .six.wide.column
+            .six.wide.column.scrolling
                 if is_dev
                     .ui.icon.button.print_delta
                         i.code.icon
@@ -12,7 +12,7 @@ template(name='delta')
                     |did: #{session_delta_id}
                 each current_delta.facets
                     +facet
-            .ten.wide.column
+            .ten.wide.column.scrolling
                 .row
                     .ui.button 10
                     .ui.button 20
@@ -50,11 +50,11 @@ template(name='result')
         with result 
             if title
                 .ui.header #{title}
-            |!{html}
+            |!{nl2br html}
             each tags
                 .ui.big.label #{this}
             .large130 
-                |#{body}
+                |#{nl2br body}
             div #{points} points
             .ui.icon.transparent.input
                 i.plus.icon
@@ -65,7 +65,7 @@ template(name='result')
                 +field_view
             +edit_button
             +voting
-            +bookmark_button
+            +toggle_button key='bookmark_ids' label='bookmark' icon='bookmark'
             
 template(name='facet')
     .ui.accordion

@@ -13,11 +13,12 @@ template(name='add_button')
         |add
         
 
-template(name='bookmark_button')
-    .ui.icon.bookmark.button(title='bookmark')
-        i.bookmark.icon
-    each bookmarkers
+template(name='toggle_button')
+    .ui.icon.toggle.button(title=label)
+        i.icon(class=icon)
+    each selected
         |#{username}
+        
         
 
 template(name='clone_button')
