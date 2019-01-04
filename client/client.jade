@@ -40,11 +40,11 @@ template(name='layout')
                 .column
                     a.icon.item(href="/enter")
                         i.sign.in.alternate.icon
-    .ui.padded.grid
+    .ui.grid
         .row
             .sixteen.wide.column
                 +yield
-    .ui.bottom.fixed.inverted.large.menu
+    .ui.bottom.fixed.inverted.menu
         .item
             +ad
         if is_dev
@@ -68,4 +68,4 @@ template(name='layout')
                     
                     
 template(name='ad')
-    |hi
+    |show the shadow

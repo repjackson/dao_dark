@@ -1,6 +1,25 @@
 template(name='delta')
     .ui.grid
         .row   
+            .sixteen.wide.column
+                .ui.new_session.button + session
+                if currentUser
+                    .ui.inline.header my sessions
+                    each my_sessions
+                        .ui.button.select_session
+                            if title
+                                |#{title}
+                            else
+                                | @
+                else
+                    .ui.inline.header public sessions
+                    each public_sessions
+                        .ui.button.select_session
+                            if title
+                                |#{title}
+                            else
+                                | @
+        .row   
             .six.wide.column.scrolling
                 if is_dev
                     .ui.icon.button.print_delta
@@ -22,27 +41,6 @@ template(name='delta')
                 .row
                     each current_delta.result_ids
                         +result
-        .row
-            unless current_delta
-                .ui.center.aligned.header no session
-                if currentUser
-                    .ui.inline.header my sessions
-                    each my_sessions
-                        .ui.button.select_session
-                            if title
-                                |#{title}
-                            else
-                                | @
-                else
-                    .ui.inline.header public sessions
-                    each public_sessions
-                        .ui.button.select_session
-                            if title
-                                |#{title}
-                            else
-                                | @
-                    
-                .ui.new_session.button + session
                     
     
 template(name='result')
