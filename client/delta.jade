@@ -46,12 +46,16 @@ template(name='result')
                 i.plus.icon
                 input.new_tag(type='text' placeholder='add tag')
             +view_button
-            each _keys
-                .ui.label #{this}
-                +field_view
             +edit_button
             +voting
             +toggle_button key='bookmark_ids' label='bookmark' icon='bookmark'
+            .ui.accordion
+                .title details
+                    i.dropdown.icon
+                .content
+                    each _keys
+                        .ui.label #{this}
+                        +field_view
             
 template(name='facet')
     .ui.accordion

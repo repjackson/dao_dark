@@ -141,6 +141,11 @@ Template.facet.onCreated ->
         $('.ui.accordion').accordion()
     , 1000
 
+Template.result.onCreated ->
+    Meteor.setTimeout ->
+        $('.ui.accordion').accordion()
+    , 1000
+
 
 
 Template.facet.events
