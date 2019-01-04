@@ -9,7 +9,7 @@ head
 template(name='layout')
     .ui.padded.grid
         .black.row
-            .one.wide.column.pointer.black_bat
+            .one.wide.column.home.pointer.black_bat
                 // i.home.icon
                 .large120 D
             .one.wide.column.pointer
@@ -35,12 +35,35 @@ template(name='layout')
                 .one.wide.column.pointer.add
                     i.sign.out.alternate.icon
             else
-                .column
-                    a.one.wide.column(href="/enter")
-                        i.sign.in.alternate.icon
-        .row
-            .sixteen.wide.column
-                +yield
+                a.one.wide.column(href="/enter")
+                    i.sign.in.alternate.icon
+        .grey.row   
+            .new_session.one.wide.column.pointer(title='new session')
+                i.plus.icon
+            each my_sessions
+                .four.wide.column.select_session.pointer(class=session_selector_class)
+                    |#{_timestamp_long}
+        .row   
+            .six.wide.column.scrolling
+                // if is_dev
+                //     .ui.icon.button.print_delta
+                //         i.code.icon
+                //     .ui.reset.icon.button(title='reset')
+                //         i.refresh.icon
+                //     .ui.delete_delta.icon.button(title='delete delta')
+                //         i.trash.icon
+                //     // |did: #{session_delta_id}
+                each current_delta.facets
+                    +facet
+            .ten.wide.column.scrolling
+                // .row
+                //     .ui.labeled.input(title='show')
+                //         .ui.label #
+                //         input(type='number')
+                //     .ui.button sort
+                .row
+                    each current_delta.result_ids
+                        +result
     .ui.bottom.fixed.inverted.menu
         .item
             +ad

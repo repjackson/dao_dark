@@ -1,17 +1,17 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 
-Template.delta.onCreated ->
+Template.layout.onCreated ->
     @autorun -> Meteor.subscribe 'delta', Session.get('delta_id')
     @autorun -> Meteor.subscribe 'deltas'
 
 
-Template.delta.helpers
+Template.layout.helpers
     current_delta: -> 
         Docs.findOne Session.get('delta_id')
 
     session_selector_class: ->
-        if @_id is Session.get('delta_id') then 'active' else ''
+        if @_id is Session.get('delta_id') then 'black' else ''
 
     public_sessions: ->
         Docs.find
@@ -25,7 +25,7 @@ Template.delta.helpers
     session_label: ->
         console.log @
 
-Template.delta.events
+Template.layout.events
     'click .delete_delta': (e,t)->
         delta = Docs.findOne Session.get('delta_id')
         if delta
