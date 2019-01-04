@@ -4,17 +4,6 @@ Docs.allow
     update: (userId, doc) -> true
     remove: (userId, doc) -> true
 
-Meteor.users.allow
-    insert: (userId, doc) -> userId
-    update: (userId, doc) -> userId
-    remove: (userId, doc) -> userId
-
-
-Meteor.publish 'username', (username)->
-    Meteor.users.find username:username
-
-Meteor.publish 'users', ()->
-    Meteor.users.find {}
 
 
 Meteor.publish 'deltas', ->
@@ -46,14 +35,7 @@ Meteor.publish 'delta', (delta_id)->
     
     
     
-Meteor.publish 'me', ()->
-    Meteor.users.find Meteor.userId()
-        
 Meteor.methods 
-    change_username: (user_id, new_username)->
-        Accounts.setUsername(user_id, new_username)
-
-
     tagify_date_time: (val)->
         console.log moment(val).format("dddd, MMMM Do YYYY, h:mm:ss a")
         minute = moment(val).minute()

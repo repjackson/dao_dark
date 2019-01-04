@@ -5,6 +5,9 @@ head
     link(href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet")
 
 
+// body
+//     +layout
+
 
 template(name='layout')
     .ui.padded.grid
@@ -12,14 +15,14 @@ template(name='layout')
             .sixteen.wide.center.aligned.column
                 .ui.inverted.large.input
                     input#quick_add(type='text' placeholder='add')
-        // .row
-        //     .sixteen.wide.center.aligned.column
-        //         .new_session.ui.icon.button.pointer(title='new session')
-        //             i.plus.icon
-        //         each my_sessions
-        //             .ui.button.select_session.pointer(class=session_selector_class)
-        //                 i.remove.link.delete_delta.icon
-        //                 |#{title}
+        .row
+            .sixteen.wide.center.aligned.column
+                .new_session.ui.icon.button.pointer(title='new session')
+                    i.plus.icon
+                each my_sessions
+                    .ui.button.select_session.pointer(class=session_selector_class)
+                        i.remove.link.delete_delta.icon
+                        |#{title}
         // .black.row
         //     .one.wide.column.home.pointer.black_bat
         //         // i.home.icon

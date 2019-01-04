@@ -13,7 +13,6 @@ jquery@1.11.10                  # Helpful client-side library
 random@1.1.0
 
 
-accounts-password@1.5.1
 babrahams:constellation
 
 shell-server@0.4.0
@@ -22,7 +21,6 @@ reactive-var@1.0.11
 session@1.2.0
 blaze-html-templates
 momentjs:moment
-accounts-base@1.4.3
 matb33:collection-hooks
 
 coffeescript@2.3.2_1
