@@ -3,7 +3,6 @@ Session.setDefault 'loading', false
 
 Template.registerHelper 'session_delta_id', () -> 
     did = Session.get 'delta_id'
-    # console.log did
     did
 
 Template.registerHelper 'site_stat', ->
@@ -45,16 +44,13 @@ Template.registerHelper 'nl2br', (text)->
 
         
 Template.registerHelper 'brick_value', () -> 
-    # console.log @
     parent =  Template.parentData(5)
     if parent["#{@valueOf()}"]
-        # console.log parent["#{@valueOf()}"]
         parent["#{@valueOf()}"]
 
 Template.registerHelper 'brick_meta', () -> 
     parent =  Template.parentData(5)
     if parent["_#{@valueOf()}"]
-        # console.log parent["_#{@valueOf()}"]
         parent["_#{@valueOf()}"]
 
 Template.registerHelper 'brick_key', () -> @valueOf()
@@ -95,7 +91,6 @@ Template.layout.events
         Session.set 'delta_id', null
         
     'click .reset': ->    
-        console.log 'calling fum', Session.get('delta_id')
         Meteor.call 'fum', Session.get('delta_id')
             
             

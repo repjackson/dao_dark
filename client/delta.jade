@@ -15,25 +15,11 @@ template(name='result')
             .ui.icon.transparent.input
                 i.plus.icon
                 input.new_tag(type='text' placeholder='add tag')
-        each _keys
-            .ui.label #{this}
-            +field_view
             
             
-template(name='field_view')
-    .item   
-        .content
-            .header #{this}
-            .description
-                +Template.dynamic template=brick_view            
             
 template(name='facet')
-    // .ui.small.inline.header #{key}
-    // each filters
-    //     .unselect.ui.blue.button #{this}
-    // .ui.transparent.left.icon.input
-    //     i.search.icon
-    //     input.add_filter(type='text' placeholder='search')
+    .ui.small.inline.header #{key}
     each filtering_res
         if name
             .selector.ui.button.toggle_selection(class=toggle_value_class)

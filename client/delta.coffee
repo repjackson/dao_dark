@@ -20,7 +20,6 @@ Template.layout.helpers
 
 
     session_label: ->
-        console.log @
 
 Template.layout.events
     'click .delete_delta': (e,t)->
@@ -31,7 +30,6 @@ Template.layout.events
 
     'click .print_delta': (e,t)->
         delta = Docs.findOne Session.get('delta_id')
-        console.log delta
 
     'click .recalc': ->
         Meteor.call 'fum', (err,res)->
@@ -42,7 +40,6 @@ Template.layout.events
         if e.which is 13
             tag = t.$('.new_tag').val()    
             # Meteor.call 'pull_subreddit', subreddit
-            # console.log @
             Docs.update @_id,
                 $addToSet: tags: tag
             t.$('.new_tag').val('')    
@@ -61,7 +58,6 @@ Template.layout.events
                     }
                 ]
         
-        console.log new_delta
         Session.set('delta_id', new_delta)
         Meteor.call 'fum', Session.get('delta_id')
     
@@ -83,7 +79,6 @@ Template.layout.events
                     }
                 ]
         
-        console.log new_delta
         Session.set('delta_id', new_delta)
         Meteor.call 'fum', Session.get('delta_id')
 
@@ -91,13 +86,11 @@ Template.layout.events
         did = Session.get('delta_id')
         delta = Docs.findOne did
         Session.set 'loading', true
-        console.log did
         Docs.update did, $addToSet: facet_in: @name
         Meteor.call 'fum', did, (err,res)->
             Session.set 'loading', false
     
     'click .pull_filter': ->
-        # console.log @
         did = Session.get('delta_id')
         Session.set 'loading', true
         Docs.update did, $pull: facet_in: @valueOf()
@@ -115,7 +108,6 @@ Template.layout.events
                 Session.set 'loading', false
             
     'click .select_session': ->
-        console.log @
         Session.set 'delta_id', @_id
 
 
@@ -151,18 +143,6 @@ Template.result.helpers
     
     
     
-Template.facet.onCreated ->
-    Meteor.setTimeout ->
-        $('.ui.accordion').accordion()
-    , 1000
-
-Template.result.onCreated ->
-    Meteor.setTimeout ->
-        $('.ui.accordion').accordion()
-    , 1000
-
-
-
 Template.facet.events
     'click .toggle_selection': ->
         delta = Docs.findOne Session.get('delta_id')

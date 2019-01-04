@@ -16,18 +16,14 @@ Docs.before.insert (userId, doc)=>
     date_array = [weekday, month, date, year]
     if _
         date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
-    # date_array = _.each(date_array, (el)-> console.log(typeof el))
-    # console.log date_array
-        doc.timestamp_tags = date_array
+    doc.timestamp_tags = date_array
 
     return
 
 # Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
 #     if doc.tags
 #         doc._tag_count = doc.tags.length
-#     # console.log doc
 #     # doc.child_count = Meteor.call('calculate_child_count', doc._id)
-#     # console.log Meteor.call 'calculate_child_count', doc._id, (err, res)-> return res
 # ), fetchPrevious: true
 
 
