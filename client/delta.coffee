@@ -99,7 +99,7 @@ Template.layout.events
         did = Session.get('delta_id')
         delta = Docs.findOne did
         Session.set 'loading', true
-        # console.log @
+        console.log did
         Docs.update did, $addToSet: facet_in: @name
         Meteor.call 'fum', did, (err,res)->
             Session.set 'loading', false
@@ -173,7 +173,7 @@ Template.result.onCreated ->
 
 Template.facet.events
     'click .toggle_selection': ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Session.get('delta_id')
         facet = Template.currentData()
         Session.set 'loading', true
         if facet.filters and @name in facet.filters
@@ -185,7 +185,7 @@ Template.facet.events
       
     'keyup .add_filter': (e,t)->
         if e.which is 13
-            delta = Docs.findOne type:'delta'
+            delta = Docs.findOne Session.get('delta_id')
             concept = t.$('.add_filter').val()
             Meteor.call 'add_facet_filter', delta._id, 'concepts', concept, ->
                 Session.set 'loading', false

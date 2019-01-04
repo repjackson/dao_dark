@@ -6,7 +6,7 @@ Session.setDefault 'loading', false
 
 Template.registerHelper 'session_delta_id', () -> 
     did = Session.get 'delta_id'
-    console.log did
+    # console.log did
     did
 
 Template.registerHelper 'site_stat', ->
