@@ -26,13 +26,6 @@ Docs.before.insert (userId, doc)=>
 #     # doc.child_count = Meteor.call('calculate_child_count', doc._id)
 # ), fetchPrevious: true
 
-
-
-
-            
-Docs.helpers
-    when: -> moment(@timestamp).fromNow()
-
 Meteor.methods
     add_facet_filter: (delta_id, key, filter)->
         if key is '_keys'

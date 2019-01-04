@@ -13,10 +13,10 @@ template(name='layout')
     .ui.padded.stackable.grid
         .row
             .sixteen.wide.center.aligned.column
-                .new_session.ui.icon.button.pointer(title='new session')
+                .new_session.ui.icon.compact.button.pointer(title='new session')
                     i.plus.icon
-                each my_sessions
-                    .ui.button.select_session.pointer(class=session_selector_class)
+                each sessions
+                    .ui.compact.button.select_session.pointer(class=session_selector_class)
                         i.remove.link.delete_delta.icon
                         |#{title}
         .row   
@@ -27,6 +27,10 @@ template(name='layout')
                 .row
                     each current_delta.result_ids
                         +result
+        .row
+            .sixteen.wide.center.aligned.column
+                .ui.inverted.input
+                    input#quick_add(type='text')
         .centered.row   
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 input(type='hidden', name='cmd', value='_s-xclick')
@@ -35,10 +39,6 @@ template(name='layout')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
                 button.ui.white.icon.basic.button(type='submit' title='donate')
                     i.checkmark.icon
-        .row
-            .sixteen.wide.center.aligned.column
-                .ui.inverted.large.input
-                    input#quick_add(type='text' placeholder='add')
                 
                     
 template(name='result')

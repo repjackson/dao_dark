@@ -47,11 +47,7 @@ Template.layout.helpers
     session_selector_class: ->
         if @_id is Session.get('delta_id') then 'grey' else ''
 
-    public_sessions: ->
-        Docs.find
-            type:'delta'
-
-    my_sessions: ->
+    sessions: ->
         Docs.find
             type:'delta'
 
@@ -117,31 +113,9 @@ Template.layout.events
         Session.set 'delta_id', @_id
 
 
-
-                
-# Template.delta.helpers
-#     filtering_res: ->
-#         delta = Docs.findOne type:'delta'
-#         filtering_res = []
-#         for filter in @facet_out
-#             if filter.count < delta.total
-#                 filtering_res.push filter
-#             else if filter.name in @facet_in
-#                 filtering_res.push filter
-#         filtering_res
-
-    
-
-#     toggle_value_class: ->
-#         facet = Template.parentData()
-#         delta = Docs.findOne type:'delta'
-#         if Session.equals 'loading', true
-#              'disabled '
-#         else ''
-    
     
 Template.result.onCreated ->
-    @autorun => Meteor.subscribe 'doc_id', @data._id
+    @autorun => Meteor.subscribe 'doc', @data._id
 
     
 Template.result.helpers
