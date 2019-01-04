@@ -12,21 +12,12 @@ template(name='result')
         if body
             .large130 
                 |#{nl2br body}
-            // div #{points} points
-            // .ui.icon.transparent.input
-            //     i.plus.icon
-            //     input.new_tag(type='text' placeholder='add tag')
-            // +view_button
-            // +edit_button
-            // +voting
-            // +toggle_button key='bookmark_ids' label='bookmark' icon='bookmark'
-            // .ui.accordion
-            //     .title details
-            //         i.dropdown.icon
-            //     .content
-            //         each _keys
-            //             .ui.label #{this}
-            //             +field_view
+            .ui.icon.transparent.input
+                i.plus.icon
+                input.new_tag(type='text' placeholder='add tag')
+        each _keys
+            .ui.label #{this}
+            +field_view
             
             
 template(name='field_view')
@@ -52,17 +43,3 @@ template(name='facet')
             .selector.ui.button.toggle_selection(class=toggle_value_class)
                 strong [null]
                 // small #{count}
-    
-    
-        
-template(name='default')
-    .ui.header #{title}
-    .ui.header #{timestamp}            
-    .ui.form
-        +title
-        +description
-        +tags
-        +text key='slug' label='slug'
-        +text key='icon' label='icon'
-    +edit_button
-    +view_button template='view_section'
