@@ -7,13 +7,13 @@ head
 
 
 template(name='layout')
-    .ui.inverted.attached.large.menu
-        a.item(href='/delta')
-            i.home.icon
-            // |DAO
-        a.item(href='/chat')
+    .ui.inverted.attached.big.menu
+        a.icon.item.pointer.black_bat(href='/delta')
+            // i.home.icon
+            .large120 D
+        a.icon.item.pointer(href='/chat')
             i.chat.icon
-        a.item(href='/users')
+        a.icon.item.pointer(href='/users')
             i.users.icon
         .item
             a(href='/karma')
@@ -62,8 +62,8 @@ template(name='layout')
                 input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
                 // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.grey.inverted.button(type='submit')
-                    | donate 
+                button.ui.grey.icon.inverted.button(type='submit' title='donate')
+                    i.dollar.sign.icon
                     
                     
 template(name='ad')

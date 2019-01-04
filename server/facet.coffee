@@ -48,7 +48,7 @@ Meteor.methods
             console.log 'delta', delta
 
     agg: (query, key)->
-        limit=42
+        limit=20
         console.log 'agg query', query
         options = { explain:false }
         pipe =  [

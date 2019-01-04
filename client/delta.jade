@@ -8,14 +8,14 @@ template(name='delta')
     .ui.grid
         .row   
             .six.wide.column.scrolling
-                if is_dev
-                    .ui.icon.button.print_delta
-                        i.code.icon
-                    .ui.reset.icon.button(title='reset')
-                        i.refresh.icon
-                    .ui.delete_delta.icon.button(title='delete delta')
-                        i.trash.icon
-                    |did: #{session_delta_id}
+                // if is_dev
+                //     .ui.icon.button.print_delta
+                //         i.code.icon
+                //     .ui.reset.icon.button(title='reset')
+                //         i.refresh.icon
+                //     .ui.delete_delta.icon.button(title='delete delta')
+                //         i.trash.icon
+                //     // |did: #{session_delta_id}
                 each current_delta.facets
                     +facet
             .ten.wide.column.scrolling
@@ -57,7 +57,7 @@ template(name='facet')
     .ui.accordion
         .active.title
             i.dropdown.icon
-            |#{key}
+            .ui.small.inline.header #{key}
             // each filters
             //     .unselect.ui.blue.button #{this}
         .active.content
