@@ -6,6 +6,10 @@ template(name='view')
                     each tags
                         .ui.big.label #{this}
                     .ui.basic.segment.large120 #{body}
+                    each _keys
+                        .ui.label #{this}
+                        +field_view
+            
                     +comments
         
                 .four.wide.column

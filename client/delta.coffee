@@ -61,11 +61,6 @@ Template.delta.events
                         filters:[]
                         res:[]
                     }
-                    {
-                        key:'type'
-                        filters:[]
-                        res:[]
-                    }
                 ]
         
         console.log new_delta

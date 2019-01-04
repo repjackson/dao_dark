@@ -60,6 +60,9 @@ template(name='result')
                 i.plus.icon
                 input.new_tag(type='text' placeholder='add tag')
             +view_button
+            each _keys
+                .ui.label #{this}
+                +field_view
             +edit_button
             +voting
             +bookmark_button
@@ -77,13 +80,13 @@ template(name='facet')
             //     input.add_filter(type='text' placeholder='search')
             each filtering_res
                 if name
-                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    .selector.ui.small.compact.button.toggle_selection(class=toggle_value_class title=count)
                         strong #{name}
-                        // small #{count}
+                        small #{count}
                 else
-                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    .selector.ui.small.compact.button.toggle_selection(class=toggle_value_class title=count)
                         strong [null]
-                        // small #{count}
+                        small #{count}
     
     
         
