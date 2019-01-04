@@ -11,7 +11,7 @@ Template.layout.helpers
         Docs.findOne Session.get('delta_id')
 
     session_selector_class: ->
-        if @_id is Session.get('delta_id') then 'black' else ''
+        if @_id is Session.get('delta_id') then 'grey' else ''
 
     public_sessions: ->
         Docs.find

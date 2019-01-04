@@ -7,45 +7,44 @@ head
 
 
 template(name='layout')
+    .new_session.ui.icon.button.pointer(title='new session')
+        i.plus.icon
+    each my_sessions
+        .ui.button.select_session.pointer(class=session_selector_class)
+            |#{title}
+            i.remove.link.delete_delta.icon
     .ui.padded.grid
-        .black.row
-            .one.wide.column.home.pointer.black_bat
-                // i.home.icon
-                .large120 D
-            .one.wide.column.new_journal.pointer
-                i.book.icon
-            .one.wide.column.pointer
-                i.chat.icon
-            .one.wide.column.pointer
-                i.users.icon
-            .two.wide.column.pointer
-                span(title='karma') #{currentUser.karma}
-                i.user.shield.icon
-                span(title='points') #{currentUser.points}
-            .one.wide.column.pointer.add
-                i.plus.icon
-            if currentUser
-                .one.wide.column.pointer.mail
-                    i.mail.icon
-                .one.wide.column.pointer.alerts
-                    i.bell.icon
-                .one.wide.column.pointer.settings
-                    i.cog.icon
-                .two.wide.column.pointer.add
-                    i.user.icon
-                    | #{currentUser.username}
-                .one.wide.column.pointer.add
-                    i.sign.out.alternate.icon
-            else
-                a.one.wide.column(href="/enter")
-                    i.sign.in.alternate.icon
-        .grey.row   
-            .new_session.ui.icon.button.pointer(title='new session')
-                i.plus.icon
-            each my_sessions
-                .ui.button.select_session.pointer(class=session_selector_class)
-                    |#{title}
-                    i.remove.link.delete_delta.icon
+        // .black.row
+        //     .one.wide.column.home.pointer.black_bat
+        //         // i.home.icon
+        //         .large120 D
+        //     .one.wide.column.new_journal.pointer
+        //         i.book.icon
+        //     .one.wide.column.pointer
+        //         i.chat.icon
+        //     .one.wide.column.pointer
+        //         i.users.icon
+        //     .two.wide.column.pointer
+        //         span(title='karma') #{currentUser.karma}
+        //         i.user.shield.icon
+        //         span(title='points') #{currentUser.points}
+        //     .one.wide.column.pointer.add
+        //         i.plus.icon
+        //     if currentUser
+        //         .one.wide.column.pointer.mail
+        //             i.mail.icon
+        //         .one.wide.column.pointer.alerts
+        //             i.bell.icon
+        //         .one.wide.column.pointer.settings
+        //             i.cog.icon
+        //         .two.wide.column.pointer.add
+        //             i.user.icon
+        //             | #{currentUser.username}
+        //         .one.wide.column.pointer.add
+        //             i.sign.out.alternate.icon
+        //     else
+        //         a.one.wide.column(href="/enter")
+        //             i.sign.in.alternate.icon
         .row   
             .six.wide.column.scrolling
                 // if is_dev
@@ -67,27 +66,27 @@ template(name='layout')
                 .row
                     each current_delta.result_ids
                         +result
-    .ui.bottom.fixed.inverted.menu
-        .item
-            +ad
-        if is_dev
-            .item.refresh_stat
-                i.link.refresh.icon
-        with site_stat
-            .item
-                |#{doc_count} docs
-                |#{user_count} users
-        .item
-            .ui.inverted.transparent.large.input
-                input#quick_add(type='text' placeholder='quick add')
-        .right.menu
-            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                input(type='hidden', name='cmd', value='_s-xclick')
-                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.grey.icon.inverted.button(type='submit' title='donate')
-                    i.dollar.sign.icon
+    // .ui.bottom.fixed.inverted.grey.menu
+    //     .item
+    //         +ad
+    //     if is_dev
+    //         .item.refresh_stat
+    //             i.link.refresh.icon
+    //     with site_stat
+    //         .item
+    //             |#{doc_count} docs
+    //             |#{user_count} users
+    //     .item
+    //         .ui.inverted.transparent.large.input
+    //             input#quick_add(type='text' placeholder='quick add')
+    //     .right.menu
+    //         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+    //             input(type='hidden', name='cmd', value='_s-xclick')
+    //             input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+    //             // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+    //             img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+    //             button.ui.grey.icon.inverted.button(type='submit' title='donate')
+    //                 i.dollar.sign.icon
                     
                     
 template(name='ad')

@@ -206,7 +206,7 @@ body {
 .scrolling{
   overflow-y:scroll;
   overflow-x:hidden;
-  max-height:800px;
+  max-height:700px;
   padding: 1em;
 }
 
