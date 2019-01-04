@@ -50,20 +50,21 @@ Meteor.methods
         console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
 
+        console.log 'delta', delta
         if delta
             built_query = {}
-            
-            built_query["tags"] = $all: delta.fi
+            if delta.fi.length > 0
+                built_query["tags"] = $all: delta.fi
             
             total = Docs.find(built_query).count()
             console.log 'built query', built_query
             
             # response
-            agg_res = Meteor.call 'agg', built_query, facet.fi
+            agg_res = Meteor.call 'agg', built_query, delta.fi?
     
-            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:1}
+            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:1 }
     
-            result_ids = results_cursor.fetch()
+            result_id = results_cursor.fetch()
     
             Docs.update {_id:delta_id},
                 {

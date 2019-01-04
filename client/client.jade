@@ -21,18 +21,21 @@ template(name='layout')
                         |#{title}
         .row   
             .eight.wide.right.aligned.column
-                each fo
+                each current_delta.fi
+                    .ui.grey.button.pull_filter #{this}
+                div
+                each current_delta.fo
                     if name
-                        .selector.ui.button.toggle_selection(class=toggle_value_class)
+                        .selector.ui.button.add_filter(class=toggle_value_class)
                             strong #{name}
                             // small #{count}
                     else
-                        .selector.ui.button.toggle_selection(class=toggle_value_class)
+                        .selector.ui.button.add_filter(class=toggle_value_class)
                             strong [null]
                             // small #{count}                
             .eight.wide.column
                 .row
-                    each current_delta.result_ids
+                    each current_delta.result_id
                         +result
         .row
             .sixteen.wide.center.aligned.column
@@ -63,16 +66,3 @@ template(name='result')
                 i.plus.icon
                 input.new_tag(type='text' placeholder='add tag')
             
-            
-            
-template(name='facet')
-    // .ui.small.inline.header #{key}
-    each filtering_res
-        if name
-            .selector.ui.button.toggle_selection(class=toggle_value_class)
-                strong #{name}
-                // small #{count}
-        else
-            .selector.ui.button.toggle_selection(class=toggle_value_class)
-                strong [null]
-                // small #{count}    
