@@ -20,10 +20,10 @@ template(name='delta')
                     .ui.button 20
                     .ui.button 20
                 .row
-                    each delta_doc.result_ids
+                    each current_delta.result_ids
                         +result
         .row
-            unless delta_doc
+            unless current_delta
                 .ui.center.aligned.header no session
                 if currentUser
                     .ui.inline.header my sessions
@@ -48,6 +48,9 @@ template(name='delta')
 template(name='result')
     .ui.tertiary.segment
         with result 
+            if title
+                .ui.header #{title}
+            |!{html}
             each tags
                 .ui.big.label #{this}
             .large130 
@@ -62,24 +65,25 @@ template(name='result')
             +bookmark_button
             
 template(name='facet')
-    .ui.inline.header 
-        |#{key}
-        // each filters
-        //     .unselect.ui.blue.button #{this}
-    // .active.content
-    .facet_res
-        .ui.transparent.left.icon.input
-            i.search.icon
-            input.add_filter(type='text' placeholder='search')
-        each filtering_res
-            if name
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong #{name}
-                    // small #{count}
-            else
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong [null]
-                    // small #{count}
+    .ui.accordion
+        .active.title
+            i.dropdown.icon
+            |#{key}
+            // each filters
+            //     .unselect.ui.blue.button #{this}
+        .active.content
+            // .ui.transparent.left.icon.input
+            //     i.search.icon
+            //     input.add_filter(type='text' placeholder='search')
+            each filtering_res
+                if name
+                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                        strong #{name}
+                        // small #{count}
+                else
+                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                        strong [null]
+                        // small #{count}
     
     
         

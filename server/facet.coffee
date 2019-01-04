@@ -31,7 +31,7 @@ Meteor.methods
     
             result_ids = results_cursor.fetch()
     
-            console.log 'result ids', result_ids
+            # console.log 'result ids', result_ids
     
             # console.log 'delta', delta
             # console.log Meteor.userId()
