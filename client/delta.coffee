@@ -60,6 +60,7 @@ Template.layout.events
         new_delta = 
             Docs.insert 
                 type:'delta'
+                title:'root'
                 facets: [
                     {
                         key:'_keys'
@@ -76,6 +77,7 @@ Template.layout.events
         new_delta = 
             Docs.insert 
                 type:'delta'
+                title:'journal'
                 facets: [
                     {
                         key:'tags'

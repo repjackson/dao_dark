@@ -40,11 +40,12 @@ template(name='layout')
                 a.one.wide.column(href="/enter")
                     i.sign.in.alternate.icon
         .grey.row   
-            .new_session.one.wide.column.pointer(title='new session')
+            .new_session.ui.icon.button.pointer(title='new session')
                 i.plus.icon
             each my_sessions
-                .four.wide.column.select_session.pointer(class=session_selector_class)
-                    |#{_timestamp_long}
+                .ui.button.select_session.pointer(class=session_selector_class)
+                    |#{title}
+                    i.remove.link.delete_delta.icon
         .row   
             .six.wide.column.scrolling
                 // if is_dev
