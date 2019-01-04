@@ -5,24 +5,24 @@ Meteor.methods
 
         if delta
             built_query = {}
-
-            built_query = {}
-            if delta.facet_in 
-                if delta.facet_in.length > 0 
-                    built_query.tags = $all: delta.facet_in
+            
+            for facet in delta.facets
+                if facet.filters.length > 0
+                    built_query["#{facet.key}"] = $all: facet.filters
             
             total = Docs.find(built_query).count()
             console.log 'built query', built_query
             
             # response
-            tags_res = Meteor.call 'agg', built_query, 'tags'
-            ts_res = Meteor.call 'agg', built_query, 'timestamp_tags'
+            for facet in delta.facets
+                values = []
+                local_return = []
+                
+                agg_res = Meteor.call 'agg', built_query, facet.key, facet.filters
     
-            Docs.update delta_id,
-                { $set: 
-                    facet_out: tags_res
-                    ts_out: ts_res
-                }
+                if agg_res
+                    Docs.update { _id:delta._id, "facets.key":facet.key},
+                        { $set: "facets.$.res": agg_res }
     
             if delta.limit then limit=delta.limit else limit=10
     

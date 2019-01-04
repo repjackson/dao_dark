@@ -44,10 +44,15 @@ Template.user.events
         if confirm "send 1 point? you have #{Meteor.user().points}."
             Meteor.users.update Meteor.userId(),
                 $inc:points:-1
+            Meteor.users.update @_id,
+                $inc:points:1
+            
         
     'click .send_karma': ->
         if confirm "send 1 karma? you have #{Meteor.user().karma}."
             Meteor.users.update Meteor.userId(),
                 $inc:karma:-1
+            Meteor.users.update @_id,
+                $inc:karma:1
                 
                 

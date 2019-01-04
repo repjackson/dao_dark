@@ -3,41 +3,15 @@ template(name='delta')
         .row   
             .six.wide.column
                 if is_dev
-                    // .ui.icon.button.print_delta
-                    //     i.code.icon
+                    .ui.icon.button.print_delta
+                        i.code.icon
                     .ui.reset.icon.button(title='reset')
                         i.refresh.icon
                     .ui.delete_delta.icon.button(title='delete delta')
                         i.trash.icon
-                    // |did: #{session_delta_id}
-                .ui.transparent.left.icon.input
-                    i.search.icon
-                    input#add_filter(type='text' placeholder='search')
-                with delta_doc
-                    .ui.header tags
-                    if facet_in
-                        each facet_in
-                            .ui.grey.button.pull_filter
-                                |#{this}
-                    each facet_out
-                        if name
-                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
-                                strong #{name}
-                                // small #{count}
-                        else
-                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
-                                strong [null]
-                                // small #{count}
-                    .ui.header when
-                    each ts_out
-                        if name
-                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
-                                strong #{name}
-                                // small #{count}
-                        else
-                            .ui.compact.button.select_filter(class=toggle_value_class title=count)
-                                strong [null]
-                                // small #{count}
+                    |did: #{session_delta_id}
+                each current_delta.facets
+                    +facet
             .ten.wide.column
                 .row
                     .ui.button 10
@@ -48,30 +22,31 @@ template(name='delta')
                 .row
                     each delta_doc.result_ids
                         +result
-        unless delta_doc
-            .ui.center.aligned.header no session
-            if currentUser
-                .ui.inline.header my sessions
-                each my_sessions
-                    .ui.button.select_session
-                        if title
-                            |#{title}
-                        else
-                            | @
-            else
-                .ui.inline.header public sessions
-                each public_sessions
-                    .ui.button.select_session
-                        if title
-                            |#{title}
-                        else
-                            | @
-                
-            .ui.new_session.button + session
-                
+        .row
+            unless delta_doc
+                .ui.center.aligned.header no session
+                if currentUser
+                    .ui.inline.header my sessions
+                    each my_sessions
+                        .ui.button.select_session
+                            if title
+                                |#{title}
+                            else
+                                | @
+                else
+                    .ui.inline.header public sessions
+                    each public_sessions
+                        .ui.button.select_session
+                            if title
+                                |#{title}
+                            else
+                                | @
+                    
+                .ui.new_session.button + session
+                    
     
 template(name='result')
-    .ui.secondary.segment
+    .ui.tertiary.segment
         with result 
             each tags
                 .ui.big.label #{this}
@@ -86,6 +61,25 @@ template(name='result')
             +voting
             +bookmark_button
             
+template(name='facet')
+    .ui.inline.header 
+        |#{key}
+        // each filters
+        //     .unselect.ui.blue.button #{this}
+    // .active.content
+    .facet_res
+        .ui.transparent.left.icon.input
+            i.search.icon
+            input.add_filter(type='text' placeholder='search')
+        each filtering_res
+            if name
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    strong #{name}
+                    // small #{count}
+            else
+                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    // small #{count}
     
     
         

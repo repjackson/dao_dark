@@ -52,7 +52,21 @@ Template.delta.events
                 
                 
     'click .new_session': ->
-        new_delta = Docs.insert type:'delta'
+        new_delta = 
+            Docs.insert 
+                type:'delta'
+                facets: [
+                    {
+                        key:'_keys'
+                        filters:[]
+                        res:[]
+                    }
+                    {
+                        key:'type'
+                        filters:[]
+                        res:[]
+                    }
+                ]
         
         console.log new_delta
         Session.set('delta_id', new_delta)
@@ -121,5 +135,70 @@ Template.result.helpers
     result: -> Docs.findOne @_id
     
     
+    
+Template.facet.onCreated ->
+    Meteor.setTimeout ->
+        $('.ui.accordion').accordion()
+    , 1000
+
+
+
+Template.facet.events
+    'click .toggle_selection': ->
+        delta = Docs.findOne type:'delta'
+        facet = Template.currentData()
+        Session.set 'loading', true
+        if facet.filters and @name in facet.filters
+            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
+        else 
+            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
+      
+    'keyup .add_filter': (e,t)->
+        if e.which is 13
+            delta = Docs.findOne type:'delta'
+            concept = t.$('.add_filter').val()
+            Meteor.call 'add_facet_filter', delta._id, 'concepts', concept, ->
+                Session.set 'loading', false
+            concept = t.$('.add_filter').val('')
+            
+        
+      
+    
+Template.facet.helpers
+    filtering_res: ->
+        delta = Docs.findOne type:'delta'
+        filtering_res = []
+        if @key is '_keys'
+            filtered_list = [
+                'entities'
+                'keywords'
+                'concepts'
+                'tags'
+                'youtube'
+                'type'
+            ]
+            filtering_res = @res
+            # for filter in @res
+                # if filter.name in filtered_list then filtering_res.push filter
+        else
+            for filter in @res
+                if filter.count < delta.total
+                    filtering_res.push filter
+                else if filter.name in @filters
+                    filtering_res.push filter
+        filtering_res
+
+    
+
+    toggle_value_class: ->
+        facet = Template.parentData()
+        delta = Docs.findOne type:'delta'
+        if Session.equals 'loading', true
+             'disabled '
+        else if facet.filters.length > 0 and @name in facet.filters
+            'grey'
+        else ''
     
     

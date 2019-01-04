@@ -7,6 +7,12 @@ Template.user.helpers
     user: ->
         Meteor.users.findOne username:FlowRouter.getParam('username')
 
+Template.settings.helpers
+    groups: ->
+        Docs.find 
+            type:'group'
+    
+    
 Template.settings.events
     'click .logout': -> Meteor.logout()
 

@@ -29,7 +29,8 @@ template(name='chat')
     each chats
         .ui.item
             .content
-                |#{body}
+                .header #{body}
+                |#{when}
     .ui.fluid.input
         input.add_chat(type='text' placeholder='new chat')
         
