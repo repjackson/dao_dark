@@ -66,6 +66,17 @@ Meteor.methods
             }, {multi:true}
         console.log result
     
+    move_key: (from,to)->
+        console.log 'moving key',from,'to',to
+        count = Docs.find("#{from}":$exists:true).count()
+        console.log 'found', count,'docs with', from
+        
+        result = Docs.update {"#{from}":$exists:true},
+            {$rename: "#{from}": to
+            }, {multi:true}
+        console.log result
+        
+    
     
     fum: (delta_id)->
         console.log 'running fum', delta_id

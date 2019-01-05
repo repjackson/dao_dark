@@ -3,8 +3,8 @@
 
 Docs.before.insert (userId, doc)=>
     timestamp = Date.now()
-    doc._timestamp = timestamp
-    doc._timestamp_long = moment(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")
+    doc.timestamp = timestamp
+    doc.timestamp_long = moment(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")
     date = moment(timestamp).format('Do')
     weekdaynum = moment(timestamp).isoWeekday()
     weekday = moment().isoWeekday(weekdaynum).format('dddd')
@@ -17,5 +17,6 @@ Docs.before.insert (userId, doc)=>
     if _
         date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
     doc.timestamp_tags = date_array
+    doc.tags = date_array
 
     return

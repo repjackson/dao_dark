@@ -46,14 +46,17 @@ template(name='layout')
                     
 template(name='result')
     with result 
-        .large150 
-            |#{nl2br body}
-        // .ui.form
-        //     .field
-        //         textarea(rows='3') #{body}
-        each tags
-            .ui.big.label.remove_tag #{this}
-        .ui.icon.transparent.large.input
-            i.plus.icon
-            input.new_tag(type='text' placeholder='add tag')
+        .ui.grid
+            .ten.wide.column
+                .large150 
+                    |#{nl2br body}
+                // .ui.form
+                //     .field
+                //         textarea(rows='3') #{body}
+            .six.wide.column
+                each tags
+                    .ui.big.label.remove_tag #{this}
+                .ui.icon.transparent.large.input
+                    i.plus.icon
+                    input.new_tag(type='text')
             
