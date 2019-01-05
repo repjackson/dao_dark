@@ -22,7 +22,7 @@ template(name='layout')
         .row   
             .eight.wide.right.aligned.column
                 each filtering_res
-                    .selector.ui.large.button.toggle_filter(class=toggle_value_class)
+                    .selector.ui.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
             .eight.wide.column
@@ -45,15 +45,14 @@ template(name='layout')
                     
 template(name='result')
     with result 
-        each tags
-            .ui.large.label #{this}
-        if body
-            .large130 
-                |#{nl2br body}
+        .large150 
+            |#{nl2br body}
         // .ui.form
         //     .field
         //         textarea(rows='3') #{body}
-        .ui.icon.transparent.input
+        each tags
+            .ui.big.label.remove_tag #{this}
+        .ui.icon.transparent.large.input
             i.plus.icon
             input.new_tag(type='text' placeholder='add tag')
             

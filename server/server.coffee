@@ -71,7 +71,7 @@ Meteor.methods
         console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
 
-        console.log 'delta', delta
+        # console.log 'delta', delta
         if delta
             built_query = {}
             if delta.fi.length > 0

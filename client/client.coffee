@@ -87,14 +87,21 @@ Template.result.onCreated ->
 Template.result.helpers
     result: -> 
         doc = Docs.findOne @_id
-        console.log doc
+        # console.log doc
         doc
+    
+Template.result.events
+    'click .remove_tag': ->
+        current_id = Template.currentData()._id
+        Docs.update current_id,
+            $pull:tags:@valueOf()
+    
     
 Template.layout.helpers
     filtering_res: ->
         delta = Docs.findOne type:'delta'
         filtering_res = []
-        console.log delta.fo
+        # console.log delta.fo
         for filter in delta.fo
             # if filter.count < delta.total
             filtering_res.push filter

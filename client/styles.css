@@ -3,8 +3,8 @@ body {
   /*min-height: 500px;*/
 /*  min-height: 100%;*/
   filter: invert(100%);
-  /*font-size: 110% !important;*/
-  /*line-height: 120% !important;*/
+  font-size: 130% !important;
+  line-height: 200% !important;
   background: #262626 !important
   /*background: lightgrey !important*/
 }
@@ -12,3 +12,4 @@ body {
 .ui.button{
   margin:.1em !important;
 }
+
