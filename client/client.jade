@@ -20,12 +20,13 @@ template(name='layout')
                         i.remove.link.delete_delta.icon
                         |#{title}
         .row   
-            .eight.wide.right.aligned.column
+            .sixteen.wide.right.aligned.column
                 each filtering_res
                     .selector.ui.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
-            .eight.wide.column
+        .row   
+            .sixteen.wide.column
                 .row
                     each current_delta.result_id
                         +result
