@@ -11,24 +11,16 @@ body
 
 template(name='layout')
     .ui.padded.stackable.grid
-        .row
-            .sixteen.wide.center.aligned.column
-                .new_session.ui.icon.compact.button.pointer(title='new session')
-                    i.plus.icon
-                each sessions
-                    .ui.compact.button.select_session.pointer(class=session_selector_class)
-                        i.remove.link.delete_delta.icon
-                        |#{title}
         .row   
             .sixteen.wide.right.aligned.column
                 each filtering_res
-                    .selector.ui.large.button.toggle_filter(class=toggle_value_class)
+                    .selector.ui.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
         .row   
             .sixteen.wide.column
                 .row
-                    each current_delta.result_id
+                    each delta.result_id
                         +result
         .centered.row
             .six.wide.center.aligned.column
@@ -47,15 +39,20 @@ template(name='layout')
 template(name='result')
     with result 
         .ui.grid
-            .twelve.wide.column.scrolling
-                .large150 
-                    |#{nl2br body}
+            .ten.wide.column.scrolling
+                .ui.button.remove x
+                |#{nl2br body}
                 // .ui.form
                 //     .field
                 //         textarea(rows='3') #{body}
-            .four.wide.column
+            .six.wide.column
                 each tags
-                    .ui.big.label.remove_tag #{this}
+                    .ui.large.label
+                        i.remove.link.icon.remove_tag
+                        |#{this}
+                // each keys
+                //     .ui.white.label
+                //         |#{this}
                 .ui.icon.input
                     i.plus.icon
                     input.new_tag(type='text')

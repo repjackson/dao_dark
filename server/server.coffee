@@ -6,7 +6,7 @@ Docs.allow
 
 
 
-Meteor.publish 'deltas', ->
+Meteor.publish 'delta', ->
     Docs.find
         type:'delta'
         
@@ -66,17 +66,33 @@ Meteor.methods
             }, {multi:true}
         console.log result
     
-    move_key: (from,to)->
-        console.log 'moving key',from,'to',to
-        count = Docs.find("#{from}":$exists:true).count()
-        console.log 'found', count,'docs with', from
+    import_array: (from)->
+        console.log 'moving array',from
+        cursor = Docs.find({"#{from}":$exists:true}, {limit:3})
+        console.log 'found', cursor.count(),'docs with', from
+        for doc in cursor.fetch()
+            console.log 'moving keys', doc.keywords, 
+            result = Docs.update {},
+                {$addToSet: tags: $each: doc.keywords}
+                
+            new_doc = Docs.findOne doc._id
+            console.log 'new version', new_doc.tags
         
-        result = Docs.update {"#{from}":$exists:true},
-            {$rename: "#{from}": to
-            }, {multi:true}
-        console.log result
-        
+    keys: ->
+        cur = Docs.find({keys:$exists:false})
+        for doc in cur.fetch()
+            keys = _.keys doc
+            console.log keys
+            Docs.update doc._id,
+                $set:keys:keys
     
+    
+    remove_key: (key)->
+        console.log 'removing key', key
+        filter = {"#{key}":$exists:true}
+        console.log Docs.find(filter).count()
+        Docs.update filter,
+            {$unset:"#{key}"}
     
     fum: (delta_id)->
         console.log 'running fum', delta_id
