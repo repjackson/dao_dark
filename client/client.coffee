@@ -61,7 +61,7 @@ Template.result.events
         Docs.update current_id,
             $pull:tags:@valueOf()
     
-    'click .remove': ->
+    'click .remove_doc': ->
         current_id = Template.currentData()._id
         Docs.remove current_id,
     

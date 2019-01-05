@@ -12,7 +12,7 @@ body
 template(name='layout')
     .ui.padded.stackable.grid
         .row   
-            .sixteen.wide.right.aligned.column
+            .sixteen.wide.center.aligned.column
                 each filtering_res
                     .selector.ui.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
@@ -23,8 +23,9 @@ template(name='layout')
                     each delta.result_id
                         +result
         .centered.row
-            .six.wide.center.aligned.column
-                .ui.inverted.fluid.input
+            .ten.wide.center.aligned.column
+                .ui.inverted.fluid.icon.input
+                    i.plus.icon
                     input#quick_add(type='text')
         .centered.row   
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
@@ -39,21 +40,21 @@ template(name='layout')
 template(name='result')
     with result 
         .ui.grid
-            .ten.wide.column.scrolling
-                .ui.button.remove x
+            .eight.wide.column
+                // .ui.button.remove_doc x
                 |#{nl2br body}
                 // .ui.form
                 //     .field
                 //         textarea(rows='3') #{body}
-            .six.wide.column
+            .eight.wide.column
                 each tags
-                    .ui.large.label
-                        i.remove.link.icon.remove_tag
+                    .ui.large.label.remove_tag
+                        // i.remove.link.icon.remove_tag
                         |#{this}
                 // each keys
                 //     .ui.white.label
                 //         |#{this}
-                .ui.icon.input
-                    i.plus.icon
+                .ui.icon.fluid.input
+                    i.tag.icon
                     input.new_tag(type='text')
             

@@ -3,13 +3,13 @@ body {
   /*min-height: 500px;*/
 /*  min-height: 100%;*/
   filter: invert(100%);
-  font-size: 120% !important;
+  font-size: 130% !important;
   line-height: 200% !important;
   background: #262626 !important
   /*background: lightgrey !important*/
 }
 
-.ui.button{
+.ui.button, .ui.label{
   margin:.1em !important;
 }
 
