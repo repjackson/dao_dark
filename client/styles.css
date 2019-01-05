@@ -8,3 +8,7 @@ body {
   background: #262626 !important
   /*background: lightgrey !important*/
 }
+
+.ui.button{
+  margin:.1em !important;
+}

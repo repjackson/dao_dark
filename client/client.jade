@@ -21,26 +21,17 @@ template(name='layout')
                         |#{title}
         .row   
             .eight.wide.right.aligned.column
-                each current_delta.fi
-                    .ui.grey.button.pull_filter #{this}
-                div
-                // each filtering_res
                 each current_delta.fo
-                    if name
-                        .selector.ui.button.add_filter
-                            strong #{name}
-                            // small #{count}
-                    else
-                        .selector.ui.button.add_filter
-                            strong [null]
-                            // small #{count}                
+                    .selector.ui.large.button.toggle_filter(class=toggle_value_class)
+                        strong #{name}
+                        // small #{count}
             .eight.wide.column
                 .row
                     each current_delta.result_id
                         +result
-        .row
-            .sixteen.wide.center.aligned.column
-                .ui.inverted.input
+        .centered.row
+            .six.wide.center.aligned.column
+                .ui.inverted.fluid.input
                     input#quick_add(type='text')
         .centered.row   
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')

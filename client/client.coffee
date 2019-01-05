@@ -1,5 +1,4 @@
 Session.setDefault 'delta_id', null
-Session.setDefault 'loading', false
 
 Template.registerHelper 'session_delta_id', () -> 
     did = Session.get 'delta_id'
@@ -7,9 +6,6 @@ Template.registerHelper 'session_delta_id', () ->
 
 Template.registerHelper 'delta_doc', () -> 
     Docs.findOne Session.get('delta_id')
-
-Template.registerHelper 'is_loading', () -> 
-    Session.equals 'loading', true
 
     
 Template.registerHelper 'nl2br', (text)->
@@ -70,31 +66,15 @@ Template.layout.events
         Meteor.call 'fum', Session.get('delta_id')
     
 
-    'click .add_filter': ->
+    'click .toggle_filter': ->
         did = Session.get('delta_id')
         delta = Docs.findOne did
-        Session.set 'loading', true
-        Docs.update did, $addToSet: fi: @name
+        if @name in delta.fi
+            Docs.update did, $pull: fi: @name
+        else    
+            Docs.update did, $addToSet: fi: @name
         Meteor.call 'fum', did, (err,res)->
-            Session.set 'loading', false
     
-    'click .pull_filter': ->
-        did = Session.get('delta_id')
-        Session.set 'loading', true
-        Docs.update did, $pull: fi: @valueOf()
-        Meteor.call 'fum', did, (err,res)->
-            Session.set 'loading', false
-      
-    # 'keyup #add_filter': (e,t)->
-    #     if e.which is 13
-    #         did = Session.get('delta_id')
-    #         delta = Docs.findOne type:'delta'
-    #         tag = t.$('.add_filter').val()
-    #         Docs.update did, $addToSet: fi:tag
-    #         Meteor.call 'fum', did, (err,res)->
-    #             t.$('.add_filter').val('')
-    #             Session.set 'loading', false
-            
     'click .select_session': ->
         Session.set 'delta_id', @_id
 
@@ -120,13 +100,10 @@ Template.layout.helpers
 
     
 
-    # toggle_value_class: ->
-    #     facet = Template.parentData()
-    #     delta = Docs.findOne type:'delta'
-    #     if Session.equals 'loading', true
-    #          'disabled '
-    #     else if facet.filters.length > 0 and @name in facet.filters
-    #         'grey'
-    #     else ''
+    toggle_value_class: ->
+        delta = Docs.findOne type:'delta'
+        if delta.fi.length > 0 and @name in delta.fi
+            'grey'
+        else ''
     
     
