@@ -56,16 +56,17 @@ Meteor.methods
             console.log 'counted', uncounted.tags
                     
 
-    rename_key:(old_key,new_key,parent)->
-        Docs.update parent._id,
-            $pull:_keys:old_key
-        Docs.update parent._id,
-            $addToSet:_keys:new_key
-        Docs.update parent._id,
-            $rename: 
-                "#{old_key}": new_key
-                "_#{old_key}": "_#{new_key}"
-
+    rename:(from,to)->
+        console.log 'renaming keys from',from,'to',to
+        count = Docs.find("#{from}":$exists:true).count()
+        console.log 'found', count,'docs with', from
+        
+        result = Docs.update {"#{from}":$exists:true},
+            {$rename: "#{from}": to
+            }, {multi:true}
+        console.log result
+    
+    
     fum: (delta_id)->
         console.log 'running fum', delta_id
         delta = Docs.findOne delta_id

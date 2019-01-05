@@ -45,16 +45,15 @@ template(name='layout')
                     
 template(name='result')
     with result 
-        if title
-            .ui.header #{title}
-        if html
-            |!{nl2br html}
         each tags
-            .ui.big.label #{this}
+            .ui.large.label #{this}
         if body
             .large130 
                 |#{nl2br body}
-            .ui.icon.transparent.input
-                i.plus.icon
-                input.new_tag(type='text' placeholder='add tag')
+        // .ui.form
+        //     .field
+        //         textarea(rows='3') #{body}
+        .ui.icon.transparent.input
+            i.plus.icon
+            input.new_tag(type='text' placeholder='add tag')
             

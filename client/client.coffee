@@ -85,8 +85,10 @@ Template.result.onCreated ->
 
     
 Template.result.helpers
-    result: -> Docs.findOne @_id
-    
+    result: -> 
+        doc = Docs.findOne @_id
+        console.log doc
+        doc
     
 Template.layout.helpers
     filtering_res: ->

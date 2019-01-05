@@ -15,7 +15,7 @@
     "embed": false,
     "feed": false,
     "flag": false,
-    "form": false,
+    "form": true,
     "grid": true,
     "header": true,
     "icon": true,
