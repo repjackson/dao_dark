@@ -60,7 +60,7 @@ Meteor.methods
             console.log 'built query', built_query
             
             # response
-            agg_res = Meteor.call 'agg', built_query, delta.fi?
+            agg_res = Meteor.call 'agg', built_query, delta.fi
     
             results_cursor = Docs.find built_query, { fields:{_id:1}, limit:1 }
     
@@ -74,9 +74,9 @@ Meteor.methods
                 }
                 
             delta = Docs.findOne delta_id    
-            console.log 'delta', delta
+            # console.log 'delta', delta
 
-    agg: (query)->
+    agg: (query, fi)->
         limit=20
         options = { explain:false }
         pipe =  [

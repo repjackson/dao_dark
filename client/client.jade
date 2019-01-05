@@ -24,13 +24,14 @@ template(name='layout')
                 each current_delta.fi
                     .ui.grey.button.pull_filter #{this}
                 div
+                // each filtering_res
                 each current_delta.fo
                     if name
-                        .selector.ui.button.add_filter(class=toggle_value_class)
+                        .selector.ui.button.add_filter
                             strong #{name}
                             // small #{count}
                     else
-                        .selector.ui.button.add_filter(class=toggle_value_class)
+                        .selector.ui.button.add_filter
                             strong [null]
                             // small #{count}                
             .eight.wide.column
