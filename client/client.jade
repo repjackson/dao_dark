@@ -22,7 +22,7 @@ template(name='layout')
         .row   
             .sixteen.wide.right.aligned.column
                 each filtering_res
-                    .selector.ui.button.toggle_filter(class=toggle_value_class)
+                    .selector.ui.large.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
         .row   
@@ -47,16 +47,16 @@ template(name='layout')
 template(name='result')
     with result 
         .ui.grid
-            .ten.wide.column
+            .twelve.wide.column.scrolling
                 .large150 
                     |#{nl2br body}
                 // .ui.form
                 //     .field
                 //         textarea(rows='3') #{body}
-            .six.wide.column
+            .four.wide.column
                 each tags
                     .ui.big.label.remove_tag #{this}
-                .ui.icon.transparent.large.input
+                .ui.icon.input
                     i.plus.icon
                     input.new_tag(type='text')
             
