@@ -92,10 +92,10 @@ Template.layout.helpers
     filtering_res: ->
         delta = Docs.findOne type:'delta'
         filtering_res = []
+        console.log delta.fo
         for filter in delta.fo
-            unless filter.name in delta.fi
-                if filter.count < delta.total
-                    filtering_res.push filter
+            # if filter.count < delta.total
+            filtering_res.push filter
         filtering_res
 
     

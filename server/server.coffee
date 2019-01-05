@@ -35,6 +35,26 @@ Meteor.methods
         # date_array = _.each(date_array, (el)-> console.log(typeof el))
         # console.log date_array
         return date_array
+        
+        
+        
+    count_tags: ->
+        cursor = 
+            Docs.find({
+                tag_count:
+                    $exists:false
+                tags:
+                    $exists:true
+            }, {limit:100})
+        count = cursor.count()
+        console.log 'found',count,'uncounted tags'
+        for uncounted in cursor.fetch()
+            tag_count = uncounted.tags.length
+            console.log 'tag count', tag_count
+            Docs.update uncounted._id,
+                $set:tag_count:tag_count
+            console.log 'counted', uncounted.tags
+                    
 
     rename_key:(old_key,new_key,parent)->
         Docs.update parent._id,

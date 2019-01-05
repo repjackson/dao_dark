@@ -21,7 +21,7 @@ template(name='layout')
                         |#{title}
         .row   
             .eight.wide.right.aligned.column
-                each current_delta.fo
+                each filtering_res
                     .selector.ui.large.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
