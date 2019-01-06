@@ -14,7 +14,7 @@ body {
 }
 
 
-::-webkit-scrollbar {
+.scrolling::-webkit-scrollbar {
     width: 0px;  /* remove scrollbar space */
     background: transparent;  /* optional: just make scrollbar invisible */
 }
@@ -27,6 +27,6 @@ body {
   overflow-y:scroll;
   overflow-x:hidden;
   max-height:500px;
-  padding: 1em;
+  padding-right: 1em;
 }
 

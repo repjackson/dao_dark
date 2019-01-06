@@ -115,7 +115,7 @@ Meteor.methods
             delta = Docs.findOne new_id
         # console.log 'delta', delta
         
-        built_query = {}
+        built_query = { type:$ne:'delta' }
         if delta.fi.length > 0
             built_query["tags"] = $all: delta.fi
         

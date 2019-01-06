@@ -14,7 +14,7 @@ template(name='layout')
         .row   
             .sixteen.wide.center.aligned.column
                 each filtering_res
-                    .selector.ui.large.compact.button.toggle_filter(class=toggle_value_class)
+                    .selector.ui.circular.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
         .row   
@@ -24,8 +24,7 @@ template(name='layout')
                         +result
         .centered.row
             .ten.wide.center.aligned.column
-                .ui.inverted.fluid.icon.input
-                    i.plus.icon
+                .ui.fluid.icon.transparent.input
                     input#quick_add(type='text')
         .centered.row   
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
@@ -33,7 +32,7 @@ template(name='layout')
                 input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
                 // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.white.icon.basic.button(type='submit' title='donate')
+                button.ui.icon.circular.button(type='submit' title='donate')
                     i.checkmark.icon
                 
                     
@@ -41,20 +40,25 @@ template(name='result')
     with result 
         .ui.stackable.grid
             .eight.wide.right.aligned.column.scrolling
-                |#{nl2br body}
-                .remove_doc x
+                if body
+                    |#{nl2br body}
+                // .ui.icon.button.remove_doc x
                 // .ui.form
                 //     .field
                 //         textarea(rows='3') #{body}
             .eight.wide.column
                 each tags
-                    .ui.button.remove_tag
+                    .ui.circular.button.remove_tag
                         // i.remove.link.icon.remove_tag
                         |#{this}
-                // each keys
-                //     .ui.white.label
-                //         |#{this}
-                .ui.fluid.icon.input
-                    i.tag.icon
+                .ui.icon.transparent.fluid.input
                     input.new_tag(type='text')
+                unless tags
+                    .ui.divider
+                    each keys
+                        .ui.white.label
+                            |#{this}
+                    each timestamp_tags
+                        .ui.white.label
+                            |#{this}
             

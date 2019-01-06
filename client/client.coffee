@@ -43,7 +43,7 @@ Template.result.onCreated ->
 Template.result.helpers
     result: -> 
         doc = Docs.findOne @_id
-        # console.log doc
+        console.log doc
         doc
     
 Template.result.events
@@ -51,10 +51,14 @@ Template.result.events
         if e.which is 13
             tag = t.$('.new_tag').val().toLowerCase()   
             # Meteor.call 'pull_subreddit', subreddit
+            if @tags
+                tag_count = @tags.length
+            else
+                tag_count = 0
             Docs.update @_id,
                 $addToSet: 
                     tags: tag
-                $set:tag_count:@tags.length
+                $set:tag_count:tag_count
             t.$('.new_tag').val('')    
                 
                 

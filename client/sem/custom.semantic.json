@@ -10,7 +10,7 @@
     "comment": false,
     "container": false,
     "dimmer": false,
-    "divider": false,
+    "divider": true,
     "dropdown": false,
     "embed": false,
     "feed": false,
