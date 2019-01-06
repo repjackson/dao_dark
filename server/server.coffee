@@ -140,6 +140,7 @@ Meteor.methods
             {
                 $set:
                     fo:agg_res
+                    total:total
                     result_id:result_id
             }
             
@@ -147,7 +148,7 @@ Meteor.methods
         # console.log 'delta', delta
 
     agg: (query, fi)->
-        limit=42
+        limit=20
         options = { explain:false }
         pipe =  [
             { $match: query }
