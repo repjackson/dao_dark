@@ -86,6 +86,13 @@ Meteor.methods
             Docs.update doc._id,
                 $set:keys:keys
     
+    clean: ->
+        found = 
+            Docs.find
+                tags:$exists:false
+        console.log found.count()
+    
+    
     lowercase_tags: ->
         cur = Docs.find({tags:$exists:true})
         for doc in cur.fetch()
@@ -148,7 +155,7 @@ Meteor.methods
         # console.log 'delta', delta
 
     agg: (query, fi)->
-        limit=100
+        limit=42
         options = { explain:false }
         pipe =  [
             { $match: query }
