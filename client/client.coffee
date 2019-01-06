@@ -58,10 +58,15 @@ Template.result.events
             t.$('.new_tag').val('')    
                 
                 
-    'click .remove_tag': ->
+    'click .remove_tag': (e,t)->
         current_id = Template.currentData()._id
-        Docs.update current_id,
-            $pull:tags:@valueOf()
+        new_tag_val = t.$('.new_tag').val()
+        unless new_tag_val
+            Docs.update current_id,
+                $pull:tags:@valueOf()
+            t.$('.new_tag').val(@valueOf())    
+            
+        
     
     'click .remove_doc': ->
         current_id = Template.currentData()._id

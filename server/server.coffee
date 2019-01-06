@@ -131,7 +131,7 @@ Meteor.methods
                     _id:1
                 limit:1
                 sort:
-                    tag_count:-1
+                    tag_count:1
             }
 
         result_id = results_cursor.fetch()

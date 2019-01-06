@@ -14,7 +14,7 @@ template(name='layout')
         .row   
             .sixteen.wide.center.aligned.column
                 each filtering_res
-                    .selector.ui.large.button.toggle_filter(class=toggle_value_class)
+                    .selector.ui.large.compact.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
         .row   
@@ -39,22 +39,22 @@ template(name='layout')
                     
 template(name='result')
     with result 
-        .ui.grid
-            .eight.wide.right.aligned.column
+        .ui.stackable.grid
+            .eight.wide.right.aligned.column.scrolling
                 |#{nl2br body}
-                .ui.button.remove_doc x
+                .remove_doc x
                 // .ui.form
                 //     .field
                 //         textarea(rows='3') #{body}
             .eight.wide.column
                 each tags
-                    .ui.large.label.remove_tag
+                    .ui.button.remove_tag
                         // i.remove.link.icon.remove_tag
                         |#{this}
                 // each keys
                 //     .ui.white.label
                 //         |#{this}
-                .ui.icon.fluid.input
+                .ui.fluid.icon.input
                     i.tag.icon
                     input.new_tag(type='text')
             
