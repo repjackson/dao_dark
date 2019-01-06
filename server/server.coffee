@@ -86,6 +86,14 @@ Meteor.methods
             Docs.update doc._id,
                 $set:keys:keys
     
+    lowercase_tags: ->
+        cur = Docs.find({tags:$exists:true})
+        for doc in cur.fetch()
+            console.log 'turning', doc.tags
+            tags = _.map(doc.tags, (tag)->tag.toLowerCase())
+            console.log 'into', tags
+            Docs.update doc._id,
+                $set:tags:tags
     
     remove_key: (key)->
         console.log 'removing key', key
@@ -94,38 +102,52 @@ Meteor.methods
         Docs.update filter,
             {$unset:"#{key}"}
     
-    fum: (delta_id)->
-        console.log 'running fum', delta_id
-        delta = Docs.findOne delta_id
+    fum: ()->
+        # console.log 'running fum'
+        
+        delta = Docs.findOne type:'delta'
 
+        unless delta
+            new_id = Docs.insert 
+                type:'delta'
+                fi:[]
+                fo:[]
+            delta = Docs.findOne new_id
         # console.log 'delta', delta
-        if delta
-            built_query = {}
-            if delta.fi.length > 0
-                built_query["tags"] = $all: delta.fi
+        
+        built_query = {}
+        if delta.fi.length > 0
+            built_query["tags"] = $all: delta.fi
+        
+        total = Docs.find(built_query).count()
+        # console.log 'built query', built_query
+        
+        # response
+        agg_res = Meteor.call 'agg', built_query, delta.fi
+
+        results_cursor = Docs.find built_query, 
+            { 
+                fields:
+                    _id:1
+                limit:1
+                sort:
+                    tag_count:-1
+            }
+
+        result_id = results_cursor.fetch()
+
+        Docs.update {_id:delta._id},
+            {
+                $set:
+                    fo:agg_res
+                    result_id:result_id
+            }
             
-            total = Docs.find(built_query).count()
-            console.log 'built query', built_query
-            
-            # response
-            agg_res = Meteor.call 'agg', built_query, delta.fi
-    
-            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:1 }
-    
-            result_id = results_cursor.fetch()
-    
-            Docs.update {_id:delta_id},
-                {
-                    $set:
-                        fo:agg_res
-                        result_id:result_id
-                }
-                
-            delta = Docs.findOne delta_id    
-            # console.log 'delta', delta
+        delta = Docs.findOne delta._id    
+        # console.log 'delta', delta
 
     agg: (query, fi)->
-        limit=20
+        limit=42
         options = { explain:false }
         pipe =  [
             { $match: query }

@@ -24,15 +24,6 @@ Template.layout.helpers
 
 
 Template.layout.events
-    'keyup .new_tag': (e,t)->
-        if e.which is 13
-            tag = t.$('.new_tag').val()    
-            # Meteor.call 'pull_subreddit', subreddit
-            Docs.update @_id,
-                $addToSet: tags: tag
-            t.$('.new_tag').val('')    
-                
-                
 
     'click .toggle_filter': ->
         delta = Docs.findOne type:'delta'
@@ -56,6 +47,17 @@ Template.result.helpers
         doc
     
 Template.result.events
+    'keyup .new_tag': (e,t)->
+        if e.which is 13
+            tag = t.$('.new_tag').val().toLowerCase()   
+            # Meteor.call 'pull_subreddit', subreddit
+            Docs.update @_id,
+                $addToSet: 
+                    tags: tag
+                $set:tag_count:@tags.length
+            t.$('.new_tag').val('')    
+                
+                
     'click .remove_tag': ->
         current_id = Template.currentData()._id
         Docs.update current_id,
