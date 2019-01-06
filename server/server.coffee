@@ -148,7 +148,7 @@ Meteor.methods
         # console.log 'delta', delta
 
     agg: (query, fi)->
-        limit=20
+        limit=100
         options = { explain:false }
         pipe =  [
             { $match: query }

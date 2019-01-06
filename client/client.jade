@@ -4,19 +4,13 @@ head
     meta(name="theme-color", content="#000")
     link(href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet")
 
-    script(async='' src='https://www.googletagmanager.com/gtag/js?id=UA-93991317-1')
-    script.
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-93991317-1');
 
 body
     +layout
 
 
 template(name='layout')
-    .ui.padded.stackable.grid
+    .ui.stackable.grid
         .row   
             .sixteen.wide.center.aligned.column
                 each filtering_res
@@ -44,11 +38,11 @@ template(name='layout')
                     
 template(name='result')
     with result 
-        .ui.stackable.grid
+        .ui.grid
             .eight.wide.right.aligned.column.scrolling
                 if body
                     |#{nl2br body}
-                // .ui.icon.button.remove_doc x
+                .ui.icon.button.remove_doc x
                 // .ui.form
                 //     .field
                 //         textarea(rows='3') #{body}
