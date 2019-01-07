@@ -14,7 +14,7 @@ template(name='layout')
         .row   
             .sixteen.wide.center.aligned.column
                 each filtering_res
-                    .selector.ui.circular.button.toggle_filter(class=toggle_value_class)
+                    .selector.ui.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
         .row   
@@ -22,10 +22,6 @@ template(name='layout')
                 .row
                     each delta.result_id
                         +result
-        .centered.row
-            .ten.wide.center.aligned.column
-                .ui.fluid.icon.transparent.input
-                    input#quick_add(type='text')
         .centered.row   
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 input(type='hidden', name='cmd', value='_s-xclick')
@@ -34,31 +30,30 @@ template(name='layout')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
                 button.ui.icon.circular.button(type='submit' title='donate')
                     i.checkmark.icon
+        .centered.row
+            .ten.wide.center.aligned.column
+                .ui.fluid.icon.transparent.icon.input
+                    i.plus.icon
+                    input#quick_add(type='text')
                 
                     
 template(name='result')
     with result 
-        .ui.grid
-            .eight.wide.right.aligned.column.scrolling
-                if body
-                    |#{nl2br body}
-                .ui.icon.button.remove_doc x
-                // .ui.form
-                //     .field
-                //         textarea(rows='3') #{body}
-            .eight.wide.column
-                each tags
-                    .ui.circular.button.remove_tag
-                        // i.remove.link.icon.remove_tag
-                        |#{this}
-                .ui.icon.transparent.fluid.input
-                    input.new_tag(type='text')
-                unless tags
-                    .ui.divider
-                    each keys
-                        .ui.white.label
-                            |#{this}
-                    each timestamp_tags
-                        .ui.white.label
-                            |#{this}
-            
+        .ui.stackable.grid
+            .centered.row
+                .twelve.wide.center.aligned.column
+                    | #{nl2br body}
+                    // .ui.form
+                    //     .field
+                    //         textarea(rows='3') #{body}
+            .centered.row
+                .eight.wide.center.aligned.column
+                    // each tags
+                    //     .ui.label
+                    //         // i.remove.link.icon.remove_tag
+                    //         |#{this}
+                    // .ui.icon.small.compact.circular.button.remove_doc
+                    //     i.remove.icon
+                    .ui.icon.transparent.icon.fluid.input
+                        i.tag.icon
+                        input.new_tag(type='text')

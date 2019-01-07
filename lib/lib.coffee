@@ -17,6 +17,6 @@ Docs.before.insert (userId, doc)=>
     if _
         date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
     doc.timestamp_tags = date_array
-    doc.tags = date_array
+    doc.tags = []
 
     return

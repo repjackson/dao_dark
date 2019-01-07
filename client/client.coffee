@@ -43,7 +43,7 @@ Template.result.onCreated ->
 Template.result.helpers
     result: -> 
         doc = Docs.findOne @_id
-        console.log doc
+        # console.log doc
         doc
     
 Template.result.events
@@ -65,15 +65,9 @@ Template.result.events
     'click .remove_tag': (e,t)->
         current_id = Template.currentData()._id
         new_tag_val = t.$('.new_tag').val()
-        if @tags
-            tag_count = @tags.length
-        else
-            tag_count = 0
-        
         unless new_tag_val
             Docs.update current_id,
                 $pull:tags:@valueOf()
-                $set:tag_count:tag_count
             t.$('.new_tag').val(@valueOf())    
             
         

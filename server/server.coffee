@@ -88,9 +88,9 @@ Meteor.methods
     
     clean: ->
         found = 
-            Docs.find
+            Docs.remove
                 tags:$exists:false
-        console.log found.count()
+        console.log found
     
     
     lowercase_tags: ->
@@ -155,7 +155,7 @@ Meteor.methods
         # console.log 'delta', delta
 
     agg: (query, fi)->
-        limit=42
+        limit=10
         options = { explain:false }
         pipe =  [
             { $match: query }
