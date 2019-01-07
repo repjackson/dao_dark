@@ -3,6 +3,7 @@ head
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name="theme-color", content="#000")
     link(href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
 
 body
@@ -14,7 +15,7 @@ template(name='layout')
         .row   
             .sixteen.wide.center.aligned.column
                 each filtering_res
-                    .selector.ui.button.toggle_filter(class=toggle_value_class)
+                    .selector.ui.circular.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
         .row   
@@ -28,13 +29,13 @@ template(name='layout')
                 input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
                 // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.icon.circular.button(type='submit' title='donate')
-                    i.checkmark.icon
-        .centered.row
-            .ten.wide.center.aligned.column
-                .ui.fluid.icon.transparent.icon.input
-                    i.plus.icon
-                    input#quick_add(type='text')
+                button.ui.icon.circular.button(type='submit')
+                    i.pied.piper.alternate.large.icon
+        unless delta.fi.length
+            .centered.row
+                .ten.wide.center.aligned.column
+                    .ui.fluid.transparent.left.icon.input
+                        input#quick_add(type='text')
                 
                     
 template(name='result')
@@ -54,6 +55,5 @@ template(name='result')
                     //         |#{this}
                     // .ui.icon.small.compact.circular.button.remove_doc
                     //     i.remove.icon
-                    .ui.icon.transparent.icon.fluid.input
-                        i.tag.icon
+                    .ui.transparent.left.icon.fluid.input
                         input.new_tag(type='text')

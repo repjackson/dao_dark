@@ -6,25 +6,13 @@ Template.registerHelper 'nl2br', (text)->
 Template.layout.events
     'keyup #quick_add': (e,t)->
         if e.which is 13
-            body = t.$('#quick_add').val()
+            body = t.$('#quick_add').val().toLowerCase().trim()
             new_id = 
                 Docs.insert
                     body:body
             console.log Docs.findOne new_id
             t.$('#quick_add').val('')
         
-
-Template.layout.onCreated ->
-    @autorun -> Meteor.subscribe 'delta'
-
-
-Template.layout.helpers
-    delta: -> 
-        Docs.findOne type:'delta'
-
-
-Template.layout.events
-
     'click .toggle_filter': ->
         delta = Docs.findOne type:'delta'
         if @name in delta.fi
@@ -34,8 +22,14 @@ Template.layout.events
         Meteor.call 'fum', delta._id, (err,res)->
     
 
+Template.layout.onCreated ->
+    @autorun -> Meteor.subscribe 'delta'
 
-    
+
+Template.layout.helpers
+    delta: -> 
+        Docs.findOne type:'delta'
+
 Template.result.onCreated ->
     @autorun => Meteor.subscribe 'doc', @data._id
 
