@@ -1,3 +1,6 @@
+Session.setDefault 'loading', false
+
+
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)
@@ -19,7 +22,9 @@ Template.layout.events
             Docs.update delta._id, $pull: fi: @name
         else    
             Docs.update delta._id, $addToSet: fi: @name
+        Session.set 'loading', true
         Meteor.call 'fum', delta._id, (err,res)->
+            Session.set 'loading', false
     
 
 Template.layout.onCreated ->
@@ -27,8 +32,8 @@ Template.layout.onCreated ->
 
 
 Template.layout.helpers
-    delta: -> 
-        Docs.findOne type:'delta'
+    delta: -> Docs.findOne type:'delta'
+    loading: -> Session.get 'loading'
 
 Template.result.onCreated ->
     @autorun => Meteor.subscribe 'doc', @data._id
@@ -87,7 +92,9 @@ Template.layout.helpers
 
     toggle_value_class: ->
         delta = Docs.findOne type:'delta'
-        if delta.fi.length > 0 and @name in delta.fi
+        if Session.get 'loading'
+            'disabled'
+        else if delta.fi.length > 0 and @name in delta.fi
             'grey'
         else ''
     

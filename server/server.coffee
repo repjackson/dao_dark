@@ -18,26 +18,6 @@ Meteor.publish 'doc', (doc_id)->
     
     
 Meteor.methods 
-    tagify_date_time: (val)->
-        console.log moment(val).format("dddd, MMMM Do YYYY, h:mm:ss a")
-        minute = moment(val).minute()
-        hour = moment(val).format('h')
-        date = moment(val).format('Do')
-        ampm = moment(val).format('a')
-        weekdaynum = moment(val).isoWeekday()
-        weekday = moment().isoWeekday(weekdaynum).format('dddd')
-
-        month = moment(val).format('MMMM')
-        year = moment(val).format('YYYY')
-
-        date_array = [hour, minute, ampm, weekday, month, date, year]
-        date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
-        # date_array = _.each(date_array, (el)-> console.log(typeof el))
-        # console.log date_array
-        return date_array
-        
-        
-        
     count_tags: ->
         cursor = 
             Docs.find({
@@ -56,42 +36,6 @@ Meteor.methods
             console.log 'counted', uncounted.tags
                     
 
-    rename:(from,to)->
-        console.log 'renaming keys from',from,'to',to
-        count = Docs.find("#{from}":$exists:true).count()
-        console.log 'found', count,'docs with', from
-        
-        result = Docs.update {"#{from}":$exists:true},
-            {$rename: "#{from}": to
-            }, {multi:true}
-        console.log result
-    
-    import_array: (from)->
-        console.log 'moving array',from
-        cursor = Docs.find({"#{from}":$exists:true}, {limit:3})
-        console.log 'found', cursor.count(),'docs with', from
-        for doc in cursor.fetch()
-            console.log 'moving keys', doc.keywords, 
-            result = Docs.update {},
-                {$addToSet: tags: $each: doc.keywords}
-                
-            new_doc = Docs.findOne doc._id
-            console.log 'new version', new_doc.tags
-        
-    keys: ->
-        cur = Docs.find({keys:$exists:false})
-        for doc in cur.fetch()
-            keys = _.keys doc
-            console.log keys
-            Docs.update doc._id,
-                $set:keys:keys
-    
-    clean: ->
-        found = 
-            Docs.remove
-                tags:$exists:false
-        console.log found
-    
     
     lowercase_tags: ->
         cur = Docs.find({tags:$exists:true})
