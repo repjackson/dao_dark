@@ -1,6 +1,9 @@
 Session.setDefault 'loading', false
 Session.setDefault 'page', 'delta'
 
+Template.registerHelper 'messages', ()-> Docs.find type:'message'
+Template.registerHelper 'alerts', ()-> Docs.find type:'alert'
+
 Template.registerHelper 'can_edit', ()->
     if Meteor.user()
         @author_id and Meteor.userId() is @author_id
@@ -46,6 +49,10 @@ Template.delta.events
 
 Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'delta'
+Template.layout.onCreated ->
+    @autorun -> Meteor.subscribe 'users'
+    @autorun -> Meteor.subscribe 'type', 'message'
+    @autorun -> Meteor.subscribe 'type', 'alert'
 
 Template.layout.helpers
     main_template: ->

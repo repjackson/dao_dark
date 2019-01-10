@@ -1,0 +1,13 @@
+template(name='comments')
+    .ui.fluid.icon.input
+        i.chat.icon
+        input.add_comment(type='text' placeholder='comment')
+    .ui.comments
+        each doc_comments
+            .comment
+                .content
+                    .header #{body}
+
+
+template(name='user_info')
+    |#{user.username}

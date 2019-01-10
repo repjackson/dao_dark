@@ -1,0 +1,54 @@
+template(name='view_button')
+    a.ui.icon.button.view(title='view' href="/view/#{_id}")
+        i.play.icon
+        
+template(name='remove_button')
+    a.ui.button.remove(title='remove')
+        i.remove.icon
+        
+template(name='add_button')
+    .icon.item.pointer.add(title='add')
+        i.plus.icon
+        
+
+template(name='bookmark_button')
+    .ui.icon.bookmark.button(title='bookmark')
+        i.bookmark.icon
+    each bookmarkers
+        |#{username}
+        
+
+template(name='clone_button')
+    .ui.icon.button(title='clone')
+        i.fork.icon
+
+
+template(name='detect_fields_button')
+    .ui.button.detect_fields(title='detect fields')
+        i.dna.icon
+        |detect fields 
+        
+        
+template(name='voting')
+    .ui.small.header #{points} points
+    .ui.large.icon.button.upvote
+        i.thumbs.up.icon
+    each upvoter_ids
+        +user_info
+    .ui.large.icon.button.downvote
+        i.thumbs.down.icon
+    each downvoter_ids
+        +user_info
+        
+template(name='edit_button')
+    a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
+        i.pencil.icon
+
+
+template(name='save_button')
+    a.ui.icon.button.save(title='save' href="/view/#{_id}")
+        i.checkmark.icon
+        
+        
+        
+        

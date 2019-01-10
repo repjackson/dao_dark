@@ -13,6 +13,13 @@ if Meteor.isClient
                 if confirm "change username from #{Meteor.user().username} to #{new_username}?"
                     Meteor.call 'change_username', Meteor.userId(), new_username, (err,res)->
                         
+        'keyup .set_status': (e,t)->
+            if e.which is 13
+                status = t.$('.set_status').val()
+                if status
+                    Meteor.users.update Meteor.userId(),
+                        $set:status:status
+                        
         'click .change_password': (e,t)->
             old_password = t.$('.old_password').val()
             new_password = t.$('.new_password').val()
@@ -20,6 +27,7 @@ if Meteor.isClient
                 if confirm "change password from #{Meteor.user().password} to #{new_password}?"
                     Accounts.changePassword old_password, new_password, (err,res)->
                         if err then alert err else console.log res
+
 
 if Meteor.isServer
     Meteor.methods

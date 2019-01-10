@@ -12,36 +12,50 @@ body
 
 template(name='nav')
     .ui.top.fixed.inverted.large.menu
-        .header.item.delta
-            .black_bat.large-text.pointer DAO
+        .header.item.delta.pointer
+            i.user.shield.large.icon
         .right.menu
             if currentUser
+                .item.pointer.mail
+                    i.mail.icon
+                    if messages
+                        |#{messages.count}
+                .item.pointer.alerts
+                    i.bell.icon
+                    if alerts
+                        |#{alerts.count}
+                +add_button
                 .item.pointer.me
                     |#{currentUser.username}
+                    [#{currentUser.status}]
+                .item.pointer.me
+                    |#{currentUser.points} pts
+                .item.pointer.me
+                    |#{currentUser.karma} karma
                 .icon.item.leave.pointer
-                    i.right.chevron.large.icon
+                    i.right.chevron.icon
             else
                 .icon.item.enter.pointer
-                    i.right.chevron.large.icon
+                    i.right.chevron.icon
 
 template(name='footer')
     .ui.bottom.fixed.inverted.large.menu
         .icon.item
-            i.large.dashboard.icon
+            i.dashboard.icon
         .icon.item
-            i.large.chat.icon
+            i.chat.icon
         .icon.item
-            i.large.tasks.icon
+            i.tasks.icon
         .icon.item
-            i.large.mail.icon
+            i.mail.icon
         .icon.item
-            i.large.trophy.icon
+            i.trophy.icon
         .icon.item
-            i.large.users.icon
+            i.users.icon
         .icon.item
-            i.large.cog.icon
+            i.cog.icon
         .icon.item
-            i.large.user.icon
+            i.user.icon
         if currentUser
             .ui.left.icon.inverted.transparent.input
                 i.plus.icon
@@ -53,7 +67,7 @@ template(name='footer')
                 // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
                 button.ui.icon.black.button(type='submit')
-                    i.large.dollar.sign.icon
+                    i.dollar.sign.icon
 
 
 
@@ -64,14 +78,14 @@ template(name='layout')
     +footer
     
 template(name='delta')    
-    .ui.stackable.grid
+    .ui.stackable.padded.grid
         .row   
-            .six.wide.column
+            .six.wide.column.scrolling
                 each filtering_res
-                    .selector.ui.button.toggle_filter(class=toggle_value_class)
+                    .selector.ui.compact.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
-                        // small #{count}
-            .ten.wide.column
+                        small #{count}
+            .ten.wide.column.scrolling
                 each delta.result_ids
                     +result
                 
@@ -89,7 +103,13 @@ template(name='result')
                     .ui.label
                         // i.remove.link.icon.remove_tag
                         |#{this}
+                .ui.small.header #{when}
+                +voting
+                +bookmark_button
+                +view_button
+                +clone_button
                 if can_edit
+                    +edit_button
                     .ui.icon.small.compact.button.remove_doc
                         i.remove.icon
                     .ui.left.icon.input

@@ -1,56 +1,80 @@
 template(name='me')
-    .ui.stackable.padded.grid
-        .row
-            .six.wide.column
-                .ui.segment 
-                    h1.ui.header #{currentUser.username}
-                .ui.segment.pointer.logout_others
-                    .ui.header 
-                        i.user.times.icon
-                        |logout other clients
-                .ui.segment.logout.pointer
-                    .ui.header
-                        i.sign.out.alternate.icon
-                        |sign out
-                .ui.segment
-                    .ui.small.header change username
-                    .ui.icon.fluid.input
-                        input.new_username(type='text' placeholder='change username')
-                        i.play.link.icon.change_username
-                .ui.segment
-                    .ui.small.header change password
-                    .ui.fluid.input
-                        input.old_password(type='text' placeholder='old')
-                    .ui.icon.fluid.input
-                        input.new_password(type='text' placeholder='new')
-                        i.play.link.icon.change_password
-            .ten.wide.column
-                .ui.segment
-                    .ui.header
-                        |karma
-                    |#{currentUser.karma}
-                    .ui.header
-                        |points
-                    |#{currentUser.points}
-                .ui.segment
-                    .ui.header 
-                        i.mail.icon
-                        |emails
-                .ui.segment
-                    .ui.header 
-                        i.bell.icon
-                        |alerts
-                .ui.segment
-                    .ui.header 
-                        i.user.shield.icon
-                        | roles
-                    .ui.list
-                        each currentUser.roles
-                            .item #{this}
-                .ui.segment
-                    .ui.header 
-                        i.users.icon
-                        | friends
-                    .ui.list
-                        each currentUser.friends
-                            .item #{this}
+    .ui.stackable.padded.three.column.grid
+        .column
+            .ui.segment 
+                h1.ui.header #{currentUser.username} 
+                    small [#{currentUser.status}]
+                .ui.fluid.input
+                    input.set_status(type='text' placeholder='set status')
+            .ui.segment
+                .ui.small.header change username
+                .ui.icon.fluid.input
+                    input.new_username(type='text' placeholder='change username')
+                    i.play.link.icon.change_username
+            .ui.segment
+                .ui.small.header change password
+                .ui.fluid.input
+                    input.old_password(type='text' placeholder='old')
+                .ui.icon.fluid.input
+                    input.new_password(type='text' placeholder='new')
+                    i.play.link.icon.change_password
+            .ui.segment.pointer.logout_others
+                .ui.header 
+                    i.user.times.icon
+                    |logout other clients
+            .ui.segment.logout.pointer
+                .ui.header
+                    i.sign.out.alternate.icon
+                    |sign out
+        .column
+            .ui.segment
+                .ui.header
+                    |karma
+                |#{currentUser.karma}
+                .ui.header
+                    |points
+                |#{currentUser.points}
+            .ui.segment
+                .ui.header 
+                    i.mail.icon
+                    |emails
+            .ui.segment
+                .ui.header 
+                    i.bell.icon
+                    |#{alerts.count} alerts
+        .column
+            .ui.segment
+                .ui.header 
+                    i.user.shield.icon
+                    | roles
+                .ui.list
+                    each currentUser.roles
+                        .item #{this}
+            .ui.segment
+                .ui.header 
+                    i.mail.icon
+                    | #{messages.count} messages
+                .ui.list
+                    each messages
+                        .item #{this}
+            .ui.segment
+                .ui.header 
+                    i.newspaper.icon
+                    | #{followers.count} followers
+                .ui.list
+                    each followers
+                        .item #{this}
+            .ui.segment
+                .ui.header 
+                    i.bullhorn.icon
+                    | #{following.count} following
+                .ui.list
+                    each following
+                        .item #{this}
+            .ui.segment
+                .ui.header 
+                    i.users.icon
+                    | #{friends.count} friends
+                .ui.list
+                    each currentUser.friends
+                        .item #{this}
