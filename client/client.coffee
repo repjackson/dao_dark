@@ -1,12 +1,16 @@
 Session.setDefault 'loading', false
+Session.setDefault 'page', 'delta'
 
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)
 
+Template.nav.events
+    'click .enter': ->
+        Session.set 'page', 'enter'
         
-Template.layout.events
+Template.delta.events
     'keyup #quick_add': (e,t)->
         if e.which is 13
             body = t.$('#quick_add').val().toLowerCase().trim()
@@ -27,11 +31,15 @@ Template.layout.events
             Session.set 'loading', false
     
 
-Template.layout.onCreated ->
+Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'delta'
 
-
 Template.layout.helpers
+    main_template: ->
+        Session.get 'page'
+
+
+Template.delta.helpers
     delta: -> Docs.findOne type:'delta'
     loading: -> Session.get 'loading'
 
@@ -76,7 +84,7 @@ Template.result.events
         Docs.remove current_id,
     
     
-Template.layout.helpers
+Template.delta.helpers
     filtering_res: ->
         delta = Docs.findOne type:'delta'
         filtering_res = []

@@ -10,14 +10,28 @@ body
     +layout
 
 
+template(name='nav')
+    .ui.attached.inverted.menu
+        .header.item DAO
+        .right.menu
+            .icon.item.enter.pointer
+                i.right.chevron.icon
+
+
+
 template(name='layout')
+    +nav
+    +Template.dynamic template=main_template
+    
+    
+template(name='delta')    
     .ui.stackable.grid
         .row   
             .sixteen.wide.center.aligned.column
                 each filtering_res
                     .selector.ui.large.circular.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
-                        small #{count}
+                        // small #{count}
         .row   
             .sixteen.wide.column
                 .row
@@ -35,6 +49,7 @@ template(name='layout')
             .centered.row
                 .ten.wide.center.aligned.column
                     .ui.fluid.left.icon.input
+                        i.plus.icon
                         input#quick_add(type='text' autocomplete="off")
                 
                     
@@ -56,4 +71,5 @@ template(name='result')
                     // .ui.icon.small.compact.circular.button.remove_doc
                     //     i.remove.icon
                     .ui.left.icon.fluid.input
+                        i.tag.icon
                         input.new_tag(type='text')

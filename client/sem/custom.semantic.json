@@ -25,7 +25,7 @@
     "label": true,
     "list": true,
     "loader": true,
-    "menu": false,
+    "menu": true,
     "message": false,
     "modal": false,
     "nag": false,
