@@ -23,14 +23,11 @@ Template.registerHelper 'nl2br', (text)->
     new Spacebars.SafeString(nl2br)
 
 Template.nav.events
-    'click .enter': ->
-        Session.set 'page', 'enter'
-    'click .delta': ->
-        Session.set 'page', 'delta'
-    'click .users': ->
-        Session.set 'page', 'users'
-    'click .me': ->
-        Session.set 'page', 'me'
+    'click .enter': -> Session.set 'page', 'enter'
+    'click .delta': -> Session.set 'page', 'delta'
+    'click .users': -> Session.set 'page', 'users'
+    'click .leaderboard': -> Session.set 'page', 'leaderboard'
+    'click .me': -> Session.set 'page', 'me'
     'click .leave': -> Meteor.logout()
 
         

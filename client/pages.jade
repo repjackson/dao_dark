@@ -1,0 +1,30 @@
+template(name='leaderboard')
+    .ui.header
+        i.trophy.icon
+        |leaderboard
+    .ui.padded.stackable.two.column.grid
+        .column
+            .ui.segment
+                .ui.header
+                    i.trophy.icon
+                    |points
+                .ui.ordered.list
+                    each point_leaders
+                        .item
+                            .ui.header #{username}
+                            .ui.small.header #{points}
+                            .ui.small.header #{karma}
+        .column
+            .ui.segment
+                .ui.header 
+                    i.user.shield.icon
+                    |karma
+                .ui.ordered.list
+                    each point_leaders
+                        .item
+                            .ui.header #{username}
+                            .ui.small.header #{points}
+                            .ui.small.header #{karma}
+                
+        
+        

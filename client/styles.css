@@ -113,9 +113,7 @@ body {
 }
 
 #main {
-  /*padding: .5em 1em !important;*/
-  padding-bottom: 3em;
-  padding-top: 2.5em;
+  padding: 3em 1em !important;
   max-height:100vh;
   
 }
