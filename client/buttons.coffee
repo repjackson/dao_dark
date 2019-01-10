@@ -1,7 +1,9 @@
-Template.add_button.events
+Template.add_type_button.events
     'click .add': ->
-        Docs.insert
-            type: @type
+        console.log @
+        new_id = Docs.insert type: @type
+        Session.set 'page', 'edit',     
+        Session.set 'page_data', new_id
 
             
 Template.view_user_button.events

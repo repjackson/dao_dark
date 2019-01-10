@@ -27,9 +27,9 @@ Meteor.publish 'type', (type)->
     Docs.find type:type
         
     
-Meteor.publish 'doc', (doc_id)->
+Meteor.publish 'doc', (id)->
     Docs.find
-        _id:doc_id
+        _id:id
         
     
     

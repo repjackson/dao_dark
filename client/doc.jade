@@ -1,0 +1,58 @@
+template(name='edit')
+    with doc
+        .sixteen.wide.column
+            .ui.form
+                .field
+                    .ui.header #{type}
+                .field
+                    each tags
+                        .ui.big.label 
+                            i.remove.link.icon.remove_tag
+                            |#{this}
+                    .ui.icon.input
+                        input.new_tag(type='text' placeholder='add tag')
+                        i.plus.icon
+                .field
+                    textarea.edit_body(rows='20') #{body}
+            .ui.button.print log
+            a.ui.fluid.button(href="/view/#{_id}")
+                i.checkmark.icon
+                |save
+                
+                    
+template(name='field_edit')
+    .ui.segment
+        .ui.labeled.input
+            .ui.label name: #{key}
+            input.change_key(type='text' placeholder='key' value=key)
+        .ui.icon.button.remove_field
+            i.remove.icon
+        div
+        +Template.dynamic template=brick_edit
+        
+
+
+template(name='view')  
+    with doc
+        .ui.grid
+            .row
+                .twelve.wide.column
+                    each tags
+                        .ui.big.label #{this}
+                    .large120 #{body}
+                    +comments
+        
+                .four.wide.column
+                    .ui.header karma #{karma}
+                    +author_info
+                    +creation_info
+                    a.ui.fluid.button(href="/edit/#{_id}")
+                        i.pencil.icon
+                    +bookmark_button
+
+template(name='field_view')
+    .item   
+        .content
+            .header #{this}
+            .description
+                +Template.dynamic template=brick_view

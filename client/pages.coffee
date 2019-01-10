@@ -1,3 +1,8 @@
+Template.shop.onCreated ->
+    @autorun => Meteor.subscribe 'type', 'product'
+
+Template.shop.events
+
 Template.leaderboard.helpers
     point_leaders: ->
         Meteor.users.find {},

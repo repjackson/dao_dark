@@ -5,6 +5,7 @@ Session.setDefault 'page_data', null
 Template.registerHelper 'messages', ()-> Docs.find type:'message'
 Template.registerHelper 'alerts', ()-> Docs.find type:'alert'
 Template.registerHelper 'users', ()-> Meteor.users.find {}
+Template.registerHelper 'doc', ()-> Docs.findOne Session.get('page_data')
 
 Template.registerHelper 'viewing_user', ()-> 
     Meteor.users.findOne username:Session.get('page_data')
@@ -26,6 +27,9 @@ Template.nav.events
     'click .enter': -> Session.set 'page', 'enter'
     'click .delta': -> Session.set 'page', 'delta'
     'click .users': -> Session.set 'page', 'users'
+    'click .tribes': -> Session.set 'page', 'tribes'
+    'click .blog': -> Session.set 'page', 'blog'
+    'click .shop': -> Session.set 'page', 'shop'
     'click .leaderboard': -> Session.set 'page', 'leaderboard'
     'click .me': -> Session.set 'page', 'me'
     'click .leave': -> Meteor.logout()

@@ -2,7 +2,9 @@ template(name='enter')
     .ui.padded.grid
         .centered.row
             .ten.wide.center.aligned.column
-                h1.f10.black_bat DAO
+                .f10.black_bat 
+                    i.user.shield.icon
+                    |DAO
         .centered.row
             .ten.wide.column
                 if message
@@ -11,20 +13,22 @@ template(name='enter')
                     input.username(type='text' placeholder='username')
                 .ui.fluid.input(class=login_class)
                     input.password(type='password' placeholder='password')
-                .ui.fluid.large.button.enter(class=enter_class)
+                if username
                     if registering
-                        i.plus.icon
-                        |#{username}
+                        .ui.fluid.large.button.enter(title="register #{username}" class=enter_class)
+                            i.user.plus.icon
+                            |#{username}
                     else
-                        i.play.icon
-                        | #{username}
+                        .ui.fluid.large.button.enter(title="login #{username}" class=enter_class)
+                            i.play.icon
+                            | #{username}
         .centered.row
             .ten.wide.column
-                .ui.fluid.icon.large.button.new_demo
-                    i.plus.icon
+                .ui.fluid.icon.large.button.new_demo(title='create generic user and login')
+                    i.user.secret.icon
                     | anon account
         .centered.row
             .ten.wide.column
-                a.ui.fluid.icon.large.button(href='/delta')
-                    i.right.arrow.icon
+                a.ui.fluid.icon.large.button(href='/delta' title='view without logging in')
+                    i.eye.icon
                     | view

@@ -25,6 +25,49 @@ template(name='leaderboard')
                             .ui.header #{username}
                             .ui.small.header #{points}
                             .ui.small.header #{karma}
+        .column
+            .ui.segment
+                .ui.header 
+                    i.handshake.icon
+                    |sales
+                .ui.ordered.list
+                    each point_leaders
+                        .item
+                            .ui.header #{username}
+                            .ui.small.header #{points}
+                            .ui.small.header #{karma}
                 
         
-        
+template(name='shop')
+    .ui.header
+        i.shopping.bag
+        |shop
+    +add_type_button type='product'
+    
+    
+    
+template(name='blog')
+    .ui.header
+        i.newspaper.bag
+        |blog
+    +add_type_button type='post'
+    
+template(name='tribes')
+    .ui.header
+        i.fire.bag
+        |tribes
+    +add_type_button type='tribe'
+    .ui.stackable.padded.grid
+        .six.wide.column
+        .ten.wide.column
+            each tribes
+                +tribe_card
+                
+                
+template(name='tribe_card')
+    .ui.header #{title}
+    
+    
+    
+    
+    

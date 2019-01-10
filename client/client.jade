@@ -12,12 +12,18 @@ body
 
 template(name='nav')
     .ui.top.fixed.inverted.large.menu
-        .header.item.delta.pointer
+        .header.item.delta.pointer(title='home')
             i.user.shield.large.icon
-        .icon.item.pointer.users
+        .icon.item.pointer.users(title='users')
             i.users.icon
-        .icon.item.pointer.leaderboard
+        .icon.item.pointer.tribes(title='tribes')
+            i.fire.icon
+        .icon.item.pointer.blog(title='blog')
+            i.newspaper.icon
+        .icon.item.pointer.leaderboard(title='leaderboard')
             i.trophy.icon
+        .icon.item.pointer.shop(title='shop')
+            i.shopping.bag.icon
         .right.menu
             if currentUser
                 .item.pointer.mail
@@ -28,7 +34,6 @@ template(name='nav')
                     i.bell.icon
                     if alerts
                         |#{alerts.count}
-                +add_button
                 .item.pointer.me
                     |#{currentUser.points} pts
                 .item.pointer.me
@@ -37,7 +42,7 @@ template(name='nav')
                     |#{currentUser.username}
                     [#{currentUser.status}]
                 .icon.item.leave.pointer(title='leave')
-                    i.right.chevron.icon
+                    i.power.off.icon
             else
                 .icon.item.enter.pointer(title='enter')
                     i.right.chevron.icon
@@ -66,8 +71,8 @@ template(name='footer')
                 input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
                 // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.icon.black.button(type='submit')
-                    i.dollar.sign.icon
+                button.ui.icon.black.button(type='submit' title='donate')
+                    i.coffee.icon
 
 
 
@@ -81,6 +86,9 @@ template(name='delta')
     .ui.stackable.padded.grid
         .row   
             .six.wide.column.scrolling
+                .ui.small.inline.header 
+                    i.tags.icon
+                    |tags
                 each filtering_res
                     .selector.ui.compact.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
