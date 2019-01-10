@@ -42,6 +42,10 @@ template(name='footer')
             i.large.cog.icon
         .icon.item
             i.large.user.icon
+        if currentUser
+            .ui.left.icon.inverted.transparent.input
+                i.plus.icon
+                input#quick_add(type='text' autocomplete="off" placeholder='quick add')
         .right.menu
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
                 input(type='hidden', name='cmd', value='_s-xclick')
@@ -62,41 +66,32 @@ template(name='layout')
 template(name='delta')    
     .ui.stackable.grid
         .row   
-            .sixteen.wide.center.aligned.column
+            .six.wide.column
                 each filtering_res
-                    .selector.ui.large.circular.button.toggle_filter(class=toggle_value_class)
+                    .selector.ui.button.toggle_filter(class=toggle_value_class)
                         strong #{name}
                         // small #{count}
-        .row   
-            .sixteen.wide.column
-                .row
-                    each delta.result_id
-                        +result
-        if currentUser
-            .centered.row
-                .ten.wide.center.aligned.column
-                    .ui.fluid.left.icon.input
-                        i.plus.icon
-                        input#quick_add(type='text' autocomplete="off")
+            .ten.wide.column
+                each delta.result_ids
+                    +result
                 
                     
 template(name='result')
     with result 
-        .ui.stackable.grid
-            .centered.row
-                .twelve.wide.center.aligned.column
-                    | #{nl2br body}
-                    // .ui.form
-                    //     .field
-                    //         textarea(rows='3') #{body}
-            .centered.row
-                .eight.wide.center.aligned.column
-                    // each tags
-                    //     .ui.label
-                    //         // i.remove.link.icon.remove_tag
-                    //         |#{this}
-                    // .ui.icon.small.compact.circular.button.remove_doc
-                    //     i.remove.icon
-                    .ui.left.icon.fluid.input
+        .ui.segment
+            .content
+                .f8 #{nl2br body}
+                // .ui.form
+                //     .field
+                //         textarea(rows='3') #{body}
+            .content
+                each tags
+                    .ui.label
+                        // i.remove.link.icon.remove_tag
+                        |#{this}
+                if can_edit
+                    .ui.icon.small.compact.button.remove_doc
+                        i.remove.icon
+                    .ui.left.icon.input
                         i.tag.icon
                         input.new_tag(type='text')

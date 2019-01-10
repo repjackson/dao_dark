@@ -1,6 +1,13 @@
 Session.setDefault 'loading', false
 Session.setDefault 'page', 'delta'
 
+Template.registerHelper 'can_edit', ()->
+    if Meteor.user()
+        @author_id and Meteor.userId() is @author_id
+        true
+    else
+        false
+
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')

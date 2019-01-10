@@ -80,26 +80,26 @@ Meteor.methods
             { 
                 fields:
                     _id:1
-                limit:1
+                limit:10
                 sort:
                     tag_count:1
             }
 
-        result_id = results_cursor.fetch()
+        result_ids = results_cursor.fetch()
 
         Docs.update {_id:delta._id},
             {
                 $set:
                     fo:agg_res
                     total:total
-                    result_id:result_id
+                    result_ids:result_ids
             }
             
         delta = Docs.findOne delta._id    
         # console.log 'delta', delta
 
     agg: (query, fi)->
-        limit=20
+        limit=42
         options = { explain:false }
         pipe =  [
             { $match: query }
