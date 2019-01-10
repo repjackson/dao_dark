@@ -1,6 +1,9 @@
 template(name='enter')
-    .ui.grid
-        .row
+    .ui.padded.grid
+        .centered.row
+            .ten.wide.center.aligned.column
+                h1.f10.black_bat DAO
+        .centered.row
             .ten.wide.column
                 if message
                     h4.ui.center.aligned.header #{message}
@@ -15,13 +18,13 @@ template(name='enter')
                     else
                         i.play.icon
                         | #{username}
-            .centered.row
-                .ten.wide.column
-                    .ui.fluid.icon.large.button.new_demo
-                        i.plus.icon
-                        | anon account
-            .centered.row
-                .ten.wide.column
-                    a.ui.fluid.icon.large.button(href='/delta')
-                        i.right.arrow.icon
-                        | view
+        .centered.row
+            .ten.wide.column
+                .ui.fluid.icon.large.button.new_demo
+                    i.plus.icon
+                    | anon account
+        .centered.row
+            .ten.wide.column
+                a.ui.fluid.icon.large.button(href='/delta')
+                    i.right.arrow.icon
+                    | view

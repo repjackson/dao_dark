@@ -36,7 +36,7 @@
     "reset": true,
     "reveal": false,
     "search": false,
-    "segment": false,
+    "segment": true,
     "shape": false,
     "sidebar": false,
     "site": true,

@@ -11,6 +11,10 @@ Template.nav.events
         Session.set 'page', 'enter'
     'click .delta': ->
         Session.set 'page', 'delta'
+    'click .me': ->
+        Session.set 'page', 'me'
+    'click .leave': -> Meteor.logout()
+
         
 Template.delta.events
     'keyup #quick_add': (e,t)->

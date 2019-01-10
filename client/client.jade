@@ -12,23 +12,51 @@ body
 
 template(name='nav')
     .ui.top.fixed.inverted.large.menu
-        .header.item.delta DAO
+        .header.item.delta
+            .black_bat.large-text.pointer DAO
         .right.menu
-            .icon.item.enter.pointer
-                i.right.chevron.icon
+            if currentUser
+                .item.pointer.me
+                    |#{currentUser.username}
+                .icon.item.leave.pointer
+                    i.right.chevron.large.icon
+            else
+                .icon.item.enter.pointer
+                    i.right.chevron.large.icon
 
 template(name='footer')
     .ui.bottom.fixed.inverted.large.menu
-        .header.item.delta DAO
+        .icon.item
+            i.large.dashboard.icon
+        .icon.item
+            i.large.chat.icon
+        .icon.item
+            i.large.tasks.icon
+        .icon.item
+            i.large.mail.icon
+        .icon.item
+            i.large.trophy.icon
+        .icon.item
+            i.large.users.icon
+        .icon.item
+            i.large.cog.icon
+        .icon.item
+            i.large.user.icon
         .right.menu
-            .icon.item.enter.pointer
-                i.right.chevron.icon
+            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                input(type='hidden', name='cmd', value='_s-xclick')
+                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                button.ui.icon.black.button(type='submit')
+                    i.large.dollar.sign.icon
 
 
 
 template(name='layout')
     +nav
-    +Template.dynamic template=main_template
+    #main
+        +Template.dynamic template=main_template
     +footer
     
 template(name='delta')    
@@ -44,14 +72,6 @@ template(name='delta')
                 .row
                     each delta.result_id
                         +result
-        .centered.row   
-            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                input(type='hidden', name='cmd', value='_s-xclick')
-                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.icon.circular.button(type='submit')
-                    i.pied.piper.alternate.large.icon
         unless delta.fi.length
             .centered.row
                 .ten.wide.center.aligned.column
