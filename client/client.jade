@@ -11,8 +11,15 @@ body
 
 
 template(name='nav')
-    .ui.attached.inverted.menu
-        .header.item DAO
+    .ui.top.fixed.inverted.large.menu
+        .header.item.delta DAO
+        .right.menu
+            .icon.item.enter.pointer
+                i.right.chevron.icon
+
+template(name='footer')
+    .ui.bottom.fixed.inverted.large.menu
+        .header.item.delta DAO
         .right.menu
             .icon.item.enter.pointer
                 i.right.chevron.icon
@@ -22,7 +29,7 @@ template(name='nav')
 template(name='layout')
     +nav
     +Template.dynamic template=main_template
-    
+    +footer
     
 template(name='delta')    
     .ui.stackable.grid

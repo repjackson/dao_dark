@@ -9,6 +9,8 @@ Template.registerHelper 'nl2br', (text)->
 Template.nav.events
     'click .enter': ->
         Session.set 'page', 'enter'
+    'click .delta': ->
+        Session.set 'page', 'delta'
         
 Template.delta.events
     'keyup #quick_add': (e,t)->
