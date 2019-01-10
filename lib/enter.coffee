@@ -13,14 +13,30 @@ if Meteor.isClient
         'click .enter': (e,t)->
             username = $('.username').val()
             password = $('.password').val()
-            Meteor.loginWithPassword username, password, (err,res)=>
-                if err 
-                    if err.error is 403
-                        Session.set 'message', "#{username} not found"
-                        Session.set 'enter_mode', 'register'
-                        Session.set 'username', "#{username}"
-                else
-                    Session.set 'page', 'delta'
+            if Session.equals 'enter_mode', 'register'
+                if confirm "register #{username}?"
+                    options = {
+                        username:username
+                        password:password
+                        }
+                    Accounts.createUser options, (err,res)->
+                        Meteor.loginWithPassword username, password, (err,res)=>
+                            if err 
+                                if err.error is 403
+                                    Session.set 'message', "#{username} not found"
+                                    Session.set 'enter_mode', 'register'
+                                    Session.set 'username', "#{username}"
+                            else
+                                Session.set 'page', 'delta'
+            else
+                Meteor.loginWithPassword username, password, (err,res)=>
+                    if err 
+                        if err.error is 403
+                            Session.set 'message', "#{username} not found"
+                            Session.set 'enter_mode', 'register'
+                            Session.set 'username', "#{username}"
+                    else
+                        Session.set 'page', 'delta'
     
         'click .new_demo': (e,t)->
             Meteor.call 'new_demo_user', (err,res)->

@@ -19,4 +19,22 @@ Docs.before.insert (userId, doc)=>
     doc.timestamp_tags = date_array
     doc.tags = []
 
+    doc.author_id = Meteor.userId()
     return
+    
+    
+    
+# Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
+#     if doc.tags
+#         doc._tag_count = doc.tags.length
+#     # console.log doc
+#     # doc.child_count = Meteor.call('calculate_child_count', doc._id)
+#     # console.log Meteor.call 'calculate_child_count', doc._id, (err, res)-> return res
+# ), fetchPrevious: true
+
+
+
+
+Docs.helpers
+    author: -> Meteor.users.findOne @author_id
+    when: -> moment(@timestamp).fromNow()    

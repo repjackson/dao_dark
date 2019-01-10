@@ -72,7 +72,7 @@ template(name='delta')
                 .row
                     each delta.result_id
                         +result
-        unless delta.fi.length
+        if currentUser
             .centered.row
                 .ten.wide.center.aligned.column
                     .ui.fluid.left.icon.input
