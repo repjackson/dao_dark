@@ -20,6 +20,14 @@ if Meteor.isClient
                     Meteor.users.update Meteor.userId(),
                         $set:status:status
                         
+        'keyup .add_user_tag': (e,t)->
+            if e.which is 13
+                tag = t.$('.add_user_tag').val()
+                if tag
+                    Meteor.users.update Meteor.userId(),
+                        $addToSet:tags:tag
+                    tag = t.$('.add_user_tag').val('')
+                        
         'click .change_password': (e,t)->
             old_password = t.$('.old_password').val()
             new_password = t.$('.new_password').val()

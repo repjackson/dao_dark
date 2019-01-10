@@ -14,6 +14,9 @@ template(name='nav')
     .ui.top.fixed.inverted.large.menu
         .header.item.delta.pointer
             i.user.shield.large.icon
+        .icon.item.pointer.users
+            i.users.icon
+            
         .right.menu
             if currentUser
                 .item.pointer.mail
@@ -26,16 +29,16 @@ template(name='nav')
                         |#{alerts.count}
                 +add_button
                 .item.pointer.me
-                    |#{currentUser.username}
-                    [#{currentUser.status}]
-                .item.pointer.me
                     |#{currentUser.points} pts
                 .item.pointer.me
                     |#{currentUser.karma} karma
-                .icon.item.leave.pointer
+                .item.pointer.me
+                    |#{currentUser.username}
+                    [#{currentUser.status}]
+                .icon.item.leave.pointer(title='leave')
                     i.right.chevron.icon
             else
-                .icon.item.enter.pointer
+                .icon.item.enter.pointer(title='enter')
                     i.right.chevron.icon
 
 template(name='footer')
@@ -50,8 +53,6 @@ template(name='footer')
             i.mail.icon
         .icon.item
             i.trophy.icon
-        .icon.item
-            i.users.icon
         .icon.item
             i.cog.icon
         .icon.item

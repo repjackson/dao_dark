@@ -4,6 +4,11 @@ Template.add_button.events
             type: @type
 
             
+Template.view_user_button.events
+    'click .view_user': ->
+        Session.set 'page', 'user_view'
+        Session.set 'page_data', @username
+            
 Template.remove_button.events
     'click .remove': ->
         if confirm "remove #{@type}?"

@@ -1,5 +1,7 @@
 Template.comments.onCreated ->
-    @autorun => Meteor.subscribe 'children', 'comment', FlowRouter.getParam('doc_id')
+    @autorun => Meteor.subscribe 'children', 'comment'
+Template.role_editor.onCreated ->
+    @autorun => Meteor.subscribe 'type', 'role'
 
 Template.comments.helpers
     doc_comments: ->

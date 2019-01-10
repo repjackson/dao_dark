@@ -59,6 +59,15 @@ template(name='me')
                         .item #{this}
             .ui.segment
                 .ui.header 
+                    i.tags.icon
+                    | #{currentUser.tags.length} user tags
+                each currentUser.tags
+                    .ui.label #{this}
+                .ui.fluid.left.icon.input
+                    i.plus.icon
+                    input.add_user_tag(type='text' placeholder='add user tag')
+            .ui.segment
+                .ui.header 
                     i.newspaper.icon
                     | #{followers.count} followers
                 .ui.list

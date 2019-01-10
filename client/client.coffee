@@ -1,8 +1,14 @@
 Session.setDefault 'loading', false
 Session.setDefault 'page', 'delta'
+Session.setDefault 'page_data', null
 
 Template.registerHelper 'messages', ()-> Docs.find type:'message'
 Template.registerHelper 'alerts', ()-> Docs.find type:'alert'
+Template.registerHelper 'users', ()-> Meteor.users.find {}
+
+Template.registerHelper 'viewing_user', ()-> 
+    Meteor.users.findOne username:Session.get('page_data')
+
 
 Template.registerHelper 'can_edit', ()->
     if Meteor.user()
@@ -21,6 +27,8 @@ Template.nav.events
         Session.set 'page', 'enter'
     'click .delta': ->
         Session.set 'page', 'delta'
+    'click .users': ->
+        Session.set 'page', 'users'
     'click .me': ->
         Session.set 'page', 'me'
     'click .leave': -> Meteor.logout()

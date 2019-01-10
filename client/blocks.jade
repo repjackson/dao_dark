@@ -11,3 +11,8 @@ template(name='comments')
 
 template(name='user_info')
     |#{user.username}
+    
+    
+template(name='role_editor')
+    each roles
+        .ui.button #{this}

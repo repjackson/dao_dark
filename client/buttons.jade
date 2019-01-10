@@ -1,6 +1,11 @@
 template(name='view_button')
     a.ui.icon.button.view(title='view' href="/view/#{_id}")
         i.play.icon
+
+
+template(name='view_user_button')
+    .ui.icon.view_user.button.view(title="view #{username}")
+        i.play.icon
         
 template(name='remove_button')
     a.ui.button.remove(title='remove')
