@@ -79,10 +79,13 @@ template(name='footer')
 
 
 template(name='layout')
-    +nav
+    // +nav
     #main.scrolling
-        +Template.dynamic template=main_template
-    +footer
+        +delta
+    if currentUser
+        +me
+    else
+        +enter
     
 template(name='delta')    
     +sessions
@@ -125,7 +128,7 @@ template(name='facet')
             input.add_filter(type='text' placeholder='search')
     each filtering_res
         if name
-            .selector.ui.small.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
                 // small #{count}
         else

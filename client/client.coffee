@@ -59,7 +59,7 @@ Template.nav.events
     'click .leaderboard': -> Meteor.call 'set_page','leaderboard'
     'click .me': -> Meteor.call 'set_page','me'
     'click .add': -> 
-        new_id = Docs.insert {}
+        new_id = Docs.insert {type:'post'}
         Meteor.users.update Meteor.userId(),
             $set:
                 page:'edit'
@@ -77,6 +77,7 @@ Template.footer.events
             new_id = 
                 Docs.insert
                     body:body
+                    type:'post'
             console.log Docs.findOne new_id
             t.$('#quick_add').val('')
         

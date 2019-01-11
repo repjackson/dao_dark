@@ -42,7 +42,8 @@ template(name='view')
         .ui.grid
             .row
                 .ten.wide.column
-                    +youtube_view
+                    if youtube_id
+                        +youtube_view
                     .ui.basic.segment
                         .f8 #{body}
                     each tags
