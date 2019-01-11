@@ -29,7 +29,10 @@ Meteor.methods
     
             results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit, sort:timestamp:-1}
     
-            result_ids = results_cursor.fetch()
+            if total is 1
+                result_ids = results_cursor.fetch()
+            else
+                result_ids = null
     
             console.log 'result ids', result_ids
     

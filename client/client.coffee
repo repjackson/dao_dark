@@ -122,20 +122,10 @@ Template.sessions.events
         new_delta = 
             Docs.insert 
                 type:'delta'
-                title:'root'
+                title:'tab'
                 facets: [
                     {
-                        key:'type'
-                        filters:[]
-                        res:[]
-                    }
-                    {
                         key:'tags'
-                        filters:[]
-                        res:[]
-                    }
-                    {
-                        key:'timestamp_tags'
                         filters:[]
                         res:[]
                     }

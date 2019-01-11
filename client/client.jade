@@ -91,11 +91,10 @@ template(name='delta')
     +sessions
     .ui.stackable.grid
         .row   
-            .eight.wide.column
+            .sixteen.wide.column
                 each delta.facets
                     +facet
                     div
-            .eight.wide.column
                 each delta.result_ids
                     +view
                     
@@ -108,7 +107,7 @@ template(name='facet')
             input.add_filter(type='text' placeholder='search')
     each filtering_res
         if name
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
                 // small #{count}
         else
