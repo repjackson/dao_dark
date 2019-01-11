@@ -11,37 +11,32 @@ body
 
 
 template(name='delta')
-    .ui.padded.grid
-        .row
-            .sixteen.wide.center.aligned.column
-                each sessions
-                    .ui.icon.button.select_session.pointer(class=session_selector_class)
-                        if dev
-                            i.remove.delete_delta.icon(title='delete session')
-                        i.caret.up.icon
-                .new_session.ui.icon.button.pointer(title='new session')
-                    i.plus.icon
-        .row
-            .sixteen.wide.center.aligned.column
-                each delta.facets
-                    +facet
-                    div
-                each delta.result_ids
-                    +view
-        .row
-            if dev
-                .ui.button.add add
-                if adding
-                    +edit
-            else
-                .sixteen.wide.center.aligned.column
-                    form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                        input(type='hidden', name='cmd', value='_s-xclick')
-                        input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                        // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                        button.ui.icon.button(type='submit')
-                            i.coffee.icon
+    .ui.basic.center.aligned.segment
+        each sessions
+            .ui.icon.button.select_session.pointer(class=session_selector_class)
+                if dev
+                    i.remove.delete_delta.icon(title='delete session')
+                i.caret.up.icon
+        .new_session.ui.icon.button.pointer(title='new session')
+            i.plus.icon
+        div
+        each delta.facets
+            +facet
+        each delta.result_ids
+            +view
+    if dev
+        .ui.button.add add
+        if adding
+            +edit
+    else
+        .ui.basic.center.aligned.segment
+            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                input(type='hidden', name='cmd', value='_s-xclick')
+                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                button.ui.icon.button(type='submit')
+                    i.coffee.icon
 
     
 template(name='facet')
@@ -65,22 +60,15 @@ template(name='view')
                 .ui.embed.youtube(data-source="youtube" data-id=youtube_id)
         if dev
             div
-                .ui.form
-                    .field
-                        .ui.header #{type}
-                    .ui.labeled.input
-                        .ui.label youtube id
-                        input.youtube_id(type='text' value=brick_meta.youtube_id)
-                    if youtube_id
-                        .ui.embed.youtube(data-source="youtube" data-id=youtube_id)
-                    .field
-                        textarea.edit_body(rows='2') #{body}
-                    .field
-                        each tags
-                            .ui.button.remove_tag 
-                                |#{this}
-                        .ui.icon.input
-                            input.new_tag(type='text' placeholder='add tag')
-                    .ui.button.print log
+            input.youtube_id(type='text' value=youtube_id placeholder='yt')
+            div
+            if youtube_id
+                .ui.embed.youtube(data-source="youtube" data-id=youtube_id)
+            textarea.edit_body(rows='5') #{body}
+            div
+            each tags
+                button.remove_tag 
+                    |#{this}
+            input.new_tag(type='text' placeholder='add tag')
 
         

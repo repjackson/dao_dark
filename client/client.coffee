@@ -125,7 +125,7 @@ Template.view.events
     
     'keyup .new_tag': (e,t)->
         if e.which is 13
-            console.log @
+            # console.log @
             tag_val = t.$('.new_tag').val().toLowerCase().trim()
             Docs.update @_id, 
                 $addToSet: tags: tag_val
