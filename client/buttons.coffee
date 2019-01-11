@@ -32,7 +32,7 @@ Template.voting.helpers
             
 Template.voting.events
     'click .upvote': ->
-        if Meteor.userId() in @downvoter_ids
+        if @downvoter_ids and Meteor.userId() in @downvoter_ids
             Docs.update @_id,
                 $pull: downvoter_ids:Meteor.userId()
                 $addToSet: upvoter_ids:Meteor.userId()
@@ -45,7 +45,7 @@ Template.voting.events
             $inc:karma:1
             
     'click .downvote': ->
-        if Meteor.userId() in @downvoter_ids
+        if @downvoter_ids and Meteor.userId() in @downvoter_ids
             Docs.update @_id,
                 $pull: downvoter_ids:Meteor.userId()
                 $addToSet: downvoter_ids:Meteor.userId()
