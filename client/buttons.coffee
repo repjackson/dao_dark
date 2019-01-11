@@ -9,6 +9,12 @@ Template.view_user_button.events
     'click .view_user': ->
         Session.set 'page', 'user_view'
         Session.set 'page_data', @username
+
+
+Template.view_button.events
+    'click .view': ->
+        Session.set 'page', 'view'
+        Session.set 'page_data', @_id
             
 Template.remove_button.events
     'click .remove': ->

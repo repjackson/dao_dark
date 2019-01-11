@@ -99,11 +99,11 @@ template(name='result')
                 //     .field
                 //         textarea(rows='3') #{body}
             .content
+                .right.aligned #{when}
                 each tags
                     .ui.label
                         // i.remove.link.icon.remove_tag
                         |#{this}
-                .ui.small.header #{when}
                 +voting
                 +bookmark_button
                 +view_button
