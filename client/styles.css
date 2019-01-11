@@ -26,7 +26,7 @@ body {
 .scrolling{
   overflow-y:scroll;
   overflow-x:hidden;
-  max-height:100vh;
+  max-height:600px;
   padding-right: 1em;
 }
 
@@ -114,8 +114,8 @@ body {
 }
 
 #main {
-  padding: 0em 1em 3em 1em !important;
-  /*max-height:100vh;*/
+  padding: .5em 1em 3em 1em !important;
+  max-height:100vh;
   
 }
 

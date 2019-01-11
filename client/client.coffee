@@ -17,7 +17,7 @@ Template.registerHelper 'calculated_size', (input)->
 
 Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
 
-Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
+Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
 Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
 
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
@@ -97,13 +97,12 @@ Template.layout.helpers
 Template.sessions.helpers
     sessions: -> Docs.find type:'delta'
     
-    session_selector_class: -> if @_id is Meteor.user().delta_id then 'grey' else ''
+    session_selector_class: -> if @_id is Meteor.user().delta_id then 'active' else ''
     
 
 Template.sessions.events
     'click .delete_delta': (e,t)->
-        if confirm "delete  #{@_id}?"
-            Docs.remove @_id
+        Docs.remove @_id
 
     'click .select_session': ->
         Meteor.users.update Meteor.userId(), 
@@ -123,6 +122,11 @@ Template.sessions.events
                     }
                     {
                         key:'tags'
+                        filters:[]
+                        res:[]
+                    }
+                    {
+                        key:'timestamp_tags'
                         filters:[]
                         res:[]
                     }
@@ -206,7 +210,7 @@ Template.facet.helpers
         if Session.equals 'loading', true
              'disabled '
         else if facet.filters.length > 0 and @name in facet.filters
-            'grey'
+            'active'
         else ''
 
 

@@ -18,7 +18,7 @@ template(name='add_type_button')
 
 template(name='bookmark_button')
     .ui.icon.bookmark.button(title='bookmark')
-        i.bookmark.icon
+        i.bookmark.outline.icon
     each bookmarkers
         |#{username}
         
@@ -35,13 +35,14 @@ template(name='detect_fields_button')
         
         
 template(name='voting')
-    .ui.small.header #{points} points
+    if points
+        .ui.small.header #{points} points
     .ui.large.icon.button.upvote
-        i.thumbs.up.icon
+        i.thumbs.up.outline.icon
     each upvoter_ids
         +user_info
     .ui.large.icon.button.downvote
-        i.thumbs.down.icon
+        i.thumbs.down.outline.icon
     each downvoter_ids
         +user_info
         

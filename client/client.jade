@@ -11,19 +11,13 @@ body
 
 
 template(name='nav')
-    .ui.attached.large.menu
+    .ui.attached.big.menu
         .header.item.delta.pointer(title='home')
             i.home.icon
         .icon.item.pointer.users(title='users')
             i.users.icon
-        .icon.item.pointer.tribes(title='tribes')
-            i.fire.icon
-        .icon.item.pointer.blog(title='blog')
-            i.newspaper.icon
         .icon.item.pointer.leaderboard(title='leaderboard')
             i.trophy.icon
-        .icon.item.pointer.shop(title='shop')
-            i.shopping.bag.icon
         .right.menu
             if currentUser
                 .item.pointer.mail
@@ -34,11 +28,11 @@ template(name='nav')
                     i.bell.icon
                     if alerts
                         |#{alerts.count}
-                .item.pointer.me
+                .item.pointer.me(title='points')
                     |#{currentUser.points} pts
-                .item.pointer.me
-                    |#{currentUser.karma} 
+                .item.pointer.me(title='karma')
                     i.user.shield.icon
+                    |#{currentUser.karma} 
                 .item.pointer.me
                     |#{currentUser.username}
                     [#{currentUser.status}]
@@ -47,33 +41,22 @@ template(name='nav')
             else
                 .icon.item.enter.pointer(title='enter')
                     i.right.chevron.icon
-    +sessions
 
 template(name='sessions')
+    each sessions
+        .ui.labeled.icon.button.select_session.pointer(class=session_selector_class title='delete session')
+            i.remove.delete_delta.icon
+            |#{title}
     .new_session.ui.icon.button.pointer(title='new session')
         i.plus.icon
-    each sessions
-        .ui.button.select_session.pointer(class=session_selector_class)
-            |#{title}
-            i.remove.link.delete_delta.circular.icon
 
 
 template(name='footer')
-    .ui.bottom.attached.large.menu
+    .ui.big.bottom.fixed.menu
+        .icon.item
+            i.bullhorn.grey.icon
         .item
             +ad
-        .icon.item
-            i.dashboard.icon
-        .icon.item
-            i.chat.icon
-        .icon.item
-            i.tasks.icon
-        .icon.item
-            i.mail.icon
-        .icon.item
-            i.cog.icon
-        .icon.item
-            i.user.icon
         if currentUser
             .ui.left.icon.transparent.input
                 i.plus.icon
@@ -96,6 +79,7 @@ template(name='layout')
     +footer
     
 template(name='delta')    
+    +sessions
     .ui.stackable.grid
         .row   
             .six.wide.column.scrolling
@@ -105,13 +89,12 @@ template(name='delta')
             .ten.wide.column.scrolling
                 each delta.result_ids
                     +result
-                
                     
 template(name='result')
     with result 
         .ui.segment
             .content
-                .f8 #{nl2br body}
+                .f6 #{nl2br body}
                 // .ui.form
                 //     .field
                 //         textarea(rows='3') #{body}
@@ -134,12 +117,12 @@ template(name='result')
                         input.new_tag(type='text')
 
 template(name='facet')
-    | #{key}
+    .ui.small.inline.header #{key}
     each filtering_res
         if name
             .selector.ui.large.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
-                small #{count}
+                // small #{count}
         else
             .selector.ui.large.button.toggle_selection(class=toggle_value_class title=count)
                 strong [null]
