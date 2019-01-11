@@ -26,7 +26,7 @@ body {
 .scrolling{
   overflow-y:scroll;
   overflow-x:hidden;
-  max-height:600px;
+  max-height:550px;
   padding-right: 1em;
 }
 

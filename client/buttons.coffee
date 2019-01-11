@@ -27,8 +27,8 @@ Template.detect_fields_button.events
         Meteor.call 'detect_fields', @_id
             
 Template.voting.helpers
-    upvote_class: -> if Meteor.userId() in @upvoter_ids then 'red' else 'outline'
-    downvote_class: -> if Meteor.userId() in @downvoter_ids then 'green' else 'outline'
+    upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'red' else 'outline'
+    downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'green' else 'outline'
             
 Template.voting.events
     'click .upvote': ->
