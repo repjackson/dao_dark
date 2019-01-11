@@ -29,10 +29,8 @@ Template.delta.helpers
     filtering_res: ->
         delta = Docs.findOne Session.get('did')
         filtering_res = []
-        for filter in @fout
+        for filter in delta.fout
             if filter.count < delta.total
-                filtering_res.push filter
-            else if filter.name in @fin
                 filtering_res.push filter
         filtering_res
 

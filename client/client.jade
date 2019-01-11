@@ -13,23 +13,23 @@ body
 template(name='delta')
     .ui.basic.center.aligned.segment
         each sessions
-            .ui.icon.button.select_session.pointer(class=session_selector_class)
+            .ui.icon.circular.button.select_session.pointer(class=session_selector_class)
                 if dev
-                    i.remove.delete_delta.icon(title='delete session')
+                    i.remove.delete_delta.icon
                 i.caret.up.icon
-        .new_session.ui.icon.button.pointer(title='new session')
+        .new_session.ui.icon.circular.button.pointer
             i.plus.icon
         div
-            .ui.transparent.icon.input
-                i.search.icon
-                input.add_filter(type='text')
             each delta.fin
-                .unselect.ui.grey.button #{this}
+                .unselect.ui.grey.circular.button #{this}
         div
-            each delta.fout
+            each filtering_res
                 .select.ui.circular.button
                     strong #{name}
                     // small #{count}
+            .ui.transparent.icon.input
+                i.search.icon
+                input.add_filter(type='text')
         each delta.result_id
             +view
     if dev

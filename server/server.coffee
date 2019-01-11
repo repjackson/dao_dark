@@ -55,7 +55,7 @@ Meteor.methods
             # console.log 'delta', delta
 
     agg: (query)->
-        console.log 'agg query', query
+        # console.log 'agg query', query
         options = { explain:false }
         pipe =  [
             { $match: query }
