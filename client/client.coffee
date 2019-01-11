@@ -154,17 +154,17 @@ Template.delta.helpers
             
     loading: -> Session.get 'loading'
 
-Template.result.onCreated ->
+Template.view.onCreated ->
     @autorun => Meteor.subscribe 'doc', @data._id
 
     
-Template.result.helpers
+Template.view.helpers
     result: -> 
         doc = Docs.findOne @_id
         # console.log doc
         doc
     
-Template.result.events
+Template.view.events
     'keyup .new_tag': (e,t)->
         if e.which is 13
             tag = t.$('.new_tag').val().toLowerCase()   
@@ -195,10 +195,10 @@ Template.result.events
         Docs.remove current_id,
     
 
-Template.facet.onCreated ->
-    Meteor.setTimeout ->
-        $('.ui.accordion').accordion()
-    , 1000
+# Template.facet.onCreated ->
+#     Meteor.setTimeout ->
+#         $('.ui.accordion').accordion()
+#     , 1000
 
     
 Template.facet.helpers

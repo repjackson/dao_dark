@@ -36,27 +36,38 @@ template(name='field_edit')
         +Template.dynamic template=brick_edit
         
 
+template(name='view')
+    with result 
+        .ui.tertiary.segment
+            .ui.grid
+                .row
+                    .sixteen.wide.column
+                        .content
+                            if body
+                                .f8 #{nl2br body}
+                            if youtube_id
+                                +youtube_view
+                .row
+                        each tags
+                            .ui.label
+                                |#{this}
+                .row
+                    .eight.wide.column
+                        +comments
+                    .eight.wide.column
+                        +author_info
+                        +creation_info
+                        // +edit_button
+                        div
+                        +voting
+                        +bookmark_button
+                        if can_edit
+                            // +edit_button
+                            +remove_button
 
-template(name='view')  
-    with doc
-        .ui.grid
-            .row
-                .ten.wide.column
-                    if youtube_id
-                        +youtube_view
-                    .ui.basic.segment
-                        .f8 #{body}
-                    each tags
-                        .ui.large.label #{this}
-                    +comments
+
+
         
-                .six.wide.column
-                    +author_info
-                    +voting
-                    +creation_info
-                    +edit_button
-                    +bookmark_button
-                    +ownership
 
 
 template(name='field_view')

@@ -1,18 +1,17 @@
 template(name='comments')
-    .ui.secondary.segment
-        .ui.fluid.icon.input
-            i.chat.icon
-            input.add_comment(type='text' placeholder='comment')
-        .ui.comments
-            each doc_comments
-                .comment
-                    .content
-                        a.author #{author.username}
-                        .metadata
-                            span.date #{when}
-                        .text #{body}
-                        .actions
-                            +voting
+    .ui.fluid.icon.transparent.input
+        i.chat.icon
+        input.add_comment(type='text' placeholder='comment')
+    .ui.comments
+        each doc_comments
+            .comment
+                .content
+                    a.author #{author.username}
+                    .metadata
+                        span.date #{when}
+                    .text #{body}
+                    .actions
+                        +voting
 
 template(name='user_info')
     |#{user.username} #{user.first_name} #{user.last_name}

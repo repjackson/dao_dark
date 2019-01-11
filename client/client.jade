@@ -80,8 +80,8 @@ template(name='footer')
 
 template(name='layout')
     // +nav
-    #main.scrolling
-        +delta
+    // #main
+    +delta
     if currentUser
         +me
     else
@@ -91,34 +91,14 @@ template(name='delta')
     +sessions
     .ui.stackable.grid
         .row   
-            .six.wide.column.scrolling
+            .eight.wide.column
                 each delta.facets
                     +facet
                     div
-            .ten.wide.column.scrolling
+            .eight.wide.column
                 each delta.result_ids
-                    +result
+                    +view
                     
-template(name='result')
-    with result 
-        .ui.tertiary.segment
-            .content
-                if body
-                    .f8 #{nl2br body}
-                if youtube_id
-                    +youtube_view
-            .content
-                each tags
-                    .ui.label
-                        |#{this}
-                div
-                +voting
-                +bookmark_button
-                +view_button
-                // +clone_button
-                if can_edit
-                    +edit_button
-                    +remove_button
 
 template(name='facet')
     if filtering_res
