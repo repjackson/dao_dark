@@ -1,16 +1,17 @@
 template(name='edit')
     with doc
         .ui.stackable.grid
-            .six.wide.column
-                .ui.header edit #{type} #{title}
-                .ui.button.print log
-                .ui.fluid.button.save(title='save')
-                    i.large.checkmark.icon
             .ten.wide.column
                 .ui.form
                     .field
                         .ui.header #{type}
                     +youtube_edit
+                    .field
+                        label body
+                        textarea.edit_body(rows='20') #{body}
+            .six.wide.column
+                .ui.header edit #{type} #{title}
+                .ui.form
                     .field
                         label tags
                         each tags
@@ -20,9 +21,8 @@ template(name='edit')
                         .ui.icon.input
                             input.new_tag(type='text' placeholder='add tag')
                             i.plus.icon
-                    .field
-                        label body
-                        textarea.edit_body(rows='20') #{body}
+                .ui.button.print log
+                +save_button
                     
                     
 template(name='field_edit')
@@ -42,6 +42,7 @@ template(name='view')
         .ui.grid
             .row
                 .ten.wide.column
+                    +youtube_view
                     .ui.basic.segment
                         .f8 #{body}
                     each tags

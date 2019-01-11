@@ -27,7 +27,7 @@ Meteor.methods
             if delta.limit then limit=delta.limit else limit=10
     
     
-            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit}
+            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit, sort:timestamp:-1}
     
             result_ids = results_cursor.fetch()
     
@@ -48,7 +48,7 @@ Meteor.methods
             console.log 'delta', delta
 
     agg: (query, key)->
-        limit=42
+        limit=100
         console.log 'agg query', query
         options = { explain:false }
         pipe =  [

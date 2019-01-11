@@ -38,8 +38,8 @@ Meteor.methods
             $set: 
                 page:page
                 page_data:data
-        Session.set 'page', page
-        Session.set 'page_data', data
+        # Session.set 'page', page
+        # Session.set 'page_data', data
     
     add_facet_filter: (delta_id, key, filter)->
         if key is '_keys'

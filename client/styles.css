@@ -9,6 +9,9 @@ body {
   /*background: lightgrey !important*/
 }
 
+.youtube{
+  filter: invert(100%);
+}
 .ui.button, .ui.label{
   margin:.1em !important;
 }

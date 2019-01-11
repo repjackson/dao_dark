@@ -98,17 +98,15 @@ template(name='delta')
                     
 template(name='result')
     with result 
-        .ui.segment
+        .ui.tertiary.segment
             .content
-                .f8 #{nl2br body}
-                // .ui.form
-                //     .field
-                //         textarea(rows='3') #{body}
+                if body
+                    .f8 #{nl2br body}
+                if youtube_id
+                    +youtube_view
             .content
-                .right.aligned #{when}
                 each tags
                     .ui.label
-                        // i.remove.link.icon.remove_tag
                         |#{this}
                 div
                 +voting
@@ -118,16 +116,16 @@ template(name='result')
                 if can_edit
                     +edit_button
                     +remove_button
-                    .ui.left.icon.input
-                        i.grey.tag.icon
-                        input.new_tag(type='text')
 
 template(name='facet')
     if filtering_res
         .ui.small.inline.header #{key}
+        .ui.small.transparent.icon.input
+            i.search.icon
+            input.add_filter(type='text' placeholder='search')
     each filtering_res
         if name
-            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.small.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
                 // small #{count}
         else

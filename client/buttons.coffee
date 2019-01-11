@@ -9,11 +9,20 @@ Template.view_user_button.events
 
 
 Template.view_button.events
-    'click .view': -> Meteor.call 'set_page', 'view', @_id
+    'click .view': -> 
+        Meteor.call 'set_page', 'view', @_id
+        Session.set 'page', 'view'
+        Session.set 'page_data', @_id
 Template.save_button.events
-    'click .save': -> Meteor.call 'set_page', 'view', @_id
+    'click .save': -> 
+        Meteor.call 'set_page', 'view', @_id
+        Session.set 'page', 'view'
+        Session.set 'page_data', @_id
 Template.edit_button.events
-    'click .edit': -> Meteor.call 'set_page', 'edit', @_id
+    'click .edit': -> 
+        Meteor.call 'set_page', 'edit', @_id
+        Session.set 'page', 'edit'
+        Session.set 'page_data', @_id
             
 Template.remove_button.events
     'click .remove': ->

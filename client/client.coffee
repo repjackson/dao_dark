@@ -64,6 +64,8 @@ Template.nav.events
             $set:
                 page:'edit'
                 page_data:new_id
+        Session.set 'page','edit'
+        Session.set 'page_data',new_id
             
     'click .leave': -> Meteor.logout()
 
