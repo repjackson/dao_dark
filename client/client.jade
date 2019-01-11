@@ -23,9 +23,9 @@ template(name='sessions')
 
 
 template(name='layout')
-    // +nav
-    // #main
-    +delta
+    .ui.padded.grid
+        .row
+            +delta
     form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
         input(type='hidden', name='cmd', value='_s-xclick')
         input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
@@ -52,7 +52,7 @@ template(name='delta')
 
 template(name='facet')
     if filtering_res
-        .ui.small.inline.header #{key}
+        // .ui.small.inline.header #{key}
         .ui.small.transparent.icon.input
             i.search.icon
             input.add_filter(type='text' placeholder='search')
@@ -67,7 +67,104 @@ template(name='facet')
                 small #{count}
 
 
+             
+template(name='edit')
+    with doc
+        .ui.stackable.grid
+            .ten.wide.column
+                .ui.form
+                    .field
+                        .ui.header #{type}
+                    +youtube_edit
+                    .field
+                        label body
+                        textarea.edit_body(rows='20') #{body}
+            .six.wide.column
+                .ui.header edit #{type} #{title}
+                .ui.form
+                    .field
+                        label tags
+                        each tags
+                            .ui.large.label 
+                                i.remove.link.icon.remove_tag
+                                |#{this}
+                        .ui.icon.input
+                            input.new_tag(type='text' placeholder='add tag')
+                            i.plus.icon
+                .ui.button.print log
+                +save_button
+                    
+                    
+template(name='field_edit')
+    .ui.segment
+        .ui.labeled.input
+            .ui.label name: #{key}
+            input.change_key(type='text' placeholder='key' value=key)
+        .ui.icon.button.remove_field
+            i.remove.icon
+        div
+        +Template.dynamic template=brick_edit
+        
+
+template(name='view')
+    with result 
+        if body
+            .f8 #{nl2br body}
+        if youtube_id
+            +youtube_view
+
+        
+
+
+template(name='field_view')
+    .item   
+        .content
+            .header #{this}
+            .description
+                +Template.dynamic template=brick_view                        
                         
-                        
-template(name='ad')
-    |show the shadow
+
+template(name='enter')
+    .ui.padded.grid
+        // .centered.row
+        //     .ten.wide.center.aligned.column
+        //         .f10.white_bat 
+        //             // i.user.shield.icon
+        //             |DAO
+        .centered.row
+            .ten.wide.column
+                if message
+                    h4.ui.center.aligned.header #{message}
+                .ui.fluid.input(class=login_class)
+                    input.username(type='text' placeholder='username')
+                .ui.fluid.input(class=login_class)
+                    input.password(type='password' placeholder='password')
+                if username
+                    if registering
+                        .ui.fluid.large.button.enter(title="register #{username}" class=enter_class)
+                            i.user.plus.icon
+                            |#{username}
+                    else
+                        .ui.fluid.large.button.enter(title="login #{username}" class=enter_class)
+                            i.play.icon
+                            | #{username}
+        // .centered.row
+        //     .ten.wide.column
+        //         .ui.fluid.icon.large.button.new_demo(title='create generic user and login')
+        //             i.user.secret.icon
+        //             | anon account
+        // .centered.row
+        //     .ten.wide.column
+        //         a.ui.fluid.icon.large.button(href='/delta' title='view without logging in')
+        //             i.eye.icon
+        //             | view
+template(name='youtube_edit')
+    .ui.labeled.fluid.input
+        .ui.label youtube id
+        input.youtube_id(type='text' value=brick_meta.youtube_id)
+    // iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{youtube_id}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+    .ui.embed.youtube(data-source="youtube" data-id=youtube_id)
+
+template(name='youtube_view')
+    // iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{youtube_id}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+    .ui.embed.youtube(data-source="youtube" data-id=youtube_id)

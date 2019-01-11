@@ -51,40 +51,6 @@ Template.registerHelper 'nl2br', (text)->
     new Spacebars.SafeString(nl2br)
 
         
-Template.footer.events
-    'click .add': -> 
-        new_id = Docs.insert {type:'post'}
-        Meteor.users.update Meteor.userId(),
-            $set:
-                page:'edit'
-                page_data:new_id
-        Session.set 'page','edit'
-        Session.set 'page_data',new_id
-            
-    'click .leave': -> Meteor.logout()
-
-    'keyup #quick_add': (e,t)->
-        if e.which is 13
-            body = t.$('#quick_add').val().toLowerCase().trim()
-            new_id = 
-                Docs.insert
-                    body:body
-                    type:'post'
-            console.log Docs.findOne new_id
-            t.$('#quick_add').val('')
-        
-# Template.delta.events
-#     'click .toggle_filter': ->
-#         delta = Docs.findOne type:'delta'
-#         if @name in delta.fi
-#             Docs.update delta._id, $pull: fi: @name
-#         else    
-#             Docs.update delta._id, $addToSet: fi: @name
-#         Session.set 'loading', true
-#         Meteor.call 'fum', delta._id, (err,res)->
-#             Session.set 'loading', false
-    
-
 Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'delta'
 Template.layout.onCreated ->
@@ -101,6 +67,29 @@ Template.sessions.helpers
     
     session_selector_class: -> if @_id is Session.get('did') then 'active' else ''
     
+
+Template.youtube_edit.events                
+    'blur .youtube_id': (e,t)->
+        # parent = Template.parentData(5)
+        parent = @
+        val = t.$('.youtube_id').val()
+        Docs.update parent._id, 
+            $set:youtube_id:val
+
+Template.youtube_edit.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.ui.embed').embed()
+            , 500
+Template.youtube_view.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.ui.embed').embed()
+            , 500
+
+
 
 Template.sessions.events
     'click .delete_delta': (e,t)->
