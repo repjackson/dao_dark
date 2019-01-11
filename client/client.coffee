@@ -10,13 +10,39 @@ Template.registerHelper 'doc', ()-> Docs.findOne Session.get('page_data')
 Template.registerHelper 'viewing_user', ()-> 
     Meteor.users.findOne username:Session.get('page_data')
 
+Template.registerHelper 'calculated_size', (input)->
+    whole = parseInt input*10
+    "f#{whole}"
 
-Template.registerHelper 'can_edit', ()->
+
+Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
+
+Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
+Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
+
+Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
+
+
+
+Template.registerHelper 'is_dev', ()->
     if Meteor.user()
-        @author_id and Meteor.userId() is @author_id
-        true
-    else
-        false
+        if Meteor.user().roles
+            if 'dev' in Meteor.user().roles
+                return true 
+
+
+Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
+
+Template.registerHelper 'is_author', () ->  
+    Meteor.userId() is @author_id
+
+Template.registerHelper 'can_edit', () ->
+    if Meteor.user()
+        if Meteor.user().roles
+            if 'dev' in Meteor.user().roles
+                return true 
+        else if Meteor.userId() is @author_id
+            true
 
 
 Template.registerHelper 'nl2br', (text)->
@@ -70,6 +96,9 @@ Template.layout.helpers
 
 Template.sessions.helpers
     sessions: -> Docs.find type:'delta'
+    
+    session_selector_class: -> if @_id is Meteor.user().delta_id then 'grey' else ''
+    
 
 Template.sessions.events
     'click .delete_delta': (e,t)->
@@ -77,9 +106,8 @@ Template.sessions.events
             Docs.remove @_id
 
     'click .select_session': ->
-        Docs.update Meteor.userId(), 
+        Meteor.users.update Meteor.userId(), 
             $set: delta_id: @_id
-        console.log @
 
 
     'click .new_session': ->
@@ -93,9 +121,12 @@ Template.sessions.events
                         filters:[]
                         res:[]
                     }
+                    {
+                        key:'tags'
+                        filters:[]
+                        res:[]
+                    }
                 ]
-        
-        console.log new_delta
         Meteor.users.update Meteor.userId(),
             $set: delta_id: new_delta
         Meteor.call 'fum', new_delta
@@ -105,10 +136,9 @@ Template.delta.helpers
     delta: -> 
         if Meteor.user()
             did = Meteor.user().delta_id
-        else
-            did = Session.get 'delta_id'
         if did
             Docs.findOne did
+            
     loading: -> Session.get 'loading'
 
 Template.result.onCreated ->
@@ -172,7 +202,7 @@ Template.facet.helpers
     
     toggle_value_class: ->
         facet = Template.parentData()
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Meteor.user().delta_id
         if Session.equals 'loading', true
              'disabled '
         else if facet.filters.length > 0 and @name in facet.filters

@@ -53,13 +53,13 @@ template(name='sessions')
     .new_session.ui.icon.button.pointer(title='new session')
         i.plus.icon
     each sessions
-        .ui.label.select_session.pointer(class=session_selector_class)
+        .ui.button.select_session.pointer(class=session_selector_class)
             |#{title}
             i.remove.link.delete_delta.circular.icon
 
 
 template(name='footer')
-    .ui.bottom.fixed.large.menu
+    .ui.bottom.attached.large.menu
         .item
             +ad
         .icon.item
@@ -101,6 +101,7 @@ template(name='delta')
             .six.wide.column.scrolling
                 each delta.facets
                     +facet
+                    div
             .ten.wide.column.scrolling
                 each delta.result_ids
                     +result
@@ -133,27 +134,17 @@ template(name='result')
                         input.new_tag(type='text')
 
 template(name='facet')
-    .ui.accordion
-        .active.title
-            i.dropdown.icon
-            .ui.small.inline.header #{key}
-            // each filters
-            //     .unselect.ui.blue.button #{this}
-        .active.content
-            .ui.transparent.left.icon.input
-                i.search.icon
-                input.add_filter(type='text' placeholder='search')
-            each filtering_res
-                if name
-                    .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                        strong #{name}
-                        small #{count}
-                else
-                    .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                        strong [null]
-                        small #{count}
-    
-    
+    | #{key}
+    each filtering_res
+        if name
+            .selector.ui.large.button.toggle_selection(class=toggle_value_class title=count)
+                strong #{name}
+                small #{count}
+        else
+            .selector.ui.large.button.toggle_selection(class=toggle_value_class title=count)
+                strong [null]
+                small #{count}
+
 
                         
                         
