@@ -7,58 +7,51 @@ head
 
 
 body
-    +layout
+    +delta
 
 
-template(name='sessions')
-    each sessions
-        .ui.labeled.icon.compact.button.select_session.pointer(class=session_selector_class)
-            // i.remove.delete_delta.icon(title='delete session')
-            strong(title='select session') #{title}
-    .new_session.ui.icon.button.pointer(title='new session')
-        i.plus.icon
-
-
-
-
-
-template(name='layout')
+template(name='delta')
     .ui.padded.grid
         .row
-            +delta
-    form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-        input(type='hidden', name='cmd', value='_s-xclick')
-        input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-        // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-        button.ui.basic.icon.black.button(type='submit' title='donate')
-            i.coffee.icon
-    if currentUser
-        +me
-    else
-        +enter
-    
-template(name='delta')    
-    +sessions
-    .ui.stackable.grid
-        .row   
-            .sixteen.wide.column
+            .sixteen.wide.center.aligned.column
+                each sessions
+                    .ui.icon.button.select_session.pointer(class=session_selector_class)
+                        // i.remove.delete_delta.icon(title='delete session')
+                        i.caret.up.icon
+                .new_session.ui.icon.button.pointer(title='new session')
+                    i.plus.icon
+        .row
+            .sixteen.wide.center.aligned.column
                 each delta.facets
                     +facet
                     div
                 each delta.result_ids
                     +view
-                    
+        .row
+            .sixteen.wide.center.aligned.column
+                form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                    input(type='hidden', name='cmd', value='_s-xclick')
+                    input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                    // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                    img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                    button.ui.icon.button(type='submit')
+                        i.coffee.icon
+        // .row
+        //     if currentUser
+        //         +me
+        //     else
+        //         +enter
 
+    
 template(name='facet')
     if filtering_res
         // .ui.small.inline.header #{key}
-        .ui.small.transparent.icon.input
-            i.search.icon
-            input.add_filter(type='text' placeholder='search')
+        .ui.transparent.input
+            input.add_filter(type='text')
+    div
     each filtering_res
         if name
-            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
                 // small #{count}
         else
@@ -95,69 +88,31 @@ template(name='edit')
                 +save_button
                     
                     
-template(name='field_edit')
-    .ui.segment
-        .ui.labeled.input
-            .ui.label name: #{key}
-            input.change_key(type='text' placeholder='key' value=key)
-        .ui.icon.button.remove_field
-            i.remove.icon
-        div
-        +Template.dynamic template=brick_edit
-        
-
 template(name='view')
-    with result 
-        if body
-            .f8 #{nl2br body}
-        if youtube_id
-            +youtube_view
+    .ui.basic.segment
+        with result 
+            if body
+                .f8 #{nl2br body}
+            if youtube_id
+                +youtube_view
 
         
-
-
-template(name='field_view')
-    .item   
-        .content
-            .header #{this}
-            .description
-                +Template.dynamic template=brick_view                        
-                        
-
 template(name='enter')
-    .ui.padded.grid
-        // .centered.row
-        //     .ten.wide.center.aligned.column
-        //         .f10.white_bat 
-        //             // i.user.shield.icon
-        //             |DAO
-        .centered.row
-            .ten.wide.column
-                if message
-                    h4.ui.center.aligned.header #{message}
-                .ui.fluid.input(class=login_class)
-                    input.username(type='text' placeholder='username')
-                .ui.fluid.input(class=login_class)
-                    input.password(type='password' placeholder='password')
-                if username
-                    if registering
-                        .ui.fluid.large.button.enter(title="register #{username}" class=enter_class)
-                            i.user.plus.icon
-                            |#{username}
-                    else
-                        .ui.fluid.large.button.enter(title="login #{username}" class=enter_class)
-                            i.play.icon
-                            | #{username}
-        // .centered.row
-        //     .ten.wide.column
-        //         .ui.fluid.icon.large.button.new_demo(title='create generic user and login')
-        //             i.user.secret.icon
-        //             | anon account
-        // .centered.row
-        //     .ten.wide.column
-        //         a.ui.fluid.icon.large.button(href='/delta' title='view without logging in')
-        //             i.eye.icon
-        //             | view
+    .eight.wide.column
+        .ui.fluid.input(class=login_class)
+            input.username(type='text' placeholder='username')
+        .ui.fluid.input(class=login_class)
+            input.password(type='password' placeholder='password')
+        if username
+            if registering
+                .ui.fluid.large.button.enter(title="register #{username}" class=enter_class)
+                    i.user.plus.icon
+                    |#{username}
+            else
+                .ui.fluid.large.button.enter(title="login #{username}" class=enter_class)
+                    i.play.icon
+                    | #{username}
+
 template(name='youtube_edit')
     .ui.labeled.fluid.input
         .ui.label youtube id

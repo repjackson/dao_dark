@@ -3,8 +3,6 @@ Session.setDefault 'page', 'delta'
 Session.setDefault 'page_data', null
 Session.setDefault 'did', null
 
-Template.registerHelper 'messages', ()-> Docs.find type:'message'
-Template.registerHelper 'alerts', ()-> Docs.find type:'alert'
 Template.registerHelper 'users', ()-> Meteor.users.find {}
 Template.registerHelper 'doc', ()-> Docs.findOne Session.get('page_data')
 
@@ -52,17 +50,10 @@ Template.registerHelper 'nl2br', (text)->
 
         
 Template.delta.onCreated ->
-    @autorun -> Meteor.subscribe 'delta'
-Template.layout.onCreated ->
-    @autorun -> Meteor.subscribe 'users'
-    @autorun -> Meteor.subscribe 'type', 'deltas'
-    # @autorun -> Meteor.subscribe 'type', 'message'
-    # @autorun -> Meteor.subscribe 'type', 'alert'
+    @autorun -> Meteor.subscribe 'type', 'delta'
 
-Template.layout.helpers
-    main_template: -> Meteor.user().page
 
-Template.sessions.helpers
+Template.delta.helpers
     sessions: -> Docs.find type:'delta'
     
     session_selector_class: -> if @_id is Session.get('did') then 'active' else ''
@@ -91,7 +82,7 @@ Template.youtube_view.onRendered ->
 
 
 
-Template.sessions.events
+Template.delta.events
     'click .delete_delta': (e,t)->
         Docs.remove @_id
 
