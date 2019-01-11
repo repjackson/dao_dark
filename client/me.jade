@@ -29,8 +29,8 @@ template(name='me')
         .column
             .ui.segment
                 .ui.header
+                    |#{currentUser.karma}
                     |karma
-                |#{currentUser.karma}
                 .ui.header
                     |points
                 |#{currentUser.points}

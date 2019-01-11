@@ -71,7 +71,7 @@ Template.voting.events
             
 Template.bookmark_button.helpers
     bookmarkers: -> Meteor.users.find _id:$in:@bookmark_ids
-    bookmark_class: -> if Meteor.userId() in @bookmark_ids then '' else 'outline'
+    bookmark_class: -> if @bookmark_ids and Meteor.userId() in @bookmark_ids then '' else 'outline'
         
 Template.bookmark_button.events
     'click .bookmark': ->

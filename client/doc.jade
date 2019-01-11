@@ -40,19 +40,21 @@ template(name='view')
     with doc
         .ui.grid
             .row
-                .twelve.wide.column
+                .ten.wide.column
                     .ui.basic.segment
                         .f8 #{body}
                     each tags
                         .ui.large.label #{this}
                     +comments
+                    +ownership
         
-                .four.wide.column
+                .six.wide.column
                     +author_info
                     +voting
                     +creation_info
                     +edit_button
                     +bookmark_button
+
 
 template(name='field_view')
     .item   

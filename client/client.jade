@@ -115,8 +115,7 @@ template(name='result')
                 +clone_button
                 if can_edit
                     +edit_button
-                    .ui.icon.button.remove_doc
-                        i.remove.icon
+                    +remove_button
                     .ui.left.icon.input
                         i.grey.tag.icon
                         input.new_tag(type='text')
@@ -126,11 +125,11 @@ template(name='facet')
         .ui.small.inline.header #{key}
     each filtering_res
         if name
-            .selector.ui.large.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
                 // small #{count}
         else
-            .selector.ui.large.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                 strong [null]
                 small #{count}
 

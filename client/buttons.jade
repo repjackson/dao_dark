@@ -1,6 +1,5 @@
 template(name='view_button')
-    .ui.icon.button.view(title='view')
-        i.play.icon
+    i.large.play.link.spaced.view.icon(title='view')
 
 
 template(name='view_user_button')
@@ -8,8 +7,7 @@ template(name='view_user_button')
         i.play.icon
         
 template(name='remove_button')
-    a.ui.button.remove(title='remove')
-        i.remove.icon
+    i.remove.link.spaced.icon(title='delete')
         
 template(name='add_type_button')
     .ui.icon.button.add(title="add #{type}")
@@ -35,7 +33,7 @@ template(name='detect_fields_button')
         
 template(name='voting')
     if points
-        strong #{points} points
+        strong #{points}
     i.thumbs.up.link.spaced.large.icon.upvote(class=upvote_class)
     each upvoter_ids
         +user_info
@@ -44,8 +42,7 @@ template(name='voting')
         +user_info
         
 template(name='edit_button')
-    a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
-        i.pencil.icon
+    i.large.link.edit.pencil.icon(title='title')
 
 
 template(name='save_button')

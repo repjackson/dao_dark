@@ -59,4 +59,59 @@ Meteor.methods
 
 Docs.helpers
     author: -> Meteor.users.findOne @author_id
-    when: -> moment(@timestamp).fromNow()    
+    when: -> moment(@timestamp).fromNow()
+
+    is_visible: -> @published in [0,1]
+    is_published: -> @published is 1
+    is_anonymous: -> @published is 0
+    is_private: -> @published is -1
+
+    parent: -> Docs.findOne @parent_id
+
+    five_tx: -> if @tx then @tx[0..4]
+    five_inputs: -> if @inputs then @inputs[0..4]
+    five_out: -> if @out then @out[0..4]
+
+    five_tags: -> if @tags then @tags[0..4]
+
+    has_ownership: -> 
+        # console.log 'checking if has ownership'
+        if @ownership 
+            if @owner_ids
+                if Meteor.userId() in @owner_ids
+                    # console.log 'has_ownership'
+                    return true
+                else
+                    false
+            else
+                Meteor.call 'calculate_owner_ids', @_id
+                false
+    
+    # owner_ids: ->
+    #     console.log 'loading owner ids'
+    #     if @ownership
+    #         _.pluck @ownership, 'user_id'
+            
+    my_ownership: ->
+        if @ownership
+            my_ownership_object = (_.findWhere(@ownership, {user_id:Meteor.userId()}))
+            my_ownership_object.percent
+
+    up_voted: -> @upvoters and Meteor.userId() in @upvoters
+    down_voted: -> @downvoters and Meteor.userId() in @downvoters
+    upvoted_users: ->
+        if @upvoters
+            upvoted_users = []
+            for upvoter_id in @upvoters
+                upvoted_users.push Meteor.users.findOne upvoter_id
+            upvoted_users
+        else []
+    
+    read: -> @read_by and Meteor.userId() in @read_by
+
+    children: -> 
+        Docs.find {parent_id: @_id}, 
+            sort:
+                points:-1
+                timestamp:-1
+    

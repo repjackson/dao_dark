@@ -20,9 +20,283 @@ template(name='role_editor')
         .ui.button #{this}
         
 template(name='author_info')
-    .ui.header #{author.username}
+    if is_dev
+        .ui.input
+            input(type='text' placeholder='author')
+    .ui.header by #{author.username}
     
 template(name='creation_info')
     .ui.header #{when}
     
+
+
+
+
+template(name='doc_matches')
+    .ui.fluid.styled.accordion
+        .title 
+            |top doc matches (#{top_doc_matches.length})
+            i.dropdown.icon
+            if currentUser
+                #compute_doc_matches.ui.icon.button(data-tooltip='Compute Matches')
+                    i.refresh.icon
+        .content.match_content
+            if top_doc_matches
+                .ui.relaxed.divided.items
+                    each top_doc_matches
+                        +doc_match
+                        
+                        
+template(name='published')
+    div
+        if is_author
+            #publish.ui.icon.button(data-tooltip='published' class=published_class)
+                i.eye.icon
+            #publish_anonymously.ui.icon.button(data-tooltip='anonymous' class=published_anonymously_class)
+                i.eye.slash.icon
+            #unpublish.ui.icon.button(data-tooltip='private' class=private_class)
+                i.unlock.icon  
+        else
+            if is_anonymous
+                .ui.label anon
+            else if is_private
+                .ui.label private
+            else 
+                .ui.label published
+                                        
+template(name='doc_match')                    
+    .item 
+        .content
+            .description
+                |intersection tags (#{intersection_tags_count})
+                each intersection_tags
+                    .ui.label #{this}
+            .description
+                | doc tags
+                each tags
+                    .ui.small.label #{this}
+            // .description
+            //     |#{match_doc.type} entry by
+            //     img.ui.avatar.image(src="{{c.url match_doc.author.profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+            //     | #{match_doc.author.name}
+            .title
+                i.dropdown.icon
+                |content 
+            .content
+                |!{match_doc.content}
+            .extra
+                +view_full_button match_doc
+
+
+template(name='response_list')
+    .ui.dividing.inverted.header 
+        |#{child_count} replies
+    .ui.segments
+        each responses
+            .ui.segment
+                .content
+                    .description
+                        |!{content}
+                        |#{text}
+                        .meta
+                            each tags
+                                .ui.label #{this}
+                .content
+                    +author_info
+                    |#{when}
+                    +thanks_button
+                    +respond_button
+                    .floated.right
+                        +view_full_button
+                        
+template(name='upvoted_list')
+    .ui.header upvoters
+    .ui.list
+        each upvoted_users
+            .content
+                .description
+                    |#{name} (#{username})
+                    // .meta
+                    //     each tags
+                    //         .ui.label #{this}
+// template(name='author_info')
+//     if is_anonymous
+//         |by anon
+//     else
+//         if is_private
+//             i.large.lock.icon
+//         | by 
+//         with author
+//             if profile.image_id
+//                 img.ui.avatar.spaced.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+//             |&nbsp;
+//             a(href="/u/#{username}") #{name} 
+//             // +staus_indicator
+template(name='toggle_friend')
+    if currentUser
+        if is_friend
+            #remove_friend.ui.button
+                i.minus.icon
+                |unfriend
+        else
+            #add_friend.ui.button
+                i.plus.icon
+                |friend
+
+
+template(name='dev_footer')
+    .ui.inverted.segment
+        .ui.horizontal.dividing.header 
+            |DEV
+            // .ui.horizontal.list
+            //     .item
+            //         a(href='/v/3qLXqhMDmxxZvh3tA') tasks
+            //     .item
+            //         a(href='/v/z3fPCMJnhCLKs2kKK') facet
+        with doc
+            if parent_id
+                .ui.segment
+                    a.ui.header(href="/v/#{doc.parent_id}") 
+                        if icon_class
+                            +icon48 name=parent.icon_class
+                        |parent: #{parent.title}
+            +edit_text_field key='title'
+            +edit_text_field key='type'
+            +edit_text_field key='template'
+            +edit_text_field key='icon_class'
+            // +edit_number
+            +edit_array_field key='tags' icon='hashtag'
+            +published
+            // +edit_completion_type
+            #create_child.ui.button create child
+            unless parent_id
+                #create_parent.ui.button create parent
+            #move_above_parent.ui.button move above parent
+            #toggle_child_docs.ui.button toggle child docs
+            // #trickle_down.ui.button run trickle_down
+            if show_child_docs
+                +threaded_children
+                
+template(name='parent_link')
+    with parent
+        a.ui.button(href="/v/#{_id}") 
+            i.up.arrow.icon
+            // if number
+            //     |#{number}:
+            if title
+                |#{title}
+            else
+                |parent
+                
+                
+// template(name='edit_button')
+//     if is_author
+//         // +call_watson
+//         a.ui.icon.button(href="/edit/#{_id}")
+//             i.pencil.icon
+                
+template(name='parent_doc_segment')
+    if parent
+        .ui.secondary.segment
+            // .ui.header in response to...
+            // +view_full_button
+            with parent
+                .large130 !{content}
+                +author_info
+                |&nbsp;
+                |#{when}
+                
+                
+                
+                
+template(name='reference_other_children')
+    .ui.segment
+        .ui.header choose fields
+        // .ui.header 
+            // |Selected children from 
+            // if selector.icon_class
+            //     +icon24 name=selector.icon_class classes='ui inline image'
+            // |#{selector.title}
+            // small
+                // a(href="view/8SE48hfdLYhqmkFLC" target="_blank") Add/Edit
+        each available_children
+            .select_child.ui.button(class=child_field_toggle_class)
+                // +icon24 name=icon_class classes='ui inline image'
+                strong #{slug}    
+        // .ui.items
+        //     each selected_children
+        //         .item
+        //             .content
+        //                 .header
+        //                     // +icon48 name=icon_class classes='ui inline image'
+        //                     |#{title}
+        //                 .meta Slug: #{slug}
+        //                 .meta id: #{_id}
+        //             .content
+        //                 .disable_child.ui.right.floated.red.small.icon.button
+        //                     i.remove.icon
     
+                
+                
+template(name='icon24')
+    img(src="https://png.icons8.com/color/24/000000/#{name}.png" class=classes title=tooltip)
+// template(name='icon96')
+//     img(src="https://png.icons8.com/color/100/000000/#{name}.png" class=classes title=tooltip)
+// template(name='ultraviolet_icon40')
+//     img(src="https://png.icons8.com/#{name}/ultraviolet/40" class=classes title=tooltip width="40" height="40")
+    
+// template(name='ultraviolet_icon80')
+//     img(src="https://png.icons8.com/#{name}/ultraviolet/80" class=classes title=tooltip width="80" height="80")
+    
+// template(name='dots100')
+//     img(src="https://png.icons8.com/hide/#{name}/100/000000" class=classes title=tooltip)
+// template(name='dots50')
+//     // img(src="https://png.icons8.com/hide/#{name}/50/000000" class=classes title=tooltip)
+//     img(src="https://png.icons8.com/ios/50/000000/#{name}.png" class=classes title=tooltip)
+    
+    
+    
+    
+// template(name='dusk_icon64')    
+//     img(src="https://png.icons8.com/#{name}/dusk/64" class=classes title=tooltip width="64" height="64")    
+    
+// template(name='ios96')
+//     // i.icon(src="https://png.icons8.com/#{name}/p1em/96" class=classes width="96" height="96")
+//     img(src="https://png.icons8.com/#{name}/p1em/96" class=classes width="96" height="96")
+                
+                
+                
+template(name='add_child_button')
+    #add_child.ui.icon.button
+        i.vertically.flipped.reply.icon                
+        
+        
+template(name='ownership')
+    .ui.header 
+        | ownership
+    .content
+        #make_author_owner.ui.button make author owner
+        .ui.list
+            each ownership
+                .item user id: #{user_id} #{percent}
+        .ui.header your ownership
+        if has_ownership
+            |#{my_ownership} %
+            #offer_ownership.ui.button offer ownership
+        .ui.header offers
+        .ui.header transactions
+                
+                
+template(name='crowd_tags')
+    .ui.inverted.segment
+        .ui.header crowd tags
+        if my_review_tags
+            each my_review_tags
+                .ui.label #{this}
+        .ui.input
+            input#add_your_tag(type='text' placeholder='add')
+
+
+
+template(name='toggle_key')
+    #toggle_key.ui.compact.button(class=toggle_key_button_class) #{label}
