@@ -1,9 +1,5 @@
 Session.setDefault 'loading', false
-Session.setDefault 'page', 'delta'
-Session.setDefault 'page_data', null
 Session.setDefault 'did', null
-
-Template.registerHelper 'doc', ()-> Docs.findOne Session.get('page_data')
 
 
 Template.registerHelper 'calculated_size', (input)->
@@ -27,31 +23,10 @@ Template.delta.helpers
     
     session_selector_class: -> if @_id is Session.get('did') then 'active' else ''
     
-
-Template.youtube_edit.events                
-    'blur .youtube_id': (e,t)->
-        # parent = Template.parentData(5)
-        parent = @
-        val = t.$('.youtube_id').val()
-        Docs.update parent._id, 
-            $set:youtube_id:val
-
-Template.youtube_edit.onRendered ->
-    @autorun =>
-        if @subscriptionsReady()
-            Meteor.setTimeout ->
-                $('.ui.embed').embed()
-            , 500
+    delta: -> Docs.findOne Session.get('did')
+    loading: -> Session.get 'loading'
             
             
-Template.youtube_view.onRendered ->
-    @autorun =>
-        if @subscriptionsReady()
-            Meteor.setTimeout ->
-                $('.ui.embed').embed()
-            , 500
-
-
 
 Template.delta.events
     'click .delete_delta': (e,t)->
@@ -75,13 +50,9 @@ Template.delta.events
         Meteor.call 'fum', new_delta
 
 
-Template.delta.helpers
-    delta: -> Docs.findOne Session.get('did')
-            
-    loading: -> Session.get 'loading'
-
 Template.view.onCreated ->
     @autorun => Meteor.subscribe 'doc', @data._id
+
 
     
 Template.view.helpers
@@ -89,43 +60,6 @@ Template.view.helpers
         doc = Docs.findOne @_id
         # console.log doc
         doc
-    
-Template.view.events
-    'keyup .new_tag': (e,t)->
-        if e.which is 13
-            tag = t.$('.new_tag').val().toLowerCase()   
-            # Meteor.call 'pull_subreddit', subreddit
-            if @tags
-                tag_count = @tags.length
-            else
-                tag_count = 0
-            Docs.update @_id,
-                $addToSet: 
-                    tags: tag
-                $set:tag_count:tag_count
-            t.$('.new_tag').val('')    
-                
-                
-    'click .remove_tag': (e,t)->
-        current_id = Template.currentData()._id
-        new_tag_val = t.$('.new_tag').val()
-        unless new_tag_val
-            Docs.update current_id,
-                $pull:tags:@valueOf()
-            t.$('.new_tag').val(@valueOf())    
-            
-        
-    
-    'click .remove_doc': ->
-        current_id = Template.currentData()._id
-        Docs.remove current_id,
-    
-
-# Template.facet.onCreated ->
-#     Meteor.setTimeout ->
-#         $('.ui.accordion').accordion()
-#     , 1000
-
     
 Template.facet.helpers
     filtering_res: ->
@@ -172,35 +106,45 @@ Template.facet.events
 
 
 
+Template.view.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.ui.embed').embed()
+            , 500
 
-Template.view.onCreated ->
-    @autorun => Meteor.subscribe 'doc', Session.get('page_data')
-    
-    
-    
-Template.edit.onCreated ->
-    @autorun => Meteor.subscribe 'doc', Session.get('page_data')
-
-Template.edit.events
+Template.view.events
+    'blur .youtube_id': (e,t)->
+        # parent = Template.parentData(5)
+        parent = @
+        val = t.$('.youtube_id').val()
+        Docs.update parent._id, 
+            $set:youtube_id:val
     'click .print': (e,t)->
         console.log Docs.findOne Session.get('page_data')
     
     'keyup .new_tag': (e,t)->
         if e.which is 13
-            tag_val = t.$('.new_tag').val().trim()
-            parent = Docs.findOne Session.get('page_data')
-            Docs.update parent._id, 
+            console.log @
+            tag_val = t.$('.new_tag').val().toLowerCase().trim()
+            Docs.update @_id, 
                 $addToSet: tags: tag_val
             t.$('.new_tag').val('')
         
     'click .remove_tag': (e,t)->
         tag = @valueOf()
-        parent = Docs.findOne Session.get('page_data')
-        Docs.update parent._id, 
+        result_id = Template.currentData()
+        Docs.update result_id, 
             $pull:tags:tag
+        t.$('.new_tag').val(tag)
         
     'blur .edit_body': (e,t)->
         body_val = t.$('.edit_body').val()
         parent = Docs.findOne Session.get('page_data')
         Docs.update parent._id, 
             $set: body:body_val
+            
+    'click .remove_doc': ->
+        current_id = Template.currentData()._id
+        Docs.remove current_id,
+            
