@@ -6,42 +6,13 @@ Session.setDefault 'did', null
 Template.registerHelper 'users', ()-> Meteor.users.find {}
 Template.registerHelper 'doc', ()-> Docs.findOne Session.get('page_data')
 
-Template.registerHelper 'viewing_user', ()-> 
-    Meteor.users.findOne username:Session.get('page_data')
 
 Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
 
-
-Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
-
 Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
-Template.registerHelper 'is_dev_env', () -> Meteor.isDevelopment
-
-Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
-
-
-
-Template.registerHelper 'is_dev', ()->
-    if Meteor.user()
-        if Meteor.user().roles
-            if 'dev' in Meteor.user().roles
-                return true 
-
-
-Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()         
-
-Template.registerHelper 'is_author', () ->  
-    Meteor.userId() is @author_id
-
-Template.registerHelper 'can_edit', () ->
-    if Meteor.user()
-        if Meteor.user().roles
-            if 'dev' in Meteor.user().roles
-                return true 
-        else if Meteor.userId() is @author_id
-            true
+Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
 
 Template.registerHelper 'nl2br', (text)->
@@ -204,3 +175,46 @@ Template.facet.events
             Meteor.call 'add_facet_filter', delta._id, facet.key, new_filter, ->
                 Session.set 'loading', false
             concept = t.$('.add_filter').val('')
+
+
+
+
+Template.view.onCreated ->
+    @autorun => Meteor.subscribe 'doc', Session.get('page_data')
+    
+    
+    
+Template.edit.onCreated ->
+    @autorun => Meteor.subscribe 'doc', Session.get('page_data')
+
+Template.edit.events
+    'click .print': (e,t)->
+        console.log Docs.findOne Session.get('page_data')
+    
+    'keyup .new_tag': (e,t)->
+        if e.which is 13
+            tag_val = t.$('.new_tag').val().trim()
+            parent = Docs.findOne Session.get('page_data')
+            Docs.update parent._id, 
+                $addToSet: tags: tag_val
+            t.$('.new_tag').val('')
+        
+    'click .remove_tag': (e,t)->
+        tag = @valueOf()
+        parent = Docs.findOne Session.get('page_data')
+        Docs.update parent._id, 
+            $pull:tags:tag
+        
+    'blur .edit_body': (e,t)->
+        body_val = t.$('.edit_body').val()
+        parent = Docs.findOne Session.get('page_data')
+        Docs.update parent._id, 
+            $set: body:body_val
+    
+        
+    'change .points': (e,t)->
+        points_val = parseInt t.$('.points').val()
+        console.log points_val
+        parent = Docs.findOne Session.get('page_data')
+        Docs.update parent._id, 
+            $set: points:points_val
