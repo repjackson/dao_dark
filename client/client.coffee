@@ -50,14 +50,21 @@ Template.registerHelper 'nl2br', (text)->
     new Spacebars.SafeString(nl2br)
 
 Template.nav.events
-    'click .enter': -> Session.set 'page', 'enter'
-    'click .delta': -> Session.set 'page', 'delta'
-    'click .users': -> Session.set 'page', 'users'
-    'click .tribes': -> Session.set 'page', 'tribes'
-    'click .blog': -> Session.set 'page', 'blog'
-    'click .shop': -> Session.set 'page', 'shop'
-    'click .leaderboard': -> Session.set 'page', 'leaderboard'
-    'click .me': -> Session.set 'page', 'me'
+    'click .enter': -> Meteor.call 'set_page','enter'
+    'click .delta': -> Meteor.call 'set_page','delta'
+    'click .users': -> Meteor.call 'set_page','users'
+    'click .tribes': -> Meteor.call 'set_page','tribes'
+    'click .blog': -> Meteor.call 'set_page','blog'
+    'click .shop': -> Meteor.call 'set_page','shop'
+    'click .leaderboard': -> Meteor.call 'set_page','leaderboard'
+    'click .me': -> Meteor.call 'set_page','me'
+    'click .add': -> 
+        new_id = Docs.insert {}
+        Meteor.users.update Meteor.userId(),
+            $set:
+                page:'edit'
+                page_data:new_id
+            
     'click .leave': -> Meteor.logout()
 
         
@@ -92,7 +99,7 @@ Template.layout.onCreated ->
     @autorun -> Meteor.subscribe 'type', 'alert'
 
 Template.layout.helpers
-    main_template: -> Session.get 'page'
+    main_template: -> Meteor.user().page
 
 Template.sessions.helpers
     sessions: -> Docs.find type:'delta'
@@ -107,7 +114,6 @@ Template.sessions.events
     'click .select_session': ->
         Meteor.users.update Meteor.userId(), 
             $set: delta_id: @_id
-
 
     'click .new_session': ->
         new_delta = 

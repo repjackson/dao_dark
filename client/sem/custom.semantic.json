@@ -8,7 +8,7 @@
     "card": true,
     "checkbox": false,
     "comment": true,
-    "container": false,
+    "container": true,
     "dimmer": false,
     "divider": true,
     "dropdown": false,
@@ -19,7 +19,7 @@
     "grid": true,
     "header": true,
     "icon": true,
-    "image": false,
+    "image": true,
     "input": true,
     "item": true,
     "label": true,
@@ -44,8 +44,8 @@
     "step": false,
     "sticky": false,
     "tab": false,
-    "table": false,
-    "transition": false,
+    "table": true,
+    "transition": true,
     "visibility": true
   },
   "themes": {

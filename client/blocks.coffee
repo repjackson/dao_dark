@@ -5,17 +5,18 @@ Template.role_editor.onCreated ->
 
 Template.comments.helpers
     doc_comments: ->
-        Docs.find
+        Docs.find {
             type:'comment'
+            parent_id:@_id
+            }, sort:timestamp:-1
 
 Template.comments.events
     'keyup .add_comment': (e,t)->
         if e.which is 13
-            parent = Docs.findOne Meteor.user().delta_id
             comment = t.$('.add_comment').val()
             console.log comment
             Docs.insert
-                parent_id: Meteor.user().delta_id
+                parent_id: @_id
                 type:'comment'
                 body:comment
             t.$('.add_comment').val('')

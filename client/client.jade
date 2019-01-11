@@ -20,6 +20,8 @@ template(name='nav')
             i.trophy.icon
         .right.menu
             if currentUser
+                .item.pointer.add
+                    i.plus.icon
                 .item.pointer.bookmarks
                     i.bookmark.icon
                     if bookmarks
@@ -48,15 +50,15 @@ template(name='nav')
 
 template(name='sessions')
     each sessions
-        .ui.labeled.icon.button.select_session.pointer(class=session_selector_class title='delete session')
-            i.remove.delete_delta.icon
-            |#{title}
+        .ui.labeled.icon.compact.button.select_session.pointer(class=session_selector_class)
+            i.remove.delete_delta.icon(title='delete session')
+            strong(title='select session') #{title}
     .new_session.ui.icon.button.pointer(title='new session')
         i.plus.icon
 
 
 template(name='footer')
-    .ui.big.bottom.fixed.menu
+    .ui.borderless.bottom.fixed.menu
         .icon.item
             i.bullhorn.grey.icon
         .item
@@ -78,7 +80,7 @@ template(name='footer')
 
 template(name='layout')
     +nav
-    #main
+    #main.scrolling
         +Template.dynamic template=main_template
     +footer
     
@@ -112,7 +114,7 @@ template(name='result')
                 +voting
                 +bookmark_button
                 +view_button
-                +clone_button
+                // +clone_button
                 if can_edit
                     +edit_button
                     +remove_button

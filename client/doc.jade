@@ -10,10 +10,11 @@ template(name='edit')
                 .ui.form
                     .field
                         .ui.header #{type}
+                    +youtube_edit
                     .field
                         label tags
                         each tags
-                            .ui.big.label 
+                            .ui.large.label 
                                 i.remove.link.icon.remove_tag
                                 |#{this}
                         .ui.icon.input
@@ -46,7 +47,6 @@ template(name='view')
                     each tags
                         .ui.large.label #{this}
                     +comments
-                    +ownership
         
                 .six.wide.column
                     +author_info
@@ -54,6 +54,7 @@ template(name='view')
                     +creation_info
                     +edit_button
                     +bookmark_button
+                    +ownership
 
 
 template(name='field_view')

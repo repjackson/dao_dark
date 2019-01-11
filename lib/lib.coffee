@@ -33,6 +33,14 @@ Docs.before.insert (userId, doc)=>
 
 
 Meteor.methods
+    set_page: (page, data)->
+        Meteor.users.update Meteor.userId(),
+            $set: 
+                page:page
+                page_data:data
+        Session.set 'page', page
+        Session.set 'page_data', data
+    
     add_facet_filter: (delta_id, key, filter)->
         if key is '_keys'
             new_facet_ob = {

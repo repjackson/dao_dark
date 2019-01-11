@@ -1,20 +1,19 @@
 Template.add_type_button.events
     'click .add': ->
         new_id = Docs.insert type: @type
-        Session.set 'page', 'edit',     
-        Session.set 'page_data', new_id
+        Meteor.call 'set_page', 'edit', new_id
 
             
 Template.view_user_button.events
-    'click .view_user': ->
-        Session.set 'page', 'user_view'
-        Session.set 'page_data', @username
+    'click .view_user': -> Meteor.call 'set_page', 'user_view', @username
 
 
 Template.view_button.events
-    'click .view': ->
-        Session.set 'page', 'view'
-        Session.set 'page_data', @_id
+    'click .view': -> Meteor.call 'set_page', 'view', @_id
+Template.save_button.events
+    'click .save': -> Meteor.call 'set_page', 'view', @_id
+Template.edit_button.events
+    'click .edit': -> Meteor.call 'set_page', 'edit', @_id
             
 Template.remove_button.events
     'click .remove': ->
