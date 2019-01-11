@@ -3,57 +3,15 @@ template(name='me')
         .column
             .ui.tertiary.segment 
                 h1.ui.grey.header #{currentUser.username} 
-                    small [#{currentUser.status}]
-                .ui.transparent.fluid.input
-                    input.set_status(type='text' placeholder='set status')
-            .ui.tertiary.segment
-                .ui.icon.transparent.fluid.input
-                    input.new_username(type='text' placeholder='change username')
-                    i.play.link.icon.change_username
-                .ui.small.grey.header change password
-                .ui.transparent.fluid.input
-                    input.old_password(type='text' placeholder='old')
-                .ui.icon.transparent.fluid.input
-                    input.new_password(type='text' placeholder='new')
-                    i.play.link.icon.change_password
-            .ui.tertiary.segment.pointer.logout_others
-                .ui.grey.header 
-                    i.user.times.icon
-                    |logout other clients
-            .ui.tertiary.segment.logout.pointer
-                .ui.grey.header
-                    i.sign.out.alternate.icon
-                    |sign out
-        .column
-            .ui.tertiary.segment
-                .ui.grey.header
-                    |#{currentUser.karma}
-                    |karma
-                .ui.grey.header
-                    |points
-                |#{currentUser.points}
-            .ui.tertiary.segment
-                .ui.grey.header 
-                    i.mail.icon
-                    |emails
-            .ui.tertiary.segment
-                .ui.grey.header 
-                    i.tags.icon
-                    | #{currentUser.tags.length} user tags
-                each currentUser.tags
-                    .ui.label #{this}
-                .ui.fluid.left.icon.transparent.input
-                    i.plus.icon
-                    input.add_user_tag(type='text' placeholder='add user tag')
-        .column
-            .ui.tertiary.segment
-                .ui.grey.header 
-                    i.users.icon
-                    | #{friends.count} friends
-                .ui.list
-                    each currentUser.friends
-                        .item #{this}
-            .ui.tertiary.segment
-                .ui.grey.header 
-                    i.coffee.icon
-                    | donate
+                    // small [#{currentUser.status}]
+                // .ui.transparent.fluid.input
+                //     input.set_status(type='text' placeholder='set status')
+                // .ui.icon.transparent.fluid.input
+                //     input.new_username(type='text' placeholder='change username')
+                //     i.play.link.icon.change_username
+                // .ui.transparent.fluid.input
+                //     input.old_password(type='text' placeholder='old password')
+                // .ui.icon.transparent.fluid.input
+                //     input.new_password(type='text' placeholder='new password')
+                //     i.play.link.icon.change_password
+                i.sign.out.alternate.large.link.icon.logout

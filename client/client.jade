@@ -36,11 +36,11 @@ template(name='delta')
                     img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
                     button.ui.icon.button(type='submit')
                         i.coffee.icon
-        // .row
-        //     if currentUser
-        //         +me
-        //     else
-        //         +enter
+        .row
+            if currentUser
+                +me
+            else
+                +enter
 
     
 template(name='facet')
@@ -50,14 +50,9 @@ template(name='facet')
             input.add_filter(type='text')
     div
     each filtering_res
-        if name
-            .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                strong #{name}
-                // small #{count}
-        else
-            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                strong [null]
-                small #{count}
+        .selector.ui.circular.button.toggle_selection(class=toggle_value_class)
+            strong #{name}
+            // small #{count}
 
 
              
