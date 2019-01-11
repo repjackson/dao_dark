@@ -10,71 +10,15 @@ body
     +layout
 
 
-template(name='nav')
-    .ui.attached.big.menu
-        .header.item.delta.pointer(title='home')
-            i.hashtag.icon
-        .icon.item.pointer.users(title='users')
-            i.users.icon
-        .icon.item.pointer.leaderboard(title='leaderboard')
-            i.trophy.icon
-        .right.menu
-            if currentUser
-                .item.pointer.add
-                    i.plus.icon
-                .item.pointer.bookmarks
-                    i.bookmark.icon
-                    if bookmarks
-                        |#{bookmarks.count}
-                .item.pointer.mail
-                    i.mail.icon
-                    if messages
-                        |#{messages.count}
-                .item.pointer.alerts
-                    i.bell.icon
-                    if alerts
-                        |#{alerts.count}
-                .item.pointer.me(title='points')
-                    |#{currentUser.points} pts
-                .item.pointer.me(title='karma')
-                    i.user.shield.icon
-                    |#{currentUser.karma} 
-                .item.pointer.me
-                    |#{currentUser.username}
-                    [#{currentUser.status}]
-                .icon.item.leave.pointer(title='leave')
-                    i.power.off.icon
-            else
-                .icon.item.enter.pointer(title='enter')
-                    i.right.chevron.icon
-
 template(name='sessions')
     each sessions
         .ui.labeled.icon.compact.button.select_session.pointer(class=session_selector_class)
-            i.remove.delete_delta.icon(title='delete session')
+            // i.remove.delete_delta.icon(title='delete session')
             strong(title='select session') #{title}
     .new_session.ui.icon.button.pointer(title='new session')
         i.plus.icon
 
 
-template(name='footer')
-    .ui.borderless.bottom.fixed.menu
-        .icon.item
-            i.bullhorn.grey.icon
-        .item
-            +ad
-        if currentUser
-            .ui.left.icon.transparent.input
-                i.lightning.icon
-                input#quick_add(type='text' autocomplete="off" placeholder='quick add')
-        .right.menu
-            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                input(type='hidden', name='cmd', value='_s-xclick')
-                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.basic.icon.black.button(type='submit' title='donate')
-                    i.coffee.icon
 
 
 
@@ -82,6 +26,13 @@ template(name='layout')
     // +nav
     // #main
     +delta
+    form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+        input(type='hidden', name='cmd', value='_s-xclick')
+        input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+        // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+        img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+        button.ui.basic.icon.black.button(type='submit' title='donate')
+            i.coffee.icon
     if currentUser
         +me
     else
