@@ -26,64 +26,18 @@ Template.delta.helpers
     delta: -> Docs.findOne Session.get('did')
     loading: -> Session.get 'loading'
             
-            
-
-Template.delta.events
-    'click .delete_delta': (e,t)->
-        Docs.remove @_id
-
-    'click .select_session': ->
-        Session.set 'did', @_id
-
-    'click .new_session': ->
-        new_delta = 
-            Docs.insert 
-                type:'delta'
-                facets: [
-                    {
-                        key:'tags'
-                        filters:[]
-                        res:[]
-                    }
-                ]
-        Session.set 'did', new_delta
-        Meteor.call 'fum', new_delta
-
-
-Template.view.onCreated ->
-    @autorun => Meteor.subscribe 'doc', @data._id
-
-
-    
-Template.view.helpers
-    result: -> 
-        doc = Docs.findOne @_id
-        # console.log doc
-        doc
-    
-Template.facet.helpers
     filtering_res: ->
         delta = Docs.findOne Session.get('did')
         filtering_res = []
-        for filter in @res
+        for filter in @fout
             if filter.count < delta.total
                 filtering_res.push filter
-            else if filter.name in @filters
+            else if filter.name in @fin
                 filtering_res.push filter
         filtering_res
 
     
-    toggle_value_class: ->
-        facet = Template.parentData()
-        delta = Docs.findOne Session.get('did')
-        # if Session.equals 'loading', true
-        #      'disabled '
-        if facet.filters.length > 0 and @name in facet.filters
-            'active'
-        else ''
-
-
-Template.facet.events
+Template.delta.events
     'click .toggle_selection': ->
         delta = Docs.findOne Session.get('did')
         facet = Template.currentData()
@@ -104,6 +58,46 @@ Template.facet.events
                 Session.set 'loading', false
             concept = t.$('.add_filter').val('')
 
+    'click .delete_delta': (e,t)->
+        Docs.remove @_id
+
+    'click .select_session': ->
+        Session.set 'did', @_id
+
+
+    'click .insert': ->
+        new_ytid = t.$('.new_ytid').val()
+        new_body = t.$('.new_body').val()
+        new_tags = t.$('.new_tags').val()
+        Docs.insert
+            new_ytid:new_ytid
+            new_body:new_body
+            new_tags:new_tags
+        did = Session.get('did')
+        Docs.update did,
+            $set:fin:new_tags
+        Meteor.call 'fum', did
+
+    'click .new_session': ->
+        new_delta = 
+            Docs.insert 
+                type:'delta'
+                fin:[]
+        Session.set 'did', new_delta
+        Meteor.call 'fum', new_delta
+
+
+Template.view.onCreated ->
+    @autorun => Meteor.subscribe 'doc', @data._id
+
+
+    
+Template.view.helpers
+    result: -> 
+        doc = Docs.findOne @_id
+        # console.log doc
+        doc
+    
 
 
 Template.view.onRendered ->

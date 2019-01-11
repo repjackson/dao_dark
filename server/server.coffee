@@ -21,23 +21,21 @@ Meteor.methods
 
         if delta
             built_query = {}
-            
-            for facet in delta.facets
-                if facet.filters.length > 0
-                    built_query["#{facet.key}"] = $all: facet.filters
+                        
+            if delta.fin > 0
+                built_query.tags = $all: delta.fin
             
             total = Docs.find(built_query).count()
             
             # response
-            for facet in delta.facets
-                values = []
-                local_return = []
-                
-                agg_res = Meteor.call 'agg', built_query, facet.key, facet.filters
-    
-                if agg_res
-                    Docs.update { _id:delta._id, "facets.key":facet.key},
-                        { $set: "facets.$.res": agg_res }
+            values = []
+            local_return = []
+            
+            agg_res = Meteor.call 'agg', built_query
+
+            if agg_res
+                Docs.update delta._id,
+                    { $set: fout: agg_res }
     
             results_cursor = Docs.find built_query, { fields:{_id:1}, limit:1, sort:timestamp:-1}
     
@@ -55,10 +53,10 @@ Meteor.methods
                 }
                 
             delta = Docs.findOne delta_id    
-            # console.log 'delta', delta
+            console.log 'delta', delta
 
-    agg: (query, key)->
-        # console.log 'agg query', query
+    agg: (query)->
+        console.log 'agg query', query
         options = { explain:false }
         pipe =  [
             { $match: query }

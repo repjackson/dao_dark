@@ -20,14 +20,24 @@ template(name='delta')
         .new_session.ui.icon.button.pointer(title='new session')
             i.plus.icon
         div
-        each delta.facets
-            +facet
+            each delta.fin
+                .ui.grey.button #{this}
+        div
+            each delta.fout
+                .selector.ui.circular.button
+                    strong #{name}
+                    // small #{count}
+            div
+            .ui.transparent.icon.input
+                i.search.icon
+                input.add_filter(type='text')
         each delta.result_ids
             +view
     if dev
-        .ui.button.add add
-        if adding
-            +edit
+        input.new_ytid(type='text' placeholder='new yt id')
+        input.new_body(type='text' placeholder='new body id')
+        input.new_tags(type='text' placeholder='new yt id')
+        button.insert insert
     else
         .ui.basic.center.aligned.segment
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
@@ -40,15 +50,6 @@ template(name='delta')
 
     
 template(name='facet')
-    each filtering_res
-        .selector.ui.circular.button.toggle_selection(class=toggle_value_class)
-            strong #{name}
-            // small #{count}
-    div
-    if filtering_res
-        // .ui.small.inline.header #{key}
-        .ui.transparent.input
-            input.add_filter(type='text')
 
 
 template(name='view')
@@ -62,8 +63,6 @@ template(name='view')
             div
             input.youtube_id(type='text' value=youtube_id placeholder='yt')
             div
-            if youtube_id
-                .ui.embed.youtube(data-source="youtube" data-id=youtube_id)
             textarea.edit_body(rows='5') #{body}
             div
             each tags
