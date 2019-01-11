@@ -10,7 +10,6 @@ tracker@1.2.0                 # Meteor's client-side reactive programming librar
 jquery@1.11.10                  # Helpful client-side library
 
 
-random@1.1.0
 
 
 
@@ -18,20 +17,13 @@ shell-server@0.4.0
 mobile-experience@1.0.5
 session@1.2.0
 blaze-html-templates
-momentjs:moment
-matb33:collection-hooks
 
 coffeescript@2.3.2_1
 less@2.8.0
 pacreach:jade
-dburles:collection-helpers
 
 
 
 underscore@1.0.10
 juliancwirko:postcss
 semantic:ui
-ecmascript@0.12.4
-es5-shim@4.8.0
-accounts-password@1.5.1
-http

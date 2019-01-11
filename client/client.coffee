@@ -3,7 +3,6 @@ Session.setDefault 'page', 'delta'
 Session.setDefault 'page_data', null
 Session.setDefault 'did', null
 
-Template.registerHelper 'users', ()-> Meteor.users.find {}
 Template.registerHelper 'doc', ()-> Docs.findOne Session.get('page_data')
 
 
@@ -59,8 +58,6 @@ Template.delta.events
 
     'click .select_session': ->
         Session.set 'did', @_id
-        # Meteor.users.update Meteor.userId(), 
-        #     $set: did: @_id
 
     'click .new_session': ->
         new_delta = 
@@ -74,15 +71,12 @@ Template.delta.events
                         res:[]
                     }
                 ]
-        # Meteor.users.update Meteor.userId(),
-        #     $set: did: new_delta
         Session.set 'did', new_delta
         Meteor.call 'fum', new_delta
 
 
 Template.delta.helpers
-    delta: -> 
-        Docs.findOne Session.get('did')
+    delta: -> Docs.findOne Session.get('did')
             
     loading: -> Session.get 'loading'
 
@@ -210,11 +204,3 @@ Template.edit.events
         parent = Docs.findOne Session.get('page_data')
         Docs.update parent._id, 
             $set: body:body_val
-    
-        
-    'change .points': (e,t)->
-        points_val = parseInt t.$('.points').val()
-        console.log points_val
-        parent = Docs.findOne Session.get('page_data')
-        Docs.update parent._id, 
-            $set: points:points_val

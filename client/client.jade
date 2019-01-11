@@ -36,23 +36,18 @@ template(name='delta')
                     img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
                     button.ui.icon.button(type='submit')
                         i.coffee.icon
-        .row
-            if currentUser
-                +me
-            else
-                +enter
 
     
 template(name='facet')
-    if filtering_res
-        // .ui.small.inline.header #{key}
-        .ui.transparent.input
-            input.add_filter(type='text')
-    div
     each filtering_res
         .selector.ui.circular.button.toggle_selection(class=toggle_value_class)
             strong #{name}
             // small #{count}
+    div
+    if filtering_res
+        // .ui.small.inline.header #{key}
+        .ui.transparent.input
+            input.add_filter(type='text')
 
 
              
@@ -92,22 +87,6 @@ template(name='view')
                 +youtube_view
 
         
-template(name='enter')
-    .eight.wide.column
-        .ui.fluid.input(class=login_class)
-            input.username(type='text' placeholder='username')
-        .ui.fluid.input(class=login_class)
-            input.password(type='password' placeholder='password')
-        if username
-            if registering
-                .ui.fluid.large.button.enter(title="register #{username}" class=enter_class)
-                    i.user.plus.icon
-                    |#{username}
-            else
-                .ui.fluid.large.button.enter(title="login #{username}" class=enter_class)
-                    i.play.icon
-                    | #{username}
-
 template(name='youtube_edit')
     .ui.labeled.fluid.input
         .ui.label youtube id
