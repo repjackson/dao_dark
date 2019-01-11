@@ -38,16 +38,22 @@ Template.delta.helpers
 
     
 Template.delta.events
-    'click .toggle_selection': ->
+    'click .select': ->
         delta = Docs.findOne Session.get('did')
-        facet = Template.currentData()
         Session.set 'loading', true
-        if facet.filters and @name in facet.filters
-            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
-                Session.set 'loading', false
-        else 
-            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
-                Session.set 'loading', false
+        Docs.update delta._id,
+            $addToSet:fin:@name
+        Meteor.call 'fum', delta._id, ->
+            Session.set 'loading', false
+
+    'click .unselect': ->
+        delta = Docs.findOne Session.get('did')
+        
+        Session.set 'loading', true
+        Docs.update delta._id,
+            $pull:fin:@valueOf()
+        Meteor.call 'fum', delta._id, ->
+            Session.set 'loading', false
       
     'keyup .add_filter': (e,t)->
         if e.which is 13

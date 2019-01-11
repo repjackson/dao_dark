@@ -22,7 +22,7 @@ Meteor.methods
         if delta
             built_query = {}
                         
-            if delta.fin > 0
+            if delta.fin.length > 0
                 built_query.tags = $all: delta.fin
             
             total = Docs.find(built_query).count()
@@ -33,27 +33,26 @@ Meteor.methods
             
             agg_res = Meteor.call 'agg', built_query
 
-            if agg_res
-                Docs.update delta._id,
-                    { $set: fout: agg_res }
+            Docs.update delta._id,
+                { $set: fout: agg_res }
     
             results_cursor = Docs.find built_query, { fields:{_id:1}, limit:1, sort:timestamp:-1}
     
             if total is 1
-                result_ids = results_cursor.fetch()
+                result_id = results_cursor.fetch()
             else
-                result_ids = null
+                result_id = null
     
             Docs.update {_id:delta_id},
                 {
                     $set:
                         total: total
                         # _facets: filtered_facets
-                        result_ids:result_ids
+                        result_id:result_id
                 }
                 
             delta = Docs.findOne delta_id    
-            console.log 'delta', delta
+            # console.log 'delta', delta
 
     agg: (query)->
         console.log 'agg query', query
@@ -67,10 +66,6 @@ Meteor.methods
             { $limit: 100 }
             { $project: _id: 0, name: '$_id', count: 1 }
         ]
-        if pipe
-            agg = Docs.rawCollection().aggregate(pipe,options)
-            res = {}
-            if agg
-                agg.toArray()
-        else 
-            return null            
+        agg = Docs.rawCollection().aggregate(pipe,options)
+        if agg
+            agg.toArray()

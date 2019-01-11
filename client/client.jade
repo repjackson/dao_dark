@@ -20,23 +20,22 @@ template(name='delta')
         .new_session.ui.icon.button.pointer(title='new session')
             i.plus.icon
         div
-            each delta.fin
-                .ui.grey.button #{this}
-        div
-            each delta.fout
-                .selector.ui.circular.button
-                    strong #{name}
-                    // small #{count}
-            div
             .ui.transparent.icon.input
                 i.search.icon
                 input.add_filter(type='text')
-        each delta.result_ids
+            each delta.fin
+                .unselect.ui.grey.button #{this}
+        div
+            each delta.fout
+                .select.ui.circular.button
+                    strong #{name}
+                    // small #{count}
+        each delta.result_id
             +view
     if dev
         input.new_ytid(type='text' placeholder='new yt id')
         input.new_body(type='text' placeholder='new body id')
-        input.new_tags(type='text' placeholder='new yt id')
+        input.new_tags(type='text' placeholder='new tags')
         button.insert insert
     else
         .ui.basic.center.aligned.segment
@@ -49,9 +48,6 @@ template(name='delta')
                     i.coffee.icon
 
     
-template(name='facet')
-
-
 template(name='view')
     with result 
         .ui.basic.segment
