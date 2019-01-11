@@ -56,11 +56,12 @@ Template.delta.events
     'keyup .add_filter': (e,t)->
         if e.which is 13
             delta = Docs.findOne Session.get('did')
-            facet = Template.currentData()
             new_filter = t.$('.add_filter').val()
-            Meteor.call 'add_facet_filter', delta._id, facet.key, new_filter, ->
+            Docs.update delta._id,
+                $addToSet: fin:new_filter
+            Meteor.call 'fum', delta._id, ->
                 Session.set 'loading', false
-            concept = t.$('.add_filter').val('')
+            t.$('.add_filter').val('')
 
     'click .delete_delta': (e,t)->
         Docs.remove @_id
