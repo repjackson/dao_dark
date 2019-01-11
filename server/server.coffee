@@ -32,4 +32,9 @@ Meteor.publish 'doc', (id)->
         _id:id
         
     
+Meteor.publish 'children', (id)->
+    Docs.find
+        parent_id:id
+        
+    
     

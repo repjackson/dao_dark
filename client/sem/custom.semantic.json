@@ -7,7 +7,7 @@
     "button": true,
     "card": true,
     "checkbox": false,
-    "comment": false,
+    "comment": true,
     "container": false,
     "dimmer": false,
     "divider": true,

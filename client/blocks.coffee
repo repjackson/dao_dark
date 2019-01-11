@@ -1,5 +1,5 @@
 Template.comments.onCreated ->
-    @autorun => Meteor.subscribe 'children', 'comment'
+    @autorun => Meteor.subscribe 'children'
 Template.role_editor.onCreated ->
     @autorun => Meteor.subscribe 'type', 'role'
 
@@ -11,11 +11,11 @@ Template.comments.helpers
 Template.comments.events
     'keyup .add_comment': (e,t)->
         if e.which is 13
-            parent = Docs.findOne FlowRouter.getParam('doc_id')
+            parent = Docs.findOne Meteor.user().delta_id
             comment = t.$('.add_comment').val()
             console.log comment
             Docs.insert
-                parent_id: FlowRouter.getParam('doc_id')
+                parent_id: Meteor.user().delta_id
                 type:'comment'
                 body:comment
             t.$('.add_comment').val('')

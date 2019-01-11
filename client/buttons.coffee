@@ -20,29 +20,41 @@ Template.remove_button.events
     'click .remove': ->
         if confirm "remove #{@type}?"
             Docs.remove @_id
-            
-            
-            
     
 Template.detect_fields_button.events
     'click .detect_fields': ->
         console.log @
         Meteor.call 'detect_fields', @_id
             
+Template.voting.helpers
+    upvote_class: -> if Meteor.userId() in @upvoter_ids then 'red' else 'outline'
+    downvote_class: -> if Meteor.userId() in @downvoter_ids then 'green' else 'outline'
             
 Template.voting.events
     'click .upvote': ->
-        Docs.update @_id,
-            $addToSet: upvoter_ids:Meteor.userId()
-            $pull: downvoter_ids:Meteor.userId()
-            $inc:points:1
+        if Meteor.userId() in @downvoter_ids
+            Docs.update @_id,
+                $pull: downvoter_ids:Meteor.userId()
+                $addToSet: upvoter_ids:Meteor.userId()
+                $inc:points:2
+        else
+            Docs.update @_id,
+                $addToSet: upvoter_ids:Meteor.userId()
+                $inc:points:1
         Meteor.users.update @author_id,
             $inc:karma:1
+            
     'click .downvote': ->
-        Docs.update @_id,
-            $addToSet: downvoter_ids:Meteor.userId()
-            $pull: upvoter_ids:Meteor.userId()
-            $inc:points:-1
+        if Meteor.userId() in @downvoter_ids
+            Docs.update @_id,
+                $pull: downvoter_ids:Meteor.userId()
+                $addToSet: downvoter_ids:Meteor.userId()
+                $inc:points:-2
+        else
+            Docs.update @_id,
+                $addToSet: downvoter_ids:Meteor.userId()
+                $pull: upvoter_ids:Meteor.userId()
+                $inc:points:-1
         Meteor.users.update @author_id,
             $inc:karma:-1
             

@@ -36,13 +36,13 @@ template(name='detect_fields_button')
         
 template(name='voting')
     if points
-        .ui.small.header #{points} points
+        strong #{points} points
     .ui.large.icon.button.upvote
-        i.thumbs.up.outline.icon
+        i.thumbs.up.icon(class=upvote_class)
     each upvoter_ids
         +user_info
     .ui.large.icon.button.downvote
-        i.thumbs.down.outline.icon
+        i.thumbs.down.icon(class=downvote_class)
     each downvoter_ids
         +user_info
         

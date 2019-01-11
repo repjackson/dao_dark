@@ -42,12 +42,12 @@ template(name='view')
             .row
                 .twelve.wide.column
                     each tags
-                        .ui.big.label #{this}
-                    .large120 #{body}
+                        .ui.label #{this}
+                    .ui.basic.segment
+                        .f8 #{body}
                     +comments
         
                 .four.wide.column
-                    .ui.header karma #{karma}
                     +author_info
                     +creation_info
                     a.ui.fluid.button(href="/edit/#{_id}")

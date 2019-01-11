@@ -13,13 +13,17 @@ body
 template(name='nav')
     .ui.attached.big.menu
         .header.item.delta.pointer(title='home')
-            i.home.icon
+            i.hashtag.icon
         .icon.item.pointer.users(title='users')
             i.users.icon
         .icon.item.pointer.leaderboard(title='leaderboard')
             i.trophy.icon
         .right.menu
             if currentUser
+                .item.pointer.bookmarks
+                    i.bookmark.icon
+                    if bookmarks
+                        |#{bookmarks.count}
                 .item.pointer.mail
                     i.mail.icon
                     if messages
@@ -59,7 +63,7 @@ template(name='footer')
             +ad
         if currentUser
             .ui.left.icon.transparent.input
-                i.plus.icon
+                i.lightning.icon
                 input#quick_add(type='text' autocomplete="off" placeholder='quick add')
         .right.menu
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
@@ -94,7 +98,7 @@ template(name='result')
     with result 
         .ui.segment
             .content
-                .f6 #{nl2br body}
+                .f8 #{nl2br body}
                 // .ui.form
                 //     .field
                 //         textarea(rows='3') #{body}
@@ -104,6 +108,7 @@ template(name='result')
                     .ui.label
                         // i.remove.link.icon.remove_tag
                         |#{this}
+                div
                 +voting
                 +bookmark_button
                 +view_button
@@ -117,7 +122,8 @@ template(name='result')
                         input.new_tag(type='text')
 
 template(name='facet')
-    .ui.small.inline.header #{key}
+    if filtering_res
+        .ui.small.inline.header #{key}
     each filtering_res
         if name
             .selector.ui.large.button.toggle_selection(class=toggle_value_class title=count)
