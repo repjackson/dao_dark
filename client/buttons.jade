@@ -17,8 +17,7 @@ template(name='add_type_button')
         
 
 template(name='bookmark_button')
-    .ui.icon.bookmark.button(title='bookmark')
-        i.bookmark.outline.icon
+    i.large.bookmark.link.icon(class=bookmark_class)
     each bookmarkers
         |#{username}
         
@@ -37,12 +36,10 @@ template(name='detect_fields_button')
 template(name='voting')
     if points
         strong #{points} points
-    .ui.large.icon.button.upvote
-        i.thumbs.up.icon(class=upvote_class)
+    i.thumbs.up.link.spaced.large.icon.upvote(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.large.icon.button.downvote
-        i.thumbs.down.icon(class=downvote_class)
+    i.thumbs.down.downvote.link.large.spaced.icon(class=downvote_class)
     each downvoter_ids
         +user_info
         

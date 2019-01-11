@@ -41,14 +41,15 @@ template(name='view')
         .ui.grid
             .row
                 .twelve.wide.column
-                    each tags
-                        .ui.label #{this}
                     .ui.basic.segment
                         .f8 #{body}
+                    each tags
+                        .ui.large.label #{this}
                     +comments
         
                 .four.wide.column
                     +author_info
+                    +voting
                     +creation_info
                     +edit_button
                     +bookmark_button

@@ -27,8 +27,8 @@ Template.detect_fields_button.events
         Meteor.call 'detect_fields', @_id
             
 Template.voting.helpers
-    upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'red' else 'outline'
-    downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'green' else 'outline'
+    upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then '' else 'outline'
+    downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then '' else 'outline'
             
 Template.voting.events
     'click .upvote': ->
@@ -49,9 +49,9 @@ Template.voting.events
             $inc:karma:1
             
     'click .downvote': ->
-        if @downvoter_ids and Meteor.userId() in @downvoter_ids
+        if @upvoter_ids and Meteor.userId() in @upvoter_ids
             Docs.update @_id,
-                $pull: downvoter_ids:Meteor.userId()
+                $pull: upvoter_ids:Meteor.userId()
                 $addToSet: downvoter_ids:Meteor.userId()
                 $inc:points:-2
         else if @downvoter_ids and Meteor.userId() in @downvoter_ids
@@ -70,14 +70,17 @@ Template.voting.events
             
             
 Template.bookmark_button.helpers
-    bookmarkers: ->
-        Meteor.users.find _id:$in:@bookmarker_ids
-        
+    bookmarkers: -> Meteor.users.find _id:$in:@bookmark_ids
+    bookmark_class: -> if Meteor.userId() in @bookmark_ids then '' else 'outline'
         
 Template.bookmark_button.events
     'click .bookmark': ->
-        Docs.update @_id,
-            $addToSet: bookmarker_ids:Meteor.userId()
+        if @bookmark_ids and Meteor.userId() in @bookmark_ids
+            Docs.update @_id,
+                $pull: bookmark_ids:Meteor.userId()
+        else
+            Docs.update @_id,
+                $addToSet: bookmark_ids:Meteor.userId()
     
     
     
