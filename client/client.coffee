@@ -1,6 +1,7 @@
 Session.setDefault 'loading', false
 Session.setDefault 'page', 'delta'
 Session.setDefault 'page_data', null
+Session.setDefault 'did', null
 
 Template.registerHelper 'messages', ()-> Docs.find type:'message'
 Template.registerHelper 'alerts', ()-> Docs.find type:'alert'
@@ -49,15 +50,8 @@ Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)
 
-Template.nav.events
-    'click .enter': -> Meteor.call 'set_page','enter'
-    'click .delta': -> Meteor.call 'set_page','delta'
-    'click .users': -> Meteor.call 'set_page','users'
-    'click .tribes': -> Meteor.call 'set_page','tribes'
-    'click .blog': -> Meteor.call 'set_page','blog'
-    'click .shop': -> Meteor.call 'set_page','shop'
-    'click .leaderboard': -> Meteor.call 'set_page','leaderboard'
-    'click .me': -> Meteor.call 'set_page','me'
+        
+Template.footer.events
     'click .add': -> 
         new_id = Docs.insert {type:'post'}
         Meteor.users.update Meteor.userId(),
@@ -69,8 +63,6 @@ Template.nav.events
             
     'click .leave': -> Meteor.logout()
 
-        
-Template.footer.events
     'keyup #quick_add': (e,t)->
         if e.which is 13
             body = t.$('#quick_add').val().toLowerCase().trim()
@@ -98,8 +90,8 @@ Template.delta.onCreated ->
 Template.layout.onCreated ->
     @autorun -> Meteor.subscribe 'users'
     @autorun -> Meteor.subscribe 'type', 'deltas'
-    @autorun -> Meteor.subscribe 'type', 'message'
-    @autorun -> Meteor.subscribe 'type', 'alert'
+    # @autorun -> Meteor.subscribe 'type', 'message'
+    # @autorun -> Meteor.subscribe 'type', 'alert'
 
 Template.layout.helpers
     main_template: -> Meteor.user().page
@@ -107,7 +99,7 @@ Template.layout.helpers
 Template.sessions.helpers
     sessions: -> Docs.find type:'delta'
     
-    session_selector_class: -> if @_id is Meteor.user().delta_id then 'active' else ''
+    session_selector_class: -> if @_id is Session.get('did') then 'active' else ''
     
 
 Template.sessions.events
@@ -115,8 +107,9 @@ Template.sessions.events
         Docs.remove @_id
 
     'click .select_session': ->
-        Meteor.users.update Meteor.userId(), 
-            $set: delta_id: @_id
+        Session.set 'did', @_id
+        # Meteor.users.update Meteor.userId(), 
+        #     $set: did: @_id
 
     'click .new_session': ->
         new_delta = 
@@ -130,17 +123,15 @@ Template.sessions.events
                         res:[]
                     }
                 ]
-        Meteor.users.update Meteor.userId(),
-            $set: delta_id: new_delta
+        # Meteor.users.update Meteor.userId(),
+        #     $set: did: new_delta
+        Session.set 'did', new_delta
         Meteor.call 'fum', new_delta
 
 
 Template.delta.helpers
     delta: -> 
-        if Meteor.user()
-            did = Meteor.user().delta_id
-        if did
-            Docs.findOne did
+        Docs.findOne Session.get('did')
             
     loading: -> Session.get 'loading'
 
@@ -193,7 +184,7 @@ Template.view.events
     
 Template.facet.helpers
     filtering_res: ->
-        delta = Docs.findOne type:'delta'
+        delta = Docs.findOne Session.get('did')
         filtering_res = []
         for filter in @res
             if filter.count < delta.total
@@ -205,17 +196,17 @@ Template.facet.helpers
     
     toggle_value_class: ->
         facet = Template.parentData()
-        delta = Docs.findOne Meteor.user().delta_id
-        if Session.equals 'loading', true
-             'disabled '
-        else if facet.filters.length > 0 and @name in facet.filters
+        delta = Docs.findOne Session.get('did')
+        # if Session.equals 'loading', true
+        #      'disabled '
+        if facet.filters.length > 0 and @name in facet.filters
             'active'
         else ''
 
 
 Template.facet.events
     'click .toggle_selection': ->
-        delta = Docs.findOne Meteor.user().delta_id
+        delta = Docs.findOne Session.get('did')
         facet = Template.currentData()
         Session.set 'loading', true
         if facet.filters and @name in facet.filters
@@ -227,7 +218,7 @@ Template.facet.events
       
     'keyup .add_filter': (e,t)->
         if e.which is 13
-            delta = Docs.findOne Meteor.user().delta_id
+            delta = Docs.findOne Session.get('did')
             facet = Template.currentData()
             new_filter = t.$('.add_filter').val()
             Meteor.call 'add_facet_filter', delta._id, facet.key, new_filter, ->
