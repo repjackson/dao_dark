@@ -10,7 +10,6 @@ Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
     "f#{whole}"
 
-Template.registerHelper 'when', () -> moment(@timestamp).fromNow()
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
 
@@ -43,6 +42,8 @@ Template.youtube_edit.onRendered ->
             Meteor.setTimeout ->
                 $('.ui.embed').embed()
             , 500
+            
+            
 Template.youtube_view.onRendered ->
     @autorun =>
         if @subscriptionsReady()
@@ -63,7 +64,6 @@ Template.delta.events
         new_delta = 
             Docs.insert 
                 type:'delta'
-                title:'tab'
                 facets: [
                     {
                         key:'tags'
