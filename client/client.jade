@@ -22,21 +22,22 @@ template(name='delta')
         div
             each delta.fin
                 .unselect.ui.grey.circular.button #{this}
+            .ui.transparent.icon.input
+                i.search.icon
+                input.add_filter(type='text')
         div
             each filtering_res
                 .select.ui.circular.button
                     strong #{name}
                     // small #{count}
-            .ui.transparent.icon.input
-                i.search.icon
-                input.add_filter(type='text')
         each delta.result_id
             +view
     if dev
-        input.new_ytid(type='text' placeholder='new yt id')
-        input.new_body(type='text' placeholder='new body id')
-        input.new_tags(type='text' placeholder='new tags')
-        button.insert insert
+        .ui.center.aligned.basic.segment
+            input.new_ytid(type='text' placeholder='new yt id')
+            input.new_body(type='text' placeholder='new body id')
+            input.new_tags(type='text' placeholder='new tags')
+            button.insert insert
     else
         .ui.basic.center.aligned.segment
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')

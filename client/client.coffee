@@ -70,18 +70,22 @@ Template.delta.events
         Session.set 'did', @_id
 
 
-    'click .insert': ->
+    'click .insert': (e,t)->
         new_ytid = t.$('.new_ytid').val()
         new_body = t.$('.new_body').val()
-        new_tags = t.$('.new_tags').val()
+        new_tags = t.$('.new_tags').val().split(',')
         Docs.insert
-            new_ytid:new_ytid
-            new_body:new_body
-            new_tags:new_tags
+            timestamp:Date.now()
+            youtube_id:new_ytid
+            body:new_body
+            tags:new_tags
         did = Session.get('did')
         Docs.update did,
             $set:fin:new_tags
         Meteor.call 'fum', did
+        t.$('.new_ytid').val('')
+        t.$('.new_body').val('')
+        t.$('.new_tags').val('')
 
     'click .new_session': ->
         new_delta = 
@@ -95,15 +99,11 @@ Template.delta.events
 Template.view.onCreated ->
     @autorun => Meteor.subscribe 'doc', @data._id
 
-
-    
 Template.view.helpers
     result: -> 
         doc = Docs.findOne @_id
         # console.log doc
         doc
-    
-
 
 Template.view.onRendered ->
     @autorun =>
@@ -139,8 +139,8 @@ Template.view.events
         
     'blur .edit_body': (e,t)->
         body_val = t.$('.edit_body').val()
-        parent = Docs.findOne Session.get('page_data')
-        Docs.update parent._id, 
+        console.log @
+        Docs.update @_id, 
             $set: body:body_val
             
     'click .remove_doc': ->
