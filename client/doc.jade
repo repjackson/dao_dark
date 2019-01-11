@@ -50,8 +50,7 @@ template(name='view')
                 .four.wide.column
                     +author_info
                     +creation_info
-                    a.ui.fluid.button(href="/edit/#{_id}")
-                        i.pencil.icon
+                    +edit_button
                     +bookmark_button
 
 template(name='field_view')
