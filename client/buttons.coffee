@@ -1,6 +1,5 @@
 Template.add_type_button.events
     'click .add': ->
-        console.log @
         new_id = Docs.insert type: @type
         Session.set 'page', 'edit',     
         Session.set 'page_data', new_id

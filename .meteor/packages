@@ -31,6 +31,6 @@ dburles:collection-helpers
 underscore@1.0.10
 juliancwirko:postcss
 semantic:ui
-ecmascript
-es5-shim
-accounts-password
+ecmascript@0.12.4
+es5-shim@4.8.0
+accounts-password@1.5.1

@@ -16,3 +16,11 @@ template(name='user_info')
 template(name='role_editor')
     each roles
         .ui.button #{this}
+        
+template(name='author_info')
+    .ui.header #{author.username}
+    
+template(name='creation_info')
+    .ui.header #{when}
+    
+    

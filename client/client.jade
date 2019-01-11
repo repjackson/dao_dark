@@ -11,9 +11,9 @@ body
 
 
 template(name='nav')
-    .ui.top.fixed.inverted.large.menu
+    .ui.attached.large.menu
         .header.item.delta.pointer(title='home')
-            i.user.shield.large.icon
+            i.home.icon
         .icon.item.pointer.users(title='users')
             i.users.icon
         .icon.item.pointer.tribes(title='tribes')
@@ -37,7 +37,8 @@ template(name='nav')
                 .item.pointer.me
                     |#{currentUser.points} pts
                 .item.pointer.me
-                    |#{currentUser.karma} karma
+                    |#{currentUser.karma} 
+                    i.user.shield.icon
                 .item.pointer.me
                     |#{currentUser.username}
                     [#{currentUser.status}]
@@ -46,9 +47,21 @@ template(name='nav')
             else
                 .icon.item.enter.pointer(title='enter')
                     i.right.chevron.icon
+    +sessions
+
+template(name='sessions')
+    .new_session.ui.icon.button.pointer(title='new session')
+        i.plus.icon
+    each sessions
+        .ui.label.select_session.pointer(class=session_selector_class)
+            |#{title}
+            i.remove.link.delete_delta.circular.icon
+
 
 template(name='footer')
-    .ui.bottom.fixed.inverted.large.menu
+    .ui.bottom.fixed.large.menu
+        .item
+            +ad
         .icon.item
             i.dashboard.icon
         .icon.item
@@ -62,7 +75,7 @@ template(name='footer')
         .icon.item
             i.user.icon
         if currentUser
-            .ui.left.icon.inverted.transparent.input
+            .ui.left.icon.transparent.input
                 i.plus.icon
                 input#quick_add(type='text' autocomplete="off" placeholder='quick add')
         .right.menu
@@ -71,7 +84,7 @@ template(name='footer')
                 input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
                 // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                 img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.icon.black.button(type='submit' title='donate')
+                button.ui.basic.icon.black.button(type='submit' title='donate')
                     i.coffee.icon
 
 
@@ -83,16 +96,11 @@ template(name='layout')
     +footer
     
 template(name='delta')    
-    .ui.stackable.padded.grid
+    .ui.stackable.grid
         .row   
             .six.wide.column.scrolling
-                .ui.small.inline.header 
-                    i.tags.icon
-                    |tags
-                each filtering_res
-                    .selector.ui.compact.button.toggle_filter(class=toggle_value_class)
-                        strong #{name}
-                        small #{count}
+                each delta.facets
+                    +facet
             .ten.wide.column.scrolling
                 each delta.result_ids
                     +result
@@ -118,8 +126,36 @@ template(name='result')
                 +clone_button
                 if can_edit
                     +edit_button
-                    .ui.icon.small.compact.button.remove_doc
+                    .ui.icon.button.remove_doc
                         i.remove.icon
                     .ui.left.icon.input
-                        i.tag.icon
+                        i.grey.tag.icon
                         input.new_tag(type='text')
+
+template(name='facet')
+    .ui.accordion
+        .active.title
+            i.dropdown.icon
+            .ui.small.inline.header #{key}
+            // each filters
+            //     .unselect.ui.blue.button #{this}
+        .active.content
+            .ui.transparent.left.icon.input
+                i.search.icon
+                input.add_filter(type='text' placeholder='search')
+            each filtering_res
+                if name
+                    .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                        strong #{name}
+                        small #{count}
+                else
+                    .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                        strong [null]
+                        small #{count}
+    
+    
+
+                        
+                        
+template(name='ad')
+    |show the shadow

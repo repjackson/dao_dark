@@ -25,6 +25,4 @@ Template.user_info.onCreated ->
     @autorun => Meteor.subscribe 'user', @data
 
 Template.user_info.helpers
-    user: -> 
-        console.log @
-        Meteor.users.findOne @valueOf()
+    user: -> Meteor.users.findOne @valueOf()

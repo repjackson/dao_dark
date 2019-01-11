@@ -46,6 +46,8 @@ if Meteor.isClient
                 $set: points:points_val
         
             
+        'click .save': (e,t)->
+            Session.set 'page', 'view'
   
                 
         

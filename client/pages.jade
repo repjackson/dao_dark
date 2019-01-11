@@ -42,7 +42,15 @@ template(name='shop')
     .ui.header
         i.shopping.bag
         |shop
-    +add_type_button type='product'
+    .ui.padded.grid
+        .four.wide.column
+            +add_type_button type='product'
+        .twelve.wide.column
+            each products
+                .ui.segment
+                    .ui.header
+                        each tags
+                            .ui.label #{this}
     
     
     
@@ -54,18 +62,23 @@ template(name='blog')
     
 template(name='tribes')
     .ui.header
-        i.fire.bag
+        i.fire.icon
         |tribes
     +add_type_button type='tribe'
     .ui.stackable.padded.grid
         .six.wide.column
         .ten.wide.column
             each tribes
-                +tribe_card
+                +tribe_segment
                 
                 
-template(name='tribe_card')
-    .ui.header #{title}
+template(name='tribe_segment')
+    .ui.segment
+        .ui.header 
+            #{title}
+        .ui.header
+            each tags
+                .ui.label #{this}
     
     
     

@@ -1,24 +1,28 @@
 template(name='edit')
     with doc
-        .sixteen.wide.column
-            .ui.form
-                .field
-                    .ui.header #{type}
-                .field
-                    each tags
-                        .ui.big.label 
-                            i.remove.link.icon.remove_tag
-                            |#{this}
-                    .ui.icon.input
-                        input.new_tag(type='text' placeholder='add tag')
-                        i.plus.icon
-                .field
-                    textarea.edit_body(rows='20') #{body}
-            .ui.button.print log
-            a.ui.fluid.button(href="/view/#{_id}")
-                i.checkmark.icon
-                |save
-                
+        .ui.stackable.grid
+            .six.wide.column
+                .ui.header edit #{type} #{title}
+                .ui.button.print log
+                .ui.fluid.button.save(title='save')
+                    i.large.checkmark.icon
+            .ten.wide.column
+                .ui.form
+                    .field
+                        .ui.header #{type}
+                    .field
+                        label tags
+                        each tags
+                            .ui.big.label 
+                                i.remove.link.icon.remove_tag
+                                |#{this}
+                        .ui.icon.input
+                            input.new_tag(type='text' placeholder='add tag')
+                            i.plus.icon
+                    .field
+                        label body
+                        textarea.edit_body(rows='20') #{body}
+                    
                     
 template(name='field_edit')
     .ui.segment
