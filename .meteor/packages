@@ -27,3 +27,6 @@ pacreach:jade
 underscore@1.0.10
 juliancwirko:postcss
 semantic:ui
+random
+manuel:reactivearray
+meteorhacks:aggregate

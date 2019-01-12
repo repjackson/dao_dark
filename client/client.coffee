@@ -1,6 +1,7 @@
 Session.setDefault 'loading', false
 Session.setDefault 'did', null
 
+@selected_tags = new ReactiveArray []
 
 Template.registerHelper 'calculated_size', (input)->
     whole = parseInt input*10
@@ -17,15 +18,24 @@ Template.registerHelper 'nl2br', (text)->
 Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'type', 'delta'
 
+Template.delta.onCreated ->
+    @autorun -> Meteor.subscribe('tags', selected_tags.array())
+    @autorun -> Meteor.subscribe('docs', selected_tags.array(), Session.get('editing'))
 
 Template.delta.helpers
+    selected_tags: -> selected_tags.list()
+
+    global_tags: ->
+        doccount = Docs.find().count()
+        if 0 < doccount < 3 then Tags.find { count: $lt: doccount } else Tags.find()
+
+    docs: -> Docs.find {}
+
+    
     sessions: -> Docs.find type:'delta'
-    
     session_selector_class: -> if @_id is Session.get('did') then 'active' else ''
-    
     delta: -> Docs.findOne Session.get('did')
     loading: -> Session.get 'loading'
-            
     filtering_res: ->
         delta = Docs.findOne Session.get('did')
         filtering_res = []
@@ -36,6 +46,23 @@ Template.delta.helpers
 
     
 Template.delta.events
+    'click .select_tag': -> selected_tags.push @name
+    'click .unselect_tag': -> selected_tags.remove @valueOf()
+    'click #clear_tags': -> selected_tags.clear()
+    'keyup #search': (e)->
+        switch e.which
+            when 13
+                if e.target.value is 'clear'
+                    selected_tags.clear()
+                    $('#search').val('')
+                else
+                    selected_tags.push e.target.value
+                    $('#search').val('')
+            when 8
+                if e.target.value is ''
+                    selected_tags.pop()
+
+
     'click .select': ->
         delta = Docs.findOne Session.get('did')
         Session.set 'loading', true

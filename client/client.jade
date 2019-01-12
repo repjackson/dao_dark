@@ -12,26 +12,43 @@ body
 
 template(name='delta')
     .ui.basic.center.aligned.segment
-        each sessions
-            .ui.icon.circular.button.select_session.pointer(class=session_selector_class)
-                if dev
-                    i.remove.delete_delta.icon
-                i.caret.up.icon
-        .new_session.ui.icon.circular.button.pointer
-            i.plus.icon
-        div
-            each delta.fin
-                .unselect.ui.grey.circular.button #{this}
-            .ui.transparent.icon.input
-                i.search.icon
-                input.add_filter(type='text')
-        div
-            each filtering_res
-                .select.ui.circular.button
-                    strong #{name}
-                    // small #{count}
-        each delta.result_id
-            +view
+        .ui.input
+            input#search(type='text' placeholder='Search')
+        if selected_tags
+            #clear_tags.ui.grey.icon.button
+                i.remove.icon
+        each selected_tags
+            .unselect_tag.ui.grey.button
+                b #{this}
+        each global_tags
+            .select_tag.ui.button
+                |#{this.name}
+                small #{this.count}
+        // each docs
+        //     .ui.container
+        //         .ui.divider
+        //         +view
+    
+        // each sessions
+        //     .ui.icon.circular.button.select_session.pointer(class=session_selector_class)
+        //         if dev
+        //             i.remove.delete_delta.icon
+        //         i.caret.up.icon
+        // .new_session.ui.icon.circular.button.pointer
+        //     i.plus.icon
+        // div
+        //     each delta.fin
+        //         .unselect.ui.grey.circular.button #{this}
+        //     .ui.transparent.icon.input
+        //         i.search.icon
+        //         input.add_filter(type='text')
+        // div
+        //     each filtering_res
+        //         .select.ui.circular.button
+        //             strong #{name}
+        //             // small #{count}
+        // each delta.result_id
+        //     +view
     if dev
         .ui.center.aligned.basic.segment
             input.new_ytid(type='text' placeholder='new yt id')
