@@ -12,22 +12,23 @@ body
 
 template(name='delta')
     .ui.basic.center.aligned.segment
-        .ui.input
-            input#search(type='text' placeholder='Search')
+        .ui.icon.transparent.input
+            i.search.icon
+            input#search(type='text')
         if selected_tags
             #clear_tags.ui.grey.icon.button
                 i.remove.icon
         each selected_tags
             .unselect_tag.ui.grey.button
                 b #{this}
+        div
         each global_tags
             .select_tag.ui.button
                 |#{this.name}
-                small #{this.count}
-        // each docs
-        //     .ui.container
-        //         .ui.divider
-        //         +view
+                // small #{this.count}
+        if single_doc
+            each docs
+                +view
     
         // each sessions
         //     .ui.icon.circular.button.select_session.pointer(class=session_selector_class)
@@ -51,10 +52,13 @@ template(name='delta')
         //     +view
     if dev
         .ui.center.aligned.basic.segment
-            input.new_ytid(type='text' placeholder='new yt id')
-            input.new_body(type='text' placeholder='new body id')
-            input.new_tags(type='text' placeholder='new tags')
-            button.insert insert
+            .ui.input
+                input.new_ytid(type='text' placeholder='yt id')
+            .ui.input
+                input.new_body(type='text' placeholder='body')
+            .ui.input
+                input.new_tags(type='text' placeholder='tags')
+            .ui.button.insert insert
     else
         .ui.basic.center.aligned.segment
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
@@ -74,14 +78,16 @@ template(name='view')
             if youtube_id
                 .ui.embed.youtube(data-source="youtube" data-id=youtube_id)
         if dev
-            div
-            input.youtube_id(type='text' value=youtube_id placeholder='yt')
-            div
-            textarea.edit_body(rows='5') #{body}
-            div
+            .ui.input
+                input.youtube_id(type='text' value=youtube_id placeholder='yt')
+            .ui.form
+                .field
+                    label body
+                    textarea.edit_body(rows='2') #{body}
             each tags
-                button.remove_tag 
+                .ui.button.remove_tag 
                     |#{this}
-            input.new_tag(type='text' placeholder='add tag')
+            .ui.input
+                input.new_tag(type='text' placeholder='add tag')
 
         

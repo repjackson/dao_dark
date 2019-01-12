@@ -16,11 +16,11 @@ Template.registerHelper 'nl2br', (text)->
 
         
 Template.delta.onCreated ->
-    @autorun -> Meteor.subscribe 'type', 'delta'
+    # @autorun -> Meteor.subscribe 'type', 'delta'
 
 Template.delta.onCreated ->
-    @autorun -> Meteor.subscribe('tags', selected_tags.array())
-    @autorun -> Meteor.subscribe('docs', selected_tags.array(), Session.get('editing'))
+    @autorun -> Meteor.subscribe 'tags', selected_tags.array()
+    @autorun -> Meteor.subscribe 'docs', selected_tags.array()
 
 Template.delta.helpers
     selected_tags: -> selected_tags.list()
@@ -29,8 +29,11 @@ Template.delta.helpers
         doccount = Docs.find().count()
         if 0 < doccount < 3 then Tags.find { count: $lt: doccount } else Tags.find()
 
-    docs: -> Docs.find {}
+    docs: -> Docs.find {}, limit:1
 
+    single_doc: ->
+        count = Docs.find({}).count()
+        if count is 1 then true else false
     
     sessions: -> Docs.find type:'delta'
     session_selector_class: -> if @_id is Session.get('did') then 'active' else ''
@@ -98,8 +101,8 @@ Template.delta.events
 
 
     'click .insert': (e,t)->
-        new_ytid = t.$('.new_ytid').val()
-        new_body = t.$('.new_body').val()
+        new_ytid = t.$('.new_ytid').val().trim()
+        new_body = t.$('.new_body').val().trim()
         new_tags = t.$('.new_tags').val().split(',')
         Docs.insert
             timestamp:Date.now()
@@ -109,18 +112,20 @@ Template.delta.events
         did = Session.get('did')
         Docs.update did,
             $set:fin:new_tags
-        Meteor.call 'fum', did
+        for tag in new_tags
+            selected_tags.push tag
+        # Meteor.call 'fum', did
         t.$('.new_ytid').val('')
         t.$('.new_body').val('')
         t.$('.new_tags').val('')
 
-    'click .new_session': ->
-        new_delta = 
-            Docs.insert 
-                type:'delta'
-                fin:[]
-        Session.set 'did', new_delta
-        Meteor.call 'fum', new_delta
+    # 'click .new_session': ->
+    #     new_delta = 
+    #         Docs.insert 
+    #             type:'delta'
+    #             fin:[]
+    #     Session.set 'did', new_delta
+    #     Meteor.call 'fum', new_delta
 
 
 Template.view.onCreated ->
@@ -146,6 +151,8 @@ Template.view.events
         val = t.$('.youtube_id').val()
         Docs.update parent._id, 
             $set:youtube_id:val
+            
+            
     'click .print': (e,t)->
         console.log Docs.findOne Session.get('page_data')
     

@@ -24,7 +24,6 @@ Meteor.publish 'docs', (selected_tags)->
         
 Meteor.publish 'tags', (selected_tags)->
     self = @
-    console.log 'publishing tags'
     match = {}
     if selected_tags.length > 0 then match.tags = $all: selected_tags
 

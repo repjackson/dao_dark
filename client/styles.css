@@ -1,15 +1,15 @@
 body {
   font-family: 'Ubuntu', sans-serif !important;
-  filter: invert(100%);
+  /*filter: invert(100%);*/
   /*font-size: 150% !important;*/
   /*line-height: 200% !important;*/
-  background: #262626 !important
-  /*background: lightgrey !important*/
+  /*background: #262626 !important*/
+  background: darkgrey !important
 }
 
-.youtube{
-  filter: invert(100%);
-}
+/*.youtube{*/
+/*  filter: invert(100%);*/
+/*}*/
 .ui.button, .ui.label{
   margin:.1em !important;
 }
