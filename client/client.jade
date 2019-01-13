@@ -14,50 +14,32 @@ template(name='delta')
     .ui.basic.center.aligned.segment
         .ui.icon.transparent.input
             i.search.icon
-            input#search(type='text')
+            input#search(type='text' autocomplete='off')
         if selected_tags
-            #clear_tags.ui.grey.icon.button
+            #clear_tags.ui.grey.icon.circular.button
                 i.remove.icon
         each selected_tags
-            .unselect_tag.ui.grey.button
+            .unselect_tag.ui.grey.circular.button
                 b #{this}
         div
         each global_tags
-            .select_tag.ui.button
+            .select_tag.ui.circular.button
                 |#{this.name}
                 // small #{this.count}
         if single_doc
             each docs
                 +view
     
-        // each sessions
-        //     .ui.icon.circular.button.select_session.pointer(class=session_selector_class)
-        //         if dev
-        //             i.remove.delete_delta.icon
-        //         i.caret.up.icon
-        // .new_session.ui.icon.circular.button.pointer
-        //     i.plus.icon
-        // div
-        //     each delta.fin
-        //         .unselect.ui.grey.circular.button #{this}
-        //     .ui.transparent.icon.input
-        //         i.search.icon
-        //         input.add_filter(type='text')
-        // div
-        //     each filtering_res
-        //         .select.ui.circular.button
-        //             strong #{name}
-        //             // small #{count}
-        // each delta.result_id
-        //     +view
     if dev
         .ui.center.aligned.basic.segment
-            .ui.input
+            .ui.icon.input
+                i.youtube.icon
                 input.new_ytid(type='text' placeholder='yt id')
             .ui.input
                 input.new_body(type='text' placeholder='body')
-            .ui.input
-                input.new_tags(type='text' placeholder='tags')
+            .ui.icon.input
+                i.tag.icon
+                input.new_tags(type='text' placeholder='title')
             .ui.button.insert insert
     else
         .ui.basic.center.aligned.segment
@@ -79,15 +61,17 @@ template(name='view')
                 .ui.embed.youtube(data-source="youtube" data-id=youtube_id)
         if dev
             .ui.input
+                input.new_list(type='text' placeholder='add list')
+            .ui.input
+                input.new_tag(type='text' placeholder='add tag')
+            each tags
+                .ui.compact.button.remove_tag 
+                    |#{this}
+            .ui.input
                 input.youtube_id(type='text' value=youtube_id placeholder='yt')
             .ui.form
                 .field
                     label body
                     textarea.edit_body(rows='2') #{body}
-            each tags
-                .ui.button.remove_tag 
-                    |#{this}
-            .ui.input
-                input.new_tag(type='text' placeholder='add tag')
 
         

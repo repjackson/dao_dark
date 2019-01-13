@@ -1,11 +1,8 @@
-Session.setDefault 'loading', false
-Session.setDefault 'did', null
-
 @selected_tags = new ReactiveArray []
 
-Template.registerHelper 'calculated_size', (input)->
-    whole = parseInt input*10
-    "f#{whole}"
+# Template.registerHelper 'calculated_size', (input)->
+#     whole = parseInt input*10
+#     "f#{whole}"
 
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
@@ -15,9 +12,6 @@ Template.registerHelper 'nl2br', (text)->
     new Spacebars.SafeString(nl2br)
 
         
-Template.delta.onCreated ->
-    # @autorun -> Meteor.subscribe 'type', 'delta'
-
 Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'tags', selected_tags.array()
     @autorun -> Meteor.subscribe 'docs', selected_tags.array()
@@ -35,17 +29,6 @@ Template.delta.helpers
         count = Docs.find({}).count()
         if count is 1 then true else false
     
-    sessions: -> Docs.find type:'delta'
-    session_selector_class: -> if @_id is Session.get('did') then 'active' else ''
-    delta: -> Docs.findOne Session.get('did')
-    loading: -> Session.get 'loading'
-    filtering_res: ->
-        delta = Docs.findOne Session.get('did')
-        filtering_res = []
-        for filter in delta.fout
-            if filter.count < delta.total
-                filtering_res.push filter
-        filtering_res
 
     
 Template.delta.events
@@ -59,73 +42,33 @@ Template.delta.events
                     selected_tags.clear()
                     $('#search').val('')
                 else
-                    selected_tags.push e.target.value
+                    selected_tags.push e.target.value.toLowerCase().trim()
                     $('#search').val('')
             when 8
                 if e.target.value is ''
                     selected_tags.pop()
 
 
-    'click .select': ->
-        delta = Docs.findOne Session.get('did')
-        Session.set 'loading', true
-        Docs.update delta._id,
-            $addToSet:fin:@name
-        Meteor.call 'fum', delta._id, ->
-            Session.set 'loading', false
-
-    'click .unselect': ->
-        delta = Docs.findOne Session.get('did')
-        
-        Session.set 'loading', true
-        Docs.update delta._id,
-            $pull:fin:@valueOf()
-        Meteor.call 'fum', delta._id, ->
-            Session.set 'loading', false
-      
-    'keyup .add_filter': (e,t)->
-        if e.which is 13
-            delta = Docs.findOne Session.get('did')
-            new_filter = t.$('.add_filter').val()
-            Docs.update delta._id,
-                $addToSet: fin:new_filter
-            Meteor.call 'fum', delta._id, ->
-                Session.set 'loading', false
-            t.$('.add_filter').val('')
-
-    'click .delete_delta': (e,t)->
-        Docs.remove @_id
-
-    'click .select_session': ->
-        Session.set 'did', @_id
 
 
     'click .insert': (e,t)->
         new_ytid = t.$('.new_ytid').val().trim()
         new_body = t.$('.new_body').val().trim()
-        new_tags = t.$('.new_tags').val().split(',')
+        title = t.$('.new_tags').val().toLowerCase()
+        # new_tags = t.$('.new_tags').val().toLowerCase().split(' ')
         Docs.insert
             timestamp:Date.now()
             youtube_id:new_ytid
             body:new_body
-            tags:new_tags
-        did = Session.get('did')
-        Docs.update did,
-            $set:fin:new_tags
-        for tag in new_tags
-            selected_tags.push tag
+            tags:[title]
+        
+        selected_tags.clear()
+        selected_tags.push title
         # Meteor.call 'fum', did
         t.$('.new_ytid').val('')
         t.$('.new_body').val('')
         t.$('.new_tags').val('')
 
-    # 'click .new_session': ->
-    #     new_delta = 
-    #         Docs.insert 
-    #             type:'delta'
-    #             fin:[]
-    #     Session.set 'did', new_delta
-    #     Meteor.call 'fum', new_delta
 
 
 Template.view.onCreated ->
@@ -153,9 +96,6 @@ Template.view.events
             $set:youtube_id:val
             
             
-    'click .print': (e,t)->
-        console.log Docs.findOne Session.get('page_data')
-    
     'keyup .new_tag': (e,t)->
         if e.which is 13
             # console.log @
@@ -163,11 +103,19 @@ Template.view.events
             Docs.update @_id, 
                 $addToSet: tags: tag_val
             t.$('.new_tag').val('')
+    
+    'keyup .new_list': (e,t)->
+        if e.which is 13
+            # console.log @
+            list_val = t.$('.new_list').val().toLowerCase().trim().split(' ')
+            Docs.update @_id, 
+                $addToSet: tags: $each: list_val
+            t.$('.new_list').val('')
         
     'click .remove_tag': (e,t)->
         tag = @valueOf()
-        result_id = Template.currentData()
-        Docs.update result_id, 
+        result= Template.currentData()
+        Docs.update result._id, 
             $pull:tags:tag
         t.$('.new_tag').val(tag)
         
