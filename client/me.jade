@@ -1,0 +1,58 @@
+template(name='settings')
+    .ui.stackable.padded.celled.grid
+        .four.wide.column
+            .ui.tertiary.segment
+                .ui.header #{currentUser.username}
+                .ui.icon.fluid.input
+                    input.new_username(type='text' placeholder='change username')
+                    i.play.link.icon.change_username
+        .twelve.wide.column
+            .ui.tertiary.segment
+                .ui.small.header change password
+                .ui.fluid.input
+                    input.old_password(type='text' placeholder='old')
+                .ui.icon.fluid.input
+                    input.new_password(type='text' placeholder='new')
+                    i.play.link.icon.change_password
+            .ui.tertiary.segment
+                .ui.header
+                    |karma
+                |#{currentUser.karma}
+                .ui.header
+                    |points
+                |#{currentUser.points}
+            .ui.tertiary.segment
+                .ui.header 
+                    i.mail.icon
+                    |emails
+            .ui.tertiary.segment
+                .ui.header 
+                    i.bell.icon
+                    |alerts
+            .ui.tertiary.segment
+                .ui.header 
+                    i.user.shield.icon
+                    | roles
+                .ui.list
+                    each currentUser.roles
+                        .item #{this}
+            .ui.tertiary.segment
+                .ui.header 
+                    i.users.icon
+                    | friends
+                .ui.list
+                    each currentUser.friends
+                        .item #{this}
+            .ui.tertiary.segment
+                .ui.header.logout_others
+                    i.user.times.icon
+                    |logout other clients
+            .ui.tertiary.segment
+                .ui.header.logout
+                    i.sign.out.alternate.icon
+                    |sign out
+                    
+                    
+template(name='profile')
+    with user
+        .ui.header #{username}

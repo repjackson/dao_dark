@@ -1,3 +1,5 @@
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
 @selected_tags = new ReactiveArray []
 
 # Template.registerHelper 'calculated_size', (input)->

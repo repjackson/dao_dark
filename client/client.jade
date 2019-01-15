@@ -7,30 +7,30 @@ head
     meta(name="mobile-web-app-capable" content="yes")
 
 
-body
-    +delta
 
+template(name='layout')
+    +nav
+    +yield
+    +footer
 
 template(name='delta')
-    .ui.basic.center.aligned.segment
-        .ui.icon.transparent.input
-            i.search.icon
-            input#search(type='text' autocomplete='off')
-        if selected_tags
-            #clear_tags.ui.grey.icon.circular.button
-                i.remove.icon
-        each selected_tags
-            .unselect_tag.ui.grey.circular.button
-                b #{this}
-        div
-        each global_tags
-            .select_tag.ui.circular.button
-                |#{this.name}
-                // small #{this.count}
-        if single_doc
-            each docs
-                +view
-    
+    .ui.icon.small.input
+        i.search.icon
+        input#search(type='text' autocomplete='off' placeholder='search tags')
+    if selected_tags
+        #clear_tags.ui.grey.icon.circular.button
+            i.remove.icon
+    each selected_tags
+        .unselect_tag.ui.grey.circular.button
+            b #{this}
+    each global_tags
+        .select_tag.ui.circular.button
+            |#{this.name}
+            // small #{this.count}
+    if single_doc
+        each docs
+            +view
+
     if dev
         .ui.center.aligned.basic.segment
             .ui.icon.input

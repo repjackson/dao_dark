@@ -1,0 +1,51 @@
+template(name='nav')
+    .ui.inverted.attached.menu
+        a.item(href='/delta')
+            .black_bat.logo DAO
+        a.item.add(href='#')
+            i.link.plus.icon
+        .right.menu
+            a.item.add(href='/mail')
+                i.link.mail.icon
+            a.item(href='/alerts')
+                i.link.bell.icon
+            a.item(href='/settings')
+                i.link.cog.icon
+            a.item(href='/karma')
+                span(title='karma') #{currentUser.karma}
+                i.user.shield.icon
+                span(title='points') #{currentUser.points}
+            if currentUser
+                a.item(href='/me')
+                    i.user.icon
+                    | #{currentUser.username}
+                .item.logout
+                    i.sign.out.alternate.link.icon
+            else
+                a.icon.item(href="/enter")
+                    i.sign.in.alternate.icon
+
+
+template(name='footer')
+    .ui.bottom.fixed.inverted.menu
+        .item
+            i.copyright.outline.icon
+            | DAO
+        if is_dev
+            .item.refresh_stat
+                i.link.refresh.icon
+        with site_stat
+            .item
+                |#{doc_count} docs
+                |#{user_count} users
+        // .item
+        //     .ui.transparent.large.input
+        //         input#quick_add(type='text' placeholder='quick add')
+        // .item
+        //     form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+        //         input(type='hidden', name='cmd', value='_s-xclick')
+        //         input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+        //         // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+        //         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+        //         button.ui.basic.button(type='submit')
+        //             | Donate 
