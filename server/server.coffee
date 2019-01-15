@@ -15,6 +15,10 @@ Meteor.publish 'doc', (doc_id)->
 Meteor.publish 'users', ()->
     Meteor.users.find {}
 
+
+Meteor.publish 'user', (username)->
+    Meteor.users.find username:username
+
 Meteor.publish 'docs', (selected_tags, selected_author_ids)->
     match = {}
 

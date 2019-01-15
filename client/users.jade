@@ -1,10 +1,13 @@
 template(name='user')
     with user
-        .ui.header #{username} #{first_name} #{last_name}
-        .ui.header #{points} points
-        .ui.header karma #{karma}
-        .ui.button.send_point send point
-        .ui.button.send_karma send karma
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column
+                    .ui.header #{username} #{first_name} #{last_name}
+                    .ui.header #{points} points
+                    .ui.header karma #{karma}
+                    .ui.button.send_point send point
+                    .ui.button.send_karma send karma
 
 template(name='users')
     .ui.stackable.padded.grid

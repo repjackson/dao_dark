@@ -3,14 +3,18 @@ body {
   /*filter: invert(100%);*/
   /*font-size: 150% !important;*/
   /*line-height: 200% !important;*/
-  background: grey !important
+  /*background: grey !important*/
 }
 
 .inverted {
   filter: invert(100%);
   /*background: #262626 !important*/
+  background: white !important
 }
 
+.layout {
+  height:100%;
+}
 
 /*.youtube{*/
 /*  filter: invert(100%);*/
@@ -117,13 +121,6 @@ body {
   background: rgba(0,0,0,.1) !important;
 }
 
-#footer {
-  /*position: absolute;*/
-  /*bottom: 0;*/
-  /*width: 100%;*/
-  /*margin: 0 !important;*/
-  background: rgba(0,0,0,.1) !important;
-}
 
 .grey_car{
   background-color: lightgrey !important;}
@@ -131,13 +128,6 @@ body {
 .ui.button, .ui.label.tag {
   margin-top: .2em !important;
   margin-bottom: .2em !important;
-}
-
-#main {
-  /*padding: .5em 1em !important;*/
-  margin-bottom: 3em;
-  /*margin-top: 4em;*/
-
 }
 
 .facet_res {
@@ -188,41 +178,6 @@ body {
 
 .logo { font-size: 150%; }
 
-.f10 { 
-  font-size: 200%; 
-  line-height: 120%;
-  margin-bottom: 10px; }
-.f9 { 
-  font-size: 180%; 
-  line-height: 120%;
-  margin-bottom: 5px; }
-.f8 { 
-  font-size: 160%; 
-  line-height: 160%; }
-.f7 { 
-  font-size: 140%; 
-  line-height: 140%; }
-.f6 { 
-  font-size: 120%; 
-  line-height: 120%; }
-.f5 { 
-  font-size: 110%; 
-  line-height: 110%; }
-.f4 { 
-  font-size: 100%; 
-  line-height: 100%; }
-.f3 { 
-  font-size: 90%; 
-  line-height: 90%; }
-.f2 { 
-  font-size: 70%; 
-  line-height: 70%; }
-.f1 { 
-  font-size: 50%; 
-  line-height: 50%; }
-.f0 { display:none; }
-
-
 .brick {
   line-height: 150%;
   padding-right: 1em;
@@ -264,31 +219,31 @@ body {
 
 
 
- Mobile 
+ /*Mobile */
   @media only screen and (max-width: 767px) {
     .mobile.hidden, .tablet.only, .computer.only, .large.monitor.only, .widescreen.monitor.only {
       display: none !important;
   }
 }
- Tablet / iPad Portrait 
+ /*Tablet / iPad Portrait */
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     .mobile.only, .tablet.hidden, .computer.only, .large.monitor.only, .widescreen.monitor.only {
       display: none !important;
   }
 }
- Computer / Desktop / iPad Landscape 
+ /*Computer / Desktop / iPad Landscape */
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .mobile.only, .tablet.only, .computer.hidden, .large.monitor.only, .widescreen.monitor.only {
       display: none !important;
   }
 }
- Large Monitor 
+ /*Large Monitor */
   @media only screen and (min-width: 1200px) and (max-width: 1919px) {
     .mobile.only, .tablet.only, .computer.only, .large.monitor.hidden, .widescreen.monitor.only {
       display: none !important;
   }
 }
- Widescreen Monitor 
+ /*Widescreen Monitor */
   @media only screen and (min-width: 1920px) {
     .mobile.only, .tablet.only, .computer.only, .large.monitor.only, .widescreen.monitor.hidden {
       display: none !important;
@@ -316,19 +271,4 @@ body {
   .ui.fixed.menu {
   display: none !important;
 }
-}
-
-
-
-.footer_area {
-  position: absolute !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  margin: 0 !important;
-  border: 0 !important;
-  /*background: rgba(0, 20, 137) !important;*/
-  /*background: linear-gradient(to top, rgba(0,20,137,1) 0%,rgba(0,20,137,1) 98%,rgba(132,189,0,1) 98%, rgba(132,189,0,1) 100%) !important;*/
-}
-.footer_area .sitemap_list{
-  color:white !important;
 }

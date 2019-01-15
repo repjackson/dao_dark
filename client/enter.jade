@@ -1,8 +1,13 @@
 template(name='enter')
-    .ui.grid
+    .ui.padded.stackable.grid
         .centered.row
             .ten.wide.center.aligned.column
-                h1.black_bat.logo Abandon hope all ye who enter here
+                if dark_side
+                    h1.black_bat.logo.invert_class
+                        |abandon hope all ye who enter here
+                else 
+                    h1.ui.header
+                        |welcome to the dao
                 if message
                     h4.ui.center.aligned.header #{message}
                 .ui.fluid.input(class=login_class)

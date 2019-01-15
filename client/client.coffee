@@ -12,6 +12,7 @@ Session.setDefault 'invert', true
 
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
+Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
 
 Template.registerHelper 'doc', () -> Docs.findOne FlowRouter.getParam('doc_id')
 

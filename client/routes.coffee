@@ -40,8 +40,8 @@ FlowRouter.route '/alerts',
     action: -> @render 'layout','alerts'
 
 FlowRouter.route '/u/:username',
-    name: 'profile'
-    action: -> @render 'layout','profile'
+    name: 'user'
+    action: -> @render 'layout','user'
 
  
 FlowRouter.route '/edit/:doc_id',
