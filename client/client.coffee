@@ -12,6 +12,10 @@ Session.setDefault 'invert', false
 
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
+
+Template.registerHelper 'doc', () -> Docs.findOne FlowRouter.getParam('doc_id')
+
+
 Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'inverted' else ''
 
 Template.registerHelper 'nl2br', (text)->

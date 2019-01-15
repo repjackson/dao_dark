@@ -1,14 +1,17 @@
 Docs.allow
-    insert: (userId, doc) -> true
-    update: (userId, doc) -> true
-    remove: (userId, doc) -> true
+    insert: (userId, doc) -> doc.author_id is userId
+    update: (userId, doc) -> doc.author_id is userId
+    remove: (userId, doc) -> doc.author_id is userId
 
+Meteor.publish 'doc', (doc_id)->
+    Docs.find doc_id
 
-Meteor.publish 'docs', (selected_tags, selected_user)->
+Meteor.publish 'docs', (selected_tags, selected_author_ids)->
     match = {}
-    if selected_user then match.authorId = selected_user
 
     if selected_tags.length > 0 then match.tags = $all: selected_tags
+    if selected_author_ids.length > 0 then match.author_id = $in: selected_author_ids
+
     Docs.find match,
         limit: 3
         sort: timestamp: -1

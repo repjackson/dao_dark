@@ -20,7 +20,7 @@ template(name='nav')
                 i.user.shield.icon
                 span(title='points') #{currentUser.points}
             if currentUser
-                a.item(href='/me')
+                a.item(href="/u/#{currentUser.username}")
                     i.user.icon
                     | #{currentUser.username}
                 .item.logout

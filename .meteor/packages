@@ -35,3 +35,9 @@ babrahams:constellation
 ostrio:flow-router-extra
 es5-shim
 ecmascript
+yasinuslu:json-view
+percolate:synced-cron
+http
+dburles:collection-helpers
+matb33:collection-hooks
+momentjs:moment
