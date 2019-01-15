@@ -1,5 +1,5 @@
 template(name='nav')
-    .ui.inverted.attached.menu
+    .ui.attached.menu
         a.item(href='/delta')
             .black_bat.logo DAO
         a.item.add(href='#')
@@ -27,10 +27,10 @@ template(name='nav')
 
 
 template(name='footer')
-    .ui.bottom.fixed.inverted.menu
+    .ui.bottom.fixed.menu
         .item
             i.copyright.outline.icon
-            | DAO
+            .black_bat DAO
         if is_dev
             .item.refresh_stat
                 i.link.refresh.icon

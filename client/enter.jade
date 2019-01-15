@@ -1,0 +1,18 @@
+template(name='enter')
+    .ui.grid
+        .centered.row
+            .ten.wide.center.aligned.column
+                h1.black_bat.logo Abandon hope all ye who enter here
+                if message
+                    h4.ui.center.aligned.header #{message}
+                .ui.fluid.input(class=login_class)
+                    input.username(type='text' placeholder='username')
+                .ui.fluid.input(class=login_class)
+                    input.password(type='password' placeholder='password')
+                .ui.fluid.large.button.enter(class=enter_class)
+                    if registering
+                        i.plus.icon
+                        |#{username}
+                    else
+                        i.play.icon
+                        | #{username}
