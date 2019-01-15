@@ -32,9 +32,31 @@ FlowRouter.route '/delta',
 FlowRouter.route '/karma',
     name: 'karma'
     action: -> @render 'layout','karma'
-FlowRouter.route '/mail',
-    name: 'mail'
-    action: -> @render 'layout','mail'
+
+FlowRouter.route '/tasks',
+    name: 'tasks'
+    action: -> @render 'layout','tasks'
+
+FlowRouter.route '/events',
+    name: 'events'
+    action: -> @render 'layout','events'
+
+FlowRouter.route '/chat',
+    name: 'chat'
+    action: -> @render 'layout','chat'
+
+FlowRouter.route '/karma',
+    name: 'karma'
+    action: -> @render 'layout','karma'
+
+FlowRouter.route '/shop',
+    name: 'shop'
+    action: -> @render 'layout','shop'
+
+
+FlowRouter.route '/inbox',
+    name: 'inbox'
+    action: -> @render 'layout','inbox'
 FlowRouter.route '/alerts',
     name: 'alerts'
     action: -> @render 'layout','alerts'

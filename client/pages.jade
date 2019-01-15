@@ -1,25 +1,82 @@
 template(name='karma')
-    .ui.header karma
-    .ui.header my karma #{currentUser.karma}
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+            .twelve.wide.column
+                .ui.header karma
+                .ui.header my karma #{currentUser.karma}
     
-    .ui.header 
-        i.cart.icon
-        | marketplace
-    each products
-        .ui.segment
-            .ui.header #{title}
             
-            
-template(name='mail')
-    .ui.header 
-        i.mail.icon
-        |mail
-    .ui.header my messages #{currentUser.karma}
+template(name='inbox')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                |inbox
+                .ui.header my messages #{currentUser.karma}
+            .twelve.wide.column
+                .ui.header 
+                    i.inbox.icon
     
 template(name='alerts')
-    .ui.header 
-        i.bell.icon
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+            .twelve.wide.column
+                .ui.header 
+                    i.bell.icon
         |alerts
-    .ui.header my messages #{currentUser.karma}
+    
+template(name='tasks')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                .ui.header 
+                    i.tasks.icon
+                    |tasks
+                if dark_side
+                    .ui.header dominate
+                else
+                    .ui.header teamwork
+            .twelve.wide.column
+    
+template(name='shop')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                .ui.header 
+                    i.tasks.icon
+                    | shop
+                if dark_side
+                    .ui.header get rich or die trying
+                else
+                    .ui.header building the share economy
+            .twelve.wide.column
+    
+    
+template(name='chat')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                .ui.header 
+                    i.chat.icon
+                    |chat
+                if dark_side
+                    .ui.header make yourself heard
+                else
+                    .ui.header communication is key
+            .twelve.wide.column
+    
+template(name='events')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                .ui.header 
+                    i.calendar.icon
+                    |events
+                if dark_side
+                    .ui.header make yourself heard
+                else
+                    .ui.header communication is key
+            .twelve.wide.column
     
             

@@ -7,9 +7,9 @@ body {
 }
 
 .inverted {
-  filter: invert(100%);
+  filter: invert(90%);
   /*background: #262626 !important*/
-  background: white !important
+  background: lightgrey !important
 }
 
 .layout {

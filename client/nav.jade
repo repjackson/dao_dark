@@ -1,16 +1,24 @@
 template(name='nav')
-    .ui.attached.menu
+    .ui.attached.borderless.large.menu
         a.item(href='/delta')
             .black_bat.logo DAO
         a.item.invert(href='#')
-            i.lightbulb.icon
+            i.user.shield.icon
+        a.item(href='/tasks')
+            i.tasks.icon
+        a.item(href='/events')
+            i.calendar.icon
+        a.item(href='/chat')
+            i.chat.icon
+        a.item(href='/shop')
+            i.cart.icon
         .right.menu
             if currentUser
                 a.item.add(href='#')
                     i.link.plus.icon
                 a.item.add(href='/mail')
                     i.link.mail.icon
-                a.item(href='/alerts')
+                a.item(href='/inbox')
                     i.link.bell.icon
                 a.item(href='/settings')
                     i.link.cog.icon
@@ -18,13 +26,12 @@ template(name='nav')
                     i.users.icon
                 a.item(href='/karma')
                     span(title='karma') #{currentUser.karma}
-                    i.user.shield.icon
                     span(title='points') #{currentUser.points}
                 a.item(href="/u/#{currentUser.username}")
                     i.user.icon
                     | #{currentUser.username} [#{currentUser.status}]
-                .item.logout
-                    i.sign.out.alternate.link.icon
+                a.item.logout(href='#')
+                    i.sign.out.alternate.icon
             else
                 a.icon.item(href="/enter")
                     i.sign.in.alternate.icon

@@ -4,26 +4,23 @@ template(name='edit')
             .twelve.wide.column
                 each _keys
                     +field_edit
-                .ui.form
-                    .field
-                        label tags
-                        each tags
-                            .ui.large.label 
-                                i.remove.link.icon.remove_tag
-                                |#{this}
-                        .ui.icon.input
-                            input.new_tag(type='text' placeholder='add tag')
-                            i.plus.icon
-                    .field
-                        label body
-                        textarea.edit_body(rows='20') #{body}
+                // .ui.form
+                //     .field
+                //         label tags
+                //         each tags
+                //             .ui.large.label 
+                //                 i.remove.link.icon.remove_tag
+                //                 |#{this}
+                //         .ui.icon.input
+                //             input.new_tag(type='text' placeholder='add tag')
+                //             i.plus.icon
+                //     .field
+                //         label body
+                //         textarea.edit_body(rows='20') #{body}
                 // if is_dev
                 //     .ui.button.print log
             .four.wide.column
-                // +user_relations
-                a.ui.fluid.icon.button(href="/view/#{_id}")
-                    i.checkmark.icon
-
+                +save_button
                 .ui.segment
                     .ui.button.print print
                     each _keys
@@ -33,8 +30,6 @@ template(name='edit')
                         each bricks
                             .ui.button.add_brick
                                 |#{this}
-                    a.ui.fluid.button(href="/view/#{_id}")
-                        i.checkmark.icon
                 
                 
                 

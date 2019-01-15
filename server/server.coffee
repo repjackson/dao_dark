@@ -1,7 +1,7 @@
 Docs.allow
-    insert: (userId, doc) -> doc.author_id is userId
+    insert: (userId, doc) -> doc._author_id is userId
     update: (userId, doc) -> userId
-    remove: (userId, doc) -> doc.author_id is userId
+    remove: (userId, doc) -> doc._author_id is userId
 
 Meteor.users.allow
     insert: (userId, doc) -> userId
