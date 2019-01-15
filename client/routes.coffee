@@ -52,5 +52,5 @@ FlowRouter.route '/edit/:doc_id',
  
 FlowRouter.route '/view/:doc_id',
     name: 'view_doc'
-    action: -> @render 'layout','view'
+    action: -> @render 'layout','doc_page'
 

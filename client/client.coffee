@@ -1,6 +1,6 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
-Session.setDefault 'invert', false
+Session.setDefault 'invert', true
 
 
 @selected_tags = new ReactiveArray []

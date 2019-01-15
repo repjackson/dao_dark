@@ -1,0 +1,154 @@
+template(name='url_edit')
+    .field
+        label link
+        input.edit_url(type='url' value=brick_value placeholder='url')
+
+
+template(name='url_view')
+    a(href=brick_value target='_window') #{brick_value}
+        
+        
+template(name='image_view')
+    img.ui.image(src=brick_value)    
+    
+        
+template(name='textarea_edit')
+    .ui.form
+        .field
+            label #{brick_key}
+            textarea.edit_textarea(rows='20') #{brick_value}
+
+template(name='textarea_view')
+    .ui.basic.segment
+        |#{nl2br brick_value}    
+    
+    
+template(name='html_edit')
+    #toolbar
+    .editor
+
+template(name='html_view')
+    |!{brick_value}
+
+    
+template(name='text_edit')
+    .ui.labeled.fluid.input
+        .ui.label #{brick_key}
+        input.edit_text(type='text' value=brick_value placeholder=label)
+
+template(name='text_view')
+    // | #{brick_key}: &nbsp;
+    strong #{brick_value}
+    
+    
+    
+    
+template(name='code_edit')
+    .ui.header ace
+    #ace
+    
+    
+    
+    
+    
+    
+template(name='number_edit')
+    .ui.labeled.fluid.input
+        .ui.label #{brick_key}
+        input.edit_number(type='number' value=brick_value placeholder=label)
+
+template(name='number_view')
+    | #{brick_key}: &nbsp;
+    strong #{brick_value}
+    
+    
+    
+    
+template(name='date_edit')
+    .ui.labeled.fluid.input
+        .ui.label #{brick_key}
+        input.edit_date(type='date' value=brick_value placeholder=label)
+
+template(name='date_view')
+    | #{brick_key}: &nbsp;
+    strong #{brick_value}
+    
+    
+
+
+    
+    
+    
+    
+template(name='array_edit') 
+    .field
+        // label #{brick_key}
+        // |#{brick_value}
+        if brick_value
+            each brick_value
+                .ui.label 
+                    i.remove.link.icon.remove_element
+                    |#{this}
+        .ui.icon.input
+            input.new_element(type='text')
+            i.plus.icon
+
+
+template(name='array_view') 
+    each brick_value
+        .ui.label #{this}
+            
+        
+        
+template(name='children_edit')
+    .ui.small.header #{label}
+    .ui.segment
+        if editing
+            .ui.button.add_child
+                i.plus.icon
+                |child
+        each children
+            +child
+                
+
+template(name='youtube_edit')
+    .ui.labeled.fluid.input
+        .ui.label youtube id
+        input.youtube_id(type='text' value=brick_meta.youtube_id)
+    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{brick_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+
+template(name='youtube_view')
+    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{brick_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+
+
+template(name='child')
+    .ui.segment
+        +text key='key'
+        +text key='field_type'
+        +remove_button
+        
+template(name='boolean_edit')
+    .ui.button
+        |#{brick_key}
+        
+        
+template(name='boolean_view')
+    .ui.label
+        if brick_value
+            |true
+        else
+            |false
+        // |#{brick_key} #{brick_value}
+        
+        
+template(name='ref_edit')
+    div #{key}
+    each choices
+        .ui.button.select_choice
+            if icon
+                i.icon(class=icon)
+            |#{title}     
+            |#{key}
+            
+            
+            
