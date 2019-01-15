@@ -29,18 +29,26 @@ template(name='doc_page')
         .ui.padded.stackable.grid
             .row
                 .twelve.wide.column
+                    each _keys
+                        .ui.label #{this}
+                        +field_view
+                    if body
+                        .f8 #{nl2br body}
+                    if youtube_id
+                        .ui.embed.youtube(data-source="youtube" data-id=youtube_id class=invert_class)
+            
                     i.tags.icon
                     each tags
                         .ui.label #{this}
                     .ui.basic.segment.large120 #{body}
-                    each _keys
-                        .ui.label #{this}
-                        +field_view
-                    .ui.header how much can we tell from this
                     +comments
         
                 .four.wide.column
                     .ui.header #{karma} karma
+                    +detect_fields_button
+                    strong keys
+                    each _keys
+                        .ui.label #{this}
                     +author_info
                     +creation_info
                     div

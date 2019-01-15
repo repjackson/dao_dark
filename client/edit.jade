@@ -2,6 +2,8 @@ template(name='edit')
     with doc
         .ui.padded.grid
             .twelve.wide.column
+                each _keys
+                    +field_edit
                 .ui.form
                     .field
                         label tags
@@ -18,13 +20,10 @@ template(name='edit')
                 // if is_dev
                 //     .ui.button.print log
             .four.wide.column
-                +user_relations
+                // +user_relations
                 a.ui.fluid.icon.button(href="/view/#{_id}")
                     i.checkmark.icon
 
-        .ui.divider                    
-        .ui.stackable.grid
-            .four.wide.column
                 .ui.segment
                     .ui.button.print print
                     each _keys
@@ -36,10 +35,6 @@ template(name='edit')
                                 |#{this}
                     a.ui.fluid.button(href="/view/#{_id}")
                         i.checkmark.icon
-            .twelve.wide.column
-                each _keys
-                    +field_edit
-                    
                 
                 
                 

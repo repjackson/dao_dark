@@ -1,5 +1,5 @@
 ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3')
-VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3')
+# VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3')
 NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js')
 PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3')
 
@@ -13,9 +13,9 @@ natural_language_understanding = new NaturalLanguageUnderstandingV1(
     password: Meteor.settings.private.language.password
     version_date: '2017-02-27')
 
-visual_recognition = new VisualRecognitionV3(
-    version:'2018-03-19'
-    api_key: Meteor.settings.private.visual.api_key)
+# visual_recognition = new VisualRecognitionV3(
+#     version:'2018-03-19'
+#     api_key: Meteor.settings.private.visual.api_key)
 
 personality_insights = new PersonalityInsightsV3(
     username: Meteor.settings.private.personality.username

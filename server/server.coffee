@@ -3,8 +3,17 @@ Docs.allow
     update: (userId, doc) -> userId
     remove: (userId, doc) -> doc.author_id is userId
 
+Meteor.users.allow
+    insert: (userId, doc) -> userId
+    update: (userId, doc) -> userId
+    remove: (userId, doc) -> userId
+
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
+    
+    
+Meteor.publish 'users', ()->
+    Meteor.users.find {}
 
 Meteor.publish 'docs', (selected_tags, selected_author_ids)->
     match = {}

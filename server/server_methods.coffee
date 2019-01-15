@@ -22,10 +22,10 @@ Meteor.methods
         doc = Docs.findOne doc_id
         keys = _.keys doc
         light_fields = _.reject( keys, (key)-> key.startsWith '_' )
-        # console.log light_fields
+        console.log light_fields
         
-        # Docs.update doc._id,
-        #     $set:_keys:light_fields
+        Docs.update doc._id,
+            $set:_keys:light_fields
         
         for key in light_fields
             value = doc["#{key}"]

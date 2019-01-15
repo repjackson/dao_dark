@@ -22,7 +22,7 @@ template(name='nav')
             if currentUser
                 a.item(href="/u/#{currentUser.username}")
                     i.user.icon
-                    | #{currentUser.username}
+                    | #{currentUser.username} [#{currentUser.status}]
                 .item.logout
                     i.sign.out.alternate.link.icon
             else

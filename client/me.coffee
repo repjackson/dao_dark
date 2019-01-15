@@ -1,11 +1,5 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
-Template.profile.onCreated ->
-    @autorun => Meteor.subscribe 'username', FlowRouter.getParam('username')
-
-Template.profile.helpers
-    user: -> Meteor.users.findOne username:FlowRouter.getParam('username')
-
 Template.settings.events
     'click .logout': -> Meteor.logout()
 
@@ -25,3 +19,17 @@ Template.settings.events
             if confirm "change password from #{Meteor.user().password} to #{new_password}?"
                 Accounts.changePassword old_password, new_password, (err,res)->
                     if err then alert err else console.log res
+                    
+Template.edit_user_field.helpers
+    user_field_val: ->
+        user = Meteor.user()
+        if user
+            user["#{@key}"]
+    
+Template.edit_user_field.events
+    'keyup .user_field_val': (e,t)->
+        if e.which is 13
+            new_val = t.$('.user_field_val').val()
+            if new_val
+                Meteor.users.update Meteor.userId(),
+                    $set:"#{@key}": new_val
