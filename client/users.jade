@@ -1,0 +1,24 @@
+template(name='user')
+    with user
+        .ui.header #{username} #{first_name} #{last_name}
+        .ui.header #{points} points
+        .ui.header karma #{karma}
+        .ui.button.send_point send point
+        .ui.button.send_karma send karma
+
+template(name='users')
+    .ui.header users
+    .ui.four.cards
+        each users
+            .card
+                .content 
+                    .ui.header #{username} #{first_name} #{last_name}
+                    each tags
+                        .ui.label #{this}
+                    .ui.list
+                        .ui.item #{points} points
+                        .ui.item #{karma} karma
+                    
+                    a.ui.icon.button(href="/u/#{username}")
+                        i.right.arrow.icon
+        

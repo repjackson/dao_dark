@@ -9,48 +9,49 @@ head
 
 
 template(name='layout')
-    +nav
-    +yield
-    +footer
+    .layout(class=invert_class)
+        +nav
+        +yield
+    // +footer
 
 template(name='delta')
     .ui.icon.small.input
         i.search.icon
         input#search(type='text' autocomplete='off' placeholder='search tags')
     if selected_tags
-        #clear_tags.ui.grey.icon.circular.button
+        #clear_tags.ui.grey.icon.button
             i.remove.icon
     each selected_tags
-        .unselect_tag.ui.grey.circular.button
+        .unselect_tag.ui.grey.button
             b #{this}
     each global_tags
-        .select_tag.ui.circular.button
+        .select_tag.ui.button
             |#{this.name}
             // small #{this.count}
     if single_doc
         each docs
             +view
 
-    if dev
-        .ui.center.aligned.basic.segment
-            .ui.icon.input
-                i.youtube.icon
-                input.new_ytid(type='text' placeholder='yt id')
-            .ui.input
-                input.new_body(type='text' placeholder='body')
-            .ui.icon.input
-                i.tag.icon
-                input.new_tags(type='text' placeholder='title')
-            .ui.button.insert insert
-    else
-        .ui.basic.center.aligned.segment
-            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                input(type='hidden', name='cmd', value='_s-xclick')
-                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.icon.button(type='submit')
-                    i.coffee.icon
+    // if dev
+    //     .ui.center.aligned.basic.segment
+    //         .ui.icon.input
+    //             i.youtube.icon
+    //             input.new_ytid(type='text' placeholder='yt id')
+    //         .ui.input
+    //             input.new_body(type='text' placeholder='body')
+    //         .ui.icon.input
+    //             i.tag.icon
+    //             input.new_tags(type='text' placeholder='title')
+    //         .ui.button.insert insert
+    // else
+    //     .ui.basic.center.aligned.segment
+    //         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+    //             input(type='hidden', name='cmd', value='_s-xclick')
+    //             input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+    //             // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+    //             img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+    //             button.ui.icon.button(type='submit')
+    //                 i.coffee.icon
 
     
 template(name='view')

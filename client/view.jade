@@ -1,0 +1,30 @@
+// template(name='view')  
+//     with doc
+//         .ui.grid
+//             .row
+//                 .twelve.wide.column
+//                     each tags
+//                         .ui.big.label #{this}
+//                     .ui.basic.segment.large120 #{body}
+//                     each _keys
+//                         .ui.label #{this}
+//                         +field_view
+//                     .ui.header how much can we tell from this
+//                     +comments
+        
+//                 .four.wide.column
+//                     .ui.header #{karma} karma
+//                     +author_info
+//                     +creation_info
+//                     div
+//                     +voting
+//                     +toggle_button key='read_ids' label='read' icon='book'
+//                     +toggle_button key='bookmark_ids' label='bookmark' icon='bookmark'
+//                     +edit_button
+
+// template(name='field_view')
+//     .item   
+//         .content
+//             .header #{this}
+//             .description
+//                 +Template.dynamic template=brick_view

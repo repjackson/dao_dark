@@ -2,15 +2,19 @@ template(name='nav')
     .ui.attached.menu
         a.item(href='/delta')
             .black_bat.logo DAO
-        a.item.add(href='#')
-            i.link.plus.icon
+        a.item.invert(href='#')
+            i.lightbulb.icon
         .right.menu
+            a.item.add(href='#')
+                i.link.plus.icon
             a.item.add(href='/mail')
                 i.link.mail.icon
             a.item(href='/alerts')
                 i.link.bell.icon
             a.item(href='/settings')
                 i.link.cog.icon
+            a.item(href='/users')
+                i.users.icon
             a.item(href='/karma')
                 span(title='karma') #{currentUser.karma}
                 i.user.shield.icon
@@ -28,9 +32,9 @@ template(name='nav')
 
 template(name='footer')
     .ui.bottom.fixed.menu
-        .item
-            i.copyright.outline.icon
-            .black_bat DAO
+        // .item
+        //     i.copyright.outline.icon
+        //     .black_bat DAO
         if is_dev
             .item.refresh_stat
                 i.link.refresh.icon
@@ -38,6 +42,8 @@ template(name='footer')
             .item
                 |#{doc_count} docs
                 |#{user_count} users
+        .item
+            | stare into the abyss
         // .item
         //     .ui.transparent.large.input
         //         input#quick_add(type='text' placeholder='quick add')

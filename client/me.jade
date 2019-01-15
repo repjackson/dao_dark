@@ -6,7 +6,6 @@ template(name='settings')
                 .ui.icon.fluid.input
                     input.new_username(type='text' placeholder='change username')
                     i.play.link.icon.change_username
-        .twelve.wide.column
             .ui.tertiary.segment
                 .ui.small.header change password
                 .ui.fluid.input
@@ -14,6 +13,11 @@ template(name='settings')
                 .ui.icon.fluid.input
                     input.new_password(type='text' placeholder='new')
                     i.play.link.icon.change_password
+            .ui.tertiary.segment
+                .ui.header.logout
+                    i.sign.out.alternate.icon
+                    |leave
+        .twelve.wide.column
             .ui.tertiary.segment
                 .ui.header
                     |karma
@@ -43,10 +47,6 @@ template(name='settings')
                 .ui.header.logout_others
                     i.user.times.icon
                     |logout other clients
-            .ui.tertiary.segment
-                .ui.header.logout
-                    i.sign.out.alternate.icon
-                    |sign out
                     
                     
 template(name='profile')

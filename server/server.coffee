@@ -4,8 +4,10 @@ Docs.allow
     remove: (userId, doc) -> true
 
 
-Meteor.publish 'docs', (selected_tags)->
+Meteor.publish 'docs', (selected_tags, selected_user)->
     match = {}
+    if selected_user then match.authorId = selected_user
+
     if selected_tags.length > 0 then match.tags = $all: selected_tags
     Docs.find match,
         limit: 3
@@ -13,10 +15,11 @@ Meteor.publish 'docs', (selected_tags)->
         
         
         
-Meteor.publish 'tags', (selected_tags)->
+Meteor.publish 'tags', (selected_tags, selected_author_ids)->
     self = @
     match = {}
     if selected_tags.length > 0 then match.tags = $all: selected_tags
+    if selected_author_ids.length > 0 then match.author_id = $in: selected_author_ids
 
     cloud = Docs.aggregate [
         { $match: match }

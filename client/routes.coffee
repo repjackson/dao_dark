@@ -21,6 +21,9 @@ FlowRouter.route '/me',
 FlowRouter.route '/settings',
     name: 'settings'
     action: -> @render 'layout','settings'
+FlowRouter.route '/users',
+    name: 'users'
+    action: -> @render 'layout','users'
 
 FlowRouter.route '/delta',
     name: 'delta'
