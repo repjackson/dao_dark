@@ -1,7 +1,10 @@
 template(name='nav')
     .ui.attached.borderless.large.menu
         a.item(href='/delta')
-            .black_bat.logo DAO
+            if dark_side
+                .black_bat.logo DAO
+            else
+                .ui.header DAO
         a.item.invert(href='#')
             i.user.shield.icon
         a.item(href='/tasks')

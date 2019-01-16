@@ -30,13 +30,17 @@ template(name='tasks')
     .ui.stackable.padded.grid
         .row
             .four.wide.column
-                .ui.header 
-                    i.tasks.icon
-                    |tasks
                 if dark_side
+                    .ui.header 
+                        i.tasks.icon
+                        |tasks
                     .ui.header dominate
                 else
+                    .ui.header 
+                        i.tasks.icon
+                        | Tasks
                     .ui.header teamwork
+                +add_type_button type='task'
             .twelve.wide.column
     
 template(name='shop')
@@ -50,6 +54,7 @@ template(name='shop')
                     .ui.header get rich or die trying
                 else
                     .ui.header building the share economy
+                +add_type_button type='product'
             .twelve.wide.column
     
     
@@ -57,26 +62,43 @@ template(name='chat')
     .ui.stackable.padded.grid
         .row
             .four.wide.column
-                .ui.header 
-                    i.chat.icon
-                    |chat
                 if dark_side
+                    .ui.header 
+                        i.chat.icon
+                        |chat
                     .ui.header make yourself heard
                 else
+                    .ui.header 
+                        i.chat.icon
+                        | Chat
                     .ui.header communication is key
             .twelve.wide.column
+                .ui.fluid.icon.input
+                    i.chat.icon
+                    input.add_comment(type='text' placeholder='comment')
+                .ui.comments
+                    each chats
+                        .comment
+                            .content
+                                .header #{body}
+                                .meta #{when}
+                                +voting
+
     
 template(name='events')
     .ui.stackable.padded.grid
         .row
             .four.wide.column
-                .ui.header 
-                    i.calendar.icon
-                    |events
                 if dark_side
-                    .ui.header make yourself heard
+                    .ui.header 
+                        i.calendar.icon
+                        | events
+                    .ui.small.header reputation is everything
                 else
-                    .ui.header communication is key
+                    .ui.header 
+                        i.calendar.icon
+                        | Calendar
+                    .ui.small.header connect with community
             .twelve.wide.column
     
             
