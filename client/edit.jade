@@ -2,8 +2,12 @@ template(name='edit')
     with doc
         .ui.padded.grid
             .twelve.wide.column
-                each _keys
-                    +field_edit
+                // each _keys
+                //     +field_edit
+                each bricks
+                    .ui.segment
+                        .ui.header #{this}
+                
                 // .ui.form
                 //     .field
                 //         label tags
@@ -22,15 +26,37 @@ template(name='edit')
             .four.wide.column
                 .ui.header #{type}
                 +save_button
+                +remove_button
                 .ui.segment
-                    .ui.button.print print
+                    if is_dev
+                        .ui.button.print print
                     each _keys
-                        .ui.label #{this}                
+                        .ui.label #{this}    
+                    each bricks
+                        .ui.black.label #{this}
                     .content
                         .ui.small.header add brick
-                        each bricks
-                            .ui.button.add_brick
-                                |#{this}
+                        .ui.button.add_youtube
+                            i.youtube.icon
+                            |youtube
+                        .ui.button.add_date
+                            i.calendar.icon
+                            |date
+                        .ui.button.add_title
+                            i.header.icon
+                            |title
+                        .ui.button.add_user_assignment
+                            i.user.icon
+                            |user assignment
+                        .ui.button.add_tags
+                            i.tags.icon
+                            |tags
+                        .ui.button.add_textblock
+                            i.list.icon
+                            |text
+                        // each bricks
+                        //     .ui.button.add_brick
+                        //         |#{this}
                 
                 
                 

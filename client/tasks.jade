@@ -1,0 +1,18 @@
+template(name='task')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                if dark_side
+                    .ui.header 
+                        i.tasks.icon
+                        |tasks
+                    .ui.header dominate
+                else
+                    .ui.header 
+                        i.tasks.icon
+                        | Tasks
+                    .ui.header teamwork
+                .ui.button.add_task
+                    i.plus.icon
+                    |Task
+            .twelve.wide.column

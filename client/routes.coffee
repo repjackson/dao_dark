@@ -25,6 +25,10 @@ FlowRouter.route '/users',
     name: 'users'
     action: -> @render 'layout','users'
 
+FlowRouter.route '/d/:type',
+    name: 'type'
+    action: -> @render 'layout','type'
+
 FlowRouter.route '/delta',
     name: 'delta'
     action: -> @render 'layout','delta'

@@ -18,19 +18,19 @@ if Meteor.isClient
                 
                 
     Template.edit.helpers
-        bricks: ->
-            [
-                'text'
-                'code'
-                'number'
-                'date'
-                'textarea'
-                'html'
-                'youtube'
-                'link'
-                'boolean'
-                'array'
-            ]    
+        # bricks: ->
+        #     [
+        #         'text'
+        #         'code'
+        #         'number'
+        #         'date'
+        #         'textarea'
+        #         'html'
+        #         'youtube'
+        #         'link'
+        #         'boolean'
+        #         'array'
+        #     ]    
         
     Template.field_edit.helpers
         brick_edit: ->

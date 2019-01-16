@@ -1,3 +1,7 @@
+template(name='type')
+    +Template.dynamic template=delta_type
+
+
 template(name='karma')
     .ui.stackable.padded.grid
         .row
@@ -26,22 +30,6 @@ template(name='alerts')
                     i.bell.icon
         |alerts
     
-template(name='tasks')
-    .ui.stackable.padded.grid
-        .row
-            .four.wide.column
-                if dark_side
-                    .ui.header 
-                        i.tasks.icon
-                        |tasks
-                    .ui.header dominate
-                else
-                    .ui.header 
-                        i.tasks.icon
-                        | Tasks
-                    .ui.header teamwork
-                +add_type_button type='task'
-            .twelve.wide.column
     
 template(name='shop')
     .ui.stackable.padded.grid

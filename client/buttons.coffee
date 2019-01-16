@@ -11,6 +11,8 @@ Template.remove_button.events
     'click .remove': ->
         if confirm "remove #{@type}?"
             Docs.remove @_id
+            FlowRouter.go "/d/#{@type}"
+            
             
             
 Template.add_type_button.events
@@ -27,10 +29,6 @@ Template.view_button.events
     'click .view': ->
         FlowRouter.go "/view/#{@_id}"
             
-Template.remove_button.events
-    'click .remove': ->
-        if confirm "remove #{@type}?"
-            Docs.remove @_id
     
 Template.detect_fields_button.events
     'click .detect_fields': ->
