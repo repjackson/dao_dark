@@ -1,33 +1,18 @@
 Docs.allow
-    insert: (userId, doc) -> doc._author_id is userId
-    update: (userId, doc) -> userId
-    remove: (userId, doc) -> doc._author_id is userId
+    insert: (userId, doc) -> true
+    update: (userId, doc) -> true
+    remove: (userId, doc) -> true
 
-Meteor.users.allow
-    insert: (userId, doc) -> userId
-    update: (userId, doc) -> userId
-    remove: (userId, doc) -> userId
 
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
     
     
-Meteor.publish 'users', ()->
-    Meteor.users.find {}
 
-Meteor.publish 'type', (type)->
-    Docs.find
-        type:type
-
-
-Meteor.publish 'user', (username)->
-    Meteor.users.find username:username
-
-Meteor.publish 'docs', (selected_tags, selected_author_ids)->
+Meteor.publish 'docs', (selected_tags)->
     match = {}
 
     if selected_tags.length > 0 then match.tags = $all: selected_tags
-    if selected_author_ids.length > 0 then match.author_id = $in: selected_author_ids
 
     Docs.find match,
         limit: 3
@@ -35,11 +20,10 @@ Meteor.publish 'docs', (selected_tags, selected_author_ids)->
         
         
         
-Meteor.publish 'tags', (selected_tags, selected_author_ids)->
+Meteor.publish 'tags', (selected_tags)->
     self = @
     match = {}
     if selected_tags.length > 0 then match.tags = $all: selected_tags
-    if selected_author_ids.length > 0 then match.author_id = $in: selected_author_ids
 
     cloud = Docs.aggregate [
         { $match: match }

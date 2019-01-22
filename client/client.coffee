@@ -1,10 +1,4 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-Session.setDefault 'invert', false
-
-
 @selected_tags = new ReactiveArray []
-@selected_usernames = new ReactiveArray []
 
 # Template.registerHelper 'calculated_size', (input)->
 #     whole = parseInt input*10
@@ -12,12 +6,9 @@ Session.setDefault 'invert', false
 
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
-Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
 
 Template.registerHelper 'doc', () -> Docs.findOne FlowRouter.getParam('doc_id')
 
-
-Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'inverted' else ''
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
@@ -25,8 +16,8 @@ Template.registerHelper 'nl2br', (text)->
 
         
 Template.delta.onCreated ->
-    @autorun -> Meteor.subscribe('tags', selected_tags.array(), selected_usernames.array())
-    @autorun -> Meteor.subscribe('docs', selected_tags.array(), selected_usernames.array())
+    @autorun -> Meteor.subscribe('tags', selected_tags.array())
+    @autorun -> Meteor.subscribe('docs', selected_tags.array())
 
 Template.delta.helpers
     selected_tags: -> selected_tags.list()
@@ -41,9 +32,6 @@ Template.delta.helpers
         count = Docs.find({}).count()
         if count is 1 then true else false
     
-    global_usernames: -> Usernames.find()
-    selected_usernames: -> selected_usernames.list()
-
     
 Template.delta.events
     'click .select_tag': -> selected_tags.push @name
@@ -67,13 +55,11 @@ Template.delta.events
 
     'click .insert': (e,t)->
         new_ytid = t.$('.new_ytid').val().trim()
-        new_body = t.$('.new_body').val().trim()
         title = t.$('.new_tags').val().toLowerCase()
         # new_tags = t.$('.new_tags').val().toLowerCase().split(' ')
         Docs.insert
             timestamp:Date.now()
             youtube_id:new_ytid
-            body:new_body
             tags:[title]
         
         selected_tags.clear()
@@ -87,7 +73,6 @@ Template.delta.events
 
 Template.view.onCreated ->
     @autorun => Meteor.subscribe 'doc', @data._id
-    Meteor.subscribe 'person', @author_id
 
 Template.view.helpers
     result: -> 
@@ -134,42 +119,8 @@ Template.view.events
             $pull:tags:tag
         t.$('.new_tag').val(tag)
         
-    'blur .edit_body': (e,t)->
-        body_val = t.$('.edit_body').val()
-        console.log @
-        Docs.update @_id, 
-            $set: body:body_val
-            
+
     'click .remove_doc': ->
         current_id = Template.currentData()._id
         Docs.remove current_id,
-            
-            
-            
-Template.layout.events
-    'click .home': ->
-        delta = Docs.findOne type:'delta'
-        if delta
-            Docs.remove delta._id
-        Session.set 'delta_id', null
-        
-    'click .reset': ->    
-        console.log 'calling fum', Session.get('delta_id')
-        Meteor.call 'fum', Session.get('delta_id')
-            
-            
-            
-    'click .add': ->
-        new_id = Docs.insert {}
-        FlowRouter.go "/edit/#{new_id}"
-            
-    'click .logout': -> 
-        Meteor.logout()
-        FlowRouter.go "/enter"
-            
-    'click .create_delta': (e,t)->
-        
-    'click .logout': ->
-        Meteor.logout()
-        
             
