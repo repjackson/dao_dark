@@ -11,18 +11,23 @@ body
     +delta
 
 template(name='delta')
-    // .ui.icon.small.input
-    //     i.search.icon
-    //     input#search(type='text' autocomplete='off' placeholder='search tags')
+    // .ui.search
+    //     .ui.icon.input
+    //         input#new_search(type='text' placeholder='search')
+    //         i.search.icon
+    //     .results
+    .ui.icon.input
+        i.search.icon
+        input#search(type='text' autocomplete='off')
     if selected_tags
-        #clear_tags.ui.icon.button
+        #clear_tags.ui.icon.large.circular.button
             i.remove.icon
     each selected_tags
-        .unselect_tag.ui.button
+        .unselect_tag.ui.large.active.circular.button
             b #{this}
     each global_tags
-        .select_tag.ui.basic.button
-            |#{this.name}
+        .select_tag.ui.basic.large.circular.button
+            strong #{this.title}
             // small #{this.count}
     if single_doc
         each docs
@@ -31,31 +36,32 @@ template(name='delta')
     if dev
         .ui.center.aligned.basic.segment
             .ui.icon.input
-                i.youtube.icon
+                i.video.icon
                 input.new_ytid(type='text' placeholder='yt id')
-            .ui.input
+            .ui.icon.input
+                i.list.icon
                 input.new_body(type='text' placeholder='body')
             .ui.icon.input
                 i.tag.icon
                 input.new_tags(type='text' placeholder='title')
             .ui.button.insert insert
-    else
-        .ui.basic.center.aligned.segment
-            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                input(type='hidden', name='cmd', value='_s-xclick')
-                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                button.ui.icon.button(type='submit')
-                    i.coffee.icon
+    // else
+    .ui.basic.center.aligned.segment
+        form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+            input(type='hidden', name='cmd', value='_s-xclick')
+            input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+            // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+            img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+            button.ui.icon.basic.button(type='submit') 
+                i.coffee.icon
 
     
 
 template(name='view')
     with result 
         .ui.basic.segment
-            // if body
-            //     .f8 #{nl2br body}
+            if body
+                .f8 #{nl2br body}
             if youtube_id
                 .ui.embed.youtube(data-source="youtube" data-id=youtube_id class=invert_class)
         if dev
@@ -68,3 +74,5 @@ template(name='view')
                     |#{this}
             .ui.input
                 input.youtube_id(type='text' value=youtube_id placeholder='yt')
+            div
+            textarea.edit_body(rows='5') #{body}

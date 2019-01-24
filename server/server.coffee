@@ -38,7 +38,7 @@ Meteor.publish 'tags', (selected_tags)->
 
     cloud.forEach (tag) ->
         self.added 'tags', Random.id(),
-            name: tag.name
+            title: tag.name
             count: tag.count
 
     self.ready()

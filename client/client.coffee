@@ -1,4 +1,5 @@
 @selected_tags = new ReactiveArray []
+@results = new ReactiveArray []
 
 # Template.registerHelper 'calculated_size', (input)->
 #     whole = parseInt input*10
@@ -19,12 +20,28 @@ Template.delta.onCreated ->
     @autorun -> Meteor.subscribe('tags', selected_tags.array())
     @autorun -> Meteor.subscribe('docs', selected_tags.array())
 
+
+Template.delta.onRendered ->
+    Meteor.setTimeout ->
+        $('.ui.search').search({
+            source: results.list()
+        })
+    , 1000
+
 Template.delta.helpers
+    tags: ->
+        results = []
+        for tag in Tags.find()
+            results.push 
+                title: tag.name
+        console.log results
+        results
+
     selected_tags: -> selected_tags.list()
 
     global_tags: ->
-        doccount = Docs.find().count()
-        if 0 < doccount < 3 then Tags.find { count: $lt: doccount } else Tags.find()
+        doc_count = Docs.find().count()
+        if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find()
 
     docs: -> Docs.find {}, limit:1
 
@@ -34,10 +51,17 @@ Template.delta.helpers
     
     
 Template.delta.events
-    'click .select_tag': -> selected_tags.push @name
+    'click .select_tag': -> selected_tags.push @title
     'click .unselect_tag': -> selected_tags.remove @valueOf()
     'click #clear_tags': -> selected_tags.clear()
-    'keyup #search': (e)->
+    'keyup #new_search': (e,t)->
+        results.clear()
+        for tag in Tags.find().fetch()
+            results.push { title:tag.title }
+        console.log results  
+        results
+        
+    'keyup #search': (e,t)->
         switch e.which
             when 13
                 if e.target.value is 'clear'
