@@ -14,7 +14,23 @@ shell-server@0.4.0
 mobile-experience@1.0.5
 session@1.2.0
 blaze-html-templates
+iron:router
+email
+http
+fongandrew:login-as-user
+tmeasday:publish-counts
+reactive-var
 
+constellation:console
+matb33:collection-hooks
+dburles:collection-helpers
+underscore
+babrahams:temple
+constellation:autopublish
+constellation:subscriptions
+
+momentjs:moment
+accounts-password
 coffeescript@2.3.2_1
 less@2.8.0
 pacreach:jade

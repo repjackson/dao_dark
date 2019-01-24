@@ -7,8 +7,24 @@ head
     meta(name="msapplication-navbutton-color" content="black")
     meta(name="apple-mobile-web-app-status-bar-style" content="black")
 
-body
-    +delta
+template(name='layout')
+    #container.context
+        +topnav
+        .ui.bottom.attached.basic.segment.pushable
+            +topbar
+            // +bottombar
+            +leftbar
+            +rightbar
+            .pusher
+                #main
+                    +yield
+        +bottomnav
+
+template(name='notFound')
+    .ui.center.aligned.basic.segment
+        .ui.header Page Not Found
+
+
 
 template(name='delta')
     // .ui.search
@@ -26,7 +42,7 @@ template(name='delta')
         .unselect_tag.ui.large.active.circular.button
             b #{this}
     each global_tags
-        .select_tag.ui.basic.large.circular.button
+        .select_tag.ui.large.circular.button
             strong #{this.title}
             // small #{this.count}
     if single_doc
