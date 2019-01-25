@@ -4,21 +4,23 @@ template(name='edit')
             .four.wide.column
                 .ui.header
                     i.pencil.icon
-                    |edit #{title}
+                    | #{title}
                 a.ui.fluid.button(href="/view/#{_id}")
                     i.checkmark.icon
                 .ui.button.icon.delete
                     i.remove.icon
-                +ref_edit multi=true key='bricks' type='brick'
+                // +ref_edit multi=true key='_bricks' type='brick'
+                +brick_menu
+                +ref_edit multi=false key='_schema' type='schema'
             .twelve.wide.column
                 .ui.segment
                     .ui.form
-                        each bricks
-                            +brick_edit
-                        +text_edit key='title'
-                        +text_edit key='type'
-                        // // +text_edit key='plural'
-                        +text_edit key='slug'
+                        each _keys
+                            +key_edit
+                        // +text_edit key='title'
+                        // +text_edit key='type'
+                        // // // +text_edit key='plural'
+                        // +text_edit key='slug'
                         // +text_edit key='icon'
                         // // +ref_edit multi=true key='keys' schema='field'
                         // .field
@@ -27,18 +29,26 @@ template(name='edit')
                         // +array_edit key='tags'
 
 
+
+
+template(name='key_edit')
+    .ui.segment
+        .ui.labeled.input
+            .ui.label name: #{key}
+            input.change_key(type='text' placeholder='key' value=key)
+
+        +Template.dynamic template=field_edit
+        i.remove.icon.remove_key
+        
+        
+
 template(name='brick_menu')
     .ui.secondary.segment
+        .ui.header add brick
         each bricks
             .ui.button.add_brick
                 i.icon(class=icon)
                 |#{title}
-
-
-template(name='brick_edit')
-    with brick
-        .ui.header #{title}
-
 
 
 template(name='view')
