@@ -8,13 +8,13 @@ template(name='delta')
         i.search.icon
         input#search(type='text' autocomplete='off')
     if selected_tags
-        #clear_tags.ui.icon.grey.circular.button
+        #clear_tags.ui.icon.grey.button
             i.remove.icon
     each selected_tags
-        .unselect_tag.ui.grey.active.circular.button
+        .unselect_tag.ui.grey.active.button
             b #{this}
     each global_tags
-        .select_tag.ui.circular.button
+        .select_tag.ui.button
             strong #{this.title}
             // small #{this.count}
     if single_doc

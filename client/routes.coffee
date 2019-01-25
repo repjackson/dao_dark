@@ -5,6 +5,7 @@ FlowRouter.route '/', action: -> @render 'layout','delta'
 
 
 FlowRouter.route '/enter', action: -> @render 'layout','enter'
+FlowRouter.route '/me', action: -> @render 'layout','me'
   
   
 FlowRouter.route '/dash', action: -> @render 'layout','dash'

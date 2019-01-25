@@ -60,13 +60,13 @@ template(name='view')
                 .ten.wide.column
                     .ui.breadcrumb
                         a.section(href='/dash')
-                            .ui.circular.label
+                            .ui.label
                                 i.grey.dashboard.icon
                                 |Home
                         // .divider  /
                         if schema
                             a.section(href="/s/#{type}")
-                                .ui.circular.label
+                                .ui.label
                                     i.grey.icon(class=schema.icon)
                                     |#{schema.plural}
                             // .divider  /
@@ -78,7 +78,7 @@ template(name='view')
             .row
                 .four.wide.column
                     // .ui.header
-                    //     a.ui.circular.icon.button(href="/s/#{type}" title=plural)
+                    //     a.ui.icon.button(href="/s/#{type}" title=plural)
                     //         i.chevron.left.icon
                     //     |View #{type}
                     if is_author

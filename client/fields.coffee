@@ -63,11 +63,12 @@ Template.html_edit.events
 Template.array_edit.events
     'keyup .new_element': (e,t)->
         if e.which is 13
+            console.log @valueOf()
             element_val = t.$('.new_element').val().trim()
             parent = Template.parentData(5)
             # # console.log element_val
             Docs.update parent._id,
-                $addToSet:"#{@key}":element_val
+                $addToSet:"#{@valueOf()}":element_val
             t.$('.new_element').val('')
 
     'click .remove_element': (e,t)->
@@ -92,7 +93,7 @@ Template.text_edit.events
         parent = Template.parentData(5)
         val = t.$('.edit_text').val()
         Docs.update parent._id,
-            $set:"#{@key}":val
+            $set:"#{@valueOf()}":val
 
 
 

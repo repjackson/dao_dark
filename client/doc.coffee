@@ -99,7 +99,9 @@ Template.key_edit.events
         parent = Template.parentData()
         if confirm "remove #{key_name}?"
             Docs.update parent._id,
-                $unset: "#{key_name}": 1
+                $unset: 
+                    "#{key_name}": 1
+                    "_#{key_name}": 1
                 $pull: _keys: key_name
 
 

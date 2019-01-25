@@ -11,13 +11,13 @@ template(name='people')
                 i.search.icon
                 input#search(type='text' autocomplete='off' placeholder='Search Tags')
             if selected_tags
-                #clear_tags.ui.grey.icon.circular.button
+                #clear_tags.ui.grey.icon.button
                     i.remove.icon
             each selected_tags
-                .unselect_tag.ui.grey.circular.button
+                .unselect_tag.ui.grey.button
                     b #{this}
             each global_tags
-                .select_tag.ui.circular.button
+                .select_tag.ui.button
                     |#{this.name}
                     small #{this.count}
         .twelve.wide.column
@@ -36,13 +36,13 @@ template(name='person_card')
                 .ui.small.header #{body}
                 i.tags.icon
                 each tags
-                    .ui.basic.circular.label #{this}
+                    .ui.basic.label #{this}
             .extra
                 +user_list_toggle key='bookmark_ids' add_icon='bookmark' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=small
-                a.ui.circular.button(href="/user/#{_id}")
+                a.ui.button(href="/user/#{_id}")
                     |View
                     i.right.chevron.icon
-                a.ui.icon.circular.button(href="/person/#{_id}/edit" title='Edit')
+                a.ui.icon.button(href="/person/#{_id}/edit" title='Edit')
                     i.pencil.icon
 
 
@@ -52,7 +52,7 @@ template(name='person_view')
             .four.wide.column
                 .ui.header
                     a(href="/people" title='people')
-                        i.people.link.circular.icon
+                        i.people.link.icon
                     |View person
                 +edit_button_big
                 +follow
