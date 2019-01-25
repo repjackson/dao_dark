@@ -9,6 +9,11 @@ Template.registerHelper 'in_list', (key) ->
 Template.registerHelper 'doc', () ->
     Docs.findOne FlowRouter.getParam('id')
 
+Template.registerHelper 'schema', () ->
+    Docs.findOne
+        type:'schema'
+        slug:@type
+
 
 Template.registerHelper 'field_value', () ->
     parent = Template.parentData()

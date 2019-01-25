@@ -1,0 +1,134 @@
+template(name='url_edit')
+    .field
+        label link
+        input.edit_url(type='url' value=field_value placeholder='url')
+
+
+template(name='url_view')
+    a(href=field_value target='_window') #{field_value}
+
+
+template(name='image_view')
+    img.ui.image(src=field_value)
+
+
+template(name='textarea_edit')
+    .ui.form
+        .field
+            label #{key}
+            textarea.edit_textarea(rows='20') #{field_value}
+
+template(name='textarea_view')
+    .ui.basic.segment
+        |#{nl2br field_value}
+
+
+template(name='html_edit')
+    #toolbar
+    .editor
+
+template(name='html_view')
+    |!{field_value}
+
+
+template(name='text_edit')
+    .field
+        label #{key}
+        input.edit_text(type='text' value=field_value)
+
+template(name='text_view')
+    // | #{key}: &nbsp;
+    strong #{field_value}
+
+
+template(name='code_edit')
+    .ui.header ace
+    #ace
+
+template(name='number_edit')
+    .ui.labeled.fluid.input
+        .ui.label #{key}
+        input.edit_number(type='number' value=field_value placeholder=label)
+
+template(name='number_view')
+    | #{key}: &nbsp;
+    strong #{field_value}
+
+template(name='date_edit')
+    .ui.labeled.fluid.input
+        .ui.label #{key}
+        input.edit_date(type='date' value=field_value placeholder=label)
+
+template(name='date_view')
+    | #{key}: &nbsp;
+    strong #{field_value}
+
+
+template(name='array_edit')
+    .field
+        label #{key}
+        if field_value
+            each field_value
+                .ui.label
+                    i.remove.link.icon.remove_element
+                    |#{this}
+        .ui.icon.input
+            input.new_element(type='text')
+            i.plus.icon
+
+
+template(name='array_view')
+    each field_value
+        .ui.label #{this}
+
+
+
+template(name='children_edit')
+    .ui.small.header #{label}
+    .ui.segment
+        if editing
+            .ui.button.add_child
+                i.plus.icon
+                |child
+        each children
+            +child
+
+
+template(name='youtube_edit')
+    .ui.labeled.fluid.input
+        .ui.label youtube id
+        input.youtube_id(type='text' value=brick_meta.youtube_id)
+    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+
+template(name='youtube_view')
+    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+
+
+template(name='child')
+    .ui.segment
+        +text key='key'
+        +text key='field_type'
+        +remove_button
+
+template(name='boolean_edit')
+    .ui.button
+        |#{key}
+
+
+template(name='boolean_view')
+    .ui.label
+        if field_value
+            |true
+        else
+            |false
+        // |#{key} #{field_value}
+
+
+template(name='ref_edit')
+    div #{key}
+    each choices
+        .ui.button.select_choice
+            if icon
+                i.icon(class=icon)
+            |#{title}
+            |#{key}

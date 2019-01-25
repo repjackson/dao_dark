@@ -1,0 +1,76 @@
+template(name='people')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            .ui.center.aligned.header
+                i.users.icon
+                | People
+            .ui.small.header
+                i.tags.icon
+                |Filter Tags
+            .ui.icon.small.input
+                i.search.icon
+                input#search(type='text' autocomplete='off' placeholder='Search Tags')
+            if selected_tags
+                #clear_tags.ui.grey.icon.circular.button
+                    i.remove.icon
+            each selected_tags
+                .unselect_tag.ui.grey.circular.button
+                    b #{this}
+            each global_tags
+                .select_tag.ui.circular.button
+                    |#{this.name}
+                    small #{this.count}
+        .twelve.wide.column
+            .ui.stackable.four.cards
+                each people
+                    +person_card
+
+
+template(name='person_card')
+    .ui.card
+        .content
+            a.ui.header(href="/user/#{_id}/view")
+                |#{profile.name}
+                |#{profile.first_name} #{profile.last_name}
+            .description
+                .ui.small.header #{body}
+                i.tags.icon
+                each tags
+                    .ui.basic.circular.label #{this}
+            .extra
+                +user_list_toggle key='bookmark_ids' add_icon='bookmark' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=small
+                a.ui.circular.button(href="/user/#{_id}")
+                    |View
+                    i.right.chevron.icon
+                a.ui.icon.circular.button(href="/person/#{_id}/edit" title='Edit')
+                    i.pencil.icon
+
+
+template(name='person_view')
+    with doc
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header
+                    a(href="/people" title='people')
+                        i.people.link.circular.icon
+                    |View person
+                +edit_button_big
+                +follow
+            .twelve.wide.column
+                .ui.header
+                    |#{title}
+                h4 #{body}
+                +tags_view_big
+                div
+                +user_list_toggle key='bookmark_ids' add_icon='bookmark' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
+                div
+                i.calendar.icon
+                |Due
+                strong #{due_date}
+                div
+                i.user.icon
+                |Assignee
+                strong #{assignee}
+                div
+                +voting
+                +comments

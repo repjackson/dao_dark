@@ -8,6 +8,31 @@ Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
     
     
+Meteor.publish 'schema', (doc_id)->
+    doc = Docs.findOne doc_id
+    Docs.find
+        type:'schema'
+        slug:doc.type
+    
+    
+Meteor.publish 'type', (type)->
+    Docs.find 
+        type:type
+    
+    
+Meteor.publish 'children', (doc_id)->
+    Docs.find
+        parent_id: doc_id
+
+Meteor.publish 'all_users', ->
+    Meteor.users.find()
+
+Meteor.publish 'user_list', (doc,key)->
+    Meteor.users.find _id:$in:doc["#{@key}"]
+
+
+
+
 
 Meteor.publish 'docs', (selected_tags)->
     match = {}

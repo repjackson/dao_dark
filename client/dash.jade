@@ -1,7 +1,21 @@
 template(name='dash')
     .ui.stackable.padded.grid
-        .ui.header dash
-        each schemas
-            .ui.button
-                i.icon(class=icon)
-                |#{title}
+        .row
+            .four.wide.column
+                .ui.header dash
+                .ui.button.add_schema +
+            .twelve.wide.column
+                each items
+                    .ui.secondary.segment
+                        a.ui.header(href="/view/#{_id}")
+                            if icon
+                                i.grey.icon(class=icon)
+                            |#{title}
+                        .description
+                            .ui.small.header #{body}
+                            +tags_view_small
+                        .extra
+                            +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=small
+                            if is_author
+                                +edit_button_small
+                            +view_button_small

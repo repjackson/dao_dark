@@ -4,7 +4,7 @@ template(name='edit')
             .four.wide.column
                 .ui.header
                     i.pencil.icon
-                    |Edit #{title}
+                    |edit #{title}
                 a.ui.fluid.button(href="/view/#{_id}")
                     i.checkmark.icon
                 .ui.button.icon.delete
@@ -15,6 +15,7 @@ template(name='edit')
                         each schema_fields
                             +field_edit
                         +text_edit key='title'
+                        +text_edit key='type'
                         +text_edit key='plural'
                         +text_edit key='slug'
                         +text_edit key='icon'
@@ -25,7 +26,7 @@ template(name='edit')
                         +array_edit key='tags'
 
 
-template(name='view')
+template(name='facet_view')
     with result 
         .ui.basic.segment
             if body
@@ -44,3 +45,46 @@ template(name='view')
                 input.youtube_id(type='text' value=youtube_id placeholder='yt')
             div
             textarea.edit_body(rows='5') #{body}
+
+
+
+template(name='view')
+    with doc
+        .ui.stackable.padded.grid
+            .row
+                .ten.wide.column
+                    .ui.breadcrumb
+                        a.section(href='/dashboard')
+                            .ui.circular.label
+                                i.grey.dashboard.icon
+                                |Home
+                        // .divider  /
+                        a.section(href="/s/#{type}")
+                            .ui.circular.label
+                                i.grey.icon(class=schema.icon)
+                                |#{schema.plural}
+                        // .divider  /
+                        .active.section
+                            if title
+                                |#{title}
+                            else
+                                |View #{type}
+            .row
+                .four.wide.column
+                    // .ui.header
+                    //     a.ui.circular.icon.button(href="/s/#{type}" title=plural)
+                    //         i.chevron.left.icon
+                    //     |View #{type}
+                    if is_author
+                        +edit_button_big
+                .twelve.wide.column
+                    .ui.header
+                        if icon
+                            i.grey.icon(class=icon)
+                        |#{title}
+                    h4 #{body}
+                    +tags_view_big
+                    div
+                    +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
+                    div
+                    +comments

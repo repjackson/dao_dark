@@ -1,0 +1,146 @@
+template(name='comments')
+    .ui.secondary.segment
+        .ui.header
+            i.comment.outline.icon
+            |Comments
+        .ui.fluid.icon.input
+            i.plus.icon
+            input.add_comment(type='text' placeholder='Add comment...')
+        .ui.comments
+            each doc_comments
+                .comment
+                    .content
+                        .header #{body}
+                        .meta #{when}
+                        .actions
+                            i.thumbs.up.link.icon
+                            i.remove.link.remove_comment.icon
+
+template(name='follow')
+    .ui.secondary.segment
+        .ui.header
+            i.bell.grey.outline.icon
+            |Follow
+        +user_list_toggle key='follower_ids' add_icon='bell' remove_icon='bell slash' add_label='Follow' remove_label='Unfollow' color='blue' big=true
+
+
+template(name='user_list_info')
+    .item
+        |#{user.profile.name}
+        // |#{username} #{emails[0].address}
+
+
+
+
+template(name='user_info')
+    |#{user.profile.name}
+
+
+template(name='role_editor')
+    each roles
+        .ui.button #{this}
+
+template(name='author_info')
+    .ui.header #{author.username}
+
+template(name='creation_info')
+    .ui.header #{when}
+
+
+template(name='user_list_toggle')
+    .ui.toggle.circular.icon.button(class=user_list_toggle_class title=add_label)
+        if in_list
+            i.icon(class="#{remove_icon} #{color}")
+        else
+            i.icon(class=add_icon)
+        // if big
+        //     if in_list
+        //         |#{remove_label}
+        //     else
+        //         |#{add_label}
+    each list_users
+        +user_info
+
+
+template(name='voting')
+    if points
+        strong #{points}
+    .ui.icon.circular.button.upvote
+        i.thumbs.up.icon(class=upvote_class)
+    each upvoter_ids
+        +user_info
+    .ui.icon.circular.button.downvote
+        i.thumbs.down.icon(class=downvote_class)
+    each downvoter_ids
+        +user_info
+
+
+
+template(name='view_button_small')
+    a.ui.icon.circular.button.view(title='View' href="/view/#{_id}")
+        i.play.icon
+
+template(name='view_button_big')
+    a.ui.circular.button.view(title='view' href="/view/#{_id}")
+        i.play.icon
+        |View
+
+
+
+template(name='remove_button')
+    a.ui.icon.circular.button.remove(title='remove')
+        i.remove.icon
+
+template(name='add_button')
+    a.ui.icon.circular.button.add(title='add')
+        i.plus.icon
+        |#{type}
+
+
+
+template(name='edit_button_small')
+    if currentUser
+        a.ui.icon.circular.button.edit(title='edit' href="/edit/#{_id}")
+            i.pencil.icon
+
+template(name='edit_button_big')
+    if currentUser
+        a.ui.fluid.circular.button.edit(title='edit' href="/edit/#{_id}")
+            i.pencil.icon
+            // |Edit
+
+template(name='save_button')
+    a.ui.icon.fluid.circular.button.save(title='save' href="/view/#{_id}")
+        i.checkmark.icon
+
+
+template(name='tags_view_small')
+    // i.tags.grey.icon
+    each tags
+        .ui.circular.label #{this}
+
+template(name='tags_view_big')
+    // i.tags.grey.icon
+    |Tags
+    each tags
+        .ui.circular.label #{this}
+    div
+
+template(name='toggle_button')
+    .ui.icon.toggle.circular.button(title=label)
+        i.icon(class=icon)
+    each selected
+        |#{username}
+
+
+template(name='view_user_button')
+    .ui.icon.view_user.circular.button.view(title="view #{username}")
+        i.play.icon
+
+
+template(name='add_type_button')
+    .ui.icon.circular.button.add(title="add #{type}")
+        i.plus.icon
+        |#{type}
+
+

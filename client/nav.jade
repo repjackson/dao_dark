@@ -2,17 +2,21 @@ template(name='nav')
     .ui.attached.borderless.inverted.menu
         a.header.item(href='/')
             |DAO
-        .icon.item.add_doc
+        a.icon.item.add_doc(href='#')
             i.plus.icon
+        a.icon.item(href='/users')
+            i.users.icon
         if currentUser
             .right.menu
-                a.icon.item.toggle_topbar(href='#')
+                a.icon.item(href='#')
                     i.bell.icon
                 a.item(href='/dash')
                     i.dashboard.icon
-                a.item.toggle_rightbar(href='#')
+                a.item(href='#')
                     i.user.icon
                     |#{currentUser.username}
+                a.item.logout(href='#')
+                    i.sign.out.icon
         else
             .right.menu
                 a.item(href='/enter')
