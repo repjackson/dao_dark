@@ -1,17 +1,17 @@
 template(name='nav')
-    .ui.attached.borderless.inverted.menu
+    .ui.attached.borderless.inverted.large.menu
         a.header.item(href='/')
             |DAO
         a.icon.item.add_doc(href='#')
             i.plus.icon
         a.icon.item(href='/users')
             i.users.icon
+        a.item(href='/dash')
+            i.dashboard.icon
         if currentUser
             .right.menu
                 a.icon.item(href='#')
                     i.bell.icon
-                a.item(href='/dash')
-                    i.dashboard.icon
                 a.item(href='#')
                     i.user.icon
                     |#{currentUser.username}

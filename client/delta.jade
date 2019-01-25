@@ -19,7 +19,7 @@ template(name='delta')
             // small #{this.count}
     if single_doc
         each docs
-            +view
+            +facet_view
 
     if dev
         .ui.center.aligned.basic.segment
@@ -37,4 +37,26 @@ template(name='delta')
     .ui.basic.center.aligned.segment
 
     
+    
+template(name='facet_view')
+    with result 
+        .ui.basic.segment
+            if body
+                .f8 #{nl2br body}
+            if youtube_id
+                .ui.embed.youtube(data-source="youtube" data-id=youtube_id class=invert_class)
+        if dev
+            .ui.input
+                input.new_list(type='text' placeholder='add list')
+            .ui.input
+                input.new_tag(type='text' placeholder='add tag')
+            each tags
+                .ui.compact.button.remove_tag 
+                    |#{this}
+            .ui.input
+                input.youtube_id(type='text' value=youtube_id placeholder='yt')
+            div
+            textarea.edit_body(rows='5') #{body}
+
+
 

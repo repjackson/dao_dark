@@ -9,7 +9,7 @@ template(name='edit')
                     i.checkmark.icon
                 .ui.button.icon.delete
                     i.remove.icon
-                +bricks
+                +ref_edit multi=true key='bricks' type='brick'
             .twelve.wide.column
                 .ui.segment
                     .ui.form
@@ -17,17 +17,17 @@ template(name='edit')
                             +brick_edit
                         +text_edit key='title'
                         +text_edit key='type'
-                        // +text_edit key='plural'
-                        // +text_edit key='slug'
-                        +text_edit key='icon'
-                        +ref_edit multi=true key='keys' schema='field'
-                        .field
-                            label Notes
-                            textarea.body(rows='5') #{body}
-                        +array_edit key='tags'
+                        // // +text_edit key='plural'
+                        +text_edit key='slug'
+                        // +text_edit key='icon'
+                        // // +ref_edit multi=true key='keys' schema='field'
+                        // .field
+                        //     label Notes
+                        //     textarea.body(rows='5') #{body}
+                        // +array_edit key='tags'
 
 
-template(name='bricks')
+template(name='brick_menu')
     .ui.secondary.segment
         each bricks
             .ui.button.add_brick
@@ -38,26 +38,6 @@ template(name='bricks')
 template(name='brick_edit')
     with brick
         .ui.header #{title}
-
-template(name='facet_view')
-    with result 
-        .ui.basic.segment
-            if body
-                .f8 #{nl2br body}
-            if youtube_id
-                .ui.embed.youtube(data-source="youtube" data-id=youtube_id class=invert_class)
-        if dev
-            .ui.input
-                input.new_list(type='text' placeholder='add list')
-            .ui.input
-                input.new_tag(type='text' placeholder='add tag')
-            each tags
-                .ui.compact.button.remove_tag 
-                    |#{this}
-            .ui.input
-                input.youtube_id(type='text' value=youtube_id placeholder='yt')
-            div
-            textarea.edit_body(rows='5') #{body}
 
 
 
@@ -72,11 +52,12 @@ template(name='view')
                                 i.grey.dashboard.icon
                                 |Home
                         // .divider  /
-                        a.section(href="/s/#{type}")
-                            .ui.circular.label
-                                i.grey.icon(class=schema.icon)
-                                |#{schema.plural}
-                        // .divider  /
+                        if schema
+                            a.section(href="/s/#{type}")
+                                .ui.circular.label
+                                    i.grey.icon(class=schema.icon)
+                                    |#{schema.plural}
+                            // .divider  /
                         .active.section
                             if title
                                 |#{title}

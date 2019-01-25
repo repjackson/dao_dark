@@ -7,11 +7,6 @@ Template.dash.onCreated ->
 
 
 Template.dash.helpers
-    items: ->
-        Docs.find
-            type:'schema'
-
-Template.dash.helpers
     selected_type: -> selected_type.list()
     types: -> Types.find({})
     docs: -> Docs.find {}, limit:20

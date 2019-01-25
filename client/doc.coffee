@@ -12,25 +12,26 @@ Template.view.onCreated ->
     @autorun -> Meteor.subscribe 'schema', FlowRouter.getParam('id')
 
 
-Template.bricks.helpers
+Template.brick_menu.helpers
     bricks: ->
         Docs.find
             type:'brick'
 
 
-Template.bricks.events
+Template.brick_menu.events
     'click .add_brick': ->
         Docs.update FlowRouter.getParam('id'),
             $addToSet:
                 bricks: @_id
 
-Template.view.onCreated ->
-    console.log @
+Template.brick_edit.onCreated ->
+    @autorun => Meteor.subscribe 'doc', @data
+
     
 
 Template.brick_edit.helpers
     brick: ->
-        Docs.findOne @_id
+        Docs.findOne @valueOf()
 
 
 

@@ -80,23 +80,23 @@ Template.delta.events
 
 
 
-Template.view.onCreated ->
+Template.facet_view.onCreated ->
     @autorun => Meteor.subscribe 'doc', @data._id
 
-Template.view.helpers
+Template.facet_view.helpers
     result: -> 
         doc = Docs.findOne @_id
         # console.log doc
         doc
 
-Template.view.onRendered ->
+Template.facet_view.onRendered ->
     @autorun =>
         if @subscriptionsReady()
             Meteor.setTimeout ->
                 $('.ui.embed').embed()
             , 500
 
-Template.view.events
+Template.facet_view.events
     'blur .youtube_id': (e,t)->
         # parent = Template.parentData(5)
         parent = @

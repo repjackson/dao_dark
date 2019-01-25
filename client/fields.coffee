@@ -143,10 +143,10 @@ Template.children_edit.events
             parent_id: parent._id
 
 Template.ref_edit.onCreated ->
-    @autorun => Meteor.subscribe 'ref_choices', @data.schema
+    @autorun => Meteor.subscribe 'ref_choices', @data.type
 
 Template.ref_edit.helpers
-    choices: -> Docs.find type:@schema
+    choices: -> Docs.find type:@type
     choice_class: ->
 
 
@@ -154,16 +154,16 @@ Template.ref_edit.events
     'click .select_choice': ->
         selection = @
         ref_field = Template.currentData()
-        target = Template.parentData(1)
+        target = Template.parentData()
 
-        console.log ref_field
+        console.log target
 
-        if ref_field.ref_type is 'single'
-            Docs.update target._id,
-                $set: "#{ref_field.key}": @_id
-        else if ref_field.ref_type is 'multi'
+        if ref_field.multi
             Docs.update target._id,
                 $addToSet: "#{ref_field.key}": @_id
+        else
+            Docs.update target._id,
+                $set: "#{ref_field.key}": @_id
 
 
 
