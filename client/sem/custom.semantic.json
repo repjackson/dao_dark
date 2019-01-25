@@ -12,7 +12,7 @@
     "dimmer": true,
     "divider": true,
     "dropdown": true,
-    "embed": false,
+    "embed": true,
     "feed": true,
     "flag": false,
     "form": true,

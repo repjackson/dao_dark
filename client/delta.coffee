@@ -1,15 +1,17 @@
 @selected_tags = new ReactiveArray []
 @results = new ReactiveArray []
 
+
+
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
 # Template.registerHelper 'calculated_size', (input)->
 #     whole = parseInt input*10
 #     "f#{whole}"
 
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
-
-Template.registerHelper 'doc', () -> Docs.findOne FlowRouter.getParam('doc_id')
-
+Template.registerHelper 'doc', () -> Docs.findOne FlowRouter.getParam('id')
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
@@ -21,22 +23,7 @@ Template.delta.onCreated ->
     @autorun -> Meteor.subscribe('docs', selected_tags.array())
 
 
-Template.delta.onRendered ->
-    Meteor.setTimeout ->
-        $('.ui.search').search({
-            source: results.list()
-        })
-    , 1000
-
 Template.delta.helpers
-    tags: ->
-        results = []
-        for tag in Tags.find()
-            results.push 
-                title: tag.name
-        console.log results
-        results
-
     selected_tags: -> selected_tags.list()
 
     global_tags: ->

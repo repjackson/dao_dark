@@ -1,5 +1,5 @@
 head
-    title dao
+    title DAO
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name="theme-color", content="#262626")
     meta(name="mobile-web-app-capable" content="yes")
@@ -8,87 +8,11 @@ head
     meta(name="apple-mobile-web-app-status-bar-style" content="black")
 
 template(name='layout')
-    #container.context
-        +topnav
-        .ui.bottom.attached.basic.segment.pushable
-            +topbar
-            // +bottombar
-            +leftbar
-            +rightbar
-            .pusher
-                #main
-                    +yield
-        +bottomnav
+    +nav
+    +yield
 
-template(name='notFound')
+template(name='not_found')
     .ui.center.aligned.basic.segment
         .ui.header Page Not Found
 
 
-
-template(name='delta')
-    // .ui.search
-    //     .ui.icon.input
-    //         input#new_search(type='text' placeholder='search')
-    //         i.search.icon
-    //     .results
-    .ui.icon.input
-        i.search.icon
-        input#search(type='text' autocomplete='off')
-    if selected_tags
-        #clear_tags.ui.icon.large.circular.button
-            i.remove.icon
-    each selected_tags
-        .unselect_tag.ui.large.active.circular.button
-            b #{this}
-    each global_tags
-        .select_tag.ui.large.circular.button
-            strong #{this.title}
-            // small #{this.count}
-    if single_doc
-        each docs
-            +view
-
-    if dev
-        .ui.center.aligned.basic.segment
-            .ui.icon.input
-                i.video.icon
-                input.new_ytid(type='text' placeholder='yt id')
-            .ui.icon.input
-                i.list.icon
-                input.new_body(type='text' placeholder='body')
-            .ui.icon.input
-                i.tag.icon
-                input.new_tags(type='text' placeholder='title')
-            .ui.button.insert insert
-    // else
-    .ui.basic.center.aligned.segment
-        form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-            input(type='hidden', name='cmd', value='_s-xclick')
-            input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-            // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-            img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-            button.ui.icon.basic.button(type='submit') 
-                i.coffee.icon
-
-    
-
-template(name='view')
-    with result 
-        .ui.basic.segment
-            if body
-                .f8 #{nl2br body}
-            if youtube_id
-                .ui.embed.youtube(data-source="youtube" data-id=youtube_id class=invert_class)
-        if dev
-            .ui.input
-                input.new_list(type='text' placeholder='add list')
-            .ui.input
-                input.new_tag(type='text' placeholder='add tag')
-            each tags
-                .ui.compact.button.remove_tag 
-                    |#{this}
-            .ui.input
-                input.youtube_id(type='text' value=youtube_id placeholder='yt')
-            div
-            textarea.edit_body(rows='5') #{body}

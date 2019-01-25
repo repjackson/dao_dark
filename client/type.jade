@@ -1,0 +1,116 @@
+template(name='type')
+    with schema
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.center.aligned.header
+                    i.icon(class=icon)
+                    | #{plural}
+                .ui.circular.fluid.button.add_type_doc(title="add #{slug}")
+                    i.plus.icon
+                    // |add #{slug}
+                .ui.hidden.divider
+                // i.tags.grey.icon
+                // .ui.small.header
+                //     |Filter Tags
+                // .ui.icon.small.transparent.input
+                //     i.search.icon
+                //     input#search(type='text' autocomplete='off' placeholder='Search Tags')
+                if selected_tags
+                    #clear_tags.ui.grey.icon.circular.button
+                        i.remove.icon
+                each selected_tags
+                    .unselect_tag.ui.grey.circular.button
+                        b #{this}
+                each global_tags
+                    .select_tag.ui.circular.button
+                        |#{this.name}
+                        // small #{this.count}
+            .twelve.wide.column
+                each type_docs
+                    +type_item
+
+
+
+template(name='type_item')
+    .ui.secondary.segment
+        a.ui.header(href="/s/#{type}/#{_id}/view")
+            if icon
+                i.grey.icon(class=icon)
+            |#{title}
+        .description
+            .ui.small.header #{body}
+            +tags_view_small
+        .extra
+            +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=small
+            if is_author
+                +edit_button_small
+            +view_button_small
+
+
+template(name='type_edit')
+    with doc
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header
+                    i.pencil.icon
+                    |Edit #{title}
+                a.ui.fluid.circular.button(href="/s/#{type}/#{_id}/view")
+                    i.checkmark.icon
+                .ui.circular.button.icon.delete_schema
+                    i.remove.icon
+            .twelve.wide.column
+                .ui.segment
+                    .ui.form
+                        each schema_fields
+                            +field_edit
+                        +text_edit key='title'
+                        +text_edit key='plural'
+                        +text_edit key='slug'
+                        +text_edit key='icon'
+                        +ref_edit multi=true key='keys' schema='field'
+                        .field
+                            label Notes
+                            textarea.body(rows='5') #{body}
+                        +array_edit key='tags'
+
+
+template(name='type_view')
+    with doc
+        .ui.stackable.padded.grid
+            .row
+                .ten.wide.column
+                    .ui.breadcrumb
+                        a.section(href='/dashboard')
+                            .ui.circular.label
+                                i.grey.dashboard.icon
+                                |Home
+                        // .divider  /
+                        a.section(href="/s/#{type}")
+                            .ui.circular.label
+                                i.grey.icon(class=schema.icon)
+                                |#{schema.plural}
+                        // .divider  /
+                        .active.section
+                            if title
+                                |#{title}
+                            else
+                                |View #{type}
+            .row
+                .four.wide.column
+                    // .ui.header
+                    //     a.ui.circular.icon.button(href="/s/#{type}" title=plural)
+                    //         i.chevron.left.icon
+                    //     |View #{type}
+                    if is_author
+                        +edit_button_big
+                .twelve.wide.column
+                    .ui.header
+                        if icon
+                            i.grey.icon(class=icon)
+                        |#{title}
+                    h4 #{body}
+                    +tags_view_big
+                    div
+                    +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
+                    div
+                    +comments

@@ -1,0 +1,46 @@
+template(name='edit')
+    with doc
+        .ui.stackable.padded.grid
+            .four.wide.column
+                .ui.header
+                    i.pencil.icon
+                    |Edit #{title}
+                a.ui.fluid.button(href="/view/#{_id}")
+                    i.checkmark.icon
+                .ui.button.icon.delete
+                    i.remove.icon
+            .twelve.wide.column
+                .ui.segment
+                    .ui.form
+                        each schema_fields
+                            +field_edit
+                        +text_edit key='title'
+                        +text_edit key='plural'
+                        +text_edit key='slug'
+                        +text_edit key='icon'
+                        +ref_edit multi=true key='keys' schema='field'
+                        .field
+                            label Notes
+                            textarea.body(rows='5') #{body}
+                        +array_edit key='tags'
+
+
+template(name='view')
+    with result 
+        .ui.basic.segment
+            if body
+                .f8 #{nl2br body}
+            if youtube_id
+                .ui.embed.youtube(data-source="youtube" data-id=youtube_id class=invert_class)
+        if dev
+            .ui.input
+                input.new_list(type='text' placeholder='add list')
+            .ui.input
+                input.new_tag(type='text' placeholder='add tag')
+            each tags
+                .ui.compact.button.remove_tag 
+                    |#{this}
+            .ui.input
+                input.youtube_id(type='text' value=youtube_id placeholder='yt')
+            div
+            textarea.edit_body(rows='5') #{body}

@@ -1,7 +1,7 @@
 Docs.allow
-    insert: (userId, doc) -> true
-    update: (userId, doc) -> true
-    remove: (userId, doc) -> true
+    insert: (userId, doc) -> userId
+    update: (userId, doc) -> userId
+    remove: (userId, doc) -> userId
 
 
 Meteor.publish 'doc', (doc_id)->

@@ -1,0 +1,22 @@
+template(name='enter')
+    .ui.padded.grid
+        .centered.row
+            .ten.wide.center.aligned.column
+                .ui.header DAO
+        .centered.row
+            .ten.wide.column
+                if message
+                    h4.ui.center.aligned.header #{message}
+                .ui.fluid.input(class=login_class)
+                    input.username(type='text' placeholder='username')
+                .ui.fluid.input(class=login_class)
+                    input.password(type='password' placeholder='password')
+                if username
+                    if registering
+                        .ui.fluid.large.button.enter(title="register #{username}" class=enter_class)
+                            i.user.plus.icon
+                            |#{username}
+                    else
+                        .ui.fluid.large.button.enter(title="login #{username}" class=enter_class)
+                            i.play.icon
+                            | #{username}
