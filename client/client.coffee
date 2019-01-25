@@ -16,6 +16,6 @@ Template.registerHelper 'schema', () ->
 
 
 Template.registerHelper 'field_value', () ->
-    parent = Template.parentData()
+    parent = Template.parentData(5)
     if parent["#{@key}"] then parent["#{@key}"]
 

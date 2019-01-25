@@ -4,7 +4,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 Template.url_edit.events
     'blur .edit_url': (e,t)->
         url_val = t.$('.edit_url').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         Docs.update parent._id,
             $set:"#{@valueOf()}":url_val
 
@@ -52,7 +52,7 @@ Template.html_edit.events
         # console.log t.editor
         delta = t.editor.getContents();
         html = t.editor.root.innerHTML
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         Docs.update parent._id,
             $set:
                 "#{@valueOf()}": html
@@ -64,7 +64,7 @@ Template.array_edit.events
     'keyup .new_element': (e,t)->
         if e.which is 13
             element_val = t.$('.new_element').val().trim()
-            parent = Template.parentData()
+            parent = Template.parentData(5)
             # # console.log element_val
             Docs.update parent._id,
                 $addToSet:"#{@key}":element_val
@@ -73,7 +73,7 @@ Template.array_edit.events
     'click .remove_element': (e,t)->
         element = @valueOf()
         field = Template.currentData()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         Docs.update parent._id,
             $pull:"#{field.key}":element
 
@@ -81,7 +81,7 @@ Template.array_edit.events
 Template.textarea_edit.events
     'blur .edit_textarea': (e,t)->
         textarea_val = t.$('.edit_textarea').val()
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         Docs.update parent._id,
             $set:"#{@valueOf()}":textarea_val
 
@@ -89,7 +89,7 @@ Template.textarea_edit.events
 
 Template.text_edit.events
     'blur .edit_text': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         val = t.$('.edit_text').val()
         Docs.update parent._id,
             $set:"#{@key}":val
@@ -98,7 +98,7 @@ Template.text_edit.events
 
 Template.number_edit.events
     'blur .edit_number': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         val = t.$('.edit_number').val()
         Docs.update parent._id,
             $set:"#{@valueOf()}":val
@@ -107,7 +107,7 @@ Template.number_edit.events
 
 Template.date_edit.events
     'blur .edit_date': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         val = t.$('.edit_date').val()
         Docs.update parent._id,
             $set:"#{@valueOf()}":val
@@ -116,7 +116,7 @@ Template.date_edit.events
 
 Template.youtube_edit.events
     'blur .youtube_id': (e,t)->
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         val = t.$('.youtube_id').val()
         Docs.update parent._id,
             $set:"_#{@valueOf()}.youtube_id":val
@@ -129,7 +129,7 @@ Template.children_edit.onCreated ->
 Template.children_edit.helpers
     children: ->
         field = @
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         Docs.find
             type: @type
             parent_id: parent._id
@@ -137,7 +137,7 @@ Template.children_edit.helpers
 Template.children_edit.events
     'click .add_child': ->
         field = @
-        parent = Template.parentData()
+        parent = Template.parentData(5)
         Docs.insert
             type: @type
             parent_id: parent._id
