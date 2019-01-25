@@ -75,6 +75,8 @@ Template.key_edit.helpers
         # console.log parent
         if parent["#{@valueOf()}"]
             parent["#{@valueOf()}"]
+            
+            
 
     
     

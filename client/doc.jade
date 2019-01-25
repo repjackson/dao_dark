@@ -36,9 +36,11 @@ template(name='key_edit')
         .ui.labeled.input
             .ui.label name: #{key}
             input.change_key(type='text' placeholder='key' value=key)
-
+        .ui.divider
         +Template.dynamic template=field_edit
-        i.remove.icon.remove_key
+        i.remove.icon.link.remove_key
+        .ui.divider
+        +jsonView json=meta
         
         
 
