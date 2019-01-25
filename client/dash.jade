@@ -2,16 +2,29 @@ template(name='dash')
     .ui.stackable.padded.grid
         .row
             .four.wide.column
-                .ui.header dash
-                .ui.button.add_schema +
+                i.big.dashboard.icon
+                .ui.icon.input
+                    i.search.icon
+                    input#search(type='text' autocomplete='off')
+                if selected_type
+                    #clear_types.ui.icon.grey.button
+                        i.remove.icon
+                each selected_type
+                    .unselect_type.ui.grey.active.button
+                        b #{this}
+                each types
+                    .select_type.ui.button
+                        strong #{title}
+                        // small #{this.count}
             .twelve.wide.column
-                each items
+                each docs
                     .ui.secondary.segment
                         a.ui.header(href="/view/#{_id}")
                             if icon
                                 i.grey.icon(class=icon)
                             |#{title}
                         .description
+                            .ui.header #{type}
                             .ui.small.header #{body}
                             +tags_view_small
                         .extra

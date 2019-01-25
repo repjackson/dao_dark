@@ -9,15 +9,16 @@ template(name='edit')
                     i.checkmark.icon
                 .ui.button.icon.delete
                     i.remove.icon
+                +bricks
             .twelve.wide.column
                 .ui.segment
                     .ui.form
-                        each schema_fields
-                            +field_edit
+                        each bricks
+                            +brick_edit
                         +text_edit key='title'
                         +text_edit key='type'
-                        +text_edit key='plural'
-                        +text_edit key='slug'
+                        // +text_edit key='plural'
+                        // +text_edit key='slug'
                         +text_edit key='icon'
                         +ref_edit multi=true key='keys' schema='field'
                         .field
@@ -25,6 +26,18 @@ template(name='edit')
                             textarea.body(rows='5') #{body}
                         +array_edit key='tags'
 
+
+template(name='bricks')
+    .ui.secondary.segment
+        each bricks
+            .ui.button.add_brick
+                i.icon(class=icon)
+                |#{title}
+
+
+template(name='brick_edit')
+    with brick
+        .ui.header #{title}
 
 template(name='facet_view')
     with result 
@@ -54,7 +67,7 @@ template(name='view')
             .row
                 .ten.wide.column
                     .ui.breadcrumb
-                        a.section(href='/dashboard')
+                        a.section(href='/dash')
                             .ui.circular.label
                                 i.grey.dashboard.icon
                                 |Home

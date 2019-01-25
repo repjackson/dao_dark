@@ -16,8 +16,6 @@ session@1.2.0
 blaze-html-templates
 email
 http
-fongandrew:login-as-user
-tmeasday:publish-counts
 reactive-var
 
 constellation:console

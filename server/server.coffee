@@ -67,3 +67,43 @@ Meteor.publish 'tags', (selected_tags)->
             count: tag.count
 
     self.ready()
+
+
+
+
+    
+Meteor.publish 'docs_type', (selected_type)->
+    match = {}
+
+    if selected_type.length > 0 then match.type = $all: selected_type
+
+    Docs.find match,
+        limit: 10
+        sort: timestamp: -1
+        
+        
+    
+Meteor.publish 'types', (selected_type)->
+    self = @
+    match = {}
+    if selected_type.length > 0 then match.type = $all: selected_type
+
+    cloud = Docs.aggregate [
+        { $match: match }
+        { $project: type: 1 }
+        { $group: _id: '$type', count: $sum: 1 }
+        { $match: _id: $nin: selected_type }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 10 }
+        { $project: _id: 0, name: '$_id', count: 1 }
+        ]
+
+    cloud.forEach (type) ->
+        self.added 'types', Random.id(),
+            title: type.name
+            count: type.count
+
+    self.ready()
+    
+    
+    
