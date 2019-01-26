@@ -1,10 +1,10 @@
-template(name='url_edit')
+template(name='link_edit')
     .field
         label link
-        input.edit_url(type='url' value=field_value placeholder='url')
+        input.edit_link(type='link' value=field_value placeholder='link' )
 
 
-template(name='url_view')
+template(name='link_view')
     a(href=field_value target='_window') #{field_value}
 
 
@@ -32,9 +32,10 @@ template(name='html_view')
 
 
 template(name='text_edit')
-    .field
-        label #{key}
-        input.edit_text(type='text' value=field_value)
+    .ui.icon.input
+        // .ui.label #{key}
+        i.header.icon
+        input.edit_text(type='text' value=field_value placeholder='text')
 
 template(name='text_view')
     // | #{key}: &nbsp;
@@ -46,9 +47,10 @@ template(name='code_edit')
     #ace
 
 template(name='number_edit')
-    .ui.labeled.fluid.input
-        .ui.label #{key}
-        input.edit_number(type='number' value=field_value placeholder=label)
+    .ui.icon.input
+        // .ui.label #{key}
+        i.hashtag.icon
+        input.edit_number(type='number' value=field_value placeholder='number')
 
 template(name='number_view')
     | #{key}: &nbsp;
@@ -57,14 +59,14 @@ template(name='number_view')
 template(name='date_edit')
     .ui.labeled.fluid.input
         .ui.label #{key}
-        input.edit_date(type='date' value=field_value placeholder=label)
+        input.edit_date(type='date' value=field_value placeholder='date')
 
 template(name='date_view')
     | #{key}: &nbsp;
     strong #{field_value}
 
 
-template(name='array_edit')
+template(name='list_edit')
     .field
         label #{key}
         if field_value
@@ -73,11 +75,11 @@ template(name='array_edit')
                     i.remove.link.icon.remove_element
                     |#{this}
         .ui.icon.input
-            input.new_element(type='text')
+            input.new_element(type='text' placeholder='list')
             i.plus.icon
 
 
-template(name='array_view')
+template(name='list_view')
     each field_value
         .ui.label #{this}
 

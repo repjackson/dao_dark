@@ -2,8 +2,8 @@ template(name='edit')
     with doc
         .ui.stackable.padded.grid
             .centered.row
-                .ten.wide.center.aligned.column
-                    i.pencil.big.icon
+                .fourteen.wide.center.aligned.column
+                    i.pencil.large.grey.icon
                     a.ui.big.icon.button(href="/view/#{_id}")
                         i.checkmark.icon
                     .ui.button.icon.delete
@@ -12,9 +12,8 @@ template(name='edit')
                     div
                     +brick_menu
                     // +ref_edit multi=false key='_schema' type='schema'
-                    .ui.form
-                        each _keys
-                            +key_edit
+                    each _keys
+                        +key_edit
                         // +text_edit key='title'
                         // +text_edit key='type'
                         // // // +text_edit key='plural'
@@ -31,19 +30,28 @@ template(name='edit')
 
 template(name='key_edit')
     .ui.tertiary.segment
+        i.remove.icon.large.link.remove_key(title='remove field')
         .ui.labeled.input
-            .ui.label name: #{key}
+            .ui.label(title='name') #{key}
             input.change_key(type='text' placeholder='key' value=key)
+        
         .ui.divider
         +Template.dynamic template=field_edit
-        i.remove.icon.link.remove_key
-        .ui.divider
-        +jsonView json=meta
+        // .ui.divider
+        // +jsonView json=meta
+        
+        
+template(name='key_view')
+    .ui.tertiary.segment
+        .ui.label(title='name') #{key}
+        +Template.dynamic template=field_view
+        // .ui.divider
+        // +jsonView json=meta
         
         
 
 template(name='brick_menu')
-    i.big.plus.icon
+    i.large.grey.plus.icon
     each bricks
         .ui.button.add_brick
             i.icon(class=icon)
@@ -55,6 +63,9 @@ template(name='view')
         .ui.stackable.padded.grid
             .centered.row
                 .ten.wide.center.aligned.column
+                    each _keys
+                        +key_view
+
                     // .ui.header
                     //     a.ui.icon.button(href="/s/#{type}" title=plural)
                     //         i.chevron.left.icon
@@ -66,8 +77,8 @@ template(name='view')
                             i.grey.icon(class=icon)
                         |#{title}
                     h4 #{body}
-                    +tags_view_big
-                    div
-                    +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
-                    div
-                    +comments
+                    // +tags_view_big
+                    // div
+                    // +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
+                    // div
+                    // +comments

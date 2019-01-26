@@ -56,30 +56,27 @@ Template.key_edit.helpers
         parent["_#{key_string}"]
     
     
-    key_value: ->
-        key_string = @valueOf()
-        # console.log Template.parentData()
-        parent = Template.parentData()
-        parent["#{key_string}"]
-
-    
     field_edit: ->
         key_string = @valueOf()
         meta = Template.parentData()["_#{key_string}"]
         "#{meta.brick}_edit"
             
                     
-    field_value: () -> 
-        parent = Template.parentData(1)
-        # console.log @
-        # console.log parent
-        if parent["#{@valueOf()}"]
-            parent["#{@valueOf()}"]
-            
-            
-
+Template.key_view.helpers
+    key: -> @valueOf()
+    
+    meta: ->
+        key_string = @valueOf()
+        parent = Template.parentData()
+        parent["_#{key_string}"]
     
     
+    field_view: ->
+        key_string = @valueOf()
+        meta = Template.parentData()["_#{key_string}"]
+        "#{meta.brick}_view"
+            
+                    
 
 Template.key_edit.events
     'keyup .change_key': (e,t)->

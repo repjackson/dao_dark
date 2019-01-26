@@ -1,12 +1,12 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 
-Template.url_edit.events
-    'blur .edit_url': (e,t)->
-        url_val = t.$('.edit_url').val()
+Template.link_edit.events
+    'blur .edit_link': (e,t)->
+        link_val = t.$('.edit_link').val()
         parent = Template.parentData(5)
         Docs.update parent._id,
-            $set:"#{@valueOf()}":url_val
+            $set:"#{@valueOf()}":link_val
 
 
 
@@ -60,7 +60,7 @@ Template.html_edit.events
 
 
 
-Template.array_edit.events
+Template.list_edit.events
     'keyup .new_element': (e,t)->
         if e.which is 13
             console.log @valueOf()
@@ -100,7 +100,7 @@ Template.text_edit.events
 Template.number_edit.events
     'blur .edit_number': (e,t)->
         parent = Template.parentData(5)
-        val = t.$('.edit_number').val()
+        val = parseInt t.$('.edit_number').val()
         Docs.update parent._id,
             $set:"#{@valueOf()}":val
 
