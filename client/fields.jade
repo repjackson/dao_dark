@@ -39,6 +39,7 @@ template(name='text_edit')
 
 template(name='text_view')
     // | #{key}: &nbsp;
+    i.i.cursor.grey.icon
     strong #{field_value}
 
 
@@ -54,6 +55,7 @@ template(name='number_edit')
 
 template(name='number_view')
     | #{key}: &nbsp;
+    i.hashtag.grey.icon
     strong #{field_value}
 
 template(name='date_edit')
@@ -62,7 +64,8 @@ template(name='date_edit')
         input.edit_date(type='date' value=field_value placeholder='date')
 
 template(name='date_view')
-    | #{key}: &nbsp;
+    | #{key} &nbsp;
+    i.calendar.grey.icon
     strong #{field_value}
 
 

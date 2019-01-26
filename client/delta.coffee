@@ -4,6 +4,26 @@ Template.delta.onCreated ->
 
 
 Template.delta.helpers
+    filtering_res: ->
+        delta = Docs.findOne type:'delta'
+        filtering_res = []
+        for filter in @facet_out
+            if filter.count < delta.total
+                filtering_res.push filter
+            else if filter.name in @facet_in
+                filtering_res.push filter
+        console.log filtering_res
+        filtering_res
+
+    
+
+    toggle_value_class: ->
+        facet = Template.parentData()
+        delta = Docs.findOne type:'delta'
+        if Session.equals 'loading', true
+             'disabled '
+        else ''
+        
     current_delta: -> 
         Docs.findOne Session.get('delta_id')
 
@@ -57,49 +77,6 @@ Template.delta.events
     'click .select_session': ->
         console.log @
         Session.set 'delta_id', @_id
-
-
-Template.delta.helpers
-    filtering_res: ->
-        delta = Docs.findOne type:'delta'
-        filtering_res = []
-        for filter in @facet_out
-            if filter.count < delta.total
-                filtering_res.push filter
-            else if filter.name in @facet_in
-                filtering_res.push filter
-        console.log filtering_res
-        filtering_res
-
-    
-
-    toggle_value_class: ->
-        facet = Template.parentData()
-        delta = Docs.findOne type:'delta'
-        if Session.equals 'loading', true
-             'disabled '
-        else ''
-        
-        
-Template.result.onCreated ->
-    @autorun => Meteor.subscribe 'doc', @data._id
-
-    
-Template.result.helpers
-    result: -> Docs.findOne @_id
-    
-    
-    
-Template.facet.onCreated ->
-    Meteor.setTimeout ->
-        $('.ui.accordion').accordion()
-    , 1000
-
-Template.result.onCreated ->
-    Meteor.setTimeout ->
-        $('.ui.accordion').accordion()
-    , 1000
-
 
 
 Template.facet.events
@@ -160,3 +137,8 @@ Template.facet.helpers
             'grey'
         else ''
         
+Template.result.onCreated ->
+    @autorun => Meteor.subscribe 'doc', @data._id
+
+Template.result.helpers
+    result: -> Docs.findOne @_id
