@@ -2,17 +2,17 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 
 
-Template.comments.onCreated ->
+Template.comments_view.onCreated ->
     @autorun => Meteor.subscribe 'children', FlowRouter.getParam('id')
 Template.role_editor.onCreated ->
     @autorun => Meteor.subscribe 'type', 'role'
 
-Template.comments.helpers
+Template.comments_view.helpers
     doc_comments: ->
         Docs.find
             type:'comment'
 
-Template.comments.events
+Template.comments_view.events
     'keyup .add_comment': (e,t)->
         if e.which is 13
             parent = Docs.findOne FlowRouter.getParam('id')
@@ -45,7 +45,7 @@ Template.user_list_info.helpers
     user: -> Meteor.users.findOne @valueOf()
 
 
-Template.follow.helpers
+Template.follow_view.helpers
     followers: ->
         Meteor.users.find
             _id: $in: @follower_ids
@@ -53,7 +53,7 @@ Template.follow.helpers
     following: -> @follower_ids and Meteor.userId() in @follower_ids
 
 
-Template.follow.events
+Template.follow_view.events
     'click .follow': ->
         Docs.update @_id,
             $addToSet:follower_ids:Meteor.userId()
@@ -111,14 +111,14 @@ Template.user_list_toggle.helpers
 
 
 
-Template.voting.helpers
+Template.voting_view.helpers
     upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
     downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
 
 
 
 
-Template.voting.events
+Template.voting_view.events
     'click .upvote': ->
         if @downvoter_ids and Meteor.userId() in @downvoter_ids
             Docs.update @_id,
@@ -173,4 +173,16 @@ Template.view_user_button.events
     'click .view_user': ->
         Router.go "/u/#{username}"
 
-
+Template.clone_button.events
+    'click .clone_doc': ->
+        doc = @
+        keys = @_keys
+        cloned_fields = {}
+        for key in keys
+            cloned_fields["#{key}"] = ''
+            cloned_fields["_#{key}"] = doc["_#{key}"]
+        cloned_fields['_keys'] = keys
+        console.log cloned_fields
+        cloned_id = Docs.insert cloned_fields
+        FlowRouter.go "/edit/#{cloned_id}"
+            

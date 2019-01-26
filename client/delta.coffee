@@ -88,6 +88,16 @@ Template.delta.events
                         filters:[]
                         res:[]
                     }
+                    {
+                        key:'_timestamp_tags'
+                        filters:[]
+                        res:[]
+                    }
+                    {
+                        key:'_author_username'
+                        filters:[]
+                        res:[]
+                    }
                 ]
         
         # console.log new_delta

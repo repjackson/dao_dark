@@ -39,7 +39,7 @@ Template.brick_menu.helpers
 
 Template.brick_menu.events
     'click .add_brick': ->
-        console.log @
+        # console.log @
         Docs.update FlowRouter.getParam('id'),
             $addToSet: _keys: 'new_field'
             $set:

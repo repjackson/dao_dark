@@ -1,22 +1,22 @@
-template(name='comments')
-    .ui.secondary.segment
-        .ui.header
-            i.comment.outline.icon
-            |Comments
-        .ui.fluid.icon.input
-            i.plus.icon
-            input.add_comment(type='text' placeholder='Add comment...')
-        .ui.comments
-            each doc_comments
-                .comment
-                    .content
-                        .header #{body}
-                        .meta #{when}
-                        .actions
-                            i.thumbs.up.link.icon
-                            i.remove.link.remove_comment.icon
+template(name='comments_edit')
+    .ui.header comments
+template(name='comments_view')
+    .ui.header
+        i.comment.outline.icon
+    .ui.fluid.icon.input
+        i.plus.icon
+        input.add_comment(type='text' placeholder='Add comment...')
+    .ui.comments
+        each doc_comments
+            .comment
+                .content
+                    .header #{body}
+                    .meta #{when}
+                    .actions
+                        i.thumbs.up.link.icon
+                        i.remove.link.remove_comment.icon
 
-template(name='follow')
+template(name='follow_view')
     .ui.secondary.segment
         .ui.header
             i.bell.grey.outline.icon
@@ -62,7 +62,7 @@ template(name='user_list_toggle')
         +user_info
 
 
-template(name='voting')
+template(name='voting_view')
     if points
         strong #{points}
     .ui.icon.circular.button.upvote
@@ -77,8 +77,13 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.icon.circular.button.view(title='View' href="/view/#{_id}")
+    a.ui.icon.circular.button.view(title='view' href="/view/#{_id}")
         i.play.icon
+        
+        
+template(name='clone_button')
+    a.ui.icon.circular.button.clone_doc(title='clone' href="#")
+        i.clone.icon
 
 template(name='detect')
     .ui.icon.circular.button.detect_fields
@@ -107,18 +112,6 @@ template(name='save_button')
     a.ui.icon.fluid.circular.button.save(title='save' href="/view/#{_id}")
         i.checkmark.icon
 
-
-template(name='tags_view_small')
-    // i.tags.grey.icon
-    each tags
-        .ui.label #{this}
-
-template(name='tags_view_big')
-    // i.tags.grey.icon
-    |Tags
-    each tags
-        .ui.label #{this}
-    div
 
 template(name='toggle_button')
     .ui.icon.toggle.circular.button(title=label)

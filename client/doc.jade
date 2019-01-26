@@ -63,7 +63,6 @@ template(name='view')
                         if icon
                             i.grey.icon(class=icon)
                         |#{title}
-                    h4 #{body}
                     each _keys
                         +key_view
 
@@ -74,6 +73,7 @@ template(name='view')
                     if is_author
                         +edit_button
                         +detect
-                    // +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
-                    // div
-                    // +comments
+                    +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
+                    +clone_button
+                    div
+                    +comments_view
