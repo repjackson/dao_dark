@@ -1,14 +1,6 @@
 template(name='enter')
     .ui.padded.grid
         .centered.row
-            .ten.wide.center.aligned.column
-                if dark_side
-                    h1.black_bat.logo.invert_class
-                        |abandon all hope ye who enter
-                else 
-                    h1.ui.header
-                        |balance in all things
-        .centered.row
             .ten.wide.column
                 if message
                     h4.ui.center.aligned.header #{message}

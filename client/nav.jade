@@ -1,16 +1,11 @@
 template(name='nav')
     .ui.basic.center.aligned.segment
-        a.icon.ui.button(href='/')
-            i.home.icon
         a.ui.icon.button(href='/dash')
             i.dashboard.icon
-        a.icon.ui.button(href='/people')
-            i.users.icon
-        a.header.ui.large.button.invert(href='#')
-            if dark_side
-                .black_bat.logo DAO
-            else
-                .ui.header DAO
+        // a.icon.ui.button(href='/people')
+        //     i.users.icon
+        a.header.ui.large.button(href='/')
+            .black_bat.logo DAO
         if currentUser
             a.icon.ui.button.add_doc(href='#')
                 i.plus.icon

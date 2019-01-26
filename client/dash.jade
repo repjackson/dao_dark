@@ -1,7 +1,7 @@
 template(name='dash')
     .ui.stackable.padded.grid
-        .row
-            .four.wide.column
+        .centered.row
+            .ten.wide.column
                 i.big.dashboard.icon
                 if selected_type
                     #clear_types.ui.icon.grey.button
@@ -13,7 +13,6 @@ template(name='dash')
                     .select_type.ui.button
                         strong #{title}
                         // small #{this.count}
-            .twelve.wide.column
                 each docs
                     .ui.secondary.segment
                         a.ui.header(href="/view/#{_id}")
