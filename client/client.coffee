@@ -2,6 +2,10 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
+Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
+
+Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'inverted' else ''
+
 Template.registerHelper 'in_list', (key) ->
     if Meteor.userId()
         if Meteor.userId() in @["#{key}"] then true else false

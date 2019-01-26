@@ -6,6 +6,30 @@ body {
   background: lightgrey !important
 }
 
+.inverted {
+  filter: invert(90%);
+  /*background: #262626 !important*/
+  background: lightgrey !important
+}
+
+.black_bat {
+  font-family: 'black_bat' !important;
+}
+
+.white_bat {
+  font-family: 'white_bat' !important;
+  /*font: white !important;*/
+}
+@font-face {
+  font-family: black_bat;
+  src: url("/black_bat.ttf");
+}
+@font-face {
+  font-family: white_bat;
+  src: url("/white_bat.ttf");
+}
+
+
 /*.youtube{*/
 /*  filter: invert(100%);*/
 /*}*/
@@ -223,9 +247,6 @@ a {
   transition: all .5s ease;
 }
 
-.ui.header{
-  font-family: 'Ubuntu', sans-serif !important;
-}
 #nav {
   background: rgba(0,0,0,.1) !important;
 }

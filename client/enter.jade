@@ -2,7 +2,12 @@ template(name='enter')
     .ui.padded.grid
         .centered.row
             .ten.wide.center.aligned.column
-                .ui.header DAO
+                if dark_side
+                    h1.black_bat.logo.invert_class
+                        |abandon all hope ye who enter
+                else 
+                    h1.ui.header
+                        |welcome to the dao
         .centered.row
             .ten.wide.column
                 if message
@@ -20,3 +25,8 @@ template(name='enter')
                         .ui.fluid.large.button.enter(title="login #{username}" class=enter_class)
                             i.play.icon
                             | #{username}
+        // .centered.row
+        //     .ten.wide.column
+        //         .ui.fluid.button.new_demo
+        //             i.user.secret.icon
+        //             | anon

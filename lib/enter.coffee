@@ -71,3 +71,17 @@ if Meteor.isServer
         find_username: (username)->
             res = Accounts.findUserByUsername(username)
             return res
+            
+        new_demo_user: ->
+            current_user_count = Meteor.users.find().count()
+            console.log 'current_user_count', current_user_count
+            
+            options = {
+                username:"user#{current_user_count}"
+                password:"user#{current_user_count}"
+                }
+            
+            create = Accounts.createUser options
+            console.log 'create', create
+            new_user = Meteor.users.findOne create
+            return new_user
