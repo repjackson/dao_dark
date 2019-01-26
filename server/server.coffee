@@ -6,7 +6,12 @@ Docs.allow
 
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
-    
+
+Meteor.publish 'deltas', ->
+    Docs.find
+        type:'delta'
+        
+
     
 Meteor.publish 'schema', (doc_id)->
     doc = Docs.findOne doc_id
@@ -67,8 +72,6 @@ Meteor.publish 'tags', (selected_tags)->
             count: tag.count
 
     self.ready()
-
-
 
 
     

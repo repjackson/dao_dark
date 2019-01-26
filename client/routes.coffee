@@ -1,7 +1,8 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 
-FlowRouter.route '/', action: -> @render 'layout','delta'
+FlowRouter.route '/', action: -> @render 'layout','pub'
+FlowRouter.route '/delta', action: -> @render 'layout','delta'
 
 FlowRouter.route '/people', action: -> @render 'layout','people'
 

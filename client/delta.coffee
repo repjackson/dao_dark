@@ -1,135 +1,161 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-
-@selected_tags = new ReactiveArray []
-
-# Template.registerHelper 'calculated_size', (input)->
-#     whole = parseInt input*10
-#     "f#{whole}"
-
-Template.registerHelper 'dev', () -> Meteor.isDevelopment
-
-Template.registerHelper 'doc', () -> Docs.findOne FlowRouter.getParam('id')
-
-Template.registerHelper 'nl2br', (text)->
-    nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
-    new Spacebars.SafeString(nl2br)
-
-        
 Template.delta.onCreated ->
-    @autorun -> Meteor.subscribe('tags', selected_tags.array())
-    @autorun -> Meteor.subscribe('docs', selected_tags.array())
+    @autorun -> Meteor.subscribe 'doc', Session.get('delta_id')
+    @autorun -> Meteor.subscribe 'deltas'
 
 
 Template.delta.helpers
-    selected_tags: -> selected_tags.list()
+    current_delta: -> 
+        Docs.findOne Session.get('delta_id')
 
-    global_tags: ->
-        doc_count = Docs.find().count()
-        if 0 < doc_count < 3 then Tags.find({count:$lt:doc_count}) else Tags.find({})
+    session_selector_class: ->
+        if @_id is Session.get('delta_id') then 'grey' else ''
 
-    docs: -> Docs.find {}, limit:1
+    public_sessions: ->
+        Docs.find
+            type:'delta'
 
-    single_doc: ->
-        count = Docs.find({}).count()
-        if count is 1 then true else false
-    
-    
+    my_sessions: ->
+        Docs.find
+            type:'delta'
+
 Template.delta.events
-    'click .select_tag': -> selected_tags.push @title
-    'click .unselect_tag': -> selected_tags.remove @valueOf()
-    'click #clear_tags': -> selected_tags.clear()
-    'keyup #new_search': (e,t)->
-        results.clear()
-        for tag in Tags.find().fetch()
-            results.push { title:tag.title }
-        console.log results  
-        results
+    'click .delete_delta': (e,t)->
+        delta = Docs.findOne Session.get('delta_id')
+        if delta
+            if confirm "delete  #{delta._id}?"
+                Docs.remove delta._id
+
+    'click .print_delta': (e,t)->
+        delta = Docs.findOne Session.get('delta_id')
+        console.log delta
+
+    'click .recalc': ->
+        Meteor.call 'fum', (err,res)->
+
+    'blur .delta_title': (e,t)->
+        title_val = t.$('.delta_title').val()
+        Docs.update Meteor.user().current_delta_id,
+            $set: title: title_val
+
+    'click .new_session': ->
+        new_delta = 
+            Docs.insert 
+                type:'delta'
+                title:'root'
+                facets: [
+                    {
+                        key:'_keys'
+                        filters:[]
+                        res:[]
+                    }
+                ]
         
-    'keyup #search': (e,t)->
-        switch e.which
-            when 13
-                if e.target.value is 'clear'
-                    selected_tags.clear()
-                    $('#search').val('')
-                else
-                    selected_tags.push e.target.value.toLowerCase().trim()
-                    $('#search').val('')
-            when 8
-                if e.target.value is ''
-                    selected_tags.pop()
-
-
-
-
-    'click .insert': (e,t)->
-        new_ytid = t.$('.new_ytid').val().trim()
-        title = t.$('.new_tags').val().toLowerCase()
-        # new_tags = t.$('.new_tags').val().toLowerCase().split(' ')
-        Docs.insert
-            timestamp:Date.now()
-            youtube_id:new_ytid
-            tags:[title]
+        console.log new_delta
+        Session.set('delta_id', new_delta)
+        Meteor.call 'fum', Session.get('delta_id')
         
-        selected_tags.clear()
-        selected_tags.push title
-        # Meteor.call 'fum', did
-        t.$('.new_ytid').val('')
-        t.$('.new_body').val('')
-        t.$('.new_tags').val('')
+    'click .select_session': ->
+        console.log @
+        Session.set 'delta_id', @_id
 
 
+Template.delta.helpers
+    filtering_res: ->
+        delta = Docs.findOne type:'delta'
+        filtering_res = []
+        for filter in @facet_out
+            if filter.count < delta.total
+                filtering_res.push filter
+            else if filter.name in @facet_in
+                filtering_res.push filter
+        filtering_res
 
-Template.facet_view.onCreated ->
+    
+
+    toggle_value_class: ->
+        facet = Template.parentData()
+        delta = Docs.findOne type:'delta'
+        if Session.equals 'loading', true
+             'disabled '
+        else ''
+        
+        
+Template.result.onCreated ->
     @autorun => Meteor.subscribe 'doc', @data._id
 
-Template.facet_view.helpers
-    result: -> 
-        doc = Docs.findOne @_id
-        # console.log doc
-        doc
-
-Template.facet_view.onRendered ->
-    @autorun =>
-        if @subscriptionsReady()
-            Meteor.setTimeout ->
-                $('.ui.embed').embed()
-            , 500
-
-Template.facet_view.events
-    'blur .youtube_id': (e,t)->
-        # parent = Template.parentData(5)
-        parent = @
-        val = t.$('.youtube_id').val()
-        Docs.update parent._id, 
-            $set:youtube_id:val
-            
-            
-    'keyup .new_tag': (e,t)->
-        if e.which is 13
-            # console.log @
-            tag_val = t.$('.new_tag').val().toLowerCase().trim()
-            Docs.update @_id, 
-                $addToSet: tags: tag_val
-            t.$('.new_tag').val('')
     
-    'keyup .new_list': (e,t)->
-        if e.which is 13
-            # console.log @
-            list_val = t.$('.new_list').val().toLowerCase().trim().split(' ')
-            Docs.update @_id, 
-                $addToSet: tags: $each: list_val
-            t.$('.new_list').val('')
-        
-    'click .remove_tag': (e,t)->
-        tag = @valueOf()
-        result= Template.currentData()
-        Docs.update result._id, 
-            $pull:tags:tag
-        t.$('.new_tag').val(tag)
-        
+Template.result.helpers
+    result: -> Docs.findOne @_id
+    
+    
+    
+Template.facet.onCreated ->
+    Meteor.setTimeout ->
+        $('.ui.accordion').accordion()
+    , 1000
 
-    'click .remove_doc': ->
-        current_id = Template.currentData()._id
-        Docs.remove current_id,
+Template.result.onCreated ->
+    Meteor.setTimeout ->
+        $('.ui.accordion').accordion()
+    , 1000
+
+
+
+Template.facet.events
+    'click .toggle_selection': ->
+        delta = Docs.findOne Session.get('delta_id')
+        facet = Template.currentData()
+        Session.set 'loading', true
+        if facet.filters and @name in facet.filters
+            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
+        else 
+            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
+      
+    'keyup .add_filter': (e,t)->
+        if e.which is 13
+            delta = Docs.findOne Session.get('delta_id')
+            concept = t.$('.add_filter').val()
+            Meteor.call 'add_facet_filter', delta._id, 'concepts', concept, ->
+                Session.set 'loading', false
+            concept = t.$('.add_filter').val('')
             
+        
+      
+    
+Template.facet.helpers
+    filtering_res: ->
+        delta = Docs.findOne type:'delta'
+        filtering_res = []
+        if @key is '_keys'
+            filtered_list = [
+                'entities'
+                'keywords'
+                'concepts'
+                'tags'
+                'youtube'
+                'type'
+            ]
+            filtering_res = @res
+            # for filter in @res
+                # if filter.name in filtered_list then filtering_res.push filter
+        else
+            for filter in @res
+                if filter.count < delta.total
+                    filtering_res.push filter
+                else if filter.name in @filters
+                    filtering_res.push filter
+        filtering_res
+
+    
+
+    toggle_value_class: ->
+        facet = Template.parentData()
+        delta = Docs.findOne type:'delta'
+        if Session.equals 'loading', true
+             'disabled '
+        else if facet.filters.length > 0 and @name in facet.filters
+            'grey'
+        else ''
+        

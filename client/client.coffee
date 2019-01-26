@@ -1,5 +1,7 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
+Session.setDefault('invert', true)
+
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
 Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
