@@ -8,8 +8,8 @@ template(name='delta')
                     .ui.button.select_session.pointer(class=session_selector_class)
                         i.remove.link.delete_delta.icon
                         |#{title}
-        .row   
-            .eight.wide.right.aligned.column
+        .centered.row   
+            .sixteen.wide.center.aligned.column
                 if dev
                     .ui.icon.button.print_delta
                         i.code.icon
@@ -17,10 +17,9 @@ template(name='delta')
                         i.refresh.icon
                     .ui.delete_delta.icon.button(title='delete delta')
                         i.trash.icon
-                |did: #{session_delta_id}
+                // |did: #{session_delta_id}
                 each current_delta.facets
                     +facet
-            .eight.wide.column
                 // .row
                 //     .ui.labeled.input(title='show')
                 //         .ui.label #
@@ -38,13 +37,22 @@ template(name='facet')
     // .ui.transparent.left.icon.input
     //     i.search.icon
     //     input.add_filter(type='text' placeholder='search')
+    // each res
+    //     if name
+    //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+    //             strong #{name}
+    //             // small #{count}
+    //     else
+    //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+    //             strong [null]
+    //             // small #{count}
     each filtering_res
         if name
-            .selector.ui.small.compact.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                 strong #{name}
                 // small #{count}
         else
-            .selector.ui.small.compact.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                 strong [null]
                 // small #{count}
 
@@ -53,23 +61,25 @@ template(name='facet')
 
 
 template(name='result')
-    .ui.tertiary.segment
+    .ui.basic.segment
         with result 
             if title
                 .ui.header #{title}
             if html
                 |!{nl2br html}
-            each tags
-                .ui.label #{this}
+            if youtube_id
+                .ui.embed.youtube(data-source="youtube" data-id=youtube_id class=invert_class)
+            // each tags
+            //     .ui.label #{this}
             if body
                 .large130 
                     |#{nl2br body}
-            div #{points} points
-            .ui.icon.transparent.input
-                i.plus.icon
-                input.new_tag(type='text' placeholder='add tag')
-            +view_button_small
-            +edit_button_small
+            // div #{points} points
+            // .ui.icon.transparent.input
+            //     i.plus.icon
+            //     input.new_tag(type='text' placeholder='add tag')
+            // +view_button_small
+            // +edit_button_small
             // +voting
             // +toggle_button key='bookmark_ids' label='bookmark' icon='bookmark'
             // .ui.accordion

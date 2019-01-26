@@ -68,6 +68,7 @@ Template.delta.helpers
                 filtering_res.push filter
             else if filter.name in @facet_in
                 filtering_res.push filter
+        console.log filtering_res
         filtering_res
 
     

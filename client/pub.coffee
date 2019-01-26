@@ -85,7 +85,7 @@ Template.facet_view.helpers
         # console.log doc
         doc
 
-Template.facet_view.onRendered ->
+Template.result.onRendered ->
     @autorun =>
         if @subscriptionsReady()
             Meteor.setTimeout ->
