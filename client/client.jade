@@ -9,10 +9,12 @@ head
     meta(name="apple-mobile-web-app-status-bar-style" content="black")
 
 template(name='layout')
-    .layout(class=invert_class)
-        +nav
-        +yield
-
+    div(class=invert_class)
+        .layout
+            +nav
+            +yield
+        // +footer
+    
 template(name='not_found')
     +nav
     .ui.center.aligned.basic.segment

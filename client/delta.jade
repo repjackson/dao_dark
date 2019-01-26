@@ -1,40 +1,40 @@
 template(name='delta')
-    // .ui.search
-    //     .ui.icon.input
-    //         input#new_search(type='text' placeholder='search')
-    //         i.search.icon
-    //     .results
-    .ui.icon.input
-        i.search.icon
-        input#search(type='text' autocomplete='off')
-    if selected_tags
-        #clear_tags.ui.icon.grey.button
-            i.remove.icon
-    each selected_tags
-        .unselect_tag.ui.grey.active.button
-            b #{this}
-    each global_tags
-        .select_tag.ui.button
-            strong #{this.title}
-            // small #{this.count}
-    if single_doc
-        each docs
-            +facet_view
-
-    if dev
-        .ui.center.aligned.basic.segment
-            .ui.icon.input
-                i.video.icon
-                input.new_ytid(type='text' placeholder='yt id')
-            .ui.icon.input
-                i.list.icon
-                input.new_body(type='text' placeholder='body')
-            .ui.icon.input
-                i.tag.icon
-                input.new_tags(type='text' placeholder='title')
-            .ui.button.insert insert
-    // else
     .ui.basic.center.aligned.segment
+        // .ui.search
+        //     .ui.icon.input
+        //         input#new_search(type='text' placeholder='search')
+        //         i.search.icon
+        //     .results
+        .ui.icon.input
+            i.search.icon
+            input#search(type='text' autocomplete='off')
+        if selected_tags
+            #clear_tags.ui.icon.grey.button
+                i.remove.icon
+        each selected_tags
+            .unselect_tag.ui.grey.active.button
+                b #{this}
+        each global_tags
+            .select_tag.ui.button
+                strong #{this.title}
+                // small #{this.count}
+        if single_doc
+            each docs
+                +facet_view
+    
+        if dev
+            .ui.center.aligned.basic.segment
+                .ui.icon.input
+                    i.video.icon
+                    input.new_ytid(type='text' placeholder='yt id')
+                .ui.icon.input
+                    i.list.icon
+                    input.new_body(type='text' placeholder='body')
+                .ui.icon.input
+                    i.tag.icon
+                    input.new_tags(type='text' placeholder='title')
+                .ui.button.insert insert
+    // else
 
     
     
