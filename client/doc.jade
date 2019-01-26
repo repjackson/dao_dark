@@ -1,19 +1,17 @@
 template(name='edit')
     with doc
         .ui.stackable.padded.grid
-            .four.wide.column
-                .ui.header
-                    i.pencil.icon
-                    | #{title}
-                a.ui.fluid.button(href="/view/#{_id}")
-                    i.checkmark.icon
-                .ui.button.icon.delete
-                    i.remove.icon
-                // +ref_edit multi=true key='_bricks' type='brick'
-                +brick_menu
-                +ref_edit multi=false key='_schema' type='schema'
-            .twelve.wide.column
-                .ui.segment
+            .centered.row
+                .ten.wide.center.aligned.column
+                    i.pencil.big.icon
+                    a.ui.big.icon.button(href="/view/#{_id}")
+                        i.checkmark.icon
+                    .ui.button.icon.delete
+                        i.remove.icon
+                    // +ref_edit multi=true key='_bricks' type='brick'
+                    div
+                    +brick_menu
+                    // +ref_edit multi=false key='_schema' type='schema'
                     .ui.form
                         each _keys
                             +key_edit
@@ -32,7 +30,7 @@ template(name='edit')
 
 
 template(name='key_edit')
-    .ui.segment
+    .ui.tertiary.segment
         .ui.labeled.input
             .ui.label name: #{key}
             input.change_key(type='text' placeholder='key' value=key)
@@ -45,45 +43,24 @@ template(name='key_edit')
         
 
 template(name='brick_menu')
-    .ui.secondary.segment
-        .ui.header add brick
-        each bricks
-            .ui.button.add_brick
-                i.icon(class=icon)
-                |#{title}
+    i.big.plus.icon
+    each bricks
+        .ui.button.add_brick
+            i.icon(class=icon)
+            |#{title}
 
 
 template(name='view')
     with doc
         .ui.stackable.padded.grid
-            .row
-                .ten.wide.column
-                    .ui.breadcrumb
-                        a.section(href='/dash')
-                            .ui.label
-                                i.grey.dashboard.icon
-                                |Home
-                        // .divider  /
-                        if schema
-                            a.section(href="/s/#{type}")
-                                .ui.label
-                                    i.grey.icon(class=schema.icon)
-                                    |#{schema.plural}
-                            // .divider  /
-                        .active.section
-                            if title
-                                |#{title}
-                            else
-                                |View #{type}
-            .row
-                .four.wide.column
+            .centered.row
+                .ten.wide.center.aligned.column
                     // .ui.header
                     //     a.ui.icon.button(href="/s/#{type}" title=plural)
                     //         i.chevron.left.icon
                     //     |View #{type}
                     if is_author
-                        +edit_button_big
-                .twelve.wide.column
+                        +edit_button_small
                     .ui.header
                         if icon
                             i.grey.icon(class=icon)
