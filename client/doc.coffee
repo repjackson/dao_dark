@@ -63,7 +63,7 @@ Template.key_edit.helpers
             
 Template.detect.events
     'click .detect_fields': ->
-        console.log @
+        # console.log @
         Meteor.call 'detect_fields', @_id
                     
 Template.key_view.helpers

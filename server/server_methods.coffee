@@ -92,6 +92,9 @@ Meteor.methods
                 if key is 'html'
                     meta.html = true
                     meta.brick = 'html'
+                if key is 'youtube_id'
+                    meta.youtube = true
+                    meta.brick = 'youtube'
                 else if html_result
                     meta.html = true
                     meta.brick = 'html'
@@ -121,7 +124,7 @@ Meteor.methods
                 $set: "_#{key}": meta
 
         Docs.update doc_id, 
-            $set:detected:1
+            $set:_detected:1
         # console.log 'detected fields', doc_id
 
         return doc_id
