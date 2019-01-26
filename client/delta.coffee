@@ -1,3 +1,23 @@
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
+
+
+FlowRouter.route '/', action: -> @render 'layout','delta'
+
+FlowRouter.route '/enter', action: -> @render 'layout','enter'
+FlowRouter.route '/me', action: -> @render 'layout','me'
+  
+  
+FlowRouter.route '/edit/:id', action: -> @render 'layout','edit'
+FlowRouter.route '/view/:id', action: -> @render 'layout','view'
+FlowRouter.route '*', action: -> @render 'not_found'
+
+
+Template.delta.events
+    'click .add_doc': ->
+        new_id = Docs.insert({})
+        FlowRouter.go("/edit/#{new_id}")
+    
+
 Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'doc', Session.get('delta_id')
     @autorun -> Meteor.subscribe 'deltas'
@@ -70,12 +90,12 @@ Template.delta.events
                     }
                 ]
         
-        console.log new_delta
+        # console.log new_delta
         Session.set('delta_id', new_delta)
         Meteor.call 'fum', Session.get('delta_id')
         
     'click .select_session': ->
-        console.log @
+        # console.log @
         Session.set 'delta_id', @_id
 
 

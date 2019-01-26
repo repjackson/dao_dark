@@ -61,6 +61,10 @@ Template.key_edit.helpers
         meta = Template.parentData()["_#{key_string}"]
         "#{meta.brick}_edit"
             
+Template.detect.events
+    'click .detect_fields': ->
+        console.log @
+        Meteor.call 'detect_fields', @_id
                     
 Template.key_view.helpers
     key: -> @valueOf()

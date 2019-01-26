@@ -2,90 +2,69 @@ template(name='delta')
     .ui.padded.grid
         .row
             .sixteen.wide.center.aligned.column
-                .new_session.ui.icon.button.pointer(title='new session')
-                    i.plus.icon
+                // a.ui.icon.large.circular.button(href='/')
+                //     i.large.adjust.icon
                 each my_sessions
-                    .ui.button.select_session.pointer(class=session_selector_class)
-                        i.remove.link.delete_delta.icon
-                        |#{title}
+                    .ui.circular.icon.large.button.select_session(class=session_selector_class title='select session')
+                        // i.remove.link.delete_delta.icon
+                        i.adjust.icon
+                .new_session.ui.icon.circular.button.pointer(title='new session')
+                    i.plus.icon
+                if currentUser
+                    a.ui.circular.button(href='/me')
+                        i.user.icon
+                        |#{currentUser.username}
+                    .ui.icon.button.add_doc(title='add doc')
+                        i.plus.icon
+                    // a.ui.icon.circular.button.logout(href='#')
+                    //     i.sign.out.icon
+                else
+                    a.ui.icon.circular.button(href='/enter')
+                        i.sign.in.icon
         .centered.row   
             .sixteen.wide.center.aligned.column
-                if dev
-                    .ui.icon.button.print_delta
-                        i.code.icon
-                    .ui.reset.icon.button(title='reset')
-                        i.refresh.icon
-                    .ui.delete_delta.icon.button(title='delete delta')
-                        i.trash.icon
+                // if current_delta
+                //     .ui.icon.circular.button.print_delta
+                //         i.code.icon
+                //     .ui.reset.icon.circular.button(title='reset')
+                //         i.refresh.icon
+                //     .ui.delete_delta.icon.circular.button(title='delete delta')
+                //         i.trash.icon
                 // |did: #{session_delta_id}
                 each current_delta.facets
                     +facet
-                // .row
-                //     .ui.labeled.input(title='show')
-                //         .ui.label #
-                //         input(type='number')
-                //     .ui.button sort
-                .row
-                    each current_delta.result_ids
-                        +result
+                each current_delta.result_ids
+                    +result
 
 
 template(name='facet')
-    .ui.small.inline.header #{key}
-    // each filters
-    //     .unselect.ui.blue.button #{this}
-    // .ui.transparent.left.icon.input
-    //     i.search.icon
-    //     input.add_filter(type='text' placeholder='search')
-    // each res
-    //     if name
-    //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-    //             strong #{name}
-    //             // small #{count}
-    //     else
-    //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-    //             strong [null]
-    //             // small #{count}
-    each filtering_res
-        if name
-            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                strong #{name}
-                // small #{count}
-        else
-            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                strong [null]
-                // small #{count}
+    if filtering_res
+        div
+        .ui.inline.header #{key}
+        // each filters
+        //     .unselect.ui.blue.circular.button #{this}
+        // .ui.transparent.left.icon.input
+        //     i.search.icon
+        //     input.add_filter(type='text' placeholder='search')
+        each filtering_res
+            if name
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    strong #{name}
+                    // small #{count}
+            else
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    // small #{count}
 
 
 
 template(name='result')
-    .ui.segment
-        with result 
-            if title
-                .ui.header #{title}
-            if html
-                |!{nl2br html}
-            if youtube_id
-                .ui.embed.youtube(data-source="youtube" data-id=youtube_id class=invert_class)
-            // each tags
-            //     .ui.label #{this}
-            if body
-                .large130 
-                    |#{nl2br body}
-            // div #{points} points
-            // .ui.icon.transparent.input
-            //     i.plus.icon
-            //     input.new_tag(type='text' placeholder='add tag')
-            // +view_button_small
-            // +edit_button_small
-            // +voting
-            // +toggle_button key='bookmark_ids' label='bookmark' icon='bookmark'
-            // .ui.accordion
-            //     .title details
-            //         i.dropdown.icon
-            //     .content
-            //         each _keys
-            //             .ui.label #{this}
-            //             +field_view
-            
+    .ui.divider
+    with result 
+        each _keys
+            // .ui.label #{this}
+            +key_view
+        +view_button
+        +edit_button
+    
 

@@ -60,7 +60,7 @@ Template.html_edit.events
 
 
 
-Template.list_edit.events
+Template.array_edit.events
     'keyup .new_element': (e,t)->
         if e.which is 13
             console.log @valueOf()

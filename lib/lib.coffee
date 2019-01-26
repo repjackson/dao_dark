@@ -22,9 +22,10 @@ Docs.before.insert (userId, doc)=>
         date_array = _.map(date_array, (el)-> el.toString().toLowerCase())
     # date_array = _.each(date_array, (el)-> console.log(typeof el))
     # console.log date_array
-        doc.timestamp_tags = date_array
+        doc._timestamp_tags = date_array
 
-    doc.author_id = Meteor.userId()
+    doc._author_id = Meteor.userId()
+    doc._author_username = Meteor.user().username
     return
 
 

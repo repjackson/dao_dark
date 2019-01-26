@@ -2,28 +2,20 @@ template(name='edit')
     with doc
         .ui.stackable.padded.grid
             .centered.row
-                .fourteen.wide.center.aligned.column
-                    i.pencil.large.grey.icon
-                    a.ui.big.icon.button(href="/view/#{_id}")
+                .sixteen.wide.center.aligned.column
+                    i.pencil.large.grey.icon(title='editing doc')
+                    a.ui.big.icon.circular.button(href="/view/#{_id}")
                         i.checkmark.icon
-                    .ui.button.icon.delete
+                    .ui.circular.button.icon.delete
                         i.remove.icon
-                    // +ref_edit multi=true key='_bricks' type='brick'
+                    +detect
                     div
                     +brick_menu
                     // +ref_edit multi=false key='_schema' type='schema'
-                    each _keys
-                        +key_edit
-                        // +text_edit key='title'
-                        // +text_edit key='type'
-                        // // // +text_edit key='plural'
-                        // +text_edit key='slug'
-                        // +text_edit key='icon'
-                        // // +ref_edit multi=true key='keys' schema='field'
-                        // .field
-                        //     label Notes
-                        //     textarea.body(rows='5') #{body}
-                        // +array_edit key='tags'
+                    .ui.padded.stackable.three.column.grid
+                        each _keys
+                            .column
+                                +key_edit
 
 
 
@@ -37,23 +29,23 @@ template(name='key_edit')
         
         .ui.divider
         +Template.dynamic template=field_edit
-        // .ui.divider
-        // +jsonView json=meta
+        .ui.divider
+        +jsonView json=meta
         
         
 template(name='key_view')
-    .ui.tertiary.segment
-        .ui.label(title='name') #{key}
-        +Template.dynamic template=field_view
-        // .ui.divider
-        // +jsonView json=meta
+    div
+    .ui.inline.grey.header(title='name') #{key}
+    +Template.dynamic template=field_view
+    // .ui.divider
+    // +jsonView json=meta
         
         
 
 template(name='brick_menu')
-    i.large.grey.plus.icon
+    i.large.grey.plus.icon(title='add brick')
     each bricks
-        .ui.button.add_brick
+        .ui.circular.button.add_brick
             i.icon(class=icon)
             |#{title}
 
@@ -63,22 +55,25 @@ template(name='view')
         .ui.stackable.padded.grid
             .centered.row
                 .ten.wide.center.aligned.column
-                    each _keys
-                        +key_view
-
-                    // .ui.header
-                    //     a.ui.icon.button(href="/s/#{type}" title=plural)
-                    //         i.chevron.left.icon
-                    //     |View #{type}
-                    if is_author
-                        +edit_button_small
+                    a.ui.large.icon.circular.button(href='/')
+                        i.home.icon
+            .centered.row
+                .ten.wide.center.aligned.column
                     .ui.header
                         if icon
                             i.grey.icon(class=icon)
                         |#{title}
                     h4 #{body}
-                    // +tags_view_big
-                    // div
+                    each _keys
+                        +key_view
+
+                    // .ui.header
+                    //     a.ui.icon.circular.button(href="/s/#{type}" title=plural)
+                    //         i.chevron.left.icon
+                    //     |View #{type}
+                    if is_author
+                        +edit_button
+                        +detect
                     // +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
                     // div
                     // +comments

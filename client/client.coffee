@@ -6,6 +6,12 @@ Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
 Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
 
+Template.registerHelper 'nl2br', (text)->
+    nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
+    new Spacebars.SafeString(nl2br)
+
+
+
 Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'inverted' else ''
 
 Template.registerHelper 'in_list', (key) ->
@@ -33,4 +39,3 @@ Template.registerHelper 'field_value', () ->
     # console.log Template.parentData(6)
     parent = Template.parentData(5)
     if parent["#{@valueOf()}"] then parent["#{@valueOf()}"]
-
