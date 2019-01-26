@@ -1,4 +1,4 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 
 
 Template.nav.events
@@ -18,12 +18,3 @@ Template.nav.events
 
 Template.nav.helpers
     logging_out: -> Session.get 'logging_out'
-
-
-Template.dash.helpers
-    schemas: ->
-        if Meteor.user() and Meteor.user().roles
-            Docs.find {
-                # view_roles: $in:Meteor.user().roles
-                type:'schema'
-            }, sort:title:1

@@ -1,14 +1,13 @@
 template(name='nav')
     .ui.basic.center.aligned.segment
-        a.ui.icon.button(href='/dash')
-            i.dashboard.icon
-        a.icon.ui.button(href='/delta')
-            i.chess.knight.icon
-        a.header.ui.large.button(href='/')
-            .black_bat.logo DAO
+        // a.icon.ui.button(href='/delta')
+        //     i.chess.knight.icon
         if currentUser
             a.icon.ui.button.add_doc(href='#')
                 i.plus.icon
+        a.header.ui.large.button(href='/')
+            .black_bat.logo DAO
+        if currentUser
             a.ui.button(href='/me')
                 i.user.icon
                 |#{currentUser.username}
