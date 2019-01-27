@@ -65,8 +65,7 @@ template(name='keywords')
     .ui.three.stackable.cards
         each watson.keywords
             .ui.tertiary.segment
-                h4
-                    |#{text}
+                span(class=calculated_size) #{text}
                 .meta
                     |{{ to_percent relevance }}% relevant
                 .meta
@@ -113,6 +112,7 @@ template(name='keyword_list')
         |#{watson_keywords.length} keywords
     each watson_keywords
         .ui.label #{this}
+        span(class=calculated_size) #{this}
 
 
 
@@ -140,8 +140,9 @@ template(name='visual_classes')
     .ui.list
         each visual_classes
             .item
-                h4 #{class} {{to_percent score}}%
-                | type hierarchy #{type_hierarchy}
+                div(class="{{calculated_size 'score'}}" title="{{to_percent score}}%") #{class}
+                // small {{to_percent score}}%
+                small #{type_hierarchy}
 
 
 
@@ -268,7 +269,7 @@ template(name='watson_view')
             //         i.dropdown.icon
             //     .active.content
             //         +tone
-            // +keyword_list
+            +keyword_list
             +keywords
             +concept_list
             .ui.hidden.divider
