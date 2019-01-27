@@ -262,7 +262,7 @@ Meteor.methods
             if delta.limit then limit=delta.limit else limit=7
     
     
-            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit}
+            results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit, sort:{_timestamp:-1}}
             
             # if total is 1
             #     result_ids = results_cursor.fetch()

@@ -1,7 +1,7 @@
 template(name='doc_sentiment') 
     .ui.dividing.header 
         |sentiment
-    .ui.small.disabled.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
+    .ui.small.disabled.progress.invert(data-percent=sentiment_score_percent class=sentiment_bar_class)
         .bar
         .progress
     .label
@@ -24,23 +24,23 @@ template(name='doc_emotion')
     // .ui.dividing.header 
     //     | emotion
     with watson.emotion.document.emotion
-        .ui.blue.disabled.small.progress(data-percent=sadness_percent)
+        .ui.blue.disabled.small.progress.invert(data-percent=sadness_percent)
             .bar
             .progress
         .label {{to_percent sadness}}% sadness 
-        .ui.green.disabled.small.progress(data-percent=joy_percent)
+        .ui.green.disabled.small.progress.invert(data-percent=joy_percent)
             .bar
             .progress
         .label {{to_percent joy}}% joy 
-        .ui.black.disabled.small.progress(data-percent=fear_percent)
+        .ui.black.disabled.small.progress.invert(data-percent=fear_percent)
             .bar
             .progress
         .label {{to_percent fear}}% fear 
-        .ui.yellow.disabled.small.progress(data-percent=disgust_percent)
+        .ui.yellow.disabled.small.progress.invert(data-percent=disgust_percent)
             .bar
             .progress
         .label {{to_percent disgust}}% disgust 
-        .ui.red.disabled.small.progress(data-percent="{{to_percent anger}}")
+        .ui.red.disabled.small.progress.invert(data-percent="{{to_percent anger}}")
             .bar
             .progress
         .label {{to_percent anger}}% anger 
@@ -54,10 +54,9 @@ template(name='call_watson')
 
 
 
-template(name='call_visual_analysis')
-    #call_visual.ui.button 
-        i.image.icon
-        |tag
+template(name='call_visual')
+    #call_visual.ui.large.icon.button(title='analyze')
+        i.chess.knight.icon
 
 
 template(name='keywords')
@@ -129,11 +128,20 @@ template(name='concepts')
     .ui.small.grey.header 
         |#{watson.concepts.length} concepts
     .ui.list
-    each watson.concepts
-        .item
-            a(href=dbpedia_resource target='_blank') #{text}
-            | {{to_percent relevance}}%
+        each watson.concepts
+            .item
+                a(href=dbpedia_resource target='_blank') #{text}
+                | {{to_percent relevance}}%
 
+
+template(name='visual_classes')
+    .ui.small.grey.header 
+        |#{visual_classes.length} visual classes
+    .ui.list
+        each visual_classes
+            .item
+                h4 #{class} {{to_percent score}}%
+                | type hierarchy #{type_hierarchy}
 
 
 
@@ -148,10 +156,10 @@ template(name='categories')
 
 
 template(name='semantic_roles')
-    .ui.styled.accordion
+    .ui.accordion
         .title
-            |#{watson.semantic_roles.length} semantic roles
-            i.dropdown.icon
+            .ui.header #{watson.semantic_roles.length} semantic roles
+                i.dropdown.icon
         .content
             +jsonView(json=watson.semantic_roles)
             // .ui.list
@@ -162,7 +170,7 @@ template(name='semantic_roles')
 
 
 template(name='relations')
-    .ui.styled.accordion
+    .ui.accordion
         .title
             |#{watson.relations.length} relations
         .content    
@@ -253,7 +261,7 @@ template(name='watson_view')
                 +categories
                 +entities
         .twelve.wide.column
-            // +semantic_roles
+            +semantic_roles
             // .ui.large.accordion
             //     .active.title 
             //         |tone
@@ -265,12 +273,13 @@ template(name='watson_view')
             +concept_list
             .ui.hidden.divider
             +relations
-            .ui.styled.accordion
-                .title 
-                    i.code.icon
-                    i.dropdown.icon
-                .content
-                    +jsonView(json=watson)
+            if dev
+                .ui.styled.accordion
+                    .title 
+                        i.code.icon
+                        i.dropdown.icon
+                    .content
+                        +jsonView(json=watson)
         // .four.wide.column
         //     +personality
         //     +consumption_preferences

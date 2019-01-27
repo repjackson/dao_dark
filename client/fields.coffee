@@ -9,6 +9,12 @@ Template.link_edit.events
         Docs.update parent._id,
             $set:"#{@valueOf()}":link_val
 
+Template.image_link_edit.events
+    'blur .edit_image_link': (e,t)->
+        image_link_val = t.$('.edit_image_link').val()
+        parent = Template.parentData(5)
+        Docs.update parent._id,
+            $set:"#{@valueOf()}":image_link_val
 
 
 Template.html_edit.onRendered ->
@@ -46,7 +52,6 @@ Template.html_edit.onRendered ->
 
     @editor.clipboard.dangerouslyPasteHTML(doc.html)
 
-
 Template.html_edit.events
     'blur .editor': (e,t)->
         # console.log @
@@ -83,6 +88,7 @@ Template.array_edit.events
 
         t.$('.new_element').focus()
         t.$('.new_element').val(element)
+
 
 Template.textarea_edit.events
     'blur .edit_textarea': (e,t)->

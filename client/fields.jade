@@ -1,6 +1,7 @@
 template(name='link_edit')
-    .field
-        label link
+    .ui.labeled.icon.fluid.input
+        .ui.label link
+        i.linkify.icon
         input.edit_link(type='link' value=field_value placeholder='link' )
 
 
@@ -8,8 +9,20 @@ template(name='link_view')
     a(href=field_value target='_window') #{field_value}
 
 
-template(name='image_view')
-    img.ui.image(src=field_value)
+
+template(name='image_link_edit')
+    .ui.labeled.icon.fluid.input
+        .ui.label image link
+        i.image.icon
+        input.edit_image_link(type='link' value=field_value placeholder='image link' )
+    if field_value
+        img.ui.fluid.image.invert(src=field_value)
+        +call_visual
+
+
+template(name='image_link_view')
+    img.ui.image.invert(src=field_value)
+
 
 
 template(name='textarea_edit')
@@ -36,9 +49,9 @@ template(name='html_view')
 
 
 template(name='text_edit')
-    .ui.icon.input
-        // .ui.label #{key}
-        i.header.icon
+    .ui.icon.fluid.labeled.input
+        .ui.label text
+        i.i.cursor.grey.icon
         input.edit_text(type='text' value=field_value placeholder='text')
 
 
@@ -57,7 +70,7 @@ template(name='code_edit')
 
 
 template(name='number_edit')
-    .ui.icon.input
+    .ui.icon.fluid.input
         // .ui.label #{key}
         i.hashtag.icon
         input.edit_number(type='number' value=field_value placeholder='number')
@@ -93,7 +106,7 @@ template(name='array_edit')
                 .ui.label
                     i.remove.link.icon.remove_element
                     |#{this}
-        .ui.icon.input
+        .ui.icon.fluid.input
             input.new_element(type='text' placeholder='list')
             i.plus.icon
 
@@ -126,8 +139,10 @@ template(name='youtube_edit')
 
 
 template(name='youtube_view')
-    iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{youtube_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
-
+    if youtube_value
+        iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{youtube_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+    else if field_value
+        iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 
 

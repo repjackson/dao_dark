@@ -77,10 +77,10 @@ Template.personality.events
         Meteor.call 'call_personality', @_id, ->
 
 
-Template.call_visual_analysis.events
+Template.call_visual.events
     'click #call_visual': ->
         console.log @
-        Meteor.call 'call_visual', FlowRouter.getParam('id'), @valueOf(),->
+        Meteor.call 'call_visual_link', FlowRouter.getParam('id'), @valueOf(),->
 
 Template.tone.events
     'click #call_tone': ->

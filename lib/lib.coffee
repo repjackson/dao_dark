@@ -30,9 +30,9 @@ Docs.before.insert (userId, doc)=>
 
 
 Docs.helpers
-    author: -> Meteor.users.findOne @author_id
-    when: -> moment(@timestamp).fromNow()
-    is_author: -> Meteor.userId() is @author_id
+    author: -> Meteor.users.findOne @_author_id
+    when: -> moment(@_timestamp).fromNow()
+    is_author: -> Meteor.userId() is @_author_id
 
     downvoters: ->
         Meteor.users.find

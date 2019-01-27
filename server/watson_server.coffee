@@ -1,12 +1,14 @@
-ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3')
+# ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3')
 VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3')
 NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js')
 PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3')
 
-tone_analyzer = new ToneAnalyzerV3(
-    username: Meteor.settings.private.tone.username
-    password: Meteor.settings.private.tone.password
-    version_date: '2017-09-21')
+
+# tone_analyzer = new ToneAnalyzerV3(
+#     username: Meteor.settings.private.tone.username
+#     password: Meteor.settings.private.tone.password
+#     version_date: '2017-09-21')
+# pFbEpJ4Onu3XV6K5juyIkkljoid92Qja2HXc_e8-voJQ
 
 natural_language_understanding = new NaturalLanguageUnderstandingV1(
     username: Meteor.settings.private.language.username
@@ -15,7 +17,7 @@ natural_language_understanding = new NaturalLanguageUnderstandingV1(
 
 visual_recognition = new VisualRecognitionV3(
     version:'2018-03-19'
-    iam_apikey: Meteor.settings.private.visual.api_key)
+    iam_apikey: Meteor.settings.private.visual.apikey)
 
 personality_insights = new PersonalityInsightsV3(
     username: Meteor.settings.private.personality.username
@@ -48,50 +50,50 @@ Meteor.methods
         else return 
         
         
-    call_tone: (doc_id)->
-        self = @
-        doc = Docs.findOne doc_id
-        # console.log doc.html
-        if doc.html or doc.body
-            # stringed = JSON.stringify(doc.html, null, 2)
-            if doc.html
-                params =
-                    text:doc.html
-                    content_type:'text/html'
-            if doc.body
-                params =
-                    text:doc.body
-                    content_type:'text/plain'
-            tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
-                if err
-                    console.log err
-                else
-                    # console.dir response
-                    Docs.update { _id: doc_id},
-                        $set:
-                            tone: response
-                    # console.log(JSON.stringify(response, null, 2))
-            )
-        else return 
+    # call_tone: (doc_id)->
+    #     self = @
+    #     doc = Docs.findOne doc_id
+    #     # console.log doc.html
+    #     if doc.html or doc.body
+    #         # stringed = JSON.stringify(doc.html, null, 2)
+    #         if doc.html
+    #             params =
+    #                 text:doc.html
+    #                 content_type:'text/html'
+    #         if doc.body
+    #             params =
+    #                 text:doc.body
+    #                 content_type:'text/plain'
+    #         tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
+    #             if err
+    #                 console.log err
+    #             else
+    #                 # console.dir response
+    #                 Docs.update { _id: doc_id},
+    #                     $set:
+    #                         tone: response
+    #                 # console.log(JSON.stringify(response, null, 2))
+    #         )
+    #     else return 
         
-    call_visual: (doc_id)->
+    call_visual_link: (doc_id, field)->
         self = @
         doc = Docs.findOne doc_id
-        if doc.image_id
-            params =
-                url:"https://res.cloudinary.com/facet/image/upload/#{doc.image_id}"
-                # images_file: images_file
-                # classifier_ids: classifier_ids
-            visual_recognition.classify params, Meteor.bindEnvironment((err, response)->
-                if err
-                    console.log err
-                else
-                    Docs.update { _id: doc_id},
-                        $set:
-                            visual: response.images[0].classifiers[0].classes
-                    # console.log(JSON.stringify(response.images[0].classifiers[0].classes[0].class, null, 2))
-            )
-        else return 
+        link = doc["#{field}"]
+        
+        params =
+            url:link
+            # images_file: images_file
+            # classifier_ids: classifier_ids
+        visual_recognition.classify params, Meteor.bindEnvironment((err, response)->
+            if err
+                console.log err
+            else
+                console.log(JSON.stringify(response, null, 2))
+                Docs.update { _id: doc_id},
+                    $set:
+                        visual_classes: response.images[0].classifiers[0].classes
+        )
         
     call_watson: (doc_id) ->
         console.log 'calling watson'
@@ -109,11 +111,11 @@ Meteor.methods
                         sentiment: true
                         # limit: 2
                     concepts: {}
-                    # categories: {}
+                    categories: {}
                     emotion: {}
                     # # metadata: {}
-                    # relations: {}
-                    # semantic_roles: {}
+                    relations: {}
+                    semantic_roles: {}
                     sentiment: {}
 
             if doc.html
@@ -140,8 +142,8 @@ Meteor.methods
                             doc_sentiment_label: response.sentiment.document.label
                 return
             )
-            Meteor.call 'call_tone', doc_id, ->
-            Meteor.call 'call_personality', doc_id, ->
+            # Meteor.call 'call_tone', doc_id, ->
+            # Meteor.call 'call_personality', doc_id, ->
         return
         
 

@@ -27,8 +27,12 @@
       "password": "5EKhvmppcFN2"
     },
     "visual": {
-      "url": "https://gateway-a.watsonplatform.net/visual-recognition/api",
-      "api_key": "b466adf0ebf44847e4a605406d43dfd57cf047a8"
+      "apikey": "dKgeK3U6JYQn235P2f4y1JchqFROfW9ZwlhGe_5ffRA-",
+      "iam_apikey_description": "Auto generated apikey during resource-key operation for Instance - crn:v1:bluemix:public:watson-vision-combined:us-south:a/f18c8f41459468045d98bcffc36f39d4:a215dc07-48ca-41f5-be89-6e311afcb7e6::",
+      "iam_apikey_name": "auto-generated-apikey-63bf28e3-6093-4072-98e5-f9a64e795d39",
+      "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+      "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/f18c8f41459468045d98bcffc36f39d4::serviceid:ServiceId-e5742746-dd68-40fa-8962-f66d0f136a65",
+      "url": "https://gateway.watsonplatform.net/visual-recognition/api"
     },
     "personality": {
       "url": "https://gateway.watsonplatform.net/personality-insights/api",
