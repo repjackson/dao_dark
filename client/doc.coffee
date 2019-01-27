@@ -83,15 +83,14 @@ Template.key_view.helpers
                     
 
 Template.key_edit.events
-    'keyup .change_key': (e,t)->
-        if e.which is 13
-            old_string = @valueOf()
-            # console.log old_string
-            new_key = t.$('.change_key').val()    
-            parent = Template.parentData()
-            current_keys = Template.parentData()._keys
-            
-            Meteor.call 'rename_key', old_string, new_key, parent 
+    'blur .change_key': (e,t)->
+        old_string = @valueOf()
+        # console.log old_string
+        new_key = t.$('.change_key').val()    
+        parent = Template.parentData()
+        current_keys = Template.parentData()._keys
+        
+        Meteor.call 'rename_key', old_string, new_key, parent 
             
         
     'click .remove_key': ->

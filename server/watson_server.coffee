@@ -15,7 +15,7 @@ natural_language_understanding = new NaturalLanguageUnderstandingV1(
 
 visual_recognition = new VisualRecognitionV3(
     version:'2018-03-19'
-    api_key: Meteor.settings.private.visual.api_key)
+    iam_apikey: Meteor.settings.private.visual.api_key)
 
 personality_insights = new PersonalityInsightsV3(
     username: Meteor.settings.private.personality.username

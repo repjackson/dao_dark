@@ -259,15 +259,16 @@ Meteor.methods
                     Docs.update { _id:delta._id, 'facets.key':facet.key},
                         { $set: 'facets.$.res': agg_res }
     
-            if delta.limit then limit=delta.limit else limit=10
+            if delta.limit then limit=delta.limit else limit=7
     
     
             results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit}
             
-            if total is 1
-                result_ids = results_cursor.fetch()
-            else
-                result_ids = []
+            # if total is 1
+            #     result_ids = results_cursor.fetch()
+            # else
+            #     result_ids = []
+            result_ids = results_cursor.fetch()
     
             # console.log 'result ids', result_ids
     
