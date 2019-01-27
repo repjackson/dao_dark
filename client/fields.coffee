@@ -65,7 +65,7 @@ Template.array_edit.events
     'keyup .new_element': (e,t)->
         if e.which is 13
             # console.log @valueOf()
-            element_val = t.$('.new_element').val().trim()
+            element_val = t.$('.new_element').val().trim().toLowerCase()
             parent = Template.parentData(5)
             # # console.log element_val
             Docs.update parent._id,
@@ -75,21 +75,14 @@ Template.array_edit.events
     'click .remove_element': (e,t)->
         element = @valueOf()
         field = Template.currentData()
-        console.log @
-        console.log Template.currentData()
-        console.log Template.parentData(1)
-        console.log Template.parentData(2)
-        console.log Template.parentData(3)
-        console.log Template.parentData(4)
-        console.log Template.parentData(5)
-        console.log Template.parentData(6)
-        console.log Template.parentData(7)
-        
-        
-        # parent = Template.parentData(5)
-        # Docs.update parent._id,
-        #     $pull:"#{field.key}":element
+        field = Template.currentData()
+        parent = Template.parentData(5)
 
+        Docs.update parent._id,
+            $pull:"#{field}":element
+
+        t.$('.new_element').focus()
+        t.$('.new_element').val(element)
 
 Template.textarea_edit.events
     'blur .edit_textarea': (e,t)->

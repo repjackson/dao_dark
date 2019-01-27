@@ -53,8 +53,8 @@ Template.registerHelper 'youtube_value', () ->
     # console.log Template.parentData(2)
     # console.log Template.parentData(3)
     # console.log Template.parentData(4)
-    console.log Template.parentData(5)
+    # console.log Template.parentData(5)
     # console.log Template.parentData(6)
     parent = Template.parentData(5)
-    console.log parent["_#{@valueOf()}"].youtube_id
+    # console.log parent["_#{@valueOf()}"].youtube_id
     parent["_#{@valueOf()}"].youtube_id
