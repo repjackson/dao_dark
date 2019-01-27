@@ -16,7 +16,8 @@ template(name='edit')
                         each _keys
                             .column
                                 +key_edit
-
+                    if watson
+                        +watson_view
 
 
 
@@ -58,18 +59,14 @@ template(name='view')
                     a.ui.large.icon.circular.button(href='/')
                         i.home.icon
             .centered.row
-                .ten.wide.center.aligned.column
+                .sixteen.wide.center.aligned.column
                     .ui.header
                         if icon
                             i.grey.icon(class=icon)
                         |#{title}
                     each _keys
                         +key_view
-
-                    // .ui.header
-                    //     a.ui.icon.circular.button(href="/s/#{type}" title=plural)
-                    //         i.chevron.left.icon
-                    //     |View #{type}
+                    .ui.hidden.divider
                     if is_author
                         +edit_button
                         +detect
@@ -77,3 +74,5 @@ template(name='view')
                     +clone_button
                     div
                     +comments_view
+                    if watson
+                        +watson_view

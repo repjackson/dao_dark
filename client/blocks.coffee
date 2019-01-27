@@ -112,43 +112,49 @@ Template.user_list_toggle.helpers
 
 
 Template.voting_view.helpers
-    upvote_class: -> if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
-    downvote_class: -> if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
+    upvote_class: -> 
+        parent = Template.parentData(5)
+        if parent._upvoter_ids and Meteor.userId() in parent._upvoter_ids then 'green' else 'outline'
+    downvote_class: -> 
+        parent = Template.parentData(5)
+        if parent._downvoter_ids and Meteor.userId() in parent._downvoter_ids then 'red' else 'outline'
 
 
 
 
 Template.voting_view.events
     'click .upvote': ->
-        if @downvoter_ids and Meteor.userId() in @downvoter_ids
-            Docs.update @_id,
-                $pull: downvoter_ids:Meteor.userId()
-                $addToSet: upvoter_ids:Meteor.userId()
+        parent = Template.parentData(5)
+        if parent._downvoter_ids and Meteor.userId() in parent._downvoter_ids
+            Docs.update parent._id,
+                $pull: _downvoter_ids:Meteor.userId()
+                $addToSet: _upvoter_ids:Meteor.userId()
                 $inc:points:2
-        else if @upvoter_ids and Meteor.userId() in @upvoter_ids
-            Docs.update @_id,
-                $pull: upvoter_ids:Meteor.userId()
+        else if parent._upvoter_ids and Meteor.userId() in parent._upvoter_ids
+            Docs.update parent._id,
+                $pull: _upvoter_ids:Meteor.userId()
                 $inc:points:-1
         else
-            Docs.update @_id,
-                $addToSet: upvoter_ids:Meteor.userId()
+            Docs.update parent._id,
+                $addToSet: _upvoter_ids:Meteor.userId()
                 $inc:points:1
         # Meteor.users.update @author_id,
         #     $inc:karma:1
 
     'click .downvote': ->
-        if @upvoter_ids and Meteor.userId() in @upvoter_ids
-            Docs.update @_id,
-                $pull: upvoter_ids:Meteor.userId()
-                $addToSet: downvoter_ids:Meteor.userId()
+        parent = Template.parentData(5)
+        if parent._upvoter_ids and Meteor.userId() in parent._upvoter_ids
+            Docs.update parent._id,
+                $pull: _upvoter_ids:Meteor.userId()
+                $addToSet: _downvoter_ids:Meteor.userId()
                 $inc:points:-2
-        else if @downvoter_ids and Meteor.userId() in @downvoter_ids
-            Docs.update @_id,
-                $pull: downvoter_ids:Meteor.userId()
+        else if parent._downvoter_ids and Meteor.userId() in parent._downvoter_ids
+            Docs.update parent._id,
+                $pull: _downvoter_ids:Meteor.userId()
                 $inc:points:1
         else
-            Docs.update @_id,
-                $addToSet: downvoter_ids:Meteor.userId()
+            Docs.update parent._id,
+                $addToSet: _downvoter_ids:Meteor.userId()
                 $inc:points:-1
         # Meteor.users.update @author_id,
         #     $inc:karma:-1
@@ -182,7 +188,7 @@ Template.clone_button.events
             cloned_fields["#{key}"] = ''
             cloned_fields["_#{key}"] = doc["_#{key}"]
         cloned_fields['_keys'] = keys
-        console.log cloned_fields
+        # console.log cloned_fields
         cloned_id = Docs.insert cloned_fields
         FlowRouter.go "/edit/#{cloned_id}"
             

@@ -45,15 +45,20 @@ template(name='doc_emotion')
         //     .progress
         .label {{to_percent anger}}% anger 
             
+            
+            
 template(name='call_watson')
     #call_watson.ui.icon.button 
         i.chess.knight.icon
         
 
+
+
 template(name='call_visual_analysis')
     #call_visual.ui.button 
         i.image.icon
         |tag
+
 
 template(name='keywords')
     .ui.header 
@@ -93,6 +98,8 @@ template(name='keywords')
                                 .label {{ to_percent anger }}% anger 
 
 
+
+
 template(name='entities')
     .ui.header 
         |#{watson.entities.length} entities
@@ -101,11 +108,15 @@ template(name='entities')
             .item
                 |#{type}: #{text}
 
+
+
 template(name='keyword_list')
     .ui.header 
         |#{watson_keywords.length} keywords
     each watson_keywords
         .ui.label #{this}
+
+
 
 template(name='concept_list')
     .ui.header 

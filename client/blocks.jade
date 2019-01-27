@@ -3,9 +3,9 @@ template(name='comments_edit')
 template(name='comments_view')
     .ui.header
         i.comment.outline.icon
-    .ui.fluid.icon.input
+    .ui.fluid.icon.transparent.inverted.input
         i.plus.icon
-        input.add_comment(type='text' placeholder='Add comment...')
+        input.add_comment(type='text' placeholder='comment...')
     .ui.comments
         each doc_comments
             .comment
@@ -63,8 +63,8 @@ template(name='user_list_toggle')
 
 
 template(name='voting_view')
-    if points
-        strong #{points}
+    if parent.points
+        strong #{parent.points}
     .ui.icon.circular.button.upvote
         i.thumbs.up.icon(class=upvote_class)
     each upvoter_ids

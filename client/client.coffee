@@ -1,18 +1,16 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
-Session.setDefault('invert', true)
-
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 
-Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
+Template.registerHelper 'is_author', () -> @_author_id is Meteor.userId()
+
+Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
+
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)
 
-
-
-Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'inverted' else ''
 
 Template.registerHelper 'in_list', (key) ->
     if Meteor.userId()
@@ -26,6 +24,8 @@ Template.registerHelper 'schema', () ->
         type:'schema'
         slug:@type
 
+Template.registerHelper 'parent', () ->
+    parent = Template.parentData(5)
 
 Template.registerHelper 'field_value', () ->
     # console.log @

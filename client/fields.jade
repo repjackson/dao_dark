@@ -17,10 +17,14 @@ template(name='textarea_edit')
         .field
             label #{key}
             textarea.edit_textarea(rows='5') #{field_value}
+    +call_watson
+    
 
 template(name='textarea_view')
     .ui.basic.segment
         |#{nl2br field_value}
+
+
 
 
 template(name='html_edit')
@@ -37,15 +41,20 @@ template(name='text_edit')
         i.header.icon
         input.edit_text(type='text' value=field_value placeholder='text')
 
+
 template(name='text_view')
     // | #{key}: &nbsp;
     i.i.cursor.grey.icon
     strong #{field_value}
 
 
+
+
 template(name='code_edit')
     .ui.header ace
     #ace
+
+
 
 template(name='number_edit')
     .ui.icon.input
@@ -58,6 +67,10 @@ template(name='number_view')
     i.hashtag.grey.icon
     strong #{field_value}
 
+
+
+
+
 template(name='date_edit')
     .ui.labeled.fluid.input
         .ui.label #{key}
@@ -67,6 +80,9 @@ template(name='date_view')
     | #{key} &nbsp;
     i.calendar.grey.icon
     strong #{field_value}
+
+
+
 
 
 template(name='array_edit')
@@ -99,14 +115,20 @@ template(name='children_edit')
             +child
 
 
+
+
 template(name='youtube_edit')
     .ui.labeled.fluid.input
         .ui.label youtube id
         input.youtube_id(type='text' value=field_value)
     iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
+
+
 template(name='youtube_view')
     iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+
+
 
 
 template(name='child')
@@ -114,6 +136,8 @@ template(name='child')
         +text key='key'
         +text key='field_type'
         +remove_button
+
+
 
 template(name='boolean_edit')
     .ui.button

@@ -179,29 +179,29 @@ Meteor.methods
         console.log 'key count', count
     
 
-    rename: (old_keyname, new_keyname)->
-        console.log 'start renaming', old_keyname, 'to', new_keyname
+    rename: (old, newk)->
+        console.log 'start renaming', old, 'to', newk
         
-        old_count = Docs.find({"#{old_keyname}":$exists:true}).count()
-        console.log 'found',old_count,'of',old_keyname
+        old_count = Docs.find({"#{old}":$exists:true}).count()
+        console.log 'found',old_count,'of',old
         
-        new_count = Docs.find({"#{new_keyname}":$exists:true}).count()
-        console.log 'found',new_count,'of',new_keyname
+        new_count = Docs.find({"#{newk}":$exists:true}).count()
+        console.log 'found',new_count,'of',newk
         
         
-        result2 = Docs.update({"#{old_keyname}":$exists:true}, {$rename:"_#{old_keyname}":"_#{new_keyname}"}, {multi:true})
-        result = Docs.update({"#{old_keyname}":$exists:true}, {$rename:old_keyname:new_keyname}, {multi:true})
+        result = Docs.update({"#{old}":$exists:true}, {$rename:"#{old}":"#{newk}"}, {multi:true})
+        result2 = Docs.update({"#{old}":$exists:true}, {$rename:"_#{old}":"_#{newk}"}, {multi:true})
         
         # > Docs.update({doc_sentiment_score:{$exists:true}},{$rename:{doc_sentiment_score:"sentiment_score"}},{multi:true})
 
         console.log 'mongo update call finished:',result
         
-        cursor = Docs.find({new_keyname:$exists:true}, { fields:_id:1 })
+        cursor = Docs.find({newk:$exists:true}, { fields:_id:1 })
 
         for doc in cursor.fetch()
             Meteor.call 'key', doc._id
 
-        console.log 'done renaming', old_keyname, 'to', new_keyname
+        console.log 'done renaming', old, 'to', newk
             
         console.log 'result1', result
         console.log 'result2', result2
@@ -214,10 +214,6 @@ Meteor.methods
             }, {multi:true})
         console.log result
     
-    
-    clear_crime: ->
-        count = Docs.remove({'X':$exists:true})
-        console.log count
     
     tagify_date_time: (val)->
         console.log moment(val).format("dddd, MMMM Do YYYY, h:mm:ss a")

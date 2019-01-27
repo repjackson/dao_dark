@@ -1,5 +1,5 @@
 template(name='delta')
-    .ui.padded.grid
+    .ui.grid
         .row
             .sixteen.wide.center.aligned.column
                 // a.ui.icon.large.circular.button(href='/')
@@ -49,8 +49,7 @@ template(name='delta')
 
 template(name='facet')
     if filtering_res
-        div
-        .ui.inline.header #{key}
+        .ui.inline.small.header #{key}
         // each filters
         //     .unselect.ui.blue.circular.button #{this}
         // .ui.transparent.left.icon.input
