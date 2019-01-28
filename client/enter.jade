@@ -2,11 +2,19 @@ template(name='enter')
     .ui.padded.grid
         .centered.row
             .ten.wide.column
+                if dark_side
+                    h1.black_bat.logo.invert_class
+                        |abandon hope all ye who enter here
+                else 
+                    h1.ui.center.aligned.header
+                        |welcome to dao
                 if message
                     h4.ui.center.aligned.header #{message}
-                .ui.fluid.input(class=login_class)
+                .ui.fluid.icon.input(class=login_class)
+                    i.user.icon
                     input.username(type='text' placeholder='username')
-                .ui.fluid.input(class=login_class)
+                .ui.fluid.icon.input(class=login_class)
+                    i.lock.icon
                     input.password(type='password' placeholder='password')
                 if username
                     if registering
@@ -22,3 +30,5 @@ template(name='enter')
                 .ui.fluid.button.new_demo
                     i.user.secret.icon
                     | anon
+                    
+                    

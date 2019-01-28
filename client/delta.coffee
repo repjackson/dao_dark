@@ -12,11 +12,6 @@ FlowRouter.route '/view/:id', action: -> @render 'layout','view'
 FlowRouter.route '*', action: -> @render 'not_found'
 
 
-Template.delta.events
-    'click .add_doc': ->
-        new_id = Docs.insert({})
-        FlowRouter.go("/edit/#{new_id}")
-    
 
 Template.delta.onCreated ->
     @autorun -> Meteor.subscribe 'doc', Session.get('delta_id')
@@ -84,7 +79,7 @@ Template.delta.events
                 title:'root'
                 facets: [
                     {
-                        key:'_keys'
+                        key:'bricks'
                         filters:[]
                         res:[]
                     }
@@ -136,24 +131,24 @@ Template.facet.helpers
     filtering_res: ->
         delta = Docs.findOne type:'delta'
         filtering_res = []
-        if @key is '_keys'
-            filtered_list = [
-                'entities'
-                'keywords'
-                'concepts'
-                'tags'
-                'youtube'
-                'type'
-            ]
-            filtering_res = @res
-            # for filter in @res
-                # if filter.name in filtered_list then filtering_res.push filter
-        else
-            for filter in @res
-                if filter.count < delta.total
-                    filtering_res.push filter
-                else if filter.name in @filters
-                    filtering_res.push filter
+        # if @key is '_keys'
+        #     filtered_list = [
+        #         'entities'
+        #         'keywords'
+        #         'concepts'
+        #         'tags'
+        #         'youtube'
+        #         'type'
+        #     ]
+        #     filtering_res = @res
+        #     # for filter in @res
+        #         # if filter.name in filtered_list then filtering_res.push filter
+        # else
+        for filter in @res
+            if filter.count < delta.total
+                filtering_res.push filter
+            else if filter.name in @filters
+                filtering_res.push filter
         filtering_res
 
     

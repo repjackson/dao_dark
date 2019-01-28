@@ -1,7 +1,7 @@
 template(name='delta')
     .ui.grid
         .row
-            .sixteen.wide.center.aligned.column
+            .four.wide.center.aligned.column
                 // a.ui.icon.large.circular.button(href='/')
                 //     i.large.adjust.icon
                 each my_sessions
@@ -10,19 +10,8 @@ template(name='delta')
                         i.play.icon
                 .new_session.ui.icon.circular.button.pointer(title='new session')
                     i.plus.icon
-                if currentUser
-                    a.ui.circular.button(href='/me')
-                        i.user.icon
-                        |#{currentUser.username}
-                    .ui.icon.button.add_doc(title='add doc')
-                        i.plus.icon
-                    // a.ui.icon.circular.button.logout(href='#')
-                    //     i.sign.out.icon
-                else
-                    a.ui.icon.circular.button(href='/enter')
-                        i.sign.in.icon
-        .centered.row   
-            .fifteen.wide.column
+        .row
+            .four.wide.column
                 if current_delta
                     // .ui.icon.circular.button.print_delta
                     //     i.code.icon
@@ -33,6 +22,7 @@ template(name='delta')
                 // |did: #{session_delta_id}
                 each current_delta.facets
                     +facet
+            .twelve.wide.column
                 each current_delta.result_ids
                     +result
         .centered.row   
@@ -57,11 +47,11 @@ template(name='facet')
         //     input.add_filter(type='text' placeholder='search')
         each filtering_res
             if name
-                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.circular.compact.button.toggle_selection(class=toggle_value_class title=count)
                     strong #{name}
                     // small #{count}
             else
-                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.circular.compact.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
                     // small #{count}
 

@@ -1,0 +1,48 @@
+template(name='edit')
+    with doc
+        .ui.stackable.grid
+            .centered.row
+                .twelve.center.aligned.wide.column
+                    i.pencil.large.grey.icon(title='editing doc')
+                    a.ui.big.icon.circular.button(href="/view/#{_id}")
+                        i.checkmark.icon
+                    .ui.circular.button.icon.delete
+                        i.remove.icon
+                    +detect
+            .centered.row
+                .fifteen.wide.column
+                    +brick_menu
+                    |bricks
+                    each bricks
+                        .ui.label #{this}
+                    // +ref_edit multi=false key='_schema' type='schema'
+                    .ui.padded.stackable.two.column.grid
+                        each _keys
+                            .column
+                                +brick_edit
+                    if analyzed_text
+                        |#{nl2br analyzed_text}
+                    if watson
+                        +watson_view
+                    if visual_classes
+                        +visual_classes
+
+template(name='brick_menu')
+    i.large.grey.plus.icon(title='add brick')
+    each bricks
+        .ui.circular.button.add_brick
+            i.icon(class=icon)
+            |#{title}
+
+
+template(name='brick_edit')
+    .ui.tertiary.segment
+        i.remove.icon.large.link.remove_key(title='remove field')
+        .ui.labeled.input
+            .ui.label(title='name') #{key}
+            input.change_key(type='text' placeholder='key' value=key)
+        
+        .ui.divider
+        +Template.dynamic template=field_edit
+        .ui.divider
+        +jsonView json=meta

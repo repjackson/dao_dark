@@ -131,7 +131,9 @@ Template.youtube_edit.events
         parent = Template.parentData(5)
         val = t.$('.youtube_id').val()
         Docs.update parent._id,
-            $set:"_#{@valueOf()}.youtube_id":val
+            $set:
+                "_#{@valueOf()}.youtube_id":val
+                'youtube_id':val
 
 
 Template.children_edit.onCreated ->

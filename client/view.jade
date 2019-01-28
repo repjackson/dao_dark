@@ -1,0 +1,39 @@
+template(name='key_view')
+    div
+    .ui.inline.grey.header(title='name') #{key}
+    +Template.dynamic template=field_view
+    // .ui.divider
+    // +jsonView json=meta
+        
+        
+
+template(name='view')
+    with doc
+        .ui.stackable.padded.grid
+            .centered.row
+                .ten.wide.center.aligned.column
+                    a.ui.large.icon.circular.button(href='/')
+                        i.home.icon
+            .centered.row
+                .fifteen.wide.column
+                    .ui.header
+                        if icon
+                            i.grey.icon(class=icon)
+                        |#{title}
+                    each _keys
+                        +key_view
+                    .ui.hidden.divider
+                    if analyzed_text
+                        |#{nl2br analyzed_text}
+                        .ui.hidden.divider
+                    if is_author
+                        +edit_button
+                        +detect
+                    +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
+                    +clone_button
+                    div
+                    +comments_view
+                    if watson
+                        +watson_view
+                    if visual_classes
+                        +visual_classes

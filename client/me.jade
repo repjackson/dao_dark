@@ -1,12 +1,9 @@
 template(name='me')
-    .ui.stackable.padded.celled.grid
+    .ui.stackable.padded.grid
         .centered.row
-            .ten.wide.center.aligned.column
-                a.ui.large.icon.circular.button(href='/')
-                    i.home.icon
-        .centered.row
-            .ten.wide.center.aligned.column
+            .four.wide.column
                 .ui.grey.header #{currentUser.username}
+            .ten.wide.column
                 .ui.icon.input
                     input.new_username(type='text' placeholder='change username')
                     i.play.link.icon.change_username
@@ -23,24 +20,27 @@ template(name='me')
                     .ui.grey.header
                         |points
                     |#{currentUser.points}
-                .ui.grey.header 
-                    i.bell.icon
-                    |alerts
-                .ui.grey.header
-                    i.user.shield.icon
-                    | roles
-                .ui.list
-                    each currentUser.roles
-                        .item #{this}
-                .ui.grey.header 
-                    i.users.icon
-                    | friends
-                .ui.list
-                    each currentUser.friends
-                        .item #{this}
-                .ui.grey.header.logout_others
+                .ui.segment
+                    .ui.grey.header 
+                        i.bell.icon
+                        |alerts
+                .ui.segment
+                    .ui.grey.header
+                        i.user.shield.icon
+                        | roles
+                    .ui.list
+                        each currentUser.roles
+                            .item #{this}
+                .ui.segment
+                    .ui.grey.header 
+                        i.users.icon
+                        | friends
+                    .ui.list
+                        each currentUser.friends
+                            .item #{this}
+                .ui.button.logout_others
                     i.user.times.icon
                     |logout other clients
-                .ui.grey.header.logout
+                .ui.button.logout
                     i.sign.out.alternate
-                    |sign out
+                    |logout
