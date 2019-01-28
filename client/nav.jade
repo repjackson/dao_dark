@@ -1,22 +1,22 @@
 template(name='nav')
-    .ui.attached.menu
-        a.item(href='/')
+    .ui.attached.borderless.menu
+        a.item(href='/' class="{{isActivePath '/'}}")
             .black_bat.logo DAO
-        a.item.invert(href='#')
+        a.item.toggle_invert(href='#')
             i.adjust.icon
         .right.menu
             if currentUser
                 a.item.add(href='#')
                     i.link.plus.icon
-                a.item.add(href='/mail')
+                a.item.add(href='/mail' class="{{isActivePath '/mail'}}")
                     i.link.mail.icon
-                a.item(href='/alerts')
+                a.item(href='/alerts' class="{{isActivePath '/alerts'}}")
                     i.link.bell.icon
-                a.item(href='/settings')
+                a.item(href='/settings' class="{{isActivePath '/settings'}}")
                     i.link.cog.icon
-                a.item(href='/users')
+                a.item(href='/users' class="{{isActivePath '/users'}}")
                     i.users.icon
-                a.item(href='/karma')
+                a.item(href='/karma' class="{{isActivePath '/karma'}}")
                     span(title='karma') #{currentUser.karma}
                     i.user.shield.icon
                     span(title='points') #{currentUser.points}

@@ -1,0 +1,47 @@
+template(name='user')
+    with user
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column
+                    .ui.header #{username} #{first_name} #{last_name}
+                    .ui.header #{points} points
+                    .ui.header karma #{karma}
+                    .ui.button.send_point send point
+                    .ui.button.send_karma send karma
+
+template(name='users')
+    .ui.stackable.padded.grid
+        .row
+            .four.wide.column
+                .ui.header users
+            .twelve.wide.column
+                .ui.four.cards
+                    each users
+                        +user_card                            
+                            // .content 
+                            //     .ui.header #{username} #{first_name} #{last_name} [#{status}]
+                            //     each tags
+                            //         .ui.label #{this}
+                            //     .ui.list
+                            //         .ui.item #{points} points
+                            //         .ui.item #{karma} karma
+                                
+                            //     a.ui.icon.button(href="/u/#{username}")
+                            //         i.right.arrow.icon
+        
+template(name='user_card')
+    .ui.card
+        .image
+            img(src='/images/avatar2/large/kristy.png')
+        .content
+            a.header Kristy
+        .meta
+            span.date Joined in 2013
+        .description
+            | Kristy is an art director living in New York.
+        .extra.content
+            a
+                i.user.icon
+                | 22 Friends
+
+        

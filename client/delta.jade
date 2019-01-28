@@ -1,17 +1,15 @@
 template(name='delta')
-    .ui.grid
+    .new_session.ui.icon.circular.button.pointer(title='new session')
+        i.plus.icon
+    each my_sessions
+        .ui.circular.button.select_session(class=session_selector_class title='select session')
+            if title
+                |#{title}
+            else 
+                i.play.icon
+    .ui.stackable.grid
         .row
-            .four.wide.center.aligned.column
-                // a.ui.icon.large.circular.button(href='/')
-                //     i.large.adjust.icon
-                each my_sessions
-                    .ui.circular.icon.large.button.select_session(class=session_selector_class title='select session')
-                        // i.remove.link.delete_delta.icon
-                        i.play.icon
-                .new_session.ui.icon.circular.button.pointer(title='new session')
-                    i.plus.icon
-        .row
-            .four.wide.column
+            .six.wide.column.scrolling
                 if current_delta
                     // .ui.icon.circular.button.print_delta
                     //     i.code.icon
@@ -22,23 +20,24 @@ template(name='delta')
                 // |did: #{session_delta_id}
                 each current_delta.facets
                     +facet
-            .twelve.wide.column
+            .ten.wide.column.scrolling
                 each current_delta.result_ids
                     +result
-        .centered.row   
-            .sixteen.wide.center.aligned.column
-                form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-                    input(type='hidden', name='cmd', value='_s-xclick')
-                    input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-                    // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-                    img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-                    button.ui.icon.circular.large.button(type='submit')
-                        i.pied.piper.alternate.large.icon
+        // .centered.row   
+        //     .sixteen.wide.center.aligned.column
+        //         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+        //             input(type='hidden', name='cmd', value='_s-xclick')
+        //             input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+        //             // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+        //             img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+        //             button.ui.icon.circular.large.button(type='submit')
+        //                 i.pied.piper.alternate.large.icon
 
 
 
 template(name='facet')
     if filtering_res
+        div
         .ui.inline.small.header #{key}
         // each filters
         //     .unselect.ui.blue.circular.button #{this}
@@ -58,7 +57,6 @@ template(name='facet')
 
 
 template(name='result')
-    .ui.divider
     with result 
         each _keys
             // .ui.label #{this}
@@ -72,5 +70,6 @@ template(name='result')
         +creation_info
         +view_button
         +edit_button
+    .ui.divider
     
 

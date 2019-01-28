@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Template.me.events
+    Template.settings.events
         'click .logout': -> Meteor.logout()
     
         'click .logout_others': ->

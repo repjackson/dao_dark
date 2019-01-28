@@ -17,12 +17,12 @@ template(name='image_link_edit')
         i.image.icon
         input.edit_image_link(type='link' value=field_value placeholder='image link' )
     if field_value
-        img.ui.fluid.image.invert(src=field_value)
+        img.ui.fluid.image.inverted(src=field_value)
         +call_visual
 
 
 template(name='image_link_view')
-    img.ui.image.invert(src=field_value)
+    img.ui.image.inverted(src=field_value)
 
 
 

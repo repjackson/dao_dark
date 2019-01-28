@@ -2,12 +2,7 @@ template(name='enter')
     .ui.padded.grid
         .centered.row
             .ten.wide.column
-                if dark_side
-                    h1.black_bat.logo.invert_class
-                        |abandon hope all ye who enter here
-                else 
-                    h1.ui.center.aligned.header
-                        |welcome to dao
+                .ui.center.aligned.header login/register
                 if message
                     h4.ui.center.aligned.header #{message}
                 .ui.fluid.icon.input(class=login_class)

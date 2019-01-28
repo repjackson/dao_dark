@@ -1,16 +1,31 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
+
+FlowRouter.route '/', action: -> @render 'layout','delta'
+
+FlowRouter.route '/enter', action: -> @render 'layout','enter'
+FlowRouter.route '/me', action: -> @render 'layout','me'
+FlowRouter.route '/users', action: -> @render 'layout','users'
+FlowRouter.route '/settings', action: -> @render 'layout','settings'
+FlowRouter.route '/edit/:id', action: -> @render 'layout','edit'
+FlowRouter.route '/view/:id', action: -> @render 'layout','view'
+FlowRouter.route '*', action: -> @render 'not_found'
+
+$.cloudinary.config
+    cloud_name:"facet"
+
+
+
+
+Session.setDefault 'invert', true
+Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
+Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'inverted' else ''
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
-
 Template.registerHelper 'is_author', () -> @_author_id is Meteor.userId()
-
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
-
 Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
-
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
-
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)

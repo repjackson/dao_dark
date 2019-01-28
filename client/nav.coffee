@@ -9,5 +9,5 @@ Template.nav.helpers
 Template.nav.events
     'click .logout': -> Meteor.logout()
 
-    'click .invert': ->
+    'click .toggle_invert': ->
         Session.set('invert', !Session.get('invert'))
