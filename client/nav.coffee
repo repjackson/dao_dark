@@ -11,3 +11,7 @@ Template.nav.events
 
     'click .toggle_invert': ->
         Session.set('invert', !Session.get('invert'))
+
+    'click .add': ->
+        new_id = Docs.insert {}
+        FlowRouter.go "/edit/#{new_id}"

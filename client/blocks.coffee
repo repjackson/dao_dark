@@ -192,3 +192,21 @@ Template.clone_button.events
         cloned_id = Docs.insert cloned_fields
         FlowRouter.go "/edit/#{cloned_id}"
             
+            
+            
+Template.toggle_friend.helpers
+    is_friend: ->
+        Meteor.user().friend_ids and @_id in Meteor.user().friend_ids
+        
+        
+Template.toggle_friend.events
+    'click .add_friend': ->
+        Meteor.users.update Meteor.userId(),
+            $addToSet: friend_ids:@_id
+        
+    'click .remove_friend': ->
+        Meteor.users.update Meteor.userId(),
+            $pull: friend_ids:@_id
+        
+        
+        

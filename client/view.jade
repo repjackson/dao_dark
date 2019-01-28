@@ -16,11 +16,19 @@ template(name='view')
                         if icon
                             i.grey.icon(class=icon)
                         |#{title}
+                    +author_info
+                    +creation_info
                     if is_author
                         +edit_button
                         +detect
                     +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
                     +clone_button
+                    if watson
+                        +doc_sentiment
+                        +doc_emotion
+                        +concepts
+                        +categories
+                        +entities
                 .twelve.wide.column
                     each _keys
                         +key_view
@@ -31,6 +39,7 @@ template(name='view')
                     div
                     +comments_view
                     if watson
-                        +watson_view
+                        +keywords
+
                     if visual_classes
                         +visual_classes

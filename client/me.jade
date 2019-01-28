@@ -21,14 +21,6 @@ template(name='settings')
                     i.play.link.icon.change_password
         .column
             .ui.tertiary.segment
-                .ui.small.header.logout
-                    i.sign.out.alternate.icon
-                    |logout
-                .ui.small.header.logout_others
-                    i.user.times.icon
-                    |logout other clients
-        .column
-            .ui.tertiary.segment
                 .ui.header
                     |karma
                 |#{currentUser.karma}
@@ -53,6 +45,14 @@ template(name='settings')
                 .ui.list
                     each currentUser.friends
                         .item #{this}
+        .column
+            .ui.tertiary.segment
+                .ui.button.logout_others
+                    i.user.times.icon
+                    |logout other clients
+                .ui.button.logout
+                    i.sign.out.alternate.icon
+                    |logout
                     
                     
 template(name='edit_user_field')
