@@ -142,3 +142,22 @@ template(name='toggle_friend')
         .ui.button.button.add_friend
             |+ friend
         
+        
+template(name='ownership_edit')
+    .ui.header 
+        | ownership
+template(name='ownership_view')
+    .ui.header 
+        | ownership
+    .content
+        #make_author_owner.ui.button make author owner
+        .ui.list
+            each ownership
+                .item user id: #{user_id} #{percent}
+        .ui.header your ownership
+        if has_ownership
+            |#{my_ownership} %
+            #offer_ownership.ui.button offer ownership
+        .ui.header offers
+        .ui.header transactions
+        

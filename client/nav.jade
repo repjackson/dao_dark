@@ -8,15 +8,13 @@ template(name='nav')
             if currentUser
                 a.item.add(href='#')
                     i.link.plus.icon
-                a.item.add(href='/mail' class="{{isActivePath '/mail'}}")
-                    i.link.mail.icon
-                a.item(href='/alerts' class="{{isActivePath '/alerts'}}")
-                    i.link.bell.icon
+                a.item.add(href='/inbox' class="{{isActivePath '/inbox'}}")
+                    i.inbox.icon
                 a.item(href='/settings' class="{{isActivePath '/settings'}}")
-                    i.link.cog.icon
+                    i.cog.icon
                 a.item(href='/users' class="{{isActivePath '/users'}}")
                     i.users.icon
-                a.item(href='/karma' class="{{isActivePath '/karma'}}")
+                a.item(href='/bank' class="{{isActivePath '/bank'}}")
                     span(title='karma') #{currentUser.karma}
                     i.user.shield.icon
                     span(title='points') #{currentUser.points}

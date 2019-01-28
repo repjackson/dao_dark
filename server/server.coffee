@@ -24,11 +24,6 @@ Meteor.users.allow
         u and 'admin' in u.roles
 
 
-Cloudinary.config
-    cloud_name: 'facet'
-    api_key: Meteor.settings.cloudinary_key
-    api_secret: Meteor.settings.cloudinary_secret
-
 
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id

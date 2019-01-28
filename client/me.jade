@@ -3,6 +3,15 @@ template(name='settings')
         .column
             .ui.tertiary.segment
                 .ui.header #{currentUser.username} [#{currentUser.status}]
+                if profile.image_id
+                    .ui.centered.image
+                        img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                        a#remove_photo.ui.right.corner.link.label
+                            i.remove.red.link.icon
+                else
+                    label add image
+                    input(type='file' name='upload_picture' accept='image/*')
+
                 +edit_user_field key='status'
                 +edit_user_field key='first_name'
                 +edit_user_field key='last_name'

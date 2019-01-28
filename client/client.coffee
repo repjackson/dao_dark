@@ -6,6 +6,7 @@ FlowRouter.route '/', action: -> @render 'layout','delta'
 FlowRouter.route '/enter', action: -> @render 'layout','enter'
 FlowRouter.route '/me', action: -> @render 'layout','me'
 FlowRouter.route '/users', action: -> @render 'layout','users'
+FlowRouter.route '/inbox', action: -> @render 'layout','inbox'
 FlowRouter.route '/bank', action: -> @render 'layout','bank'
 FlowRouter.route '/settings', action: -> @render 'layout','settings'
 
@@ -13,11 +14,6 @@ FlowRouter.route '/u/:username', action: -> @render 'layout','user'
 FlowRouter.route '/edit/:id', action: -> @render 'layout','edit'
 FlowRouter.route '/view/:id', action: -> @render 'layout','view'
 FlowRouter.route '*', action: -> @render 'not_found'
-
-$.cloudinary.config
-    cloud_name:"facet"
-
-
 
 
 Session.setDefault 'invert', true

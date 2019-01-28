@@ -108,10 +108,12 @@ Template.facet.events
     'keyup .add_filter': (e,t)->
         if e.which is 13
             delta = Docs.findOne Session.get('delta_id')
-            concept = t.$('.add_filter').val()
-            Meteor.call 'add_facet_filter', delta._id, 'concepts', concept, ->
+            facet = Template.currentData()
+            filter = t.$('.add_filter').val()
+            Session.set 'loading', true
+            Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
                 Session.set 'loading', false
-            concept = t.$('.add_filter').val('')
+            t.$('.add_filter').val('')
             
         
       

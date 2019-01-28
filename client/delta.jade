@@ -41,9 +41,9 @@ template(name='facet')
         .ui.inline.small.header #{key}
         // each filters
         //     .unselect.ui.blue.circular.button #{this}
-        // .ui.transparent.left.icon.input
-        //     i.search.icon
-        //     input.add_filter(type='text' placeholder='search')
+        .ui.transparent.left.icon.input
+            i.search.icon
+            input.add_filter(type='text' placeholder='search')
         each filtering_res
             if name
                 .selector.ui.circular.compact.button.toggle_selection(class=toggle_value_class title=count)

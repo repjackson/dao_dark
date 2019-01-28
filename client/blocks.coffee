@@ -188,6 +188,7 @@ Template.clone_button.events
             cloned_fields["#{key}"] = ''
             cloned_fields["_#{key}"] = doc["_#{key}"]
         cloned_fields['_keys'] = keys
+        cloned_fields['bricks'] = @bricks
         # console.log cloned_fields
         cloned_id = Docs.insert cloned_fields
         FlowRouter.go "/edit/#{cloned_id}"

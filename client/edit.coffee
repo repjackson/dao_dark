@@ -28,7 +28,7 @@ Template.brick_menu.events
     'click .add_brick': ->
         console.log @
         Docs.update FlowRouter.getParam('id'),
-            $addToSet: 
+            $push: 
                 bricks: @slug
                 _keys: "new_#{@slug}"
             $set:
@@ -47,14 +47,19 @@ Template.brick_edit.events
         
     'click .remove_brick': ->
         key_name = @valueOf()
+        console.log @
         console.log Template.currentData()
-        # parent = Template.parentData()
-        # if confirm "remove #{key_name}?"
-        #     Docs.update parent._id,
-        #         $unset: 
-        #             "#{key_name}": 1
-        #             "_#{key_name}": 1
-        #         $pull: _keys: key_name
+        parent = Template.parentData()
+        brick = parent["_#{key_name}"].brick
+        if confirm "remove #{key_name}?"
+            Docs.update parent._id,
+                $unset: 
+                    "#{key_name}": 1
+                    "_#{key_name}": 1
+                $pull: 
+                    _keys: key_name
+                    bricks:brick
+                    
 
 
 

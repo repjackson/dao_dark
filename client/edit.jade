@@ -12,7 +12,7 @@ template(name='edit')
             .centered.row
                 .fifteen.wide.column
                     +brick_menu
-                    |bricks
+                    div bricks
                     each bricks
                         .ui.label #{this}
                     // +ref_edit multi=false key='_schema' type='schema'
@@ -37,7 +37,7 @@ template(name='brick_menu')
 
 template(name='brick_edit')
     .ui.tertiary.segment
-        i.remove.icon.large.link.remove_key(title='remove field')
+        i.remove.icon.large.link.remove_brick(title='remove field')
         .ui.labeled.input
             .ui.label(title='name') #{key}
             input.change_key(type='text' placeholder='key' value=key)
