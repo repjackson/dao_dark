@@ -73,6 +73,11 @@ template(name='result')
         each _keys
             // .ui.label #{this}
             +key_view
+        if visual_classes
+            +visual_classes
+        if analyzed_text
+            |#{nl2br analyzed_text}
+
         +author_info
         +creation_info
         +view_button

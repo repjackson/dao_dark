@@ -3,7 +3,8 @@ template(name='link_edit')
         .ui.label link
         i.linkify.icon
         input.edit_link(type='link' value=field_value placeholder='link' )
-
+    if field_value
+        +call_watson mode='url'
 
 template(name='link_view')
     a(href=field_value target='_window') #{field_value}

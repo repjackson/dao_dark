@@ -66,7 +66,8 @@ Template.keywords.onRendered ->
 
 Template.call_watson.events
     'click #call_watson': ->
-        Meteor.call 'call_watson', FlowRouter.getParam('id'), ->
+        parent = Template.parentData()
+        Meteor.call 'call_watson', FlowRouter.getParam('id'), parent, @mode, ->
 
 
 

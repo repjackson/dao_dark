@@ -29,11 +29,11 @@ Template.registerHelper 'schema', () ->
         slug:@type
 
 Template.registerHelper 'calculated_size', (metric) ->
-    console.log metric
+    # console.log metric
     # console.log typeof parseFloat(@relevance)
     # console.log typeof (@relevance*100).toFixed()
     whole = parseInt(@["#{metric}"]*10)
-    console.log whole
+    # console.log whole
     
     if whole is 2 then 'f2'
     else if whole is 3 then 'f3'
