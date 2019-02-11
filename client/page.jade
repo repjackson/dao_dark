@@ -1,0 +1,39 @@
+template(name='page')
+    with page
+        if fullscreen
+            if html
+                |!{html}
+            each children
+                // with page
+                +Template.dynamic template=slug
+        else  
+            .ui.stackable.padded.grid
+                if show_header
+                    .centered.middle.aligned.row
+                        .four.wide.center.aligned.column
+                        .eight.wide.center.aligned.column
+                            .ui.large.header 
+                                if icon
+                                    i.icon(class=icon)
+                                |#{title}
+                        .four.wide.center.aligned.column
+                            if can_edit
+                                a.ui.icon.button(href="/s/page/#{_id}/edit" title='Edit Page')
+                                    i.pencil.icon
+                .centered.row
+                    .sixteen.wide.column 
+                        if html
+                            |!{html}
+                        each children
+                            // with page
+                            +Template.dynamic template=slug
+                        
+                        
+template(name='add')
+    .ui.stackable.four.link.cards
+        each add_schemas
+            .card.add_doc
+                .content
+                    .header 
+                        i.icon(class=icon)
+                        |#{title}

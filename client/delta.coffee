@@ -122,19 +122,6 @@ Template.facet.helpers
     filtering_res: ->
         delta = Docs.findOne type:'delta'
         filtering_res = []
-        # if @key is '_keys'
-        #     filtered_list = [
-        #         'entities'
-        #         'keywords'
-        #         'concepts'
-        #         'tags'
-        #         'youtube'
-        #         'type'
-        #     ]
-        #     filtering_res = @res
-        #     # for filter in @res
-        #         # if filter.name in filtered_list then filtering_res.push filter
-        # else
         for filter in @res
             if filter.count < delta.total
                 filtering_res.push filter

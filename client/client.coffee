@@ -15,6 +15,13 @@ FlowRouter.route '/edit/:id', action: -> @render 'layout','edit'
 FlowRouter.route '/view/:id', action: -> @render 'layout','view'
 FlowRouter.route '*', action: -> @render 'not_found'
 
+FlowRouter.route '/user/:_id/edit', -> @render 'user_edit'
+
+FlowRouter.route '/s/:type', action: -> @render 'type'
+FlowRouter.route '/s/:type/:_id/edit', action: -> @render 'type_edit'
+FlowRouter.route '/s/:type/:_id/view', action: -> @render 'type_view'
+
+FlowRouter.route '/p/:slug', action: -> @render 'page'
 
 Session.setDefault 'invert', true
 Template.registerHelper 'dark_side', () -> Session.equals('invert',true)

@@ -1,5 +1,7 @@
-template(name='nav')
+template(name='topnav')
     .ui.attached.borderless.menu
+        a.item.toggle_leftbar(href='#')
+            i.bars.icon
         a.item(href='/' class="{{isActivePath '/'}}")
             .black_bat.logo DAO
         a.item.toggle_invert(href='#')
@@ -21,6 +23,8 @@ template(name='nav')
                 a.item(href="/u/#{currentUser.username}")
                     i.user.icon
                     | #{currentUser.username} [#{currentUser.status}]
+                a.item.toggle_rightbar(href='#')
+                    i.bars.icon
                 .item.logout
                     i.sign.out.alternate.link.icon
             else
@@ -53,3 +57,124 @@ template(name='footer')
         //         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
         //         button.ui.basic.button(type='submit')
         //             | Donate 
+        
+        
+        
+
+template(name='topbar')
+    .ui.top.sidebar.darkblue.segment.push.nav_bar.row.toggle_topbar.topbar
+        .ui.grid
+            .four.wide.column
+                .ui.small.inverted.header Nonprofits
+                .ui.inverted.list
+                    each nonprofit_pages
+                        a.item(href="/p/#{slug}") #{title}
+            .four.wide.column
+                .ui.small.inverted.header Churches
+                .ui.inverted.list
+                    each church_pages
+                        a.item(href="/p/#{slug}") #{title}
+            .four.wide.column
+                .ui.small.inverted.header Also Serving
+                .ui.inverted.list
+                    each also_serving_pages
+                        a.item(href="/p/#{slug}") #{title}
+            .four.wide.column
+                .ui.small.inverted.header Resources
+                .ui.inverted.list
+                    each resource_pages
+                        a.item(href="/p/#{slug}") #{title}
+        a.icon.item(href='/alerts' title='Alerts')
+
+
+
+template(name='rightbar')
+    .ui.right.vertical.sidebar.nav_bar.menu.rightbar
+        if is_church
+            .profile-picture
+                a(href="{{pathFor route='churchDashboard'}}" class="{{isActiveRoute 'churchDashboard'}}")
+                    if currentUser.profile.profilePic
+                        img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
+                    else
+                        img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
+        if is_admin
+            .profile-picture
+                a(href="{{pathFor route='adminDashboard'}}")
+                    if currentUser.profile.profilePic
+                        img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
+                    else
+                        img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
+        
+        if is_user
+            .profile-picture
+                a(href="{{pathFor route='dashboard'}}")
+                    if currentUser.profile.profilePic
+                        img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
+                    else
+                        img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
+        .item.toggle_rightbar
+            | #{currentUser.profile.first_name} #{currentUser.profile.last_name}
+            | #{currentUser.username} #{currentUser.profile.name}
+            i.grey.user.shield.icon(title='Role')
+            each currentUser.roles
+                .ui.basic.label #{this}
+        // .item.toggle_rightbar
+        //     i.leaderboard.icon
+        //     | Leaderboard
+        // a.item.toggle_rightbar(href='/account')
+        //     if currentUser.username
+        //         |#{currentUser.username}
+        //     else
+        //         |Account
+        a.item.toggle_rightbar(href="/user/profile/#{currentUser._id}")
+            i.user.icon
+            | Profile
+        // a.item.toggle_rightbar(href='/account')
+        //     i.cog.grey.icon
+        //     | Settings
+        if signing_out
+            .icon.disabled.item.toggle_rightbar
+                i.notched.circle.loading.big.icon
+        else
+            a#logout.item.toggle_rightbar(href='#')
+                i.sign.out.icon
+                | Log Out
+
+
+
+
+
+
+template(name='leftbar')
+    .ui.left.vertical.sidebar.nav_bar.menu.leftbar
+        if is_dev
+            a.item.toggle_leftbar.toggle_dev.mobile_hidden(href="#")
+                i.user.shield.icon
+                | Dev
+        a.item.toggle_leftbar(href="/people" class="{{isActiveRoute regex='people'}}" title='People')
+            i.users.icon
+            | People
+        a.item.toggle_leftbar(href="/churches" class="{{isActiveRoute regex='churches'}}" title='Churches')
+            i.building.icon
+            | Organizations
+        a.item.toggle_leftbar(href='/chat' title='Chat' class="{{isActiveRoute regex='chat'}}")
+            i.chat.icon
+            | Chat
+            
+        if currentUser
+            a.item(href="/user/#{currentUser._id}/edit" class="{{isActiveRoute 'user_edit'}}")
+                i.user.icon
+                | My Account
+                
+            a.item#linkLogout(href='/logout')
+                i.sign.out.icon
+                | Logout
+            
+        each schemas
+            a.item.toggle_leftbar(href="/s/#{slug}")
+                i.icon(class=icon)
+                | #{group}
+
+
+
+
