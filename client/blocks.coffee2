@@ -1,8 +1,5 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-
 Template.comments_view.onCreated ->
-    @autorun => Meteor.subscribe 'children', FlowRouter.getParam('id')
+    @autorun => Meteor.subscribe 'children', Router.current().params._id
 Template.role_editor.onCreated ->
     @autorun => Meteor.subscribe 'type', 'role'
 
@@ -14,7 +11,7 @@ Template.comments_view.helpers
 Template.comments_view.events
     'keyup .add_comment': (e,t)->
         if e.which is 13
-            parent = Docs.findOne FlowRouter.getParam('id')
+            parent = Docs.findOne Router.current().params._id
             comment = t.$('.add_comment').val()
             console.log comment
             Docs.insert
@@ -172,11 +169,11 @@ Template.add_button.events
 Template.add_type_button.events
     'click .add': ->
         new_id = Docs.insert type: @type
-        FlowRouter.go "/edit/#{new_id}"
+        Router.go "/edit/#{new_id}"
 
 Template.view_user_button.events
     'click .view_user': ->
-        FlowRouter.go "/u/#{username}"
+        Router.go "/u/#{username}"
 
 Template.clone_button.events
     'click .clone_doc': ->
@@ -190,7 +187,7 @@ Template.clone_button.events
         cloned_fields['bricks'] = @bricks
         # console.log cloned_fields
         cloned_id = Docs.insert cloned_fields
-        FlowRouter.go "/edit/#{cloned_id}"
+        Router.go "/edit/#{cloned_id}"
             
             
             

@@ -2,11 +2,9 @@
 # # stripe = Stripe('pk_test_CqHTNF8uRfEHz8tB8JyJmSNs')
 # # elements = stripe.elements()
 
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
 
 Template.user_edit.onCreated ->
-    @autorun -> Meteor.subscribe 'user_from_id', FlowRouter.getParam('_id')
+    @autorun -> Meteor.subscribe 'user_from_id', Router.current().params._id
 
 
 Template.user_schema_editor.onCreated ->
@@ -28,15 +26,15 @@ Template.user_schema_editor.helpers
         if current_user.schema_ids and @_id in current_user.schema_ids then 'darkblue' else 'basic'
 
 
-# Template.user_schema_editor.events
-#     'click .toggle_schema': ->
-#         current_user = Meteor.users.findOne Router.current().params._id
-#         if current_user.schema_ids and @_id in current_user.schema_ids
-#             Meteor.users.update current_user._id,
-#                 $pull: schema_ids: @_id
-#         else
-#             Meteor.users.update current_user._id,
-#                 $addToSet: schema_ids: @_id
+Template.user_schema_editor.events
+    'click .toggle_schema': ->
+        current_user = Meteor.users.findOne Router.current().params._id
+        if current_user.schema_ids and @_id in current_user.schema_ids
+            Meteor.users.update current_user._id,
+                $pull: schema_ids: @_id
+        else
+            Meteor.users.update current_user._id,
+                $addToSet: schema_ids: @_id
 
 
 
@@ -95,76 +93,76 @@ Template.user_schema_editor.helpers
 # # 	form.submit()
 #     return
 
-# Template.user_edit.events
-#     'click .addCard': ->
-#         # console.log elements
-#         # Custom styling can be passed to options when creating an Element.
+Template.user_edit.events
+    'click .addCard': ->
+        # console.log elements
+        # Custom styling can be passed to options when creating an Element.
 
-#         $('#add_card_modal').modal('show')
-#         style = 
-#           base: {
-#             color: '#32325d',
-#             lineHeight: '18px',
-#             fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-#             fontSmoothing: 'antialiased',
-#             fontSize: '20px',
-#             '::placeholder': {
-#               color: '#aab7c4'
-#             }
-#           },
-#           invalid: {
-#             color: '#fa755a',
-#             iconColor: '#fa755a'
-#           }
-#         # Create an instance of the card Element.
-#         card = elements.create('card', style: style)
-#         # Add an instance of the card Element into the `card-element` <div>.
-#         card.mount '#card-element'
-#         # $('#add_buttons').show()
-#         card.addEventListener 'change', (event) ->
-#             displayError = document.getElementById('card-errors')
-#             if event.error
-#                 displayError.textContent = event.error.message
-#             else
-#                 displayError.textContent = ''
-#             return
-#         # Handle form submission.
-#         form = document.getElementById('payment-form')
-#         form.addEventListener 'submit', (event) ->
-#             event.preventDefault()
-#             stripe.createToken(card).then (result) ->
-#                 if result.error
-#                     # Inform the user if there was an error.
-#                     errorElement = document.getElementById('card-errors')
-#                     errorElement.textContent = result.error.message
-#                 else
-#                     # Send the token to your server.
-#                     stripeTokenHandler result.token
+        $('#add_card_modal').modal('show')
+        style = 
+          base: {
+            color: '#32325d',
+            lineHeight: '18px',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '20px',
+            '::placeholder': {
+              color: '#aab7c4'
+            }
+          },
+          invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+          }
+        # Create an instance of the card Element.
+        card = elements.create('card', style: style)
+        # Add an instance of the card Element into the `card-element` <div>.
+        card.mount '#card-element'
+        # $('#add_buttons').show()
+        card.addEventListener 'change', (event) ->
+            displayError = document.getElementById('card-errors')
+            if event.error
+                displayError.textContent = event.error.message
+            else
+                displayError.textContent = ''
+            return
+        # Handle form submission.
+        form = document.getElementById('payment-form')
+        form.addEventListener 'submit', (event) ->
+            event.preventDefault()
+            stripe.createToken(card).then (result) ->
+                if result.error
+                    # Inform the user if there was an error.
+                    errorElement = document.getElementById('card-errors')
+                    errorElement.textContent = result.error.message
+                else
+                    # Send the token to your server.
+                    stripeTokenHandler result.token
         
         
                 
-#         # Handle real-time validation errors from the card Element.
-#         # Submit the form with the token ID.
+        # Handle real-time validation errors from the card Element.
+        # Submit the form with the token ID.
         
         
 
 
-#     "change input[name='profile_image']": (e) ->
-#         files = e.currentTarget.files
-#         # console.log files
-#         Cloudinary.upload files[0],
-#             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
-#             # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
-#             (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
-#                 # console.log "Upload Error: #{err}"
-#                 # console.dir res
-#                 if err
-#                     console.error 'Error uploading', err
-#                 else
-#                     console.log res
-#                     Meteor.users.update Router.current().params._id, 
-#                         $set: "profile.image_id": res.public_id
-#                 return
+    "change input[name='profile_image']": (e) ->
+        files = e.currentTarget.files
+        # console.log files
+        Cloudinary.upload files[0],
+            # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
+            # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
+            (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
+                # console.log "Upload Error: #{err}"
+                # console.dir res
+                if err
+                    console.error 'Error uploading', err
+                else
+                    console.log res
+                    Meteor.users.update Router.current().params._id, 
+                        $set: "profile.image_id": res.public_id
+                return
 
 #     "change input[name='banner_image']": (e) ->
 #         files = e.currentTarget.files

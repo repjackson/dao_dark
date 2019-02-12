@@ -1,41 +1,12 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
 @selected_tags = new ReactiveArray []
 @selected_usernames = new ReactiveArray []
 @selected_status = new ReactiveArray []
 
-FlowRouter.route '/', action: -> @render 'layout','delta'
 
-FlowRouter.route '/enter', action: -> @render 'layout','enter'
-FlowRouter.route '/me', action: -> @render 'layout','me'
-FlowRouter.route '/users', action: -> @render 'layout','users'
-FlowRouter.route '/inbox', action: -> @render 'layout','inbox'
-FlowRouter.route '/bank', action: -> @render 'layout','bank'
-FlowRouter.route '/settings', action: -> @render 'layout','settings'
-
-FlowRouter.route '/u/:username', action: -> @render 'layout','user'
-FlowRouter.route '/edit/:id', action: -> @render 'layout','edit'
-FlowRouter.route '/view/:id', action: -> @render 'layout','view'
-FlowRouter.route '*', action: -> @render 'not_found'
+$.cloudinary.config
+    cloud_name:"facet"
 
 
-
-
-FlowRouter.route '/user/:_id/s/:type', action: -> @render 'profile_layout', 'user_section'
-
-
-FlowRouter.route '/user/:_id/about', action: -> @render 'profile_layout', 'user_about'
-    
-FlowRouter.route '/user/:_id/stripe', action: -> @render 'profile_layout', 'user_stripe'
-
-
-FlowRouter.route '/user/:_id/edit', action: -> @render 'layout','user_edit'
-
-FlowRouter.route '/s/:type', action: -> @render 'layout', 'type'
-FlowRouter.route '/s/:type/:_id/edit', action: -> @render 'layout', 'type_edit'
-FlowRouter.route '/s/:type/:_id/view', action: -> @render 'layout', 'type_view'
-
-FlowRouter.route '/p/:slug', action: -> @render 'layout', 'page'
 
 Session.setDefault 'invert', false
 Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
@@ -53,7 +24,7 @@ Template.registerHelper 'in_list', (key) ->
         if Meteor.userId() in @["#{key}"] then true else false
 
 Template.registerHelper 'doc', () ->
-    Docs.findOne FlowRouter.getParam('_id')
+    Docs.findOne Router.current().params._id
 
 Template.registerHelper 'schema', () ->
     Docs.findOne
@@ -61,7 +32,7 @@ Template.registerHelper 'schema', () ->
         slug:@type
 
 Template.registerHelper 'user_from_id_param', () ->
-    Meteor.users.findOne FlowRouter.getParam('_id')
+    Meteor.users.findOne Router.current().params._id
 
 Template.registerHelper 'is_schema_type', () ->
     @type is 'schema'
@@ -129,10 +100,10 @@ Template.registerHelper 'bricks', () ->
         schema = Docs.findOne
             type:'schema'
             slug:$in:@roles
-    else if FlowRouter.getParam('type')
+    else if Router.getParam('type')
         schema = Docs.findOne
             type:'schema'
-            slug:FlowRouter.getParam('type')
+            slug:Router.getParam('type')
     # console.log schema
     Docs.find
         type:'brick'
@@ -161,14 +132,14 @@ Template.registerHelper 'nl2br', (text)->
 
     
 Template.registerHelper 'user_from_id_param', () ->
-    Meteor.users.findOne FlowRouter.getParam('_id')
+    Meteor.users.findOne Router.current().params._id
 
 Template.registerHelper 'is_schema_type', () ->
     @type is 'schema'
 
 Template.registerHelper 'is_eric', () ->
-    Meteor.userId() is '5WPuhuuCAs3dCKh3n' and FlowRouter.getParam('_id') is '5WPuhuuCAs3dCKh3n'
+    Meteor.userId() is '5WPuhuuCAs3dCKh3n' and Router.current().params._id is '5WPuhuuCAs3dCKh3n'
 
 Template.registerHelper 'current_user', () ->
-    Meteor.userId() is FlowRouter.getParam('_id')
+    Meteor.userId() is Router.current().params._id
 

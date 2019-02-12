@@ -1,4 +1,4 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
+  
 # import Quill from 'quill'
 
 
@@ -48,7 +48,7 @@ Template.html_edit.onRendered ->
 
     @editor = new Quill('.editor', options)
 
-    doc = Docs.findOne FlowRouter.getParam('id')
+    doc = Docs.findOne Router.current().params._id
 
     @editor.clipboard.dangerouslyPasteHTML(doc.html)
 

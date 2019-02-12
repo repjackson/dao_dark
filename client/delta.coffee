@@ -1,7 +1,3 @@
-# import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
-
-
-
 # Template.delta.onCreated ->
 #     @autorun -> Meteor.subscribe 'doc', Session.get('delta_id')
 #     @autorun -> Meteor.subscribe 'deltas'

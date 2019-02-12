@@ -1,4 +1,4 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
+  
 
 Template.topnav.onCreated ->
     @autorun => Meteor.subscribe 'users'
@@ -6,7 +6,7 @@ Template.topnav.onCreated ->
     @autorun => Meteor.subscribe 'type', 'schema'
 
 Template.topnav.helpers
-    user: -> Meteor.users.findOne username:FlowRouter.getParam('username')
+    user: -> Meteor.users.findOne username:Router.current().params.username
 
 Template.topnav.events
     'click .logout': -> Meteor.logout()
@@ -16,7 +16,7 @@ Template.topnav.events
 
     'click .add': ->
         new_id = Docs.insert {}
-        FlowRouter.go "/edit/#{new_id}"
+        Router.go "/edit/#{new_id}"
 
     'click .toggle_dev': ->
         Session.set('dev_mode', !Session.get('dev_mode'))

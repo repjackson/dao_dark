@@ -1,9 +1,6 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-
 Template.profile_layout.onCreated ->
-    @autorun -> Meteor.subscribe 'user_from_id', FlowRouter.getParam('_id')
-    @autorun -> Meteor.subscribe 'user_schemas', FlowRouter.getParam('_id')
+    @autorun -> Meteor.subscribe 'user_from_id', Router.current().params._id
+    @autorun -> Meteor.subscribe 'user_schemas', Router.current().params._id
     
 Template.user_section.helpers
     user_section_template: ->
@@ -11,10 +8,10 @@ Template.user_section.helpers
     
 Template.profile_layout.helpers
     user: ->
-        Meteor.users.findOne '_id': FlowRouter.getParam('_id')
+        Meteor.users.findOne '_id': Router.current().params._id
     
     user_schemas: ->
-        user = Meteor.users.findOne FlowRouter.getParam('_id')
+        user = Meteor.users.findOne Router.current().params._id
         Docs.find
             type:'schema'
             _id:$in:user.schema_ids
@@ -58,17 +55,17 @@ Template.profile_layout.helpers
 Template.profile_layout.events
     'click .set_delta_schema': ->
         console.log @
-        Meteor.call 'set_delta_facets', @slug, Session.get('delta_id'), FlowRouter.getParam('_id')
+        Meteor.call 'set_delta_facets', @slug, Session.get('delta_id'), Router.current().params._id
 
 Template.user_array_element_toggle.helpers
     user_array_element_toggle_class: ->
-        user = Meteor.users.findOne FlowRouter.getParam('_id')
+        user = Meteor.users.findOne Router.current().params._id
         if @value in user["#{@key}"] then 'grey' else 'basic'
         
         
 Template.user_array_element_toggle.events
     'click .toggle_element': (e,t)->
-        user = Meteor.users.findOne FlowRouter.getParam('_id')
+        user = Meteor.users.findOne Router.current().params._id
         if user["#{@key}"]
             if @value in user["#{@key}"]
                 Meteor.users.update user._id,
@@ -109,7 +106,7 @@ Template.user_tags.events
         if e.which is 13
             element_val = t.$('.tag_user').val().trim()
             # # console.log element_val
-            Meteor.users.update FlowRouter.getParam('_id'),
+            Meteor.users.update Router.current().params._id,
                 $addToSet:tags:element_val
             
             t.$('.tag_user').val('')
@@ -118,5 +115,5 @@ Template.user_tags.events
     'click .remove_tag': (e,t)->
         element = @valueOf()
         console.log @
-        Meteor.users.update FlowRouter.getParam('_id'),
+        Meteor.users.update Router.current().params._id,
             $pull:tags:element

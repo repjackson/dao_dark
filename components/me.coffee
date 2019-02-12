@@ -1,10 +1,10 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
+  
 
 if Meteor.isClient
     Template.settings.events
         'click .logout': -> 
             Meteor.logout()
-            FlowRouter.go '/'
+            Router.go '/'
     
         'click .logout_others': ->
             Meteor.logoutOtherClients (err,res)-> if err then alert err else console.log res

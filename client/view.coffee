@@ -1,8 +1,8 @@
-# import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
+#   
 
 # Template.view.onCreated ->
-#     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('id')
-#     @autorun -> Meteor.subscribe 'schema', FlowRouter.getParam('id')
+#     @autorun -> Meteor.subscribe 'doc', Router.current().params._id
+#     @autorun -> Meteor.subscribe 'schema', Router.current().params._id
 
 
 

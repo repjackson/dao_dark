@@ -1,9 +1,6 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-
 if Meteor.isClient
     Template.comments.onCreated ->
-        @autorun => Meteor.subscribe 'children', 'comment', FlowRouter.getParam('_id')
+        @autorun => Meteor.subscribe 'children', 'comment', Router.current().params._id
     
     
     Template.role_editor.onCreated ->
@@ -17,7 +14,7 @@ if Meteor.isClient
     Template.comments.events
         'keyup .add_comment': (e,t)->
             if e.which is 13
-                parent = Docs.findOne FlowRouter.getParam('_id')
+                parent = Docs.findOne Router.current().params._id
                 comment = t.$('.add_comment').val()
                 console.log comment
                 Docs.insert
@@ -88,13 +85,13 @@ if Meteor.isClient
     
     Template.user_field.helpers
         key_value: ->
-            user = Meteor.users.findOne FlowRouter.getParam('_id')
+            user = Meteor.users.findOne Router.current().params._id
             user["#{@key}"]
     
     Template.user_field.events
         'blur .user_field': (e,t)->
             value = t.$('.user_field').val()
-            Meteor.users.update FlowRouter.getParam('_id'),
+            Meteor.users.update Router.current().params._id,
                 $set:"#{@key}":value
 
     
@@ -204,9 +201,9 @@ if Meteor.isClient
     Template.add_type_button.events
         'click .add': ->
             new_id = Docs.insert type: @type
-            FlowRouter.go "/edit/#{new_id}"
+            Router.go "/edit/#{new_id}"
     
     Template.view_user_button.events
         'click .view_user': ->
-            FlowRouter.go "/u/#{username}"
+            Router.go "/u/#{username}"
     

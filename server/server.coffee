@@ -3,6 +3,10 @@ Docs.allow
     update: (userId, doc) -> userId
     remove: (userId, doc) -> userId
 
+Cloudinary.config
+    cloud_name: 'facet'
+    api_key: Meteor.settings.private.cloudinary.api_key
+    api_secret: Meteor.settings.private.cloudinary.api_secret
 
 Meteor.users.allow
     insert: (userId, doc) ->

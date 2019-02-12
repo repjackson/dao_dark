@@ -1,11 +1,7 @@
-# import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-
-
 # Template.type.onCreated ->
-#     @autorun -> Meteor.subscribe 'schema_from_slug', FlowRouter.getParam('type')
-#     @autorun -> Meteor.subscribe 'schema_bricks_from_slug', FlowRouter.getParam('type')
-#     # @autorun -> Meteor.subscribe 'deltas', FlowRouter.getParam('type')
+#     @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
+#     @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
+#     # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
 #     # @autorun -> Meteor.subscribe 'type', 'delta'
 #     @autorun -> Meteor.subscribe 'my_delta'
 
@@ -14,11 +10,11 @@
 #     schema: ->
 #         Docs.findOne
 #             type:'schema'
-#             slug: FlowRouter.getParam('type')
+#             slug: Router.current().params.type
 
 #     type_docs: ->
 #         Docs.find
-#             type:FlowRouter.getParam('type')
+#             type:Router.current().params.type
 
 #     current_delta: -> 
 #         Docs.findOne type:'delta'
@@ -28,15 +24,15 @@
 # Template.type.events
 #     'click .add_type_doc': ->
 #         new_doc_id = Docs.insert 
-#             type:FlowRouter.getParam('type')
+#             type:Router.current().params.type
 #             parent_id:Meteor.userId()
-#         FlowRouter.go "/s/#{FlowRouter.getParam('type')}/#{new_doc_id}/edit"
+#         Router.go "/s/#{Router.current().params.type}/#{new_doc_id}/edit"
 
 #     'click .edit_schema': ->
 #         schema = Docs.findOne
 #             type:'schema'
-#             slug: FlowRouter.getParam('type')
-#         FlowRouter.go "/s/#{schema.slug}/#{schema._id}/edit"
+#             slug: Router.current().params.type
+#         Router.go "/s/#{schema.slug}/#{schema._id}/edit"
 
 
 #     'click .delete_delta': (e,t)->
@@ -62,14 +58,14 @@
 
 
 # Template.type_edit.onCreated ->
-#     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('_id'), FlowRouter.getParam('type')
-#     @autorun -> Meteor.subscribe 'bricks_from_doc_id', FlowRouter.getParam('_id')
-#     @autorun -> Meteor.subscribe 'schema_from_doc_id', FlowRouter.getParam('_id')
+#     @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
+#     @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params._id
+#     @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params._id
 
 # Template.type_view.onCreated ->
-#     @autorun -> Meteor.subscribe 'schema_from_doc_id', FlowRouter.getParam('_id')
-#     @autorun -> Meteor.subscribe 'bricks_from_doc_id', FlowRouter.getParam('_id')
-#     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('_id'), FlowRouter.getParam('type')
+#     @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params._id
+#     @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params._id
+#     @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
 
 
 
@@ -77,7 +73,7 @@
 #     'click .delete_doc': ->
 #         if confirm 'Confirm delete?'
 #             Docs.remove @_id
-#             FlowRouter.go "/s/#{type}"
+#             Router.go "/s/#{type}"
     
 
 
@@ -151,11 +147,11 @@ Template.facet.helpers
 #         else ''
         
 # Template.result.onCreated ->
-#     @autorun => Meteor.subscribe 'doc', @data._id, FlowRouter.getParam('type')
+#     @autorun => Meteor.subscribe 'doc', @data._id, Router.current().params.type
 
 # Template.result.helpers
 #     result: -> 
-#         current_type = FlowRouter.getParam('type')
+#         current_type = Router.current().params.type
 #         if Meteor.users.findOne @_id
 #             Meteor.users.findOne @_id
 #         else if current_type

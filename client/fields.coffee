@@ -24,7 +24,7 @@ Template.html_edit.helpers
         # console.log Template.parentData(1)
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        # @current_doc = Docs.findOne FlowRouter.getParam 'doc_id'
+        # @current_doc = Docs.findOne Router.current().params.doc_id
         # @current_doc = Docs.findOne @_id
         self = @
         {

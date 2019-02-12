@@ -1,21 +1,19 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
-
 Template.edit.onCreated ->
-    @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('id')
-    @autorun -> Meteor.subscribe 'schema', FlowRouter.getParam('id')
+    @autorun -> Meteor.subscribe 'doc', Router.current().params._id
+    @autorun -> Meteor.subscribe 'schema', Router.current().params._id
     @autorun -> Meteor.subscribe 'type', 'brick'
 
     
 Template.edit.events
     'click .toggle_complete': (e,t)->
-        Docs.update FlowRouter.getParam('id'),
+        Docs.update Router.current().params._id,
             $set:complete:!@complete
 
 
     'click .delete': ->
         if confirm 'confirm delete'
             Docs.remove @_id
-            FlowRouter.go '/'
+            Router.go '/'
 
 
 Template.brick_menu.helpers
@@ -27,7 +25,7 @@ Template.brick_menu.helpers
 Template.brick_menu.events
     'click .add_brick': ->
         console.log @
-        Docs.update FlowRouter.getParam('id'),
+        Docs.update Router.current().params._id,
             $push: 
                 bricks: @slug
                 _keys: "new_#{@slug}"

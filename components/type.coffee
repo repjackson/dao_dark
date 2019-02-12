@@ -3,17 +3,14 @@
 # Router.route '/s/:type/:id/view', -> @render 'type_view'
 
 
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-
 if Meteor.isClient
     Template.type.onCreated ->
-        # @autorun -> Meteor.subscribe 'schema', FlowRouter.getParam('type')
+        # @autorun -> Meteor.subscribe 'schema', Router.current().params.type
         # @autorun -> Meteor.subscribe 'type', 'schema'
-        @autorun -> Meteor.subscribe 'tags', selected_tags.array(), FlowRouter.getParam('type')
-        @autorun -> Meteor.subscribe 'docs', selected_tags.array(), FlowRouter.getParam('type')
-        @autorun -> Meteor.subscribe 'schema_from_slug', FlowRouter.getParam('type')
-        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', FlowRouter.getParam('type')
+        @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
+        @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
         # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
         # @autorun -> Meteor.subscribe 'type', 'delta'
         @autorun -> Meteor.subscribe 'my_delta'
@@ -23,11 +20,11 @@ if Meteor.isClient
         schema: ->
             Docs.findOne
                 type:'schema'
-                slug: FlowRouter.getParam('type')
+                slug: Router.current().params.type
 
         type_docs: ->
             Docs.find
-                type:FlowRouter.getParam('type')
+                type:Router.current().params.type
 
         selected_tags: -> selected_tags.list()
 
@@ -48,8 +45,8 @@ if Meteor.isClient
 
     Template.type.events
         'click .add_type_doc': ->
-            new_doc_id = Docs.insert type:FlowRouter.getParam('type')
-            FlowRouter.go "/s/#{@type}/#{new_doc_id}/edit"
+            new_doc_id = Docs.insert type:Router.current().params.type
+            Router.go "/s/#{@type}/#{new_doc_id}/edit"
 
         'click .create_delta': (e,t)->
             Docs.insert type:'delta'
@@ -66,8 +63,8 @@ if Meteor.isClient
         'click .edit_schema': ->
             schema = Docs.findOne
                 type:'schema'
-                slug: FlowRouter.getParam('type')
-            FlowRouter.go "/s/#{schema.slug}/#{schema._id}/edit"
+                slug: Router.current().params.type
+            Router.go "/s/#{schema.slug}/#{schema._id}/edit"
 
         'click .delete_delta': (e,t)->
             delta = Docs.findOne type:'delta'
@@ -95,29 +92,29 @@ if Meteor.isClient
 
 
     Template.type_edit.onCreated ->
-        @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('_id'), FlowRouter.getParam('type')
-        @autorun -> Meteor.subscribe 'bricks_from_doc_id', FlowRouter.getParam('_id')
-        @autorun -> Meteor.subscribe 'schema_from_doc_id', FlowRouter.getParam('_id')
+        @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
+        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params._id
+        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params._id
     
     Template.type_view.onCreated ->
-        @autorun -> Meteor.subscribe 'schema_from_doc_id', FlowRouter.getParam('_id')
-        @autorun -> Meteor.subscribe 'bricks_from_doc_id', FlowRouter.getParam('_id')
-        @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('_id'), FlowRouter.getParam('type')
+        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params._id
+        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params._id
+        @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
 
     Template.type_edit.events
         'blur .body': (e,t)->
             body = t.$('.body').val()
-            Docs.update FlowRouter.getParam('id'),
+            Docs.update Router.current().params._id,
                 $set:body:body
 
 
         'click .toggle_complete': (e,t)->
-            Docs.update FlowRouter.getParam('id'),
+            Docs.update Router.current().params._id,
                 $set:complete:!@complete
 
 
         'click .delete_schema': ->
             if confirm 'Confirm delete schema'
                 Docs.remove @_id
-                FlowRouter.go '/schemas'
+                Router.go '/schemas'
 

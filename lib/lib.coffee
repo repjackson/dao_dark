@@ -1,9 +1,45 @@
+Router.configure
+    layoutTemplate: 'layout'
+    notFoundTemplate: 'not_found'
+    loadingTemplate: 'splash'
+    trackPageView: true
+
+
+Router.route '/delta', -> @render 'delta'
+
+Router.route '/', -> @render 'delta'
+
+Router.route '/enter', -> @render 'enter'
+Router.route '/me', -> @render 'me'
+Router.route '/users', -> @render 'users'
+Router.route '/inbox', -> @render 'inbox'
+Router.route '/bank', -> @render 'bank'
+Router.route '/settings', -> @render 'settings'
+
+Router.route '/u/:username', -> @render 'user'
+Router.route '/edit/:id', -> @render 'edit'
+Router.route '/view/:id', -> @render 'view'
+Router.route '*', -> @render 'not_found'
+
+Router.route '/user/:_id/s/:type', -> @render 'profile_layout', 'user_section'
+
+
+Router.route '/user/:_id/about', -> @render 'profile_layout', 'user_about'
+    
+Router.route '/user/:_id/stripe', -> @render 'profile_layout', 'user_stripe'
+
+
+Router.route '/user/:_id/edit', -> @render 'user_edit'
+
+Router.route '/s/:type', -> @render 'type'
+Router.route '/s/:type/:_id/edit', -> @render 'type_edit'
+Router.route '/s/:type/:_id/view', -> @render 'type_view'
+
+Router.route '/p/:slug', -> @render 'page'
+
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
 @Types = new Meteor.Collection 'types'
-
-
-Package['kadira:flow-router'] = Package['ostrio:flow-router-extra'];
 
 
 Docs.before.insert (userId, doc)=>

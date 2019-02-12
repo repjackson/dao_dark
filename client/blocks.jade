@@ -116,6 +116,19 @@ template(name='add_button')
         |#{type}
 
 
+template(name='toggle_friend')
+    if is_friend
+        .ui.grey.animated.fade.button.remove_friend
+            .visible.content
+                |friends
+            .hidden.content
+                i.minus.icon
+    else
+        .ui.button.button.add_friend
+            |+ friend
+        
+
+
 
 template(name='edit_button')
     a.ui.button.icon.edit(title='Edit' href="/s/#{type}/#{_id}/edit")

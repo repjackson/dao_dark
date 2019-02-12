@@ -1,6 +1,3 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-
 Template.doc_emotion.onCreated ->
     Meteor.setTimeout ->
         $('.progress').progress()
@@ -67,7 +64,7 @@ Template.keywords.onRendered ->
 Template.call_watson.events
     'click #call_watson': ->
         parent = Template.parentData()
-        Meteor.call 'call_watson', FlowRouter.getParam('id'), parent, @mode, ->
+        Meteor.call 'call_watson', Router.current().params._id, parent, @mode, ->
 
 
 
@@ -81,11 +78,11 @@ Template.personality.events
 Template.call_visual.events
     'click #call_visual': ->
         console.log @
-        Meteor.call 'call_visual_link', FlowRouter.getParam('id'), @valueOf(),->
+        Meteor.call 'call_visual_link', Router.current().params._id, @valueOf(),->
 
 Template.tone.events
     'click #call_tone': ->
-        Meteor.call 'call_tone', FlowRouter.getParam('id'), ->
+        Meteor.call 'call_tone', Router.current().params._id, ->
 
 
 

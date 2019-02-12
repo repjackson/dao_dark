@@ -1,6 +1,3 @@
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-
-
 if Meteor.isClient
     Template.enter.events
         'keyup .username': ->
@@ -39,7 +36,7 @@ if Meteor.isClient
                             Session.set 'enter_mode', 'register'
                             Session.set 'username', "#{username}"
                     else
-                        FlowRouter.go '/'
+                        Router.go '/'
     
         'click .new_demo': (e,t)->
             Meteor.call 'new_demo_user', (err,res)->
@@ -52,7 +49,7 @@ if Meteor.isClient
                             Session.set 'enter_mode', 'register'
                             Session.set 'username', "#{username}"
                     else
-                        FlowRouter.go '/'
+                        Router.go '/'
     
             
     
