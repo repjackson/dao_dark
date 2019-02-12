@@ -138,29 +138,30 @@ template(name='type_view')
                     
 
 template(name='facet')
-    if filtering_res
-        .ui.styled.accordion
-            .active.title
-                if icon
-                    i.icon(class=icon)
-                .ui.inline.header 
-                    |#{label}
-                i.dropdown.icon
-            .active.content
-                // each filters
-                //     .unselect.ui.blue.button #{this}
-                // .ui.transparent.left.icon.input
-                //     i.search.icon
-                //     input.add_filter(type='text' placeholder='search')
-                each filtering_res
-                    if name
-                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                            | #{name}
-                            // small #{count}
-                    else
-                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                            strong [null]
-                            // small #{count}
+    // if filtering_res
+    .ui.styled.accordion
+        .active.title
+            if icon
+                i.icon(class=icon)
+            .ui.inline.header 
+                |#{label}
+            i.dropdown.icon
+        .active.content
+            // each filters
+            //     .unselect.ui.blue.button #{this}
+            // .ui.transparent.left.icon.input
+            //     i.search.icon
+            //     input.add_filter(type='text' placeholder='search')
+            // each filtering_res
+            each res
+                if name
+                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                        | #{name}
+                        // small #{count}
+                else
+                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                        strong [null]
+                        // small #{count}
 
 
 

@@ -167,16 +167,16 @@ Meteor.publish 'page_modules', (slug)->
     
     
             
-Meteor.publish 'schema_from_slug', (slug)->
-    Docs.find
-        type:'schema'
-        slug:slug
+# Meteor.publish 'schema_from_slug', (slug)->
+#     Docs.find
+#         type:'schema'
+#         slug:slug
         
-Meteor.publish 'schema_from_doc_id', (id)->
-    doc = Docs.findOne id
-    Docs.find
-        type:'schema'
-        slug:doc.type
+# Meteor.publish 'schema_from_doc_id', (id)->
+#     doc = Docs.findOne id
+#     Docs.find
+#         type:'schema'
+#         slug:doc.type
     
                 
         
@@ -213,7 +213,7 @@ Meteor.publish 'bricks_from_doc_id', (id)->
         slug:doc.type
     Docs.find
         type:'brick'
-        # parent_id:schema._id
+        parent_id:schema._id
         
         
 Meteor.publish 'my_delta', ->
@@ -235,24 +235,24 @@ Meteor.publish 'schema_from_doc_id', (id)->
     
     
     
-Meteor.publish 'schema_bricks_from_slug', (slug)->
-    schema = Docs.findOne
-        type:'schema'
-        slug:slug
-    Docs.find
-        type:'brick'
-        parent_id:schema._id
+# Meteor.publish 'schema_bricks_from_slug', (slug)->
+#     schema = Docs.findOne
+#         type:'schema'
+#         slug:slug
+#     Docs.find
+#         type:'brick'
+#         parent_id:schema._id
         
         
         
-Meteor.publish 'bricks_from_doc_id', (id)->
-    doc = Docs.findOne id
-    schema = Docs.findOne
-        type:'schema'
-        slug:doc.type
-    Docs.find
-        type:'brick'
-        parent_id:schema._id
+# Meteor.publish 'bricks_from_doc_id', (id)->
+#     doc = Docs.findOne id
+#     schema = Docs.findOne
+#         type:'schema'
+#         slug:doc.type
+#     Docs.find
+#         type:'brick'
+#         parent_id:schema._id
         
         
         

@@ -16,9 +16,11 @@ Template.topnav.events
         new_id = Docs.insert {}
         FlowRouter.go "/edit/#{new_id}"
 
+    'click .toggle_dev': ->
+        Session.set('dev_mode', !Session.get('dev_mode'))
 
     'click .set_schema': ->
-        Meteor.call 'set_delta_facets', @slug, Meteor.userId()
+        Meteor.call 'set_delta_facets', 'schema', Meteor.userId()
 
 
 Template.topbar.onCreated ->
@@ -36,12 +38,6 @@ Template.topnav.onRendered ->
             , 2000
 
 
-Template.topnav.events
-    'click .toggle_dev': ->
-        Session.set('dev_mode', !Session.get('dev_mode'))
-
-    'click .set_schema': ->
-        Meteor.call 'set_delta_facets', @slug, Meteor.userId()
 
 Template.topnav.helpers
     topnav_schemas: ->

@@ -112,7 +112,7 @@ Template.registerHelper 'youtube_value', () ->
 
 Template.registerHelper 'edit_template', ->
     # console.log @
-    "#{@field}_edit"
+    if @field is 'textarea' then 'textarea' else "#{@field}_edit"
     
     
 Template.registerHelper 'view_template', ->

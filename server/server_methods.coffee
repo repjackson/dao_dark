@@ -310,7 +310,8 @@ Meteor.methods
     set_delta_facets: (type, user_id)->
         my_delta = Docs.findOne 
             type:'delta'
-            author_id:Meteor.userId()
+            _author_id:Meteor.userId()
+        
         
         schema = Docs.findOne
             type:'schema'
@@ -321,41 +322,44 @@ Meteor.methods
             parent_id:schema._id
             ).fetch()
             
-        # console.log schema_bricks
+        # console.log 'schema bricks', schema_bricks
             
         facets = []
         for brick in schema_bricks
-            unless brick.field in ['textarea','image','youtube','html']
-                facet = {
-                    key:brick.key
-                    label:brick.label
-                    icon:brick.icon
-                    filters:[]
-                    res:[]
-                }
-                facets.push facet
+            # console.log brick
+            # unless brick.field in ['textarea','image','youtube','html']
+            facet = {
+                key:brick.key
+                label:brick.label
+                icon:brick.icon
+                filters:[]
+                res:[]
+            }
+            facets.push facet
             
-        timestamp_tags_facet = {
-            key:'timestamp_tags'
-            label:'Created'
-            icon:'clock'
-            filters:[]
-            res:[]
-        }
-        facets.push timestamp_tags_facet
+        # timestamp_tags_facet = {
+        #     key:'timestamp_tags'
+        #     label:'Created'
+        #     icon:'clock'
+        #     filters:[]
+        #     res:[]
+        # }
+        # facets.push timestamp_tags_facet
         
         Docs.update my_delta._id,        
             $set:
                 doc_type:type
                 user_id:user_id
                 facets: facets
+                
+        console.log 'delta after set facets', Docs.findOne({type:'delta'})        
         Meteor.call 'fum', my_delta._id
 
         
         
         
     fum: (delta_id)->
-        # console.log 'running fum', delta_id
+        console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
 
         if delta
@@ -369,21 +373,25 @@ Meteor.methods
                 
                 
             # built_query.parent_id = delta.user_id    
-            # console.log 'schema', schema
+            console.log 'schema', schema
+            
+            # if not delta.facets
+            #     delta.facets = []
             
             for facet in delta.facets
                 if facet.filters.length > 0
                     built_query["#{facet.key}"] = $all: facet.filters
             
             total = Docs.find(built_query).count()
-            # console.log 'built query', built_query
+            console.log 'built query', built_query
             
             # response
             for facet in delta.facets
                 values = []
                 local_return = []
                 
-                agg_res = Meteor.call 'agg', built_query, facet.key, schema.collection
+                # agg_res = Meteor.call 'agg', built_query, facet.key, schema.collection
+                agg_res = Meteor.call 'agg', built_query, facet.key
     
                 if agg_res
                     Docs.update { _id:delta._id, 'facets.key':facet.key},
@@ -407,10 +415,10 @@ Meteor.methods
             #     result_ids = []
             result_ids = results_cursor.fetch()
     
-            # console.log 'result ids', result_ids
+            console.log 'result ids', result_ids
     
-            # console.log 'delta', delta
-            # console.log Meteor.userId()
+            console.log 'delta', delta
+            console.log Meteor.userId()
     
             Docs.update {_id:delta_id},
                 {
@@ -421,13 +429,12 @@ Meteor.methods
                 }
                 
             delta = Docs.findOne delta_id    
-            # console.log 'delta', delta
+            console.log 'delta', delta
 
-    agg: (query, key, collection)->
-        limit=100
-        # console.log 'agg query', query
-        # console.log 'agg key', key
-        # console.log 'collection', collection
+    agg: (query, key)->
+        limit=10
+        console.log 'agg query', query
+        console.log 'agg key', key
         options = { explain:false }
         pipe =  [
             { $match: query }
@@ -439,14 +446,13 @@ Meteor.methods
             { $project: _id: 0, name: '$_id', count: 1 }
         ]
         if pipe
-            if collection is 'users'
-                agg = Meteor.users.rawCollection().aggregate(pipe,options)
-            else if not collection
-                agg = global['Docs'].rawCollection().aggregate(pipe,options)
-            else
-                agg = global["#{collection}"].rawCollection().aggregate(pipe,options)
+            # if collection is 'users'
+            #     agg = Meteor.users.rawCollection().aggregate(pipe,options)
+            # else
+            agg = global['Docs'].rawCollection().aggregate(pipe,options)
+            # else
             res = {}
-            # console.log 'res', res
+            console.log 'res', res
             if agg
                 agg.toArray()
         else 

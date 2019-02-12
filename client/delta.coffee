@@ -140,8 +140,8 @@
 #             'grey'
 #         else ''
         
-# Template.result.onCreated ->
-#     @autorun => Meteor.subscribe 'doc', @data._id
+Template.result.onCreated ->
+    @autorun => Meteor.subscribe 'doc', @data._id
 
-# Template.result.helpers
-#     result: -> Docs.findOne @_id
+Template.result.helpers
+    result: -> Docs.findOne @_id

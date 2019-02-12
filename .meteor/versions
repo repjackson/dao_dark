@@ -21,6 +21,7 @@ coffeescript@2.3.2_1
 coffeescript-compiler@2.3.2_1
 constellation:autopublish@0.4.7
 constellation:console@1.4.7
+constellation:position@0.4.7
 constellation:subscriptions@0.4.7
 dburles:collection-helpers@1.1.0
 dburles:mongo-collection-instances@0.3.5

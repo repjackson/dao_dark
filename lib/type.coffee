@@ -61,7 +61,6 @@ if Meteor.isClient
     
         'click .reset': ->
             delta = Docs.findOne type:'delta'
-            console.log delta
             Meteor.call 'fum', delta._id, (err,res)->
 
         'click .edit_schema': ->

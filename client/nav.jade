@@ -14,7 +14,7 @@ template(name='topnav')
                     i.inbox.icon
                 a.item(href='/p/chat')
                     i.chat.icon
-                a.item(href='/s/schema')
+                a.item.set_schema(href='/s/schema')
                     i.bars.icon
                 a.icon.item(href="/user/#{currentUser._id}/edit")
                     i.cog.icon
