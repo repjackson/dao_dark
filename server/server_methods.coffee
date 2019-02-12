@@ -310,7 +310,7 @@ Meteor.methods
     set_delta_facets: (type, user_id)->
         my_delta = Docs.findOne 
             type:'delta'
-            _author_id:Meteor.userId()
+            # _author_id:Meteor.userId()
         
         
         schema = Docs.findOne

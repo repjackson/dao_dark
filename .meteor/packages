@@ -42,3 +42,4 @@ ecmascript
 yasinuslu:json-view
 reywood:publish-composite
 constellation:position
+froala:editor-reactive@=2.4.2

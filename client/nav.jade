@@ -2,44 +2,44 @@ template(name='topnav')
     .ui.attached.borderless.large.menu
         a.item.toggle_leftbar(href='#')
             i.bars.icon
-        a.item(href='/' class="{{isActivePath '/'}}")
+        a.item(href='/s/schema' class="{{isActivePath '/'}}")
             .black_bat.logo DAO
         a.item.toggle_invert(href='#')
             i.adjust.icon
         .right.menu
             if currentUser
-                a.item.add(href='#')
-                    i.link.plus.icon
-                a.item.toggle_topbar(href='#')
-                    i.inbox.icon
-                a.item(href='/p/chat')
-                    i.chat.icon
-                a.item.set_schema(href='/s/schema')
-                    i.bars.icon
-                a.icon.item(href="/user/#{currentUser._id}/edit")
-                    i.cog.icon
-                a.item(href='/users' class="{{isActivePath '/users'}}")
-                    i.users.icon
-                a.item(href='/bank' class="{{isActivePath '/bank'}}")
-                    i.user.shield.icon
-                    span(title='karma') #{currentUser.karma}
-                    span(title='points') #{currentUser.points}
+                // a.item.add(href='#')
+                //     i.link.plus.icon
+                // a.item.toggle_topbar(href='#')
+                //     i.inbox.icon
+                // a.item(href='/p/chat')
+                //     i.chat.icon
+                // a.item.set_schema(href='/s/schema')
+                //     i.bars.icon
+                // a.icon.item(href="/user/#{currentUser._id}/edit")
+                //     i.cog.icon
+                // a.item(href='/users' class="{{isActivePath '/users'}}")
+                //     i.users.icon
+                // a.item(href='/bank' class="{{isActivePath '/bank'}}")
+                //     i.user.shield.icon
+                //     span(title='karma') #{currentUser.karma}
+                //     span(title='points') #{currentUser.points}
                 a.item(href="/u/#{currentUser.username}")
                     i.user.icon
                     | #{currentUser.username} [#{currentUser.status}]
                 a.item.toggle_rightbar(href='#')
                     i.bars.icon
-                .item.logout
-                    i.sign.out.alternate.link.icon
+                a.item.logout(href='#')
+                    i.sign.out.alternate.icon
             else
                 a.icon.item(href="/enter")
                     i.sign.in.alternate.icon
-    if currentUser
-        .ui.attached.borderless.menu.topnav
-            each topnav_schemas
-                a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-                    i.icon(class=icon)
-                    |#{group}
+    // if currentUser
+    .ui.attached.borderless.menu.topnav
+        each topnav_schemas
+            a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+                i.icon(class=icon)
+                |#{group}
 
 
 

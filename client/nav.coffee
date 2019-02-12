@@ -3,6 +3,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
 Template.topnav.onCreated ->
     @autorun => Meteor.subscribe 'users'
     @autorun => Meteor.subscribe 'type', 'field'
+    @autorun => Meteor.subscribe 'type', 'schema'
 
 Template.topnav.helpers
     user: -> Meteor.users.findOne username:FlowRouter.getParam('username')
@@ -21,7 +22,7 @@ Template.topnav.events
         Session.set('dev_mode', !Session.get('dev_mode'))
 
     'click .set_schema': ->
-        Meteor.call 'set_delta_facets', 'schema', Meteor.userId()
+        Meteor.call 'set_delta_facets', @slug
 
 
 Template.topbar.onCreated ->
@@ -45,7 +46,8 @@ Template.topnav.helpers
         if Meteor.user()
             Docs.find
                 type:'schema'
-                topnav_roles:$in:Meteor.user().roles
+                # topnav_roles:$in:Meteor.user().roles
+                topnav:true
 
 
 Template.topbar.helpers

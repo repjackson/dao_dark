@@ -221,10 +221,12 @@ template(name='youtube_edit')
     .ui.labeled.fluid.input
         .ui.label youtube id
         input.youtube_id(type='text' value=field_value placeholder=placeholder)
-    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+    if field_value
+        iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 template(name='youtube_view')
-    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+    if field_value
+        iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 
 
@@ -254,7 +256,7 @@ template(name='single_doc_edit')
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.compact.small.button.select_choice(class=choice_class)
+        .ui.compact.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}
@@ -267,7 +269,7 @@ template(name='multi_doc_edit')
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.compact.small.button.select_choice(class=choice_class)
+        .ui.compact.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}
