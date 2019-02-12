@@ -131,7 +131,7 @@ Template.facet.helpers
         #     # for filter in @res
         #         # if filter.name in filtered_list then filtering_res.push filter
         # else
-        console.log @
+        # console.log @
         for filter in @res
             if filter.count < delta.total
                 filtering_res.push filter
@@ -168,6 +168,6 @@ Template.facet.helpers
 #                 Docs.findOne @_id
 
     
-# Template.result.events
-#     'click .set_schema': ->
-#         Meteor.call 'set_delta_facets', @slug, Meteor.userId()
+Template.result.events
+    'click .set_schema': ->
+        Meteor.call 'set_delta_facets', @slug, Meteor.userId()

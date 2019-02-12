@@ -93,52 +93,52 @@
 #         Session.set 'delta_id', @_id
 
 
-# Template.facet.events
-#     'click .toggle_selection': ->
-#         delta = Docs.findOne Session.get('delta_id')
-#         facet = Template.currentData()
-#         Session.set 'loading', true
-#         if facet.filters and @name in facet.filters
-#             Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
-#                 Session.set 'loading', false
-#         else 
-#             Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
-#                 Session.set 'loading', false
+Template.facet.events
+    'click .toggle_selection': ->
+        delta = Docs.findOne type:'delta'
+        facet = Template.currentData()
+        Session.set 'loading', true
+        if facet.filters and @name in facet.filters
+            Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
+        else 
+            Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+                Session.set 'loading', false
       
-#     'keyup .add_filter': (e,t)->
-#         if e.which is 13
-#             delta = Docs.findOne Session.get('delta_id')
-#             facet = Template.currentData()
-#             filter = t.$('.add_filter').val()
-#             Session.set 'loading', true
-#             Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
-#                 Session.set 'loading', false
-#             t.$('.add_filter').val('')
+    'keyup .add_filter': (e,t)->
+        if e.which is 13
+            delta = Docs.findOne type:'delta'
+            facet = Template.currentData()
+            filter = t.$('.add_filter').val()
+            Session.set 'loading', true
+            Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
+                Session.set 'loading', false
+            t.$('.add_filter').val('')
             
         
       
     
-# Template.facet.helpers
-#     filtering_res: ->
-#         delta = Docs.findOne type:'delta'
-#         filtering_res = []
-#         for filter in @res
-#             if filter.count < delta.total
-#                 filtering_res.push filter
-#             else if filter.name in @filters
-#                 filtering_res.push filter
-#         filtering_res
+Template.facet.helpers
+    filtering_res: ->
+        delta = Docs.findOne type:'delta'
+        filtering_res = []
+        for filter in @res
+            if filter.count < delta.total
+                filtering_res.push filter
+            else if filter.name in @filters
+                filtering_res.push filter
+        filtering_res
 
     
 
-#     toggle_value_class: ->
-#         facet = Template.parentData()
-#         delta = Docs.findOne type:'delta'
-#         if Session.equals 'loading', true
-#              'disabled '
-#         else if facet.filters.length > 0 and @name in facet.filters
-#             'grey'
-#         else ''
+    toggle_value_class: ->
+        facet = Template.parentData()
+        delta = Docs.findOne type:'delta'
+        if Session.equals 'loading', true
+             'disabled '
+        else if facet.filters.length > 0 and @name in facet.filters
+            'grey'
+        else ''
         
 Template.result.onCreated ->
     @autorun => Meteor.subscribe 'doc', @data._id

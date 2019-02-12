@@ -359,21 +359,18 @@ Meteor.methods
         
         
     fum: (delta_id)->
-        console.log 'running fum', delta_id
+        # console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
 
         if delta
             schema = Docs.findOne 
                 type:'schema'
                 slug:delta.doc_type
-            if schema.collection is 'Docs'
-                built_query = {type:delta.doc_type}
-            else
-                built_query = {}
+            built_query = {type:delta.doc_type}
                 
                 
             # built_query.parent_id = delta.user_id    
-            console.log 'schema', schema
+            # console.log 'schema', schema
             
             # if not delta.facets
             #     delta.facets = []
@@ -383,7 +380,7 @@ Meteor.methods
                     built_query["#{facet.key}"] = $all: facet.filters
             
             total = Docs.find(built_query).count()
-            console.log 'built query', built_query
+            # console.log 'built query', built_query
             
             # response
             for facet in delta.facets
@@ -415,10 +412,10 @@ Meteor.methods
             #     result_ids = []
             result_ids = results_cursor.fetch()
     
-            console.log 'result ids', result_ids
+            # console.log 'result ids', result_ids
     
-            console.log 'delta', delta
-            console.log Meteor.userId()
+            # console.log 'delta', delta
+            # console.log Meteor.userId()
     
             Docs.update {_id:delta_id},
                 {
@@ -429,12 +426,12 @@ Meteor.methods
                 }
                 
             delta = Docs.findOne delta_id    
-            console.log 'delta', delta
+            # console.log 'delta', delta
 
     agg: (query, key)->
         limit=10
-        console.log 'agg query', query
-        console.log 'agg key', key
+        # console.log 'agg query', query
+        # console.log 'agg key', key
         options = { explain:false }
         pipe =  [
             { $match: query }
@@ -452,7 +449,7 @@ Meteor.methods
             agg = global['Docs'].rawCollection().aggregate(pipe,options)
             # else
             res = {}
-            console.log 'res', res
+            # console.log 'res', res
             if agg
                 agg.toArray()
         else 

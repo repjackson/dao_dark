@@ -21,8 +21,8 @@ template(name='topnav')
                 a.item(href='/users' class="{{isActivePath '/users'}}")
                     i.users.icon
                 a.item(href='/bank' class="{{isActivePath '/bank'}}")
-                    span(title='karma') #{currentUser.karma}
                     i.user.shield.icon
+                    span(title='karma') #{currentUser.karma}
                     span(title='points') #{currentUser.points}
                 a.item(href="/u/#{currentUser.username}")
                     i.user.icon

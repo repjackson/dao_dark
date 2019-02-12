@@ -152,8 +152,7 @@ template(name='facet')
             // .ui.transparent.left.icon.input
             //     i.search.icon
             //     input.add_filter(type='text' placeholder='search')
-            // each filtering_res
-            each res
+            each filtering_res
                 if name
                     .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                         | #{name}

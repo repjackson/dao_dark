@@ -37,7 +37,7 @@ FlowRouter.route '/s/:type/:_id/view', action: -> @render 'layout', 'type_view'
 
 FlowRouter.route '/p/:slug', action: -> @render 'layout', 'page'
 
-Session.setDefault 'invert', true
+Session.setDefault 'invert', false
 Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
 Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'inverted' else ''
 Template.registerHelper 'dev', () -> Meteor.isDevelopment

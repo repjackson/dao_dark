@@ -63,6 +63,22 @@ Meteor.publish 'user_list', (doc,key)->
     Meteor.users.find _id:$in:doc["#{@key}"]
 
 
+Meteor.publish 'child_docs', (parent_id)->
+    Docs.find {parent_id: parent_id},
+        limit: 20
+    
+Meteor.publish 'my_children', (parent_id)->
+    Docs.find {
+        author_id: Meteor.userId()
+        parent_id: parent_id
+    }, limit: 10
+        
+Meteor.publish 'parent_doc', (child_id)->
+    child_doc = Docs.findOne child_id
+    if child_doc
+        Docs.find
+            _id: child_doc.parent_id
+    
 
 
 
