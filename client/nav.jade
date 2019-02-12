@@ -1,5 +1,5 @@
 template(name='topnav')
-    .ui.attached.borderless.menu
+    .ui.attached.borderless.large.menu
         a.item.toggle_leftbar(href='#')
             i.bars.icon
         a.item(href='/' class="{{isActivePath '/'}}")
@@ -10,9 +10,9 @@ template(name='topnav')
             if currentUser
                 a.item.add(href='#')
                     i.link.plus.icon
-                a.item.add(href='/inbox' class="{{isActivePath '/inbox'}}")
+                a.item.toggle_topbar(href='#')
                     i.inbox.icon
-                a.item(href='/settings' class="{{isActivePath '/settings'}}")
+                a.icon.item(href="/user/#{currentUser._id}/edit")
                     i.cog.icon
                 a.item(href='/users' class="{{isActivePath '/users'}}")
                     i.users.icon
@@ -62,7 +62,7 @@ template(name='footer')
         
 
 template(name='topbar')
-    .ui.top.sidebar.darkblue.segment.push.nav_bar.row.toggle_topbar.topbar
+    .ui.top.sidebar.segment.push.nav_bar.row.toggle_topbar.topbar
         .ui.grid
             .four.wide.column
                 .ui.small.inverted.header Nonprofits

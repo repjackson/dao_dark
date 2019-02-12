@@ -1,5 +1,5 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra'
-import Quill from 'quill'
+# import Quill from 'quill'
 
 
 Template.link_edit.events

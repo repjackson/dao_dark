@@ -15,13 +15,18 @@ FlowRouter.route '/edit/:id', action: -> @render 'layout','edit'
 FlowRouter.route '/view/:id', action: -> @render 'layout','view'
 FlowRouter.route '*', action: -> @render 'not_found'
 
-FlowRouter.route '/user/:_id/edit', -> @render 'user_edit'
 
-FlowRouter.route '/s/:type', action: -> @render 'type'
-FlowRouter.route '/s/:type/:_id/edit', action: -> @render 'type_edit'
-FlowRouter.route '/s/:type/:_id/view', action: -> @render 'type_view'
 
-FlowRouter.route '/p/:slug', action: -> @render 'page'
+
+
+
+FlowRouter.route '/user/:_id/edit', action: -> @render 'layout','user_edit'
+
+FlowRouter.route '/s/:type', action: -> @render 'layout', 'type'
+FlowRouter.route '/s/:type/:_id/edit', action: -> @render 'layout', 'type_edit'
+FlowRouter.route '/s/:type/:_id/view', action: -> @render 'layout', 'type_view'
+
+FlowRouter.route '/p/:slug', action: -> @render 'layout', 'page'
 
 Session.setDefault 'invert', true
 Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
@@ -48,6 +53,12 @@ Template.registerHelper 'schema', () ->
     Docs.findOne
         type:'schema'
         slug:@type
+
+Template.registerHelper 'user_from_id_param', () ->
+    Meteor.users.findOne FlowRouter.getParam('_id')
+
+Template.registerHelper 'is_schema_type', () ->
+    @type is 'schema'
 
 Template.registerHelper 'calculated_size', (metric) ->
     # console.log metric

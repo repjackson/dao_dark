@@ -32,6 +32,12 @@ Meteor.publish 'deltas', ->
     Docs.find
         type:'delta'
         
+Meteor.publish 'user_from_username', (username)->
+    Meteor.users.find username:username
+    
+Meteor.publish 'user_from_id', (user_id)->
+    # console.log user_id
+    Meteor.users.find user_id
 
     
 Meteor.publish 'schema', (doc_id)->
@@ -130,4 +136,31 @@ Meteor.publish 'types', (selected_type)->
     self.ready()
     
     
+    
+    
+    
+Meteor.publish 'page', (slug)->
+    Docs.find
+        type:'page'
+        slug:slug
+
+
+
+Meteor.publish 'page_children', (slug)->
+    page = Docs.findOne
+        type:'page'
+        slug:slug
+    console.log page
+    Docs.find
+        parent_id:page._id
+
+
+
+Meteor.publish 'page_modules', (slug)->
+    page = Docs.findOne
+        type:'page'
+        slug:slug
+    if page
+        Docs.find
+            parent_id:page._id
     

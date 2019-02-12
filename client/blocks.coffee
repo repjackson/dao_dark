@@ -197,7 +197,8 @@ Template.clone_button.events
             
 Template.toggle_friend.helpers
     is_friend: ->
-        Meteor.user().friend_ids and @_id in Meteor.user().friend_ids
+        if Meteor.user().friend_ids
+            Meteor.user().friend_ids and @_id in Meteor.user().friend_ids
         
         
 Template.toggle_friend.events

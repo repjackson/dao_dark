@@ -1,0 +1,262 @@
+template(name='user_edit')
+    .ui.stackable.padded.grid.pad_left
+        .middle.aligned.row
+            .four.wide.center.aligned.column
+                a.ui.large.icon.button(href="/user/#{user_from_id_param._id}/about" title='Profile') 
+                    i.green.checkmark.icon
+            .eight.wide.center.aligned.column
+                .ui.center.aligned.large.header
+                    i.settings.icon
+                    | #{user_from_id_param.profile.name} #{user_from_id_param.profile.churchName} Profile
+        .row
+            .four.wide.column
+                .ui.form
+                    .field
+                        label Name
+                        input#pname(type='text', name='name', placeholder='Name', value='{{user_from_id_param.profile.name}}')
+                    .field
+                        if user_from_id_param.profile.image_id
+                            label Image
+                            .ui.centered.rounded.image
+                                img.ui.medium.image(src="{{c.url user_from_id_param.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                a#remove_photo.ui.right.corner.link.label
+                                    i.remove.red.link.icon
+                        else
+                            label Profile Image
+                            input(type='file' name='profile_image' accept='image/*')
+                    .field
+                        if user_from_id_param.profile.banner_image_id
+                            label Banner Image
+                            .ui.centered.rounded.image
+                                img.ui.medium.image(src="{{c.url user_from_id_param.profile.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                a#remove_banner.ui.right.corner.link.label
+                                    i.remove.red.link.icon
+                        else
+                            label Banner Image
+                            input(type='file' name='banner_image' accept='image/*')
+                .ui.blue.fluid.button.update_profile Update
+                +password_edit
+                +phone_editor
+                +username_edit
+            .twelve.wide.column
+                // +church_profile
+                +user_schema_editor
+                +church_stripe
+                .ui.segment
+                    .ui.header 
+                        i.credit.card.icon
+                        |Payment Methods
+                    .ui.green.button.addCard
+                        i.plus.icon
+                        |Card
+                    if cards
+                        each cards
+                            +card_holder
+                    else
+                        .ui.orange.segment
+                            .ui.header No cards saved
+    #add_card_modal.ui.modal
+        .ui.header 
+            i.credit.card.icon
+            |Add a Card
+        .content
+            // if isPhone
+            //     #scanBtn.btn.btn-info.pull-right Scan Card
+            form#payment-form.ui.form
+                .field
+                    // label(for='card-element')
+                    //     | Credit or debit card
+                    #card-element
+                    // A Stripe Element will be inserted here.
+                    // Used to display Element errors.
+                    #card-errors(role='alert')
+                button.ui.blue.button Submit Payment
+
+            
+            // #addcardform.form-horizontal.row
+            //     .form-group
+            //         label.col-lg-2.control-label(for='name') Name
+            //         .col-lg-10
+            //             input#name.form-control(type='text', name='name')
+            //     .form-group
+            //         label.col-lg-2.control-label(for='card') Card
+            //         .col-lg-10
+            //             input#card.form-control(type='tel', name='card')
+            //     .form-group
+            //         label.col-lg-2.control-label(for='exp') Exp.
+            //         .col-lg-4
+            //             input#exp.form-control(type='text', name='exp', placeholder='MM/YY')
+            //     .col-xs-6
+            //         .form-group
+            //             label.col-lg-4.control-label(for='zip') Zip
+            //             .col-lg-8
+            //                 input#zip.form-control(type='tel', name='zip')
+            //     .col-xs-6
+            //         .form-group
+            //             label.col-lg-4.control-label(for='exp') CVC
+            //             .col-lg-8
+            //                 input#cvc.form-control(type='tel', name='cvc')
+        .actions
+            .ui.green.approve.button.save_new_card Save Card
+            .ui.red.cancel.button.closePopup Cancel
+        // #add_buttons.modal-footer
+        // #edit_buttons.modal-footer
+        //     .btn.btn-info.update_existing_card Update Card
+        //     .ui.cancel.red.button.closePopup Cancel
+
+
+
+template(name='user_schema_editor')
+    .ui.header Profile Sections
+    each schemas
+        .ui.large.button.toggle_schema(class=user_schema_class title=title)
+            i.icon(class=icon)
+            |#{title}
+
+template(name='username_edit')
+    .ui.segment
+        .ui.small.header 
+            i.face-id.icon
+            |Change Username [#{user_from_id_param.username}]
+        .ui.icon.fluid.input
+            input.new_username(type='text' placeholder='New Username...')
+            i.play.link.icon.change_username
+
+
+
+template(name='card_holder')
+    .ui.segment
+        .row
+            .col-lg-4
+                | {{brand}} {{last4}}
+                if default
+                    span.label.label-info Default
+                else
+                    span.btn.btn-default.btn-sm.make_default Make Default
+            .col-lg-4
+                | Expires {{exp_month}} / {{exp_year}}
+            .col-lg-4
+                .btn.btn-info.remove Remove
+                // <div class='btn btn-info edit'>Edit</div>
+     
+     
+template(name='phone_editor')
+    .ui.segment
+        .ui.small.header    
+            i.phone.icon
+            |Phone
+        .ui.icon.fluid.input(title='Add Phone')
+            i.plus.icon
+            input#phone.form-control(type='phone', name='phone', value='{{newNumber}}')
+        if user_from_id_param.profile.phone
+            if user_from_id_param.profile.phone_verified
+                p
+                span.label.label-success Verified
+            else
+                p
+                    span.label.label-danger Not Verified
+                    a.resend_verification(href='#')
+                        i Resend Code
+                    .btn.btn-danger.remove_phone.btn-block Remove Phone
+        else
+            .ui.blue.fluid.button.update_phone Add / Update Phone
+
+
+template(name='add_card_modal')
+
+
+
+template(name='password_edit')
+    .ui.segment
+        .ui.small.header
+            i.password.icon
+            |Change Password
+        .ui.fluid.input
+            input#password(type='password', placeholder='Old Password')
+        .ui.fluid.icon.input
+            i.refresh.link.icon.reset_password
+            input#new_password(type='password', placeholder='New Password')
+            
+            
+            
+template(name='church_stripe')
+    .ui.segment
+        .ui.header
+            i.stripe.icon
+            | Payment
+        if user_from_id_param.profile.stripe
+            .ui.green.segment
+                .ui.small.header Payment Account Connected
+                #removeStripe.ui.red.button Disconnect
+                #dashboardStripe.ui.blue.button(title="Used for refunds, declining payments and monitoring account transactions.") Stripe Dashboard
+        else
+            .ui.red.segment
+                .ui.small.header No payment account connected.
+                a#addStripe.ui.small.blue.button(href='{{SETTINGS.stripeConnectRedirect}}{{SETTINGS.stripeClientId}}') Create or Connect An Account
+                        
+         
+         
+template(name='user_field')         
+    .ui.form
+        .field  
+            label #{label}
+            input.user_field(type='text' value=key_value)
+                        
+                        
+template(name='church_profile')
+    .ui.segment
+        #churchForm.form-horizontal
+            legend Church Information
+            .form-group
+                label.col-lg-2.control-label(for='name') Organization Name
+                .col-lg-10
+                    input#name.form-control(type='text', name='name', placeholder='Your Organization Name', value='{{user_from_id_param.profile.churchName}}')
+            .form-group
+                label.col-lg-2.control-label(for='address') Address
+                .col-lg-10
+                    input#address.form-control(type='text', name='address', value='{{user_from_id_param.profile.address.street}}')
+            .form-group
+                label.col-lg-2.control-label(for='city') City
+                .col-lg-10
+                    input#city.form-control(type='text', name='city', value='{{user_from_id_param.profile.address.city}}')
+            .form-group
+                label.col-lg-2.control-label(for='state') State
+                .col-lg-4
+                    input#state.form-control(type='text', name='state', value='{{user_from_id_param.profile.address.state}}')
+                label.col-lg-2.control-label(for='zip') Zip
+                .col-lg-4
+                    input#zip.form-control(type='text', name='zip', value='{{user_from_id_param.profile.address.zip}}')
+            .form-group
+                label.col-lg-2.control-label(for='website') Website
+                .col-lg-10
+                    input#website.form-control(type='text', name='website', value='{{user_from_id_param.profile.website}}')
+            .form-group
+                label.col-lg-2.control-label(for='phone') Phone Number
+                .col-lg-10
+                    input#phone.form-control(type='text', name='phone', value='{{user_from_id_param.profile.phone}}')
+            .form-group
+                label.col-lg-2.control-label(for='phone') Profile Pic
+                .col-lg-4
+                    input#Profile_photo.generate.form-control(type='file')
+                .col-lg-6
+                    .image.img-responsive
+                        if user_from_id_param.profile.profilePic
+                            img.img-responsive.clsProfilePic(src='{{user_from_id_param.profile.profilePic}}', alt='Profile Pic', width='100', height='100')
+                        else
+                            img.img-responsive.clsProfilePic(src='/icons/Logo_sm_100.png', alt='Profile Pic', width='100', height='100')
+            .btn.btn-primary.update_account.pull-right Update Organization Settings
+
+
+
+template(name='churchRepAccountEditor')
+    #userInfo.col-lg-6.form-horizontal
+        legend Representative Information
+        .form-group
+            label.col-lg-2.control-label(for='email') Email
+            .col-lg-10
+                // <input type="text" class="form-control" id="email" name='email'  value="{{#each user_from_id_param.emails}}{{address}}{{/each}}" disabled>
+                input#email.form-control(type='text', name='email', value='{{loggedinUserIDDet user_from_id_param.emails}}')
+        .btn.btn-primary.update_user.pull-right Update User
+
+
+            

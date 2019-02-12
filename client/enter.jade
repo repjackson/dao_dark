@@ -2,13 +2,17 @@ template(name='enter')
     .ui.padded.grid
         .centered.row
             .ten.wide.column
-                .ui.center.aligned.header login/register
+                .ui.center.aligned.header 
+                    if dark_side
+                        .black_bat abandon hope all ye who enter
+                    else
+                        |login/register
                 if message
                     h4.ui.center.aligned.header #{message}
-                .ui.fluid.icon.input(class=login_class)
+                .ui.fluid.icon.large.input(class=login_class)
                     i.user.icon
                     input.username(type='text' placeholder='username')
-                .ui.fluid.icon.input(class=login_class)
+                .ui.fluid.icon.large.input(class=login_class)
                     i.lock.icon
                     input.password(type='password' placeholder='password')
                 if username
