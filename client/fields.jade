@@ -1,67 +1,101 @@
-template(name='link_edit')
-    .ui.labeled.icon.fluid.input
-        .ui.label link
-        i.linkify.icon
-        input.edit_link(type='link' value=field_value placeholder='link' )
-    if field_value
-        +call_watson mode='url'
+template(name='url_edit')
+    .ui.form
+        .field
+            label #{label}
+            input.edit_url(type='url' value=field_value placeholder='url')
 
 
-
-template(name='link_view')
+template(name='url_view')
+    .ui.small.header #{label}
     a(href=field_value target='_window') #{field_value}
 
 
-
-template(name='image_link_edit')
-    .ui.labeled.icon.fluid.input
-        .ui.label image link
-        i.image.icon
-        input.edit_image_link(type='link' value=field_value placeholder='image link' )
-    if field_value
-        img.ui.fluid.image.inverted(src=field_value)
-        +call_visual
+template(name='image_view')
+    img.ui.fluid.image(src="{{c.url field_value height=400 crop='limit'}}")
 
 
-template(name='image_link_view')
-    img.ui.image.inverted(src=field_value)
-
-
-
-template(name='textarea_edit')
+template(name='image_edit')
     .ui.form
         .field
-            label #{key}
-            textarea.edit_textarea(rows='10') #{field_value}
-    +call_watson mode='text'
+            if field_value
+                label Image
+                img.ui.fluid.image(src="{{c.url field_value height=500 crop='limit'}}")
+                a#remove_photo.ui.right.corner.link.label
+                    i.remove.red.link.icon
+            else
+                label Upload Image
+                input(type='file' name='upload_image' accept='image/*')
+
+
+
+
+template(name='textarea')
+    div
+        if icon
+            i.icon(class=icon)
+        |#{label}: &nbsp;
+        .ui.icon.compact.button.toggle_edit
+            if is_editing
+                i.green.checkmark.icon
+            else 
+                i.pencil.icon
+            
+        unless is_editing
+            if field_value
+                |#{nl2br field_value}
+        else
+            .ui.form
+                .field
+                    label 
+                        if label
+                            |#{label}
+                        else
+                            |#{key}
+                    textarea.edit_textarea(rows='20') #{field_value}
     
 
-template(name='textarea_view')
-    .ui.basic.segment
-        |#{nl2br field_value}
-
-
-
-
 template(name='html_edit')
-    #toolbar
-    .editor
+    .ui.form
+        .inline.field
+            label 
+                if icon
+                    i.icon(class=icon)
+                if label
+                    |#{label}
+                else
+                    |#{key}
+    .froala-container
+        +froalaReactive getFEContext
+
+
+
+// template(name='html_edit')
+//     #toolbar
+//     .editor
 
 template(name='html_view')
     |!{field_value}
 
 
-template(name='text_edit')
-    .ui.icon.fluid.labeled.input
-        .ui.label text
-        i.i.cursor.grey.icon
-        input.edit_text(type='text' value=field_value placeholder='text')
 
+
+
+template(name='text_edit')
+    .ui.form
+        .field
+            label 
+                if icon
+                    i.icon(class=icon)
+                if label
+                    |#{label}
+                else
+                    |#{key}
+            input.edit_text(type='text' value=field_value placeholder=placeholder)
 
 template(name='text_view')
-    // | #{key}: &nbsp;
-    i.i.cursor.grey.icon
-    strong #{field_value}
+    div #{label}: &nbsp;
+        strong #{field_value}
+
 
 
 
@@ -72,15 +106,17 @@ template(name='code_edit')
 
 
 
+
+
+
 template(name='number_edit')
-    .ui.icon.fluid.input
-        // .ui.label #{key}
-        i.hashtag.icon
-        input.edit_number(type='number' value=field_value placeholder='number')
+    .ui.form
+        .two.wide.column
+            label #{label}
+            input.edit_number(type='number' value=field_value placeholder=label)
 
 template(name='number_view')
-    | #{key}: &nbsp;
-    i.hashtag.grey.icon
+    | #{label}: &nbsp;
     strong #{field_value}
 
 
@@ -88,47 +124,95 @@ template(name='number_view')
 
 
 template(name='date_edit')
-    .ui.labeled.fluid.input
-        .ui.label #{key}
-        input.edit_date(type='date' value=field_value placeholder='date')
+    .ui.form
+        .field
+            label 
+                if label
+                    |#{label}
+                else
+                    |#{key}
+            input.edit_date(type='date' value=field_value placeholder=label)
+
 
 template(name='date_view')
-    | #{key} &nbsp;
-    i.calendar.grey.icon
+    | #{label}: &nbsp;
     strong #{field_value}
 
 
 
 
 
+
+
 template(name='array_edit')
-    .field
-        label #{key}
-        if field_value
-            each field_value
-                .ui.label
-                    i.remove.link.icon.remove_element
-                    |#{this}
-        .ui.icon.fluid.input
-            input.new_element(type='text' placeholder='list')
-            i.plus.icon
+    .ui.form
+        .inline.field
+            label 
+                if label
+                    |#{label}
+                else
+                    |#{key}
+            if field_value
+                each field_value
+                    .ui.label
+                        i.remove.link.icon.remove_element
+                        |#{this}
+            .ui.icon.input
+                input.new_element(type='text')
+                i.plus.icon
 
 
 template(name='array_view')
-    each field_value
-        .ui.label #{this}
+    div 
+        if icon
+            i.icon(class=icon)
+        |#{label}
+        each field_value
+            .ui.basic.label #{this}
+
+
+
+
 
 
 
 template(name='children_edit')
-    .ui.small.header #{label}
-    .ui.segment
-        if editing
-            .ui.button.add_child
-                i.plus.icon
-                |child
+    .ui.fluid.secondary.segment
+        .ui.small.inline.header #{label}
+        .ui.icon.button.add_child
+            i.plus.icon
+        +add_child_button
         each children
             +child
+
+template(name='add_child_button')
+
+
+template(name='child')
+    .ui.segment
+        .ui.blue.segment
+            each bricks
+                .item
+                    +Template.dynamic template=edit_template 
+    
+        // .ui.red.segment
+        //     +text_edit key='key'
+        //     // +text_edit key='field'
+        //     +single_doc_edit key='field' ref_schema='field' ref_key='slug' label='Field Type'
+        //     +text_edit key='label'
+        //     +text_edit key='icon'
+        //     if icon
+        //         i.big.icon(class=icon)
+        //     // if is_reference
+    
+        //     +single_doc_edit key='ref_schema' ref_schema='schema' ref_key='slug' label='Referenced Schema (if ref)'
+        //     .ui.divider
+        +remove_button
+
+
+
+
+
 
 
 
@@ -136,46 +220,120 @@ template(name='children_edit')
 template(name='youtube_edit')
     .ui.labeled.fluid.input
         .ui.label youtube id
-        input.youtube_id(type='text' value=youtube_value)
-    iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{youtube_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
-
-
+        input.youtube_id(type='text' value=field_value placeholder=placeholder)
+    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 template(name='youtube_view')
-    if youtube_value
-        iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{youtube_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
-    else if field_value
-        iframe.youtube(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+    iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 
-
-template(name='child')
-    .ui.segment
-        +text key='key'
-        +text key='field_type'
-        +remove_button
 
 
 
 template(name='boolean_edit')
-    .ui.button
-        |#{key}
+    .ui.button.toggle_boolean(class=boolean_toggle_class)
+        |#{label}
 
 
 template(name='boolean_view')
-    .ui.label
+    div #{label}: &nbsp;
         if field_value
-            |true
+            // .ui.blue.label #{label}
+            strong True
         else
-            |false
-        // |#{key} #{field_value}
+            strong False
+            // .ui.basic.label #{label}
+    
 
 
-template(name='ref_edit')
-    .ui.header #{key}
+
+
+template(name='single_doc_edit')
+    .ui.small.header(title=key) 
+        if icon
+            i.icon(class=icon)
+        |#{label}
     each choices
-        .ui.button.select_choice
+        .ui.compact.small.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}
             |#{key}
+
+
+template(name='multi_doc_edit')
+    .ui.small.header(title=key)
+        if icon
+            i.icon(class=icon)
+        |#{label}
+    each choices
+        .ui.compact.small.button.select_choice(class=choice_class)
+            if icon
+                i.icon(class=icon)
+            |#{title}
+            |#{key}
+
+
+
+template(name='single_user_edit')
+    .ui.form
+        .field.attached
+            label User Selection for #{key}
+            input#single_user_select_input(type='text' placeholder='Lookup User...')
+            each selections
+                .ui.large.circular.label
+                    |#{username} #{profile.name}
+        if user_results
+            .ui.top.attached.segment
+                .ui.middle.aligned.selection.animated.list
+                    each user_results
+                        .select_user.item
+                            h5.ui.header
+                                img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                |#{username}
+        .field
+            +user_info field_value
+            // .ui.list
+            //     each field_value
+            //         |#{this}
+            //         .item
+            //             .right.floated.content
+            //                 i.pull_user.remove.link.icon
+            //             .image
+            //                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+            //             .content
+            //                 h4.ui.header
+            //                     |#{first_name} #{last_name}
+            //                     small @#{username}
+
+
+template(name='multi_user_edit')
+    .ui.form
+        .field.attached
+            label User Selection for #{key}
+            input#multi_user_select_input(type='text' placeholder='Lookup User...')
+            each selections
+                .ui.large.circular.label
+                    |#{username} #{profile.name}
+        if user_results
+            .ui.top.attached.segment
+                .ui.middle.aligned.selection.animated.list
+                    each user_results
+                        .select_user.item
+                            h5.ui.header
+                                img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                |#{username}
+        .field
+            +user_info field_value
+            // .ui.list
+            //     each field_value
+            //         |#{this}
+            //         .item
+            //             .right.floated.content
+            //                 i.pull_user.remove.link.icon
+            //             .image
+            //                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+            //             .content
+            //                 h4.ui.header
+            //                     |#{first_name} #{last_name}
+            //                     small @#{username}

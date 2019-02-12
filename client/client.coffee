@@ -138,6 +138,21 @@ Template.registerHelper 'bricks', () ->
         type:'brick'
         parent_id: schema._id
     
+Template.registerHelper 'field_value', () ->
+    parent = Template.parentData()
+    # parent2 = Template.parentData(2)
+    # parent3 = Template.parentData(3)
+    # parent4 = Template.parentData(4)
+    # parent5 = Template.parentData(5)
+    # parent6 = Template.parentData(6)
+    # console.log Template.parentData()
+    # console.log Template.parentData(4)
+    # console.log Template.parentData(5)
+    brick = Template.parentData(4)
+    context = Template.parentData(5)
+    if parent["#{@key}"] then parent["#{@key}"]
+    else if context["#{brick.key}"] then context["#{brick.key}"]
+    
 
 
 Template.registerHelper 'nl2br', (text)->

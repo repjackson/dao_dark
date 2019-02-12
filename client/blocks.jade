@@ -1,37 +1,70 @@
-template(name='comments_edit')
-    .ui.header comments
-template(name='comments_view')
-    .ui.fluid.icon.input
-        i.comment.icon
-        input.add_comment(type='text' placeholder='comment...')
-    .ui.comments
-        each doc_comments
-            .comment
-                .content
-                    .header #{body}
-                    .meta #{when}
-                    .actions
-                        i.thumbs.up.link.icon
-                        i.remove.link.remove_comment.icon
-
-template(name='follow_view')
+template(name='comments')
     .ui.secondary.segment
         .ui.header
-            i.bell.grey.outline.icon
-            |Follow
-        +user_list_toggle key='follower_ids' add_icon='bell' remove_icon='bell slash' add_label='Follow' remove_label='Unfollow' color='blue' big=true
+            i.chat.icon
+            |Comments
+        if currentUser
+            .ui.fluid.icon.input
+                i.plus.icon
+                input.add_comment(type='text' placeholder='Add comment...')
+        .ui.comments
+            each doc_comments
+                .comment
+                    .content
+                        .header #{body}
+                        .meta #{when}
+                        .actions
+                            i.thumbs.up.link.icon
+                            i.remove.link.remove_comment.icon
 
+template(name='follow')
+    .ui.segment
+        .ui.header
+            i.user.plus.icon
+            |Follow
+        +user_list_toggle key='follower_ids' icon='rss' add_label='Follow' remove_label='Unfollow' color='blue'
+
+
+template(name='toggle_edit')
+    .ui.button.toggle_edit
+        i.pencil.icon
 
 template(name='user_list_info')
-    .item
+    a.ui.button.item(href="/user/profile/#{user._id}")
+        img.ui.avatar.image(src=user.profile.profilePic title=name)
         |#{user.profile.name}
-        // |#{username} #{emails[0].address}
+        +user_status user
 
+
+template(name='view_full_button')
+    a.ui.button.ui.icon.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
+        i.double.icon
+        |View
+
+template(name='user_status')
+    if online 
+        // .ui.label(class='{{labelClass}}') 
+        .ui.empty.green.circular.label(title='Online')
+        // img.ui.avatar.image(src="https://img.icons8.com/connection-user_status-on/color/48" title='Online' width="48" height="48")
+        // |Online
+    else if idle
+        .ui.empty.yellow.circular.label(title='Idle')
+        // .ui.label(class='{{labelClass}}') Idle
+        // else 
+        //     |Offline
 
 
 
 template(name='user_info')
-    |#{user.profile.name}
+    a.ui.button.item(href="/user/profile/#{user._id}")
+        if profile.image_id
+            img.ui.avatar.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+        if user.profile.name
+            |#{user.profile.name}
+        if user.profile.churchName
+            |#{user.profile.churchName}
+        |@#{user.username}
+        +user_status user
 
 
 template(name='role_editor')
@@ -39,35 +72,29 @@ template(name='role_editor')
         .ui.button #{this}
 
 template(name='author_info')
-    .ui.small.grey.header #{author.username}
+    a.ui.button(href="/user/profile/#{_id}") by #{author.profile.name}
 
 template(name='creation_info')
-    .ui.small.grey.header #{when}
+    .ui.header #{when}
 
 
 template(name='user_list_toggle')
-    .ui.toggle.icon.button(class=user_list_toggle_class title=add_label)
-        if in_list
-            i.icon(class="#{remove_icon} #{color}")
-        else
-            i.icon(class=add_icon)
-        // if big
-        //     if in_list
-        //         |#{remove_label}
-        //     else
-        //         |#{add_label}
-    each list_users
-        +user_info
+    if currentUser
+        a.ui.button.toggle(class=user_list_toggle_class title=add_label href='#')
+            i.icon(class=icon)
+            |#{label}
+        each list_users
+            +user_info
 
 
-template(name='voting_view')
-    if parent.points
-        strong #{parent.points}
-    .ui.icon.button.upvote
+template(name='voting')
+    if points
+        strong #{points}
+    .ui.icon.compact.button.upvote
         i.thumbs.up.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.button.downvote
+    .ui.icon.compact.button.downvote
         i.thumbs.down.icon(class=downvote_class)
     each downvoter_ids
         +user_info
@@ -75,41 +102,29 @@ template(name='voting_view')
 
 
 template(name='view_button')
-    a.ui.icon.button.view(title='view' href="/view/#{_id}")
-        i.play.icon
-        
-        
-template(name='clone_button')
-    a.ui.icon.button.clone_doc(title='clone' href="#")
-        i.clone.icon
-
-template(name='detect')
-    .ui.icon.button.detect_fields
-        i.dna.icon
-
+    a.ui.icon.button.view(title='View' href="/s/#{type}/#{_id}/view")
+        i.right.chevron.icon
 
 
 template(name='remove_button')
-    a.ui.icon.button.remove(title='remove')
+    a.ui.icon.button.remove(title='Delete')
         i.remove.icon
 
 template(name='add_button')
-    a.ui.icon.button.add(title='add')
-        i.plus.icon
+    a.ui.button.add(title='Add')
+        i.plus' tooltip="Add #{type}.icon
         |#{type}
 
 
 
 template(name='edit_button')
-    if currentUser
-        a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
-            i.pencil.icon
+    a.ui.button.icon.edit(title='Edit' href="/s/#{type}/#{_id}/edit")
+        i.pencil.icon
 
 
 template(name='save_button')
-    a.ui.icon.fluid.button.save(title='save' href="/view/#{_id}")
+    a.ui.button.large.icon.save(title='Save' href="/s/#{type}/#{_id}/view")
         i.checkmark.icon
-
 
 template(name='toggle_button')
     .ui.icon.toggle.button(title=label)
@@ -119,45 +134,12 @@ template(name='toggle_button')
 
 
 template(name='view_user_button')
-    .ui.icon.view_user.button.view(title="view #{username}")
+    .view_user.view(title="view #{username}")
         i.play.icon
-
+        |View
 
 template(name='add_type_button')
     .ui.icon.button.add(title="add #{type}")
         i.plus.icon
         |#{type}
 
-
-
-
-template(name='toggle_friend')
-    if is_friend
-        .ui.grey.animated.fade.button.remove_friend
-            .visible.content
-                |friends
-            .hidden.content
-                i.minus.icon
-    else
-        .ui.button.button.add_friend
-            |+ friend
-        
-        
-template(name='ownership_edit')
-    .ui.header 
-        | ownership
-template(name='ownership_view')
-    .ui.header 
-        | ownership
-    .content
-        #make_author_owner.ui.button make author owner
-        .ui.list
-            each ownership
-                .item user id: #{user_id} #{percent}
-        .ui.header your ownership
-        if has_ownership
-            |#{my_ownership} %
-            #offer_ownership.ui.button offer ownership
-        .ui.header offers
-        .ui.header transactions
-        
