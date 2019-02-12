@@ -1,5 +1,8 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
+@selected_tags = new ReactiveArray []
+@selected_usernames = new ReactiveArray []
+@selected_status = new ReactiveArray []
 
 FlowRouter.route '/', action: -> @render 'layout','delta'
 
@@ -18,6 +21,12 @@ FlowRouter.route '*', action: -> @render 'not_found'
 
 
 
+FlowRouter.route '/user/:_id/s/:type', action: -> @render 'profile_layout', 'user_section'
+
+
+FlowRouter.route '/user/:_id/about', action: -> @render 'profile_layout', 'user_about'
+    
+FlowRouter.route '/user/:_id/stripe', action: -> @render 'profile_layout', 'user_stripe'
 
 
 FlowRouter.route '/user/:_id/edit', action: -> @render 'layout','user_edit'
@@ -37,9 +46,6 @@ Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
 Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
-Template.registerHelper 'nl2br', (text)->
-    nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
-    new Spacebars.SafeString(nl2br)
 
 
 Template.registerHelper 'in_list', (key) ->
@@ -47,7 +53,7 @@ Template.registerHelper 'in_list', (key) ->
         if Meteor.userId() in @["#{key}"] then true else false
 
 Template.registerHelper 'doc', () ->
-    Docs.findOne FlowRouter.getParam('id')
+    Docs.findOne FlowRouter.getParam('_id')
 
 Template.registerHelper 'schema', () ->
     Docs.findOne
@@ -101,3 +107,53 @@ Template.registerHelper 'youtube_value', () ->
     parent = Template.parentData(5)
     # console.log parent["_#{@valueOf()}"].youtube_id
     parent["_#{@valueOf()}"].youtube_id
+
+
+
+Template.registerHelper 'edit_template', ->
+    # console.log @
+    "#{@field}_edit"
+    
+    
+Template.registerHelper 'view_template', ->
+    # console.log @
+    if @field is 'textarea' then 'textarea' else "#{@field}_view"
+    
+    
+Template.registerHelper 'bricks', () ->
+    if @type
+        schema = Docs.findOne
+            type:'schema'
+            slug:@type
+    else if @roles
+        schema = Docs.findOne
+            type:'schema'
+            slug:$in:@roles
+    else if FlowRouter.getParam('type')
+        schema = Docs.findOne
+            type:'schema'
+            slug:FlowRouter.getParam('type')
+    # console.log schema
+    Docs.find
+        type:'brick'
+        parent_id: schema._id
+    
+
+
+Template.registerHelper 'nl2br', (text)->
+    nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
+    new Spacebars.SafeString(nl2br)
+
+    
+Template.registerHelper 'user_from_id_param', () ->
+    Meteor.users.findOne FlowRouter.getParam('_id')
+
+Template.registerHelper 'is_schema_type', () ->
+    @type is 'schema'
+
+Template.registerHelper 'is_eric', () ->
+    Meteor.userId() is '5WPuhuuCAs3dCKh3n' and FlowRouter.getParam('_id') is '5WPuhuuCAs3dCKh3n'
+
+Template.registerHelper 'current_user', () ->
+    Meteor.userId() is FlowRouter.getParam('_id')
+

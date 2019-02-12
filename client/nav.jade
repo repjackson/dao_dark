@@ -12,6 +12,10 @@ template(name='topnav')
                     i.link.plus.icon
                 a.item.toggle_topbar(href='#')
                     i.inbox.icon
+                a.item(href='/p/chat')
+                    i.chat.icon
+                a.item(href='/s/schema')
+                    i.bars.icon
                 a.icon.item(href="/user/#{currentUser._id}/edit")
                     i.cog.icon
                 a.item(href='/users' class="{{isActivePath '/users'}}")
@@ -30,6 +34,14 @@ template(name='topnav')
             else
                 a.icon.item(href="/enter")
                     i.sign.in.alternate.icon
+    if currentUser
+        .ui.attached.borderless.menu.topnav
+            each topnav_schemas
+                a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+                    i.icon(class=icon)
+                    |#{group}
+
+
 
 
 template(name='footer')

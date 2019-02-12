@@ -1,75 +1,75 @@
-template(name='delta')
-    .new_session.ui.icon.button.pointer(title='new session')
-        i.plus.icon
-    each my_sessions
-        .ui.button.select_session(class=session_selector_class title='select session')
-            if title
-                |#{title}
-            else 
-                i.play.icon
-    .ui.stackable.grid
-        .row
-            .six.wide.column.scrolling
-                if current_delta
-                    // .ui.icon.button.print_delta
-                    //     i.code.icon
-                    // .ui.reset.icon.button(title='reset')
-                    //     i.refresh.icon
-                    .ui.delete_delta.icon.button(title='delete delta')
-                        i.trash.icon
-                // |did: #{session_delta_id}
-                each current_delta.facets
-                    +facet
-            .ten.wide.column.scrolling
-                each current_delta.result_ids
-                    +result
-        // .centered.row   
-        //     .sixteen.wide.center.aligned.column
-        //         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-        //             input(type='hidden', name='cmd', value='_s-xclick')
-        //             input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-        //             // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-        //             img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-        //             button.ui.icon.large.button(type='submit')
-        //                 i.pied.piper.alternate.large.icon
+// template(name='delta')
+//     .new_session.ui.icon.button.pointer(title='new session')
+//         i.plus.icon
+//     each my_sessions
+//         .ui.button.select_session(class=session_selector_class title='select session')
+//             if title
+//                 |#{title}
+//             else 
+//                 i.play.icon
+//     .ui.stackable.grid
+//         .row
+//             .six.wide.column.scrolling
+//                 if current_delta
+//                     // .ui.icon.button.print_delta
+//                     //     i.code.icon
+//                     // .ui.reset.icon.button(title='reset')
+//                     //     i.refresh.icon
+//                     .ui.delete_delta.icon.button(title='delete delta')
+//                         i.trash.icon
+//                 // |did: #{session_delta_id}
+//                 each current_delta.facets
+//                     +facet
+//             .ten.wide.column.scrolling
+//                 each current_delta.result_ids
+//                     +result
+//         // .centered.row   
+//         //     .sixteen.wide.center.aligned.column
+//         //         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+//         //             input(type='hidden', name='cmd', value='_s-xclick')
+//         //             input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+//         //             // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+//         //             img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+//         //             button.ui.icon.large.button(type='submit')
+//         //                 i.pied.piper.alternate.large.icon
 
 
 
-template(name='facet')
-    if filtering_res
-        div
-        .ui.inline.small.header #{key}
-        // each filters
-        //     .unselect.ui.blue.button #{this}
-        .ui.transparent.left.icon.input
-            i.search.icon
-            input.add_filter(type='text' placeholder='search')
-        each filtering_res
-            if name
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong #{name}
-                    // small #{count}
-            else
-                .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                    strong [null]
-                    // small #{count}
+// template(name='facet')
+//     if filtering_res
+//         div
+//         .ui.inline.small.header #{key}
+//         // each filters
+//         //     .unselect.ui.blue.button #{this}
+//         .ui.transparent.left.icon.input
+//             i.search.icon
+//             input.add_filter(type='text' placeholder='search')
+//         each filtering_res
+//             if name
+//                 .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+//                     strong #{name}
+//                     // small #{count}
+//             else
+//                 .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+//                     strong [null]
+//                     // small #{count}
 
 
 
-template(name='result')
-    with result 
-        each _keys
-            // .ui.label #{this}
-            +key_view
-        if visual_classes
-            +visual_classes
-        if analyzed_text
-            |#{nl2br analyzed_text}
+// template(name='result')
+//     with result 
+//         each _keys
+//             // .ui.label #{this}
+//             +key_view
+//         if visual_classes
+//             +visual_classes
+//         if analyzed_text
+//             |#{nl2br analyzed_text}
 
-        +author_info
-        +creation_info
-        +view_button
-        +edit_button
-    .ui.divider
+//         +author_info
+//         +creation_info
+//         +view_button
+//         +edit_button
+//     .ui.divider
     
 

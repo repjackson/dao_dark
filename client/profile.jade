@@ -1,0 +1,241 @@
+template(name='profile_layout')
+    .layout.context(class=invert_class)
+        +topnav
+        .ui.bottom.attached.basic.segment.pushable
+            +leftbar
+            +topbar
+            +rightbar
+            .pusher
+                #main
+                    with user_from_id_param
+                        .ui.padded.stackable.grid
+                            .row
+                                .four.wide.column
+                                    .field
+                                        if profile.image_id
+                                            a.item(href="/user/#{user_from_id_param._id}/about")
+                                                img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
+                                    .ui.vertical.fluid.menu
+                                        if current_user
+                                            a.item(href="/user/#{user_from_id_param._id}/edit")
+                                                i.settings.icon
+                                                | Settings
+                                    .ui.vertical.fluid.menu
+                                        each user_schemas
+                                            a.item.set_delta_schema(href="/user/#{user_from_id_param._id}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                                                i.icon(class=icon)
+                                                .content    
+                                                    .header
+                                                        |#{group}
+                                    .ui.vertical.fluid.menu
+                                        a.item(href="/user/#{user_from_id_param._id}/about" class="{{isActiveRoute regex='user_about'}}")
+                                            i.info.icon
+                                            .content    
+                                                .header
+                                                    |About
+                                        a.item(href="/user/#{user_from_id_param._id}/chat" class="{{isActiveRoute regex='user_chat'}}")
+                                            i.chat.icon
+                                            .content    
+                                                .header
+                                                    |Chat
+                                        a.item(href="/user/#{user_from_id_param._id}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
+                                            i.stripe.icon
+                                            .content    
+                                                .header
+                                                    |Stripe
+                                        a.item(href="/user/#{user_from_id_param._id}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                                            i.phone.icon
+                                            .content    
+                                                .header
+                                                    |Contact
+                                    .ui.vertical.fluid.menu
+                                        a.item.logout(href='/logout')
+                                            i.sign.out.icon
+                                            |Log Out
+                                    if TotalDonation
+                                        .ui.small.header
+                                            i.get.icon
+                                            |$#{TotalDonation} Made
+                                    // if titheTotalGive
+                                    .ui.small.header
+                                        i.donate.icon
+                                        |$#{titheTotalGive} Given
+                                    .ui.small.header
+                                        i.heartbeat.icon
+                                        |#{user.points} Karma
+                                        .ui.header 
+                                            i.user.shield.icon
+                                            |Roles
+                                        each roles
+                                            .ui.small.header #{this}
+                                        if profile.churchName
+                                            .item(title='Church')
+                                                i.building.icon
+                                                | #{profile.churchName}
+                                    each codeDetail
+                                        .media-body
+                                            h5
+                                                span.font-bold
+                                                    b #{user.profile.name}
+                                                | donated 
+                                                b $#{this.giveAmount}
+                                            small.text-muted #{this.date}
+                                        .panel-body
+                                            a(href="/#{this.code}" target='_blank')
+                                                h4 #{this.campaign}
+                                            img.img-responsive(src='#{this.customPage.header_image}')
+                                            p
+                                                | !{this.customPage.textContent}
+                                    iframe#ravi039s-immediate-intestinal-surgery.gfm-media-widget(image='1' coinfo='1' width='100%' height='100%' frameborder='0')
+                                    script(src='//funds.gofundme.com/js/5.0/media-widget.js')
+                                .twelve.wide.column.scrolling
+                                    h1.ui.center.aligned.header
+                                        if church_profile
+                                            |#{profile.churchName}
+                                        else
+                                            | #{user.profile.name}
+                                    +yield
+                                    // +user_feed
+                                    // +churchDashboard
+
+template(name='user_section')
+    +type
+    // +Template.dynamic template=user_section_template
+
+template(name='user_about')
+    .profile-banner-container
+        img.ui.fluid.rounded.image(src="{{c.url profile.banner_image_id width=1000 height=300 crop='crop'}}")
+        // .profile_header.pad_left
+        //         // i.church.icon
+        //         |#{profile.churchName}
+    .ui.secondary.segment
+        .ui.small.inline.header 
+            i.linkify.icon
+            |Link
+        a(href=profile.website target='_blank') #{profile.website}
+        +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
+    +user_bookmarks    
+    if is_eric
+        +role_switcher
+    +user_tags
+    
+
+
+
+
+
+template(name='user_blog')
+    .ui.secondary.segment
+        .ui.header
+            i.contact.icon
+            |Blog
+        .ui.list
+            if profile.phone
+                .item
+                    a(href="tel:#{profile.phone}") 
+                        i.phone.icon
+                        |#{profile.phone}
+            if profile.website
+                .item 
+                    a(href=profile.website target='_blank') 
+                        |#{profile.website}
+                        i.external.icon
+            .item Created {{ from_now createdAt }}
+        .ui.list
+            .item #{profile.address.street}
+            .item #{profile.address.city}
+            .item #{profile.address.state}
+            .item #{profile.address.zip}
+
+
+template(name='user_people')
+    +user_following
+    +follow_user
+
+template(name='user_feed')
+    .ui.secondary.segment
+        .ui.header 
+            i.activity.icon
+            |Activity Feed
+        if current_user
+            .ui.fluid.input
+                input(type='text' placeholder='Share something...')
+                
+template(name='user_bookmarks')
+    .ui.secondary.segment
+        .ui.header 
+            i.bookmark.icon
+            |Bookmarks
+                
+template(name='user_tasks')
+    .ui.secondary.segment
+        .ui.header 
+            i.tasks.icon
+            |Tasks
+                
+template(name='user_unread')
+    .ui.secondary.segment
+        .ui.header 
+            i.new.icon
+            |Unread Messages
+                
+                
+    
+template(name='follow_user')    
+    .ui.secondary.segment
+        unless current_user
+            a.toggle_follow_user(href='#' title='Follow User')
+                i.renew.icon
+        else
+            i.renew.icon
+        |Followed By
+        +user_array_list user=user_from_id_param array='followed_by_ids'
+            
+            
+template(name='user_array_list')
+    .ui.list
+        each users
+            .item
+                +user_info
+            
+            
+template(name='user_following')    
+    .ui.secondary.segment
+        .ui.header 
+            i.human.icon
+            |Following
+        +user_array_list user=user_from_id_param array='following_ids'
+      
+                
+template(name='user_tags')
+    .ui.secondary.segment
+        .ui.header 
+            i.tags.icon
+            |Tags
+        each tags
+            .ui.basic.label 
+                i.remove.link.icon.remove_tag
+                |#{this}
+        if currentUser
+            // if current_user
+            .ui.fluid.input
+                input.tag_user(type='text' placeholder='Tag yourself...')
+            // else    
+            //     .ui.fluid.input
+            //         input(type='text' placeholder="Tag #{user_from_id_param.profile.name}")
+            
+            
+template(name='role_switcher')
+    .ui.secondary.segment
+        .ui.header 
+            i.refresh.icon
+            |Role Switcher
+        +user_array_element_toggle key='roles' value='dev'  
+        +user_array_element_toggle key='roles' value='admin'  
+        +user_array_element_toggle key='roles' value='church'  
+        +user_array_element_toggle key='roles' value='user'  
+            
+template(name='user_array_element_toggle')
+    .ui.button.toggle_element(class=user_array_element_toggle_class)
+        |#{value}
+

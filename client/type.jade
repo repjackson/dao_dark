@@ -1,77 +1,91 @@
 template(name='type')
     with schema
         .ui.stackable.padded.grid
-            .four.wide.column
-                .ui.center.aligned.header
-                    i.icon(class=icon)
-                    | #{plural}
-                .ui.fluid.button.add_type_doc(title="add #{slug}")
-                    i.plus.icon
-                    // |add #{slug}
-                .ui.hidden.divider
-                // i.tags.grey.icon
-                // .ui.small.header
-                //     |Filter Tags
-                // .ui.icon.small.transparent.input
-                //     i.search.icon
-                //     input#search(type='text' autocomplete='off' placeholder='Search Tags')
-                if selected_tags
-                    #clear_tags.ui.grey.icon.button
-                        i.remove.icon
-                each selected_tags
-                    .unselect_tag.ui.grey.button
-                        b #{this}
-                each global_tags
-                    .select_tag.ui.button
-                        |#{this.name}
-                        // small #{this.count}
-            .twelve.wide.column
-                each type_docs
-                    +type_item
+            .row
+                .six.wide.column.scrolling
+                    .ui.center.aligned.header
+                        i.icon(class=icon)
+                        | #{plural}
+                    .ui.small.center.aligned.header #{body}
+                    if currentUser
+                        .ui.icon.button.add_type_doc(title="Add #{title}")
+                            i.plus.icon
+                            |Add #{title}
+                    .ui.button.edit_schema
+                        i.cog.icon
+                        | Configure Schema
+                    // .ui.divider
+                    // // each sessions
+                    // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
+                    // //         i.play.icon
+                            
+                    if current_delta
+                        .ui.icon.large.button.print_delta
+                            i.code.icon
+                        .ui.reset.icon.large.button(title='reset')
+                            i.refresh.icon
+                        .ui.delete_delta.icon.large.button(title='delete delta')
+                            i.trash.icon
+                    else
+                        .create_delta.ui.icon.large.button.pointer(title='new session')
+                            i.plus.icon
+                    |did: #{session_delta_id}
+                            
+                    each current_delta.facets
+                        +facet
+                .ten.wide.column.scrolling
+                    each current_delta.result_ids
+                        +result
 
 
+            // .twelve.wide.column
+            //     each type_docs
+            //         +type_item
 
-template(name='type_item')
-    .ui.secondary.segment
-        a.ui.header(href="/s/#{type}/#{_id}/view")
-            if icon
-                i.grey.icon(class=icon)
-            |#{title}
-        .description
-            .ui.small.header #{body}
-            +tags_view_small
-        .extra
-            +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=small
-            if is_author
-                +edit_button_small
-            +view_button_small
+
+// template(name='type_item')
+//     .ui.segment
+//         a.ui.header(href="/s/#{type}/#{_id}/view")
+//             if icon
+//                 i.icon(class=icon)
+//             |#{title}
+//         .description
+//             each bricks
+//                 +Template.dynamic template=view_template 
+//         .extra
+//             +user_list_toggle key='bookmark_ids' icon='bookmark'  add_label='Bookmark' remove_label='Unbookmark' color='red' big=small
+//             if is_author
+//                 +edit_button
+//             // if is_schema_type
+//             a.ui.icon.button(href="/schema/#{_id}/edit")
+//                 i.pencil.icon
+//                 |Configure Schema
+//             +view_button
+//             +creation_info
+//             +author_info
 
 
 template(name='type_edit')
     with doc
         .ui.stackable.padded.grid
-            .four.wide.column
-                .ui.header
+            .centered.row
+                .four.wide.center.aligned.column
+                    +save_button
+                .eight.wide.center.aligned.column
                     i.pencil.icon
-                    |#{title}
-                a.ui.fluid.button(href="/s/#{type}/#{_id}/view")
-                    i.checkmark.icon
-                .ui.button.icon.delete_schema
-                    i.remove.icon
-            .twelve.wide.column
-                .ui.segment
-                    .ui.form
-                        each schema_fields
-                            +field_edit
-                        +text_edit key='title'
-                        +text_edit key='plural'
-                        +text_edit key='slug'
-                        +text_edit key='icon'
-                        +ref_edit multi=true key='keys' schema='field'
-                        .field
-                            label Notes
-                            textarea.body(rows='5') #{body}
-                        +array_edit key='tags'
+                    .ui.inline.header
+                        if icon
+                            i.icon(class=icon)
+                        |#{title}
+                    .ui.small.header Type: #{type}
+                .four.wide.center.aligned.column
+                    +remove_button
+            .row
+                .sixteen.wide.column
+                    .ui.segment
+                        each bricks
+                            // .ui.header #{key} [#{field}] #{label}
+                            +Template.dynamic template=edit_template 
 
 
 template(name='type_view')
@@ -80,17 +94,21 @@ template(name='type_view')
             .row
                 .ten.wide.column
                     .ui.breadcrumb
-                        a.section(href='/dash')
-                            .ui.label
-                                i.grey.dashboard.icon
-                                |Home
-                        // .divider  /
-                        a.section(href="/s/#{type}")
-                            .ui.label
-                                i.grey.icon(class=schema.icon)
-                                |#{schema.plural}
-                        // .divider  /
+                        a.section(href='/dashboard')
+                            .ui.compact.button
+                                i.dashboard.icon
+                                |Dashboard
+                        .divider
+                            i.chevron.right.icon
+                        a.section(href="/s/#{type}" title=schema.group)
+                            .ui.compact.button
+                                i.icon(class=schema.icon)
+                                |#{schema.group}
+                        .divider
+                            i.chevron.right.icon
                         .active.section
+                            if icon
+                                i.icon(class=icon)
                             if title
                                 |#{title}
                             else
@@ -102,15 +120,86 @@ template(name='type_view')
                     //         i.chevron.left.icon
                     //     |View #{type}
                     if is_author
-                        +edit_button_big
+                        +edit_button
+                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                 .twelve.wide.column
-                    .ui.header
-                        if icon
-                            i.grey.icon(class=icon)
-                        |#{title}
-                    h4 #{body}
-                    +tags_view_big
-                    div
-                    +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
+                    .ui.segment
+                        .ui.header
+                            if icon
+                                i.icon(class=icon)
+                            |#{title}
+                        .ui.list
+                            each bricks
+                                .item
+                                    +Template.dynamic template=view_template 
                     div
                     +comments
+                    
+                    
+
+template(name='facet')
+    if filtering_res
+        .ui.styled.accordion
+            .active.title
+                if icon
+                    i.icon(class=icon)
+                .ui.inline.header 
+                    |#{label}
+                i.dropdown.icon
+            .active.content
+                // each filters
+                //     .unselect.ui.blue.button #{this}
+                // .ui.transparent.left.icon.input
+                //     i.search.icon
+                //     input.add_filter(type='text' placeholder='search')
+                each filtering_res
+                    if name
+                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                            | #{name}
+                            // small #{count}
+                    else
+                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                            strong [null]
+                            // small #{count}
+
+
+
+template(name='result')
+    with result 
+        .ui.black.segment
+            a.ui.header(href="/s/#{type}/#{_id}/view")
+                if icon
+                    i.icon(class=icon)
+                |#{title}
+            .description
+                each bricks
+                    +Template.dynamic template=view_template 
+            .extra
+                +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                if is_author
+                    +edit_button
+                +view_button
+                if is_schema_type
+                    // a.ui.icon.button(href="/schema/#{_id}/edit")
+                    //     i.pencil.icon
+                    //     |Configure Schema
+                    a.ui.icon.set_schema.button(href="/s/#{slug}")
+                        i.right.chevron.icon
+                        |View Section
+    
+    //     each _keys
+    //         // .ui.label #{this}
+    //         +key_view
+    //     if visual_classes
+    //         +visual_classes
+    //     if analyzed_text
+    //         |#{nl2br analyzed_text}
+
+    //     +author_info
+    //     +creation_info
+    //     +view_button
+    //     +edit_button
+    // .ui.divider
+
+    
+                    

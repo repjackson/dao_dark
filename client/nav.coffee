@@ -17,6 +17,8 @@ Template.topnav.events
         FlowRouter.go "/edit/#{new_id}"
 
 
+    'click .set_schema': ->
+        Meteor.call 'set_delta_facets', @slug, Meteor.userId()
 
 
 Template.topbar.onCreated ->
@@ -54,21 +56,6 @@ Template.topbar.helpers
         Docs.find
             type:'page'
             nonprofit_footer:true
-            
-    church_pages: ->
-        Docs.find
-            type:'page'
-            church_footer:true
-            
-    also_serving_pages: ->
-        Docs.find
-            type:'page'
-            also_serving_footer:true
-            
-    resource_pages: ->
-        Docs.find
-            type:'page'
-            resource_footer:true
             
 
 

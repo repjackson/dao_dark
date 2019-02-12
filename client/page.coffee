@@ -1,14 +1,17 @@
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
+
 if Meteor.isClient
     Template.page.onCreated ->
-        @autorun => Meteor.subscribe 'page', Router.current().params.slug
-        @autorun => Meteor.subscribe 'page_modules', Router.current().params.slug
+        @autorun => Meteor.subscribe 'page', FlowRouter.getParam('slug')
+        @autorun => Meteor.subscribe 'page_modules', FlowRouter.getParam('slug')
     
     
     Template.page.helpers
         page: ->
             Docs.findOne
                 type:'page'
-                slug:Router.current().params.slug
+                slug:FlowRouter.getParam('slug')
     
     
     Template.add.onCreated ->
@@ -27,6 +30,6 @@ if Meteor.isClient
             new_id = Docs.insert
                 type:@slug
                 
-            Router.go "/s/#{@slug}/#{new_id}/edit"
+            FlowRouter.go "/s/#{@slug}/#{new_id}/edit"
 
     

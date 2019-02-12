@@ -164,3 +164,96 @@ Meteor.publish 'page_modules', (slug)->
         Docs.find
             parent_id:page._id
     
+    
+    
+            
+Meteor.publish 'schema_from_slug', (slug)->
+    Docs.find
+        type:'schema'
+        slug:slug
+        
+Meteor.publish 'schema_from_doc_id', (id)->
+    doc = Docs.findOne id
+    Docs.find
+        type:'schema'
+        slug:doc.type
+    
+                
+        
+Meteor.publish 'schemas', (dev_mode)->
+    if dev_mode
+        Docs.find
+            type:'schema'
+    else
+        if Meteor.user()
+            Docs.find
+                type:'schema'
+                view_roles:$in:Meteor.user().roles
+        else
+            Docs.find
+                type:'schema'
+                view_roles:$in:['public']
+        
+        
+        
+Meteor.publish 'schema_bricks_from_slug', (slug)->
+    schema = Docs.findOne
+        type:'schema'
+        slug:slug
+    Docs.find
+        type:'brick'
+        parent_id:schema._id
+        
+        
+        
+Meteor.publish 'bricks_from_doc_id', (id)->
+    doc = Docs.findOne id
+    schema = Docs.findOne
+        type:'schema'
+        slug:doc.type
+    Docs.find
+        type:'brick'
+        # parent_id:schema._id
+        
+        
+Meteor.publish 'my_delta', ->
+    Docs.find
+        _author_id:Meteor.userId()
+        type:'delta'
+
+        
+Meteor.publish 'schema_from_slug', (slug)->
+    Docs.find
+        type:'schema'
+        slug:slug
+        
+Meteor.publish 'schema_from_doc_id', (id)->
+    doc = Docs.findOne id
+    Docs.find
+        type:'schema'
+        slug:doc.type
+    
+    
+    
+Meteor.publish 'schema_bricks_from_slug', (slug)->
+    schema = Docs.findOne
+        type:'schema'
+        slug:slug
+    Docs.find
+        type:'brick'
+        parent_id:schema._id
+        
+        
+        
+Meteor.publish 'bricks_from_doc_id', (id)->
+    doc = Docs.findOne id
+    schema = Docs.findOne
+        type:'schema'
+        slug:doc.type
+    Docs.find
+        type:'brick'
+        parent_id:schema._id
+        
+        
+        
+    

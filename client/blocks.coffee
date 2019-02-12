@@ -1,7 +1,6 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 
-
 Template.comments_view.onCreated ->
     @autorun => Meteor.subscribe 'children', FlowRouter.getParam('id')
 Template.role_editor.onCreated ->
@@ -173,11 +172,11 @@ Template.add_button.events
 Template.add_type_button.events
     'click .add': ->
         new_id = Docs.insert type: @type
-        Router.go "/edit/#{new_id}"
+        FlowRouter.go "/edit/#{new_id}"
 
 Template.view_user_button.events
     'click .view_user': ->
-        Router.go "/u/#{username}"
+        FlowRouter.go "/u/#{username}"
 
 Template.clone_button.events
     'click .clone_doc': ->

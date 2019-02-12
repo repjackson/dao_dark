@@ -36,7 +36,7 @@ template(name='user_info')
 
 template(name='role_editor')
     each roles
-        .ui.circular.button #{this}
+        .ui.button #{this}
 
 template(name='author_info')
     .ui.small.grey.header #{author.username}
@@ -46,7 +46,7 @@ template(name='creation_info')
 
 
 template(name='user_list_toggle')
-    .ui.toggle.icon.circular.button(class=user_list_toggle_class title=add_label)
+    .ui.toggle.icon.button(class=user_list_toggle_class title=add_label)
         if in_list
             i.icon(class="#{remove_icon} #{color}")
         else
@@ -63,11 +63,11 @@ template(name='user_list_toggle')
 template(name='voting_view')
     if parent.points
         strong #{parent.points}
-    .ui.icon.circular.button.upvote
+    .ui.icon.button.upvote
         i.thumbs.up.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.circular.button.downvote
+    .ui.icon.button.downvote
         i.thumbs.down.icon(class=downvote_class)
     each downvoter_ids
         +user_info
@@ -75,26 +75,26 @@ template(name='voting_view')
 
 
 template(name='view_button')
-    a.ui.icon.circular.button.view(title='view' href="/view/#{_id}")
+    a.ui.icon.button.view(title='view' href="/view/#{_id}")
         i.play.icon
         
         
 template(name='clone_button')
-    a.ui.icon.circular.button.clone_doc(title='clone' href="#")
+    a.ui.icon.button.clone_doc(title='clone' href="#")
         i.clone.icon
 
 template(name='detect')
-    .ui.icon.circular.button.detect_fields
+    .ui.icon.button.detect_fields
         i.dna.icon
 
 
 
 template(name='remove_button')
-    a.ui.icon.circular.button.remove(title='remove')
+    a.ui.icon.button.remove(title='remove')
         i.remove.icon
 
 template(name='add_button')
-    a.ui.icon.circular.button.add(title='add')
+    a.ui.icon.button.add(title='add')
         i.plus.icon
         |#{type}
 
@@ -102,29 +102,29 @@ template(name='add_button')
 
 template(name='edit_button')
     if currentUser
-        a.ui.icon.circular.button.edit(title='edit' href="/edit/#{_id}")
+        a.ui.icon.button.edit(title='edit' href="/edit/#{_id}")
             i.pencil.icon
 
 
 template(name='save_button')
-    a.ui.icon.fluid.circular.button.save(title='save' href="/view/#{_id}")
+    a.ui.icon.fluid.button.save(title='save' href="/view/#{_id}")
         i.checkmark.icon
 
 
 template(name='toggle_button')
-    .ui.icon.toggle.circular.button(title=label)
+    .ui.icon.toggle.button(title=label)
         i.icon(class=icon)
     each selected
         |#{username}
 
 
 template(name='view_user_button')
-    .ui.icon.view_user.circular.button.view(title="view #{username}")
+    .ui.icon.view_user.button.view(title="view #{username}")
         i.play.icon
 
 
 template(name='add_type_button')
-    .ui.icon.circular.button.add(title="add #{type}")
+    .ui.icon.button.add(title="add #{type}")
         i.plus.icon
         |#{type}
 
