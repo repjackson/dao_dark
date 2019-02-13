@@ -13,37 +13,37 @@ template(name='profile_layout')
                                 .four.wide.column
                                     .field
                                         if profile.image_id
-                                            a.item(href="/user/#{user_from_id_param._id}/about")
+                                            a.item(href="/u/#{user_from_id_param._id}/about")
                                                 img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
                                     .ui.vertical.fluid.menu
                                         if current_user
-                                            a.item(href="/user/#{user_from_id_param._id}/edit")
+                                            a.item(href="/u/#{user_from_id_param._id}/edit")
                                                 i.settings.icon
                                                 | Settings
                                     .ui.vertical.fluid.menu
                                         each user_schemas
-                                            a.item.set_delta_schema(href="/user/#{user_from_id_param._id}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                                            a.item.set_delta_schema(href="/u/#{user_from_id_param._id}/s/#{slug}" class="{{isActiveRoute regex=group}}")
                                                 i.icon(class=icon)
                                                 .content    
                                                     .header
                                                         |#{group}
                                     .ui.vertical.fluid.menu
-                                        a.item(href="/user/#{user_from_id_param._id}/about" class="{{isActiveRoute regex='user_about'}}")
+                                        a.item(href="/u/#{user_from_id_param._id}/about" class="{{isActiveRoute regex='user_about'}}")
                                             i.info.icon
                                             .content    
                                                 .header
                                                     |About
-                                        a.item(href="/user/#{user_from_id_param._id}/chat" class="{{isActiveRoute regex='user_chat'}}")
+                                        a.item(href="/u/#{user_from_id_param._id}/chat" class="{{isActiveRoute regex='user_chat'}}")
                                             i.chat.icon
                                             .content    
                                                 .header
                                                     |Chat
-                                        a.item(href="/user/#{user_from_id_param._id}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
+                                        a.item(href="/u/#{user_from_id_param._id}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
                                             i.stripe.icon
                                             .content    
                                                 .header
                                                     |Stripe
-                                        a.item(href="/user/#{user_from_id_param._id}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                                        a.item(href="/u/#{user_from_id_param._id}/contact" class="{{isActiveRoute regex='user_contact'}}")
                                             i.phone.icon
                                             .content    
                                                 .header

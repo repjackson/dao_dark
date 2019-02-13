@@ -380,7 +380,8 @@ Template.multi_doc_view.onCreated ->
 Template.multi_doc_view.helpers
     choices: -> 
         console.log @ref_schema
-        Docs.find type:@ref_schema
+        Docs.find 
+            type:@ref_schema
 
 
 Template.multi_doc_edit.onCreated ->

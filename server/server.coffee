@@ -156,6 +156,12 @@ Meteor.publish 'types', (selected_type)->
     self.ready()
     
     
+Meteor.publish 'user_from_username', (username)->
+    Meteor.users.find username:username
+    
+Meteor.publish 'user_from_id', (user_id)->
+    # console.log user_id
+    Meteor.users.find user_id
     
     
     

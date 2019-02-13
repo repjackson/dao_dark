@@ -1,44 +1,127 @@
-template(name='user')
-    with user
-        .ui.stackable.padded.grid
-            .row
-                .four.wide.column
-                    .ui.header #{username} #{first_name} #{last_name}
-                    .ui.header #{points} points
-                    .ui.header karma #{karma}
-                    .ui.button.send_point send point
-                    .ui.button.send_karma send karma
-                    +toggle_friend
-
-template(name='users')
-    .ui.stackable.padded.grid
-        .row
-            .four.wide.column
-                .ui.header users
-            .twelve.wide.column
-                .ui.four.cards
-                    each users
-                        +user_card                            
-        
-template(name='user_card')
-    .card
-        // .image
-        //     img(src='/images/avatar2/large/kristy.png')
-        .content
-            a.header(href="/u/#{username}") #{username} #{first_name} #{last_name} 
-        .meta
-            span.date #{status}
-            // span.date Joined in 2013
-        .description
-            |#{description}
-        .extra.content
-            each tags
-                .ui.label #{this}
-            .ui.list
-                .ui.item #{points} points
-                .ui.item #{karma} karma
+template(name='people')
+    .ui.padded.stackable.grid.pad-left
+        .centered.row
+            .six.wide.column.scrolling
+                .ui.basic.segment
+                    if selected_tags
+                        #clear_tags.ui.red.icon.button
+                            i.remove.icon
+                    each selected_tags
+                        .unselect_tag.ui.red.button
+                            b #{this}
+                    each global_tags
+                        .select_tag.ui.compact.large.button
+                            | #{this.name}
+                            // small #{this.count}
             
-            a.ui.icon.button(href="/u/#{username}")
-                i.right.arrow.icon
-
-        
+            .ten.wide.column.scrolling
+                each people
+                    +user_item
+                        
+                        
+template(name='user_item')                            
+    .ui.stackable.grid.segment
+        a.four.wide.column(href="/u/#{_id}/about") 
+            if profile.image_id
+                img.ui.image(src="{{c.url profile.image_id width=200 height=150 crop='fit'}}")
+        .twelve.wide.column
+            a.ui.header(href="/u/#{_id}/about") 
+                |#{profile.name}
+                |#{username}
+            .meta
+                each tags
+                    .ui.basic.label #{this}
+                i.grey.user.shield.icon(title='Roles')
+                each roles
+                    | #{this}
+            .ui.hidden.divider
+            // if currentUser
+            //     +toggle_friend
+            a.ui.circular.button(href="/u/#{_id}/about")
+                i.right.chevron.icon
+            
+            
+            
+template(name='user_Gallery')
+    .ui.center.aligned.white.header 
+        i.gallery.icon
+        |Gallery
+    .add_photo.ui.button
+        i.plus.icon
+        |Photo
+    .ui.padded.stackable.three.column.grid
+        each photos
+            .column
+                img.ui.rounded.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+            
+            
+            
+template(name='user_events')
+    .ui.center.aligned.white.header 
+        i.calendar.icon
+        |Events
+    .add_event.ui.button
+        i.plus.icon
+        |Event
+    .ui.padded.stackable.three.column.grid
+        each events
+            .column
+                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+            
+            
+            
+template(name='user_contact')
+    .ui.center.aligned.white.header 
+        i.contact.icon
+        | Contact
+    .ui.form
+        .field
+            label Message
+            textarea(rows='3')
+    +user_contact_info
+            
+            
+template(name='user_contact_info')
+    .shadowed-box
+        .ui.header
+            i.phone.icon
+            |Contact
+        .ui.icon.circular.button.toggle_edit
+            if is_editing
+                i.green.checkmark.icon
+            else 
+                i.blue.pencil.icon
+        .ui.list
+            if profile.phone
+                .item
+                    a(href="tel:#{profile.phone}") 
+                        i.phone.icon
+                        |#{profile.phone}
+            if profile.website
+                .item 
+                    a(href=profile.website target='_blank') 
+                        |#{profile.website}
+                        i.external.icon
+            .item Created {{ from_now createdAt }}
+        if is_editing
+            +user_field key='street' label='Street'
+            +user_field key='city' label='City'
+            +user_field key='state' label='State'
+            +user_field key='zip' label='Zip'
+        else
+            .ui.list
+                .item #{street}
+                .item #{city}
+                .item #{state}
+                .item #{zip}
+            
+            
+template(name='user_chat')        
+    .description.chat_messages.scrolling.shadowed-box
+        .ui.comments
+            each chat_messages
+                +chat_message
+    if in_chat
+        .ui.icon.fluid.attached.input
+            i.chevron.right.icon
+            input.add_message(type='text' placeholder='Add Message')

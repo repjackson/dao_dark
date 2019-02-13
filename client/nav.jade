@@ -16,15 +16,15 @@ template(name='topnav')
                     i.chat.icon
                 a.item.set_schema(href='/s/schema')
                     i.sitemap.icon
-                a.icon.item(href="/user/#{currentUser._id}/edit")
-                    i.cog.icon
-                a.item(href='/users' class="{{isActivePath '/users'}}")
+                a.item(href='/people' class="{{isActivePath '/people'}}")
                     i.users.icon
                 a.item(href='/bank' class="{{isActivePath '/bank'}}")
                     i.user.shield.icon
                     span(title='karma') #{currentUser.karma}
                     span(title='points') #{currentUser.points}
-                a.item(href="/u/#{currentUser.username}")
+                a.icon.item(href="/u/#{currentUser._id}/edit")
+                    i.cog.icon
+                a.item(href="/u/#{currentUser._id}/about")
                     i.user.icon
                     | #{currentUser.username} [#{currentUser.status}]
                 a.item.toggle_rightbar(href='#')
@@ -44,9 +44,9 @@ template(name='topnav')
 
 template(name='footer')
     .ui.inverted.menu
-        // .item
-        //     i.copyright.outline.icon
-        //     .black_bat DAO
+        .item
+            i.copyright.outline.icon
+            .black_bat DAO
         if is_dev
             .item.refresh_stat
                 i.link.refresh.icon
@@ -56,17 +56,17 @@ template(name='footer')
                 |#{user_count} users
         .item
             | stare into the abyss
-        // .item
-        //     .ui.transparent.large.input
-        //         input#quick_add(type='text' placeholder='quick add')
-        // .item
-        //     form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-        //         input(type='hidden', name='cmd', value='_s-xclick')
-        //         input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-        //         // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-        //         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-        //         button.ui.basic.button(type='submit')
-        //             | Donate 
+        .item
+            .ui.transparent.large.input
+                input#quick_add(type='text' placeholder='quick add')
+        .item
+            form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                input(type='hidden', name='cmd', value='_s-xclick')
+                input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+                // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+                img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+                button.ui.basic.button(type='submit')
+                    | Donate 
         
         
         
