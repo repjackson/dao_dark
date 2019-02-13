@@ -8,13 +8,14 @@ template(name='type')
                         | #{plural}
                     .ui.small.center.aligned.header #{body}
                     unless is_loading
-                        if currentUser
+                        if can_add
                             .ui.icon.button.add_type_doc(title="Add #{title}")
                                 i.plus.icon
                                 |Add #{title}
-                        .ui.button.edit_schema
-                            i.cog.icon
-                            | Configure #{group}
+                        if can_edit
+                            .ui.button.edit_schema
+                                i.cog.icon
+                                | Configure #{group}
                         // .ui.divider
                         // // each sessions
                         // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
@@ -182,8 +183,8 @@ template(name='result')
                     +Template.dynamic template=view_template 
             .extra
                 +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                // if is_author
-                +edit_button
+                if is_author
+                    +edit_button
                 +view_button
                 if is_schema_type
                     // a.ui.icon.button(href="/schema/#{_id}/edit")

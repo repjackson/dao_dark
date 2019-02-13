@@ -2,8 +2,9 @@ template(name='user_edit')
     .ui.stackable.padded.grid.pad_left
         .middle.aligned.row
             .four.wide.center.aligned.column
-                a.ui.large.icon.button(href="/user/#{user_from_id_param._id}/about" title='Profile') 
-                    i.checkmark.icon
+                a.ui.large.button(href="/u/#{user_from_id_param._id}/about" title='Profile') 
+                    i.checkmark.green.icon
+                    |Save
             .eight.wide.center.aligned.column
                 .ui.center.aligned.large.header
                     i.cog.icon

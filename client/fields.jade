@@ -72,7 +72,7 @@ template(name='textarea_edit')
                     |#{label}
                 else
                     |#{key}
-            textarea.edit_textarea(rows='20') #{field_value}
+            textarea.edit_textarea(rows='5') #{field_value}
         // +call_watson mode='text'
 
 
@@ -130,13 +130,12 @@ template(name='code_edit')
 
 
 template(name='number_edit')
-    .ui.form
-        .field
-            label
-                if icon
-                    i.icon(class=icon)
-                |#{label}
-            input.edit_number(type='number' value=field_value placeholder=placeholder)
+    .ui.labeled.input
+        .ui.label
+            if icon
+                i.icon(class=icon)
+            |#{label}
+        input.edit_number(type='number' value=field_value placeholder=placeholder)
 
 template(name='number_view')
     if icon
@@ -224,8 +223,7 @@ template(name='children_edit')
 template(name='child')
     .ui.segment
         each bricks
-            .item
-                +Template.dynamic template=edit_template 
+            +Template.dynamic template=edit_template 
     
         // .ui.red.segment
         //     +text_edit key='key'
@@ -239,6 +237,7 @@ template(name='child')
     
         //     +single_doc_edit key='ref_schema' ref_schema='schema' ref_key='slug' label='Referenced Schema (if ref)'
         //     .ui.divider
+        div
         +remove_button
 
 
@@ -291,32 +290,37 @@ template(name='boolean_view')
 
 
 template(name='single_doc_edit')
+    div
     .ui.small.inline.header(title=key) 
         if icon
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.button.select_choice(class=choice_class)
+        .ui.compact.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}
             |#{key}
+    div
 
 
 template(name='multi_doc_edit')
+    div
     .ui.small.inline.header(title=key)
         if icon
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.button.select_choice(class=choice_class)
+        .ui.compact.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}
             |#{key}
+    div
 
 template(name='multi_doc_view')
-    .ui.small.header(title=key)
+    div
+    .ui.small.inline.header(title=key)
         if icon
             i.icon(class=icon)
         |#{label}
@@ -326,6 +330,7 @@ template(name='multi_doc_view')
                 i.icon(class=icon)
             |#{title}
             |#{key}
+    div
 
 
 

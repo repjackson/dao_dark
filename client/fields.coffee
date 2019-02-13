@@ -313,10 +313,10 @@ Template.children_edit.helpers
         parent = Template.parentData(5)
         # else
         #     parent = Template.parentData()
-        Docs.find
+        Docs.find {
             type: @ref_schema
             parent_id: parent._id
-
+        }, sort:rank:1
 Template.children_edit.events
     'click .add_child': ->
         # console.log @
@@ -477,7 +477,7 @@ Template.single_user_edit.events
     'click .select_user': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
         
-        console.log @
+        # console.log @
         
         val = t.$('.edit_text').val()
         parent = Template.parentData()

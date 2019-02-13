@@ -48,30 +48,28 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |Contact
-                                    .ui.vertical.fluid.menu
-                                        a.item.logout(href='/logout')
-                                            i.sign.out.icon
-                                            |Log Out
-                                    if TotalDonation
+                                    if is_user
+                                        .ui.vertical.fluid.menu
+                                            a.item.logout(href='#')
+                                                i.sign.out.icon
+                                                |Log Out
+                                    .ui.segment
+                                        if TotalDonation
+                                            .ui.small.header
+                                                i.get.icon
+                                                |$#{TotalDonation} Made
+                                        // if titheTotalGive
                                         .ui.small.header
-                                            i.get.icon
-                                            |$#{TotalDonation} Made
-                                    // if titheTotalGive
-                                    .ui.small.header
-                                        i.donate.icon
-                                        |$#{titheTotalGive} Given
-                                    .ui.small.header
-                                        i.heartbeat.icon
-                                        |#{user.points} Karma
-                                        .ui.header 
-                                            i.user.shield.icon
-                                            |Roles
-                                        each roles
-                                            .ui.small.header #{this}
-                                        if profile.churchName
-                                            .item(title='Church')
-                                                i.building.icon
-                                                | #{profile.churchName}
+                                            i.donate.icon
+                                            |$#{titheTotalGive} Given
+                                        .ui.small.header
+                                            i.heartbeat.icon
+                                            |#{user.points} Karma
+                                            .ui.header 
+                                                i.user.shield.icon
+                                                |Roles
+                                            each roles
+                                                .ui.small.header #{this}
                                     each codeDetail
                                         .media-body
                                             h5
@@ -115,7 +113,7 @@ template(name='user_about')
         a(href=profile.website target='_blank') #{profile.website}
         +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
     +user_bookmarks    
-    if is_eric
+    if is_user
         +role_switcher
     +user_tags
     
@@ -214,7 +212,8 @@ template(name='user_tags')
             |Tags
         each tags
             .ui.basic.label 
-                i.remove.link.icon.remove_tag
+                if is_user
+                    i.remove.link.icon.remove_tag
                 |#{this}
         if currentUser
             // if current_user
@@ -230,9 +229,9 @@ template(name='role_switcher')
         .ui.header 
             i.refresh.icon
             |Role Switcher
-        +user_array_element_toggle key='roles' value='dev'  
+        if is_eric
+            +user_array_element_toggle key='roles' value='dev'  
         +user_array_element_toggle key='roles' value='admin'  
-        +user_array_element_toggle key='roles' value='church'  
         +user_array_element_toggle key='roles' value='user'  
             
 template(name='user_array_element_toggle')

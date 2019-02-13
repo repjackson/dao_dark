@@ -46,9 +46,11 @@ Template.topnav.helpers
         if Meteor.user()
             Docs.find
                 type:'schema'
-                # topnav_roles:$in:Meteor.user().roles
-                topnav:true
-
+                topnav_roles:$in:Meteor.user().roles
+        else
+            Docs.find
+                type:'schema'
+                topnav_roles:$in:['public']
 
 Template.topbar.helpers
     nonprofit_pages: ->

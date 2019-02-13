@@ -84,12 +84,12 @@ Template.registerHelper 'youtube_value', () ->
 
 Template.registerHelper 'edit_template', ->
     # console.log @
-    if @field is 'textarea' then 'textarea' else "#{@field}_edit"
+    "#{@field}_edit"
     
     
 Template.registerHelper 'view_template', ->
     # console.log @
-    if @field is 'textarea' then 'textarea' else "#{@field}_view"
+    "#{@field}_view"
     
     
 Template.registerHelper 'bricks', () ->
@@ -106,9 +106,10 @@ Template.registerHelper 'bricks', () ->
             type:'schema'
             slug:Router.getParam('type')
     # console.log schema
-    Docs.find
+    Docs.find {
         type:'brick'
         parent_id: schema._id
+    }, sort:rank:1
     
 Template.registerHelper 'field_value', () ->
     parent = Template.parentData()
@@ -139,8 +140,37 @@ Template.registerHelper 'is_schema_type', () ->
     @type is 'schema'
 
 Template.registerHelper 'is_eric', () ->
-    Meteor.userId() is '5WPuhuuCAs3dCKh3n' and Router.current().params._id is '5WPuhuuCAs3dCKh3n'
+    Meteor.userId() is 'ytjpFxiwnWaJELZEd' and Router.current().params._id is 'ytjpFxiwnWaJELZEd'
 
 Template.registerHelper 'current_user', () ->
     Meteor.userId() is Router.current().params._id
 
+Template.registerHelper 'can_add', () ->
+    if Meteor.user()
+        if Meteor.user().roles
+            if @add_roles
+                union = _.intersection Meteor.user().roles,@add_roles
+                if union.length > 0 then true else false
+            else 
+                false
+        else 
+            false
+    else 
+        false
+                
+Template.registerHelper 'can_edit', () ->
+    if Meteor.user()
+        # if Meteor.userId() is @_author_id 
+        #     true
+        if Meteor.user().roles
+            if @edit_roles
+                union = _.intersection Meteor.user().roles,@edit_roles
+                if union.length > 0 then true else false
+            else 
+                false
+        else 
+            false
+    else 
+        false
+                
+                

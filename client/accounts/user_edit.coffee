@@ -10,10 +10,10 @@ Template.user_edit.onCreated ->
 Template.user_schema_editor.onCreated ->
     @autorun -> Meteor.subscribe 'church_schemas'
     
-# Template.user_edit.onRendered ->
-#     Meteor.setTimeout ->
-#         $('.button').popup()
-#     , 2000
+Template.user_edit.onRendered ->
+    Meteor.setTimeout ->
+        $('.button').popup()
+    , 2000
 
 
 Template.user_schema_editor.helpers
@@ -164,28 +164,28 @@ Template.user_edit.events
                         $set: "profile.image_id": res.public_id
                 return
 
-#     "change input[name='banner_image']": (e) ->
-#         files = e.currentTarget.files
-#         # console.log files
-#         Cloudinary.upload files[0],
-#             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
-#             # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
-#             (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
-#                 # console.log "Upload Error: #{err}"
-#                 # console.dir res
-#                 if err
-#                     console.error 'Error uploading', err
-#                 else
-#                     console.log res
-#                     Meteor.users.update Router.current().params._id, 
-#                         $set: "profile.banner_image_id": res.public_id
-#                 return
+    "change input[name='banner_image']": (e) ->
+        files = e.currentTarget.files
+        # console.log files
+        Cloudinary.upload files[0],
+            # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
+            # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
+            (err,res) -> #optional callback, you can catch with the Cloudinary collection as well
+                # console.log "Upload Error: #{err}"
+                # console.dir res
+                if err
+                    console.error 'Error uploading', err
+                else
+                    console.log res
+                    Meteor.users.update Router.current().params._id, 
+                        $set: "profile.banner_image_id": res.public_id
+                return
 
 
-#     'click #remove_photo': ->
-#         if confirm 'Remove photo?'
-#             Meteor.users.update Router.current().params._id,
-#                 $unset: "profile.image_id": 1
+    'click #remove_photo': ->
+        if confirm 'Remove photo?'
+            Meteor.users.update Router.current().params._id,
+                $unset: "profile.image_id": 1
 
         
 #     'change #Profile_photo': (event, template) ->

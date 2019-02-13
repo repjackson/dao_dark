@@ -140,12 +140,12 @@ template(name='rightbar')
         //         |#{currentUser.username}
         //     else
         //         |Account
-        a.item.toggle_rightbar(href="/user/profile/#{currentUser._id}")
+        a.item.toggle_rightbar(href="/u/#{currentUser._id}/about")
             i.user.icon
             | Profile
-        // a.item.toggle_rightbar(href='/account')
-        //     i.cog.grey.icon
-        //     | Settings
+        a.item.toggle_rightbar(href="/u/#{currentUser._id}/edit")
+            i.cog.grey.icon
+            | Settings
         if signing_out
             .icon.disabled.item.toggle_rightbar
                 i.notched.circle.loading.big.icon

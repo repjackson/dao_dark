@@ -1,20 +1,20 @@
-# Template.profile_layout.onCreated ->
-#     @autorun -> Meteor.subscribe 'user_from_id', Router.current().params._id
-#     @autorun -> Meteor.subscribe 'user_schemas', Router.current().params._id
+Template.profile_layout.onCreated ->
+    @autorun -> Meteor.subscribe 'user_from_id', Router.current().params._id
+    @autorun -> Meteor.subscribe 'user_schemas', Router.current().params._id
     
-# Template.user_section.helpers
-#     user_section_template: ->
-#         "user_#{Router.current().params.group}"
+Template.user_section.helpers
+    user_section_template: ->
+        "user_#{Router.current().params.group}"
     
-# Template.profile_layout.helpers
-#     user: ->
-#         Meteor.users.findOne '_id': Router.current().params._id
+Template.profile_layout.helpers
+    user: ->
+        Meteor.users.findOne '_id': Router.current().params._id
     
-#     user_schemas: ->
-#         user = Meteor.users.findOne Router.current().params._id
-#         Docs.find
-#             type:'schema'
-#             _id:$in:user.schema_ids
+    user_schemas: ->
+        user = Meteor.users.findOne Router.current().params._id
+        Docs.find
+            type:'schema'
+            _id:$in:user.schema_ids
 
     
     
@@ -52,27 +52,36 @@
 
 
 
-# Template.profile_layout.events
-#     'click .set_delta_schema': ->
-#         console.log @
-#         Meteor.call 'set_delta_facets', @slug, Session.get('delta_id'), Router.current().params._id
+Template.profile_layout.events
+    'click .set_delta_schema': ->
+        console.log @
+        Meteor.call 'set_delta_facets', @slug, Session.get('delta_id'), Router.current().params._id
 
-# Template.user_array_element_toggle.helpers
-#     user_array_element_toggle_class: ->
-#         user = Meteor.users.findOne Router.current().params._id
-#         if @value in user["#{@key}"] then 'grey' else 'basic'
+    'click .logout': ->
+        Meteor.logout()
+        Router.go '/signin'
+
+
+Template.user_array_element_toggle.helpers
+    user_array_element_toggle_class: ->
+        user = Meteor.users.findOne Router.current().params._id
+        if @value in user["#{@key}"] then 'grey' else 'basic'
         
         
-# Template.user_array_element_toggle.events
-#     'click .toggle_element': (e,t)->
-#         user = Meteor.users.findOne Router.current().params._id
-#         if user["#{@key}"]
-#             if @value in user["#{@key}"]
-#                 Meteor.users.update user._id,
-#                     $pull: "#{@key}":@value
-#             else
-#                 Meteor.users.update user._id,
-#                     $addToSet: "#{@key}":@value
+Template.user_array_element_toggle.events
+    'click .toggle_element': (e,t)->
+        console.log @
+        user = Meteor.users.findOne Router.current().params._id
+        if user["#{@key}"]
+            if @value in user["#{@key}"]
+                Meteor.users.update user._id,
+                    $pull: "#{@key}":@value
+            else
+                Meteor.users.update user._id,
+                    $addToSet: "#{@key}":@value
+        else
+            Meteor.users.update user._id,
+                $addToSet: "#{@key}":@value
      
 # Template.follow_user.events
 #     'click .toggle_follow_user': ->
@@ -87,33 +96,33 @@
 #             Meteor.users.update Meteor.userId(),
 #                 $addToSet: following_ids: @_id
         
-# Template.user_array_list.onCreated ->
-#     @autorun => Meteor.subscribe 'user_array_list', @data.user, @data.array
+Template.user_array_list.onCreated ->
+    @autorun => Meteor.subscribe 'user_array_list', @data.user, @data.array
         
-# Template.user_array_list.helpers
-#     users: ->
-#         users = []
-#         if @user["#{@array}"]
-#             for user_id in @user["#{@array}"]
-#                 user = Meteor.users.findOne user_id
-#                 users.push user
-#             users
+Template.user_array_list.helpers
+    users: ->
+        users = []
+        if @user["#{@array}"]
+            for user_id in @user["#{@array}"]
+                user = Meteor.users.findOne user_id
+                users.push user
+            users
             
             
             
-# Template.user_tags.events
-#     'keyup .tag_user': (e,t)->
-#         if e.which is 13
-#             element_val = t.$('.tag_user').val().trim()
-#             # # console.log element_val
-#             Meteor.users.update Router.current().params._id,
-#                 $addToSet:tags:element_val
+Template.user_tags.events
+    'keyup .tag_user': (e,t)->
+        if e.which is 13
+            element_val = t.$('.tag_user').val().trim()
+            # # console.log element_val
+            Meteor.users.update Router.current().params._id,
+                $addToSet:tags:element_val
             
-#             t.$('.tag_user').val('')
+            t.$('.tag_user').val('')
 
 
-#     'click .remove_tag': (e,t)->
-#         element = @valueOf()
-#         console.log @
-#         Meteor.users.update Router.current().params._id,
-#             $pull:tags:element
+    'click .remove_tag': (e,t)->
+        element = @valueOf()
+        console.log @
+        Meteor.users.update Router.current().params._id,
+            $pull:tags:element

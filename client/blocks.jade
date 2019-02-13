@@ -102,13 +102,14 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.icon.button.view(title='View' href="/s/#{type}/#{_id}/view")
+    a.ui.button.view(title='View' href="/s/#{type}/#{_id}/view")
+        |View #{type}
         i.right.chevron.icon
 
-
 template(name='remove_button')
-    a.ui.icon.button.remove(title='Delete')
-        i.remove.icon
+    a.ui.button.remove(title='Delete')
+        i.remove.red.icon
+        |Remove #{type}
 
 template(name='add_button')
     a.ui.button.add(title='Add')
@@ -120,24 +121,26 @@ template(name='toggle_friend')
     if is_friend
         .ui.grey.animated.fade.button.remove_friend
             .visible.content
-                |friends
+                |Friends
             .hidden.content
                 i.minus.icon
     else
         .ui.button.button.add_friend
-            |+ friend
+            |+ Friend
         
 
 
 
 template(name='edit_button')
-    a.ui.button.icon.edit(title='Edit' href="/s/#{type}/#{_id}/edit")
-        i.pencil.icon
+    a.ui.button.edit(title='Edit' href="/s/#{type}/#{_id}/edit")
+        i.pencil.blue.icon
+        |Edit
 
 
 template(name='save_button')
     a.ui.button.large.icon.save(title='Save' href="/s/#{type}/#{_id}/view")
-        i.checkmark.icon
+        i.checkmark.green.icon
+        |Save
 
 template(name='toggle_button')
     .ui.icon.toggle.button(title=label)
