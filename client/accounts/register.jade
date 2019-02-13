@@ -1,0 +1,70 @@
+template(name='register')
+    .ui.padded.stackable.grid
+        .centered.row
+            .eight.wide.column
+                .ui.segment
+                    .panel-heading.hbuilt
+                        h2 User Account Registration
+                    .panel-body
+                        p
+                            | By registering an account with Dao you agree to our 
+                            u
+                                b
+                                    a#tosModal.undl(href='#') Terms of Service
+                            |  and the 
+                            u
+                                b
+                                    a.undl(href='https://stripe.com/connect/account-terms', target='_blank') Stripe Connected Account Agreement
+                            | .
+                            |               You understand that Stripe will be processing donations on your behalf through the Joyful Giver platform.
+                        p
+                            | We respect your right to privacy. You can view our privacy policy 
+                            u
+                                b
+                                    a#privacyPolicyModal.undl(target='_blank', href='#') here
+            .eight.wide.column
+                .hpanel.hblue
+                    .panel-body
+                        .col-md-12
+                            .form-group
+                                label.col-lg-2.control-label(for='firstname')
+                                .col-lg-10.text-center
+                                    // {{> socialLoginButtons}}
+                        form.ui.form(action='#')
+                            // .field
+                            //     label Name
+                            //     input#lname(type='text', name='name', placeholder='Your Mom', required='')
+                            .field
+                                label Username
+                                input#username(type='text', name='username', placeholder='', required='')
+                            // .field
+                            //     label Email
+                            //     input#lemail(type='text', name='email', placeholder='name@yourchurch.com', required='')
+                            // .field
+                            //     label Phone
+                            //     input#phone(type='text', name='phone', placeholder='xxx-xxx-xxxx', required='')
+                            .field
+                                label Password
+                                input#password(type='password', name='password', placeholder='Password', required='')
+                            .field
+                                #register.ui.blue.button Agree & Register
+    // #tosModalpopup.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+    //     .modal-dialog.modal-lg(style='width: 80%;')
+    //         .modal-content
+    //             .color-line
+    //             .modal-header
+    //                 h4.modal-title Terms of Service
+    //             .modal-body
+    //                 // +tos
+    //             .modal-footer
+    //                 button.btn.btn-default(type='button', data-dismiss='modal') Close
+    // #privacyPolicyDisplayModal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+    //     .modal-dialog.modal-lg(style='width: 80%;')
+    //         .modal-content
+    //             .color-line
+    //             .modal-header
+    //                 h4.modal-title Privacy Policy
+    //             .modal-body
+    //                 // | {{> privacyPolicyDisplay}}
+    //             .modal-footer
+    //                 button.btn.btn-default(type='button', data-dismiss='modal') Close

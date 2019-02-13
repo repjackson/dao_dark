@@ -1,6 +1,6 @@
 # profilePicImage = '/icons/Logo_sm_100.png'
-# # stripe = Stripe('pk_test_CqHTNF8uRfEHz8tB8JyJmSNs')
-# # elements = stripe.elements()
+stripe = Stripe('pk_test_CqHTNF8uRfEHz8tB8JyJmSNs')
+elements = stripe.elements()
 
 
 Template.user_edit.onCreated ->

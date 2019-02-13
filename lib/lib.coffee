@@ -1,91 +1,3 @@
-Router.configure
-    layoutTemplate: 'layout'
-    notFoundTemplate: 'not_found'
-    loadingTemplate: 'splash'
-    trackPageView: true
-
-
-Router.route '/delta', -> @render 'delta'
-
-Router.route '/', -> @render 'delta'
-
-Router.route '/enter', -> @render 'enter'
-Router.route '/me', -> @render 'me'
-Router.route '/users', -> @render 'users'
-Router.route '/inbox', -> @render 'inbox'
-Router.route '/bank', -> @render 'bank'
-Router.route '/settings', -> @render 'settings'
-
-Router.route '/people', -> @render 'people'
-
-
-
-# Router.route '/u/:username', -> @render 'user'
-Router.route '/edit/:id', -> @render 'edit'
-Router.route '/view/:id', -> @render 'view'
-Router.route '*', -> @render 'not_found'
-
-# Router.route '/u/:_id/s/:type', -> @render 'profile_layout', 'user_section'
-Router.route '/u/:_id/s/:type', (->
-    @layout 'profile_layout'
-    @render 'user_section'
-    ), name:'user_section'
-
-
-Router.route '/u/:_id/about', (->
-    @layout 'profile_layout'
-    @render 'user_about'
-    ), name:'user_about'
-    
-Router.route '/u/:_id/stripe', (->
-    @layout 'profile_layout'
-    @render 'user_stripe'
-    ), name:'user_stripe'
-
-# Router.route '/u/:_id/blog', (->
-#     @layout 'profile_layout'
-#     @render 'user_blog'
-#     ), name:'user_blog'
-
-# Router.route '/u/:_id/events', (->
-#     @layout 'profile_layout'
-#     @render 'user_events'
-#     ), name:'user_events'
-
-Router.route '/u/:_id/chat', (->
-    @layout 'profile_layout'
-    @render 'user_chat'
-    ), name:'user_user_chat'
-
-# Router.route '/u/:_id/gallery', (->
-#     @layout 'profile_layout'
-#     @render 'user_Gallery'
-#     ), name:'user_Gallery'
-
-# Router.route '/u/:_id/staff', (->
-#     @layout 'profile_layout'
-#     @render 'user_staff'
-#     ), name:'user_staff'
-
-Router.route '/u/:_id/contact', (->
-    @layout 'profile_layout'
-    @render 'user_contact'
-    ), name:'user_contact'
-
-# Router.route '/u/:_id/campaigns', (->
-#     @layout 'profile_layout'
-#     @render 'user_campaigns'
-#     ), name:'user_campaigns'
-
-
-Router.route '/u/:_id/edit', -> @render 'user_edit'
-
-Router.route '/s/:type', -> @render 'type'
-Router.route '/s/:type/:_id/edit', -> @render 'type_edit'
-Router.route '/s/:type/:_id/view', -> @render 'type_view'
-
-Router.route '/p/:slug', -> @render 'page'
-
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
 @Types = new Meteor.Collection 'types'
@@ -132,6 +44,37 @@ Docs.helpers
             slug:@type
 
 Meteor.methods
+    create_account: (options) ->
+        #console.log("options = ", options)
+        # uname = options.profile.name
+        id = Accounts.createUser(options)
+        # if id
+        #     Roles.addUsersToRoles id, 'user'
+        #     Meteor.users.update id, $set: 'profile.name': uname
+        #     if titheData
+        #         Meteor.call 'updateTitheuserID', titheData.tithe, userID: id
+        #         tithe = Tithes.findOne(titheData.tithe)
+        #         source = tithe.data.source
+        #         cardObj = 
+        #             cardid: source.id
+        #             user: id
+        #             exp_month: source.exp_month
+        #             exp_year: source.exp_year
+        #             last4: source.last4
+        #         Meteor.call 'addMyCards', cardObj
+        #     userInfo = 
+        #         email: options.email
+        #         name: uname
+        #     Meteor.call 'sendGiverEmail', userInfo
+        #     Meteor.call 'STRIPE_create_customer', id, 'email'
+        #     text = 'Welcome to Joyful Giver ' + uname + ', \n' + 'As a registered donor, you can save your favorite organizations, see past gifts/receipts, setup repeat giving, print reports and securely save card info for future use.'
+        #     Meteor.call 'SMS_SEND', options.profile.phone, text
+        return
+
+
+
+
+
     add_facet_filter: (delta_id, key, filter)->
         if key is '_keys'
             new_facet_ob = {

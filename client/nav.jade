@@ -30,8 +30,12 @@ template(name='topnav')
                 a.item.toggle_rightbar(href='#')
                     i.bars.icon
             else
-                a.icon.item(href="/enter")
+                a.item(href="/signin")
                     i.sign.in.alternate.icon
+                    |Sign In 
+                a.item(href="/register")
+                    i.user.plus.icon
+                    |Register 
     // if currentUser
     .ui.attached.borderless.inverted.menu.topnav
         each topnav_schemas

@@ -1,0 +1,116 @@
+template(name='signin')
+    .ui.padded.stackable.grid.register-body
+        .centered.row
+            .ten.wide.column
+                .shadowed-box
+                    .ui.center.aligned.large.header 
+                        |Log In
+                    form.ui.large.form#login
+                        .field(class=login_class)
+                            label
+                                i.user.icon
+                                |username
+                            input#username(type='text' placeholder='example@gmail.com' required='' value='' name='username' autofocus='')
+                        .field(class=login_class)
+                            label
+                                i.lock.icon
+                                |password
+                            input#password(type='password' placeholder='******' required='' value='' name='password')
+                        .ui.hidden.divider
+                        button#submit.ui.fluid.circular.button(type='submit' class=enter_class title='Submit')
+                            i.sign.in.icon
+                            // strong Login
+                    .ui.basic.center.aligned.segment        
+                        .ui.horizontal.relaxed.list
+                            a.item(href='/signup')
+                                i.sign.in.icon
+                                |Signup
+                            a.item(href='/forgot-password') 
+                                i.refresh.icon
+                                |Forgot Password
+                            // +socialLoginButtons
+                        
+                        
+                        
+template(name='logout')
+    +splash
+                        
+                        
+                        
+template(name='forgot_password')
+    .ui.padded.stackable.grid.register-body
+        .centered.row
+            .twelve.wide.column
+                .ui.segment
+                    .ui.center.aligned.header
+                        i.forgot-password.icon
+                        |Reset Password
+                    form#forgotPasswordForm(action='#')
+                        .form-group
+                            label.control-label(for='username') Email
+                            input#username.form-control(type='email', placeholder='example@gmail.com', title='Please enter you username', required='', value='', name='username', autofocus='')
+                        button#reset.ui.teal.fluid.button(type='submit')
+                            i.submit-progress.icon
+                            |Send Reset Link
+                        .ui.horizontal.relaxed.list
+                            a.item(href='/signup')
+                                i.add-user-male.icon
+                                |Signup
+                            a.item(href='/signin') 
+                                i.login-rounded-down.icon
+                                |Sign-in
+
+
+template(name='reset_password')
+    .color-line
+    .back-link
+        a.btn.btn-primary(href="{{pathFor route='landingPage'}}") Back to Home Page
+    .normalheader.transition.animated.fadeIn
+        .panel-body.text-center
+            h3.font-light.m-b-xs
+                b Reset your password?
+    .animate-panel.bluegraybg
+        .login-container
+            .row
+                .col-md-12
+                    .hpanel
+                        .panel-body
+                            +flashMessages
+                            form#resetPasswordForm
+                                if resetPassword
+                                    .form-group
+                                        label.control-label(for='Password') Password
+                                        input#resetPasswordPassword.form-control.validationRequired.validationEqualTo(type='password', placeholder='password', name='password')
+                                    .form-group
+                                        label.control-label(for='CPassword') Confirm Password
+                                        input#resetPasswordPasswordConfirm.form-control.validationRequired.validationEqualTo(type='password', euqalto='#resetPasswordPassword', placeholder='confirm password', name='confirmpassword')
+                                    button.btn.btn-success.btn-block(type='submit') Submit
+                                    a(href='/signin') Sign-in
+                        
+                        
+                        
+template(name='selectRole')
+    .color-line
+    .back-link
+        a.btn.btn-primary(href="{{pathFor route='landingPage'}}") Back to Home Page
+    .normalheader.transition.animated.fadeIn
+        .panel-body.text-center
+            h3.font-light.m-b-xs
+                b Select your role
+    .animate-panel.bluegraybg
+        .login-container
+            .row
+                .col-md-12
+                    .hpanel
+                        .panel-body
+                            .col-lg-6.border-right
+                                p
+                                .btn-top-space.text-center.btn1-div
+                                    a.btn.btn-1.roleSelect(href='#', data-role='Organization') Organization
+                                p
+                            .col-lg-6
+                                p
+                                .btn-top-space.text-center.btn1-div
+                                    a.btn.btn-1.roleSelect(href='#', data-role='Giver') Giver
+                                p
+                    
