@@ -1,10 +1,12 @@
 
-Template.url_edit.events
+Template.link_edit.events
     'blur .edit_url': (e,t)->
-        url_val = t.$('.edit_url').val()
+        link_val = t.$('.edit_url').val()
         parent = Template.parentData()
-        Docs.update parent._id,
-            $set:"#{@key}":url_val
+        brick = Template.parentData(4)
+        context = Template.parentData(5)
+        Docs.update context._id,
+            $set:"#{brick.key}":link_val
 
 Template.html_edit.events
     'blur .froala-container': (e,t)->
@@ -88,54 +90,6 @@ Template.html_edit.helpers
 
 
 
-# Template.html_edit_quill.onRendered ->
-#     toolbarOptions = [
-#         ['bold', 'italic', 'underline', 'strike']
-#         ['blockquote', 'code-block']
-
-#         [{ 'header': 1 }, { 'header': 2 }]
-#         [{ 'list': 'ordered'}, { 'list': 'bullet' }]
-#         [{ 'script': 'sub'}, { 'script': 'super' }]
-#         [{ 'indent': '-1'}, { 'indent': '+1' }]
-#         [{ 'direction': 'rtl' }]
-
-#         [{ 'size': ['small', false, 'large', 'huge'] }]
-#         [{ 'header': [1, 2, 3, 4, 5, 6, false] }]
-
-#         [{ 'color': [] }, { 'background': [] }]
-#         [{ 'font': [] }]
-#         [{ 'align': [] }]
-
-#         ['clean']
-#     ]
-
-#     options =
-#         # debug: 'info'
-#         modules:
-#             toolbar: toolbarOptions
-#         placeholder: '...'
-#         readOnly: false
-#         theme: 'snow'
-
-#     @editor = new Quill('.editor', options)
-
-#     doc = Docs.findOne Router.curren().params.id
-
-#     @editor.clipboard.dangerouslyPasteHTML(doc.html)
-
-
-# Template.html_edit_quill.events
-#     'blur .editor': (e,t)->
-#         # console.log @
-#         # console.log t.editor
-#         delta = t.editor.getContents();
-#         html = t.editor.root.innerHTML
-#         parent = Template.parentData()
-#         Docs.update parent._id,
-#             $set:
-#                 "#{@key}": html
-#                 "_#{@key}.delta_ob": delta
-
 
 
 Template.image_edit.events
@@ -202,19 +156,20 @@ Template.array_edit.events
             Docs.update parent._id,
                 $pull:"#{field.key}":element
 
+        t.$('.new_element').focus()
+        t.$('.new_element').val(element)
 
 
-Template.textarea.onCreated ->
-    @editing = new ReactiveVar false
+# Template.textarea.onCreated ->
+#     @editing = new ReactiveVar false
 
-
-Template.textarea.helpers
-    is_editing: -> Template.instance().editing.get()
+# Template.textarea.helpers
+#     is_editing: -> Template.instance().editing.get()
     
     
-Template.textarea.events
-    'click .toggle_edit': (e,t)->
-        t.editing.set !t.editing.get()
+Template.textarea_edit.events
+    # 'click .toggle_edit': (e,t)->
+    #     t.editing.set !t.editing.get()
 
     'blur .edit_textarea': (e,t)->
         textarea_val = t.$('.edit_textarea').val()
@@ -224,7 +179,7 @@ Template.textarea.events
         
         if brick
             Docs.update context._id,
-            $set:"#{brick.key}":textarea_val
+                $set:"#{brick.key}":textarea_val
         else 
             if @collection and @collection is 'users'
                 Meteor.users.update parent._id,
@@ -312,8 +267,15 @@ Template.date_edit.events
     'blur .edit_date': (e,t)->
         parent = Template.parentData()
         val = t.$('.edit_date').val()
-        Docs.update parent._id,
-            $set:"#{@key}":val
+        brick = Template.parentData(4)
+        context = Template.parentData(5)
+        
+        if brick
+            Docs.update context._id,
+                $set:"#{brick.key}":val
+        else 
+            Docs.update parent._id,
+                $set:"#{@key}":val
 
 
 
@@ -369,7 +331,7 @@ Template.single_doc_edit.onCreated ->
 
 Template.single_doc_edit.helpers
     choices: -> 
-        # console.log @ref_schema
+        console.log @ref_schema
         if @ref_schema
             Docs.find type:@ref_schema
             
@@ -412,12 +374,21 @@ Template.single_doc_edit.events
         #         $set: "#{ref_field.key}": @slug
 
 
+Template.multi_doc_view.onCreated ->
+    @autorun => Meteor.subscribe 'type', @data.ref_schema
+
+Template.multi_doc_view.helpers
+    choices: -> 
+        console.log @ref_schema
+        Docs.find type:@ref_schema
+
+
 Template.multi_doc_edit.onCreated ->
-    @autorun => Meteor.subscribe 'ref_choices', @data.ref_schema
+    @autorun => Meteor.subscribe 'type', @data.ref_schema
 
 Template.multi_doc_edit.helpers
     choices: -> 
-        # console.log @schema
+        console.log @ref_schema
         Docs.find type:@ref_schema
     choice_class: ->
         selection = @

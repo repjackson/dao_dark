@@ -41,7 +41,7 @@ template(name='image_link_edit')
         input.edit_image_link(type='link' value=field_value placeholder='image link' )
     if field_value
         img.ui.fluid.image(src=field_value)
-        // +call_visual
+    // +call_visual
 
 
 template(name='image_link_view')
@@ -53,21 +53,13 @@ template(name='image_link_view')
 
 
 
-        // unless is_editing
-        // .ui.icon.compact.button.toggle_edit
-        //     if is_editing
-        //         i.green.checkmark.icon
-        //     else 
-        //         i.pencil.icon
-
 template(name='textarea_view')
     div
         if icon
             i.icon(class=icon)
         |#{label}: &nbsp;
-            
-            if field_value
-                |#{nl2br field_value}
+        if field_value
+            |#{nl2br field_value}
 
 
 template(name='textarea_edit')
@@ -283,12 +275,12 @@ template(name='boolean_view')
             i.icon(class=icon)
 
         |#{label}: &nbsp;
-            if field_value
-                // .ui.blue.label #{label}
-                strong True
-            else
-                strong False
-                // .ui.basic.label #{label}
+        if field_value
+            // .ui.blue.label #{label}
+            strong True
+        else
+            strong False
+            // .ui.basic.label #{label}
         
 
 
@@ -300,7 +292,7 @@ template(name='single_doc_edit')
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.compact.button.select_choice(class=choice_class)
+        .ui.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}
@@ -313,7 +305,19 @@ template(name='multi_doc_edit')
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.compact.button.select_choice(class=choice_class)
+        .ui.button.select_choice(class=choice_class)
+            if icon
+                i.icon(class=icon)
+            |#{title}
+            |#{key}
+
+template(name='multi_doc_view')
+    .ui.small.header(title=key)
+        if icon
+            i.icon(class=icon)
+        |#{label}
+    each choices
+        .ui.label
             if icon
                 i.icon(class=icon)
             |#{title}
