@@ -1,5 +1,5 @@
 template(name='topnav')
-    .ui.attached.borderless.large.menu
+    .ui.attached.borderless.large.inverted.menu
         a.item.toggle_leftbar(href='#')
             i.bars.icon
         a.item(href='/s/schema' class="{{isActivePath '/'}}")
@@ -35,7 +35,7 @@ template(name='topnav')
                 a.icon.item(href="/enter")
                     i.sign.in.alternate.icon
     // if currentUser
-    .ui.attached.borderless.menu.topnav
+    .ui.attached.borderless.inverted.menu.topnav
         each topnav_schemas
             a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                 i.icon(class=icon)
@@ -74,7 +74,7 @@ template(name='footer')
         
 
 template(name='topbar')
-    .ui.top.sidebar.segment.push.nav_bar.row.toggle_topbar.topbar
+    .ui.top.sidebar.inverted.segment.push.nav_bar.toggle_topbar.topbar
         .ui.grid
             .four.wide.column
                 .ui.small.inverted.header Nonprofits
@@ -101,7 +101,7 @@ template(name='topbar')
 
 
 template(name='rightbar')
-    .ui.right.vertical.sidebar.nav_bar.menu.rightbar
+    .ui.right.vertical.sidebar.nav_bar.inverted.menu.rightbar
         if is_church
             .profile-picture
                 a(href="{{pathFor route='churchDashboard'}}" class="{{isActiveRoute 'churchDashboard'}}")
@@ -158,7 +158,7 @@ template(name='rightbar')
 
 
 template(name='leftbar')
-    .ui.left.vertical.sidebar.nav_bar.menu.leftbar
+    .ui.left.vertical.sidebar.nav_bar.inverted.menu.leftbar
         if is_dev
             a.item.toggle_leftbar.toggle_dev.mobile_hidden(href="#")
                 i.user.shield.icon

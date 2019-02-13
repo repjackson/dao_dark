@@ -5,8 +5,8 @@ Docs.allow
 
 Cloudinary.config
     cloud_name: 'facet'
-    api_key: Meteor.settings.private.cloudinary.api_key
-    api_secret: Meteor.settings.private.cloudinary.api_secret
+    api_key: Meteor.settings.private.cloudinary.cloudinary_key
+    api_secret: Meteor.settings.private.cloudinary.cloudinary_secret
 
 Meteor.users.allow
     insert: (userId, doc) ->

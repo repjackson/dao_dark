@@ -10,7 +10,7 @@ $.cloudinary.config
 
 Session.setDefault 'invert', false
 Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
-Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'inverted' else ''
+Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'invert' else ''
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 Template.registerHelper 'is_author', () -> @_author_id is Meteor.userId()
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
