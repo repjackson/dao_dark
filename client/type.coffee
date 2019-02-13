@@ -78,10 +78,10 @@
 
 
 
-# Template.facet.onRendered ->
-#     Meteor.setTimeout ->
-#         $('.accordion').accordion()
-#     , 1000
+Template.facet.onRendered ->
+    Meteor.setTimeout ->
+        $('.accordion').accordion()
+    , 1000
 
 
 

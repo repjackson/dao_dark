@@ -20,7 +20,9 @@ Template.topnav.events
         Session.set('dev_mode', !Session.get('dev_mode'))
 
     'click .set_schema': ->
-        Meteor.call 'set_delta_facets', @slug
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', @slug, ->
+            Session.set 'loading', false
 
 
 Template.topbar.onCreated ->

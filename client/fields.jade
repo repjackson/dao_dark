@@ -99,16 +99,15 @@ template(name='html_view')
 
 
 template(name='text_edit')
-    .ui.form
-        .field
-            label 
-                if icon
-                    i.icon(class=icon)
-                if label
-                    |#{label}
-                else
-                    |#{key}
-            input.edit_text(type='text' value=field_value placeholder=placeholder)
+    .ui.labeled.input
+        .ui.label 
+            if icon
+                i.icon(class=icon)
+            if label
+                |#{label}
+            else
+                |#{key}
+        input.edit_text(type='text' value=field_value placeholder=placeholder)
 
 template(name='text_view')
     div
@@ -132,8 +131,11 @@ template(name='code_edit')
 
 template(name='number_edit')
     .ui.form
-        .two.wide.column
-            label #{label}
+        .field
+            label
+                if icon
+                    i.icon(class=icon)
+                |#{label}
             input.edit_number(type='number' value=field_value placeholder=placeholder)
 
 template(name='number_view')
@@ -172,23 +174,22 @@ template(name='date_view')
 
 
 template(name='array_edit')
-    .ui.form
-        .inline.field
-            label 
-                if icon
-                    i.icon(class=icon)
-                if label
-                    |#{label}
-                else
-                    |#{key}
-            if field_value
-                each field_value
-                    .ui.label
-                        i.remove.link.icon.remove_element
-                        |#{this}
-            .ui.icon.input
-                input.new_element(type='text')
-                i.plus.icon
+    div
+    .ui.labeled.icon.input
+        .ui.label 
+            if icon
+                i.icon(class=icon)
+            if label
+                |#{label}
+            else
+                |#{key}
+        input.new_element(type='text' placeholder='+')
+    if field_value
+        each field_value
+            .ui.label
+                i.remove.link.icon.remove_element
+                |#{this}
+    div
 
 
 template(name='array_view')
@@ -197,7 +198,7 @@ template(name='array_view')
             i.icon(class=icon)
         |#{label}
         each field_value
-            .ui.basic.label #{this}
+            .ui.label #{this}
 
 
 
@@ -207,21 +208,24 @@ template(name='array_view')
 
 template(name='children_edit')
     .ui.fluid.secondary.segment
-        .ui.small.inline.header #{label}
-        .ui.icon.button.add_child
-            i.plus.icon
-        +add_child_button
-        each children
-            +child
+        .ui.accordion
+            .active.title
+                .ui.small.inline.header #{label}
+                i.dropdown.icon
+            .active.content
+                .ui.button.add_child
+                    i.plus.icon
+                    |Add Child
+                each children
+                    +child
 
 
 
 template(name='child')
     .ui.segment
-        .ui.blue.segment
-            each bricks
-                .item
-                    +Template.dynamic template=edit_template 
+        each bricks
+            .item
+                +Template.dynamic template=edit_template 
     
         // .ui.red.segment
         //     +text_edit key='key'
@@ -280,14 +284,14 @@ template(name='boolean_view')
             strong True
         else
             strong False
-            // .ui.basic.label #{label}
+            // .ui.label #{label}
         
 
 
 
 
 template(name='single_doc_edit')
-    .ui.small.header(title=key) 
+    .ui.small.inline.header(title=key) 
         if icon
             i.icon(class=icon)
         |#{label}
@@ -300,7 +304,7 @@ template(name='single_doc_edit')
 
 
 template(name='multi_doc_edit')
-    .ui.small.header(title=key)
+    .ui.small.inline.header(title=key)
         if icon
             i.icon(class=icon)
         |#{label}

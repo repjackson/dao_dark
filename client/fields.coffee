@@ -301,6 +301,10 @@ Template.children_edit.onCreated ->
     @autorun => Meteor.subscribe 'schema_from_slug',  @data.ref_schema
     @autorun => Meteor.subscribe 'schema_bricks_from_slug', @data.ref_schema
 
+Template.children_edit.onRendered ->
+    Meteor.setTimeout ->
+        $('.accordion').accordion()
+    , 1000
 
 Template.children_edit.helpers
     children: ->
@@ -331,7 +335,7 @@ Template.single_doc_edit.onCreated ->
 
 Template.single_doc_edit.helpers
     choices: -> 
-        console.log @ref_schema
+        # console.log @ref_schema
         if @ref_schema
             Docs.find type:@ref_schema
             
@@ -389,7 +393,7 @@ Template.multi_doc_edit.onCreated ->
 
 Template.multi_doc_edit.helpers
     choices: -> 
-        console.log @ref_schema
+        # console.log @ref_schema
         Docs.find type:@ref_schema
     choice_class: ->
         selection = @
