@@ -327,15 +327,15 @@ Meteor.methods
         facets = []
         for brick in schema_bricks
             # console.log brick
-            # unless brick.field in ['textarea','image','youtube','html']
-            facet = {
-                key:brick.key
-                label:brick.label
-                icon:brick.icon
-                filters:[]
-                res:[]
-            }
-            facets.push facet
+            unless brick.field in ['textarea','image','youtube','html']
+                facet = {
+                    key:brick.key
+                    label:brick.label
+                    icon:brick.icon
+                    filters:[]
+                    res:[]
+                }
+                facets.push facet
             
         # timestamp_tags_facet = {
         #     key:'timestamp_tags'

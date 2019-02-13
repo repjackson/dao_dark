@@ -44,3 +44,4 @@ froala:editor-reactive@=2.4.2
 lepozepo:cloudinary
 coffeescript
 zimme:active-route
+kit:sweetalert

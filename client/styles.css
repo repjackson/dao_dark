@@ -161,7 +161,7 @@ a {
   flex-direction: column;
 }
 #main {
-    min-height: 90vh;
+    min-height: 80vh;
     /*margin-top:3em;*/
     /*margin-bottom:3em;*/
     /*margin-left: 1em;*/

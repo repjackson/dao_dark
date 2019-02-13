@@ -1,12 +1,19 @@
-template(name='url_edit')
+template(name='link_edit')
     .ui.form
         .field
-            label #{label}
+            label 
+                if icon
+                    i.icon(class=icon)
+                |#{label}
             input.edit_url(type='url' value=field_value placeholder='url')
+        // +call_watson mode='url'
 
 
-template(name='url_view')
-    .ui.small.header #{label}
+template(name='link_view')
+    .ui.small.header 
+        if icon
+            i.icon(class=icon)
+        |#{label}
     a(href=field_value target='_window') #{field_value}
 
 
@@ -27,32 +34,55 @@ template(name='image_edit')
                 input(type='file' name='upload_image' accept='image/*')
 
 
+template(name='image_link_edit')
+    .ui.labeled.icon.fluid.input
+        .ui.label image link
+        i.image.icon
+        input.edit_image_link(type='link' value=field_value placeholder='image link' )
+    if field_value
+        img.ui.fluid.image(src=field_value)
+        // +call_visual
 
 
-template(name='textarea')
+template(name='image_link_view')
+    img.ui.image(src=field_value)
+
+
+
+
+
+
+
+        // unless is_editing
+        // .ui.icon.compact.button.toggle_edit
+        //     if is_editing
+        //         i.green.checkmark.icon
+        //     else 
+        //         i.pencil.icon
+
+template(name='textarea_view')
     div
         if icon
             i.icon(class=icon)
         |#{label}: &nbsp;
-        .ui.icon.compact.button.toggle_edit
-            if is_editing
-                i.green.checkmark.icon
-            else 
-                i.pencil.icon
             
-        unless is_editing
             if field_value
                 |#{nl2br field_value}
-        else
-            .ui.form
-                .field
-                    label 
-                        if label
-                            |#{label}
-                        else
-                            |#{key}
-                    textarea.edit_textarea(rows='20') #{field_value}
-    
+
+
+template(name='textarea_edit')
+    .ui.form
+        .field
+            label 
+                if icon
+                    i.icon(class=icon)
+                if label
+                    |#{label}
+                else
+                    |#{key}
+            textarea.edit_textarea(rows='20') #{field_value}
+        // +call_watson mode='text'
+
 
 template(name='html_edit')
     .ui.form
@@ -68,10 +98,6 @@ template(name='html_edit')
         +froalaReactive getFEContext
 
 
-
-// template(name='html_edit')
-//     #toolbar
-//     .editor
 
 template(name='html_view')
     |!{field_value}
@@ -93,7 +119,10 @@ template(name='text_edit')
             input.edit_text(type='text' value=field_value placeholder=placeholder)
 
 template(name='text_view')
-    div #{label}: &nbsp;
+    div
+        if icon
+            i.icon(class=icon)
+        |#{label}: &nbsp;
         strong #{field_value}
 
 
@@ -113,9 +142,12 @@ template(name='number_edit')
     .ui.form
         .two.wide.column
             label #{label}
-            input.edit_number(type='number' value=field_value placeholder=label)
+            input.edit_number(type='number' value=field_value placeholder=placeholder)
 
 template(name='number_view')
+    if icon
+        i.icon(class=icon)
+
     | #{label}: &nbsp;
     strong #{field_value}
 
@@ -131,10 +163,13 @@ template(name='date_edit')
                     |#{label}
                 else
                     |#{key}
-            input.edit_date(type='date' value=field_value placeholder=label)
+            input.edit_date(type='date' value=field_value placeholder=placeholder)
 
 
 template(name='date_view')
+    if icon
+        i.icon(class=icon)
+
     | #{label}: &nbsp;
     strong #{field_value}
 
@@ -148,6 +183,8 @@ template(name='array_edit')
     .ui.form
         .inline.field
             label 
+                if icon
+                    i.icon(class=icon)
                 if label
                     |#{label}
                 else
@@ -185,7 +222,6 @@ template(name='children_edit')
         each children
             +child
 
-template(name='add_child_button')
 
 
 template(name='child')
@@ -215,17 +251,21 @@ template(name='child')
 
 
 
-
-
 template(name='youtube_edit')
     .ui.labeled.fluid.input
-        .ui.label youtube id
+        .ui.label 
+            if icon
+                i.icon(class=icon)
+            |youtube id
         input.youtube_id(type='text' value=field_value placeholder=placeholder)
     if field_value
         iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 template(name='youtube_view')
     if field_value
+        if icon
+            i.icon(class=icon)
+
         iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 
@@ -234,18 +274,22 @@ template(name='youtube_view')
 
 template(name='boolean_edit')
     .ui.button.toggle_boolean(class=boolean_toggle_class)
-        |#{label}
+        |#{label} [#{key}]
 
 
 template(name='boolean_view')
-    div #{label}: &nbsp;
-        if field_value
-            // .ui.blue.label #{label}
-            strong True
-        else
-            strong False
-            // .ui.basic.label #{label}
-    
+    div 
+        if icon
+            i.icon(class=icon)
+
+        |#{label}: &nbsp;
+            if field_value
+                // .ui.blue.label #{label}
+                strong True
+            else
+                strong False
+                // .ui.basic.label #{label}
+        
 
 
 

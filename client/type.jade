@@ -176,8 +176,8 @@ template(name='result')
                     +Template.dynamic template=view_template 
             .extra
                 +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                if is_author
-                    +edit_button
+                // if is_author
+                +edit_button
                 +view_button
                 if is_schema_type
                     // a.ui.icon.button(href="/schema/#{_id}/edit")

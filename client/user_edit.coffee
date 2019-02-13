@@ -23,7 +23,7 @@ Template.user_schema_editor.helpers
     
     user_schema_class: ->
         current_user = Meteor.users.findOne Router.current().params._id
-        if current_user.schema_ids and @_id in current_user.schema_ids then 'darkblue' else 'basic'
+        if current_user.schema_ids and @_id in current_user.schema_ids then 'darkblue' else ''
 
 
 Template.user_schema_editor.events

@@ -9,8 +9,6 @@ Template.topnav.helpers
     user: -> Meteor.users.findOne username:Router.current().params.username
 
 Template.topnav.events
-    'click .logout': -> Meteor.logout()
-
     'click .toggle_invert': ->
         Session.set('invert', !Session.get('invert'))
 
@@ -93,6 +91,9 @@ Template.topbar.onRendered ->
                     })
                     .sidebar('attach events', '.toggle_topbar')
             , 2000
+
+Template.rightbar.events
+    'click .logout': -> Meteor.logout()
 
 
 

@@ -3,10 +3,10 @@ template(name='user_edit')
         .middle.aligned.row
             .four.wide.center.aligned.column
                 a.ui.large.icon.button(href="/user/#{user_from_id_param._id}/about" title='Profile') 
-                    i.green.checkmark.icon
+                    i.checkmark.icon
             .eight.wide.center.aligned.column
                 .ui.center.aligned.large.header
-                    i.settings.icon
+                    i.cog.icon
                     | #{user_from_id_param.profile.name} #{user_from_id_param.profile.churchName} Profile
         .row
             .four.wide.column
@@ -20,7 +20,7 @@ template(name='user_edit')
                             .ui.centered.rounded.image
                                 img.ui.medium.image(src="{{c.url user_from_id_param.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
                                 a#remove_photo.ui.right.corner.link.label
-                                    i.remove.red.link.icon
+                                    i.remove.link.icon
                         else
                             label Profile Image
                             input(type='file' name='profile_image' accept='image/*')
@@ -30,7 +30,7 @@ template(name='user_edit')
                             .ui.centered.rounded.image
                                 img.ui.medium.image(src="{{c.url user_from_id_param.profile.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
                                 a#remove_banner.ui.right.corner.link.label
-                                    i.remove.red.link.icon
+                                    i.remove.link.icon
                         else
                             label Banner Image
                             input(type='file' name='banner_image' accept='image/*')
@@ -98,11 +98,11 @@ template(name='user_edit')
             //                 input#cvc.form-control(type='tel', name='cvc')
         .actions
             .ui.green.approve.button.save_new_card Save Card
-            .ui.red.cancel.button.closePopup Cancel
+            .ui.cancel.button.closePopup Cancel
         // #add_buttons.modal-footer
         // #edit_buttons.modal-footer
         //     .btn.btn-info.update_existing_card Update Card
-        //     .ui.cancel.red.button.closePopup Cancel
+        //     .ui.cancel.button.closePopup Cancel
 
 
 
@@ -187,10 +187,10 @@ template(name='church_stripe')
         if user_from_id_param.profile.stripe
             .ui.green.segment
                 .ui.small.header Payment Account Connected
-                #removeStripe.ui.red.button Disconnect
+                #removeStripe.ui.button Disconnect
                 #dashboardStripe.ui.blue.button(title="Used for refunds, declining payments and monitoring account transactions.") Stripe Dashboard
         else
-            .ui.red.segment
+            .ui.segment
                 .ui.small.header No payment account connected.
                 a#addStripe.ui.small.blue.button(href='{{SETTINGS.stripeConnectRedirect}}{{SETTINGS.stripeClientId}}') Create or Connect An Account
                         

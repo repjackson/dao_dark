@@ -30,7 +30,7 @@ template(name='toggle_edit')
         i.pencil.icon
 
 template(name='user_list_info')
-    a.ui.button.item(href="/user/profile/#{user._id}")
+    a.ui.button.item(href="/user/#{user._id}")
         img.ui.avatar.image(src=user.profile.profilePic title=name)
         |#{user.profile.name}
         +user_status user
@@ -56,7 +56,7 @@ template(name='user_status')
 
 
 template(name='user_info')
-    a.ui.button.item(href="/user/profile/#{user._id}")
+    a.ui.button.item(href="/u/#{user.username}")
         if profile.image_id
             img.ui.avatar.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
         if user.profile.name

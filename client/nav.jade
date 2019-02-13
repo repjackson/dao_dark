@@ -4,8 +4,8 @@ template(name='topnav')
             i.bars.icon
         a.item(href='/s/schema' class="{{isActivePath '/'}}")
             .black_bat.logo DAO
-        a.item.toggle_invert(href='#')
-            i.adjust.icon
+        // a.item.toggle_invert(href='#')
+        //     i.adjust.icon
         .right.menu
             if currentUser
                 a.item.add(href='#')
@@ -15,7 +15,7 @@ template(name='topnav')
                 a.item(href='/p/chat')
                     i.chat.icon
                 a.item.set_schema(href='/s/schema')
-                    i.bars.icon
+                    i.sitemap.icon
                 a.icon.item(href="/user/#{currentUser._id}/edit")
                     i.cog.icon
                 a.item(href='/users' class="{{isActivePath '/users'}}")
@@ -29,8 +29,6 @@ template(name='topnav')
                     | #{currentUser.username} [#{currentUser.status}]
                 a.item.toggle_rightbar(href='#')
                     i.bars.icon
-                a.item.logout(href='#')
-                    i.sign.out.alternate.icon
             else
                 a.icon.item(href="/enter")
                     i.sign.in.alternate.icon
@@ -45,7 +43,7 @@ template(name='topnav')
 
 
 template(name='footer')
-    .ui.bottom.fixed.menu
+    .ui.inverted.menu
         // .item
         //     i.copyright.outline.icon
         //     .black_bat DAO
@@ -148,7 +146,7 @@ template(name='rightbar')
             .icon.disabled.item.toggle_rightbar
                 i.notched.circle.loading.big.icon
         else
-            a#logout.item.toggle_rightbar(href='#')
+            a.logout.item.toggle_rightbar(href='#')
                 i.sign.out.icon
                 | Log Out
 
