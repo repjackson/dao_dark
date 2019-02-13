@@ -214,11 +214,11 @@ Meteor.publish 'schemas', (dev_mode)->
         if Meteor.user()
             Docs.find
                 type:'schema'
-                view_roles:$in:Meteor.user().roles
+                # view_roles:$in:Meteor.user().roles
         else
             Docs.find
                 type:'schema'
-                view_roles:$in:['public']
+                # view_roles:$in:['public']
         
         
         

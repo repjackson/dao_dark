@@ -9,6 +9,7 @@ Router.route '/delta', -> @render 'delta'
 
 Router.route '/', -> @render 'delta'
 
+Router.route '/chat', -> @render 'view_chats'
 Router.route '/enter', -> @render 'enter'
 Router.route '/me', -> @render 'me'
 Router.route '/users', -> @render 'users'

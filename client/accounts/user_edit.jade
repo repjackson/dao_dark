@@ -46,31 +46,31 @@ template(name='user_edit')
                     .ui.header 
                         i.credit.card.icon
                         |Payment Methods
-                    .ui.green.button.addCard
-                        i.plus.icon
-                        |Card
+                    // .ui.green.button.addCard
+                    //     i.plus.icon
+                    //     |Card
                     if cards
                         each cards
                             +card_holder
                     else
                         .ui.orange.segment
                             .ui.header No cards saved
-    #add_card_modal.ui.modal
-        .ui.header 
-            i.credit.card.icon
-            |Add a Card
-        .content
-            // if isPhone
-            //     #scanBtn.btn.btn-info.pull-right Scan Card
-            form#payment-form.ui.form
-                .field
-                    // label(for='card-element')
-                    //     | Credit or debit card
-                    #card-element
-                    // A Stripe Element will be inserted here.
-                    // Used to display Element errors.
-                    #card-errors(role='alert')
-                button.ui.blue.button Submit Payment
+    // #add_card_modal.ui.modal
+    //     .ui.header 
+    //         i.credit.card.icon
+    //         |Add a Card
+    //     .content
+    //         // if isPhone
+    //         //     #scanBtn.btn.btn-info.pull-right Scan Card
+    //         form#payment-form.ui.form
+    //             .field
+    //                 // label(for='card-element')
+    //                 //     | Credit or debit card
+    //                 #card-element
+    //                 // A Stripe Element will be inserted here.
+    //                 // Used to display Element errors.
+    //                 #card-errors(role='alert')
+    //             button.ui.blue.button Submit Payment
 
             
             // #addcardform.form-horizontal.row
@@ -187,12 +187,12 @@ template(name='church_stripe')
         if user_from_id_param.profile.stripe
             .ui.green.segment
                 .ui.small.header Payment Account Connected
-                #removeStripe.ui.button Disconnect
-                #dashboardStripe.ui.blue.button(title="Used for refunds, declining payments and monitoring account transactions.") Stripe Dashboard
+                // #removeStripe.ui.button Disconnect
+                // #dashboardStripe.ui.blue.button(title="Used for refunds, declining payments and monitoring account transactions.") Stripe Dashboard
         else
             .ui.segment
                 .ui.small.header No payment account connected.
-                a#addStripe.ui.small.blue.button(href='{{SETTINGS.stripeConnectRedirect}}{{SETTINGS.stripeClientId}}') Create or Connect An Account
+                // a#addStripe.ui.small.blue.button(href='{{SETTINGS.stripeConnectRedirect}}{{SETTINGS.stripeClientId}}') Create or Connect An Account
                         
          
          

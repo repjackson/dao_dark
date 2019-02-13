@@ -12,7 +12,7 @@ template(name='topnav')
                     i.link.plus.icon
                 a.item.toggle_topbar(href='#')
                     i.inbox.icon
-                a.item(href='/p/chat')
+                a.item(href='/chat')
                     i.chat.icon
                 a.item.set_schema(href='/s/schema')
                     i.sitemap.icon
@@ -59,9 +59,9 @@ template(name='footer')
                 |#{doc_count} docs
                 |#{user_count} users
         .item
-            | stare into the abyss
+            | stand up and fight
         .item
-            .ui.transparent.large.input
+            .ui.transparent.input
                 input#quick_add(type='text' placeholder='quick add')
         .item
             form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
