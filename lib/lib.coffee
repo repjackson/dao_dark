@@ -1,6 +1,5 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
-@Types = new Meteor.Collection 'types'
 
 
 Docs.before.insert (userId, doc)=>

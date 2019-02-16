@@ -81,7 +81,7 @@ Router.route '/u/:_id/contact', (->
 
 Router.route '/u/:_id/edit', -> @render 'user_edit'
 
-Router.route '/s/:type', -> @render 'type'
+Router.route '/s/:type', -> @render 'delta'
 Router.route '/s/:type/:_id/edit', -> @render 'type_edit'
 Router.route '/s/:type/:_id/view', -> @render 'type_view'
 

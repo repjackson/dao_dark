@@ -330,7 +330,7 @@ Template.children_edit.events
 
 
 Template.single_doc_view.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_schema
+    # @autorun => Meteor.subscribe 'type', @data.ref_schema
 
 Template.single_doc_view.helpers
     choices: -> 
@@ -390,7 +390,7 @@ Template.single_doc_edit.events
 
 
 Template.multi_doc_view.onCreated ->
-    @autorun => Meteor.subscribe 'type', @data.ref_schema
+    # @autorun => Meteor.subscribe 'type', @data.ref_schema
 
 Template.multi_doc_view.helpers
     choices: -> 

@@ -1,10 +1,5 @@
-# Router.route '/s/:type', -> @render 'type'
-# Router.route '/s/:type/:id/edit', -> @render 'type_edit'
-# Router.route '/s/:type/:id/view', -> @render 'type_view'
-
-
 if Meteor.isClient
-    Template.type.onCreated ->
+    Template.delta.onCreated ->
         # @autorun -> Meteor.subscribe 'schema', Router.current().params.type
         # @autorun -> Meteor.subscribe 'type', 'schema'
         @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
@@ -12,11 +7,11 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
         @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
         # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
-        # @autorun -> Meteor.subscribe 'type', 'delta'
+        @autorun -> Meteor.subscribe 'type', 'field_template'
         @autorun -> Meteor.subscribe 'my_delta'
 
 
-    Template.type.helpers
+    Template.delta.helpers
         schema: ->
             Docs.findOne
                 type:'schema'
@@ -43,7 +38,7 @@ if Meteor.isClient
 
 
 
-    Template.type.events
+    Template.delta.events
         'click .add_type_doc': ->
             new_doc_id = Docs.insert type:Router.current().params.type
             Router.go "/s/#{@type}/#{new_doc_id}/edit"
@@ -118,3 +113,66 @@ if Meteor.isClient
                 Docs.remove @_id
                 Router.go '/schemas'
 
+
+
+    Template.facet.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1000
+    
+    Template.facet.events
+        'click .toggle_selection': ->
+            delta = Docs.findOne type:'delta'
+            facet = Template.currentData()
+            Session.set 'loading', true
+            if facet.filters and @name in facet.filters
+                Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+                    Session.set 'loading', false
+            else 
+                Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+                    Session.set 'loading', false
+          
+        'keyup .add_filter': (e,t)->
+            if e.which is 13
+                delta = Docs.findOne type:'delta'
+                facet = Template.currentData()
+                filter = t.$('.add_filter').val()
+                Session.set 'loading', true
+                Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
+                    Session.set 'loading', false
+                t.$('.add_filter').val('')
+                
+        
+      
+    
+    Template.facet.helpers
+        filtering_res: ->
+            delta = Docs.findOne type:'delta'
+            filtering_res = []
+            for filter in @res
+                if filter.count < delta.total
+                    filtering_res.push filter
+                else if filter.name in @filters
+                    filtering_res.push filter
+            filtering_res
+    
+        
+    
+        toggle_value_class: ->
+            facet = Template.parentData()
+            delta = Docs.findOne type:'delta'
+            if Session.equals 'loading', true
+                 'disabled '
+            else if facet.filters.length > 0 and @name in facet.filters
+                'grey'
+            else ''
+            
+    Template.result.onCreated ->
+        @autorun => Meteor.subscribe 'doc', @data._id
+    
+    Template.result.helpers
+        result: -> Docs.findOne @_id
+        
+    Template.result.events
+        'click .set_schema': ->
+            Meteor.call 'set_delta_facets', @slug, Meteor.userId()

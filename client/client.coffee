@@ -90,6 +90,12 @@ Template.registerHelper 'current_user', () ->
     Meteor.userId() is Router.current().params._id
     
     
+Template.registerHelper 'field_template_doc', () ->
+    console.log @
+    Docs.findOne
+        type:'field_template'
+        
+    
     
 Template.registerHelper 'view_template', ->
     # console.log @

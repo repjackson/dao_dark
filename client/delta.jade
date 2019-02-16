@@ -1,75 +1,220 @@
-// template(name='delta')
-//     .new_session.ui.icon.button.pointer(title='new session')
-//         i.plus.icon
-//     each my_sessions
-//         .ui.button.select_session(class=session_selector_class title='select session')
-//             if title
-//                 |#{title}
-//             else 
-//                 i.play.icon
-//     .ui.stackable.grid
-//         .row
-//             .six.wide.column.scrolling
-//                 if current_delta
-//                     // .ui.icon.button.print_delta
-//                     //     i.code.icon
-//                     // .ui.reset.icon.button(title='reset')
-//                     //     i.refresh.icon
-//                     .ui.delete_delta.icon.button(title='delete delta')
-//                         i.trash.icon
-//                 // |did: #{session_delta_id}
-//                 each current_delta.facets
-//                     +facet
-//             .ten.wide.column.scrolling
-//                 each current_delta.result_ids
-//                     +result
-//         // .centered.row   
-//         //     .sixteen.wide.center.aligned.column
-//         //         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-//         //             input(type='hidden', name='cmd', value='_s-xclick')
-//         //             input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-//         //             // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-//         //             img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-//         //             button.ui.icon.large.button(type='submit')
-//         //                 i.pied.piper.alternate.large.icon
+template(name='delta')
+    with schema
+        .ui.stackable.padded.grid
+            .row
+                .six.wide.column.scrolling
+                    .ui.center.aligned.header
+                        i.icon(class=icon)
+                        | #{plural}
+                    .ui.small.center.aligned.header #{body}
+                    unless is_loading
+                        if can_add
+                            .ui.icon.button.add_type_doc(title="Add #{title}")
+                                i.plus.icon
+                                |Add #{title}
+                        if can_edit
+                            .ui.button.edit_schema
+                                i.cog.icon
+                                | Configure #{group}
+                        // .ui.divider
+                        // // each sessions
+                        // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
+                        // //         i.play.icon
+                                
+                        if current_delta
+                            div
+                            .ui.icon.button.print_delta(title='Print Session Doc')
+                                i.code.icon
+                                // |Print Session
+                            .ui.reset.icon.button(title='Reload Session')
+                                i.refresh.icon
+                                // |Reload Session
+                            .ui.delete_delta.icon.button(title='Delete Session')
+                                i.trash.icon
+                                // |Delete Session
+                        else
+                            .create_delta.ui.button.pointer(title='new session')
+                                i.plus.icon
+                                |Create Session
+                    // |did: #{session_delta_id}
+                            
+                    each current_delta.facets
+                        +facet
+                .ten.wide.column.scrolling
+                    each current_delta.result_ids
+                        +result
+
+
+            // .twelve.wide.column
+            //     each type_docs
+            //         +type_item
+
+
+// template(name='type_item')
+//     .ui.segment
+//         a.ui.header(href="/s/#{type}/#{_id}/view")
+//             if icon
+//                 i.icon(class=icon)
+//             |#{title}
+//         .description
+//             each bricks
+//                 +Template.dynamic template=view_template 
+//         .extra
+//             +user_list_toggle key='bookmark_ids' icon='bookmark'  add_label='Bookmark' remove_label='Unbookmark' color='red' big=small
+//             if is_author
+//                 +edit_button
+//             // if is_schema_type
+//             a.ui.icon.button(href="/schema/#{_id}/edit")
+//                 i.pencil.icon
+//                 |Configure Schema
+//             +view_button
+//             +creation_info
+//             +author_info
+
+
+template(name='type_edit')
+    with doc
+        .ui.stackable.padded.grid
+            .centered.row
+                .four.wide.center.aligned.column
+                    +save_button
+                .eight.wide.center.aligned.column
+                    i.pencil.icon
+                    .ui.inline.header
+                        if icon
+                            i.icon(class=icon)
+                        |#{title}
+                    .ui.small.header Type: #{type}
+                .four.wide.center.aligned.column
+                    +remove_button
+            .row
+                .sixteen.wide.column
+                    .ui.segment
+                        each bricks
+                            if field_template
+                                .ui.header field_template #{field_template}
+                            else
+                                +Template.dynamic template=edit_template 
+                            // .ui.header #{key} [#{field}] #{label}
+
+
+template(name='type_view')
+    with doc
+        .ui.stackable.padded.grid
+            .row
+                .ten.wide.column
+                    .ui.breadcrumb
+                        a.section(href='/dashboard')
+                            .ui.compact.button
+                                i.dashboard.icon
+                                |Dashboard
+                        .divider
+                            i.chevron.right.icon
+                        a.section(href="/s/#{type}" title=schema.group)
+                            .ui.compact.button
+                                i.icon(class=schema.icon)
+                                |#{schema.group}
+                        .divider
+                            i.chevron.right.icon
+                        .active.section
+                            if icon
+                                i.icon(class=icon)
+                            if title
+                                |#{title}
+                            else
+                                |View #{type}
+            .row
+                .four.wide.column
+                    // .ui.header
+                    //     a.ui.icon.button(href="/s/#{type}" title=plural)
+                    //         i.chevron.left.icon
+                    //     |View #{type}
+                    if is_author
+                        +edit_button
+                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                .twelve.wide.column
+                    .ui.segment
+                        .ui.header
+                            if icon
+                                i.icon(class=icon)
+                            |#{title}
+                        .ui.list
+                            each bricks
+                                .item
+                                    +Template.dynamic template=view_template 
+                    div
+                    +comments
+                    
+                    
+
+template(name='facet')
+    // if filtering_res
+    .ui.accordion
+        .active.title
+            if icon
+                i.icon(class=icon)
+            .ui.inline.small.header 
+                |#{label}
+            // .ui.transparent.left.icon.small.input
+            //     i.search.icon
+            //     input.add_filter(type='text' placeholder='search')
+            i.dropdown.icon
+        .active.content
+            // each filters
+            //     .unselect.ui.blue.button #{this}
+            each filtering_res
+                if name
+                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                        | #{name}
+                        small #{count}
+                else
+                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                        strong [null]
+                        small #{count}
 
 
 
-// template(name='facet')
-//     if filtering_res
-//         div
-//         .ui.inline.small.header #{key}
-//         // each filters
-//         //     .unselect.ui.blue.button #{this}
-//         .ui.transparent.left.icon.input
-//             i.search.icon
-//             input.add_filter(type='text' placeholder='search')
-//         each filtering_res
-//             if name
-//                 .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-//                     strong #{name}
-//                     // small #{count}
-//             else
-//                 .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-//                     strong [null]
-//                     // small #{count}
-
-
-
-// template(name='result')
-//     with result 
-//         each _keys
-//             // .ui.label #{this}
-//             +key_view
-//         if visual_classes
-//             +visual_classes
-//         if analyzed_text
-//             |#{nl2br analyzed_text}
-
-//         +author_info
-//         +creation_info
-//         +view_button
-//         +edit_button
-//     .ui.divider
+template(name='result')
+    with result 
+        .ui.black.segment
+            a.ui.header(href="/s/#{type}/#{_id}/view")
+                if icon
+                    i.icon(class=icon)
+                |#{title}
+            .description
+                each bricks
+                    if field_template
+                        .ui.header field_template #{field_template}
+                        with field_template_doc
+                            +Template.dynamic template=view_template 
+                    else
+                        +Template.dynamic template=view_template 
+            .extra
+                +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                if is_author
+                    +edit_button
+                +view_button
+                if is_schema_type
+                    // a.ui.icon.button(href="/schema/#{_id}/edit")
+                    //     i.pencil.icon
+                    //     |Configure Schema
+                    a.ui.icon.set_schema.button(href="/s/#{slug}")
+                        i.right.chevron.icon
+                        |View Section
     
+    //     each _keys
+    //         // .ui.label #{this}
+    //         +key_view
+    //     if visual_classes
+    //         +visual_classes
+    //     if analyzed_text
+    //         |#{nl2br analyzed_text}
 
+    //     +author_info
+    //     +creation_info
+    //     +view_button
+    //     +edit_button
+    // .ui.divider
+
+    
+                    

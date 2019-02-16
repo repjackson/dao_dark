@@ -223,7 +223,10 @@ template(name='children_edit')
 template(name='child')
     .ui.segment
         each bricks
-            +Template.dynamic template=edit_template 
+            if field_template
+                .ui.header field template #{field_template}
+            else 
+                +Template.dynamic template=edit_template 
     
         // .ui.red.segment
         //     +text_edit key='key'
@@ -293,11 +296,10 @@ template(name='single_doc_view')
         if icon
             i.icon(class=icon)
         |#{label}
-    each field_value
-        .ui.label
-            if icon
-                i.icon(class=icon)
-            |#{this}
+    .ui.label
+        if icon
+            i.icon(class=icon)
+        |#{field_value}
     div
 
 
