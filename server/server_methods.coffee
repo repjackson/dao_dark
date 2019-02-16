@@ -358,7 +358,7 @@ Meteor.methods
                 user_id:user_id
                 facets: facets
                 
-        console.log 'delta after set facets', Docs.findOne({type:'delta'})        
+        # console.log 'delta after set facets', Docs.findOne({type:'delta'})        
         Meteor.call 'fum', my_delta._id
 
         

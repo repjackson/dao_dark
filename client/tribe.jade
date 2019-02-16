@@ -8,16 +8,18 @@ template(name='tribe_layout')
             .pusher
                 #main
                     +yield
-            +tribe_footer
+        +tribe_footer
 
 
 
 
 template(name='tribe_nav')
-    .ui.attached.borderless.large.inverted.topnav.menu()
+    .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{tribe.primary_color}")
         a.item.toggle_leftbar(href='#')
             i.bars.icon
-        a.item(href="/#{tribe.slug}" class="{{isActivePath '/'}}")
+        a.item(href="/t/#{tribe.slug}" class="{{isActivePath '/'}}")
+            img.ui.mini.inline.image(src="{{c.url tribe.logo_id height=200 crop='limit'}}")
+        a.item(href="/t/#{tribe.slug}" class="{{isActivePath '/'}}")
             |#{tribe.title}
         if is_loading
             .icon.item
@@ -51,32 +53,44 @@ template(name='tribe_nav')
                     i.user.plus.icon
                     |Register 
     // if currentUser
-    .ui.attached.borderless.large.inverted.menu.topnav
-        each topnav_schemas
-            a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-                i.icon(class=icon)
-                |#{plural}
+    // .ui.attached.borderless.large.inverted.menu.topnav(style="background:#{tribe.primary_color}")
+    //     each topnav_schemas
+    //         a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+    //             i.icon(class=icon)
+    //             |#{plural}
 
 
 template(name='tribe_home')
-    .ui.header #{tribe.title}
+    .ui.padded.stackable.grid
+        .centered.row
+            .two.wide.column
+                a.ui.icon.button(href="/s/tribe/#{tribe._id}/edit")
+                    i.cog.icon
+            .ten.wide.column
+                img.ui.large.inline.image(src="{{c.url tribe.logo_id height=400 crop='limit'}}")
+                .ui.center.aligned.large.header #{tribe.title}
+                .ui.center.aligned.small.header #{tribe.subtitle}
+        .centered.row
+            .eight.wide.column
+                .ui.header
+                    i.users.icon 
+                    |Users
+            .eight.wide.column
+                .ui.header
+                    i.clone.icon 
+                    |Pages
+            
+            
 
 
 template(name='tribe_footer')
-    .ui.inverted.menu
+    .ui.inverted.attached.menu(style="background:#{tribe.secondary_color}")
         .item
             i.copyright.outline.icon
-            .black_bat DAO
-        if is_dev
-            .item.refresh_stat
-                i.link.refresh.icon
-        with site_stat
-            .item
-                |#{doc_count} docs
-                |#{user_count} users
-        .item
-            | stand up and fight
-        // .item
+            |#{tribe.title}
+        a.item(href='/')
+            |DAO
+            
         //     .ui.transparent.input
         //         input#quick_add(type='text' placeholder='quick add')
         // .item
