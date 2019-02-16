@@ -1,4 +1,16 @@
 
+Template.color_edit.events
+    'blur .edit_color': (e,t)->
+        link_val = t.$('.edit_color').val()
+        parent = Template.parentData()
+        brick = Template.parentData(4)
+        context = Template.parentData(5)
+        Docs.update context._id,
+            $set:"#{brick.key}":link_val
+
+
+
+
 Template.link_edit.events
     'blur .edit_url': (e,t)->
         link_val = t.$('.edit_url').val()
@@ -7,6 +19,8 @@ Template.link_edit.events
         context = Template.parentData(5)
         Docs.update context._id,
             $set:"#{brick.key}":link_val
+
+
 
 Template.html_edit.events
     'blur .froala-container': (e,t)->

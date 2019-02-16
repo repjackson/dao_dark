@@ -44,13 +44,15 @@ Template.topnav.onRendered ->
 Template.topnav.helpers
     topnav_schemas: ->
         if Meteor.user()
-            Docs.find
+            Docs.find {
                 type:'schema'
                 topnav_roles:$in:Meteor.user().roles
+            }, sort:rank:1
         else
-            Docs.find
+            Docs.find {
                 type:'schema'
                 topnav_roles:$in:['public']
+            }, sort:rank:1
 
 Template.topbar.helpers
     nonprofit_pages: ->

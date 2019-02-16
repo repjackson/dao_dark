@@ -189,10 +189,11 @@ Template.registerHelper 'user_from_id', ()->
                 
 Template.registerHelper 'can_edit', () ->
     if Meteor.user()
-        # if Meteor.userId() is @_author_id 
-        #     true
+        if Meteor.userId() is @_author_id 
+            true
         if Meteor.user().roles
-            if @edit_roles
+            if 'dev' in Meteor.user().roles then true
+            else if @edit_roles
                 union = _.intersection Meteor.user().roles,@edit_roles
                 if union.length > 0 then true else false
             else 

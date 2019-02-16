@@ -108,7 +108,7 @@ template(name='view_button')
 
 template(name='remove_button')
     a.ui.button.remove(title='Delete')
-        i.remove.red.icon
+        i.remove.icon
         |Remove #{title} #{type}
             
 
@@ -134,13 +134,13 @@ template(name='toggle_friend')
 
 template(name='edit_button')
     a.ui.button.edit(title='Edit' href="/s/#{type}/#{_id}/edit")
-        i.pencil.blue.icon
+        i.pencil.icon
         |Edit
 
 
 template(name='save_button')
-    a.ui.button.large.icon.save(title='Save' href="/s/#{type}/#{_id}/view")
-        i.checkmark.green.icon
+    a.ui.button.large.save(title='Save' href="/s/#{type}/#{_id}/view")
+        i.checkmark.icon
         |Save
 
 template(name='toggle_button')

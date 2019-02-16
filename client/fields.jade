@@ -1,3 +1,22 @@
+template(name='color_edit')
+    .ui.large.form
+        .field
+            label 
+                if icon
+                    i.icon(class=icon)
+                |#{label}
+            input.edit_color(type='color' value=field_value placeholder='color')
+
+template(name='color_view')
+    .ui.form
+        .field
+            label 
+                if icon
+                    i.icon(class=icon)
+                |#{label}
+            .ui.inverted.segment(style="background:#{field_value}")
+
+
 template(name='link_edit')
     .ui.form
         .field
@@ -216,18 +235,17 @@ template(name='children_edit')
                     i.plus.icon
                     |Add Child
                 each children
+                    .ui.divider
                     +child
 
 
-
 template(name='child')
-    .ui.segment
-        each bricks
-            if field_template
-                .ui.header field template #{field_template}
-            else 
-                +Template.dynamic template=edit_template 
-    
+    each bricks
+        if field_template
+            .ui.header field template #{field_template}
+        else 
+            +Template.dynamic template=edit_template 
+
         // .ui.red.segment
         //     +text_edit key='key'
         //     // +text_edit key='field'
@@ -240,8 +258,8 @@ template(name='child')
     
         //     +single_doc_edit key='ref_schema' ref_schema='schema' ref_key='slug' label='Referenced Schema (if ref)'
         //     .ui.divider
-        div
-        +remove_button
+    div
+    +remove_button
 
 
 
@@ -378,35 +396,36 @@ template(name='single_user_edit')
 
 
 template(name='multi_user_edit')
-    .ui.form
-        .field.attached
-            label User Selection for #{key}
-            input#multi_user_select_input(type='text' placeholder='Lookup User...')
-            each selections
-                .ui.large.circular.label
-                    |#{username} #{profile.name}
-        if user_results
-            .ui.top.attached.segment
-                .ui.middle.aligned.selection.animated.list
-                    each user_results
-                        .select_user.item
-                            h5.ui.header
+    .ui.basic.segment
+        .ui.form
+            .field.attached
+                label User Selection for #{key}
+                input#multi_user_select_input(type='text' placeholder='Lookup User...')
+                each selections
+                    .ui.large.circular.label
+                        |#{username} #{profile.name}
+            if user_results
+                .ui.top.attached.segment
+                    .ui.middle.aligned.selection.animated.list
+                        each user_results
+                            .select_user.item
+                                h5.ui.header
+                                    img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                    |#{username}
+            .ui.list
+                each field_value
+                    // |#{this}
+                    with user_from_id
+                        .item
+                            .right.floated.content
+                                i.pull_user.remove.link.icon
+                            .image
                                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-                                |#{username}
-        .ui.list
-            each field_value
-                // |#{this}
-                with user_from_id
-                    .item
-                        .right.floated.content
-                            i.pull_user.remove.link.icon
-                        .image
-                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-                        .content
-                            h4.ui.header
-                                |#{first_name} #{last_name}
-                                small @#{username}
-
-
-
-
+                            .content
+                                h4.ui.header
+                                    |#{first_name} #{last_name}
+                                    small @#{username}
+    
+    
+    
+    

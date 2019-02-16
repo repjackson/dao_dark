@@ -8,7 +8,7 @@ template(name='page')
                 +Template.dynamic template=slug
         else  
             .ui.stackable.padded.grid
-                if show_header
+                unless hide_header
                     .centered.middle.aligned.row
                         .four.wide.center.aligned.column
                         .eight.wide.center.aligned.column
@@ -37,3 +37,21 @@ template(name='add')
                     .header 
                         i.icon(class=icon)
                         |#{title}
+                        
+                        
+template(name='block')
+    .ui.stackable.padded.grid
+        .centered.row   
+            .twelve.wide.column
+                .ui.large.center.aligned.header #{title}
+        .centered.row   
+            .eight.wide.column
+                if left_image
+                    img.ui.fluid.image(src="{{c.url image_id height=400 crop='limit'}}")
+                else
+                    |!{html}
+            .eight.wide.column
+                unless left_image
+                    img.ui.fluid.image(src="{{c.url image_id height=400 crop='limit'}}")
+                else
+                    |!{html}                        

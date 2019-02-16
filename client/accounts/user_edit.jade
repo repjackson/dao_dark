@@ -3,14 +3,14 @@ template(name='user_edit')
         .middle.aligned.row
             .four.wide.center.aligned.column
                 a.ui.large.button(href="/u/#{user_from_id_param._id}/about" title='Profile') 
-                    i.checkmark.green.icon
+                    i.checkmark.icon
                     |Save
             .eight.wide.center.aligned.column
                 .ui.center.aligned.large.header
                     i.cog.icon
                     | #{user_from_id_param.profile.name} #{user_from_id_param.profile.churchName} Profile
         .row
-            .four.wide.column
+            .five.wide.column
                 .ui.form
                     .field
                         label Name
@@ -40,7 +40,7 @@ template(name='user_edit')
                 +phone_editor
                 +username_edit
                 +emails_edit
-            .twelve.wide.column
+            .eleven.wide.column
                 // +church_profile
                 +user_schema_editor
                 +stripe_connect
