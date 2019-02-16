@@ -48,8 +48,3 @@ if Meteor.isClient
             
 
         
-        
-if Meteor.isServer
-    Meteor.publish 'users', ->
-        Meteor.users.find {}
-            # "profile.name": $ne:null    

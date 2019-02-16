@@ -174,6 +174,16 @@ Template.registerHelper 'can_add', () ->
             false
     else 
         false
+    
+    
+    
+Template.registerHelper 'my_sites', () ->
+    if Meteor.user().site_ids
+        Docs.find
+            _id: $in: user.site_ids
+
+    
+    
                 
 Template.registerHelper 'can_edit', () ->
     if Meteor.user()

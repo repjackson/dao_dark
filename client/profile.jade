@@ -115,6 +115,7 @@ template(name='user_about')
     +user_bookmarks    
     if current_user
         +role_switcher
+        +site_switcher
     +user_tags
     
 
@@ -233,8 +234,21 @@ template(name='role_switcher')
             +user_array_element_toggle key='roles' value='dev'  
         +user_array_element_toggle key='roles' value='admin'  
         +user_array_element_toggle key='roles' value='user'  
+
+
+template(name='site_switcher')
+    .ui.secondary.segment
+        .ui.header 
+            i.clone.icon
+            |Site Switcher
+        each my_sites
+            +user_string_toggle key='current_site' value=slug  
             
 template(name='user_array_element_toggle')
     .ui.button.toggle_element(class=user_array_element_toggle_class)
+        |#{value}
+
+template(name='user_string_toggle')
+    .ui.button.toggle_element(class=user_string_element_toggle_class)
         |#{value}
 

@@ -474,26 +474,6 @@ Template.user_edit.events
 #             return filteredEmail[0].address
 #         return
 
-# Template.churchRepAccountEditor.onRendered ->
-#     $('#userInfo').bootstrapValidator
-#         message: 'This value is not valid'
-#         feedbackIcons:
-#             valid: 'glyphicon glyphicon-ok'
-#             invalid: 'glyphicon glyphicon-remove'
-#             validating: 'glyphicon glyphicon-refresh'
-#         fields:
-#             firstname:
-#                 message: 'You must provide an account holder firstname.'
-#                 validators: notEmpty: message: 'First Name is mandatory'
-#             lastname:
-#                 message: 'You must provide an account holder lastname.'
-#                 validators: notEmpty: message: 'Last Name is mandatory'
-#             email:
-#                 message: 'You must provide an email.'
-#                 validators:
-#                     notEmpty: message: 'Email is mandatory'
-#                     emailAddress: message: 'The value is not a valid email address'
-#     return
 
 # Template.church_profile.onRendered ->
 #     $('#churchForm').bootstrapValidator
@@ -529,3 +509,25 @@ Template.user_edit.events
 #                     phone:
 #                         country: 'US'
 #                         message: 'The value is not valid US phone number'
+
+
+Template.emails_edit.events
+    'click #add_email': ->
+        new_email = $('#new_email').val().trim()
+        user = Meteor.user()
+        
+        re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        valid_email = re.test(new_email)
+        
+        if valid_email
+            Meteor.call 'update_email', new_email, (error, result) ->
+                if error
+                    # console.log 'updateUsername', error
+                    alert "Error Adding Email: #{error.reason}"
+                else
+                    alert result
+                return
+                
+    'click .send_verification_email': (e,t)->
+        Meteor.call 'verify_email', Meteor.userId(), ->
+            alert 'Verification Email Sent'

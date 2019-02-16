@@ -83,6 +83,25 @@ Template.user_array_element_toggle.events
             Meteor.users.update user._id,
                 $addToSet: "#{@key}":@value
      
+     
+Template.site_switcher.onCreated ->
+    @autorun => Meteor.subscribe 'user_sites', Router.current().params._id
+        
+Template.user_array_list.helpers
+    users: ->
+        users = []
+        if @user["#{@array}"]
+            for user_id in @user["#{@array}"]
+                user = Meteor.users.findOne user_id
+                users.push user
+            users
+            
+            
+    
+    
+     
+     
+     
 # Template.follow_user.events
 #     'click .toggle_follow_user': ->
 #         if @followed_by_ids and Meteor.userId() in @followed_by_ids        

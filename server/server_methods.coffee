@@ -455,3 +455,50 @@ Meteor.methods
         else 
             return null            
                 
+    slugify: (title)->
+        slug = title.toString().toLowerCase().replace(/\s+/g, '_').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '_').replace(/^-+/, '').replace(/-+$/,'')
+        console.log 'title', title
+        console.log 'slug', slug
+        return slug
+        # # Docs.update { _id:doc_id, fields:field_object },
+        # Docs.update { _id:doc_id, fields:field_object },
+        #     { $set: "fields.$.slug": slug }
+
+                
+                
+    update_location: (doc_id, result)->
+        location_tags = (component.long_name for component in result.address_components)
+        parts = result.address_components
+        
+        geocode = {}
+        for part in parts
+            geocode["#{part.types[0]}"] = part.short_name 
+                # console.log part.types[0]
+                # console.log part.short_name
+        geocode['formatted_address'] = result.formatted_address
+        console.log result.lat
+        console.log result.lng
+        # console.log parts[0].types
+        # # street_address = _.where(parts, {types:[ 'street_number' ]})
+        # street_address = parts[0].short_name
+        # console.log 'street address', street_address
+
+        lowered_location_tags = _.map(location_tags, (tag)->
+            tag.toLowerCase()
+            )
+
+        # console.log location_tags
+
+        doc = Docs.findOne doc_id
+        tags_without_address = _.difference(doc.tags, doc.location_tags)
+        tags_with_new = _.union(tags_without_address, lowered_location_tags)
+
+        Docs.update doc_id,
+            $set:
+                tags:tags_with_new
+                location_ob:result
+                location_tags:lowered_location_tags
+                geocode:geocode
+                location_lat: result.lat
+                location_lng: result.lng
+                

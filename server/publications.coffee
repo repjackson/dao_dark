@@ -38,3 +38,9 @@ Meteor.publish 'user_tags', (selected_tags, role)->
     self.ready()
     
     
+    
+    
+Meteor.publish 'user_sites', (user_id)->
+    user = Meteor.users.findOne user_id
+    Docs.find
+        _id: $in: user.site_ids

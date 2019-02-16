@@ -42,6 +42,32 @@ Docs.helpers
             type:'schema'
             slug:@type
 
+
+Meteor.users.helpers
+    name: -> 
+        if @profile?.first_name and @profile?.last_name
+            "#{@profile.first_name}  #{@profile.last_name}"
+        else
+            "#{@username}"
+    last_login: -> moment(@status?.lastLogin.date).fromNow()
+
+    users_customer: ->
+        # console.log @
+        found = Docs.findOne
+            type:'customer'
+            "ev.ID": @profile.customer_jpid
+        # console.log found
+        found
+        
+        
+    email: -> 
+        if @emails
+            @emails[0].address
+
+
+
+
+
 Meteor.methods
     create_account: (options) ->
         #console.log("options = ", options)

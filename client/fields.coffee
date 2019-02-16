@@ -526,3 +526,68 @@ Template.single_user_edit.events
             page_doc = Docs.findOne Router.current().params.id
             Meteor.call 'unassign_user', page_doc._id, @
 
+
+
+
+
+
+
+Template.multi_user_edit.onCreated ->
+    @user_results = new ReactiveVar
+
+Template.multi_user_edit.helpers
+    user_results: ->
+        user_results = Template.instance().user_results.get()
+        user_results
+    
+    
+    
+Template.multi_user_edit.events
+    'click .clear_results': (e,t)->
+        t.user_results.set null
+
+    'keyup #multi_user_select_input': (e,t)->
+        search_value = $(e.currentTarget).closest('#multi_user_select_input').val().trim()
+        Meteor.call 'lookup_user', search_value, (err,res)=>
+            if err then console.error err
+            else
+                t.user_results.set res
+
+
+    'click .select_user': (e,t) ->
+        page_doc = Docs.findOne Router.current().params.id
+        
+        # console.log @
+        
+        val = t.$('.edit_text').val()
+        parent = Template.parentData()
+        brick = Template.parentData(4)
+        context = Template.parentData(5)
+        
+        # console.log Template.parentData()
+        # console.log Template.parentData(1)
+        # console.log Template.parentData(2)
+        # console.log Template.parentData(3)
+        console.log Template.parentData(4)
+        console.log Template.parentData(5)
+        
+        if brick
+            Docs.update context._id,
+                $addToSet:"#{brick.key}":@_id
+        # else 
+        #     Docs.update parent._id,
+        #         $set:"#{@key}":val
+
+        t.user_results.set null
+        $('#multi_user_select_input').val ''
+        # Docs.update page_doc._id,
+        #     $set: assignment_timestamp:Date.now()
+
+
+
+    'click .pull_user': ->
+        context = Template.currentData(0)
+        if confirm "Remove #{@username}?"
+            page_doc = Docs.findOne Router.current().params.id
+            # Meteor.call 'unassign_user', page_doc._id, @
+

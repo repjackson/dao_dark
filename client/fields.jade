@@ -393,17 +393,35 @@ template(name='multi_user_edit')
                             h5.ui.header
                                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 |#{username}
-        .field
-            +user_info field_value
-            // .ui.list
-            //     each field_value
-            //         |#{this}
-            //         .item
-            //             .right.floated.content
-            //                 i.pull_user.remove.link.icon
-            //             .image
-            //                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-            //             .content
-            //                 h4.ui.header
-            //                     |#{first_name} #{last_name}
-            //                     small @#{username}
+        .ui.list
+            each field_value
+                |#{this}
+                .item
+                    .right.floated.content
+                        i.pull_user.remove.link.icon
+                    .image
+                        img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                    .content
+                        h4.ui.header
+                            |#{first_name} #{last_name}
+                            small @#{username}
+
+
+
+
+template(name='notify_button')
+    if currentUser
+        .ui.header
+            +icon name='appointment-reminders'
+            |Notify Someone
+        // .ui.fluid.input
+        //     +inputAutocomplete settings=recipient_select_settings id="recipient_select" class="" autocomplete="off" placeholder='Lookup...'
+    .ui.list
+        each notified_users
+            .item
+                img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                .content
+                    .header #{name}
+                    .meta #{username}
+                .right.floated.content
+                    i.remove_notified_user.large.link.red.remove.icon

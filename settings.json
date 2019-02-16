@@ -11,6 +11,14 @@
     }
   },
   "private": {
+		"sms": {
+			"token": "dc8534de203d678fd74a5eaf167864be",
+			"sid": "AC7902add3a00bf69f1196b96e7b2f4122"
+		},
+    "mailgun": {
+       "api_key": "key-202d6a39f8f7dfdd9860dc921f7184d3",
+       "domain": "mg.janhub.com"
+  	},
     "cloudinary": {
       "cloudinary_key": "754714459692734",
       "cloudinary_secret": "rPPXD3rZM_GCjODvh0T70XeDCSw"

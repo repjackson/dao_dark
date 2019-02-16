@@ -39,6 +39,7 @@ template(name='user_edit')
                 +password_edit
                 +phone_editor
                 +username_edit
+                +emails_edit
             .twelve.wide.column
                 // +church_profile
                 +user_schema_editor
@@ -223,3 +224,29 @@ template(name='churchRepAccountEditor')
 
 
             
+template(name='emails_edit')
+    h2.ui.center.aligned.header 
+        i.envelope.icon
+        | Email(s)
+    .ui.segment
+        #test_email.ui.big.button test email
+        .ui.divided.list
+            each currentUser.emails
+                .item 
+                    // unless verified
+                    //     .right.floated.content
+                    //         .ui.button Verify
+                    .content
+                        |#{address}
+                        if verified
+                            .ui.green.label Verified
+                        else
+                            .ui.basic.label Unverified
+                            .send_verification_email.ui.button Verify
+        .ui.action.fluid.input
+            input#new_email(type='email')
+            #add_email.ui.submit.button Add Email
+
+
+
+
