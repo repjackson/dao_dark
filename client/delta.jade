@@ -63,6 +63,9 @@ template(name='type_edit')
             .row
                 .sixteen.wide.column
                     .ui.segment
+                        // each schema.field_templates
+                        //     with field_template_doc
+                        //         +Template.dynamic template=edit_template
                         each bricks
                             +Template.dynamic template=edit_template 
                             // .ui.header #{key} [#{field}] #{label}
@@ -109,6 +112,9 @@ template(name='type_view')
                                 i.icon(class=icon)
                             |#{title}
                         .ui.list
+                            // each schema.field_templates
+                            //     with field_template_doc
+                            //         +Template.dynamic template=view_template
                             each bricks
                                 .item
                                     +Template.dynamic template=view_template 
@@ -152,9 +158,9 @@ template(name='result')
                     i.icon(class=icon)
                 |#{title}
             .description
-                each schema.field_templates
-                    with field_template_doc
-                        +Template.dynamic template=view_template field_template=true
+                // each schema.field_templates
+                //     with field_template_doc
+                //         +Template.dynamic template=view_template
                 each bricks
                     +Template.dynamic template=view_template 
             .extra

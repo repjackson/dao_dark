@@ -90,11 +90,14 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
         @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params._id
         @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params._id
+        @autorun -> Meteor.subscribe 'type', 'field_template'
+        
     
     Template.type_view.onCreated ->
         @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params._id
         @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params._id
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
+        @autorun -> Meteor.subscribe 'type', 'field_template'
 
     Template.type_edit.events
         'blur .body': (e,t)->
