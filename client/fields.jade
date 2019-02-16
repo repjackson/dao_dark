@@ -287,6 +287,18 @@ template(name='boolean_view')
         
 
 
+template(name='single_doc_view')
+    div
+    .ui.small.inline.header(title=key)
+        if icon
+            i.icon(class=icon)
+        |#{label}
+    each field_value
+        .ui.label
+            if icon
+                i.icon(class=icon)
+            |#{this}
+    div
 
 
 template(name='single_doc_edit')
@@ -324,12 +336,9 @@ template(name='multi_doc_view')
         if icon
             i.icon(class=icon)
         |#{label}
-    each choices
+    each field_value
         .ui.label
-            if icon
-                i.icon(class=icon)
-            |#{title}
-            |#{key}
+            |#{this}
     div
 
 

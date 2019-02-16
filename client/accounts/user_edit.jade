@@ -42,69 +42,8 @@ template(name='user_edit')
             .twelve.wide.column
                 // +church_profile
                 +user_schema_editor
-                +church_stripe
-                .ui.segment
-                    .ui.header 
-                        i.credit.card.icon
-                        |Payment Methods
-                    // .ui.green.button.addCard
-                    //     i.plus.icon
-                    //     |Card
-                    if cards
-                        each cards
-                            +card_holder
-                    else
-                        .ui.orange.segment
-                            .ui.header No cards saved
-    // #add_card_modal.ui.modal
-    //     .ui.header 
-    //         i.credit.card.icon
-    //         |Add a Card
-    //     .content
-    //         // if isPhone
-    //         //     #scanBtn.btn.btn-info.pull-right Scan Card
-    //         form#payment-form.ui.form
-    //             .field
-    //                 // label(for='card-element')
-    //                 //     | Credit or debit card
-    //                 #card-element
-    //                 // A Stripe Element will be inserted here.
-    //                 // Used to display Element errors.
-    //                 #card-errors(role='alert')
-    //             button.ui.blue.button Submit Payment
-
-            
-            // #addcardform.form-horizontal.row
-            //     .form-group
-            //         label.col-lg-2.control-label(for='name') Name
-            //         .col-lg-10
-            //             input#name.form-control(type='text', name='name')
-            //     .form-group
-            //         label.col-lg-2.control-label(for='card') Card
-            //         .col-lg-10
-            //             input#card.form-control(type='tel', name='card')
-            //     .form-group
-            //         label.col-lg-2.control-label(for='exp') Exp.
-            //         .col-lg-4
-            //             input#exp.form-control(type='text', name='exp', placeholder='MM/YY')
-            //     .col-xs-6
-            //         .form-group
-            //             label.col-lg-4.control-label(for='zip') Zip
-            //             .col-lg-8
-            //                 input#zip.form-control(type='tel', name='zip')
-            //     .col-xs-6
-            //         .form-group
-            //             label.col-lg-4.control-label(for='exp') CVC
-            //             .col-lg-8
-            //                 input#cvc.form-control(type='tel', name='cvc')
-        .actions
-            .ui.green.approve.button.save_new_card Save Card
-            .ui.cancel.button.closePopup Cancel
-        // #add_buttons.modal-footer
-        // #edit_buttons.modal-footer
-        //     .btn.btn-info.update_existing_card Update Card
-        //     .ui.cancel.button.closePopup Cancel
-
+                +stripe_connect
+                +payment_methods
 
 
 template(name='user_schema_editor')
@@ -123,6 +62,44 @@ template(name='username_edit')
             input.new_username(type='text' placeholder='New Username...')
             i.play.link.icon.change_username
 
+
+template(name='payment_methods')                
+    .ui.segment
+        .ui.header 
+            i.credit.card.icon
+            |Payment Methods
+        .ui.green.button.addCard
+            i.plus.icon
+            |Card
+        if cards
+            each cards
+                +card_holder
+        else
+            .ui.orange.segment
+                .ui.header No cards saved
+        .ui.header
+            i.plus.corner.icon
+            |Add a Card
+        // if adding_card
+        .content
+            // if isPhone
+            //     #scanBtn.btn.btn-info.pull-right Scan Card
+            form#payment-form.ui.form
+                .field
+                    // label(for='card-element')
+                    //     | Credit or debit card
+                    #card-element
+                    // A Stripe Element will be inserted here.
+                    // Used to display Element errors.
+                    #card-errors(role='alert')
+                button.ui.blue.button Add
+        // .actions
+        //     .ui.green.button.save_new_card Save Card
+            // .ui.red.button.closePopup Cancel
+        // #add_buttons.modal-footer
+        // #edit_buttons.modal-footer
+        //     .btn.btn-info.update_existing_card Update Card
+        //     .ui.cancel.red.button.closePopup Cancel
 
 
 template(name='card_holder')
@@ -180,21 +157,6 @@ template(name='password_edit')
             
             
             
-template(name='church_stripe')
-    .ui.segment
-        .ui.header
-            i.stripe.icon
-            | Payment
-        if user_from_id_param.profile.stripe
-            .ui.green.segment
-                .ui.small.header Payment Account Connected
-                // #removeStripe.ui.button Disconnect
-                // #dashboardStripe.ui.blue.button(title="Used for refunds, declining payments and monitoring account transactions.") Stripe Dashboard
-        else
-            .ui.segment
-                .ui.small.header No payment account connected.
-                // a#addStripe.ui.small.blue.button(href='{{SETTINGS.stripeConnectRedirect}}{{SETTINGS.stripeClientId}}') Create or Connect An Account
-                        
          
          
 template(name='user_field')         

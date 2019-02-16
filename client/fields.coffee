@@ -329,9 +329,20 @@ Template.children_edit.events
 
 
 
+Template.single_doc_view.onCreated ->
+    @autorun => Meteor.subscribe 'type', @data.ref_schema
+
+Template.single_doc_view.helpers
+    choices: -> 
+        console.log @ref_schema
+        Docs.find 
+            type:@ref_schema
+
+
+
 
 Template.single_doc_edit.onCreated ->
-    @autorun => Meteor.subscribe 'ref_choices', @data.ref_schema
+    @autorun => Meteor.subscribe 'type', @data.ref_schema
 
 Template.single_doc_edit.helpers
     choices: -> 

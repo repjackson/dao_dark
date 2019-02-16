@@ -86,6 +86,10 @@ Template.registerHelper 'edit_template', ->
     # console.log @
     "#{@field}_edit"
     
+Template.registerHelper 'current_user', () ->
+    Meteor.userId() is Router.current().params._id
+    
+    
     
 Template.registerHelper 'view_template', ->
     # console.log @

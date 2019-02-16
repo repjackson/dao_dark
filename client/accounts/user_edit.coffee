@@ -94,59 +94,6 @@ Template.user_schema_editor.events
 #     return
 
 Template.user_edit.events
-    'click .addCard': ->
-        # console.log elements
-        # Custom styling can be passed to options when creating an Element.
-
-        $('#add_card_modal').modal('show')
-        style = 
-          base: {
-            color: '#32325d',
-            lineHeight: '18px',
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '20px',
-            '::placeholder': {
-              color: '#aab7c4'
-            }
-          },
-          invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a'
-          }
-        # Create an instance of the card Element.
-        card = elements.create('card', style: style)
-        # Add an instance of the card Element into the `card-element` <div>.
-        card.mount '#card-element'
-        # $('#add_buttons').show()
-        card.addEventListener 'change', (event) ->
-            displayError = document.getElementById('card-errors')
-            if event.error
-                displayError.textContent = event.error.message
-            else
-                displayError.textContent = ''
-            return
-        # Handle form submission.
-        form = document.getElementById('payment-form')
-        form.addEventListener 'submit', (event) ->
-            event.preventDefault()
-            stripe.createToken(card).then (result) ->
-                if result.error
-                    # Inform the user if there was an error.
-                    errorElement = document.getElementById('card-errors')
-                    errorElement.textContent = result.error.message
-                else
-                    # Send the token to your server.
-                    stripeTokenHandler result.token
-        
-        
-                
-        # Handle real-time validation errors from the card Element.
-        # Submit the form with the token ID.
-        
-        
-
-
     "change input[name='profile_image']": (e) ->
         files = e.currentTarget.files
         # console.log files

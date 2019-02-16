@@ -109,7 +109,8 @@ template(name='view_button')
 template(name='remove_button')
     a.ui.button.remove(title='Delete')
         i.remove.red.icon
-        |Remove #{type}
+        |Remove #{title} #{type}
+            
 
 template(name='add_button')
     a.ui.button.add(title='Add')

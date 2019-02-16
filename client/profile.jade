@@ -113,7 +113,7 @@ template(name='user_about')
         a(href=profile.website target='_blank') #{profile.website}
         +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
     +user_bookmarks    
-    if is_user
+    if current_user
         +role_switcher
     +user_tags
     
