@@ -589,5 +589,16 @@ Template.multi_user_edit.events
         context = Template.currentData(0)
         if confirm "Remove #{@username}?"
             page_doc = Docs.findOne Router.current().params.id
+            parent = Template.parentData()
+            brick = Template.parentData(4)
+            context = Template.parentData(5)
+
+            
+            if brick
+                Docs.update context._id,
+                    $pull:"#{brick.key}":@_id
+
+            
+            
             # Meteor.call 'unassign_user', page_doc._id, @
 

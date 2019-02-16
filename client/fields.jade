@@ -395,16 +395,17 @@ template(name='multi_user_edit')
                                 |#{username}
         .ui.list
             each field_value
-                |#{this}
-                .item
-                    .right.floated.content
-                        i.pull_user.remove.link.icon
-                    .image
-                        img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
-                    .content
-                        h4.ui.header
-                            |#{first_name} #{last_name}
-                            small @#{username}
+                // |#{this}
+                with user_from_id
+                    .item
+                        .right.floated.content
+                            i.pull_user.remove.link.icon
+                        .image
+                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                        .content
+                            h4.ui.header
+                                |#{first_name} #{last_name}
+                                small @#{username}
 
 
 

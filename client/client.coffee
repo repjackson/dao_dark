@@ -182,7 +182,8 @@ Template.registerHelper 'my_sites', () ->
         Docs.find
             _id: $in: user.site_ids
 
-    
+Template.registerHelper 'user_from_id', ()->
+    Meteor.users.findOne @valueOf()
     
                 
 Template.registerHelper 'can_edit', () ->
