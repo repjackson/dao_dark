@@ -32,7 +32,7 @@ template(name='page_view')
         | Page View
         
         
-template(name='enter_site')
-    .ui.button.enter_site
-        i.play.icon
-        | Enter Site
+template(name='enter_tribe')
+    a.ui.enter_tribe.button(href="/t/#{slug}")
+        i.fire.icon
+        | Enter Tribe

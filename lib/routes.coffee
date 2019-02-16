@@ -90,3 +90,12 @@ Router.route '/p/:slug', -> @render 'page'
 Router.route '/signin', -> @render 'signin'
 Router.route '/register', -> @render 'register'
 Router.route '/forgot-password', -> @render 'forgot-password'
+
+
+
+
+Router.route '/t/:slug/', (->
+    @layout 'tribe_layout'
+    @render 'tribe_home'
+    ), name:'tribe_home'
+

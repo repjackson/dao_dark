@@ -31,6 +31,10 @@ Template.registerHelper 'schema', () ->
     Docs.findOne
         type:'schema'
         slug:@type
+Template.registerHelper 'tribe', () ->
+    Docs.findOne 
+        type:'tribe'
+        slug:Router.current().params.slug
 
 Template.registerHelper 'user_from_id_param', () ->
     Meteor.users.findOne Router.current().params._id

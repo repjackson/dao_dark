@@ -7,6 +7,6 @@ Template.view_section.events
             
             
             
-Template.enter_site.events
-    'click .enter_site': ->
+Template.enter_tribe.events
+    'click .enter_tribe': ->
         console.log @
