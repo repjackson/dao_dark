@@ -1,9 +1,12 @@
 template(name='topnav')
-    .ui.attached.borderless.large.inverted.menu
+    .ui.attached.borderless.large.inverted.topnav.menu
         a.item.toggle_leftbar(href='#')
             i.bars.icon
         a.item(href='/s/schema' class="{{isActivePath '/'}}")
             .black_bat.logo DAO
+        if is_loading
+            .icon.item
+                i.loading.refresh.icon
         // a.item.toggle_invert(href='#')
         //     i.adjust.icon
         .right.menu
@@ -14,8 +17,8 @@ template(name='topnav')
                     i.inbox.icon
                 a.item(href='/chat')
                     i.chat.icon
-                a.item.set_schema(href='/s/schema')
-                    i.sitemap.icon
+                // a.item.set_schema(href='/s/schema')
+                //     i.sitemap.icon
                 a.item(href='/people' class="{{isActivePath '/people'}}")
                     i.users.icon
                 a.item(href='/bank' class="{{isActivePath '/bank'}}")
@@ -41,7 +44,7 @@ template(name='topnav')
         each topnav_schemas
             a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                 i.icon(class=icon)
-                |#{group}
+                |#{plural}
 
 
 
@@ -185,9 +188,9 @@ template(name='leftbar')
                 | Logout
             
         each schemas
-            a.item.toggle_leftbar(href="/s/#{slug}")
+            a.item.set_schema.toggle_leftbar(href="/s/#{slug}")
                 i.icon(class=icon)
-                | #{group}
+                | #{plural}
 
 
 

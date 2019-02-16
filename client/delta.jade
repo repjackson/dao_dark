@@ -15,7 +15,7 @@ template(name='delta')
                         if can_edit
                             .ui.button.edit_schema
                                 i.cog.icon
-                                | Configure #{group}
+                                | Configure #{plural}
                         // .ui.divider
                         // // each sessions
                         // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
@@ -52,7 +52,7 @@ template(name='type_edit')
                 .four.wide.center.aligned.column
                     +save_button
                 .eight.wide.center.aligned.column
-                    i.pencil.icon
+                    i.pencil.large.icon
                     .ui.inline.header
                         if icon
                             i.icon(class=icon)
@@ -62,13 +62,12 @@ template(name='type_edit')
                     +remove_button
             .row
                 .sixteen.wide.column
-                    .ui.segment
-                        // each schema.field_templates
-                        //     with field_template_doc
-                        //         +Template.dynamic template=edit_template
-                        each bricks
-                            +Template.dynamic template=edit_template 
-                            // .ui.header #{key} [#{field}] #{label}
+                    // each schema.field_templates
+                    //     with field_template_doc
+                    //         +Template.dynamic template=edit_template
+                    each bricks
+                        +Template.dynamic template=edit_template 
+                        // .ui.header #{key} [#{field}] #{label}
 
 
 template(name='type_view')
@@ -86,7 +85,7 @@ template(name='type_view')
                         a.section(href="/s/#{type}" title=schema.group)
                             .ui.compact.button
                                 i.icon(class=schema.icon)
-                                |#{schema.group}
+                                |#{schema.plural}
                         .divider
                             i.chevron.right.icon
                         .active.section
@@ -104,6 +103,8 @@ template(name='type_view')
                     //     |View #{type}
                     if is_author
                         +edit_button
+                    each schema.actions
+                        +Template.dynamic template=this data=doc
                     +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                 .twelve.wide.column
                     .ui.segment
@@ -124,35 +125,35 @@ template(name='type_view')
                     
 
 template(name='facet')
-    // if filtering_res
-    .ui.accordion
-        .active.title
-            if icon
-                i.icon(class=icon)
-            .ui.inline.small.header 
-                |#{label}
-            // .ui.transparent.left.icon.small.input
-            //     i.search.icon
-            //     input.add_filter(type='text' placeholder='search')
-            i.dropdown.icon
-        .active.content
-            // each filters
-            //     .unselect.ui.blue.button #{this}
-            each filtering_res
-                if name
-                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                        | #{name}
-                        small #{count}
-                else
-                    .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                        strong [null]
-                        small #{count}
+    if filtering_res
+        .ui.accordion
+            .active.title
+                if icon
+                    i.icon(class=icon)
+                .ui.inline.small.header 
+                    |#{label}
+                // .ui.transparent.left.icon.small.input
+                //     i.search.icon
+                //     input.add_filter(type='text' placeholder='search')
+                // i.dropdown.icon
+            .active.content
+                // each filters
+                //     .unselect.ui.blue.button #{this}
+                each filtering_res
+                    if name
+                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                            | #{name}
+                            small #{count}
+                    else
+                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+                            strong [null]
+                            small #{count}
 
 
 
 template(name='result')
     with result 
-        .ui.black.segment
+        .ui.black.result.segment(class="{{#if is_loading}}loading{{/if}}")
             a.ui.header(href="/s/#{type}/#{_id}/view")
                 if icon
                     i.icon(class=icon)
@@ -164,17 +165,13 @@ template(name='result')
                 each bricks
                     +Template.dynamic template=view_template 
             .extra
-                +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                 if is_author
                     +edit_button
                 +view_button
-                if is_schema_type
-                    // a.ui.icon.button(href="/schema/#{_id}/edit")
-                    //     i.pencil.icon
-                    //     |Configure Schema
-                    a.ui.icon.set_schema.button(href="/s/#{slug}")
-                        i.right.chevron.icon
-                        |View Section
+                each schema.actions
+                    +Template.dynamic template=this data=..
+
     
     //     each _keys
     //         // .ui.label #{this}

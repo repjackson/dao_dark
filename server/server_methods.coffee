@@ -1,4 +1,10 @@
 Meteor.methods
+    count_children: (doc_id)->
+        count = Docs.find(parent_id: doc_id).count()
+        Docs.update doc_id,
+            $set: child_count: count
+
+
     crawl_fields: (specific_key)->
         start = Date.now()
         

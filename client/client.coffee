@@ -180,7 +180,8 @@ Template.registerHelper 'can_add', () ->
 Template.registerHelper 'my_sites', () ->
     if Meteor.user().site_ids
         Docs.find
-            _id: $in: user.site_ids
+            type:'site'
+            site_member_ids: $in: [Meteor.userId()]
 
 Template.registerHelper 'user_from_id', ()->
     Meteor.users.findOne @valueOf()

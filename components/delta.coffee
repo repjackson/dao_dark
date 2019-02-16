@@ -121,7 +121,7 @@ if Meteor.isClient
     Template.facet.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
-        , 1000
+        , 1500
     
     Template.facet.events
         'click .toggle_selection': ->

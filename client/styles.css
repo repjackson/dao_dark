@@ -133,10 +133,17 @@ a {
   min-height:100vh;
 }
 
-
 .button {
-  animation: fadein .75s;
+  animation: fadein .5s;
 }
+.result {
+  animation: fadein .5s;
+}
+
+.icon.item {
+  animation: fadein .5s;
+}
+
 @keyframes fadein {
   from { opacity: 0}
   to   { opacity: 1}
@@ -301,7 +308,7 @@ a {
   animation: fadein .25s;
 }
 #main {
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 #result {
   animation: fadein .5s;
@@ -327,21 +334,28 @@ a {
 }
 
 
-
-::-webkit-scrollbar-thumb {
-    background: #FF0000;
-}
-
-.parent_scrolling{
-  height: 100%;
-  display:flex;
-}
-
 .scrolling{
-  overflow-y:scroll;
-  overflow-x:hidden;
-  max-height:90vh;
-  padding: 1em;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	max-height:90vh;
+	/*max-height:85vh;*/
+	padding-top: 1em;
+	/*padding-left: 1em;*/
+}
+.topnav{
+	overflow-y:hidden;
+	overflow-x:scroll;
+	/*max-height:1000px;*/
+	/*max-height:85vh;*/
+	/*padding: 1em;*/
+}
+
+.scrolling::-webkit-scrollbar { 
+    display: none;
+}
+
+.topnav::-webkit-scrollbar { 
+    display: none;
 }
 
 

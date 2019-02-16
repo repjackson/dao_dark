@@ -26,7 +26,7 @@ template(name='profile_layout')
                                                 i.icon(class=icon)
                                                 .content    
                                                     .header
-                                                        |#{group}
+                                                        |#{plural}
                                     .ui.vertical.fluid.menu
                                         a.item(href="/u/#{user_from_id_param._id}/about" class="{{isActiveRoute regex='user_about'}}")
                                             i.info.icon

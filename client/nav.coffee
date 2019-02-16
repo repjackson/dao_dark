@@ -127,6 +127,10 @@ Template.leftbar.helpers
             }, sort:title:1
 
 Template.leftbar.events
+    'click .set_schema': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', @slug, ->
+            Session.set 'loading', false
 
 
 
