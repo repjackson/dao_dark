@@ -61,9 +61,10 @@ Template.registerHelper 'calculated_size', (metric) ->
 Template.registerHelper 'parent', () ->
     parent = Template.parentData(5)
 
-Template.registerHelper 'field_value', () ->
-    parent = Template.parentData(5)
-    if parent["#{@valueOf()}"] then parent["#{@valueOf()}"]
+# Template.registerHelper 'field_value', () ->
+#     parent = Template.parentData(5)
+#     console.log @
+#     if parent["#{@valueOf()}"] then parent["#{@valueOf()}"]
 
 
 Template.registerHelper 'youtube_value', () ->
@@ -94,6 +95,7 @@ Template.registerHelper 'field_template_doc', () ->
     console.log @
     Docs.findOne
         type:'field_template'
+        slug: @valueOf()
         
     
     
@@ -116,6 +118,7 @@ Template.registerHelper 'bricks', () ->
             type:'schema'
             slug:Router.getParam('type')
     # console.log schema
+    # console.log @
     Docs.find {
         type:'brick'
         parent_id: schema._id
@@ -128,12 +131,14 @@ Template.registerHelper 'field_value', () ->
     # parent4 = Template.parentData(4)
     # parent5 = Template.parentData(5)
     # parent6 = Template.parentData(6)
-    # console.log Template.parentData()
-    # console.log Template.parentData(4)
-    # console.log Template.parentData(5)
+    console.log Template.parentData()
+    console.log Template.parentData(4)
+    console.log Template.parentData(5)
+    field_template_context = Template.parentData(6)
     brick = Template.parentData(4)
     context = Template.parentData(5)
     if parent["#{@key}"] then parent["#{@key}"]
+    else if field_template_context["#{context}"] then field_template_context["#{context}"]
     else if context["#{brick.key}"] then context["#{brick.key}"]
     
 
