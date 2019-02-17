@@ -75,15 +75,15 @@ template(name='type_view')
     with doc
         .ui.stackable.padded.grid
             .row
-                .ten.wide.column
+                .sixteen.wide.column
                     .ui.breadcrumb
-                        a.section(href='/dashboard')
+                        a.section(href="/t/#{current_tribe.slug}")
                             .ui.button
                                 i.dashboard.icon
-                                |Dashboard
+                                |#{current_tribe.title}
                         .divider
                             i.chevron.right.icon
-                        a.section(href="/s/#{type}" title=schema.group)
+                        a.section(href="/t/#{current_tribe.slug}/s/#{type}" title=schema.plural)
                             .ui.button
                                 i.icon(class=schema.icon)
                                 |#{schema.plural}

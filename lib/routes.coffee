@@ -90,17 +90,17 @@ Router.route '/forgot-password', -> @render 'forgot-password'
 
 
 
-Router.route '/t/:slug/', (->
+Router.route '/t/:tribe_slug/', (->
     @layout 'tribe_layout'
     @render 'tribe_home'
     ), name:'tribe_home'
 
-Router.route '/t/:slug/s/:type', (->
+Router.route '/t/:tribe_slug/s/:type', (->
     @layout 'tribe_layout'
     @render 'delta'
     ), name:'tribe_delta'
 
 
 # Router.route '/s/:type', -> @render 'delta'
-Router.route '/t/:slug/s/:type/:_id/edit', -> @render 'type_edit'
-Router.route '/t/:slug/s/:type/:_id/view', -> @render 'type_view'
+Router.route '/t/:tribe_slug/s/:type/:_id/edit', -> @render 'type_edit'
+Router.route '/t/:tribe_slug/s/:type/:_id/view', -> @render 'type_view'

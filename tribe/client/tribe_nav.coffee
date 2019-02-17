@@ -9,12 +9,9 @@ Template.tribe_topnav.helpers
     user: -> Meteor.users.findOne username:Router.current().params.username
 
 Template.tribe_topnav.events
-    'click .toggle_invert': ->
-        Session.set('invert', !Session.get('invert'))
-
-    'click .add': ->
-        new_id = Docs.insert {}
-        Router.go "/edit/#{new_id}"
+    # 'click .add': ->
+    #     new_id = Docs.insert {}
+    #     Router.go "/edit/#{new_id}"
 
     'click .toggle_dev': ->
         Session.set('dev_mode', !Session.get('dev_mode'))
@@ -28,9 +25,6 @@ Template.tribe_topnav.events
 Template.tribe_topbar.onCreated ->
     @autorun => Meteor.subscribe 'type', 'page'
 
-Template.tribe_topnav.onCreated ->
-    @autorun -> Meteor.subscribe 'type', 'schema'
-    
 
 Template.tribe_topnav.onRendered ->
     @autorun =>
@@ -45,7 +39,7 @@ Template.tribe_topnav.helpers
     topnav_schemas: ->
         tribe = Docs.findOne 
             type:'tribe'
-            slug:Router.current().params.slug
+            slug:Router.current().params.tribe_slug
         
         Docs.find {
             type:'schema'
@@ -120,9 +114,10 @@ Template.tribe_rightbar.onRendered ->
 
 
 Template.tribe_leftbar.helpers
-    schemas: ->
+    tribe_schemas: ->
         if Meteor.user() and Meteor.user().roles
             Docs.find {
+                tribe: Router.current().params.tribe_slug
                 # view_roles: $in:Meteor.user().roles
                 type:'schema'
             }, sort:title:1

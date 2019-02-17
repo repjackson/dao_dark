@@ -4,8 +4,8 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'type', 'schema'
         @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
         @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.type
-        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
-        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.tribe_slug, Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.tribe_slug, Router.current().params.type
         # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
         @autorun -> Meteor.subscribe 'my_delta'
 
@@ -39,8 +39,15 @@ if Meteor.isClient
 
     Template.delta.events
         'click .add_type_doc': ->
-            new_doc_id = Docs.insert type:Router.current().params.type
-            Router.go "/s/#{@type}/#{new_doc_id}/edit"
+            current_tribe = Docs.findOne
+                type:'tribe'
+                slug:Router.current().params.tribe_slug
+            console.log current_tribe
+            new_doc_id = Docs.insert 
+                type:Router.current().params.type
+                tribe_id:current_tribe._id
+                tribe_slug:current_tribe.slug
+            Router.go "/t/#{current_tribe.slug}/s/#{@type}/#{new_doc_id}/edit"
 
         'click .create_delta': (e,t)->
             Docs.insert type:'delta'

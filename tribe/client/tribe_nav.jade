@@ -17,16 +17,16 @@ template(name='tribe_topnav')
             if currentUser
                 a.item.add(href='#')
                     i.link.plus.icon
-                a.item.toggle_topbar(href='#')
-                    i.inbox.icon
-                a.item(href='/chat')
-                    i.chat.icon
-                a.item.set_schema(href='/t/dao/s/schema')
-                    i.sitemap.icon
-                a.item.set_schema(href='/t/dao/s/tribe')
-                    i.fire.icon
-                a.item(href='/people' class="{{isActivePath '/people'}}")
-                    i.users.icon
+                // a.item.toggle_topbar(href='#')
+                //     i.inbox.icon
+                // a.item(href='/chat')
+                //     i.chat.icon
+                // a.item.set_schema(href='/t/dao/s/schema')
+                //     i.sitemap.icon
+                // a.item.set_schema(href='/t/dao/s/tribe')
+                //     i.fire.icon
+                // a.item(href='/people' class="{{isActivePath '/people'}}")
+                //     i.users.icon
                 a.icon.item(href="/u/#{currentUser._id}/edit")
                     i.cog.icon
                 a.item(href="/u/#{currentUser._id}/about")
@@ -43,7 +43,7 @@ template(name='tribe_topnav')
                     i.user.plus.icon
                     |Register 
     // if currentUser
-    .ui.attached.borderless.inverted.menu.topnav(style="background:#{tribe.primary_color}")
+    .ui.attached.borderless.inverted.menu.topnav(style="background:#{current_tribe.primary_color}")
         each topnav_schemas
             a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                 i.icon(class=icon)
@@ -138,19 +138,19 @@ template(name='tribe_rightbar')
 
 template(name='tribe_leftbar')
     .ui.left.vertical.sidebar.nav_bar.inverted.menu.leftbar
-        if is_dev
-            a.item.toggle_leftbar.toggle_dev.mobile_hidden(href="#")
-                i.user.shield.icon
-                | Dev
-        a.item.toggle_leftbar(href="/people" class="{{isActiveRoute regex='people'}}" title='People')
-            i.users.icon
-            | People
-        a.item.toggle_leftbar(href="/churches" class="{{isActiveRoute regex='churches'}}" title='Churches')
-            i.building.icon
-            | Organizations
-        a.item.toggle_leftbar(href='/chat' title='Chat' class="{{isActiveRoute regex='chat'}}")
-            i.chat.icon
-            | Chat
+        // if is_dev
+        //     a.item.toggle_leftbar.toggle_dev.mobile_hidden(href="#")
+        //         i.user.shield.icon
+        //         | Dev
+        // a.item.toggle_leftbar(href="/people" class="{{isActiveRoute regex='people'}}" title='People')
+        //     i.users.icon
+        //     | People
+        // a.item.toggle_leftbar(href="/churches" class="{{isActiveRoute regex='churches'}}" title='Churches')
+        //     i.building.icon
+        //     | Organizations
+        // a.item.toggle_leftbar(href='/chat' title='Chat' class="{{isActiveRoute regex='chat'}}")
+        //     i.chat.icon
+        //     | Chat
             
         if currentUser
             a.item(href="/user/#{currentUser._id}/edit" class="{{isActiveRoute 'user_edit'}}")
@@ -161,8 +161,8 @@ template(name='tribe_leftbar')
                 i.sign.out.icon
                 | Logout
             
-        each schemas
-            a.item.set_schema.toggle_leftbar(href="/s/#{slug}")
+        each tribe_schemas
+            a.item.set_schema.toggle_leftbar(href="/t/#{current_tribe.slug}/s/#{slug}")
                 i.icon(class=icon)
                 | #{plural}
 
