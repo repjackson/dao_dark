@@ -55,7 +55,7 @@ template(name='tribe_topnav')
     // if currentUser
     .ui.attached.borderless.large.inverted.menu.topnav(style="background:#{tribe.primary_color}")
         each tribe_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/t/#{parent_doc.slug}/s/#{type}" class="{{isActiveRoute regex=slug}}" title=title)
+            a.item.mobile_hidden.set_tribe_schema(href="/t/#{parent_doc.slug}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                 i.icon(class=icon)
                 |#{plural}
 

@@ -39,10 +39,10 @@ template(name='tribe_delta')
                     // |did: #{session_delta_id}
                             
                     each current_delta.facets
-                        +tribe_facet
+                        +facet
                 .ten.wide.column.scrolling
                     each current_delta.result_ids
-                        +tribe_result
+                        +result
 
 
 template(name='tribe_type_edit')
