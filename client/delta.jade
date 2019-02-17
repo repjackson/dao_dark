@@ -13,9 +13,10 @@ template(name='delta')
                                 i.plus.icon
                                 |Add #{title}
                         if can_edit
-                            .ui.button.edit_schema
-                                i.cog.icon
-                                | Configure #{plural}
+                            +edit_button
+                            // .ui.button.edit_schema
+                            //     i.cog.icon
+                            //     | Configure #{plural}
                         // .ui.divider
                         // // each sessions
                         // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
@@ -149,6 +150,9 @@ template(name='facet')
 
 
 
+
+
+
 template(name='result')
     with result 
         .ui.black.result.segment(class="{{#if is_loading}}loading{{/if}}")
@@ -169,6 +173,8 @@ template(name='result')
                 +view_button
                 each schema.actions
                     +Template.dynamic template=this data=..
+            +author_info
+            +creation_info
 
     
     //     each _keys
@@ -179,8 +185,6 @@ template(name='result')
     //     if analyzed_text
     //         |#{nl2br analyzed_text}
 
-    //     +author_info
-    //     +creation_info
     //     +view_button
     //     +edit_button
     // .ui.divider

@@ -72,7 +72,7 @@ template(name='role_editor')
         .ui.button #{this}
 
 template(name='author_info')
-    a.ui.button(href="/user/profile/#{_id}") by #{author.profile.name}
+    a.ui.button(href="/u/#{username}") by #{author.username}
 
 template(name='creation_info')
     .ui.header #{when}
@@ -134,13 +134,13 @@ template(name='toggle_friend')
 
 
 template(name='edit_button')
-    a.ui.button.edit(title='Edit' href="/s/#{type}/#{_id}/edit")
+    a.ui.button.edit(title='Edit' href="/t/#{schema.tribe}/s/#{type}/#{_id}/edit")
         i.pencil.icon
         |Edit
 
 
 template(name='save_button')
-    a.ui.button.large.save(title='Save' href="/s/#{type}/#{_id}/view")
+    a.ui.button.large.save(title='Save' href="/t/#{schema.tribe}/s/#{type}/#{_id}/view")
         i.checkmark.icon
         |Save
 

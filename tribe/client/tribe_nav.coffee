@@ -42,7 +42,7 @@ Template.tribe_topnav.onRendered ->
 
 
 Template.tribe_topnav.helpers
-    tribe_schemas: ->
+    topnav_schemas: ->
         tribe = Docs.findOne 
             type:'tribe'
             slug:Router.current().params.slug
@@ -50,6 +50,7 @@ Template.tribe_topnav.helpers
         Docs.find {
             type:'schema'
             tribe:tribe.slug
+            topnav_roles:$in:Meteor.user().roles
         }, sort:rank:1
 
 Template.tribe_topbar.helpers

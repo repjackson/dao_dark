@@ -1,5 +1,5 @@
 Router.configure
-    layoutTemplate: 'layout'
+    layoutTemplate: 'tribe_layout'
     notFoundTemplate: 'not_found'
     loadingTemplate: 'splash'
     trackPageView: true
@@ -80,9 +80,6 @@ Router.route '/u/:_id/contact', (->
 
 Router.route '/u/:_id/edit', -> @render 'user_edit'
 
-Router.route '/s/:type', -> @render 'delta'
-Router.route '/s/:type/:_id/edit', -> @render 'type_edit'
-Router.route '/s/:type/:_id/view', -> @render 'type_view'
 
 Router.route '/p/:slug', -> @render 'page'
 
@@ -100,6 +97,10 @@ Router.route '/t/:slug/', (->
 
 Router.route '/t/:slug/s/:type', (->
     @layout 'tribe_layout'
-    @render 'tribe_delta'
+    @render 'delta'
     ), name:'tribe_delta'
 
+
+# Router.route '/s/:type', -> @render 'delta'
+Router.route '/t/:slug/s/:type/:_id/edit', -> @render 'type_edit'
+Router.route '/t/:slug/s/:type/:_id/view', -> @render 'type_view'

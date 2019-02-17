@@ -35,7 +35,7 @@ template(name='user_edit')
                         else
                             label Banner Image
                             input(type='file' name='banner_image' accept='image/*')
-                .ui.blue.fluid.button.update_profile Update
+                .ui.fluid.button.update_profile Update
                 +password_edit
                 +phone_editor
                 +username_edit
@@ -50,7 +50,7 @@ template(name='user_edit')
 template(name='user_schema_editor')
     .ui.header Profile Sections
     each schemas
-        .ui.large.button.toggle_schema(class=user_schema_class title=title)
+        .ui.button.toggle_schema(class=user_schema_class title=title)
             i.icon(class=icon)
             |#{title}
 
@@ -93,7 +93,7 @@ template(name='payment_methods')
                     // A Stripe Element will be inserted here.
                     // Used to display Element errors.
                     #card-errors(role='alert')
-                button.ui.blue.button Add
+                button.ui.button Add
         // .actions
         //     .ui.green.button.save_new_card Save Card
             // .ui.red.button.closePopup Cancel
@@ -138,7 +138,7 @@ template(name='phone_editor')
                         i Resend Code
                     .btn.btn-danger.remove_phone.btn-block Remove Phone
         else
-            .ui.blue.fluid.button.update_phone Add / Update Phone
+            .ui.fluid.button.update_phone Add / Update Phone
 
 
 template(name='add_card_modal')

@@ -7,7 +7,6 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
         @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
         # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
-        @autorun -> Meteor.subscribe 'type', 'field_template'
         @autorun -> Meteor.subscribe 'my_delta'
 
 

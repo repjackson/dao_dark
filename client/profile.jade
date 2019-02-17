@@ -1,10 +1,10 @@
 template(name='profile_layout')
     .layout.context(class=invert_class)
-        +topnav
+        +tribe_topnav
         .ui.bottom.attached.basic.segment.pushable
-            +leftbar
-            +topbar
-            +rightbar
+            +tribe_leftbar
+            +tribe_topbar
+            +tribe_rightbar
             .pusher
                 #main
                     with user_from_id_param
