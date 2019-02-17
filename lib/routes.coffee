@@ -99,3 +99,8 @@ Router.route '/t/:slug/', (->
     @render 'tribe_home'
     ), name:'tribe_home'
 
+Router.route '/t/:slug/s/:type', (->
+    @layout 'tribe_layout'
+    @render 'tribe_delta'
+    ), name:'tribe_delta'
+

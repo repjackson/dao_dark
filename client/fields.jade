@@ -45,7 +45,7 @@ template(name='image_edit')
         .field
             if field_value
                 label Image
-                img.ui.fluid.image(src="{{c.url field_value height=500 crop='limit'}}")
+                img.ui.large.image(src="{{c.url field_value height=500 crop='limit'}}")
                 a#remove_photo.ui.right.corner.link.label
                     i.remove.red.link.icon
             else
@@ -190,6 +190,29 @@ template(name='date_view')
 
 
 
+template(name='time_edit')
+    .ui.form
+        .field
+            label 
+                if label
+                    |#{label}
+                else
+                    |#{key}
+            input.edit_time(type='time' value=field_value placeholder=placeholder)
+
+
+template(name='time_view')
+    if icon
+        i.icon(class=icon)
+
+    | #{label}: &nbsp;
+    strong #{field_value}
+
+
+
+
+
+
 
 template(name='array_edit')
     div
@@ -233,7 +256,7 @@ template(name='children_edit')
             .active.content
                 .ui.button.add_child
                     i.plus.icon
-                    |Add Child
+                    |Add Child #{ref_schema}
                 each children
                     .ui.divider
                     +child
@@ -241,10 +264,10 @@ template(name='children_edit')
 
 template(name='child')
     each bricks
-        if field_template
-            .ui.header field template #{field_template}
-        else 
-            +Template.dynamic template=edit_template 
+        // if field_template
+        //     .ui.header field template #{field_template}
+        // else 
+        +Template.dynamic template=edit_template 
 
         // .ui.red.segment
         //     +text_edit key='key'

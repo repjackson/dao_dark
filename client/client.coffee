@@ -31,6 +31,7 @@ Template.registerHelper 'schema', () ->
     Docs.findOne
         type:'schema'
         slug:@type
+        
 Template.registerHelper 'tribe', () ->
     Docs.findOne 
         type:'tribe'

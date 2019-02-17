@@ -30,6 +30,10 @@ Docs.helpers
     when: -> moment(@_timestamp).fromNow()
     is_author: -> Meteor.userId() is @_author_id
 
+    parent_doc: ->
+        Docs.findOne
+            _id:@parent_id
+
     downvoters: ->
         Meteor.users.find
             _id: $in: @downvoter_ids

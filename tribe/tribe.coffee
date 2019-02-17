@@ -3,15 +3,15 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.slug
         
     
-    Template.tribe_nav.onCreated ->
+    Template.tribe_topnav.onCreated ->
         @autorun => Meteor.subscribe 'users'
         @autorun => Meteor.subscribe 'type', 'field'
         # @autorun => Meteor.subscribe 'type', 'schema'
     
-    Template.tribe_nav.helpers
+    Template.tribe_topnav.helpers
         user: -> Meteor.users.findOne username:Router.current().params.username
     
-    Template.tribe_nav.events
+    Template.tribe_topnav.events
         'click .add': ->
             new_id = Docs.insert {}
             Router.go "/edit/#{new_id}"

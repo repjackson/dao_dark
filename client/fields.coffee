@@ -293,6 +293,26 @@ Template.date_edit.events
 
 
 
+        
+
+
+
+Template.time_edit.events
+    'blur .edit_time': (e,t)->
+        parent = Template.parentData()
+        val = t.$('.edit_time').val()
+        brick = Template.parentData(4)
+        context = Template.parentData(5)
+        
+        if brick
+            Docs.update context._id,
+                $set:"#{brick.key}":val
+        else 
+            Docs.update parent._id,
+                $set:"#{@key}":val
+
+
+
 Template.youtube_edit.events
     'blur .youtube_id': (e,t)->
         parent = Template.parentData()

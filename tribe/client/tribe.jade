@@ -1,10 +1,10 @@
 template(name='tribe_layout')
     .layout.context
-        +tribe_nav
+        +tribe_topnav
         .ui.bottom.attached.basic.segment.pushable
-            // +topbar
-            // +leftbar
-            // +rightbar
+            +tribe_topbar
+            +tribe_leftbar
+            +tribe_rightbar
             .pusher
                 #main
                     +yield
@@ -13,7 +13,7 @@ template(name='tribe_layout')
 
 
 
-template(name='tribe_nav')
+template(name='tribe_topnav')
     .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{tribe.primary_color}")
         a.item.toggle_leftbar(href='#')
             i.bars.icon
@@ -53,11 +53,11 @@ template(name='tribe_nav')
                     i.user.plus.icon
                     |Register 
     // if currentUser
-    // .ui.attached.borderless.large.inverted.menu.topnav(style="background:#{tribe.primary_color}")
-    //     each topnav_schemas
-    //         a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-    //             i.icon(class=icon)
-    //             |#{plural}
+    .ui.attached.borderless.large.inverted.menu.topnav(style="background:#{tribe.primary_color}")
+        each tribe_schemas
+            a.item.mobile_hidden.set_tribe_schema(href="/t/#{parent_doc.slug}/s/#{type}" class="{{isActiveRoute regex=slug}}" title=title)
+                i.icon(class=icon)
+                |#{plural}
 
 
 template(name='tribe_home')
