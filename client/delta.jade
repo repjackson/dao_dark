@@ -77,13 +77,13 @@ template(name='type_view')
                 .ten.wide.column
                     .ui.breadcrumb
                         a.section(href='/dashboard')
-                            .ui.compact.button
+                            .ui.button
                                 i.dashboard.icon
                                 |Dashboard
                         .divider
                             i.chevron.right.icon
                         a.section(href="/s/#{type}" title=schema.group)
-                            .ui.compact.button
+                            .ui.button
                                 i.icon(class=schema.icon)
                                 |#{schema.plural}
                         .divider
@@ -126,28 +126,26 @@ template(name='type_view')
 
 template(name='facet')
     if filtering_res
-        .ui.accordion
-            .active.title
-                if icon
-                    i.icon(class=icon)
-                .ui.inline.small.header 
-                    |#{label}
+        div
+        .ui.inline.small.header 
+            if icon
+                i.icon(class=icon)
+                |#{label}
                 // .ui.transparent.left.icon.small.input
                 //     i.search.icon
                 //     input.add_filter(type='text' placeholder='search')
                 // i.dropdown.icon
-            .active.content
-                // each filters
-                //     .unselect.ui.blue.button #{this}
-                each filtering_res
-                    if name
-                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                            | #{name}
-                            small #{count}
-                    else
-                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                            strong [null]
-                            small #{count}
+        // each filters
+        //     .unselect.ui.blue.button #{this}
+        each filtering_res
+            if name
+                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                    | #{name}
+                    small #{count}
+            else
+                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    small #{count}
 
 
 

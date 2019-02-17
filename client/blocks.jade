@@ -90,11 +90,11 @@ template(name='user_list_toggle')
 template(name='voting')
     if points
         strong #{points}
-    .ui.icon.compact.button.upvote
+    .ui.icon.button.upvote
         i.thumbs.up.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.compact.button.downvote
+    .ui.icon.button.downvote
         i.thumbs.down.icon(class=downvote_class)
     each downvoter_ids
         +user_info
@@ -109,7 +109,8 @@ template(name='view_button')
 template(name='remove_button')
     a.ui.button.remove(title='Delete')
         i.remove.icon
-        |Remove #{title} #{type}
+        |Remove #{title}
+        // |Remove #{title} #{type}
             
 
 template(name='add_button')

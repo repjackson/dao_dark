@@ -1,26 +1,78 @@
+template(name='tribe_topnav')
+    .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{current_tribe.primary_color}")
+        a.item.toggle_leftbar(href='#')
+            i.bars.icon
+        if tribe.logo_id
+            a.item(href="/t/#{current_tribe.slug}" class="{{isActivePath '/'}}")
+                img.ui.mini.inline.image(src="{{c.url current_tribe.logo_id height=200 crop='limit'}}")
+        else
+            a.header.item(href="/t/#{current_tribe.slug}" class="{{isActivePath '/'}}")
+                |#{current_tribe.title}
+        if is_loading
+            .icon.item
+                i.loading.refresh.icon
+        // a.item.toggle_invert(href='#')
+        //     i.adjust.icon
+        .right.menu
+            if currentUser
+                a.item.add(href='#')
+                    i.link.plus.icon
+                a.item.toggle_topbar(href='#')
+                    i.inbox.icon
+                a.item(href='/chat')
+                    i.chat.icon
+                // a.item.set_schema(href='/s/schema')
+                //     i.tribemap.icon
+                a.item(href='/people' class="{{isActivePath '/people'}}")
+                    i.users.icon
+                a.icon.item(href="/u/#{currentUser._id}/edit")
+                    i.cog.icon
+                a.item(href="/u/#{currentUser._id}/about")
+                    i.user.icon
+                    // | #{currentUser.username} [#{currentUser.status}]
+                    | #{currentUser.username}
+                a.item.toggle_rightbar(href='#')
+                    i.bars.icon
+            else
+                a.item(href="/signin")
+                    i.sign.in.alternate.icon
+                    |Sign In 
+                a.item(href="/register")
+                    i.user.plus.icon
+                    |Register 
+    // if currentUser
+    .ui.attached.borderless.large.inverted.menu.topnav(style="background:#{tribe.primary_color}")
+        each tribe_schemas
+            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+                i.icon(class=icon)
+                |#{plural}
+
+
+
 template(name='tribe_topbar')
-    .ui.top.sidebar.inverted.segment.push.nav_bar.toggle_topbar.topbar
+    .ui.top.sidebar.inverted.push.nav_bar.toggle_topbar.topbar
         .ui.grid
-            .four.wide.column
-                .ui.small.inverted.header Nonprofits
-                .ui.inverted.list
-                    each nonprofit_pages
-                        a.item(href="/p/#{slug}") #{title}
-            .four.wide.column
-                .ui.small.inverted.header Churches
-                .ui.inverted.list
-                    each church_pages
-                        a.item(href="/p/#{slug}") #{title}
-            .four.wide.column
-                .ui.small.inverted.header Also Serving
-                .ui.inverted.list
-                    each also_serving_pages
-                        a.item(href="/p/#{slug}") #{title}
-            .four.wide.column
-                .ui.small.inverted.header Resources
-                .ui.inverted.list
-                    each resource_pages
-                        a.item(href="/p/#{slug}") #{title}
+            .centered.row
+                .four.wide.center.aligned.column
+                    .ui.inverted.center.aligned.header go
+                    .ui.inverted.list
+                        each nonprofit_pages
+                            a.item(href="/p/#{slug}") #{title}
+                .four.wide.center.aligned.column
+                    .ui.inverted.center.aligned.header fuck
+                    .ui.inverted.list
+                        each church_pages
+                            a.item(href="/p/#{slug}") #{title}
+                .four.wide.center.aligned.column
+                    .ui.inverted.center.aligned.header your
+                    .ui.inverted.list
+                        each also_serving_pages
+                            a.item(href="/p/#{slug}") #{title}
+                .four.wide.center.aligned.column
+                    .ui.inverted.center.aligned.header self
+                    .ui.inverted.list
+                        each resource_pages
+                            a.item(href="/p/#{slug}") #{title}
         a.icon.item(href='/alerts' title='Alerts')
 
 

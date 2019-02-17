@@ -5,9 +5,8 @@ Router.configure
     trackPageView: true
 
 
-Router.route '/delta', -> @render 'delta'
 
-Router.route '/', -> @render 'delta'
+Router.route '/', -> @redirect '/t/dao'
 
 Router.route '/chat', -> @render 'view_chats'
 Router.route '/enter', -> @render 'enter'

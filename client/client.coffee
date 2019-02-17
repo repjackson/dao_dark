@@ -32,7 +32,7 @@ Template.registerHelper 'schema', () ->
         type:'schema'
         slug:@type
         
-Template.registerHelper 'tribe', () ->
+Template.registerHelper 'current_tribe', () ->
     Docs.findOne 
         type:'tribe'
         slug:Router.current().params.slug

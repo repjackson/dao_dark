@@ -49,7 +49,7 @@ Template.tribe_topnav.helpers
         
         Docs.find {
             type:'schema'
-            parent_id:tribe._id
+            tribe:tribe.slug
         }, sort:rank:1
 
 Template.tribe_topbar.helpers
