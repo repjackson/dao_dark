@@ -48,12 +48,19 @@ Meteor.publish 'user_sites', (user_id)->
 
     
     
-Meteor.publish 'bricks_from_doc_id', (tribe, id)->
+Meteor.publish 'bricks_from_doc_id', (tribe, schema, id)->
     doc = Docs.findOne id
-    schema = Docs.findOne
-        type:'schema'
-        slug:doc.type
-        tribe:tribe
+    console.log doc
+    if schema in ['schema']
+        schema = Docs.findOne
+            type:'schema'
+            slug:doc.type
+            # tribe:tribe
+    else 
+        schema = Docs.findOne
+            type:'schema'
+            slug:doc.type
+            tribe:tribe
     Docs.find
         type:'brick'
         parent_id:schema._id
@@ -65,22 +72,33 @@ Meteor.publish 'my_delta', ->
         type:'delta'
 
         
-Meteor.publish 'schema_from_slug', (tribe_slug, slug)->
-    tribe = 
-        Docs.findOne 
-            type:'tribe'
-            slug:tribe_slug
-    Docs.find
-        type:'schema'
-        slug:slug
-        tribe:tribe_slug
+Meteor.publish 'schema_from_slug', (tribe_slug, schema_slug)->
+    if schema_slug in ['schema','brick','field']
+        Docs.find
+            type:'schema'
+            slug:schema_slug
+    else 
+        tribe = 
+            Docs.findOne 
+                type:'tribe'
+                slug:tribe_slug
+        Docs.find
+            type:'schema'
+            slug:schema_slug
+            tribe:tribe_slug
         
-Meteor.publish 'schema_from_doc_id', (tribe_slug,id)->
+Meteor.publish 'schema_from_doc_id', (tribe_slug, schema, id)->
     doc = Docs.findOne id
-    Docs.find
-        type:'schema'
-        slug:doc.type
-        tribe:tribe_slug
+    if schema is 'schema'
+        Docs.find
+            type:'schema'
+            slug:doc.type
+            # tribe:tribe_slug
+    else 
+        Docs.find
+            type:'schema'
+            slug:doc.type
+            tribe:tribe_slug
     
     
     
@@ -128,4 +146,4 @@ Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type)->
         type:'brick'
         parent_id:schema._id
         
-        
+            

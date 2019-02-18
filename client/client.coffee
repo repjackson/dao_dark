@@ -110,11 +110,12 @@ Template.registerHelper 'view_template', ->
     
     
 Template.registerHelper 'bricks', () ->
-    if @type in ['field', 'brick']
+    console.log @type
+    if @type in ['field', 'brick','schema']
         schema = Docs.findOne
             type:'schema'
             slug:@type
-            tribe:'dao'
+            # tribe:'dao'
     else
         schema = Docs.findOne
             type:'schema'

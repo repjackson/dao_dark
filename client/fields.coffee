@@ -357,7 +357,7 @@ Template.youtube_edit.events
 Template.children_edit.onCreated ->
     # @autorun => Meteor.subscribe 'children', @data.ref_schema, Template.parentData(5)._id
     @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
-    @autorun => Meteor.subscribe 'schema_from_slug',  @data.ref_schema
+    @autorun => Meteor.subscribe 'schema_from_slug', Router.current().params.tribe_slug, @data.ref_schema
     @autorun => Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.tribe_slug, @data.ref_schema
 
 Template.children_edit.onRendered ->
