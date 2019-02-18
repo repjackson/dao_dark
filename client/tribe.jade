@@ -19,10 +19,10 @@ template(name='tribe_home')
     .ui.padded.stackable.grid
         .centered.row
             .two.wide.column
-                a.ui.icon.button(href="/s/tribe/#{tribe._id}/edit")
+                a.ui.icon.button(href="/t/#{current_tribe.slug}/s/tribe/#{current_tribe._id}/edit")
                     i.cog.icon
             .ten.wide.column
-                img.ui.large.inline.image(src="{{c.url tribe.logo_id height=400 crop='limit'}}")
+                img.ui.large.inline.image(src="{{c.url current_tribe.logo_id height=400 crop='limit'}}")
                 .ui.center.aligned.large.header #{current_tribe.title}
                 .ui.center.aligned.small.header #{current_tribe.subtitle}
         .centered.row

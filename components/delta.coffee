@@ -45,6 +45,7 @@ if Meteor.isClient
             console.log current_tribe
             new_doc_id = Docs.insert 
                 type:Router.current().params.type
+                parent_id: current_tribe._id
                 tribe_id:current_tribe._id
                 tribe_slug:current_tribe.slug
             Router.go "/t/#{current_tribe.slug}/s/#{@type}/#{new_doc_id}/edit"

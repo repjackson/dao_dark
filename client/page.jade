@@ -30,13 +30,21 @@ template(name='page')
                         
                         
 template(name='add')
-    .ui.stackable.four.link.cards
-        each add_schemas
-            .card.add_doc
-                .content
-                    .header 
-                        i.icon(class=icon)
-                        |#{title}
+    .ui.stackable.padded.grid
+        .row
+            .sixteen.wide.column
+                .ui.center.aligned.header
+                    i.plus.icon
+                    | Add
+        .row
+            .sixteen.wide.column
+                .ui.stackable.four.link.cards
+                    each add_schemas
+                        .card.add_doc
+                            .content
+                                .header 
+                                    i.icon(class=icon)
+                                    |#{title}
                         
                         
 template(name='block')

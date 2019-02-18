@@ -20,13 +20,16 @@ if Meteor.isClient
                 Docs.find
                     type:'schema'
                     add_roles:$in:Meteor.user().roles
+                    tribe:Router.current().params.tribe_slug
 
     Template.add.events
         'click .add_doc': ->
             console.log @
-            new_id = Docs.insert
-                type:@slug
+            new_id = 
+                Docs.insert
+                    type:@slug
+                    tribe:Router.current().params.tribe_slug
                 
-            Router.go "/s/#{@slug}/#{new_id}/edit"
+            Router.go "/t/#{Router.current().params.tribe_slug}/s/#{@slug}/#{new_id}/edit"
 
     

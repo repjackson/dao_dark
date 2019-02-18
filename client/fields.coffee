@@ -132,6 +132,31 @@ Template.image_edit.events
                             $set:"#{@key}":res.public_id
                 return
 
+    'click #remove_photo': ->
+        parent = Template.parentData()
+        brick = Template.parentData(4)
+        context = Template.parentData(5)
+
+        swal {
+            title: 'Remove Photo?'
+            type: 'warning'
+            animation: false
+            showCancelButton: true
+            closeOnConfirm: true
+            cancelButtonText: 'No'
+            confirmButtonText: 'Remove'
+            confirmButtonColor: '#da5347'
+        }, =>
+            # Meteor.call "c.delete_by_public_id", @image_id, (err,res) =>
+            Docs.update context._id, 
+                $unset:"#{brick.key}":1
+                # if not err
+                #     # Do Stuff with res
+                #     # console.log res
+                #     # console.log @image_id, FlowRouter.getParam('doc_id')
+
+                # else
+                #     throw new Meteor.Error "it failed"
 
 
 
@@ -333,7 +358,7 @@ Template.children_edit.onCreated ->
     # @autorun => Meteor.subscribe 'children', @data.ref_schema, Template.parentData(5)._id
     @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
     @autorun => Meteor.subscribe 'schema_from_slug',  @data.ref_schema
-    @autorun => Meteor.subscribe 'schema_bricks_from_slug', @data.ref_schema
+    @autorun => Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.tribe_slug, @data.ref_schema
 
 Template.children_edit.onRendered ->
     Meteor.setTimeout ->
@@ -351,6 +376,8 @@ Template.children_edit.helpers
             type: @ref_schema
             parent_id: parent._id
         }, sort:rank:1
+        
+        
 Template.children_edit.events
     'click .add_child': ->
         # console.log @

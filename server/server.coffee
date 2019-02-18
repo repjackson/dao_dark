@@ -205,10 +205,19 @@ Meteor.publish 'schemas', (dev_mode)->
         
         
 Meteor.publish 'schema_bricks_from_slug', (tribe_slug, slug)->
-    schema = Docs.findOne
-        type:'schema'
-        slug:slug
-        tribe:tribe_slug
+    console.log tribe_slug
+    console.log slug
+    if slug in ['field', 'brick']
+        schema = Docs.findOne
+            type:'schema'
+            slug:slug
+            # tribe:tribe_slug
+    else
+        schema = Docs.findOne
+            type:'schema'
+            slug:slug
+            tribe:tribe_slug
+        
     Docs.find
         type:'brick'
         parent_id:schema._id

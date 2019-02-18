@@ -130,7 +130,7 @@ a {
 
 
 .layout {
-  min-height:185vh;
+  min-height:85vh;
 }
 
 .button {
@@ -295,7 +295,7 @@ a {
 }
 
 .inline {
-  display:inline;
+  display:inline !important;
   margin: .5em !important;
 }
 

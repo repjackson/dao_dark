@@ -372,11 +372,12 @@ Meteor.methods
             schema = Docs.findOne 
                 type:'schema'
                 slug:delta.doc_type
-            built_query = {type:delta.doc_type}
+            if 'dev' in Meteor.user().roles
+                built_query = {type:delta.doc_type}
+            else
+                built_query = {parent_id:schema._id}
                 
-                
-            # built_query.parent_id = delta.user_id    
-            # console.log 'schema', schema
+            console.log 'schema', schema
             
             # if not delta.facets
             #     delta.facets = []
@@ -386,7 +387,7 @@ Meteor.methods
                     built_query["#{facet.key}"] = $all: facet.filters
             
             total = Docs.find(built_query).count()
-            # console.log 'built query', built_query
+            console.log 'built query', built_query
             
             # response
             for facet in delta.facets

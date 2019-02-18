@@ -9,7 +9,7 @@ Router.configure
 Router.route '/', -> @redirect '/t/dao'
 
 Router.route '/chat', -> @render 'view_chats'
-Router.route '/enter', -> @render 'enter'
+Router.route '/t/:tribe_slug/add', -> @render 'add'
 Router.route '/me', -> @render 'me'
 Router.route '/users', -> @render 'users'
 Router.route '/inbox', -> @render 'inbox'
@@ -26,33 +26,33 @@ Router.route '/view/:id', -> @render 'view'
 Router.route '*', -> @render 'not_found'
 
 # Router.route '/u/:_id/s/:type', -> @render 'profile_layout', 'user_section'
-Router.route '/u/:_id/s/:type', (->
+Router.route '/t/:tribe_slug/u/:_id/s/:type', (->
     @layout 'profile_layout'
     @render 'user_section'
     ), name:'user_section'
 
 
-Router.route '/u/:_id/about', (->
+Router.route '/t/:tribe_slug/u/:_id/about', (->
     @layout 'profile_layout'
     @render 'user_about'
     ), name:'user_about'
     
-Router.route '/u/:_id/stripe', (->
+Router.route '/t/:tribe_slug/u/:_id/stripe', (->
     @layout 'profile_layout'
     @render 'user_stripe'
     ), name:'user_stripe'
 
-# Router.route '/u/:_id/blog', (->
+# Router.route '/t/:tribe_slug/u/:_id/blog', (->
 #     @layout 'profile_layout'
 #     @render 'user_blog'
 #     ), name:'user_blog'
 
-# Router.route '/u/:_id/events', (->
+# Router.route '/t/:tribe_slug/u/:_id/events', (->
 #     @layout 'profile_layout'
 #     @render 'user_events'
 #     ), name:'user_events'
 
-Router.route '/u/:_id/chat', (->
+Router.route '/t/:tribe_slug/u/:_id/chat', (->
     @layout 'profile_layout'
     @render 'user_chat'
     ), name:'user_user_chat'
@@ -78,10 +78,10 @@ Router.route '/u/:_id/contact', (->
 #     ), name:'user_campaigns'
 
 
-Router.route '/u/:_id/edit', -> @render 'user_edit'
+Router.route '/t/:tribe_slug/u/:_id/edit', -> @render 'user_edit'
 
 
-Router.route '/p/:slug', -> @render 'page'
+Router.route '/t:tribe_slug/p/:slug', -> @render 'page'
 
 Router.route '/signin', -> @render 'signin'
 Router.route '/register', -> @render 'register'
