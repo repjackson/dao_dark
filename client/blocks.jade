@@ -102,7 +102,7 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.button.view(title='View' href="/s/#{type}/#{_id}/view")
+    a.ui.button.view(title='View' href="/t/#{current_tribe.slug}/s/#{type}/#{_id}/view")
         |View #{type}
         i.right.chevron.icon
 

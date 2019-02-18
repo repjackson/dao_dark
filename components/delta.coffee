@@ -47,7 +47,7 @@ if Meteor.isClient
                 type:Router.current().params.type
                 parent_id: current_tribe._id
                 tribe_id:current_tribe._id
-                tribe_slug:current_tribe.slug
+                tribe:current_tribe.slug
             Router.go "/t/#{current_tribe.slug}/s/#{@type}/#{new_doc_id}/edit"
 
         'click .create_delta': (e,t)->
@@ -95,16 +95,14 @@ if Meteor.isClient
 
     Template.type_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
-        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params._id
-        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params._id
-        @autorun -> Meteor.subscribe 'type', 'field_template'
+        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params.tribe_slug, Router.current().params._id
+        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params.tribe_slug, Router.current().params._id
         
     
     Template.type_view.onCreated ->
-        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params._id
-        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params._id
+        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params.tribe_slug, Router.current().params._id
+        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params.tribe_slug, Router.current().params._id
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
-        @autorun -> Meteor.subscribe 'type', 'field_template'
 
     Template.type_edit.events
         'blur .body': (e,t)->

@@ -15,7 +15,7 @@ template(name='tribe_topnav')
         //     i.adjust.icon
         .right.menu
             if currentUser
-                a.icon.item.add(href="/t/#{current_tribe.slug}/add")
+                a.icon.item(href="/t/#{current_tribe.slug}/add")
                     i.plus.icon
                 // a.item.toggle_topbar(href='#')
                 //     i.inbox.icon

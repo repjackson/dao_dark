@@ -156,7 +156,7 @@ template(name='facet')
 template(name='result')
     with result 
         .ui.black.result.segment(class="{{#if is_loading}}loading{{/if}}")
-            a.ui.header(href="/s/#{type}/#{_id}/view")
+            a.ui.header(href="/t/#{current_tribe}/s/#{type}/#{_id}/view")
                 if icon
                     i.icon(class=icon)
                 |#{title}

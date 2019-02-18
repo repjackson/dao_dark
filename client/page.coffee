@@ -22,6 +22,8 @@ if Meteor.isClient
                     add_roles:$in:Meteor.user().roles
                     tribe:Router.current().params.tribe_slug
 
+
+
     Template.add.events
         'click .add_doc': ->
             console.log @

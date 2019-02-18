@@ -1,39 +1,16 @@
-  
-
 Template.tribe_topnav.onCreated ->
     @autorun => Meteor.subscribe 'users'
     @autorun => Meteor.subscribe 'type', 'field'
-    @autorun => Meteor.subscribe 'type', 'schema'
-
-Template.tribe_topnav.helpers
-    user: -> Meteor.users.findOne username:Router.current().params.username
-
-Template.tribe_topnav.events
-    'click .add': ->
-        new_id = Docs.insert {}
-        Router.go "/edit/#{new_id}"
-
-    'click .toggle_dev': ->
-        Session.set('dev_mode', !Session.get('dev_mode'))
-
-    'click .set_tribe_schema': ->
-        Session.set 'loading', true
-        Meteor.call 'set_delta_facets', @slug, ->
-            Session.set 'loading', false
-
-
-Template.tribe_topbar.onCreated ->
-    @autorun => Meteor.subscribe 'type', 'page'
+    @autorun => Meteor.subscribe 'tribe_schemas', Router.current().params.tribe_slug
+    @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
 
 
 Template.tribe_topnav.onRendered ->
-    @autorun =>
-        if @subscriptionsReady()
-            Meteor.setTimeout ->
-                $('.dropdown').dropdown()
-            , 2000
-
-
+    # @autorun =>
+    #     if @subscriptionsReady()
+    #         Meteor.setTimeout ->
+    #             $('.dropdown').dropdown()
+    #         , 2000
 
 Template.tribe_topnav.helpers
     topnav_schemas: ->
@@ -46,6 +23,27 @@ Template.tribe_topnav.helpers
                 tribe:tribe.slug
                 topnav_roles:$in:Meteor.user().roles
             }, sort:rank:1
+
+    # user: -> Meteor.users.findOne username:Router.current().params.username
+
+Template.tribe_topnav.events
+    # 'click .add': ->
+    #     new_id = Docs.insert {}
+    #     Router.go "/edit/#{new_id}"
+
+    # 'click .toggle_dev': ->
+    #     Session.set('dev_mode', !Session.get('dev_mode'))
+
+    'click .set_tribe_schema': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', @slug, ->
+            Session.set 'loading', false
+
+
+Template.tribe_topbar.onCreated ->
+    @autorun => Meteor.subscribe 'type', 'page'
+
+
 
 Template.tribe_topbar.helpers
     nonprofit_pages: ->

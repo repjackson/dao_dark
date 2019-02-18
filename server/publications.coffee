@@ -44,3 +44,88 @@ Meteor.publish 'user_sites', (user_id)->
     user = Meteor.users.findOne user_id
     Docs.find
         _id: $in: user.site_ids
+
+
+    
+    
+Meteor.publish 'bricks_from_doc_id', (tribe, id)->
+    doc = Docs.findOne id
+    schema = Docs.findOne
+        type:'schema'
+        slug:doc.type
+        tribe:tribe
+    Docs.find
+        type:'brick'
+        parent_id:schema._id
+        
+        
+Meteor.publish 'my_delta', ->
+    Docs.find
+        _author_id:Meteor.userId()
+        type:'delta'
+
+        
+Meteor.publish 'schema_from_slug', (tribe_slug, slug)->
+    tribe = 
+        Docs.findOne 
+            type:'tribe'
+            slug:tribe_slug
+    Docs.find
+        type:'schema'
+        slug:slug
+        tribe:tribe_slug
+        
+Meteor.publish 'schema_from_doc_id', (tribe_slug,id)->
+    doc = Docs.findOne id
+    Docs.find
+        type:'schema'
+        slug:doc.type
+        tribe:tribe_slug
+    
+    
+    
+Meteor.publish 'tribe_schemas', (tribe)->
+    Docs.find
+        type:'schema'
+        tribe:tribe
+    
+    
+    
+    
+            
+        
+Meteor.publish 'schemas', (dev_mode)->
+    if dev_mode
+        Docs.find
+            type:'schema'
+    else
+        if Meteor.user()
+            Docs.find
+                type:'schema'
+                # view_roles:$in:Meteor.user().roles
+        else
+            Docs.find
+                type:'schema'
+                # view_roles:$in:['public']
+        
+        
+        
+Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type)->
+    console.log tribe_slug
+    console.log type
+    if type in ['field', 'brick']
+        schema = Docs.findOne
+            type:'schema'
+            slug:type
+            # tribe:tribe_slug
+    else
+        schema = Docs.findOne
+            type:'schema'
+            slug:type
+            tribe:tribe_slug
+        
+    Docs.find
+        type:'brick'
+        parent_id:schema._id
+        
+        

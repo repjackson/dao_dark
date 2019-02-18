@@ -110,24 +110,23 @@ Template.registerHelper 'view_template', ->
     
     
 Template.registerHelper 'bricks', () ->
-    if @type
+    if @type in ['field', 'brick']
         schema = Docs.findOne
             type:'schema'
             slug:@type
-    else if @roles
+            tribe:'dao'
+    else
         schema = Docs.findOne
             type:'schema'
-            slug:$in:@roles
-    else if Router.getParam('type')
-        schema = Docs.findOne
-            type:'schema'
-            slug:Router.getParam('type')
-    # console.log schema
-    # console.log @
+            slug:@type
+            tribe:Router.current().params.tribe_slug
+        
     Docs.find {
         type:'brick'
-        parent_id: schema._id
+        parent_id:schema._id
     }, sort:rank:1
+    
+    
     
 Template.registerHelper 'field_value', () ->
     parent = Template.parentData()
