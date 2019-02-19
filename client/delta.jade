@@ -41,9 +41,59 @@ template(name='delta')
                             
                     each current_delta.facets
                         +facet
-                .ten.wide.column.scrolling
-                    each current_delta.result_ids
-                        +result
+                .ten.wide.column
+                    .ui.horizontal.list
+                        .item
+                            +set_page_size value=10
+                            +set_page_size value=20
+                            +set_page_size value=50
+                        .item
+                            if multiple_pages
+                                .ui.label
+                                    | Page #{delta.current_page}/#{delta.page_amount}
+                        .item
+                                | #{delta.total} Results
+                        .item
+                            if show_page_down
+                                .ui.icon.button.page_down(title='Previous Page')
+                                    i.left.chevron.icon
+                            if show_page_up
+                                .ui.icon.button.page_up(title='Next Page')
+                                    i.right.chevron.icon
+                        .item
+                            +set_delta_key key='view' value='grid' icon='grid'                                    
+                            +set_delta_key key='view' value='table' icon='table'                                    
+                        
+                        .item
+                            +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron-up'
+                        .item
+                            .ui.disabled.button
+                                i.sort.down.icon
+                                |Sort By
+                        .item
+                            .ui.disabled.button
+                                i.filter.icon
+                                | Toggle Fields
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    .ui.stackable.cards.scrolling(class=cards_class)
+                        each current_delta.result_ids
+                            +result
+
+
+
 
 
 template(name='type_edit')
@@ -127,29 +177,54 @@ template(name='type_view')
 
 template(name='facet')
     if filtering_res
-        div
-        .ui.small.header 
-            if icon
-                i.icon(class=icon)
-            |#{label}
-            // .ui.transparent.left.icon.small.input
-            //     i.search.icon
-            //     input.add_filter(type='text' placeholder='search')
-            // i.dropdown.icon
-        // each filters
-        //     .unselect.ui.blue.button #{this}
-        each filtering_res
-            if name
-                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                    | #{name}
-                    small #{count}
-            else
-                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                    strong [null]
-                    small #{count}
+        .ui.accordion
+            .active.title
+                .ui.small.header 
+                    if icon
+                        i.icon(class=icon)
+                    |#{label}
+            .active.content
+                // .ui.transparent.left.icon.small.input
+                //     i.search.icon
+                //     input.add_filter(type='text' placeholder='search')
+                // i.dropdown.icon
+                // each filters
+                //     .unselect.ui.blue.button #{this}
+                each filtering_res
+                    if name
+                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                            | #{name}
+                            small #{count}
+                    else
+                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                            strong [null]
+                            small #{count}
 
 
 
+template(name='toggle_delta_config')
+    div
+    if boolean_true
+        .ui.blue.active.fluid.button.disable_key
+            i.icon(class=icon)
+            | #{label}
+    else
+        .ui.fluid.button.enable_key
+            i.icon(class=icon)
+            | #{label}
+    p
+
+
+
+template(name='set_page_size')
+    .ui.icon.button.set_page_size(class=page_size_class title='Page Size')
+        .middle.aligned #{value}
+
+template(name='set_delta_key')
+    .ui.icon.button.set_delta_key(class=set_delta_key_class)
+        if icon
+            i.icon(class=icon)
+        // |#{label}
 
 
 

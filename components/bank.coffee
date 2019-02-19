@@ -52,6 +52,6 @@ if Meteor.isClient
 			
 	Template.stripe_connect.helpers
 		stripe_settings: -> 
-			console.log Meteor.settings
+			# console.log Meteor.settings
 			Meteor.settings.public.stripe
 	

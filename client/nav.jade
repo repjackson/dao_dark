@@ -4,7 +4,7 @@ template(name='topnav')
             i.bars.icon
         if current_tribe.logo_id
             a.item(href="/t/#{current_tribe.slug}" class="{{isActivePath '/'}}")
-                img.ui.mini.inline.image(src="{{c.url current_tribe.logo_id height=200 crop='limit'}}")
+                img.ui.avatar.inline.image(src="{{c.url current_tribe.logo_id height=100 crop='limit'}}")
         else
             a.header.item(href="/t/#{current_tribe.slug}" class="{{isActivePath '/'}}")
                 |#{current_tribe.title}

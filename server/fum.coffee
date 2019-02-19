@@ -39,16 +39,36 @@ Meteor.methods
                     Docs.update { _id:delta._id, 'facets.key':facet.key},
                         { $set: 'facets.$.res': agg_res }
     
-            if delta.limit then limit=delta.limit else limit=30
+            # if delta.limit then limit=delta.limit else limit=30
+            calc_page_size = if delta.page_size then delta.page_size else 10
+
+            page_amount = Math.ceil(total/calc_page_size)
     
+            current_page = if delta.current_page then delta.current_page else 1
     
-            if schema.collection 
-                if schema.collection is 'users'
-                    results_cursor = Meteor.users.find built_query, { fields:{_id:1}, limit:limit }
-                else
-                    results_cursor = global["#{schema.collection}"].find built_query, { limit:limit, sort:{_timestamp:-1}}
-            else 
-                results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit, sort:{_timestamp:-1}}
+            skip_amount = current_page*calc_page_size-calc_page_size
+    
+            final_sort_key = if delta.sort_key then delta.sort_key else 'timestamp'
+            final_sort_direction = if delta.sort_direction then delta.sort_direction else -1
+    
+            results_cursor =
+                Docs.find( built_query,
+                    {
+                        fields:_id:1
+                        limit:calc_page_size
+                        sort:"#{final_sort_key}":final_sort_direction
+                        skip:skip_amount
+                    }
+                )
+
+    
+            # if schema.collection 
+            #     if schema.collection is 'users'
+            #         results_cursor = Meteor.users.find built_query, { fields:{_id:1}, limit:limit }
+            #     else
+            #         results_cursor = global["#{schema.collection}"].find built_query, { limit:limit, sort:{_timestamp:-1}}
+            # else 
+            #     results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit, sort:{_timestamp:-1}}
     
             
             # if total is 1
@@ -61,16 +81,20 @@ Meteor.methods
     
             # console.log 'delta', delta
             # console.log Meteor.userId()
+        
+            Docs.update {_id:delta._id},
+                {$set:
+                    current_page:current_page
+                    page_amount:page_amount
+                    skip_amount:skip_amount
+                    page_size:calc_page_size
+                    total: total
+                    result_ids:result_ids
+                }, ->
+            return true
     
-            Docs.update {_id:delta_id},
-                {
-                    $set:
-                        total: total
-                        # _facets: filtered_facets
-                        result_ids:result_ids
-                }
-                
-            delta = Docs.findOne delta_id    
+    
+            # delta = Docs.findOne delta_id    
             # console.log 'delta', delta
 
     agg: (query, key)->

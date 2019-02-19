@@ -21,6 +21,32 @@ if Meteor.isClient
                 type:Router.current().params.type
 
         selected_tags: -> selected_tags.list()
+        
+        grid_view_class: ->
+            delta = Docs.findOne type:'delta'
+            if delta.view_mode is 'grid' then 'delta_selected' else 'delta_selector'
+        list_view_class: ->
+            delta = Docs.findOne type:'delta'
+            if delta.view_mode is 'list' then 'delta_selected' else 'delta_selector'
+        table_view_class: ->
+            delta = Docs.findOne type:'delta'
+            if delta.view_mode is 'table' then 'delta_selected' else 'delta_selector'
+    
+        results_class: ->
+            delta = Docs.findOne type:'delta'
+            if delta.viewing_detail
+                if delta.viewing_rightbar then 'twelve wide' else 'sixteen wide'
+            else
+            #     if delta.viewing_rightbar then 'nine wide' else 'twelve wide'
+                'twelve wide'
+    
+        cards_class: ->
+            delta = Docs.findOne type:'delta'
+            if delta
+                switch delta.total
+                    when 2 then 'two'
+                    when 1 then 'one'
+                    else 'three'
 
 
         current_delta: -> 
@@ -34,6 +60,53 @@ if Meteor.isClient
         single_doc: ->
             count = Docs.find({}).count()
             if count is 1 then true else false
+
+
+    Template.set_page_size.helpers
+        page_size_class: ->
+            delta = Docs.findOne type:'delta'
+            if @value is delta.page_size then 'grey' else ''
+
+    Template.set_page_size.events
+        'click .set_page_size': (e,t)->
+            delta = Docs.findOne type:'delta'
+            Docs.update delta._id,
+                $set:
+                    current_page:0
+                    skip_amount:0
+                    page_size:@value
+            Session.set 'is_calculating', true
+            Meteor.call 'fo', (err,res)->
+                if err then console.log err
+                else
+                    Session.set 'is_calculating', false
+
+
+    Template.set_delta_key.helpers
+        set_delta_key_class: ->
+            delta = Docs.findOne type:'delta'
+            if delta["#{@key}"] is @value then 'grey' else 'basic'
+
+    
+    
+    Template.toggle_delta_config.helpers
+        boolean_true: ->
+            delta = Docs.findOne type:'delta'
+            if delta then delta["#{@key}"]
+    
+    Template.toggle_delta_config.events
+        'click .enable_key': ->
+            delta = Docs.findOne type:'delta'
+            Docs.update delta._id,
+                $set:"#{@key}":true
+    
+        'click .disable_key': ->
+            delta = Docs.findOne type:'delta'
+            Docs.update delta._id,
+                $set:"#{@key}":false
+    
+    
+
 
 
 
@@ -73,6 +146,27 @@ if Meteor.isClient
             if delta
                 if confirm "delete  #{delta._id}?"
                     Docs.remove delta._id
+
+
+        'click .page_up': (e,t)->
+            delta = Docs.findOne type:'delta'
+            Docs.update delta._id,
+                $inc: current_page:1
+            Session.set 'is_calculating', true
+            Meteor.call 'fo', (err,res)->
+                if err then console.log err
+                else
+                    Session.set 'is_calculating', false
+    
+        'click .page_down': (e,t)->
+            delta = Docs.findOne type:'delta'
+            Docs.update delta._id,
+                $inc: current_page:-1
+            Session.set 'is_calculating', true
+            Meteor.call 'fo', (err,res)->
+                if err then console.log err
+                else
+                    Session.set 'is_calculating', false
 
 
         'click .select_tag': -> selected_tags.push @name

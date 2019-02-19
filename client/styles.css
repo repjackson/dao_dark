@@ -19,35 +19,7 @@ body {
   background: rgba(250,250,250,1) !important
 }
 
-.darkblue {
-	background:#0D3051 !important;
-	color:white !important;
-}
 
-
-
-.black_bat {
-  font-family: 'black_bat' !important;
-}
-
-.white_bat {
-  font-family: 'white_bat' !important;
-  /*font: white !important;*/
-}
-@font-face {
-  font-family: black_bat;
-  src: url("/black_bat.ttf");
-}
-@font-face {
-  font-family: white_bat;
-  src: url("/white_bat.ttf");
-}
-
-
-
-.youtube{
-  filter: invert(100%);
-}
 .ui.button, .ui.label{
   margin:.1em !important;
 }
@@ -168,7 +140,7 @@ a {
   flex-direction: column;
 }
 #main {
-    min-height: 85vh;
+    min-height: 80vh;
     /*margin-top:3em;*/
     /*margin-bottom:3em;*/
     /*margin-left: 1em;*/
@@ -337,7 +309,7 @@ a {
 .scrolling{
 	overflow-y:scroll;
 	overflow-x:hidden;
-	max-height:90vh;
+	max-height:85vh;
 	/*max-height:85vh;*/
 	padding-top: 1em;
 	/*padding-left: 1em;*/
