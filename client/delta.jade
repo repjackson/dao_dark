@@ -1,8 +1,8 @@
 template(name='delta')
     with schema
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
-                .column.scrolling(class=delta_left_column_class)
+                .column.padleft.scrolling(class=delta_left_column_class)
                     a.ui.right.corner.label.move_left
                         i.left.chevron.link.icon
                     .ui.center.aligned.header
@@ -46,7 +46,7 @@ template(name='delta')
                 .column(class=delta_right_column_class)
                     a.ui.left.corner.label.move_right
                         i.right.chevron.link.pointer.icon
-                    .ui.horizontal.list
+                    .ui.horizontal.spaced.list
                         .item
                             +set_page_size value=10
                             +set_page_size value=20
@@ -78,7 +78,8 @@ template(name='delta')
                             .ui.disabled.button
                                 i.filter.icon
                                 | Toggle Fields
-                    .ui.stackable.cards.scrolling(class=cards_class)
+                    // .ui.stackable.cards.scrolling(class=cards_class)
+                    .ui.stackable.cards.scrolling
                         each current_delta.result_ids
                             +result
 
@@ -217,26 +218,29 @@ template(name='set_delta_key')
 
 template(name='result')
     with result 
-        .ui.black.result.segment(class="{{#if is_loading}}loading{{/if}}")
-            a.ui.header(href="/t/#{current_tribe}/s/#{type}/#{_id}/view")
-                if icon
-                    i.icon(class=icon)
-                |#{title}
-            .description
-                // each schema.field_templates
-                //     with field_template_doc
-                //         +Template.dynamic template=view_template
-                each bricks
-                    +Template.dynamic template=view_template 
-            .extra
-                // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                if is_author
-                    +edit_button
-                +view_button
-                each schema.actions
-                    +Template.dynamic template=this data=..
-            +author_info
-            +creation_info
+        .ui.black.result.card(class="{{#if is_loading}}loading{{/if}}")
+            .content
+                a.ui.header(href="/t/#{current_tribe}/s/#{type}/#{_id}/view")
+                    if logo_id
+                        img.ui.avatar.image(src="{{c.url logo_id width=100 height=100 gravity='face' crop='fill'}}")
+                    else if icon
+                        i.icon(class=icon)
+                    |#{title}
+                .description
+                    // each schema.field_templates
+                    //     with field_template_doc
+                    //         +Template.dynamic template=view_template
+                    each bricks
+                        +Template.dynamic template=view_template 
+                .extra
+                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    if is_author
+                        +edit_button
+                    +view_button
+                    each schema.actions
+                        +Template.dynamic template=this data=..
+                +author_info
+                +creation_info
 
     
     //     each _keys

@@ -15,21 +15,21 @@ template(name='topnav')
         //     i.adjust.icon
         .right.menu
             if currentUser
-                a.icon.item(href="/t/#{current_tribe.slug}/add")
+                a.icon.item(href="/t/#{current_tribe.slug}/add" title="#{current_tribe.title} Add")
                     i.plus.icon
-                a.item.toggle_topbar(href='#')
-                    i.inbox.icon
-                a.item(href='/chat')
+                // a.item.toggle_topbar(href='#')
+                //     i.inbox.icon
+                a.item(href="/t/#{current_tribe.slug}/chat" title="#{current_tribe.title} Chat")
                     i.chat.icon
-                a.item.set_schema(href='/t/dao/s/schema')
+                a.item.set_schema(href="/t/#{current_tribe.slug}/schemas" title="#{current_tribe.title} Schemas")
                     i.sitemap.icon
-                a.item.set_schema(href='/t/dao/s/tribe')
-                    i.fire.icon
-                a.item(href='/people' class="{{isActivePath '/people'}}")
+                a.item.set_schema(href="/t/#{current_tribe.slug}/pages" title="#{current_tribe.title} Pages")
+                    i.clone.icon
+                a.item(href="/t/#{current_tribe.slug}/users" title="#{current_tribe.title} Users")
                     i.users.icon
-                a.icon.item(href="/t/#{current_tribe.slug}/u/#{currentUser._id}/edit")
+                a.icon.item(href="/t/#{current_tribe.slug}/u/#{currentUser._id}/edit" title="#{current_tribe.title} Account")
                     i.cog.icon
-                a.item(href="/t/#{current_tribe.slug}/u/#{currentUser._id}/about")
+                a.item(href="/t/#{current_tribe.slug}/u/#{currentUser._id}/about" title="#{current_tribe.title} Profile")
                     i.user.icon
                     // | #{currentUser.username} [#{currentUser.status}]
                     | #{currentUser.username}
@@ -45,7 +45,7 @@ template(name='topnav')
     // if currentUser
     .ui.attached.borderless.inverted.menu.topnav(style="background:#{current_tribe.primary_color}")
         each topnav_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" title=title)
                 i.icon(class=icon)
                 |#{plural}
 

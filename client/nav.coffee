@@ -11,6 +11,11 @@ Template.topnav.onRendered ->
     #         Meteor.setTimeout ->
     #             $('.dropdown').dropdown()
     #         , 2000
+    
+    Meteor.setTimeout ->
+        $('.item').popup()
+    , 2000
+    
 
 Template.topnav.helpers
     topnav_schemas: ->

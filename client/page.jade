@@ -47,6 +47,41 @@ template(name='add')
                                     |#{title}
                         
                         
+template(name='pages')
+    .ui.stackable.padded.grid
+        .row
+            .sixteen.wide.column
+                .ui.center.aligned.header
+                    i.clone.icon
+                    | Pages
+        .row
+            .sixteen.wide.column
+                .ui.stackable.four.link.cards
+                    each add_schemas
+                        .card.add_doc
+                            .content
+                                .header 
+                                    i.icon(class=icon)
+                                    |#{title}
+                        
+template(name='schemas')
+    .ui.stackable.padded.grid
+        .row
+            .sixteen.wide.column
+                .ui.center.aligned.header
+                    i.sitemap.icon
+                    | Schemas
+        .row
+            .sixteen.wide.column
+                .ui.stackable.four.link.cards
+                    each add_schemas
+                        .card.add_doc
+                            .content
+                                .header 
+                                    i.icon(class=icon)
+                                    |#{title}
+                        
+                        
 template(name='block')
     .ui.stackable.padded.grid
         .centered.row   
