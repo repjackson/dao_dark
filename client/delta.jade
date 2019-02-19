@@ -2,7 +2,9 @@ template(name='delta')
     with schema
         .ui.stackable.padded.grid
             .row
-                .six.wide.column.scrolling
+                .column.scrolling(class=delta_left_column_class)
+                    a.ui.right.corner.label.move_left
+                        i.left.chevron.link.icon
                     .ui.center.aligned.header
                         i.icon(class=icon)
                         | #{plural}
@@ -41,7 +43,9 @@ template(name='delta')
                             
                     each current_delta.facets
                         +facet
-                .ten.wide.column
+                .column(class=delta_right_column_class)
+                    a.ui.left.corner.label.move_right
+                        i.right.chevron.link.pointer.icon
                     .ui.horizontal.list
                         .item
                             +set_page_size value=10
@@ -61,7 +65,7 @@ template(name='delta')
                                 .ui.icon.button.page_up(title='Next Page')
                                     i.right.chevron.icon
                         .item
-                            +set_delta_key key='view' value='grid' icon='grid'                                    
+                            +set_delta_key key='view' value='grid' icon='clone'                                    
                             +set_delta_key key='view' value='table' icon='table'                                    
                         
                         .item
@@ -74,20 +78,6 @@ template(name='delta')
                             .ui.disabled.button
                                 i.filter.icon
                                 | Toggle Fields
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
                     .ui.stackable.cards.scrolling(class=cards_class)
                         each current_delta.result_ids
                             +result
@@ -111,12 +101,9 @@ template(name='type_edit')
                     .ui.small.header Type: #{type}
                 .four.wide.center.aligned.column
                     +remove_button
-            .row
-                .sixteen.wide.column
-                    // each schema.field_templates
-                    //     with field_template_doc
-                    //         +Template.dynamic template=edit_template
-                    each bricks
+            .two.column.row
+                each bricks
+                    .column
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
 
@@ -189,7 +176,7 @@ template(name='facet')
                 //     input.add_filter(type='text' placeholder='search')
                 // i.dropdown.icon
                 // each filters
-                //     .unselect.ui.blue.button #{this}
+                //     .unselect.ui.grey.button #{this}
                 each filtering_res
                     if name
                         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
@@ -205,7 +192,7 @@ template(name='facet')
 template(name='toggle_delta_config')
     div
     if boolean_true
-        .ui.blue.active.fluid.button.disable_key
+        .ui.grey.active.fluid.button.disable_key
             i.icon(class=icon)
             | #{label}
     else

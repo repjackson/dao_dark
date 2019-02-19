@@ -4,7 +4,7 @@ template(name='topnav')
             i.bars.icon
         if current_tribe.logo_id
             a.item(href="/t/#{current_tribe.slug}" class="{{isActivePath '/'}}")
-                img.ui.avatar.inline.image(src="{{c.url current_tribe.logo_id height=100 crop='limit'}}")
+                img.ui.tiny.image(src="{{c.url current_tribe.logo_id}}")
         else
             a.header.item(href="/t/#{current_tribe.slug}" class="{{isActivePath '/'}}")
                 |#{current_tribe.title}
@@ -17,16 +17,16 @@ template(name='topnav')
             if currentUser
                 a.icon.item(href="/t/#{current_tribe.slug}/add")
                     i.plus.icon
-                // a.item.toggle_topbar(href='#')
-                //     i.inbox.icon
-                // a.item(href='/chat')
-                //     i.chat.icon
-                // a.item.set_schema(href='/t/dao/s/schema')
-                //     i.sitemap.icon
-                // a.item.set_schema(href='/t/dao/s/tribe')
-                //     i.fire.icon
-                // a.item(href='/people' class="{{isActivePath '/people'}}")
-                //     i.users.icon
+                a.item.toggle_topbar(href='#')
+                    i.inbox.icon
+                a.item(href='/chat')
+                    i.chat.icon
+                a.item.set_schema(href='/t/dao/s/schema')
+                    i.sitemap.icon
+                a.item.set_schema(href='/t/dao/s/tribe')
+                    i.fire.icon
+                a.item(href='/people' class="{{isActivePath '/people'}}")
+                    i.users.icon
                 a.icon.item(href="/t/#{current_tribe.slug}/u/#{currentUser._id}/edit")
                     i.cog.icon
                 a.item(href="/t/#{current_tribe.slug}/u/#{currentUser._id}/about")
@@ -56,22 +56,18 @@ template(name='topbar')
         .ui.grid
             .centered.row
                 .four.wide.center.aligned.column
-                    .ui.inverted.center.aligned.header go
                     .ui.inverted.list
                         each nonprofit_pages
                             a.item(href="/p/#{slug}") #{title}
                 .four.wide.center.aligned.column
-                    .ui.inverted.center.aligned.header fuck
                     .ui.inverted.list
                         each church_pages
                             a.item(href="/p/#{slug}") #{title}
                 .four.wide.center.aligned.column
-                    .ui.inverted.center.aligned.header your
                     .ui.inverted.list
                         each also_serving_pages
                             a.item(href="/p/#{slug}") #{title}
                 .four.wide.center.aligned.column
-                    .ui.inverted.center.aligned.header self
                     .ui.inverted.list
                         each resource_pages
                             a.item(href="/p/#{slug}") #{title}

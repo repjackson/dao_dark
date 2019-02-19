@@ -40,6 +40,42 @@ if Meteor.isClient
             #     if delta.viewing_rightbar then 'nine wide' else 'twelve wide'
                 'twelve wide'
     
+        delta_left_column_class: ->
+            delta = Docs.findOne type:'delta'
+            if delta.left_column_size
+                switch delta.left_column_size
+                    when 3 then 'three wide'
+                    when 4 then 'four wide'
+                    when 5 then 'five wide'
+                    when 6 then 'six wide'
+                    when 7 then 'seven wide'
+                    when 8 then 'eight wide'
+                    when 9 then 'nine wide'
+                    when 10 then 'ten wide'
+                    when 11 then 'eleven wide'
+                    when 12 then 'twelve wide'
+            else 'six wide'
+            
+            
+        delta_right_column_class: ->
+            delta = Docs.findOne type:'delta'
+            if delta.right_column_size
+                switch delta.right_column_size
+                    when 13 then 'thirteen wide'
+                    when 12 then 'twelve wide'
+                    when 11 then 'eleven wide'
+                    when 10 then 'ten wide'
+                    when 9 then 'nine wide'
+                    when 8 then 'eight wide'
+                    when 7 then 'seven wide'
+                    when 6 then 'six wide'
+                    when 5 then 'five wide'
+                    when 4 then 'four wide'
+            else 'ten wide'
+            
+    
+    
+    
         cards_class: ->
             delta = Docs.findOne type:'delta'
             if delta
@@ -82,10 +118,12 @@ if Meteor.isClient
                     Session.set 'is_calculating', false
 
 
+
+
     Template.set_delta_key.helpers
         set_delta_key_class: ->
             delta = Docs.findOne type:'delta'
-            if delta["#{@key}"] is @value then 'grey' else 'basic'
+            if delta and delta["#{@key}"] is @value then 'grey' else 'basic'
 
     
     
@@ -93,6 +131,8 @@ if Meteor.isClient
         boolean_true: ->
             delta = Docs.findOne type:'delta'
             if delta then delta["#{@key}"]
+    
+    
     
     Template.toggle_delta_config.events
         'click .enable_key': ->
@@ -124,8 +164,10 @@ if Meteor.isClient
             Router.go "/t/#{current_tribe.slug}/s/#{@type}/#{new_doc_id}/edit"
 
         'click .create_delta': (e,t)->
-            Docs.insert type:'delta'
-
+            Docs.insert 
+                type:'delta'
+                left_column_size: 6
+                right_column_size: 10
 
         'click .print_delta': (e,t)->
             delta = Docs.findOne type:'delta'
@@ -185,6 +227,22 @@ if Meteor.isClient
                 when 8
                     if e.target.value is ''
                         selected_tags.pop()
+
+
+        'click .move_left': ->
+            delta = Docs.findOne type:'delta'
+            Docs.update delta._id,
+                $inc: 
+                    left_column_size:-1
+                    right_column_size:1
+
+        'click .move_right': ->
+            delta = Docs.findOne type:'delta'
+            Docs.update delta._id,
+                $inc: 
+                    left_column_size:1
+                    right_column_size:-1
+
 
 
     Template.type_edit.onCreated ->
