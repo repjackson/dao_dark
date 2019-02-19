@@ -42,7 +42,7 @@ if Meteor.isClient
             current_tribe = Docs.findOne
                 type:'tribe'
                 slug:Router.current().params.tribe_slug
-            console.log current_tribe
+            # console.log current_tribe
             new_doc_id = Docs.insert 
                 type:Router.current().params.type
                 parent_id: current_tribe._id

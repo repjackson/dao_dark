@@ -137,7 +137,7 @@ if Meteor.isClient
     
     Template.edit_button.events
         'click .edit': ->
-            console.log @
+            # console.log @
     
     
     

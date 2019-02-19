@@ -97,7 +97,7 @@ Template.registerHelper 'current_user', () ->
     
     
 Template.registerHelper 'field_template_doc', () ->
-    console.log @
+    # console.log @
     Docs.findOne
         type:'field_template'
         slug: @valueOf()
@@ -110,8 +110,8 @@ Template.registerHelper 'view_template', ->
     
     
 Template.registerHelper 'bricks', () ->
-    console.log @type
-    if @type in ['field', 'brick','schema']
+    # console.log @type
+    if @type in ['field', 'brick','schema','tribe']
         schema = Docs.findOne
             type:'schema'
             slug:@type

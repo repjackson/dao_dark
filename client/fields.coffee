@@ -409,7 +409,14 @@ Template.single_doc_edit.helpers
     choices: -> 
         # console.log @ref_schema
         if @ref_schema
-            Docs.find type:@ref_schema
+            if @ref_schema in ['field','tribe']
+                Docs.find 
+                    type:@ref_schema
+                    # tribe:Router.current().params.tribe_slug
+            else
+                Docs.find 
+                    type:@ref_schema
+                    tribe:Router.current().params.tribe_slug
             
     choice_class: ->
         selection = @

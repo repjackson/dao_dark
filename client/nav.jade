@@ -1,4 +1,4 @@
-template(name='tribe_topnav')
+template(name='topnav')
     .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{current_tribe.primary_color}")
         a.item.toggle_leftbar(href='#')
             i.bars.icon
@@ -51,7 +51,7 @@ template(name='tribe_topnav')
 
 
 
-template(name='tribe_topbar')
+template(name='topbar')
     .ui.top.sidebar.inverted.push.nav_bar.toggle_topbar.topbar(style="background:#{current_tribe.primary_color}")
         .ui.grid
             .centered.row
@@ -79,7 +79,7 @@ template(name='tribe_topbar')
 
 
 
-template(name='tribe_rightbar')
+template(name='rightbar')
     .ui.right.vertical.sidebar.nav_bar.inverted.menu.rightbar(style="background:#{current_tribe.primary_color}")
         if is_church
             .profile-picture
@@ -136,7 +136,7 @@ template(name='tribe_rightbar')
 
 
 
-template(name='tribe_leftbar')
+template(name='leftbar')
     .ui.left.vertical.sidebar.nav_bar.inverted.menu.leftbar(style="background:#{current_tribe.primary_color}")
         // if is_dev
         //     a.item.toggle_leftbar.toggle_dev.mobile_hidden(href="#")

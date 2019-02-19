@@ -128,14 +128,14 @@ template(name='type_view')
 template(name='facet')
     if filtering_res
         div
-        .ui.inline.small.header 
+        .ui.small.header 
             if icon
                 i.icon(class=icon)
-                |#{label}
-                // .ui.transparent.left.icon.small.input
-                //     i.search.icon
-                //     input.add_filter(type='text' placeholder='search')
-                // i.dropdown.icon
+            |#{label}
+            // .ui.transparent.left.icon.small.input
+            //     i.search.icon
+            //     input.add_filter(type='text' placeholder='search')
+            // i.dropdown.icon
         // each filters
         //     .unselect.ui.blue.button #{this}
         each filtering_res

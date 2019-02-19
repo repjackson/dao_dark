@@ -118,7 +118,7 @@ template(name='html_view')
 
 
 template(name='text_edit')
-    .ui.labeled.input
+    .ui.labeled.fluid.input
         .ui.label 
             if icon
                 i.icon(class=icon)
@@ -248,17 +248,16 @@ template(name='array_view')
 
 
 template(name='children_edit')
-    .ui.fluid.secondary.segment
-        .ui.accordion
-            .active.title
-                .ui.small.inline.header #{label}
-                i.dropdown.icon
-            .active.content
-                .ui.button.add_child
-                    i.plus.icon
-                    |Add Child #{ref_schema}
-                each children
-                    .ui.divider
+    .ui.accordion
+        .active.title
+            .ui.small.inline.header #{label}
+            i.dropdown.icon
+        .active.content
+            .ui.button.add_child
+                i.plus.icon
+                |Add Child #{ref_schema}
+            each children
+                .ui.fluid.secondary.segment
                     +child
 
 

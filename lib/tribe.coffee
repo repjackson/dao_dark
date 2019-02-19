@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Template.tribe_layout.onCreated ->
+    Template.layout.onCreated ->
         @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
         
     

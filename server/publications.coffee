@@ -50,8 +50,8 @@ Meteor.publish 'user_sites', (user_id)->
     
 Meteor.publish 'bricks_from_doc_id', (tribe, schema, id)->
     doc = Docs.findOne id
-    console.log doc
-    if schema in ['schema']
+    # console.log doc
+    if schema in ['schema';'tribe']
         schema = Docs.findOne
             type:'schema'
             slug:doc.type
@@ -73,7 +73,7 @@ Meteor.publish 'my_delta', ->
 
         
 Meteor.publish 'schema_from_slug', (tribe_slug, schema_slug)->
-    if schema_slug in ['schema','brick','field']
+    if schema_slug in ['schema','brick','field','tribe']
         Docs.find
             type:'schema'
             slug:schema_slug
@@ -89,7 +89,7 @@ Meteor.publish 'schema_from_slug', (tribe_slug, schema_slug)->
         
 Meteor.publish 'schema_from_doc_id', (tribe_slug, schema, id)->
     doc = Docs.findOne id
-    if schema is 'schema'
+    if schema in ['schema','tribe']
         Docs.find
             type:'schema'
             slug:doc.type
@@ -129,9 +129,9 @@ Meteor.publish 'schemas', (dev_mode)->
         
         
 Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type)->
-    console.log tribe_slug
-    console.log type
-    if type in ['field', 'brick']
+    # console.log tribe_slug
+    # console.log type
+    if type in ['field', 'brick','tribe']
         schema = Docs.findOne
             type:'schema'
             slug:type

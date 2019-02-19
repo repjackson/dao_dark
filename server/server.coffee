@@ -170,7 +170,7 @@ Meteor.publish 'page_children', (slug)->
     page = Docs.findOne
         type:'page'
         slug:slug
-    console.log page
+    # console.log page
     Docs.find
         parent_id:page._id
 

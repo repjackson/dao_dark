@@ -1,18 +1,18 @@
-Template.tribe_topnav.onCreated ->
+Template.topnav.onCreated ->
     @autorun => Meteor.subscribe 'users'
     @autorun => Meteor.subscribe 'type', 'field'
     @autorun => Meteor.subscribe 'tribe_schemas', Router.current().params.tribe_slug
     @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
 
 
-Template.tribe_topnav.onRendered ->
+Template.topnav.onRendered ->
     # @autorun =>
     #     if @subscriptionsReady()
     #         Meteor.setTimeout ->
     #             $('.dropdown').dropdown()
     #         , 2000
 
-Template.tribe_topnav.helpers
+Template.topnav.helpers
     topnav_schemas: ->
         tribe = Docs.findOne 
             type:'tribe'
@@ -26,7 +26,7 @@ Template.tribe_topnav.helpers
 
     # user: -> Meteor.users.findOne username:Router.current().params.username
 
-Template.tribe_topnav.events
+Template.topnav.events
     # 'click .add': ->
     #     new_id = Docs.insert {}
     #     Router.go "/edit/#{new_id}"
@@ -40,12 +40,12 @@ Template.tribe_topnav.events
             Session.set 'loading', false
 
 
-Template.tribe_topbar.onCreated ->
+Template.topbar.onCreated ->
     @autorun => Meteor.subscribe 'type', 'page'
 
 
 
-Template.tribe_topbar.helpers
+Template.topbar.helpers
     nonprofit_pages: ->
         Docs.find
             type:'page'
@@ -54,11 +54,11 @@ Template.tribe_topbar.helpers
 
 
 
-Template.tribe_leftbar.onCreated ->
+Template.leftbar.onCreated ->
     # @autorun => Meteor.subscribe 'schemas'
 
 
-Template.tribe_leftbar.onRendered ->
+Template.leftbar.onRendered ->
     @autorun =>
         if @subscriptionsReady()
             Meteor.setTimeout ->
@@ -74,7 +74,7 @@ Template.tribe_leftbar.onRendered ->
             , 2000
 
 
-Template.tribe_topbar.onRendered ->
+Template.topbar.onRendered ->
     @autorun =>
         if @subscriptionsReady()
             Meteor.setTimeout ->
@@ -89,12 +89,12 @@ Template.tribe_topbar.onRendered ->
                     .sidebar('attach events', '.toggle_topbar')
             , 2000
 
-Template.tribe_rightbar.events
+Template.rightbar.events
     'click .logout': -> Meteor.logout()
 
 
 
-Template.tribe_rightbar.onRendered ->
+Template.rightbar.onRendered ->
     @autorun =>
         if @subscriptionsReady()
             Meteor.setTimeout ->
@@ -111,7 +111,7 @@ Template.tribe_rightbar.onRendered ->
 
 
 
-Template.tribe_leftbar.helpers
+Template.leftbar.helpers
     tribe_schemas: ->
         if Meteor.user() and Meteor.user().roles
             Docs.find {
@@ -120,7 +120,7 @@ Template.tribe_leftbar.helpers
                 type:'schema'
             }, sort:title:1
 
-Template.tribe_leftbar.events
+Template.leftbar.events
     'click .set_schema': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', @slug, ->
@@ -130,11 +130,11 @@ Template.tribe_leftbar.events
 
 
 
-Template.tribe_footer.onCreated ->
+Template.footer.onCreated ->
     @autorun => Meteor.subscribe 'type', 'page'
     
     
-Template.tribe_footer.helpers
+Template.footer.helpers
     resource_pages: ->
         Docs.find
             type:'page'

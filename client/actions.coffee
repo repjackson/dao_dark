@@ -9,4 +9,4 @@ Template.view_section.events
             
 Template.enter_tribe.events
     'click .enter_tribe': ->
-        console.log @
+        # console.log @

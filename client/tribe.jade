@@ -1,21 +1,21 @@
-template(name='tribe_layout')
+template(name='layout')
     .layout.context
-        +tribe_topnav
+        +topnav
         .ui.bottom.attached.basic.segment.pushable
-            +tribe_topbar
-            +tribe_leftbar
-            +tribe_rightbar
+            +topbar
+            +leftbar
+            +rightbar
             .pusher
                 #main
                     +yield
-        +tribe_footer
+        +footer
 
 
 
 
 
 
-template(name='tribe_home')
+template(name='home')
     .ui.padded.stackable.grid
         .centered.row
             .two.wide.column
@@ -38,13 +38,16 @@ template(name='tribe_home')
             
 
 
-template(name='tribe_footer')
-    .ui.inverted.attached.menu(style="background:#{tribe.secondary_color}")
+template(name='footer')
+    .ui.inverted.attached.menu(style="background:#{current_tribe.secondary_color}")
         .item
             i.copyright.outline.icon
-            |#{tribe.title}
-        a.item(href='/')
-            |DAO
+            |#{current_tribe.title}
+        .item    
+            |#{current_tribe.footer}
+        .right.menu
+            a.item(href='/')
+                |DAO
             
         //     .ui.transparent.input
         //         input#quick_add(type='text' placeholder='quick add')

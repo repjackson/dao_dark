@@ -1,5 +1,5 @@
 Router.configure
-    layoutTemplate: 'tribe_layout'
+    layoutTemplate: 'layout'
     notFoundTemplate: 'not_found'
     loadingTemplate: 'splash'
     trackPageView: true
@@ -91,12 +91,12 @@ Router.route '/forgot-password', -> @render 'forgot-password'
 
 
 Router.route '/t/:tribe_slug/', (->
-    @layout 'tribe_layout'
-    @render 'tribe_home'
-    ), name:'tribe_home'
+    @layout 'layout'
+    @render 'home'
+    ), name:'home'
 
 Router.route '/t/:tribe_slug/s/:type', (->
-    @layout 'tribe_layout'
+    @layout 'layout'
     @render 'delta'
     ), name:'tribe_delta'
 
