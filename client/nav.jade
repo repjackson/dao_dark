@@ -21,9 +21,9 @@ template(name='topnav')
                 //     i.inbox.icon
                 a.item(href="/t/#{current_tribe.slug}/chat" title="#{current_tribe.title} Chat")
                     i.chat.icon
-                a.item.set_schema(href="/t/#{current_tribe.slug}/schemas" title="#{current_tribe.title} Schemas")
+                a.item.tribe_schemas(href="/t/#{current_tribe.slug}/s/schema" title="#{current_tribe.title} Schemas")
                     i.sitemap.icon
-                a.item.set_schema(href="/t/#{current_tribe.slug}/pages" title="#{current_tribe.title} Pages")
+                a.item.tribe_pages(href="/t/#{current_tribe.slug}/s/page" title="#{current_tribe.title} Pages")
                     i.clone.icon
                 a.item(href="/t/#{current_tribe.slug}/users" title="#{current_tribe.title} Users")
                     i.users.icon

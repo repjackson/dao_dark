@@ -42,7 +42,7 @@ if Meteor.isClient
     
         delta_left_column_class: ->
             delta = Docs.findOne type:'delta'
-            if delta.left_column_size
+            if delta and delta.left_column_size
                 switch delta.left_column_size
                     when 3 then 'three wide'
                     when 4 then 'four wide'
@@ -59,7 +59,7 @@ if Meteor.isClient
             
         delta_right_column_class: ->
             delta = Docs.findOne type:'delta'
-            if delta.right_column_size
+            if delta and delta.right_column_size
                 switch delta.right_column_size
                     when 13 then 'thirteen wide'
                     when 12 then 'twelve wide'
@@ -101,7 +101,7 @@ if Meteor.isClient
     Template.set_page_size.helpers
         page_size_class: ->
             delta = Docs.findOne type:'delta'
-            if @value is delta.page_size then 'grey' else ''
+            if delta and @value is delta.page_size then 'grey' else ''
 
     Template.set_page_size.events
         'click .set_page_size': (e,t)->
@@ -123,7 +123,7 @@ if Meteor.isClient
     Template.set_delta_key.helpers
         set_delta_key_class: ->
             delta = Docs.findOne type:'delta'
-            if delta and delta["#{@key}"] is @value then 'grey' else 'basic'
+            if delta and delta["#{@key}"] is @value then 'grey' else ''
 
     
     

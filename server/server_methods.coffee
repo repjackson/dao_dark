@@ -313,7 +313,7 @@ Meteor.methods
     #     else 
     #         return null            
         
-    set_delta_facets: (type, user_id)->
+    set_delta_facets: (type, tribe)->
         my_delta = Docs.findOne 
             type:'delta'
             _author_id:Meteor.userId()
@@ -355,11 +355,11 @@ Meteor.methods
         Docs.update my_delta._id,        
             $set:
                 doc_type:type
-                user_id:user_id
+                # user_id:user_id
                 facets: facets
                 
         # console.log 'delta after set facets', Docs.findOne({type:'delta'})        
-        Meteor.call 'fum', my_delta._id
+        Meteor.call 'fum', my_delta._id, tribe
 
         
         

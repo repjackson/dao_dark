@@ -12,7 +12,7 @@ Meteor.methods
             else
                 built_query = {
                     type:delta.doc_type
-                    tribe:schema.tribe
+                    tribe:tribe
                     }
             
             console.log 'schema', schema

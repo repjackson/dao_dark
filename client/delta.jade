@@ -69,7 +69,7 @@ template(name='delta')
                             +set_delta_key key='view' value='table' icon='table'                                    
                         
                         .item
-                            +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron-up'
+                            +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
                         .item
                             .ui.disabled.button
                                 i.sort.down.icon
@@ -191,16 +191,14 @@ template(name='facet')
 
 
 template(name='toggle_delta_config')
-    div
     if boolean_true
-        .ui.grey.active.fluid.button.disable_key
+        .ui.grey.active.icon.button.disable_key(title=label)
             i.icon(class=icon)
-            | #{label}
+            // | #{label}
     else
-        .ui.fluid.button.enable_key
+        .ui.icon.button.enable_key(title=label)
             i.icon(class=icon)
-            | #{label}
-    p
+            // | #{label}
 
 
 
