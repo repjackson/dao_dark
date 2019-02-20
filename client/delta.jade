@@ -94,6 +94,9 @@ template(name='type_edit')
                 .four.wide.center.aligned.column
                     +save_button
                 .eight.wide.center.aligned.column
+                    each bricks
+                        if header
+                            +Template.dynamic template=view_template 
                     i.pencil.large.icon
                     .ui.inline.header
                         if icon
@@ -151,16 +154,20 @@ template(name='type_view')
                 .twelve.wide.column
                     .ui.segment
                         .ui.header
-                            if icon
-                                i.icon(class=icon)
-                            |#{title}
+                            each bricks
+                                if header
+                                    +Template.dynamic template=view_template 
+                            // if icon
+                            //     i.icon(class=icon)
+                            // |#{title}
                         .ui.list
                             // each schema.field_templates
                             //     with field_template_doc
                             //         +Template.dynamic template=view_template
                             each bricks
-                                .item
-                                    +Template.dynamic template=view_template 
+                                unless header
+                                    .item
+                                        +Template.dynamic template=view_template 
                     div
                     +comments
                     
@@ -183,11 +190,11 @@ template(name='facet')
                 //     .unselect.ui.grey.button #{this}
                 each filtering_res
                     if name
-                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                             | #{name}
                             small #{count}
                     else
-                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                             strong [null]
                             small #{count}
 
@@ -224,15 +231,19 @@ template(name='result')
                 a.ui.header(href="/t/#{ct}/s/#{type}/#{_id}/view")
                     if logo_id
                         img.ui.avatar.image(src="{{c.url logo_id width=100 height=100 gravity='face' crop='fill'}}")
-                    else if icon
-                        i.icon(class=icon)
-                    |#{title}
+                    // else if icon
+                    //     i.icon(class=icon)
+                    each bricks
+                        if header
+                            +Template.dynamic template=view_template 
+                    // |#{title}
                 .description
                     // each schema.field_templates
                     //     with field_template_doc
                     //         +Template.dynamic template=view_template
                     each bricks
-                        +Template.dynamic template=view_template 
+                        unless header
+                            +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     if is_author

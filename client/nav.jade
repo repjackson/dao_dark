@@ -53,7 +53,10 @@ template(name='topnav')
         .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color}")
             each topnav_schemas
                 a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" data-inverted='' title=title)
-                    i.icon(class=icon)
+                    if color_icon
+                        img(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
+                    else if icon
+                        i.icon(class=icon)
                     |#{plural}
 
 

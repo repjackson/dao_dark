@@ -17,6 +17,26 @@ template(name='color_view')
             .ui.inverted.segment(style="background:#{field_value}")
 
 
+template(name='color_icon_edit')
+    .ui.form
+        .field
+            label 
+                if icon
+                    i.icon(class=icon)
+                |#{label}
+            input.color_icon(type='url' value=field_value placeholder='icons8 class')
+
+
+template(name='color_icon_view')
+    img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+
+
+
+
+
+
+
+
 template(name='link_edit')
     .ui.form
         .field
@@ -140,11 +160,11 @@ template(name='text_edit')
 
 template(name='text_view')
     if field_value
-        div
+        unless header
             if icon
                 i.icon(class=icon)
             |#{label}: &nbsp;
-            strong #{field_value}
+        strong #{field_value}
 
 
 
@@ -299,11 +319,11 @@ template(name='child_edit')
 
 
 template(name='children_view')
-    .ui.accordion
-        .active.title
+    .ui.styled.accordion
+        .title
             .ui.small.inline.header #{label}
             i.dropdown.icon
-        .active.content
+        .content
             each children
                 .ui.fluid.secondary.segment
                     +child_view

@@ -21,6 +21,16 @@ Template.link_edit.events
             $set:"#{brick.key}":link_val
 
 
+Template.color_icon_edit.events
+    'blur .color_icon': (e,t)->
+        icon_class = t.$('.color_icon').val()
+        parent = Template.parentData()
+        brick = Template.parentData(4)
+        context = Template.parentData(5)
+        Docs.update context._id,
+            $set:"#{brick.key}":icon_class
+
+
 
 Template.html_edit.events
     'blur .froala-container': (e,t)->
