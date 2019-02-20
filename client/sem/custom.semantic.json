@@ -64,7 +64,7 @@
     "gmail": false,
     "instagram": false,
     "material": true,
-    "pulsar": false,
+    "pulsar": true,
     "raised": false,
     "resetcss": false,
     "round": false,

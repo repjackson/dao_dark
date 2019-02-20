@@ -251,9 +251,9 @@ Template.boolean_edit.helpers
         context = Template.parentData(5)
 
         if brick
-            if context["#{brick.key}"] then 'black' else ''
+            if context["#{brick.key}"] then 'blue' else ''
         else
-            if parent["#{@key}"] then 'black' else ''
+            if parent["#{@key}"] then 'blue' else ''
 
 
 Template.boolean_edit.events
@@ -428,9 +428,9 @@ Template.single_doc_edit.helpers
 
 
         if brick
-            if @slug is context["#{brick.key}"] then 'black' else ''
+            if @slug is context["#{brick.key}"] then 'blue' else ''
         else
-            if @slug is target["#{ref_field.key}"] then 'black' else ''
+            if @slug is target["#{ref_field.key}"] then 'blue' else ''
 
 
 Template.single_doc_edit.events
@@ -482,9 +482,9 @@ Template.multi_doc_edit.helpers
         context = Template.parentData(6)
 
         if brick
-            if context["#{brick.key}"] and @slug in context["#{brick.key}"] then 'black' else ''
+            if context["#{brick.key}"] and @slug in context["#{brick.key}"] then 'blue' else ''
         else
-            if target["#{ref_field.key}"] and @slug in target["#{ref_field.key}"] then 'black' else ''
+            if target["#{ref_field.key}"] and @slug in target["#{ref_field.key}"] then 'blue' else ''
 
 Template.multi_doc_edit.events
     'click .select_choice': ->

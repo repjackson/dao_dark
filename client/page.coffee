@@ -10,6 +10,20 @@ if Meteor.isClient
                 type:'page'
                 slug:Router.current().params.slug
     
+        # page_style: ->
+        #     console.log @
+        #     {
+        #         background: url(/image/signup-bg.png) center no-repeat;
+        #         /*height: 100%;*/
+        #         width: 100%;
+        #         height: 100vh;
+        #         background-repeat: no-repeat;
+        #         background-position: center center;
+        #         background-size: cover;
+        #         background-attachment: fixed;
+        #         position: relative;
+        #     }
+
     
     Template.add.onCreated ->
         @autorun => Meteor.subscribe 'type', 'schema'

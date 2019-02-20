@@ -1,32 +1,33 @@
 template(name='page')
     with page
-        if fullscreen
-            if html
-                |!{html}
-            each children
-                // with page
-                +Template.dynamic template=slug
-        else  
-            .ui.stackable.padded.grid
-                unless hide_header
-                    .centered.middle.aligned.row
-                        .four.wide.center.aligned.column
-                        .eight.wide.center.aligned.column
-                            .ui.large.header 
-                                if icon
-                                    i.icon(class=icon)
-                                |#{title}
-                        .four.wide.center.aligned.column
-                            if can_edit
-                                a.ui.icon.button(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
-                                    i.pencil.icon
-                .centered.row
-                    .sixteen.wide.column 
-                        if html
-                            |!{html}
-                        each children
-                            // with page
-                            +block
+        div(style=page_style)
+            if fullscreen
+                if html
+                    |!{html}
+                each children
+                    // with page
+                    +Template.dynamic template=slug
+            else  
+                .ui.stackable.padded.grid
+                    unless hide_header
+                        .centered.middle.aligned.row
+                            .four.wide.center.aligned.column
+                            .eight.wide.center.aligned.column
+                                .ui.large.header 
+                                    if icon
+                                        i.icon(class=icon)
+                                    |#{title}
+                            .four.wide.center.aligned.column
+                                if can_edit
+                                    a.ui.icon.button(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
+                                        i.pencil.icon
+                    .centered.row
+                        .sixteen.wide.column 
+                            if html
+                                |!{html}
+                            each children
+                                // with page
+                                +block
                         
                         
 template(name='add')
@@ -79,7 +80,14 @@ template(name='schemas')
                         
                         
 template(name='block')
-    .ui.stackable.padded.grid
+    style.
+      .block_style {
+          background-image:url('/tw_bg.png') !important;
+          background-repeat: no-repeat;
+          background-position: right top;
+      }
+
+    .ui.stackable.padded.grid.block_style
         .centered.row   
             .twelve.wide.column
                 .ui.large.center.aligned.header #{title}

@@ -50,7 +50,7 @@ template(name='layout')
 
 
 template(name='home')
-    .ui.padded.stackable.grid
+    .ui.padded.stackable.grid(style=tribe_home_bg)
         .centered.row
             .two.wide.column
                 a.ui.icon.button(href="/t/#{ct.slug}/s/tribe/#{ct._id}/edit")

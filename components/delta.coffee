@@ -82,13 +82,13 @@ if Meteor.isClient
     
     
     
-        cards_class: ->
+        result_grid_class: ->
             delta = Docs.findOne type:'delta'
             if delta
                 switch delta.total
-                    when 2 then 'two'
-                    when 1 then 'one'
-                    else 'three'
+                    when 2 then 'two column'
+                    when 1 then 'one column'
+                    else 'three column'
 
 
         current_delta: -> 
@@ -263,17 +263,6 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
 
     Template.type_edit.events
-        'blur .body': (e,t)->
-            body = t.$('.body').val()
-            Docs.update Router.current().params._id,
-                $set:body:body
-
-
-        'click .toggle_complete': (e,t)->
-            Docs.update Router.current().params._id,
-                $set:complete:!@complete
-
-
         'click .delete_schema': ->
             if confirm 'Confirm delete schema'
                 Docs.remove @_id

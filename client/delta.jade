@@ -78,10 +78,10 @@ template(name='delta')
                             .ui.disabled.button
                                 i.filter.icon
                                 | Toggle Fields
-                    // .ui.stackable.cards.scrolling(class=cards_class)
-                    .ui.stackable.cards.scrolling
+                    .ui.stackable.grid.scrolling(class=result_grid_class)
                         each current_delta.result_ids
-                            +result
+                            .column
+                                +result
 
 
 
@@ -219,7 +219,7 @@ template(name='set_delta_key')
 
 template(name='result')
     with result 
-        .ui.black.result.card(class="{{#if is_loading}}loading{{/if}}")
+        .ui.black.result.segment(class="{{#if is_loading}}loading{{/if}}")
             .content
                 a.ui.header(href="/t/#{ct}/s/#{type}/#{_id}/view")
                     if logo_id

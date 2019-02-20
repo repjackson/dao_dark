@@ -1,4 +1,5 @@
 template(name='topnav')
+    // .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
     .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
         a.item.toggle_leftbar(href='#')
             i.bars.icon
@@ -48,12 +49,12 @@ template(name='topnav')
                 a.item(href="/register")
                     i.user.plus.icon
                     |Register 
-    // if currentUser
-    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color}")
-        each topnav_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" data-inverted='' title=title)
-                i.icon(class=icon)
-                |#{plural}
+    if is_admin
+        .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color}")
+            each topnav_schemas
+                a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" data-inverted='' title=title)
+                    i.icon(class=icon)
+                    |#{plural}
 
 
 
@@ -220,7 +221,7 @@ template(name='footer')
                 //             img(src='/images/bbb.png', alt='100x80x2')
             .centered.two.column.row
                 .center.aligned.column
-                    .ui.divided.horizontal.list
+                    .ui.divided.horizontal.inverted.list
                         .item
                             .ui.inline.header
                                 i.copyright.outline.icon

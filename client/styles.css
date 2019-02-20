@@ -4,7 +4,7 @@ body {
   /*font-size: 150% !important;*/
   /*line-height: 200% !important;*/
   /*background: #3d3d3d !important;*/
-	background: rgba(200, 200, 200, .8) !important
+	background: rgba(200, 200, 200, .6) !important
 }
 
 /*.invert {*/
@@ -88,7 +88,7 @@ a {
   font-family: 'Ubuntu', sans-serif !important;
 }
 
-.register-body {
+.tw {
   background: url(/image/signup-bg.png) center no-repeat;
   /*height: 100%;*/
 	width: 100%;
@@ -309,7 +309,7 @@ a {
 .scrolling{
 	overflow-y:scroll;
 	overflow-x:hidden;
-	max-height:85vh;
+	/*max-height:85vh;*/
 	/*max-height:85vh;*/
 	padding-top: 1em;
 	/*padding-left: 1em;*/

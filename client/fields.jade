@@ -49,6 +49,9 @@ template(name='image_edit')
                 a#remove_photo.ui.right.corner.link.label
                     i.remove.red.link.icon
             else
+                if icon
+                    i.icon(class=icon)
+                |#{label}
                 label Upload Image
                 input(type='file' name='upload_image' accept='image/*')
 
@@ -306,7 +309,8 @@ template(name='youtube_view')
         if icon
             i.icon(class=icon)
 
-        iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+        // iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
+        iframe(src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 
 
