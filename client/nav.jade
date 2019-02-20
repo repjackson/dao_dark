@@ -84,28 +84,28 @@ template(name='topbar')
 
 template(name='rightbar')
     .ui.right.vertical.sidebar.nav_bar.inverted.menu.rightbar(style="background:#{ct.primary_color}")
-        if is_church
-            .profile-picture
-                a(href="{{pathFor route='churchDashboard'}}" class="{{isActiveRoute 'churchDashboard'}}")
-                    if currentUser.profile.profilePic
-                        img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
-                    else
-                        img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
-        if is_admin
-            .profile-picture
-                a(href="{{pathFor route='adminDashboard'}}")
-                    if currentUser.profile.profilePic
-                        img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
-                    else
-                        img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
+        // if is_church
+        //     .profile-picture
+        //         a(href="{{pathFor route='churchDashboard'}}" class="{{isActiveRoute 'churchDashboard'}}")
+        //             if currentUser.profile.profilePic
+        //                 img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
+        //             else
+        //                 img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
+        // if is_admin
+        //     .profile-picture
+        //         a(href="{{pathFor route='adminDashboard'}}")
+        //             if currentUser.profile.profilePic
+        //                 img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
+        //             else
+        //                 img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
         
-        if is_user
-            .profile-picture
-                a(href="{{pathFor route='dashboard'}}")
-                    if currentUser.profile.profilePic
-                        img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
-                    else
-                        img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
+        // if is_user
+        //     .profile-picture
+        //         a(href="{{pathFor route='dashboard'}}")
+        //             if currentUser.profile.profilePic
+        //                 img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
+        //             else
+        //                 img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
         .item.toggle_rightbar
             | #{currentUser.profile.first_name} #{currentUser.profile.last_name}
             | #{currentUser.username} #{currentUser.profile.name}

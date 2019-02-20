@@ -132,6 +132,18 @@ Template.image_edit.events
                             $set:"#{@key}":res.public_id
                 return
 
+    'blur .cloudinary_id': (e,t)->
+        cloudinary_id = t.$('.cloudinary_id').val()
+        parent = Template.parentData()
+        brick = Template.parentData(4)
+        context = Template.parentData(5)
+        Docs.update context._id,
+            $set:"#{brick.key}":cloudinary_id
+
+
+
+
+
     'click #remove_photo': ->
         parent = Template.parentData()
         brick = Template.parentData(4)
@@ -354,6 +366,30 @@ Template.youtube_edit.events
                 $set:"#{@key}":val
 
         
+Template.children_view.onCreated ->
+    # @autorun => Meteor.subscribe 'children', @data.ref_schema, Template.parentData(5)._id
+    @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
+    @autorun => Meteor.subscribe 'schema_from_slug', Router.current().params.tribe_slug, @data.ref_schema
+    @autorun => Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.tribe_slug, @data.ref_schema
+
+Template.children_view.onRendered ->
+    Meteor.setTimeout ->
+        $('.accordion').accordion()
+    , 1000
+
+Template.children_view.helpers
+    children: ->
+        field = @
+        # if Template.parentData(5)
+        parent = Template.parentData(5)
+        # else
+        #     parent = Template.parentData()
+        Docs.find {
+            type: @ref_schema
+            parent_id: parent._id
+        }, sort:rank:1
+        
+        
 Template.children_edit.onCreated ->
     # @autorun => Meteor.subscribe 'children', @data.ref_schema, Template.parentData(5)._id
     @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
@@ -382,10 +418,17 @@ Template.children_edit.events
     'click .add_child': ->
         # console.log @
         parent = Template.parentData(5)
+        current_tribe = Docs.findOne
+            type:'tribe'
+            slug:Router.current().params.tribe_slug
         # field = @
         Docs.insert
             type: @ref_schema
             parent_id: parent._id
+            parent_type:Router.current().params.type
+            tribe_id:current_tribe._id
+            tribe:current_tribe.slug
+
 
 
 

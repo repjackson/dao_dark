@@ -50,7 +50,7 @@ Meteor.publish 'user_sites', (user_id)->
     
 Meteor.publish 'bricks_from_doc_id', (tribe, schema, id)->
     doc = Docs.findOne id
-    # console.log doc
+    console.log 'pub bricks', tribe, schema, id
     if schema in ['schema';'tribe','block','page','brick']
         schema = Docs.findOne
             type:'schema'
@@ -89,6 +89,7 @@ Meteor.publish 'schema_from_slug', (tribe_slug, schema_slug)->
         
 Meteor.publish 'schema_from_doc_id', (tribe_slug, schema, id)->
     doc = Docs.findOne id
+    console.log 'pub', tribe_slug, schema, id
     if schema in ['schema','tribe','page','block','brick']
         Docs.find
             type:'schema'

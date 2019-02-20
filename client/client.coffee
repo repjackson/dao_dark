@@ -29,6 +29,10 @@ Template.registerHelper 'is_admin', () ->
     if Meteor.user() and Meteor.user().roles
         if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
 
+Template.registerHelper 'is_dev', () ->
+    if Meteor.user() and Meteor.user().roles
+        if 'dev' in Meteor.user().roles then true else false
+
 
 Template.registerHelper 'doc', () ->
     Docs.findOne Router.current().params._id

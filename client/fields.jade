@@ -49,6 +49,13 @@ template(name='image_edit')
                 a#remove_photo.ui.right.corner.link.label
                     i.remove.red.link.icon
             else
+                if is_dev
+                    .field
+                        label 
+                            if icon
+                                i.icon(class=icon)
+                            |#{label}
+                        input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id')
                 if icon
                     i.icon(class=icon)
                 |#{label}
@@ -263,10 +270,10 @@ template(name='children_edit')
                 |Add Child #{ref_schema}
             each children
                 .ui.fluid.secondary.segment
-                    +child
+                    +child_edit
 
 
-template(name='child')
+template(name='child_edit')
     each bricks
         // if field_template
         //     .ui.header field template #{field_template}
@@ -287,6 +294,40 @@ template(name='child')
         //     .ui.divider
     div
     +remove_button
+
+
+
+
+template(name='children_view')
+    .ui.accordion
+        .active.title
+            .ui.small.inline.header #{label}
+            i.dropdown.icon
+        .active.content
+            each children
+                .ui.fluid.secondary.segment
+                    +child_view
+
+
+template(name='child_view')
+    each bricks
+        // if field_template
+        //     .ui.header field template #{field_template}
+        // else 
+        +Template.dynamic template=view_template 
+
+        // .ui.red.segment
+        //     +text_edit key='key'
+        //     // +text_edit key='field'
+        //     +single_doc_edit key='field' ref_schema='field' ref_key='slug' label='Field Type'
+        //     +text_edit key='label'
+        //     +text_edit key='icon'
+        //     if icon
+        //         i.big.icon(class=icon)
+        //     // if is_reference
+    
+        //     +single_doc_edit key='ref_schema' ref_schema='schema' ref_key='slug' label='Referenced Schema (if ref)'
+        //     .ui.divider
 
 
 
