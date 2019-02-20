@@ -83,7 +83,7 @@ Router.route '/u/:_id/contact', (->
 Router.route '/t/:tribe_slug/u/:_id/edit', -> @render 'user_edit'
 
 
-Router.route '/t:tribe_slug/p/:slug', -> @render 'page'
+Router.route '/t/:tribe_slug/p/:slug', -> @render 'page'
 
 Router.route '/signin', -> @render 'signin'
 Router.route '/register', -> @render 'register'

@@ -18,7 +18,7 @@ template(name='page')
                                 |#{title}
                         .four.wide.center.aligned.column
                             if can_edit
-                                a.ui.icon.button(href="/s/page/#{_id}/edit" title='Edit Page')
+                                a.ui.icon.button(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
                                     i.pencil.icon
                 .centered.row
                     .sixteen.wide.column 
@@ -26,7 +26,7 @@ template(name='page')
                             |!{html}
                         each children
                             // with page
-                            +Template.dynamic template=slug
+                            +block
                         
                         
 template(name='add')

@@ -102,9 +102,12 @@ template(name='type_edit')
                     .ui.small.header Type: #{type}
                 .four.wide.center.aligned.column
                     +remove_button
-            .two.column.row
-                each bricks
-                    .column
+            .row
+                .six.wide.column
+                    each small_bricks
+                        +Template.dynamic template=edit_template 
+                .ten.wide.column
+                    each big_bricks
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
 
@@ -115,13 +118,13 @@ template(name='type_view')
             .row
                 .sixteen.wide.column
                     .ui.breadcrumb
-                        a.section(href="/t/#{current_tribe.slug}")
+                        a.section(href="/t/#{ct.slug}")
                             .ui.button
                                 i.dashboard.icon
-                                |#{current_tribe.title}
+                                |#{ct.title}
                         .divider
                             i.chevron.right.icon
-                        a.section(href="/t/#{current_tribe.slug}/s/#{type}" title=schema.plural)
+                        a.section(href="/t/#{ct.slug}/s/#{type}" title=schema.plural)
                             .ui.button
                                 i.icon(class=schema.icon)
                                 |#{schema.plural}
@@ -218,7 +221,7 @@ template(name='result')
     with result 
         .ui.black.result.card(class="{{#if is_loading}}loading{{/if}}")
             .content
-                a.ui.header(href="/t/#{current_tribe}/s/#{type}/#{_id}/view")
+                a.ui.header(href="/t/#{ct}/s/#{type}/#{_id}/view")
                     if logo_id
                         img.ui.avatar.image(src="{{c.url logo_id width=100 height=100 gravity='face' crop='fill'}}")
                     else if icon

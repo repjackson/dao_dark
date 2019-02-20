@@ -176,10 +176,12 @@ Meteor.publish 'page_children', (slug)->
 
 
 
-Meteor.publish 'page_modules', (slug)->
+Meteor.publish 'page_blocks', (slug)->
+    # console.log slug
     page = Docs.findOne
         type:'page'
         slug:slug
+    # console.log page
     if page
         Docs.find
             parent_id:page._id

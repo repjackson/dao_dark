@@ -102,7 +102,7 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.button.view(title='View' href="/t/#{current_tribe.slug}/s/#{type}/#{_id}/view")
+    a.ui.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
         |View #{type}
         i.right.chevron.icon
 
@@ -134,13 +134,13 @@ template(name='toggle_friend')
 
 
 template(name='edit_button')
-    a.ui.button.edit(title='Edit' href="/t/#{current_tribe.slug}/s/#{type}/#{_id}/edit")
+    a.ui.button.edit(title='Edit' href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
         i.pencil.icon
         |Edit
 
 
 template(name='save_button')
-    a.ui.button.large.save(title='Save' href="/t/#{current_tribe.slug}/s/#{type}/#{_id}/view")
+    a.ui.button.large.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
         i.checkmark.icon
         |Save
 

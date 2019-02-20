@@ -28,6 +28,17 @@ Template.topnav.helpers
                 tribe:tribe.slug
                 topnav_roles:$in:Meteor.user().roles
             }, sort:rank:1
+    
+    topnav_pages: ->
+        tribe = Docs.findOne 
+            type:'tribe'
+            slug:Router.current().params.tribe_slug
+        if tribe
+            Docs.find {
+                type:'page'
+                tribe:tribe.slug
+                topnav_roles:$in:Meteor.user().roles
+            }, sort:rank:1
 
     # user: -> Meteor.users.findOne username:Router.current().params.username
 
@@ -150,9 +161,9 @@ Template.footer.onCreated ->
     
     
 Template.footer.helpers
-    resource_pages: ->
+    footer_pages: ->
         Docs.find
             type:'page'
-            resource_footer:true
+            show_in_footer:true
             
             

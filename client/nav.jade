@@ -1,35 +1,41 @@
 template(name='topnav')
-    .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{current_tribe.primary_color}")
+    .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
         a.item.toggle_leftbar(href='#')
             i.bars.icon
-        if current_tribe.logo_id
-            a.item(href="/t/#{current_tribe.slug}" class="{{isActivePath '/'}}")
-                img.ui.tiny.image(src="{{c.url current_tribe.logo_id}}")
+        if ct.logo_id
+            a.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
+                img.ui.tiny.image(src="{{c.url ct.logo_id}}")
         else
-            a.header.item(href="/t/#{current_tribe.slug}" class="{{isActivePath '/'}}")
-                |#{current_tribe.title}
+            a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
+                |#{ct.title}
         if is_loading
             .icon.item
                 i.loading.refresh.icon
+        each topnav_pages
+            a.item(href="/t/#{ct.slug}/p/#{slug}")
+                if show_icon
+                    i.icon(class=icon)
+                if show_label
+                    |#{title}
         // a.item.toggle_invert(href='#')
         //     i.adjust.icon
         .right.menu
             if currentUser
-                a.icon.item(href="/t/#{current_tribe.slug}/add" title="#{current_tribe.title} Add")
+                a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
                     i.plus.icon
                 // a.item.toggle_topbar(href='#')
                 //     i.inbox.icon
-                a.item(href="/t/#{current_tribe.slug}/chat" title="#{current_tribe.title} Chat")
+                a.item(href="/t/#{ct.slug}/chat" title="#{ct.title} Chat")
                     i.chat.icon
-                a.item.tribe_schemas(href="/t/#{current_tribe.slug}/s/schema" title="#{current_tribe.title} Schemas")
+                a.item.tribe_schemas(href="/t/#{ct.slug}/s/schema" title="#{ct.title} Schemas")
                     i.sitemap.icon
-                a.item.tribe_pages(href="/t/#{current_tribe.slug}/s/page" title="#{current_tribe.title} Pages")
+                a.item.tribe_pages(href="/t/#{ct.slug}/s/page" title="#{ct.title} Pages")
                     i.clone.icon
-                a.item(href="/t/#{current_tribe.slug}/users" title="#{current_tribe.title} Users")
+                a.item(href="/t/#{ct.slug}/users" title="#{ct.title} Users")
                     i.users.icon
-                a.icon.item(href="/t/#{current_tribe.slug}/u/#{currentUser._id}/edit" title="#{current_tribe.title} Account")
+                a.icon.item(href="/t/#{ct.slug}/u/#{currentUser._id}/edit" title="#{ct.title} Account")
                     i.cog.icon
-                a.item(href="/t/#{current_tribe.slug}/u/#{currentUser._id}/about" title="#{current_tribe.title} Profile")
+                a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
                     i.user.icon
                     // | #{currentUser.username} [#{currentUser.status}]
                     | #{currentUser.username}
@@ -43,16 +49,16 @@ template(name='topnav')
                     i.user.plus.icon
                     |Register 
     // if currentUser
-    .ui.attached.borderless.inverted.menu.topnav(style="background:#{current_tribe.primary_color}")
+    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color}")
         each topnav_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" title=title)
+            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" data-inverted='' title=title)
                 i.icon(class=icon)
                 |#{plural}
 
 
 
 template(name='topbar')
-    .ui.top.sidebar.inverted.push.nav_bar.toggle_topbar.topbar(style="background:#{current_tribe.primary_color}")
+    .ui.top.sidebar.inverted.push.nav_bar.toggle_topbar.topbar(style="background:#{ct.primary_color}")
         .ui.grid
             .centered.row
                 .four.wide.center.aligned.column
@@ -76,7 +82,7 @@ template(name='topbar')
 
 
 template(name='rightbar')
-    .ui.right.vertical.sidebar.nav_bar.inverted.menu.rightbar(style="background:#{current_tribe.primary_color}")
+    .ui.right.vertical.sidebar.nav_bar.inverted.menu.rightbar(style="background:#{ct.primary_color}")
         if is_church
             .profile-picture
                 a(href="{{pathFor route='churchDashboard'}}" class="{{isActiveRoute 'churchDashboard'}}")
@@ -133,7 +139,7 @@ template(name='rightbar')
 
 
 template(name='leftbar')
-    .ui.left.vertical.sidebar.nav_bar.inverted.menu.leftbar(style="background:#{current_tribe.primary_color}")
+    .ui.left.vertical.sidebar.nav_bar.inverted.menu.leftbar(style="background:#{ct.primary_color}")
         // if is_dev
         //     a.item.toggle_leftbar.toggle_dev.mobile_hidden(href="#")
         //         i.user.shield.icon
@@ -158,7 +164,68 @@ template(name='leftbar')
                 | Logout
             
         each tribe_schemas
-            a.item.set_schema.toggle_leftbar(href="/t/#{current_tribe.slug}/s/#{slug}")
+            a.item.set_schema.toggle_leftbar(href="/t/#{ct.slug}/s/#{slug}")
                 i.icon(class=icon)
                 | #{plural}
 
+
+
+
+template(name='footer')
+    // .ui.inverted.bottom.fixed.menu(style="background:#{ct.secondary_color}")
+    //     .item
+    //         i.copyright.outline.icon
+    //     .item    
+    //         |#{ct.footer}
+    //     .right.menu
+    #footer.ui.inverted.attached.segment(style="background:#{ct.secondary_color}")
+        .ui.stackable.padded.equal.width.grid
+            .row.footer-row
+                .column.footer1-col
+                    h5.ui.small.inverted.header Info
+                    .ui.list
+                        if ct.address
+                            .item
+                                i.globe.icon
+                                .content #{ct.address}             
+                        if ct.contact_email
+                            .item
+                                i.mail.icon
+                                a(href="mailto:#{ct.contact_email}") #{ct.contact_email}
+                        if ct.contact_phone
+                            .item
+                                i.phone.icon
+                                a(href="tel:#{ct.contact_phone}") #{ct.contact_phone}
+                .column
+                    .ui.small.inverted.header Links
+                    .ui.inverted.list
+                        each footer_pages
+                            a.item(href="/t/#{ct.slug}/p/#{slug}") #{title}
+                // .column
+                //     h5.ui.small.inverted.header Social Media
+                //     .ui.list
+                //         if ct.facebook
+                //             a.item(href="https://www.facebook.com/#{ct.facebook}", target='_blank')
+                //                 img(src='/images/32x32x1.png', alt='32x32x1')
+                //         if ct.twitter
+                //             a.item(href='https://twitter.com/Joyful_Giver', target='_blank')
+                //                 img(src='/images/32x32x2.png', alt='32x32x2')
+                //         if ct.instagram
+                //             a.item(href='https://www.instagram.com/joyfulgiver_app/', target='_blank')
+                //                 img(src='/images/32x32x9.png', alt='32x32x9')
+                //     .ui.small.images
+                //         img(src='/images/stripe.png', alt='100x80x1')
+                //         img(src='/images/ssl.png', alt='100x80x2')
+                //         a(href='https://www.bbb.org/dallas/business-reviews/financial-services/joyful-giver-in-plano-tx-90907663#bbbseal', target='_blank')
+                //             img(src='/images/bbb.png', alt='100x80x2')
+            .centered.two.column.row
+                .center.aligned.column
+                    .ui.divided.horizontal.list
+                        .item
+                            .ui.inline.header
+                                i.copyright.outline.icon
+                                |2019 
+                                |#{ct.title}
+                        .item
+                            a.ui.inline.inverted.header(href='/')
+                                |DAO

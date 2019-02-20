@@ -32,7 +32,7 @@ Template.registerHelper 'schema', () ->
         type:'schema'
         slug:@type
         
-Template.registerHelper 'current_tribe', () ->
+Template.registerHelper 'ct', () ->
     Docs.findOne 
         type:'tribe'
         slug:Router.current().params.tribe_slug
@@ -109,6 +109,55 @@ Template.registerHelper 'view_template', ->
     "#{@field}_view"
     
     
+Template.registerHelper 'small_bricks', () ->
+    # console.log @type
+    if @type in ['field', 'brick','schema','tribe','page','block']
+        schema = Docs.findOne
+            type:'schema'
+            slug:@type
+            # tribe:'dao'
+    else
+        schema = Docs.findOne
+            type:'schema'
+            slug:@type
+            tribe:Router.current().params.tribe_slug
+        
+    Docs.find {
+        type:'brick'
+        field:$in:['text','single_doc','multi_doc','boolean']
+        parent_id:schema._id
+    }, sort:rank:1
+    
+    
+Template.registerHelper 'big_bricks', () ->
+    # console.log @type
+    if @type in ['field', 'brick','schema','tribe','page','block']
+        schema = Docs.findOne
+            type:'schema'
+            slug:@type
+            # tribe:'dao'
+    else
+        schema = Docs.findOne
+            type:'schema'
+            slug:@type
+            tribe:Router.current().params.tribe_slug
+        
+    Docs.find {
+        type:'brick'
+        parent_id:schema._id
+        field:$nin:['text','single_doc','multi_doc','boolean']
+    }, sort:rank:1
+    
+    
+Template.registerHelper 'children', ->
+    Docs.find
+        parent_id:@_id
+        # view_roles:$in:Meteor.user().roles
+    
+    
+    
+    
+    
 Template.registerHelper 'bricks', () ->
     # console.log @type
     if @type in ['field', 'brick','schema','tribe','page','block']
@@ -125,6 +174,7 @@ Template.registerHelper 'bricks', () ->
     Docs.find {
         type:'brick'
         parent_id:schema._id
+        # field:$nin:['text','single_doc','multi_doc','boolean']
     }, sort:rank:1
     
     

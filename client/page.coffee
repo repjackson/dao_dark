@@ -1,7 +1,7 @@
 if Meteor.isClient
     Template.page.onCreated ->
         @autorun => Meteor.subscribe 'page', Router.current().params.slug
-        @autorun => Meteor.subscribe 'page_modules', Router.current().params.slug
+        @autorun => Meteor.subscribe 'page_blocks', Router.current().params.slug
     
     
     Template.page.helpers

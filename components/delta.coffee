@@ -44,6 +44,7 @@ if Meteor.isClient
             delta = Docs.findOne type:'delta'
             if delta and delta.left_column_size
                 switch delta.left_column_size
+                    when 2 then 'two wide'
                     when 3 then 'three wide'
                     when 4 then 'four wide'
                     when 5 then 'five wide'
@@ -54,6 +55,8 @@ if Meteor.isClient
                     when 10 then 'ten wide'
                     when 11 then 'eleven wide'
                     when 12 then 'twelve wide'
+                    when 13 then 'thirteen wide'
+                    when 14 then 'fourteen wide'
             else 'six wide'
             
             
@@ -61,6 +64,7 @@ if Meteor.isClient
             delta = Docs.findOne type:'delta'
             if delta and delta.right_column_size
                 switch delta.right_column_size
+                    when 14 then 'fourteen wide'
                     when 13 then 'thirteen wide'
                     when 12 then 'twelve wide'
                     when 11 then 'eleven wide'
@@ -71,6 +75,8 @@ if Meteor.isClient
                     when 6 then 'six wide'
                     when 5 then 'five wide'
                     when 4 then 'four wide'
+                    when 3 then 'three wide'
+                    when 2 then 'two wide'
             else 'ten wide'
             
     

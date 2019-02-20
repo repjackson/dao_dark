@@ -352,7 +352,7 @@ template(name='single_doc_edit')
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.button.select_choice(class=choice_class)
+        .ui.compact.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}
@@ -361,13 +361,12 @@ template(name='single_doc_edit')
 
 
 template(name='multi_doc_edit')
-    div
-    .ui.small.inline.header(title=key)
+    .ui.small.header(title=key)
         if icon
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.button.select_choice(class=choice_class)
+        .ui.compact.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}
@@ -375,8 +374,7 @@ template(name='multi_doc_edit')
     div
 
 template(name='multi_doc_view')
-    div
-    .ui.small.inline.header(title=key)
+    .ui.small.header(title=key)
         if icon
             i.icon(class=icon)
         |#{label}
