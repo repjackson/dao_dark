@@ -107,7 +107,7 @@ template(name='view_button')
         // i.right.chevron.icon
 
 template(name='remove_button')
-    a.ui.circular.button.remove(title='Delete')
+    a.ui.circular.icon.button.remove(title='Delete')
         // i.remove.icon
         +iflat name='delete-sign'
         // |Remove #{title}
@@ -143,7 +143,7 @@ template(name='edit_button')
 
 
 template(name='save_button')
-    a.ui.circular.button.large.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+    a.ui.circular.icon.button.large.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
         +iflat name='checkmark'
         // i.checkmark.icon
         // |Save

@@ -19,14 +19,14 @@ template(name='color_view')
 
 template(name='color_icon_edit')
     .ui.form
-        .field
+        .inline.field
             label 
                 if icon
                     i.icon(class=icon)
                 |#{label}
             input.color_icon(type='url' value=field_value placeholder='icons8 class')
         if field_value
-            img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+            img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
 template(name='color_icon_view')
     img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
@@ -149,7 +149,7 @@ template(name='html_view')
 
 template(name='text_edit')
     .ui.labeled.fluid.input
-        .ui.label 
+        .ui.basic.label 
             if icon
                 i.icon(class=icon)
             if label
@@ -181,7 +181,7 @@ template(name='code_edit')
 
 template(name='number_edit')
     .ui.labeled.input
-        .ui.label
+        .ui.basic.label
             if icon
                 i.icon(class=icon)
             |#{label}
@@ -248,7 +248,7 @@ template(name='time_view')
 template(name='array_edit')
     div
     .ui.labeled.icon.input
-        .ui.label 
+        .ui.basic.label 
             if icon
                 i.icon(class=icon)
             if label
@@ -258,8 +258,8 @@ template(name='array_edit')
         input.new_element(type='text' placeholder='+')
     if field_value
         each field_value
-            .ui.label
-                i.remove.link.icon.remove_element
+            .ui.large.basic.circular.label
+                i.delete.icon.remove_element
                 |#{this}
     div
 
@@ -280,25 +280,24 @@ template(name='array_view')
 
 
 template(name='children_edit')
-    .ui.accordion
-        .active.title
-            .ui.small.inline.header #{label}
-            i.dropdown.icon
-        .active.content
-            .ui.button.add_child
-                i.plus.icon
-                |Add Child #{ref_schema}
-            each children
-                .ui.fluid.secondary.segment
-                    +child_edit
+    .ui.small.header #{label}
+    .ui.button.add_child
+        i.plus.icon
+        |Add Child #{ref_schema}
+    .ui.styled.accordion
+        each children
+            +child_edit
 
 
 template(name='child_edit')
-    each bricks
-        // if field_template
-        //     .ui.header field template #{field_template}
-        // else 
-        +Template.dynamic template=edit_template 
+    .title
+        i.dropdown.icon
+        |#{rank} #{title} #{label}
+    .content
+        each bricks
+            +Template.dynamic template=edit_template 
+        div
+        +remove_button
 
         // .ui.red.segment
         //     +text_edit key='key'
@@ -312,8 +311,6 @@ template(name='child_edit')
     
         //     +single_doc_edit key='ref_schema' ref_schema='schema' ref_key='slug' label='Referenced Schema (if ref)'
         //     .ui.divider
-    div
-    +remove_button
 
 
 
@@ -360,7 +357,7 @@ template(name='youtube_edit')
         .ui.label 
             if icon
                 i.icon(class=icon)
-            |youtube id
+            |Youtube Id
         input.youtube_id(type='text' value=field_value placeholder=placeholder)
     if field_value
         iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
@@ -378,8 +375,9 @@ template(name='youtube_view')
 
 
 template(name='boolean_edit')
-    .ui.button.toggle_boolean(class=boolean_toggle_class)
-        |#{label} [#{key}]
+    div
+        .ui.button.toggle_boolean(class=boolean_toggle_class title=key)
+            |#{label}
 
 
 template(name='boolean_view')
@@ -417,7 +415,7 @@ template(name='single_doc_edit')
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.compact.button.select_choice(class=choice_class)
+        .ui.circular.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}
@@ -431,7 +429,7 @@ template(name='multi_doc_edit')
             i.icon(class=icon)
         |#{label}
     each choices
-        .ui.compact.button.select_choice(class=choice_class)
+        .ui.circular.button.select_choice(class=choice_class)
             if icon
                 i.icon(class=icon)
             |#{title}

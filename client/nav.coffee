@@ -165,5 +165,6 @@ Template.footer.helpers
         Docs.find
             type:'page'
             show_in_footer:true
+            tribe: Router.current().params.tribe_slug
             
             
