@@ -35,16 +35,22 @@ template(name='add')
         .row
             .sixteen.wide.column
                 .ui.center.aligned.header
-                    i.plus.icon
+                    +icolor name='plus'
                     | Add
         .row
             .sixteen.wide.column
                 .ui.stackable.four.link.cards
+                    if is_admin
+                        .card.add_schema
+                            .content
+                                .header 
+                                    +icolor name='active-directory'
+                                    | Schema
                     each add_schemas
                         .card.add_doc
                             .content
                                 .header 
-                                    i.icon(class=icon)
+                                    +icolor name=color_icon
                                     |#{title}
                         
                         

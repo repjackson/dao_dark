@@ -40,12 +40,27 @@ if Meteor.isClient
 
     Template.add.events
         'click .add_doc': ->
-            console.log @
+            # console.log @
             new_id = 
                 Docs.insert
                     type:@slug
                     tribe:Router.current().params.tribe_slug
                 
             Router.go "/t/#{Router.current().params.tribe_slug}/s/#{@slug}/#{new_id}/edit"
+
+        'click .add_schema': ->
+            # console.log @
+            tribe = 
+                Docs.findOne 
+                    type:'tribe'
+                    slug:Router.current().params.tribe_slug
+                    
+            new_id = 
+                Docs.insert
+                    type:'schema'
+                    tribe:tribe.slug
+                    tribe_id:tribe._id
+                
+            Router.go "/t/#{Router.current().params.tribe_slug}/s/schema/#{new_id}/edit"
 
     
