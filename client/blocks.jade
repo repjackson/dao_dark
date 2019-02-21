@@ -26,18 +26,18 @@ template(name='follow')
 
 
 template(name='toggle_edit')
-    .ui.button.toggle_edit
+    .ui.circular.button.toggle_edit
         i.pencil.icon
 
 template(name='user_list_info')
-    a.ui.button.item(href="/user/#{user._id}")
+    a.ui.circular.button.item(href="/user/#{user._id}")
         img.ui.avatar.image(src=user.profile.profilePic title=name)
         |#{user.profile.name}
         +user_status user
 
 
 template(name='view_full_button')
-    a.ui.button.ui.icon.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
+    a.ui.circular.button.ui.icon.circular.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
         i.double.icon
         |View
 
@@ -56,7 +56,7 @@ template(name='user_status')
 
 
 template(name='user_info')
-    a.ui.button.item(href="/u/#{user.username}")
+    a.ui.circular.button.item(href="/u/#{user.username}")
         if profile.image_id
             img.ui.avatar.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
         if user.profile.name
@@ -69,10 +69,10 @@ template(name='user_info')
 
 template(name='role_editor')
     each roles
-        .ui.button #{this}
+        .ui.circular.button #{this}
 
 template(name='author_info')
-    a.ui.button(href="/u/#{username}") by #{author.username}
+    a.ui.circular.button(href="/u/#{username}") by #{author.username}
 
 template(name='creation_info')
     .ui.header #{when}
@@ -80,7 +80,7 @@ template(name='creation_info')
 
 template(name='user_list_toggle')
     if currentUser
-        a.ui.button.toggle(class=user_list_toggle_class title=add_label href='#')
+        a.ui.circular.button.toggle(class=user_list_toggle_class title=add_label href='#')
             i.icon(class=icon)
             |#{label}
         each list_users
@@ -90,11 +90,11 @@ template(name='user_list_toggle')
 template(name='voting')
     if points
         strong #{points}
-    .ui.icon.button.upvote
+    .ui.icon.circular.button.upvote
         i.thumbs.up.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.button.downvote
+    .ui.icon.circular.button.downvote
         i.thumbs.down.icon(class=downvote_class)
     each downvoter_ids
         +user_info
@@ -102,50 +102,55 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
-        |View #{type}
-        i.right.chevron.icon
+    a.ui.circular.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+        // |View #{type}
+        +iflat name='play'
+        // i.right.chevron.icon
 
 template(name='remove_button')
-    a.ui.button.remove(title='Delete')
-        i.remove.icon
-        |Remove #{title}
+    a.ui.circular.button.remove(title='Delete')
+        // i.remove.icon
+        +iflat name='delete-sign'
+        // |Remove #{title}
         // |Remove #{title} #{type}
             
 
 template(name='add_button')
-    a.ui.button.add(title='Add')
-        i.plus' tooltip="Add #{type}.icon
-        |#{type}
+    a.ui.circular.button.add(title='Add')
+        // i.plus' tooltip="Add #{type}.icon
+        // |#{type}
+        +iflat name='plus'
 
 
 template(name='toggle_friend')
     if is_friend
-        .ui.grey.animated.fade.button.remove_friend
+        .ui.grey.animated.fade.circular.button.remove_friend
             .visible.content
                 |Friends
             .hidden.content
                 i.minus.icon
     else
-        .ui.button.button.add_friend
+        .ui.circular.button.circular.button.add_friend
             |+ Friend
         
 
 
 
 template(name='edit_button')
-    a.ui.button.edit(title='Edit' href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
-        i.pencil.icon
-        |Edit
+    a.ui.circular.button.edit(title='Edit' href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
+        // i.pencil.icon
+        +iflat name='info'
+        // |Edit
 
 
 template(name='save_button')
-    a.ui.button.large.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
-        i.checkmark.icon
-        |Save
+    a.ui.circular.button.large.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+        +iflat name='checkmark'
+        // i.checkmark.icon
+        // |Save
 
 template(name='toggle_button')
-    .ui.icon.toggle.button(title=label)
+    .ui.icon.toggle.circular.button(title=label)
         i.icon(class=icon)
     each selected
         |#{username}
@@ -157,7 +162,7 @@ template(name='view_user_button')
         |View
 
 template(name='add_type_button')
-    .ui.icon.button.add(title="add #{type}")
+    .ui.icon.circular.button.add(title="add #{type}")
         i.plus.icon
         |#{type}
 

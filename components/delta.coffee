@@ -167,7 +167,7 @@ if Meteor.isClient
                 parent_id: current_tribe._id
                 tribe_id:current_tribe._id
                 tribe:current_tribe.slug
-            Router.go "/t/#{current_tribe.slug}/s/#{@type}/#{new_doc_id}/edit"
+            Router.go "/t/#{current_tribe.slug}/s/#{Router.current().params.type}/#{new_doc_id}/edit"
 
         'click .create_delta': (e,t)->
             Docs.insert 

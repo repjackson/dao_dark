@@ -6,37 +6,40 @@ template(name='delta')
                     a.ui.right.corner.label.move_left
                         i.left.chevron.link.icon
                     .ui.center.aligned.header
-                        i.icon(class=icon)
+                        if color_icon
+                            +icolor name=color_icon
+                        else
+                            i.icon(class=icon)
                         | #{plural}
                     .ui.small.center.aligned.header #{body}
                     unless is_loading
                         if can_add
-                            .ui.icon.button.add_type_doc(title="Add #{title}")
+                            .ui.icon.circular.button.add_type_doc(title="Add #{title}")
                                 i.plus.icon
                                 |Add #{title}
                         if can_edit
                             +edit_button
-                            // .ui.button.edit_schema
+                            // .ui.circular.button.edit_schema
                             //     i.cog.icon
                             //     | Configure #{plural}
                         // .ui.divider
                         // // each sessions
-                        // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
+                        // //     .ui.icon.large.circular.button.select_session(class=session_selector_class title='select session')
                         // //         i.play.icon
                                 
                         if current_delta
                             div
-                            .ui.icon.button.print_delta(title='Print Session Doc')
+                            .ui.icon.circular.button.print_delta(title='Print Session Doc')
                                 i.code.icon
                                 // |Print Session
-                            .ui.reset.icon.button(title='Reload Session')
+                            .ui.reset.icon.circular.button(title='Reload Session')
                                 i.refresh.icon
                                 // |Reload Session
-                            .ui.delete_delta.icon.button(title='Delete Session')
+                            .ui.delete_delta.icon.circular.button(title='Delete Session')
                                 i.trash.icon
                                 // |Delete Session
                         else
-                            .create_delta.ui.button.pointer(title='new session')
+                            .create_delta.ui.circular.button.pointer(title='new session')
                                 i.plus.icon
                                 |Create Session
                     // |did: #{session_delta_id}
@@ -59,10 +62,10 @@ template(name='delta')
                                 | #{delta.total} Results
                         .item
                             if show_page_down
-                                .ui.icon.button.page_down(title='Previous Page')
+                                .ui.icon.circular.button.page_down(title='Previous Page')
                                     i.left.chevron.icon
                             if show_page_up
-                                .ui.icon.button.page_up(title='Next Page')
+                                .ui.icon.circular.button.page_up(title='Next Page')
                                     i.right.chevron.icon
                         .item
                             +set_delta_key key='view' value='grid' icon='clone'                                    
@@ -71,11 +74,11 @@ template(name='delta')
                         .item
                             +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
                         .item
-                            .ui.disabled.button
+                            .ui.disabled.circular.button
                                 i.sort.down.icon
                                 |Sort By
                         .item
-                            .ui.disabled.button
+                            .ui.disabled.circular.button
                                 i.filter.icon
                                 | Toggle Fields
                     .ui.stackable.grid.scrolling(class=result_grid_class)
@@ -122,13 +125,13 @@ template(name='type_view')
                 .sixteen.wide.column
                     .ui.breadcrumb
                         a.section(href="/t/#{ct.slug}")
-                            .ui.button
+                            .ui.circular.button
                                 i.dashboard.icon
                                 |#{ct.title}
                         .divider
                             i.chevron.right.icon
                         a.section(href="/t/#{ct.slug}/s/#{type}" title=schema.plural)
-                            .ui.button
+                            .ui.circular.button
                                 i.icon(class=schema.icon)
                                 |#{schema.plural}
                         .divider
@@ -143,7 +146,7 @@ template(name='type_view')
             .row
                 .four.wide.column
                     // .ui.header
-                    //     a.ui.icon.button(href="/s/#{type}" title=plural)
+                    //     a.ui.icon.circular.button(href="/s/#{type}" title=plural)
                     //         i.chevron.left.icon
                     //     |View #{type}
                     if is_author
@@ -175,49 +178,69 @@ template(name='type_view')
 
 template(name='facet')
     if filtering_res
-        .ui.accordion
-            .active.title
-                .ui.small.header 
-                    if icon
-                        i.icon(class=icon)
-                    |#{label}
-            .active.content
-                // .ui.transparent.left.icon.small.input
-                //     i.search.icon
-                //     input.add_filter(type='text' placeholder='search')
-                // i.dropdown.icon
-                // each filters
-                //     .unselect.ui.grey.button #{this}
-                each filtering_res
-                    if name
-                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                            | #{name}
-                            small #{count}
-                    else
-                        .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
-                            strong [null]
-                            small #{count}
+        div
+        .ui.small.inline.header 
+            if icon
+                i.icon(class=icon)
+            |#{label}
+        // .ui.transparent.left.icon.small.input
+        //     i.search.icon
+        //     input.add_filter(type='text' placeholder='search')
+        // i.dropdown.icon
+        // each filters
+        //     .unselect.ui.grey.circular.button #{this}
+        each filtering_res
+            if name
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    | #{name}
+                    // small #{count}
+            else
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    // small #{count}
+        // .ui.accordion
+        //     .active.title
+        //         .ui.small.header 
+        //             if icon
+        //                 i.icon(class=icon)
+        //             |#{label}
+        //     .active.content
+        //         // .ui.transparent.left.icon.small.input
+        //         //     i.search.icon
+        //         //     input.add_filter(type='text' placeholder='search')
+        //         // i.dropdown.icon
+        //         // each filters
+        //         //     .unselect.ui.grey.circular.button #{this}
+        //         each filtering_res
+        //             if name
+        //                 .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+        //                     | #{name}
+        //                     // small #{count}
+        //             else
+        //                 .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+        //                     strong [null]
+        //                     // small #{count}
 
 
 
 template(name='toggle_delta_config')
     if boolean_true
-        .ui.grey.active.icon.button.disable_key(title=label)
+        .ui.grey.active.icon.circular.button.disable_key(title=label)
             i.icon(class=icon)
             // | #{label}
     else
-        .ui.icon.button.enable_key(title=label)
+        .ui.icon.circular.button.enable_key(title=label)
             i.icon(class=icon)
             // | #{label}
 
 
 
 template(name='set_page_size')
-    .ui.icon.button.set_page_size(class=page_size_class title='Page Size')
+    .ui.icon.circular.button.set_page_size(class=page_size_class title='Page Size')
         .middle.aligned #{value}
 
 template(name='set_delta_key')
-    .ui.icon.button.set_delta_key(class=set_delta_key_class)
+    .ui.icon.circular.button.set_delta_key(class=set_delta_key_class)
         if icon
             i.icon(class=icon)
         // |#{label}

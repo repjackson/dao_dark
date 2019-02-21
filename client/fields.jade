@@ -25,17 +25,18 @@ template(name='color_icon_edit')
                     i.icon(class=icon)
                 |#{label}
             input.color_icon(type='url' value=field_value placeholder='icons8 class')
-
+        if field_value
+            img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
 template(name='color_icon_view')
     img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
 
+template(name='icolor')
+    img.ui.mini.image(src="https://img.icons8.com/color/48/000000/#{name}.png")
 
-
-
-
-
+template(name='iflat')
+    img.ui.mini.image(src="https://img.icons8.com/flat_round/64/000000/#{name}.png")
 
 template(name='link_edit')
     .ui.form

@@ -2,7 +2,7 @@ template(name='topnav')
     // .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
     .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
         a.item.toggle_leftbar(href='#')
-            i.bars.icon
+            +icolor name='menu'
         if ct.logo_id
             a.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
                 img.ui.tiny.image(src="{{c.url ct.logo_id}}")
@@ -23,25 +23,33 @@ template(name='topnav')
         .right.menu
             if currentUser
                 a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
-                    i.plus.icon
+                    +icolor name='plus'
+                    // i.plus.icon
                 // a.item.toggle_topbar(href='#')
                 //     i.inbox.icon
                 a.item(href="/t/#{ct.slug}/chat" title="#{ct.title} Chat")
-                    i.chat.icon
+                    +icolor name='chat'
+                    // i.chat.icon
                 a.item.tribe_schemas(href="/t/#{ct.slug}/s/schema" title="#{ct.title} Schemas")
-                    i.sitemap.icon
+                    +icolor name='active-directory'
+                    // i.sitemap.icon
                 a.item.tribe_pages(href="/t/#{ct.slug}/s/page" title="#{ct.title} Pages")
-                    i.clone.icon
+                    +icolor name='web'
+                    // i.clone.icon
                 a.item(href="/t/#{ct.slug}/users" title="#{ct.title} Users")
-                    i.users.icon
+                    +icolor name='group-foreground-selected'
+                    // i.users.icon
                 a.icon.item(href="/t/#{ct.slug}/u/#{currentUser._id}/edit" title="#{ct.title} Account")
-                    i.cog.icon
+                    +icolor name='settings-3'
+                    // i.cog.icon
                 a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
-                    i.user.icon
+                    +icolor name='gender-neutral-user'
+                    // i.user.icon
                     // | #{currentUser.username} [#{currentUser.status}]
                     | #{currentUser.username}
                 a.item.toggle_rightbar(href='#')
-                    i.bars.icon
+                    +icolor name='menu'
+                    // i.bars.icon
             else
                 a.item(href="/signin")
                     i.sign.in.alternate.icon
