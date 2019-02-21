@@ -34,6 +34,5 @@ template(name='page_view')
         
         
 template(name='enter_tribe')
-    a.ui.enter_tribe.circular.button(href="/t/#{slug}")
+    a.ui.enter_tribe.circular.basic.icon.button(href="/t/#{slug}" title="Enter #{title} Tribe")
         +icolor name='fire' classes='ui mini inline image'
-        | Enter Tribe

@@ -3,12 +3,16 @@ template(name='topnav')
     .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
         a.item.toggle_leftbar(href='#')
             +icolor name='menu'
-        if ct.logo_id
-            a.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
-                img.ui.tiny.image(src="{{c.url ct.logo_id}}")
-        else
+        if ct.color_icon_header
             a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
-                |#{ct.title}
+                +icolor name=ct.color_icon
+        if ct.logo_id
+            if ct.logo_header
+                a.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
+                    img.ui.tiny.image(src="{{c.url ct.logo_id}}")
+        if ct.title_header
+            a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
+                strong #{ct.title}
         if is_loading
             .icon.item
                 i.loading.refresh.icon

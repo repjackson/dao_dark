@@ -89,11 +89,11 @@ template(name='voting')
     div
     if points
         strong #{points}
-    .ui.icon.circular.large.button.upvote
+    .ui.icon.circular.large.basic.button.upvote
         i.thumbs.up.large.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.circular.large.button.downvote
+    .ui.icon.circular.large.basic.button.downvote
         i.thumbs.down.large.icon(class=downvote_class)
     each downvoter_ids
         +user_info
@@ -101,13 +101,13 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.circular.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+    a.ui.circular.icon.basic.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
         // |View #{type}
         +ioffice name='chevron-right' classes='ui inline image'
         // i.right.chevron.icon
 
 template(name='remove_button')
-    a.ui.circular.icon.button.remove(title='Delete')
+    a.ui.circular.icon.basic.button.remove(title='Delete')
         // i.remove.icon
         +iflat name='delete-sign'
         // |Remove #{title}
@@ -136,14 +136,14 @@ template(name='toggle_friend')
 
 
 template(name='edit_button')
-    a.ui.circular.button.edit(title='Edit' href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
+    a.ui.circular.icon.basic.button.edit(title='Edit' href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
         // i.pencil.icon
         +ioffice name='pencil' classes='ui inline image'
         // |Edit
 
 
 template(name='save_button')
-    a.ui.circular.icon.button.large.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+    a.ui.circular.icon.basic.button.large.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
         +iflat name='checkmark'
         // i.checkmark.icon
         // |Save
