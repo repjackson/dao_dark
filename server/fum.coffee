@@ -98,7 +98,7 @@ Meteor.methods
             # console.log 'delta', delta
 
     agg: (query, key)->
-        limit=100
+        limit=20
         # console.log 'agg query', query
         # console.log 'agg key', key
         options = { explain:false }

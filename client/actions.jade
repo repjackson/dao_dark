@@ -27,12 +27,13 @@ template(name='view_section')
         
         
 template(name='page_view')
-    a.ui.button(href="/t/#{ct.slug}/p/#{slug}")
-        i.eye.icon
+    a.ui.circular.button(href="/t/#{ct.slug}/p/#{slug}")
+        // i.eye.icon
+        +icolor name='visible' classes='ui mini inline image'
         | Page View
         
         
 template(name='enter_tribe')
-    a.ui.enter_tribe.button(href="/t/#{slug}")
-        i.fire.icon
+    a.ui.enter_tribe.circular.button(href="/t/#{slug}")
+        +icolor name='fire' classes='ui mini inline image'
         | Enter Tribe

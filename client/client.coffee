@@ -222,7 +222,7 @@ Template.registerHelper 'is_schema_type', () ->
     @type is 'schema'
 
 Template.registerHelper 'is_eric', () ->
-    Meteor.userId() is 'ytjpFxiwnWaJELZEd' and Router.current().params._id is 'ytjpFxiwnWaJELZEd'
+    Meteor.userId() is 'ytjpFxiwnWaJELZEd'
 
 Template.registerHelper 'current_user', () ->
     Meteor.userId() is Router.current().params._id

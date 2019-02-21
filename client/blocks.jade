@@ -57,12 +57,10 @@ template(name='user_status')
 
 template(name='user_info')
     a.ui.circular.button.item(href="/u/#{user.username}")
-        if profile.image_id
-            img.ui.avatar.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-        if user.profile.name
-            |#{user.profile.name}
-        if user.profile.churchName
-            |#{user.profile.churchName}
+        if user.profile.image_id
+            img.ui.avatar.image(src="{{c.url user.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+        if user.name
+            |#{user.name}
         |@#{user.username}
         +user_status user
 
@@ -88,14 +86,15 @@ template(name='user_list_toggle')
 
 
 template(name='voting')
+    div
     if points
         strong #{points}
-    .ui.icon.circular.button.upvote
-        i.thumbs.up.icon(class=upvote_class)
+    .ui.icon.circular.large.button.upvote
+        i.thumbs.up.large.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.circular.button.downvote
-        i.thumbs.down.icon(class=downvote_class)
+    .ui.icon.circular.large.button.downvote
+        i.thumbs.down.large.icon(class=downvote_class)
     each downvoter_ids
         +user_info
 
@@ -104,7 +103,7 @@ template(name='voting')
 template(name='view_button')
     a.ui.circular.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
         // |View #{type}
-        +iflat name='play'
+        +ioffice name='chevron-right' classes='ui inline image'
         // i.right.chevron.icon
 
 template(name='remove_button')
@@ -139,7 +138,7 @@ template(name='toggle_friend')
 template(name='edit_button')
     a.ui.circular.button.edit(title='Edit' href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
         // i.pencil.icon
-        +iflat name='info'
+        +ioffice name='pencil' classes='ui inline image'
         // |Edit
 
 

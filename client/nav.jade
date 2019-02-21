@@ -23,27 +23,13 @@ template(name='topnav')
         .right.menu
             if currentUser
                 a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
-                    +icolor name='plus'
+                    +icolor name='plus' classes='ui mini image'
                     // i.plus.icon
                 // a.item.toggle_topbar(href='#')
-                //     i.inbox.icon
-                a.item(href="/t/#{ct.slug}/chat" title="#{ct.title} Chat")
-                    +icolor name='chat'
-                    // i.chat.icon
-                a.item.tribe_schemas(href="/t/#{ct.slug}/s/schema" title="#{ct.title} Schemas")
-                    +icolor name='active-directory'
-                    // i.sitemap.icon
-                a.item.tribe_pages(href="/t/#{ct.slug}/s/page" title="#{ct.title} Pages")
-                    +icolor name='web'
-                    // i.clone.icon
-                a.item(href="/t/#{ct.slug}/users" title="#{ct.title} Users")
-                    +icolor name='group-foreground-selected'
-                    // i.users.icon
-                a.icon.item(href="/t/#{ct.slug}/u/#{currentUser._id}/edit" title="#{ct.title} Account")
-                    +icolor name='settings-3'
-                    // i.cog.icon
+                //     +icolor name='inbox' classes='ui mini image'
+                    // i.inbox.icon
                 a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
-                    +icolor name='gender-neutral-user'
+                    +icolor name='gender-neutral-user' classes='ui mini image'
                     // i.user.icon
                     // | #{currentUser.username} [#{currentUser.status}]
                     | #{currentUser.username}
@@ -57,15 +43,15 @@ template(name='topnav')
                 a.item(href="/register")
                     i.user.plus.icon
                     |Register 
-    if is_admin
-        .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color}")
-            each topnav_schemas
-                a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" data-inverted='' title=title)
-                    if color_icon
-                        img(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
-                    else if icon
-                        i.icon(class=icon)
-                    |#{plural}
+    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color}")
+        each topnav_schemas
+            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}")
+                if color_icon
+                    img(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
+                else if icon
+                    i.icon(class=icon)
+                |#{plural}
+    // if is_admin
 
 
 
@@ -117,12 +103,32 @@ template(name='rightbar')
         //                 img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
         //             else
         //                 img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
-        .item.toggle_rightbar
-            | #{currentUser.profile.first_name} #{currentUser.profile.last_name}
-            | #{currentUser.username} #{currentUser.profile.name}
-            i.grey.user.shield.icon(title='Role')
-            each currentUser.roles
-                .ui.basic.label #{this}
+        a.item(href="/t/#{ct.slug}/chat")
+            +icolor name='chat' classes='ui avatar image'
+            | Chat
+            // i.chat.icon
+        a.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
+            +icolor name='active-directory' classes='ui avatar image'
+            | Schemas
+            // i.sitemap.icon
+        a.item.tribe_pages(href="/t/#{ct.slug}/s/page")
+            +icolor name='web' classes='ui avatar image'
+            | Pages
+            // i.clone.icon
+        a.item(href="/t/#{ct.slug}/users")
+            +icolor name='group-foreground-selected' classes='ui avatar image'
+            | Users
+            // i.users.icon
+        a.icon.item(href="/t/#{ct.slug}/u/#{currentUser._id}/edit")
+            +icolor name='settings-3' classes='ui avatar image'
+            | Account
+            // i.cog.icon
+        // .item.toggle_rightbar
+        //     | #{currentUser.profile.first_name} #{currentUser.profile.last_name}
+        //     | #{currentUser.username} #{currentUser.profile.name}
+        //     i.grey.user.shield.icon(title='Role')
+        //     each currentUser.roles
+        //         .ui.basic.label #{this}
         // .item.toggle_rightbar
         //     i.leaderboard.icon
         //     | Leaderboard
@@ -131,18 +137,16 @@ template(name='rightbar')
         //         |#{currentUser.username}
         //     else
         //         |Account
-        a.item.toggle_rightbar(href="/u/#{currentUser._id}/about")
-            i.user.icon
-            | Profile
-        a.item.toggle_rightbar(href="/u/#{currentUser._id}/edit")
-            i.cog.grey.icon
-            | Settings
+        // a.item.toggle_rightbar(href="/u/#{currentUser._id}/about")
+        //     i.user.icon
+        //     | Profile
         if signing_out
             .icon.disabled.item.toggle_rightbar
                 i.notched.circle.loading.big.icon
         else
             a.logout.item.toggle_rightbar(href='#')
-                i.sign.out.icon
+                +icolor name='exit-sign' classes='ui avatar image'
+                // i.sign.out.icon
                 | Log Out
 
 
@@ -191,10 +195,13 @@ template(name='footer')
     //         |#{ct.footer}
     //     .right.menu
     #footer.ui.inverted.attached.segment(style="background:#{ct.secondary_color}")
-        .ui.stackable.padded.equal.width.grid
-            .row.footer-row
-                .column.footer1-col
+        .ui.stackable.padded.grid
+            .three.column.row
+                .column
                     h5.ui.small.inverted.header Info
+                    with ct.owner
+                        h5.ui.small.inverted.header Owner Info
+                        +user_info
                     .ui.list
                         if ct.address
                             .item
@@ -213,31 +220,31 @@ template(name='footer')
                     .ui.inverted.list
                         each footer_pages
                             a.item(href="/t/#{ct.slug}/p/#{slug}") #{title}
-                // .column
-                //     h5.ui.small.inverted.header Social Media
-                //     .ui.list
-                //         if ct.facebook
-                //             a.item(href="https://www.facebook.com/#{ct.facebook}", target='_blank')
-                //                 img(src='/images/32x32x1.png', alt='32x32x1')
-                //         if ct.twitter
-                //             a.item(href='https://twitter.com/Joyful_Giver', target='_blank')
-                //                 img(src='/images/32x32x2.png', alt='32x32x2')
-                //         if ct.instagram
-                //             a.item(href='https://www.instagram.com/joyfulgiver_app/', target='_blank')
-                //                 img(src='/images/32x32x9.png', alt='32x32x9')
+                .inverted.column
+                    +role_switcher
+
+                    h5.ui.small.inverted.header Social Media
+                    .ui.list
+                        if ct.facebook
+                            a.item(href="https://www.facebook.com/#{ct.facebook}", target='_blank')
+                                img(src='/images/32x32x1.png', alt='32x32x1')
+                        if ct.twitter
+                            a.item(href='https://twitter.com/Joyful_Giver', target='_blank')
+                                img(src='/images/32x32x2.png', alt='32x32x2')
+                        if ct.instagram
+                            a.item(href='https://www.instagram.com/joyfulgiver_app/', target='_blank')
+                                img(src='/images/32x32x9.png', alt='32x32x9')
                 //     .ui.small.images
                 //         img(src='/images/stripe.png', alt='100x80x1')
                 //         img(src='/images/ssl.png', alt='100x80x2')
                 //         a(href='https://www.bbb.org/dallas/business-reviews/financial-services/joyful-giver-in-plano-tx-90907663#bbbseal', target='_blank')
                 //             img(src='/images/bbb.png', alt='100x80x2')
-            .centered.two.column.row
-                .center.aligned.column
-                    .ui.divided.horizontal.inverted.list
-                        .item
-                            .ui.inline.header
-                                i.copyright.outline.icon
-                                |2019 
-                                |#{ct.title}
-                        .item
-                            a.ui.inline.inverted.header(href='/')
-                                |DAO
+            .centered.middle.aligned.row
+                .four.wide.center.aligned.column
+                    .ui.inline.inverted.header
+                        i.copyright.outline.icon
+                        |2019 
+                        |#{ct.title}
+                .four.wide.center.aligned.column
+                    a(href='/')
+                        +icolor name='yin-yang' classes='ui inline image'

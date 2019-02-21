@@ -109,6 +109,9 @@ if Meteor.isClient
             delta = Docs.findOne type:'delta'
             if delta and @value is delta.page_size then 'grey' else ''
 
+
+
+
     Template.set_page_size.events
         'click .set_page_size': (e,t)->
             delta = Docs.findOne type:'delta'
@@ -117,11 +120,9 @@ if Meteor.isClient
                     current_page:0
                     skip_amount:0
                     page_size:@value
-            Session.set 'is_calculating', true
-            Meteor.call 'fo', (err,res)->
-                if err then console.log err
-                else
-                    Session.set 'is_calculating', false
+            Session.set 'loading', true
+            Meteor.call 'fum', delta._id, Router.current().params.tribe_slug, ->
+                Session.set 'loading', false
 
 
 

@@ -33,10 +33,13 @@ template(name='color_icon_view')
 
 
 template(name='icolor')
-    img.ui.mini.image(src="https://img.icons8.com/color/48/000000/#{name}.png")
+    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes)
 
 template(name='iflat')
     img.ui.mini.image(src="https://img.icons8.com/flat_round/64/000000/#{name}.png")
+
+template(name='ioffice')
+    img.ui.image(src="https://img.icons8.com/office/30/000000/#{name}.png" class=classes)
 
 template(name='link_edit')
     .ui.form
@@ -70,17 +73,13 @@ template(name='image_edit')
                 a#remove_photo.ui.right.corner.link.label
                     i.remove.red.link.icon
             else
-                if is_dev
-                    .field
-                        label 
-                            if icon
-                                i.icon(class=icon)
-                            |#{label}
-                        input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id')
                 if icon
                     i.icon(class=icon)
                 |#{label}
-                label Upload Image
+                if is_dev
+                    input.cloudinary_id(type='text' value=field_value placeholder='cloudinary_id')
+                // else
+                //     label Upload Image
                 input(type='file' name='upload_image' accept='image/*')
 
 
@@ -465,7 +464,7 @@ template(name='single_user_edit')
                     each user_results
                         .select_user.item
                             h5.ui.header
-                                img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
+                                img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 |#{username}
         .field
             +user_info field_value

@@ -14,9 +14,10 @@ template(name='delta')
                     .ui.small.center.aligned.header #{body}
                     unless is_loading
                         if can_add
-                            .ui.icon.circular.button.add_type_doc(title="Add #{title}")
-                                i.plus.icon
-                                |Add #{title}
+                            .ui.circular.button.add_type_doc(title="Add #{title}")
+                               +icolor name='plus' classes='ui inline mini image'
+                                // i.plus.icon
+                                // |Add #{title}
                         if can_edit
                             +edit_button
                             // .ui.circular.button.edit_schema
@@ -51,6 +52,7 @@ template(name='delta')
                         i.right.chevron.link.pointer.icon
                     .ui.horizontal.spaced.list
                         .item
+                            |View
                             +set_page_size value=10
                             +set_page_size value=20
                             +set_page_size value=50
@@ -70,7 +72,6 @@ template(name='delta')
                         .item
                             +set_delta_key key='view' value='grid' icon='clone'                                    
                             +set_delta_key key='view' value='table' icon='table'                                    
-                        
                         .item
                             +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
                         .item
@@ -97,22 +98,21 @@ template(name='type_edit')
                 .four.wide.center.aligned.column
                     +save_button
                 .eight.wide.center.aligned.column
-                    each bricks
-                        if header
-                            +Template.dynamic template=view_template 
-                    i.pencil.large.icon
-                    .ui.inline.header
-                        if icon
-                            i.icon(class=icon)
-                        |#{title}
-                    .ui.small.header Type: #{type}
+                    +ioffice name='pencil' classes='ui inline image'
+                    .ui.inline.header(title="Type: #{type}")
+                        each bricks
+                            if header
+                                +Template.dynamic template=view_template 
+                        // if icon
+                        //     i.icon(class=icon)
+                        // |#{title}
                 .four.wide.center.aligned.column
                     +remove_button
             .row
                 .six.wide.column
                     each small_bricks
                         +Template.dynamic template=edit_template 
-                .ten.wide.column
+                .ten.wide.column.scrolling
                     each big_bricks
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
@@ -126,13 +126,16 @@ template(name='type_view')
                     .ui.breadcrumb
                         a.section(href="/t/#{ct.slug}")
                             .ui.circular.button
-                                i.dashboard.icon
+                                +icolor name='dashboard' classes='ui mini inline image'
                                 |#{ct.title}
                         .divider
                             i.chevron.right.icon
                         a.section(href="/t/#{ct.slug}/s/#{type}" title=schema.plural)
                             .ui.circular.button
-                                i.icon(class=schema.icon)
+                                if schema.color_icon
+                                    +icolor name=schema.color_icon classes='ui mini inline image'
+                                else
+                                    i.icon(class=schema.icon)
                                 |#{schema.plural}
                         .divider
                             i.chevron.right.icon
