@@ -104,7 +104,7 @@ Meteor.methods
 
 
 
-    add_facet_filter: (delta_id, key, filter)->
+    add_facet_filter: (delta_id, key, filter, tribe)->
         if key is '_keys'
             new_facet_ob = {
                 key:filter
@@ -116,16 +116,16 @@ Meteor.methods
         Docs.update { _id:delta_id, "facets.key":key},
             $addToSet: "facets.$.filters": filter
         
-        Meteor.call 'fum', delta_id, (err,res)->
+        Meteor.call 'fum', delta_id, tribe, (err,res)->
             
             
-    remove_facet_filter: (delta_id, key, filter)->
+    remove_facet_filter: (delta_id, key, filter, tribe)->
         if key is '_keys'
             Docs.update { _id:delta_id },
                 $pull:facets: {key:filter}
         Docs.update { _id:delta_id, "facets.key":key},
             $pull: "facets.$.filters": filter
-        Meteor.call 'fum', delta_id, (err,res)->
+        Meteor.call 'fum', delta_id, tribe, (err,res)->
 
     rename_key:(old_key,new_key,parent)->
         Docs.update parent._id,

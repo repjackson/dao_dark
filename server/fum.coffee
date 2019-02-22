@@ -15,7 +15,7 @@ Meteor.methods
                     tribe:tribe
                     }
             
-            # console.log 'schema', schema
+            console.log 'schema', schema
             
             # if not delta.facets
             #     delta.facets = []
@@ -25,7 +25,7 @@ Meteor.methods
                     built_query["#{facet.key}"] = $all: facet.filters
             
             total = Docs.find(built_query).count()
-            # console.log 'built query', built_query
+            console.log 'built query', built_query
             
             # response
             for facet in delta.facets

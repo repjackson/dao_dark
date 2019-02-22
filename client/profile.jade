@@ -226,13 +226,11 @@ template(name='user_tags')
             
             
 template(name='role_switcher')
-    .ui.header 
-        i.refresh.icon
-        |Role Switcher
+    i.user.shield.icon(title='Role Switcher')
     if is_eric
-        +user_array_element_toggle key='roles' value='dev'  
-    +user_array_element_toggle key='roles' value='admin'  
-    +user_array_element_toggle key='roles' value='user'  
+        +user_array_element_toggle key='roles' value='dev' user=currentUser
+    +user_array_element_toggle key='roles' value='admin' user=currentUser
+    +user_array_element_toggle key='roles' value='user' user=currentUser
 
 
 template(name='site_switcher')

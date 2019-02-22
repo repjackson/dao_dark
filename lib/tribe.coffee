@@ -4,7 +4,7 @@ if Meteor.isClient
         
     Template.home.helpers
         tribe_home_bg: ->
-            console.log 'hi'
+            # console.log 'hi'
     
     
 if Meteor.isServer

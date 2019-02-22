@@ -25,9 +25,11 @@ if Meteor.isClient
         grid_view_class: ->
             delta = Docs.findOne type:'delta'
             if delta.view_mode is 'grid' then 'delta_selected' else 'delta_selector'
+        
         list_view_class: ->
             delta = Docs.findOne type:'delta'
             if delta.view_mode is 'list' then 'delta_selected' else 'delta_selector'
+        
         table_view_class: ->
             delta = Docs.findOne type:'delta'
             if delta.view_mode is 'table' then 'delta_selected' else 'delta_selector'
@@ -154,9 +156,6 @@ if Meteor.isClient
     
     
 
-
-
-
     Template.delta.events
         'click .add_type_doc': ->
             current_tribe = Docs.findOne
@@ -282,10 +281,10 @@ if Meteor.isClient
             facet = Template.currentData()
             Session.set 'loading', true
             if facet.filters and @name in facet.filters
-                Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+                Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, Router.current().params.tribe_slug, ->
                     Session.set 'loading', false
             else 
-                Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+                Meteor.call 'add_facet_filter', delta._id, facet.key, @name, Router.current().params.tribe_slug, ->
                     Session.set 'loading', false
           
         'keyup .add_filter': (e,t)->
@@ -294,7 +293,7 @@ if Meteor.isClient
                 facet = Template.currentData()
                 filter = t.$('.add_filter').val()
                 Session.set 'loading', true
-                Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
+                Meteor.call 'add_facet_filter', delta._id, facet.key, filter, Router.current().params.tribe_slug, ->
                     Session.set 'loading', false
                 t.$('.add_filter').val('')
                 
@@ -320,8 +319,8 @@ if Meteor.isClient
             if Session.equals 'loading', true
                  'disabled '
             else if facet.filters.length > 0 and @name in facet.filters
-                'grey'
-            else ''
+                'blue'
+            else 'basic'
             
     Template.result.onCreated ->
         @autorun => Meteor.subscribe 'doc', @data._id

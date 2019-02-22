@@ -134,7 +134,7 @@ Template.registerHelper 'small_bricks', () ->
         
     Docs.find {
         type:'brick'
-        field:$in:['text','single_doc','multi_doc','boolean']
+        field:$in:['text','single_doc','multi_doc','boolean','color_icon','number']
         parent_id:schema._id
     }, sort:rank:1
     
@@ -155,7 +155,7 @@ Template.registerHelper 'big_bricks', () ->
     Docs.find {
         type:'brick'
         parent_id:schema._id
-        field:$nin:['text','single_doc','multi_doc','boolean']
+        field:$nin:['text','single_doc','multi_doc','boolean','color_icon','number']
     }, sort:rank:1
     
     

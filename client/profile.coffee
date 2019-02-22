@@ -64,23 +64,23 @@ Template.profile_layout.events
 
 Template.user_array_element_toggle.helpers
     user_array_element_toggle_class: ->
-        user = Meteor.users.findOne Router.current().params._id
-        if @value in user["#{@key}"] then 'grey' else 'basic'
+        # user = Meteor.users.findOne Router.current().params._id
+        if @value in @user["#{@key}"] then 'blue' else ''
         
         
 Template.user_array_element_toggle.events
     'click .toggle_element': (e,t)->
-        console.log @
-        user = Meteor.users.findOne Router.current().params._id
-        if user["#{@key}"]
-            if @value in user["#{@key}"]
-                Meteor.users.update user._id,
+        # console.log @
+        # user = Meteor.users.findOne Router.current().params._id
+        if @user["#{@key}"]
+            if @value in @user["#{@key}"]
+                Meteor.users.update @user._id,
                     $pull: "#{@key}":@value
             else
-                Meteor.users.update user._id,
+                Meteor.users.update @user._id,
                     $addToSet: "#{@key}":@value
         else
-            Meteor.users.update user._id,
+            Meteor.users.update @user._id,
                 $addToSet: "#{@key}":@value
      
      

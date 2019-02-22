@@ -18,6 +18,9 @@ template(name='topnav')
                 i.loading.refresh.icon
         each topnav_pages
             a.item(href="/t/#{ct.slug}/p/#{slug}")
+                if color_icon_header
+                    a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
+                        +icolor name=color_icon
                 if show_icon
                     i.icon(class=icon)
                 if show_label
@@ -54,8 +57,9 @@ template(name='topnav')
                     img(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
                 else if icon
                     i.icon(class=icon)
-                |&nbsp;
-                |#{plural}
+                if show_label
+                    |&nbsp;
+                    strong #{plural}
     // if is_admin
 
 
@@ -112,19 +116,19 @@ template(name='rightbar')
             +icolor name='chat' classes='ui avatar image'
             | Chat
             // i.chat.icon
-        a.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
+        a.item.toggle_rightbar.tribe_schemas(href="/t/#{ct.slug}/s/schema")
             +icolor name='active-directory' classes='ui avatar image'
             | Schemas
             // i.sitemap.icon
-        a.item.tribe_pages(href="/t/#{ct.slug}/s/page")
+        a.item.toggle_rightbar.tribe_pages(href="/t/#{ct.slug}/s/page")
             +icolor name='web' classes='ui avatar image'
             | Pages
             // i.clone.icon
-        a.item(href="/t/#{ct.slug}/users")
+        a.item.toggle_rightbar(href="/t/#{ct.slug}/users")
             +icolor name='group-foreground-selected' classes='ui avatar image'
             | Users
             // i.users.icon
-        a.icon.item(href="/t/#{ct.slug}/u/#{currentUser._id}/edit")
+        a.icon.item.toggle_rightbar(href="/t/#{ct.slug}/u/#{currentUser._id}/edit")
             +icolor name='settings-3' classes='ui avatar image'
             | Account
             // i.cog.icon
@@ -149,7 +153,7 @@ template(name='rightbar')
             .icon.disabled.item.toggle_rightbar
                 i.notched.circle.loading.big.icon
         else
-            a.logout.item.toggle_rightbar(href='#')
+            a.logout.item(href='#')
                 +icolor name='exit-sign' classes='ui avatar image'
                 // i.sign.out.icon
                 | Log Out
