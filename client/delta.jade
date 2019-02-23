@@ -50,148 +50,65 @@ template(name='delta')
                 .column(class=delta_right_column_class)
                     a.ui.left.corner.label.move_right
                         i.right.chevron.link.pointer.icon
-                    .ui.horizontal.spaced.list
-                        .item
-                            |View
-                            +set_page_size value=10
-                            +set_page_size value=20
-                            +set_page_size value=50
-                        .item
-                            if multiple_pages
-                                .ui.label
-                                    | Page #{delta.current_page}/#{delta.page_amount}
-                        .item
-                                | #{delta.total} Results
-                        .item
-                            if show_page_down
-                                .ui.icon.circular.button.page_down(title='Previous Page')
-                                    i.left.chevron.icon
-                            if show_page_up
-                                .ui.icon.circular.button.page_up(title='Next Page')
-                                    i.right.chevron.icon
-                        .item
-                            +set_delta_key key='view' value='grid' icon='clone'                                    
-                            +set_delta_key key='view' value='table' icon='table'                                    
-                        .item
-                            +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
-                        .item
-                            .ui.disabled.circular.button
-                                i.sort.down.icon
-                                |Sort By
-                        .item
-                            .ui.disabled.circular.button
-                                i.filter.icon
-                                | Toggle Fields
+                    // .ui.horizontal.spaced.list
+                    //     .item
+                    //         |View
+                    //         +set_page_size value=10
+                    //         +set_page_size value=20
+                    //         +set_page_size value=50
+                    //     .item
+                    //         if multiple_pages
+                    //             .ui.label
+                    //                 | Page #{delta.current_page}/#{delta.page_amount}
+                    //     .item
+                    //             | #{delta.total} Results
+                    //     .item
+                    //         if show_page_down
+                    //             .ui.icon.circular.button.page_down(title='Previous Page')
+                    //                 i.left.chevron.icon
+                    //         if show_page_up
+                    //             .ui.icon.circular.button.page_up(title='Next Page')
+                    //                 i.right.chevron.icon
+                    //     .item
+                    //         +set_delta_key key='view' value='grid' icon='clone'                                    
+                    //         +set_delta_key key='view' value='table' icon='table'                                    
+                    //     .item
+                    //         +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
+                    //     .item
+                    //         .ui.disabled.circular.button
+                    //             i.sort.down.icon
+                    //             |Sort By
+                    //     .item
+                    //         .ui.disabled.circular.button
+                    //             i.filter.icon
+                    //             | Toggle Fields
                     .ui.stackable.grid.scrolling(class=result_grid_class)
                         each current_delta.result_ids
                             .column
                                 +result
 
 
-
-
-
-template(name='type_edit')
-    with doc
-        .ui.stackable.padded.grid
-            .centered.row
-                .six.wide.column
-                    .ui.header(title="Type: #{type}")
-                        each bricks
-                            if header
-                                +Template.dynamic template=view_template 
-                    // +ioffice name='pencil' classes='ui inline image'
-                    +save_button
-                    +remove_button
-                    each small_bricks
-                        +Template.dynamic template=edit_template 
-                .ten.wide.column
-                    each big_bricks
-                        +Template.dynamic template=edit_template 
-                        // .ui.header #{key} [#{field}] #{label}
-
-
-template(name='type_view')
-    with doc
-        .ui.stackable.padded.grid
-            // .row
-            //     .sixteen.wide.column
-            //         .ui.breadcrumb
-            //             a.section(href="/t/#{ct.slug}")
-            //                 .ui.circular.compact.basic.button
-            //                     +icolor name=ct.color_icon classes='ui mini inline image'
-            //                     |#{ct.title}
-            //             .divider
-            //                 i.chevron.right.large.icon
-            //             a.section(href="/t/#{ct.slug}/s/#{type}" title=schema.plural)
-            //                 .ui.circular.compact.basic.button
-            //                     if schema.color_icon
-            //                         +icolor name=schema.color_icon classes='ui mini inline image'
-            //                     else
-            //                         i.icon(class=schema.icon)
-            //                     |#{schema.plural}
-            //             .divider
-            //                 i.chevron.right.large.icon
-            //             .active.section
-            //                 if icon
-            //                     i.icon(class=icon)
-            //                 if title
-            //                     |#{title}
-            //                 else
-            //                     |View #{type}
-            .row
-                .four.wide.column
-                    // .ui.header
-                    //     a.ui.icon.circular.button(href="/s/#{type}" title=plural)
-                    //         i.chevron.left.icon
-                    //     |View #{type}
-                    if is_author
-                        +edit_button
-                    each schema.actions
-                        +Template.dynamic template=this data=doc
-                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                .twelve.wide.column
-                    .ui.header
-                        each bricks
-                            if header
-                                +Template.dynamic template=view_template 
-                        // if icon
-                        //     i.icon(class=icon)
-                        // |#{title}
-                    .ui.list
-                        // each schema.field_templates
-                        //     with field_template_doc
-                        //         +Template.dynamic template=view_template
-                        each bricks
-                            unless header
-                                .item
-                                    +Template.dynamic template=view_template 
-                    div
-                    +comments
-                    
-                    
-
 template(name='facet')
-    // if filtering_res
-    div
-    .ui.small.inline.header 
-        if icon
-            i.icon(class=icon)
-        |#{label}
-    // .ui.transparent.left.icon.small.input
-    //     i.search.icon
-    //     input.add_filter(type='text' placeholder='search')
-    // i.dropdown.icon
-    // each filters
-    //     .unselect.ui.grey.circular.button #{this}
-    each filtering_res
-        if name
-            .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                | #{name}
-                // small #{count}
-        else
-            .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-                strong [null]
+    if filtering_res
+        div
+        .ui.small.inline.header 
+            if icon
+                i.grey.icon(class=icon)
+            |#{label}
+        // .ui.transparent.left.icon.small.input
+        //     i.search.icon
+        //     input.add_filter(type='text' placeholder='search')
+        // i.dropdown.icon
+        // each filters
+        //     .unselect.ui.grey.circular.button #{this}
+        each filtering_res
+            if name
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    | #{name}
+                    // small #{count}
+            else
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
                 // small #{count}
     // .ui.accordion
     //     .active.title
@@ -264,7 +181,7 @@ template(name='result')
                             +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                    if is_author
+                    if can_edit
                         +edit_button
                     +view_button
                     each schema.actions
@@ -286,4 +203,93 @@ template(name='result')
     // .ui.divider
 
     
+                    
+
+
+
+
+
+
+
+
+
+template(name='type_edit')
+    with doc
+        .ui.stackable.padded.grid
+            .centered.row
+                .four.wide.column
+                    .ui.header(title="Type: #{type}")
+                        each bricks
+                            if header
+                                +Template.dynamic template=view_template 
+                    // +ioffice name='pencil' classes='ui inline image'
+                    +save_button
+                    +remove_button
+                    each small_bricks
+                        +Template.dynamic template=edit_template 
+                .twelve.wide.column
+                    each big_bricks
+                        +Template.dynamic template=edit_template 
+                        // .ui.header #{key} [#{field}] #{label}
+
+
+template(name='type_view')
+    with doc
+        .ui.stackable.padded.grid
+            // .row
+            //     .sixteen.wide.column
+            //         .ui.breadcrumb
+            //             a.section(href="/t/#{ct.slug}")
+            //                 .ui.circular.compact.basic.button
+            //                     +icolor name=ct.color_icon classes='ui mini inline image'
+            //                     |#{ct.title}
+            //             .divider
+            //                 i.chevron.right.large.icon
+            //             a.section(href="/t/#{ct.slug}/s/#{type}" title=schema.plural)
+            //                 .ui.circular.compact.basic.button
+            //                     if schema.color_icon
+            //                         +icolor name=schema.color_icon classes='ui mini inline image'
+            //                     else
+            //                         i.icon(class=schema.icon)
+            //                     |#{schema.plural}
+            //             .divider
+            //                 i.chevron.right.large.icon
+            //             .active.section
+            //                 if icon
+            //                     i.icon(class=icon)
+            //                 if title
+            //                     |#{title}
+            //                 else
+            //                     |View #{type}
+            .row
+                .four.wide.column
+                    // .ui.header
+                    //     a.ui.icon.circular.button(href="/s/#{type}" title=plural)
+                    //         i.chevron.left.icon
+                    //     |View #{type}
+                    if can_edit
+                        +edit_button
+                    div
+                    each schema.actions
+                        +Template.dynamic template=this data=doc
+                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                .twelve.wide.column
+                    .ui.header
+                        each bricks
+                            if header
+                                +Template.dynamic template=view_template 
+                        // if icon
+                        //     i.icon(class=icon)
+                        // |#{title}
+                    .ui.list
+                        // each schema.field_templates
+                        //     with field_template_doc
+                        //         +Template.dynamic template=view_template
+                        each bricks
+                            unless header
+                                .item
+                                    +Template.dynamic template=view_template 
+                    div
+                    +comments
+                    
                     

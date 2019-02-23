@@ -2,8 +2,8 @@ if Meteor.isClient
     Template.delta.onCreated ->
         # @autorun -> Meteor.subscribe 'schema', Router.current().params.type
         # @autorun -> Meteor.subscribe 'type', 'schema'
-        @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
-        @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.type
+        # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
+        # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.type
         @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.tribe_slug, Router.current().params.type
         @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.tribe_slug, Router.current().params.type
         # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
@@ -90,7 +90,7 @@ if Meteor.isClient
                 switch delta.total
                     when 2 then 'two column'
                     when 1 then 'one column'
-                    else 'three column'
+                    else 'two column'
 
 
         current_delta: -> 
@@ -283,7 +283,7 @@ if Meteor.isClient
             if facet.filters and @name in facet.filters
                 Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, Router.current().params.tribe_slug, ->
                     Session.set 'loading', false
-            else 
+            else
                 Meteor.call 'add_facet_filter', delta._id, facet.key, @name, Router.current().params.tribe_slug, ->
                     Session.set 'loading', false
           

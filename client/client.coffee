@@ -6,6 +6,18 @@
 $.cloudinary.config
     cloud_name:"facet"
 
+Meteor.startup ->
+    hostnameArray = document.location.hostname.split('.')
+    console.log hostnameArray
+    # if hostnameArray.length >= 3
+    #     subdomain = hostnameArray[0].toLowerCase().ucfirst()
+    #     defineFunctionString = 'define' + subdomain + 'Routes'
+    # if typeof window[defineFunctionString] == 'function'
+    #     Meteor['is' + subdomain] = true
+    #     window[defineFunctionString]()
+    # else
+    #     defineRoutes()
+
 
 
 Session.setDefault 'invert', false
@@ -254,11 +266,13 @@ Template.registerHelper 'user_from_id', ()->
                 
 Template.registerHelper 'can_edit', () ->
     if Meteor.user()
-        if Meteor.userId() is @_author_id 
+        if 'dev' in Meteor.user().roles 
+            # console.log 'dev in role'
             true
-        if Meteor.user().roles
-            if 'dev' in Meteor.user().roles then true
-            else if @edit_roles
+        else if Meteor.userId() is @_author_id 
+            true
+        else if Meteor.user().roles
+            if @edit_roles
                 union = _.intersection Meteor.user().roles,@edit_roles
                 if union.length > 0 then true else false
             else 

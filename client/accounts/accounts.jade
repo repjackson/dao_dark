@@ -1,4 +1,4 @@
-template(name='signin')
+template(name='login')
     .ui.padded.stackable.grid.register-body
         .centered.row
             .ten.wide.column
@@ -8,17 +8,18 @@ template(name='signin')
                     form.ui.large.form#login
                         .field(class=login_class)
                             label
-                                i.user.icon
-                                |username
-                            input#username(type='text' placeholder='example@gmail.com' required='' value='' name='username' autofocus='')
+                                +icolor name='gender-neutral-user' classes='ui mini inline image'
+                                | Username
+                            input#username(type='text' autofocus='')
                         .field(class=login_class)
                             label
-                                i.lock.icon
-                                |password
-                            input#password(type='password' placeholder='******' required='' value='' name='password')
+                                +icolor name='password' classes='ui mini inline image'
+                                | Password
+                            input#password(type='password' placeholder='******')
                         .ui.hidden.divider
                         button#submit.ui.fluid.circular.button(type='submit' class=enter_class title='Submit')
-                            i.sign.in.icon
+                            // i.sign.in.icon
+                            +icolor name='enter-2'
                             // strong Login
                     .ui.basic.center.aligned.segment        
                         .ui.horizontal.relaxed.list

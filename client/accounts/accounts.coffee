@@ -1,4 +1,4 @@
-# Template.signin.events 
+# Template.login.events 
 #     'submit #loginForm': (e, t) ->
 #         username = e.target.username.value.toLowerCase()
 #         password = e.target.password.value
@@ -25,7 +25,7 @@
 
 
 
-Template.signin.events
+Template.login.events
     'submit #login': (e, t) ->
         username = e.target.username.value.toLowerCase()
         password = e.target.password.value
@@ -36,7 +36,7 @@ Template.signin.events
                 e.target.password.value = password
                 # toastr.error err.reason
             else
-                Router.go "/u/#{Meteor.userId()}/about"
+                Router.go "/t/goldrun"
                 # if Meteor.user() and Meteor.user().profile.isActive
                 #     if Meteor.user().roles
                 #         document.cookie = 'loggedinEmailId=' + username
@@ -51,7 +51,7 @@ Template.signin.events
 
 
 
-Template.signin.helpers
+Template.login.helpers
     enter_class: ->
         if Meteor.loggingIn() then 'loading disabled' else ''
 
@@ -61,23 +61,14 @@ Template.signin.helpers
 
 
 
-Template.signin.onRendered ->
-    $('body').addClass 'landing-page'
-    Meta.setTitle 'Log In - Joyful Giver'
-    Meta.set 'og:title', 'Log In - Joyful Giver'
-
-
-
-
-
-Template.signin.onRendered ->
-    $('body').addClass 'landing-page'
-    $('body').scrollspy
-        target: '.navbar-fixed-top'
-        offset: 80
-    Meta.setTitle 'Log In - Joyful giver'
-    Meta.set 'og:title', 'Log In - Joyful giver'
-    return
+# Template.login.onRendered ->
+#     $('body').addClass 'landing-page'
+#     $('body').scrollspy
+#         target: '.navbar-fixed-top'
+#         offset: 80
+#     Meta.setTitle 'Log In - Joyful giver'
+#     Meta.set 'og:title', 'Log In - Joyful giver'
+#     return
 
 
 
@@ -85,13 +76,13 @@ Template.signin.onRendered ->
 
 
 Template.forgot_password.onRendered ->
-    $('body').addClass 'landing-page'
-    $('body').scrollspy
-        target: '.navbar-fixed-top'
-        offset: 80
-    Meta.setTitle 'Forgot Password - Joyful Giver'
-    Meta.set 'og:title', 'Forgot Password - Joyful Giver'
-    return
+    # $('body').addClass 'landing-page'
+    # $('body').scrollspy
+    #     target: '.navbar-fixed-top'
+    #     offset: 80
+    # Meta.setTitle 'Forgot Password - Joyful Giver'
+    # Meta.set 'og:title', 'Forgot Password - Joyful Giver'
+    # return
 Template.forgot_password.events 'submit #forgotPasswordForm': (e, t) ->
     e.preventDefault()
     username = e.target.username.value.toLowerCase()

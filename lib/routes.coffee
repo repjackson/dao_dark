@@ -13,10 +13,10 @@ Router.route '/t/:tribe_slug/add', -> @render 'add'
 Router.route '/t/:tribe_slug/pages', -> @render 'pages'
 Router.route '/t/:tribe_slug/schemas', -> @render 'schemas'
 Router.route '/me', -> @render 'me'
-Router.route '/users', -> @render 'users'
-Router.route '/inbox', -> @render 'inbox'
+# Router.route '/t/:tribe_slug/users', -> @render 'users'
+Router.route '/t/:tribe_slug/inbox', -> @render 'inbox'
 Router.route '/bank', -> @render 'bank'
-Router.route '/settings', -> @render 'settings'
+Router.route '/t/:tribe_slug/settings', -> @render 'settings'
 
 Router.route '/t/:tribe_slug/users', -> @render 'people'
 
@@ -85,9 +85,9 @@ Router.route '/t/:tribe_slug/u/:_id/edit', -> @render 'user_edit'
 
 Router.route '/t/:tribe_slug/p/:slug', -> @render 'page'
 
-Router.route '/signin', -> @render 'signin'
-Router.route '/register', -> @render 'register'
-Router.route '/forgot-password', -> @render 'forgot-password'
+Router.route '/t/:tribe_slug/login', -> @render 'login'
+Router.route '/t/:tribe_slug/register', -> @render 'register'
+Router.route '/t/:tribe_slug/forgot-password', -> @render 'forgot-password'
 
 
 

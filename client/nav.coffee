@@ -29,6 +29,9 @@ Template.topnav.helpers
                 topnav_roles:$in:Meteor.user().roles
             }, sort:rank:1
     
+    top_nav_item_class: ->
+        if Session.equals('loading',true) then 'disabled' else ''
+    
     topnav_pages: ->
         tribe = Docs.findOne 
             type:'tribe'
@@ -118,8 +121,9 @@ Template.rightbar.events
             Session.set 'loading', false
 
 
-    'click .logout': -> Meteor.logout()
-
+    'click .logout': -> 
+        Meteor.logout()
+        Router.go '/signin'
 
 
 Template.rightbar.onRendered ->

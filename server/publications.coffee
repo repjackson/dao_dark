@@ -132,7 +132,7 @@ Meteor.publish 'schemas', (dev_mode)->
 Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type)->
     # console.log tribe_slug
     # console.log type
-    if type in ['field', 'brick','tribe','page','block']
+    if type in ['field', 'brick','tribe','page','block','schema']
         schema = Docs.findOne
             type:'schema'
             slug:type

@@ -1,8 +1,13 @@
 template(name='topnav')
     // .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
     .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
-        a.item.toggle_leftbar(href='#')
-            +icolor name='menu'
+        if is_loading
+            .icon.item
+                i.loading.refresh.large.icon
+        else 
+            a.item.icon.toggle_leftbar(href='#')
+                // +icolor name='menu'
+                i.large.bars.icon
         if ct.color_icon_header
             a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
                 +icolor name=ct.color_icon
@@ -13,11 +18,17 @@ template(name='topnav')
         if ct.title_header
             a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
                 strong #{ct.title}
-        if is_loading
-            .icon.item
-                i.loading.refresh.icon
+        each topnav_schemas
+            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
+                if color_icon
+                    img.ui.avatar.image(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
+                else if icon
+                    i.icon(class=icon)
+                if show_label
+                    |&nbsp;
+                    strong #{plural}
         each topnav_pages
-            a.item(href="/t/#{ct.slug}/p/#{slug}")
+            a.item(href="/t/#{ct.slug}/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
                 if color_icon_header
                     a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
                         +icolor name=color_icon
@@ -44,23 +55,23 @@ template(name='topnav')
                     +icolor name='menu'
                     // i.bars.icon
             else
-                a.item(href="/signin")
-                    i.sign.in.alternate.icon
+                a.item(href="/t/goldrun/login")
+                    // i.sign.in.alternate.icon
+                    +icolor name='login-rounded-down'
                     |Sign In 
-                a.item(href="/register")
-                    i.user.plus.icon
+                a.item(href="/t/goldrun/register")
+                    // i.user.plus.icon
+                    +icolor name='add-user-male'
                     |Register 
-    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color}")
+    // if is_admin
+    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
         each topnav_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}")
+            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                 if color_icon
-                    img(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
+                    img.ui.avatar.image(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
                 else if icon
                     i.icon(class=icon)
-                if show_label
-                    |&nbsp;
-                    strong #{plural}
-    // if is_admin
+                |#{plural}
 
 
 
