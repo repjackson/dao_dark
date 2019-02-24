@@ -18,15 +18,18 @@ template(name='topnav')
         if ct.title_header
             a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
                 strong #{ct.title}
-        each topnav_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
-                if color_icon
-                    img.ui.avatar.image(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
-                else if icon
-                    i.icon(class=icon)
-                if show_label
-                    |&nbsp;
-                    strong #{plural}
+        a.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
+            +icolor name='activity-grid-2' classes='ui avatar image'
+            | Sections
+        // each topnav_schemas
+        //     a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
+        //         if color_icon
+        //             img.ui.avatar.image(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
+        //         else if icon
+        //             i.icon(class=icon)
+        //         if show_label
+        //             |&nbsp;
+        //             strong #{plural}
         each topnav_pages
             a.item(href="/t/#{ct.slug}/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
                 if color_icon_header

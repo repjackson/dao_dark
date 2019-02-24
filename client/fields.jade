@@ -62,7 +62,7 @@ template(name='link_view')
 
 
 template(name='image_view')
-    img.ui.fluid.image(src="{{c.url field_value height=400 crop='limit'}}")
+    img.ui.fluid.image(src="{{c.url field_value}}")
 
 
 template(name='image_edit')
@@ -419,7 +419,7 @@ template(name='single_doc_edit')
             i.grey.icon(class=icon)
         |#{label}
     each choices
-        .ui.circular.button.select_choice(class=choice_class)
+        .ui.large.label.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{title}
@@ -428,17 +428,40 @@ template(name='single_doc_edit')
 
 
 template(name='multi_doc_edit')
+    div
     .ui.small.inline.header(title=key)
         if icon
             i.grey.icon(class=icon)
         |#{label}
     each choices
-        .ui.circular.button.select_choice(class=choice_class)
+        .ui.label.select_choice(class=choice_class)
             if icon
                 i.grey.icon(class=icon)
             |#{title}
             |#{key}
-    div
+    // .ui.sub.header 
+    //     if icon
+    //         i.grey.icon(class=icon)
+    //     |#{label}
+    // select.ui.fluid.multiple.selection.dropdown(multiple='')
+    //     each choices
+    //         option(value=slug) #{title}
+    // .ui.fluid.multiple.selection.dropdown
+        // input(type='hidden' name='multi_doc_edit')
+        // i.dropdown.icon
+        // .default.text 
+        //     |#{label}
+        // .menu
+        //     each choices
+        //         .item(data-value=slug) 
+        //             if icon
+        //                 i.grey.icon(class=icon)
+        //             |#{title}
+
+    
+    
+    
+    
 
 template(name='multi_doc_view')
     .ui.small.inline.header(title=key)

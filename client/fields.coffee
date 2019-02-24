@@ -481,9 +481,9 @@ Template.single_doc_edit.helpers
 
 
         if brick
-            if @slug is context["#{brick.key}"] then 'blue' else 'basic'
+            if @slug is context["#{brick.key}"] then 'active' else 'basic'
         else
-            if @slug is target["#{ref_field.key}"] then 'blue' else 'basic'
+            if @slug is target["#{ref_field.key}"] then 'active' else 'basic'
 
 
 Template.single_doc_edit.events
@@ -520,8 +520,22 @@ Template.multi_doc_view.helpers
             type:@ref_schema
 
 
+# Template.multi_doc_edit.onRendered ->
+#     $('.ui.dropdown').dropdown(
+#         clearable:true
+#         action: 'activate'
+#         onChange: (text,value,$selectedItem)->
+#             console.log text
+#             console.log value
+#             console.log $selectedItem
+#         )
+
+
+
 Template.multi_doc_edit.onCreated ->
     @autorun => Meteor.subscribe 'type', @data.ref_schema
+
+
 
 Template.multi_doc_edit.helpers
     choices: -> 
@@ -535,9 +549,9 @@ Template.multi_doc_edit.helpers
         context = Template.parentData(6)
 
         if brick
-            if context["#{brick.key}"] and @slug in context["#{brick.key}"] then 'blue' else 'basic'
+            if context["#{brick.key}"] and @slug in context["#{brick.key}"] then 'active' else 'basic'
         else
-            if target["#{ref_field.key}"] and @slug in target["#{ref_field.key}"] then 'blue' else 'basic'
+            if target["#{ref_field.key}"] and @slug in target["#{ref_field.key}"] then 'active' else 'basic'
 
 Template.multi_doc_edit.events
     'click .select_choice': ->
