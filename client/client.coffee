@@ -6,9 +6,9 @@
 $.cloudinary.config
     cloud_name:"facet"
 
-Meteor.startup ->
-    hostnameArray = document.location.hostname.split('.')
-    console.log hostnameArray
+# Meteor.startup ->
+#     hostnameArray = document.location.hostname.split('.')
+#     console.log hostnameArray
     # if hostnameArray.length >= 3
     #     subdomain = hostnameArray[0].toLowerCase().ucfirst()
     #     defineFunctionString = 'define' + subdomain + 'Routes'
@@ -188,11 +188,12 @@ Template.registerHelper 'bricks', () ->
             slug:@type
             # tribe:'dao'
     else
+        # console.log 'looking for', @type
         schema = Docs.findOne
             type:'schema'
             slug:@type
             tribe:Router.current().params.tribe_slug
-        
+        # console.log @type, schema
     Docs.find {
         type:'brick'
         parent_id:schema._id

@@ -25,6 +25,7 @@ template(name='page')
                         .sixteen.wide.column 
                             if html
                                 |!{html}
+                                
                             each children
                                 // with page
                                 +block
@@ -72,22 +73,23 @@ template(name='pages')
 
 
                         
-template(name='schemas')
+template(name='menu')
     .ui.stackable.padded.grid
         .row
             .sixteen.wide.column
                 .ui.center.aligned.header
-                    i.sitemap.icon
-                    | Schemas
+                    // i.sitemap.icon
+                    +icolor name='activity-grid-2' classes='ui avatar image'
+                    | Sections
         .row
             .sixteen.wide.column
                 .ui.stackable.four.link.cards
-                    each add_schemas
-                        .card.add_doc
+                    each view_schemas
+                        .card.view_section
                             .content
                                 .header 
-                                    i.icon(class=icon)
-                                    |#{title}
+                                    +icolor name=color_icon
+                                    |#{plural}
                         
                         
 template(name='block')
@@ -97,19 +99,21 @@ template(name='block')
     //       background-repeat: no-repeat;
     //       background-position: right top;
     //   }
-
-    .ui.stackable.padded.grid.block_style
-        .centered.row   
-            .twelve.wide.column
-                .ui.large.center.aligned.header #{title}
-        .centered.row   
-            .eight.wide.column
-                if left_image
-                    img.ui.fluid.image(src="{{c.url image_id height=400 crop='limit'}}")
-                else
-                    |!{html}
-            .eight.wide.column
-                unless left_image
-                    img.ui.fluid.image(src="{{c.url image_id height=400 crop='limit'}}")
-                else
-                    |!{html}                        
+    if direct_template
+        +Template.dynamic template=direct_template
+    else
+        .ui.stackable.padded.grid.block_style
+            .centered.row   
+                .twelve.wide.column
+                    .ui.large.center.aligned.header #{title}
+            .centered.row   
+                .eight.wide.column
+                    if left_image
+                        img.ui.fluid.image(src="{{c.url image_id height=400 crop='limit'}}")
+                    else
+                        |!{html}
+                .eight.wide.column
+                    unless left_image
+                        img.ui.fluid.image(src="{{c.url image_id height=400 crop='limit'}}")
+                    else
+                        |!{html}                        

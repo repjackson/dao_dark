@@ -102,15 +102,15 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.circular.icon.basic.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+    a.ui.circular.icon.basic.large.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
         // |View #{type}
-        +ioffice name='chevron-right' classes='ui inline image'
-        // i.right.chevron.icon
+        // +ioffice name='chevron-right' classes='ui inline image'
+        i.right.chevron.teal.large.icon
 
 template(name='remove_button')
     a.ui.circular.icon.basic.button.remove(title='Delete')
-        // i.remove.icon
-        +iflat name='delete-sign'
+        i.large.red.remove.icon
+        // +iflat name='delete-sign'
         // |Remove #{title}
         // |Remove #{title} #{type}
             
@@ -137,16 +137,16 @@ template(name='toggle_friend')
 
 
 template(name='edit_button')
-    a.ui.circular.icon.basic.button.edit(title='Edit' href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
-        // i.pencil.icon
-        +ioffice name='pencil' classes='ui inline image'
+    a.ui.circular.icon.large.basic.button.edit(title="Edit #{title}" href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
+        i.blue.pencil.large.icon
+        // +ioffice name='pencil' classes='ui inline image'
         // |Edit
 
 
 template(name='save_button')
-    a.ui.circular.icon.basic.button.large.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
-        +iflat name='checkmark'
-        // i.checkmark.icon
+    a.ui.circular.icon.basic.button.big.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+        // +iflat name='checkmark'
+        i.large.green.checkmark.icon
         // |Save
 
 template(name='toggle_button')

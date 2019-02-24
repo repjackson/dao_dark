@@ -37,6 +37,23 @@ if Meteor.isClient
                     tribe:Router.current().params.tribe_slug
 
 
+    Template.menu.onCreated ->
+        @autorun => Meteor.subscribe 'type', 'schema'
+    
+    Template.menu.helpers
+        view_schemas: ->
+            if Meteor.user()
+                if 'dev' in Meteor.user().roles
+                    Docs.find
+                        type:'schema'
+                        tribe:Router.current().params.tribe_slug
+                else
+                    Docs.find
+                        type:'schema'
+                        view_roles:$in:Meteor.user().roles
+                        tribe:Router.current().params.tribe_slug
+
+
 
     Template.add.events
         'click .add_doc': ->
@@ -62,5 +79,20 @@ if Meteor.isClient
                     tribe_id:tribe._id
                 
             Router.go "/t/#{Router.current().params.tribe_slug}/s/schema/#{new_id}/edit"
+        
+        'click .add_page': ->
+            # console.log @
+            tribe = 
+                Docs.findOne 
+                    type:'tribe'
+                    slug:Router.current().params.tribe_slug
+                    
+            new_id = 
+                Docs.insert
+                    type:'page'
+                    tribe:tribe.slug
+                    tribe_id:tribe._id
+                
+            Router.go "/t/#{Router.current().params.tribe_slug}/s/page/#{new_id}/edit"
 
     

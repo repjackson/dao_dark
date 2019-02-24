@@ -10,11 +10,11 @@ Template.topnav.onRendered ->
     #     if @subscriptionsReady()
     #         Meteor.setTimeout ->
     #             $('.dropdown').dropdown()
-    #         , 2000
+    #         , 3000
     
     Meteor.setTimeout ->
         $('.item').popup()
-    , 2000
+    , 3000
     
 
 Template.topnav.helpers
@@ -95,7 +95,7 @@ Template.leftbar.onRendered ->
                         transition: 'overlay'
                     })
                     .sidebar('attach events', '.toggle_leftbar')
-            , 2000
+            , 3000
 
 
 Template.topbar.onRendered ->
@@ -111,7 +111,7 @@ Template.topbar.onRendered ->
                         transition:  'overlay'
                     })
                     .sidebar('attach events', '.toggle_topbar')
-            , 2000
+            , 3000
 
 Template.rightbar.events
     'click .tribe_pages': ->
@@ -143,7 +143,7 @@ Template.rightbar.onRendered ->
                         transition:  'push'
                     })
                     .sidebar('attach events', '.toggle_rightbar')
-            , 2000
+            , 3000
 
 
 

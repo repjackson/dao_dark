@@ -3,8 +3,8 @@ template(name='delta')
         .ui.stackable.grid
             .row
                 .column.padleft.scrolling(class=delta_left_column_class)
-                    a.ui.right.corner.label.move_left
-                        i.left.chevron.link.icon
+                    // a.ui.right.corner.label.move_left
+                    //     i.left.chevron.link.icon
                     .ui.inline.header
                         if color_icon
                             +icolor name=color_icon
@@ -14,9 +14,9 @@ template(name='delta')
                     // .ui.small.center.aligned.header #{body}
                     unless is_loading
                         if can_add
-                            .ui.circular.icon.basic.compact.button.add_type_doc(title="Add #{title}")
-                               +icolor name='plus' classes='ui inline mini image'
-                                // i.plus.icon
+                            .ui.circular.icon.basic.large.button.add_type_doc(title="Add #{title}")
+                                i.plus.green.large.icon
+                            //   +icolor name='plus' classes='ui inline mini image'
                                 // |Add #{title}
                         if can_edit
                             +edit_button
@@ -29,18 +29,19 @@ template(name='delta')
                         // //         i.play.icon
                                 
                         if current_delta
-                            div
-                            .ui.icon.circular.button.print_delta(title='Print Session Doc')
-                                i.code.icon
-                                // |Print Session
-                            .ui.reset.icon.circular.button(title='Reload Session')
-                                i.refresh.icon
-                                // |Reload Session
-                            .ui.delete_delta.icon.circular.button(title='Delete Session')
-                                i.trash.icon
-                                // |Delete Session
+                            if is_dev
+                                div
+                                .ui.icon.button.print_delta(title='Print Session Doc')
+                                    i.code.icon
+                                    // |Print Session
+                                .ui.reset.icon.button(title='Reload Session')
+                                    i.refresh.icon
+                                    // |Reload Session
+                                .ui.delete_delta.icon.button(title='Delete Session')
+                                    i.trash.icon
+                                    // |Delete Session
                         else
-                            .create_delta.ui.circular.button.pointer(title='new session')
+                            .create_delta.ui.button.pointer(title='new session')
                                 i.plus.icon
                                 |Create Session
                     // |did: #{session_delta_id}
@@ -48,8 +49,8 @@ template(name='delta')
                     each current_delta.facets
                         +facet
                 .column(class=delta_right_column_class)
-                    a.ui.left.corner.label.move_right
-                        i.right.chevron.link.pointer.icon
+                    // a.ui.left.corner.label.move_right
+                    //     i.right.chevron.link.pointer.icon
                     // .ui.horizontal.spaced.list
                     //     .item
                     //         |View
@@ -91,9 +92,9 @@ template(name='delta')
 template(name='facet')
     if filtering_res
         div
+        if icon
+            i.grey.icon(class=icon)
         .ui.small.inline.header 
-            if icon
-                i.grey.icon(class=icon)
             |#{label}
         // .ui.transparent.left.icon.small.input
         //     i.search.icon
@@ -103,11 +104,11 @@ template(name='facet')
         //     .unselect.ui.grey.circular.button #{this}
         each filtering_res
             if name
-                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.label.toggle_selection(class=toggle_value_class title=count)
                     | #{name}
                     // small #{count}
             else
-                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.label.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
                 // small #{count}
     // .ui.accordion
@@ -225,9 +226,9 @@ template(name='type_edit')
                     // +ioffice name='pencil' classes='ui inline image'
                     +save_button
                     +remove_button
+                .twelve.wide.column
                     each small_bricks
                         +Template.dynamic template=edit_template 
-                .twelve.wide.column
                     each big_bricks
                         +Template.dynamic template=edit_template 
                         // .ui.header #{key} [#{field}] #{label}
@@ -236,31 +237,31 @@ template(name='type_edit')
 template(name='type_view')
     with doc
         .ui.stackable.padded.grid
-            // .row
-            //     .sixteen.wide.column
-            //         .ui.breadcrumb
-            //             a.section(href="/t/#{ct.slug}")
-            //                 .ui.circular.compact.basic.button
-            //                     +icolor name=ct.color_icon classes='ui mini inline image'
-            //                     |#{ct.title}
-            //             .divider
-            //                 i.chevron.right.large.icon
-            //             a.section(href="/t/#{ct.slug}/s/#{type}" title=schema.plural)
-            //                 .ui.circular.compact.basic.button
-            //                     if schema.color_icon
-            //                         +icolor name=schema.color_icon classes='ui mini inline image'
-            //                     else
-            //                         i.icon(class=schema.icon)
-            //                     |#{schema.plural}
-            //             .divider
-            //                 i.chevron.right.large.icon
-            //             .active.section
-            //                 if icon
-            //                     i.icon(class=icon)
-            //                 if title
-            //                     |#{title}
-            //                 else
-            //                     |View #{type}
+            .row
+                .sixteen.wide.column
+                    .ui.breadcrumb
+                        a.section(href="/t/#{ct.slug}")
+                            // +icolor name=ct.color_icon classes='ui mini inline image'
+                            |#{ct.title}
+                            // .ui.circular.compact.basic.button
+                        .divider
+                            i.chevron.right.large.icon
+                        a.section(href="/t/#{ct.slug}/s/#{type}" title=schema.plural)
+                            if schema.color_icon
+                                +icolor name=schema.color_icon classes='ui mini inline image'
+                            else
+                                i.icon(class=schema.icon)
+                            |#{schema.plural}
+                            // .ui.circular.compact.basic.button
+                        .divider
+                            i.chevron.right.large.icon
+                        .active.section
+                            if icon
+                                i.icon(class=icon)
+                            if title
+                                |#{title}
+                            else
+                                |View #{type}
             .row
                 .four.wide.column
                     // .ui.header
@@ -269,7 +270,6 @@ template(name='type_view')
                     //     |View #{type}
                     if can_edit
                         +edit_button
-                    div
                     each schema.actions
                         +Template.dynamic template=this data=doc
                     +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'

@@ -1,0 +1,9 @@
+template(name='health_club_checkin')
+    .ui.header Health Club Checkin
+    .ui.header Checked In Members
+    .ui.stackable.cards
+        each checkedin_members
+            .ui.card
+                .content
+                    .header #{first_name} #{last_name}
+                    .meta #{username}

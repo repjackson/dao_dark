@@ -1,6 +1,6 @@
 template(name='topnav')
     // .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
-    .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
+    .ui.attached.borderless.inverted.topnav.menu(style="background:#{ct.primary_color}")
         if is_loading
             .icon.item
                 i.loading.refresh.large.icon
@@ -18,9 +18,6 @@ template(name='topnav')
         if ct.title_header
             a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
                 strong #{ct.title}
-        a.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
-            +icolor name='activity-grid-2' classes='ui avatar image'
-            | Sections
         // each topnav_schemas
         //     a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
         //         if color_icon
@@ -33,8 +30,7 @@ template(name='topnav')
         each topnav_pages
             a.item(href="/t/#{ct.slug}/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
                 if color_icon_header
-                    a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
-                        +icolor name=color_icon
+                    +icolor name=color_icon
                 if show_icon
                     i.icon(class=icon)
                 if show_label
@@ -42,29 +38,38 @@ template(name='topnav')
         // a.item.toggle_invert(href='#')
         //     i.adjust.icon
         .right.menu
+            if is_dev
+                a.icon.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
+                    // +icolor name='activity-grid-2' classes='ui avatar image'
+                    i.large.sitemap.icon
+                    // | Sections
+            a.icon.item(href="/t/#{ct.slug}/menu")
+                // +icolor name='activity-grid-2' classes='ui avatar image'
+                i.large.th.icon
+                // | Sections
             if currentUser
                 a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
-                    +icolor name='plus' classes='ui mini image'
-                    // i.plus.icon
+                    // +icolor name='plus' classes='ui mini image'
+                    i.large.plus.icon
                 // a.item.toggle_topbar(href='#')
                 //     +icolor name='inbox' classes='ui mini image'
                     // i.inbox.icon
                 a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
-                    +icolor name='gender-neutral-user' classes='ui mini image'
-                    // i.user.icon
+                    // +icolor name='gender-neutral-user' classes='ui mini image'
+                    i.user.icon
                     // | #{currentUser.username} [#{currentUser.status}]
                     | #{currentUser.username}
-                a.item.toggle_rightbar(href='#')
-                    +icolor name='menu'
-                    // i.bars.icon
+                a.icon.item.toggle_rightbar(href='#')
+                    // +icolor name='menu'
+                    i.bars.large.icon
             else
                 a.item(href="/t/goldrun/login")
-                    // i.sign.in.alternate.icon
-                    +icolor name='login-rounded-down'
+                    i.sign.in.alternate.icon
+                    // +icolor name='login-rounded-down'
                     |Sign In 
                 a.item(href="/t/goldrun/register")
-                    // i.user.plus.icon
-                    +icolor name='add-user-male'
+                    i.user.plus.icon
+                    // +icolor name='add-user-male'
                     |Register 
     // if is_admin
     .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")

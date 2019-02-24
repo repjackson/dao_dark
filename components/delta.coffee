@@ -59,7 +59,7 @@ if Meteor.isClient
                     when 12 then 'twelve wide'
                     when 13 then 'thirteen wide'
                     when 14 then 'fourteen wide'
-            else 'six wide'
+            else 'four wide'
             
             
         delta_right_column_class: ->
@@ -79,7 +79,7 @@ if Meteor.isClient
                     when 4 then 'four wide'
                     when 3 then 'three wide'
                     when 2 then 'two wide'
-            else 'ten wide'
+            else 'twelve wide'
             
     
     
