@@ -10,8 +10,6 @@ template(name='health_club_dashboard')
                     .ui.header
                         +ioffice name='internal' classes='ui image'
                         |Checked In Members
-                    // .ui.button.checkin
-                    //     |Checkin 
                     .ui.stackable.four.cards
                         each checkedin_members
                             .ui.card
@@ -19,13 +17,23 @@ template(name='health_club_dashboard')
                                 .content
                                     .header #{first_name} #{last_name}
                                     .meta #{username}
-                                .content
-                                    .ui.icon.fluid.button.checkout(title='Check In')
+                                .ui.icon.fluid.button.checkout(title='Sign Out')
+                                    i.sign.out.large.icon
+                                if signed_waiver
+                                    .ui.fluid.green.basic.button
                                         i.checkmark.icon
+                                        |Waiver Signed
+                                else
+                                    .ui.fluid.red.basic.button.sign_waiver
+                                        i.cancel.icon
+                                        |Waiver Not Signed
                     .ui.divider
                     .ui.header
                         +ioffice name='external' classes='ui image'
                         |Checked Out Members
+                    .ui.fluid.icon.input
+                        i.search.icon
+                        input.username_search(type='text' placeholder='Search Username...')
                     .ui.stackable.three.cards
                         each checkedout_members
                             .ui.card
@@ -33,114 +41,159 @@ template(name='health_club_dashboard')
                                 .content
                                     .header #{profile.first_name} #{profile.last_name}
                                     .meta #{username}
-                                .content
-                                    .ui.icon.fluid.button.checkin(title='Check In')
-                                        i.sign.in.icon
+                                .ui.icon.fluid.button.checkin(title='Check In')
+                                    i.sign.in.icon
             .four.wide.column.scrolling
-                .ui.basic.segment
-                    +ioffice name='edit-property' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='edit-property' classes='ui inline image'
+                            .ui.inline.dividing.header 
+                        i.dropdown.icon
                         | Log
-                    .ui.feed
-                        each events
-                            .event
-                                .label
-                                    img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                .content
-                                    .summary
-                                        |#{body}
-                                        .date
-                                            |#{when}
-                                if is_admin
-                                    +remove_button
+                    .active.content
+                        .ui.feed
+                            each events
+                                .event
+                                    .label
+                                        img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                    .content
+                                        .summary
+                                            |#{body}
+                                            .date
+                                                |#{when}
+                                    if is_admin
+                                        +remove_button
                 a.ui.large.fluid.button(href='/t/goldrun/add_resident')
                     i.user.plus.green.icon
                     |Add Resident
-                .ui.basic.segment
-                    +ioffice name='megaphone' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='megaphone' classes='ui inline image'
                         |Notices
-                .ui.basic.segment
-                    +ioffice name='car' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='car' classes='ui inline image'
                         | Warned Cars
-                .ui.basic.segment
-                    +ioffice name='poll-topic' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='poll-topic' classes='ui inline image'
                         |Poll
-                .ui.basic.segment
-                    +ioffice name='front-desk' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='front-desk' classes='ui inline image'
                         | Staff On Duty
+                        i.dropdown.icon
+                    .active.content
+                        with currentUser
+                            .ui.card
+                                img.ui.image(src="{{c.url profile.image_id }}")
+                                .content
+                                    .header #{username}
             .four.wide.column.scrolling
-                .ui.basic.segment
-                    +ioffice name='basketball' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='basketball' classes='ui inline image'
                         | Basketball Court
-                    .ui.small.inline.header Status  
-                    if open
-                        +ioffice name='open-sign' classes='ui mini inline image'
-                    else
-                        +ioffice name='close-sign' classes='ui mini inline image'
-                .ui.basic.segment
-                    +ioffice name='bicycle' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                        | Status  
+                        if open
+                            +ioffice name='open-sign' classes='ui mini inline image'
+                            .ui.button.checkin Check In
+                        else
+                            +ioffice name='close-sign' classes='ui mini inline image'
+                            .ui.button.signout Check Out
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='bicycle' classes='ui inline image'
                         | Impounded Bikes
-                    .ui.small.inline.header Status  
-                .ui.basic.segment
-                    +ioffice name='beach-volleyball' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                        | Status  
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='beach-volleyball' classes='ui inline image'
                         | Vollyball Court
-                    if open
-                        +ioffice name='open-sign' classes='ui mini inline image'
-                    else
-                        +ioffice name='close-sign' classes='ui mini inline image'
-                    .ui.small.inline.header Status  
-                .ui.basic.segment
-                    +ioffice name='tennis' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                        | Status  
+                        if open
+                            +ioffice name='open-sign' classes='ui mini inline image'
+                            .ui.button.checkin Check In
+                        else
+                            +ioffice name='close-sign' classes='ui mini inline image'
+                            .ui.button.signout Check Out
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='tennis' classes='ui inline image'
                         | Racquetball Court #1
-                    .ui.small.inline.header Status  
-                    if open
-                        +ioffice name='open-sign' classes='ui mini inline image'
-                    else
-                        +ioffice name='close-sign' classes='ui mini inline image'
-                .ui.basic.segment
-                    +ioffice name='tennis' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                        | Status  
+                        if open
+                            +ioffice name='open-sign' classes='ui mini inline image'
+                            .ui.button.checkin Check In
+                        else
+                            +ioffice name='close-sign' classes='ui mini inline image'
+                            .ui.button.signout Check Out
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='tennis' classes='ui inline image'
                         | Racquetball Court #2
-                    .ui.small.inline.header Status  
-                    if open
-                        +ioffice name='open-sign' classes='ui mini inline image'
-                    else
-                        +ioffice name='close-sign' classes='ui mini inline image'
-                .ui.basic.segment
-                    +ioffice name='swimming-back-view' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                        | Status  
+                        if open
+                            +ioffice name='open-sign' classes='ui mini inline image'
+                            .ui.button.checkin Check In
+                        else
+                            +ioffice name='close-sign' classes='ui mini inline image'
+                            .ui.button.signout Check Out
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='swimming-back-view' classes='ui inline image'
                         |Pool
-                    .ui.small.inline.header Status  
-                    if open
-                        +ioffice name='open-sign' classes='ui mini inline image'
-                    else
-                        +ioffice name='close-sign' classes='ui mini inline image'
-                .ui.basic.segment
-                    +ioffice name='jacuzzi' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                        | Status  
+                        if open
+                            +ioffice name='open-sign' classes='ui mini inline image'
+                            .ui.button.checkin Check In
+                        else
+                            +ioffice name='close-sign' classes='ui mini inline image'
+                            .ui.button.signout Check Out
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='jacuzzi' classes='ui inline image'
                         |Indoor Hot Tub
-                    .ui.small.inline.header Status    
-                    if open
-                        +ioffice name='open-sign' classes='ui mini inline image'
-                    else
-                        +ioffice name='close-sign' classes='ui mini inline image'
-                .ui.basic.segment
-                    +ioffice name='jacuzzi' classes='ui inline image'
-                    .ui.inline.dividing.header 
+                        i.dropdown.icon
+                    .active.content
+                        | Status    
+                        if open
+                            +ioffice name='open-sign' classes='ui mini inline image'
+                            .ui.button.checkin Check In
+                        else
+                            +ioffice name='close-sign' classes='ui mini inline image'
+                            .ui.button.signout Check Out
+                .ui.styled.accordion
+                    .active.title
+                        +ioffice name='jacuzzi' classes='ui inline image'
                         |Outdoor Hot Tub
-                    .ui.small.inline.header Status    
-                    if open
-                        +ioffice name='open-sign' classes='ui mini inline image'
-                    else
-                        +ioffice name='close-sign' classes='ui mini inline image'
+                        i.dropdown.icon
+                    .active.content
+                        | Status    
+                        if open
+                            +ioffice name='open-sign' classes='ui mini inline image'
+                            .ui.button.checkin Check In
+                        else
+                            +ioffice name='close-sign' classes='ui mini inline image'
+                            .ui.button.signout Check Out
                         
                         
                         
@@ -153,7 +206,7 @@ template(name='add_resident')
                         i.user.plus.icon
                         |Add Resident
             .eight.wide.column.scrolling
-                .ui.form
+                .ui.big.form
                     .field
                         |First Name
                         input#first_name(type='text')
@@ -167,3 +220,41 @@ template(name='add_resident')
                     .ui.fluid.green.button.create_and_checkin
                         |Create and Checkin
         .row
+        
+        
+template(name='sign_waiver')
+    with receipt_doc
+        .ui.stackable.padded.grid
+            .centered.row
+                .twelve.wide.column.scrolling
+                    .row
+                        h1.ui.center.aligned.header
+                            i.user.plus.icon
+                            |Sign Waiver
+                        with waiver_doc
+                            |!{html}
+                        .ui.big.form
+                            .field
+                                |First Name
+                                input#first_name(type='text' val=first_name)
+                            .field
+                                |Last Name
+                                input#last_name(type='text' val=last_name)
+                            .disabled.field
+                                |Username
+                                input#username(type='text' val=username)
+                            .field
+                                |Last Name
+                                input#address(type='text' val=last_name)
+                            .field
+                                | Building
+                                input#address(type='text' val=last_name)
+                            .field
+                                | Apt #
+                                input#apt(type='number' val=last_name)
+                            .field
+                                | Phone
+                                input#apt(type='number' val=last_name)
+                            
+                        .ui.fluid.green.button.sign_waiver
+                            | Sign Waiver

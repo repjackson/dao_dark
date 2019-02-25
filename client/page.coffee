@@ -53,6 +53,12 @@ if Meteor.isClient
                         view_roles:$in:Meteor.user().roles
                         tribe:Router.current().params.tribe_slug
 
+    Template.menu.events
+        'click .set_tribe_schema': ->
+            Session.set 'loading', true
+            Meteor.call 'set_delta_facets', @slug, Router.current().params.tribe_slug,->
+                Session.set 'loading', false
+            
 
 
     Template.add.events

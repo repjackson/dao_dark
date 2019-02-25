@@ -87,7 +87,7 @@ template(name='menu')
             .sixteen.wide.column
                 .ui.stackable.four.link.cards
                     each view_schemas
-                        .card.view_section
+                        a.card.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                             .content
                                 .header 
                                     +ioffice name=color_icon
