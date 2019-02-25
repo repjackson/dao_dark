@@ -110,7 +110,7 @@ template(name='view_button')
 template(name='remove_button')
     a.ui.circular.icon.basic.button.remove(title='Delete')
         i.large.red.remove.icon
-        // +iflat name='delete-sign'
+        // +iblue name='delete-sign'
         // |Remove #{title}
         // |Remove #{title} #{type}
             
@@ -119,7 +119,7 @@ template(name='add_button')
     a.ui.circular.button.add(title='Add')
         // i.plus' tooltip="Add #{type}.icon
         // |#{type}
-        +iflat name='plus'
+        +iblue name='plus'
 
 
 template(name='toggle_friend')
@@ -145,7 +145,7 @@ template(name='edit_button')
 
 template(name='save_button')
     a.ui.circular.icon.basic.button.big.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
-        // +iflat name='checkmark'
+        // +iblue name='checkmark'
         i.large.green.checkmark.icon
         // |Save
 

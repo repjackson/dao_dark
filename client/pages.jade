@@ -1,9 +1,88 @@
-template(name='health_club_checkin')
-    .ui.header Health Club Checkin
-    .ui.header Checked In Members
-    .ui.stackable.cards
-        each checkedin_members
-            .ui.card
-                .content
-                    .header #{first_name} #{last_name}
-                    .meta #{username}
+template(name='health_club_dashboard')
+    .ui.stackable.padded.grid
+        .row
+            .eight.wide.column
+                .ui.center.aligned.header
+                    +ioffice name='groups' classes='ui avatar image'
+                    |Checked In Members
+                .ui.button.checkin
+                    |Checkin 
+                .ui.stackable.four.cards
+                    each checkedin_members
+                        .ui.card
+                            img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                            .content
+                                .header #{first_name} #{last_name}
+                                .meta #{username}
+                            .content
+                                .ui.icon.button.checkout(title='Check In')
+                                    i.checkmark.icon
+                .ui.divider
+                .ui.stackable.three.cards
+                    each checkedout_members
+                        .ui.card
+                            img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                            .content
+                                .header #{profile.first_name} #{profile.last_name}
+                                .meta #{username}
+                            .content
+                                .ui.icon.button.checkin(title='Check In')
+                                    i.sign.in.icon
+            .four.wide.column
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='megaphone' classes='ui avatar image'
+                        |Notices
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='car' classes='ui avatar image'
+                        | Warned Cars
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='poll-topic' classes='ui avatar image'
+                        |Poll
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='front-desk' classes='ui avatar image'
+                        | Staff On Duty
+            .four.wide.column
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='basketball' classes='ui avatar image'
+                        | Basketball Court
+                    .ui.small.header Status  
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='bicycle' classes='ui avatar image'
+                        | Impounded Bikes
+                    .ui.small.header Status  
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='beach-volleyball' classes='ui avatar image'
+                        | Vollyball Court
+                    .ui.small.header Status  
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='tennis' classes='ui avatar image'
+                        | Racquetball Court #1
+                    .ui.small.header Status  
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='tennis' classes='ui avatar image'
+                        | Racquetball Court #2
+                    .ui.small.header Status  
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='swimming-pool' classes='ui avatar image'
+                        |Pool
+                    .ui.small.header Status  
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='jacuzzi' classes='ui avatar image'
+                        |Indoor Hot Tub
+                    .ui.small.header Status    
+                .ui.basic.segment
+                    .ui.header 
+                        +ioffice name='jacuzzi' classes='ui avatar image'
+                        |Outdoor Hot Tub
+                    .ui.small.header Status    
