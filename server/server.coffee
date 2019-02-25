@@ -1,7 +1,10 @@
 Docs.allow
     insert: (userId, doc) -> userId
     update: (userId, doc) -> userId
-    remove: (userId, doc) -> userId
+    remove: (userId, doc) ->         
+        u = Meteor.users.findOne(_id: userId)
+        u and _.intersection(['dev','admin'], u.roles)
+
 
 Cloudinary.config
     cloud_name: 'facet'
@@ -21,11 +24,11 @@ Meteor.users.allow
             # return true
         # admin can modify any
         u = Meteor.users.findOne(_id: userId)
-        u and 'dev' in u.roles
+        u and _.intersection(['dev','admin'], u.roles)
     remove: (userId, doc) ->
         # only admin can remove
         u = Meteor.users.findOne(_id: userId)
-        u and 'dev' in u.roles
+        u and _.intersection(['dev','admin'], u.roles)
 
 
 

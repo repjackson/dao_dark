@@ -45,6 +45,10 @@ Meteor.publish 'user_sites', (user_id)->
     Docs.find
         _id: $in: user.site_ids
 
+Meteor.publish 'group_docs', (group_id)->
+    Docs.find
+        group_id: group_id
+
 
     
     

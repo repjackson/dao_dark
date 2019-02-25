@@ -79,7 +79,7 @@ if Meteor.isClient
             Docs.find {
                 type: 'message'
                 group_id: @_id },
-                sort: timestamp: 1
+                sort: _timestamp: 1
     
         chat_tag_class:-> if @valueOf() in selected_chat_tags.array() then 'teal' else ''
     

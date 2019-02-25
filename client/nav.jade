@@ -1,6 +1,6 @@
 template(name='topnav')
     // .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
-    .ui.attached.borderless.inverted.topnav.menu(style="background:#{ct.primary_color}")
+    .ui.attached.borderless.inverted.topnav.large.menu(style="background:#{ct.primary_color}")
         if is_loading
             .icon.item
                 i.loading.refresh.large.icon
@@ -42,6 +42,8 @@ template(name='topnav')
         // a.item.toggle_invert(href='#')
         //     i.adjust.icon
         .right.menu
+            a.icon.item(href="/t/#{ct.slug}/chat" title='Chat')
+                i.chat.large.icon
             if is_dev
                 a.icon.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
                     // +ioffice name='activity-grid-2' classes='ui avatar image'
@@ -60,7 +62,7 @@ template(name='topnav')
                     // i.inbox.icon
                 a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
                     // +ioffice name='gender-neutral-user' classes='ui mini image'
-                    i.user.icon
+                    i.large.user.icon
                     // | #{currentUser.username} [#{currentUser.status}]
                     | #{currentUser.username}
                 a.icon.item.toggle_rightbar(href='#')
@@ -103,6 +105,7 @@ template(name='topbar')
                     .ui.inverted.list
                         each also_serving_pages
                             a.item(href="/p/#{slug}") #{title}
+                            
                 .four.wide.center.aligned.column
                     .ui.inverted.list
                         each resource_pages
@@ -279,4 +282,4 @@ template(name='footer')
                         |#{ct.title}
                 .four.wide.center.aligned.column
                     a(href='/')
-                        +ioffice name='yin-yang' classes='ui inline image'
+                        +icolor name='yin-yang' classes='ui inline image'

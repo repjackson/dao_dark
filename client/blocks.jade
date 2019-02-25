@@ -56,9 +56,9 @@ template(name='user_status')
 
 
 template(name='user_info')
-    a.ui.circular.button.item(href="/u/#{user.username}")
+    a.ui.label(href="/u/#{user.username}")
         if user.profile.image_id
-            img.ui.avatar.image(src="{{c.url user.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+            img.ui.mini.image(src="{{c.url user.profile.image_id }}")
         if user.name
             |#{user.name}
         |@#{user.username}
