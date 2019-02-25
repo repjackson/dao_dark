@@ -16,6 +16,7 @@ Router.route '/me', -> @render 'me'
 # Router.route '/t/:tribe_slug/users', -> @render 'users'
 Router.route '/t/:tribe_slug/inbox', -> @render 'inbox'
 Router.route '/bank', -> @render 'bank'
+Router.route '/t/:tribe_slug/add_resident', -> @render 'add_resident'
 Router.route '/t/:tribe_slug/settings', -> @render 'settings'
 
 Router.route '/t/:tribe_slug/users', -> @render 'people'

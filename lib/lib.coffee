@@ -27,6 +27,7 @@ Docs.before.insert (userId, doc)=>
 
 Docs.helpers
     author: -> Meteor.users.findOne @_author_id
+    object: -> Meteor.users.findOne @object_id
     when: -> moment(@_timestamp).fromNow()
     is_author: -> Meteor.userId() is @_author_id
 

@@ -1,88 +1,169 @@
 template(name='health_club_dashboard')
     .ui.stackable.padded.grid
         .row
-            .eight.wide.column
-                .ui.center.aligned.header
-                    +ioffice name='groups' classes='ui avatar image'
-                    |Checked In Members
-                .ui.button.checkin
-                    |Checkin 
-                .ui.stackable.four.cards
-                    each checkedin_members
-                        .ui.card
-                            img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                            .content
-                                .header #{first_name} #{last_name}
-                                .meta #{username}
-                            .content
-                                .ui.icon.button.checkout(title='Check In')
-                                    i.checkmark.icon
-                .ui.divider
-                .ui.stackable.three.cards
-                    each checkedout_members
-                        .ui.card
-                            img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                            .content
-                                .header #{profile.first_name} #{profile.last_name}
-                                .meta #{username}
-                            .content
-                                .ui.icon.button.checkin(title='Check In')
-                                    i.sign.in.icon
-            .four.wide.column
+            .eight.wide.column.scrolling
+                .row
+                    h1.ui.header
+                        i.dashboard.icon
+                        |Health Club
+                .row
+                    .ui.header
+                        +ioffice name='internal' classes='ui image'
+                        |Checked In Members
+                    // .ui.button.checkin
+                    //     |Checkin 
+                    .ui.stackable.four.cards
+                        each checkedin_members
+                            .ui.card
+                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                .content
+                                    .header #{first_name} #{last_name}
+                                    .meta #{username}
+                                .content
+                                    .ui.icon.fluid.button.checkout(title='Check In')
+                                        i.checkmark.icon
+                    .ui.divider
+                    .ui.header
+                        +ioffice name='external' classes='ui image'
+                        |Checked Out Members
+                    .ui.stackable.three.cards
+                        each checkedout_members
+                            .ui.card
+                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                .content
+                                    .header #{profile.first_name} #{profile.last_name}
+                                    .meta #{username}
+                                .content
+                                    .ui.icon.fluid.button.checkin(title='Check In')
+                                        i.sign.in.icon
+            .four.wide.column.scrolling
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='megaphone' classes='ui avatar image'
+                    +ioffice name='edit-property' classes='ui inline image'
+                    .ui.inline.dividing.header 
+                        | Log
+                    .ui.feed
+                        each events
+                            .event
+                                .label
+                                    img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                .content
+                                    .summary
+                                        |#{body}
+                                        .date
+                                            |#{when}
+                                if is_admin
+                                    +remove_button
+                a.ui.large.fluid.button(href='/t/goldrun/add_resident')
+                    i.user.plus.green.icon
+                    |Add Resident
+                .ui.basic.segment
+                    +ioffice name='megaphone' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         |Notices
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='car' classes='ui avatar image'
+                    +ioffice name='car' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         | Warned Cars
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='poll-topic' classes='ui avatar image'
+                    +ioffice name='poll-topic' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         |Poll
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='front-desk' classes='ui avatar image'
+                    +ioffice name='front-desk' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         | Staff On Duty
-            .four.wide.column
+            .four.wide.column.scrolling
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='basketball' classes='ui avatar image'
+                    +ioffice name='basketball' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         | Basketball Court
-                    .ui.small.header Status  
+                    .ui.small.inline.header Status  
+                    if open
+                        +ioffice name='open-sign' classes='ui mini inline image'
+                    else
+                        +ioffice name='close-sign' classes='ui mini inline image'
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='bicycle' classes='ui avatar image'
+                    +ioffice name='bicycle' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         | Impounded Bikes
-                    .ui.small.header Status  
+                    .ui.small.inline.header Status  
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='beach-volleyball' classes='ui avatar image'
+                    +ioffice name='beach-volleyball' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         | Vollyball Court
-                    .ui.small.header Status  
+                    if open
+                        +ioffice name='open-sign' classes='ui mini inline image'
+                    else
+                        +ioffice name='close-sign' classes='ui mini inline image'
+                    .ui.small.inline.header Status  
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='tennis' classes='ui avatar image'
+                    +ioffice name='tennis' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         | Racquetball Court #1
-                    .ui.small.header Status  
+                    .ui.small.inline.header Status  
+                    if open
+                        +ioffice name='open-sign' classes='ui mini inline image'
+                    else
+                        +ioffice name='close-sign' classes='ui mini inline image'
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='tennis' classes='ui avatar image'
+                    +ioffice name='tennis' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         | Racquetball Court #2
-                    .ui.small.header Status  
+                    .ui.small.inline.header Status  
+                    if open
+                        +ioffice name='open-sign' classes='ui mini inline image'
+                    else
+                        +ioffice name='close-sign' classes='ui mini inline image'
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='swimming-pool' classes='ui avatar image'
+                    +ioffice name='swimming-back-view' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         |Pool
-                    .ui.small.header Status  
+                    .ui.small.inline.header Status  
+                    if open
+                        +ioffice name='open-sign' classes='ui mini inline image'
+                    else
+                        +ioffice name='close-sign' classes='ui mini inline image'
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='jacuzzi' classes='ui avatar image'
+                    +ioffice name='jacuzzi' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         |Indoor Hot Tub
-                    .ui.small.header Status    
+                    .ui.small.inline.header Status    
+                    if open
+                        +ioffice name='open-sign' classes='ui mini inline image'
+                    else
+                        +ioffice name='close-sign' classes='ui mini inline image'
                 .ui.basic.segment
-                    .ui.header 
-                        +ioffice name='jacuzzi' classes='ui avatar image'
+                    +ioffice name='jacuzzi' classes='ui inline image'
+                    .ui.inline.dividing.header 
                         |Outdoor Hot Tub
-                    .ui.small.header Status    
+                    .ui.small.inline.header Status    
+                    if open
+                        +ioffice name='open-sign' classes='ui mini inline image'
+                    else
+                        +ioffice name='close-sign' classes='ui mini inline image'
+                        
+                        
+                        
+template(name='add_resident')
+    .ui.stackable.padded.grid
+        .row
+            .eight.wide.column.scrolling
+                .row
+                    h1.ui.header
+                        i.user.plus.icon
+                        |Add Resident
+            .eight.wide.column.scrolling
+                .ui.form
+                    .field
+                        |First Name
+                        input#first_name(type='text')
+                    .field
+                        |Last Name
+                        input#last_name(type='text')
+                    .field
+                        |Username
+                        input#username(type='text')
+                if permission
+                    .ui.fluid.green.button.create_and_checkin
+                        |Create and Checkin
+        .row

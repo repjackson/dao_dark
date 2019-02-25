@@ -34,7 +34,11 @@ template(name='topnav')
                 if show_icon
                     i.icon(class=icon)
                 if show_label
-                    |#{title}
+                    |&nbsp; #{title}
+            if is_dev
+                a.icon.item(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
+                    i.pencil.icon
+
         // a.item.toggle_invert(href='#')
         //     i.adjust.icon
         .right.menu
@@ -72,14 +76,14 @@ template(name='topnav')
                     // +ioffice name='add-user-male'
                     |Register 
     // if is_admin
-    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
-        each topnav_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-                if color_icon
-                    +ioffice name=color_icon
-                else if icon
-                    i.icon(class=icon)
-                |&nbsp; #{plural}
+    // .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
+    //     each topnav_schemas
+    //         a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+    //             if color_icon
+    //                 +ioffice name=color_icon
+    //             else if icon
+    //                 i.icon(class=icon)
+    //             |&nbsp; #{plural}
 
 
 

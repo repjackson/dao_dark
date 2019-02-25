@@ -201,7 +201,7 @@ if Meteor.isClient
                 # text: 'This will also delete the messages.'
                 type: 'warning'
                 showCancelButton: true
-                animation: true
+                animation: false
                 confirmButtonColor: 'red'
                 confirmButtonText: 'Delete'
                 closeOnConfirm: true
