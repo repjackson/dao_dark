@@ -1,58 +1,108 @@
 template(name='health_club_dashboard')
     .ui.stackable.padded.grid
         .row
-            .eight.wide.column
+            .twelve.wide.column.scrolling
                 .row
                     .ui.header
                         // +icolor name='internal' classes='ui image'
-                        i.sign.in.icon
+                        i.sign.in.green.icon
                         |Checked In Members
-                    .ui.stackable.four.cards
-                        each checkedin_members
-                            .ui.card
-                                a(href="/t/goldrun/u/#{_id}/about")
-                                    img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                    img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                .content
+                .ui.two.column.row
+                    each checkedin_members
+                        .column
+                            .ui.padded.stackable.grid.segment
+                                .four.wide.column
                                     a(href="/t/goldrun/u/#{_id}/about")
-                                        .header #{first_name} #{last_name}
-                                    a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
-                                    .ui.header Apt # #{apt_number}
-                                    .ui.header Building #{building}
-
-                                .ui.fluid.button.checkout(title='Sign Out')
-                                    i.sign.out.large.icon
-                                    |Sign Out
-                                if signed_waiver
-                                    .ui.fluid.green.basic.button
-                                        i.checkmark.icon
-                                        |Waiver Signed
-                                else
-                                    .ui.fluid.red.button.sign_waiver
-                                        i.cancel.icon
-                                        |Waiver Not Signed
+                                        img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                        img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                .twelve.wide.column
+                                    .content
+                                        .ui.header #{first_name} #{last_name}
+                                        // a(href="/t/goldrun/u/#{_id}/about")
+                                        a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
+                                        .description
+                                            .ui.list
+                                                .ui.item First Name 
+                                                    strong #{first_name}
+                                                .ui.item Last Name 
+                                                    strong #{last_name}
+                                                .ui.item Address 
+                                                    strong #{address}
+                                                .ui.item Unit # 
+                                                    strong #{apt_number}
+                                                .ui.item Building # 
+                                                    strong #{building_number}
+                                                .ui.item Start Date 
+                                                    strong #{start_date}
+                                                unless owner
+                                                    .ui.item Lease Expiration Date 
+                                                        strong #{lease_expiration}
+                                                .ui.item Telephone 
+                                                    strong #{telephone}
+                                                .ui.item Email 
+                                                    strong #{email}
+                                                if owner
+                                                    .ui.item 
+                                                        |Owner 
+                                                        i.checkmark.icon
+                                        .extra
+                                            a.ui.button(href="/t/goldrun/u/#{_id}/about")
+                                                |View
+                                                i.chevron.right.icon
+                                            .ui.button.checkout(title='Sign Out')
+                                                i.sign.out.large.icon
+                                                |Sign Out
+                                            if signed_waiver
+                                                .ui.green.basic.button
+                                                    i.checkmark.icon
+                                                    |Waiver Signed
+                                            else
+                                                .ui.red.button.sign_waiver
+                                                    i.cancel.icon
+                                                    |Waiver Not Signed
                     .ui.divider
                     .ui.header
                         // +icolor name='external' classes='ui image'
-                        i.sign.out.icon
-                        |Checked Out Members
+                        i.search.icon
+                        |Search Members
                     .ui.fluid.icon.input
                         i.search.icon
                         input.username_search(type='text' placeholder='Search Username...')
-                    .ui.stackable.four.cards
-                        each checkedout_members
-                            .ui.card
-                                a(href="/t/goldrun/u/#{_id}/about")
-                                    img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                .content
-                                    a.header(href="/t/goldrun/u/#{_id}/about")
-                                        |#{profile.first_name} #{profile.last_name}
-                                    .meta #{username}
-                                    .ui.header Apt # #{apt_number}
-                                    .ui.header Building #{building}
-                                .ui.fluid.button.checkin(title='Check In')
-                                    i.sign.in.icon
-                                    |Sign In
+                    each checkedout_members
+                        .ui.segment
+                            a(href="/t/goldrun/u/#{_id}/about")
+                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                            .content
+                                a.header(href="/t/goldrun/u/#{_id}/about")
+                                    |#{profile.first_name} #{profile.last_name}
+                                .meta #{username}
+                                .ui.list
+                                    .ui.item First Name 
+                                        strong #{first_name}
+                                    .ui.item Last Name 
+                                        strong #{last_name}
+                                    .ui.item Address 
+                                        strong #{address}
+                                    .ui.item Unit # 
+                                        strong #{apt_number}
+                                    .ui.item Building # 
+                                        strong #{building_number}
+                                    .ui.item Start Date 
+                                        strong #{start_date}
+                                    unless owner
+                                        .ui.item Lease Expiration Date 
+                                            strong #{lease_expiration}
+                                    .ui.item Telephone 
+                                        strong #{telephone}
+                                    .ui.item Email 
+                                        strong #{email}
+                                    if owner
+                                        .ui.item 
+                                            |Owner 
+                                            i.checkmark.icon
+                            .ui.button.checkin(title='Check In')
+                                i.sign.in.icon
+                                |Sign In
             .four.wide.column.scrolling
                 a.ui.large.fluid.button(href='/t/goldrun/add_resident')
                     i.user.plus.green.icon
@@ -105,7 +155,7 @@ template(name='health_club_dashboard')
                                 img.ui.image(src="{{c.url profile.image_id }}")
                                 .content
                                     .header #{username}
-            .four.wide.column.scrolling
+            // .four.wide.column.scrolling
                 .ui.accordion
                     h4.active.title
                         +icolor name='basketball' classes='ui inline image'

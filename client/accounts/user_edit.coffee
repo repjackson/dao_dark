@@ -198,6 +198,11 @@ Template.user_edit.events
         Meteor.users.update Router.current().params._id, 
             $set: start_date: val
     
+    'blur #lease_expiration': (e) ->
+        val =  $('#lease_expiration').val()
+        Meteor.users.update Router.current().params._id, 
+            $set: lease_expiration: val
+    
     'blur #telephone': (e) ->
         val =  parseInt($('#telephone').val())
         console.log val

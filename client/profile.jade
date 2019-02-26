@@ -12,9 +12,9 @@ template(name='profile_layout')
                             .row
                                 .four.wide.column
                                     .field
-                                        if profile.image_id
+                                        if image_id
                                             a.item(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/about")
-                                                img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
+                                                img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
                                     // if current_user
                                     if is_admin
                                         .ui.vertical.fluid.menu
@@ -117,8 +117,8 @@ template(name='user_about')
                 strong #{building_number}
             .ui.item Start Date 
                 strong #{start_date}
-            .ui.item Start Date 
-                strong #{start_date}
+            .ui.item Lease Expiration 
+                strong #{lease_expiration}
             .ui.item Telephone 
                 strong #{telephone}
             .ui.item Email 

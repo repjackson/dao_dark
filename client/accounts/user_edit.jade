@@ -20,10 +20,10 @@ template(name='user_edit')
                         label Last Name
                         input#last_name(type='text', placeholder='Last Name', value='{{user_from_id_param.last_name}}')
                     .field
-                        if user_from_id_param.profile.image_id
+                        if user_from_id_param.image_id
                             label Image
                             .ui.centered.rounded.image
-                                img.ui.medium.image(src="{{c.url user_from_id_param.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                img.ui.medium.image(src="{{c.url user_from_id_param.image_id width=400 height=400 gravity='face' crop='fill'}}")
                                 a#remove_photo.ui.right.corner.link.label
                                     i.remove.link.icon
                         else
@@ -33,7 +33,7 @@ template(name='user_edit')
                         if user_from_id_param.profile.banner_image_id
                             label Banner Image
                             .ui.centered.rounded.image
-                                img.ui.medium.image(src="{{c.url user_from_id_param.profile.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                img.ui.medium.image(src="{{c.url user_from_id_param.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
                                 a#remove_banner.ui.right.corner.link.label
                                     i.remove.link.icon
                         else
@@ -41,9 +41,9 @@ template(name='user_edit')
                             input(type='file' name='banner_image' accept='image/*')
                 .ui.fluid.button.update_profile Update
                 +password_edit
-                +phone_editor
-                +username_edit
-                +emails_edit
+                // +phone_editor
+                // +username_edit
+                // +emails_edit
                 if is_dev
                     .ui.orange.button.remove_user 
                         i.remove.icon
@@ -89,6 +89,11 @@ template(name='user_edit')
                         .ui.owner.button
                             i.circle.outline.icon
                             | Owner
+                    unless user_from_id_param.owner       
+                        .ui.labeled.icon.input
+                            .ui.label Lease Expiration
+                            i.clock.icon
+                            input#lease_expiration(type='date' value=user_from_id_param.lease_expiration)
                                         
                 // +stripe_connect
                 // +payment_methods
