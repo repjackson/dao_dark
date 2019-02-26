@@ -10,7 +10,7 @@ template(name='topnav')
                 i.large.bars.icon
         if ct.color_icon_header
             a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
-                +ioffice name=ct.color_icon
+                +icolor name=ct.color_icon
         if ct.logo_id
             if ct.logo_header
                 a.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
@@ -139,25 +139,25 @@ template(name='rightbar')
         //             else
         //                 img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
         a.item(href="/t/#{ct.slug}/chat")
-            +ioffice name='chat' classes='ui avatar image'
+            // +ioffice name='chat' classes='ui avatar image'
+            i.chat.icon
             | Chat
-            // i.chat.icon
         a.item.toggle_rightbar.tribe_schemas(href="/t/#{ct.slug}/s/schema")
-            +ioffice name='active-directory' classes='ui avatar image'
+            // +ioffice name='active-directory' classes='ui avatar image'
+            i.sitemap.icon
             | Schemas
-            // i.sitemap.icon
         a.item.toggle_rightbar.tribe_pages(href="/t/#{ct.slug}/s/page")
-            +ioffice name='web' classes='ui avatar image'
+            // +ioffice name='web' classes='ui avatar image'
+            i.clone.icon
             | Pages
-            // i.clone.icon
         a.item.toggle_rightbar(href="/t/#{ct.slug}/users")
-            +ioffice name='group-foreground-selected' classes='ui avatar image'
+            // +ioffice name='group-foreground-selected' classes='ui avatar image'
+            i.users.icon
             | Users
-            // i.users.icon
         a.icon.item.toggle_rightbar(href="/t/#{ct.slug}/u/#{currentUser._id}/edit")
-            +ioffice name='settings-3' classes='ui avatar image'
+            // +ioffice name='settings-3' classes='ui avatar image'
+            i.cog.icon
             | Account
-            // i.cog.icon
         // .item.toggle_rightbar
         //     | #{currentUser.profile.first_name} #{currentUser.profile.last_name}
         //     | #{currentUser.username} #{currentUser.profile.name}
@@ -180,8 +180,8 @@ template(name='rightbar')
                 i.notched.circle.loading.big.icon
         else
             a.logout.item(href='#')
-                +ioffice name='exit-sign' classes='ui avatar image'
-                // i.sign.out.icon
+                // +ioffice name='exit-sign' classes='ui avatar image'
+                i.sign.out.icon
                 | Log Out
 
 
@@ -280,6 +280,7 @@ template(name='footer')
                         i.copyright.outline.icon
                         |2019 
                         |#{ct.title}
-                .four.wide.center.aligned.column
-                    a(href='/')
-                        +icolor name='yin-yang' classes='ui inline image'
+                if is_dev
+                    .four.wide.center.aligned.column
+                        a(href='/t/dao')
+                            +icolor name='yin-yang' classes='ui inline image'

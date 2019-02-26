@@ -56,7 +56,7 @@ template(name='user_status')
 
 
 template(name='user_info')
-    a.ui.label(href="/u/#{user.username}")
+    a.ui.label(href="/t/goldrun/u/#{user._id}/about")
         if user.profile.image_id
             img.ui.mini.image(src="{{c.url user.profile.image_id }}")
         if user.name

@@ -6,7 +6,7 @@ Router.configure
 
 
 
-Router.route '/', -> @redirect '/t/dao'
+Router.route '/', -> @redirect '/t/goldrun'
 
 Router.route '/t/:tribe_slug/chat', -> @render 'view_chats'
 Router.route '/t/:tribe_slug/add', -> @render 'add'

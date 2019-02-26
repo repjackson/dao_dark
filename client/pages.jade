@@ -4,16 +4,19 @@ template(name='health_club_dashboard')
             .eight.wide.column
                 .row
                     .ui.header
-                        // +ioffice name='internal' classes='ui image'
+                        // +icolor name='internal' classes='ui image'
                         i.sign.in.icon
                         |Checked In Members
                     .ui.stackable.four.cards
                         each checkedin_members
                             .ui.card
-                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                a(href="/t/goldrun/u/#{_id}/about")
+                                    img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                    img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                                 .content
-                                    .header #{first_name} #{last_name}
-                                    .meta #{username}
+                                    a(href="/t/goldrun/u/#{_id}/about")
+                                        .header #{first_name} #{last_name}
+                                    a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
                                 .ui.fluid.button.checkout(title='Sign Out')
                                     i.sign.out.large.icon
                                     |Sign Out
@@ -27,7 +30,7 @@ template(name='health_club_dashboard')
                                         |Waiver Not Signed
                     .ui.divider
                     .ui.header
-                        // +ioffice name='external' classes='ui image'
+                        // +icolor name='external' classes='ui image'
                         i.sign.out.icon
                         |Checked Out Members
                     .ui.fluid.icon.input
@@ -36,9 +39,11 @@ template(name='health_club_dashboard')
                     .ui.stackable.four.cards
                         each checkedout_members
                             .ui.card
-                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                a(href="/t/goldrun/u/#{_id}/about")
+                                    img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
                                 .content
-                                    .header #{profile.first_name} #{profile.last_name}
+                                    a.header(href="/t/goldrun/u/#{_id}/about")
+                                        |#{profile.first_name} #{profile.last_name}
                                     .meta #{username}
                                 .ui.fluid.button.checkin(title='Check In')
                                     i.sign.in.icon
@@ -48,8 +53,8 @@ template(name='health_club_dashboard')
                     i.user.plus.green.icon
                     |Add Resident
                 .ui.accordion
-                    .active.title
-                        +ioffice name='edit-property' classes='ui inline image'
+                    h4.active.title
+                        +icolor name='edit-property' classes='ui inline image'
                             .ui.inline.dividing.header 
                         i.dropdown.icon
                         | Log
@@ -67,26 +72,26 @@ template(name='health_club_dashboard')
                                     if is_dev
                                         +remove_button
                 .ui.accordion
-                    .active.title
-                        +ioffice name='megaphone' classes='ui inline image'
+                    h4.active.title
+                        +icolor name='megaphone' classes='ui inline image'
                         |Notices
                         i.dropdown.icon
                     .active.content
                 .ui.accordion
                     .active.title
-                        +ioffice name='car' classes='ui inline image'
+                        +icolor name='car' classes='ui inline image'
                         | Warned Cars
                         i.dropdown.icon
                     .active.content
                 .ui.accordion
                     .active.title
-                        +ioffice name='poll-topic' classes='ui inline image'
+                        +icolor name='poll-topic' classes='ui inline image'
                         |Poll
                         i.dropdown.icon
                     .active.content
                 .ui.accordion
                     .active.title
-                        +ioffice name='front-desk' classes='ui inline image'
+                        +icolor name='front-desk' classes='ui inline image'
                         | Staff On Duty
                         i.dropdown.icon
                     .active.content
@@ -97,32 +102,29 @@ template(name='health_club_dashboard')
                                     .header #{username}
             .four.wide.column.scrolling
                 .ui.accordion
-                    .active.title
-                        +ioffice name='basketball' classes='ui inline image'
+                    h4.active.title
+                        +icolor name='basketball' classes='ui inline image'
                         | Basketball Court
                         i.dropdown.icon
                     .active.content
-                        | Status  
                         if open
-                            +ioffice name='open-sign' classes='ui mini inline image'
+                            +icolor name='open-sign' classes='ui mini inline image'
                             .ui.button.checkin Check In
                         else
-                            +ioffice name='close-sign' classes='ui mini inline image'
+                            +icolor name='close-sign' classes='ui mini inline image'
                             .ui.button.signout Check Out
                 .ui.accordion
-                    .active.title
-                        +ioffice name='bicycle' classes='ui inline image'
+                    h4.active.title
+                        +icolor name='bicycle' classes='ui inline image'
                         | Impounded Bikes
                         i.dropdown.icon
                     .active.content
-                        | Status  
                 .ui.accordion
-                    .active.title
+                    h4.active.title
                         +ioffice name='beach-volleyball' classes='ui inline image'
                         | Vollyball Court
                         i.dropdown.icon
                     .active.content
-                        | Status  
                         if open
                             +ioffice name='open-sign' classes='ui mini inline image'
                             .ui.button.checkin Check In
@@ -130,12 +132,11 @@ template(name='health_club_dashboard')
                             +ioffice name='close-sign' classes='ui mini inline image'
                             .ui.button.signout Check Out
                 .ui.accordion
-                    .active.title
+                    h4.active.title
                         +ioffice name='tennis' classes='ui inline image'
                         | Racquetball Court #1
                         i.dropdown.icon
                     .active.content
-                        | Status  
                         if open
                             +ioffice name='open-sign' classes='ui mini inline image'
                             .ui.button.checkin Check In
@@ -143,12 +144,11 @@ template(name='health_club_dashboard')
                             +ioffice name='close-sign' classes='ui mini inline image'
                             .ui.button.signout Check Out
                 .ui.accordion
-                    .active.title
+                    h4.active.title
                         +ioffice name='tennis' classes='ui inline image'
                         | Racquetball Court #2
                         i.dropdown.icon
                     .active.content
-                        | Status  
                         if open
                             +ioffice name='open-sign' classes='ui mini inline image'
                             .ui.button.checkin Check In
@@ -156,43 +156,42 @@ template(name='health_club_dashboard')
                             +ioffice name='close-sign' classes='ui mini inline image'
                             .ui.button.signout Check Out
                 .ui.accordion
-                    .active.title
+                    h4.active.title
                         +ioffice name='swimming-back-view' classes='ui inline image'
                         |Pool
                         i.dropdown.icon
                     .active.content
-                        | Status  
                         if open
-                            +ioffice name='open-sign' classes='ui mini inline image'
+                            +icolor name='open-sign' classes='ui mini inline image'
                             .ui.button.checkin Check In
                         else
-                            +ioffice name='close-sign' classes='ui mini inline image'
+                            +icolor name='close-sign' classes='ui mini inline image'
                             .ui.button.signout Check Out
                 .ui.accordion
-                    .active.title
-                        +ioffice name='jacuzzi' classes='ui inline image'
+                    h4.active.title
+                        +icolor name='jacuzzi' classes='ui inline image'
                         |Indoor Hot Tub
                         i.dropdown.icon
                     .active.content
                         | Status    
                         if open
-                            +ioffice name='open-sign' classes='ui mini inline image'
+                            +icolor name='open-sign' classes='ui mini inline image'
                             .ui.button.checkin Check In
                         else
-                            +ioffice name='close-sign' classes='ui mini inline image'
+                            +icolor name='close-sign' classes='ui mini inline image'
                             .ui.button.signout Check Out
                 .ui.accordion
-                    .active.title
-                        +ioffice name='jacuzzi' classes='ui inline image'
+                    h4.active.title
+                        +icolor name='jacuzzi' classes='ui inline image'
                         |Outdoor Hot Tub
                         i.dropdown.icon
                     .active.content
                         | Status    
                         if open
-                            +ioffice name='open-sign' classes='ui mini inline image'
+                            +icolor name='open-sign' classes='ui mini inline image'
                             .ui.button.checkin Check In
                         else
-                            +ioffice name='close-sign' classes='ui mini inline image'
+                            +icolor name='close-sign' classes='ui mini inline image'
                             .ui.button.signout Check Out
                         
                         

@@ -2,19 +2,23 @@ template(name='user_edit')
     .ui.stackable.padded.grid.pad_left
         .middle.aligned.row
             .four.wide.center.aligned.column
-                a.ui.large.button(href="/u/#{user_from_id_param._id}/about" title='Profile') 
+                a.ui.large.button(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/about" title='Profile') 
                     i.checkmark.icon
                     |Save
             .eight.wide.center.aligned.column
                 .ui.center.aligned.large.header
                     i.cog.icon
-                    | #{user_from_id_param.profile.name} #{user_from_id_param.profile.churchName} Profile
+                    | #{user_from_id_param.first_name} #{user_from_id_param.last_name} Profile
+                .ui.center.aligned.small.header @#{user_from_id_param.username}
         .row
             .five.wide.column
                 .ui.form
                     .field
                         label Name
-                        input#pname(type='text', name='name', placeholder='Name', value='{{user_from_id_param.profile.name}}')
+                        input#first_name(type='text', placeholder='First Name', value='{{user_from_id_param.first_name}}')
+                    .field
+                        label Last Name
+                        input#last_name(type='text', placeholder='Last Name', value='{{user_from_id_param.last_name}}')
                     .field
                         if user_from_id_param.profile.image_id
                             label Image
@@ -40,9 +44,17 @@ template(name='user_edit')
                 +phone_editor
                 +username_edit
                 +emails_edit
+                if is_dev
+                    .ui.orange.button.remove_user 
+                        i.remove.icon
+                        |Delete User
             .eleven.wide.column
                 // +church_profile
-                +user_schema_editor
+                // +user_schema_editor
+                if is_dev
+                    +user_tribe_editor
+                if is_admin
+                    +user_single_doc_ref_editor key='building' schema='building' label='Label'
                 +stripe_connect
                 +payment_methods
 
@@ -51,6 +63,21 @@ template(name='user_schema_editor')
     .ui.header Profile Sections
     each schemas
         .ui.button.toggle_schema(class=user_schema_class title=title)
+            i.icon(class=icon)
+            |#{title}
+            
+template(name='user_tribe_editor')
+    .ui.header User Group Memberships
+    each tribes
+        .ui.button.toggle_tribe(class=user_tribe_class title=title)
+            i.icon(class=icon)
+            |#{title}
+            
+            
+template(name='user_single_doc_ref_editor')
+    .ui.header #{label}
+    each choices
+        .ui.button.select_choice(class=choice_class title=title)
             i.icon(class=icon)
             |#{title}
 

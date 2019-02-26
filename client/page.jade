@@ -15,7 +15,7 @@ template(name='page')
                             .eight.wide.center.aligned.column
                                 .ui.header 
                                     if color_icon
-                                        +ioffice name=color_icon
+                                        +icolor name=color_icon
                                     if icon
                                         i.icon(class=icon)
                                     |#{title}
@@ -38,7 +38,7 @@ template(name='add')
         .row
             .sixteen.wide.column
                 .ui.center.aligned.header
-                    +ioffice name='plus'
+                    +icolor name='plus'
                     | Add
         .row
             .sixteen.wide.column
@@ -47,18 +47,18 @@ template(name='add')
                         .card.add_schema
                             .content
                                 .header 
-                                    +ioffice name='active-directory'
+                                    +icolor name='active-directory'
                                     | Schema
                         .card.add_page
                             .content
                                 .header 
-                                    +ioffice name='template'
+                                    +icolor name='template'
                                     | Page
                     each add_schemas
                         .card.add_doc
                             .content
                                 .header 
-                                    +ioffice name=color_icon
+                                    +icolor name=color_icon
                                     |#{title}
                         
                         
@@ -81,7 +81,7 @@ template(name='menu')
             .sixteen.wide.column
                 .ui.center.aligned.header
                     // i.sitemap.icon
-                    +ioffice name='activity-grid-2' classes='ui avatar image'
+                    +icolor name='activity-grid-2' classes='ui avatar image'
                     | Sections
         .row
             .sixteen.wide.column
@@ -90,7 +90,7 @@ template(name='menu')
                         a.card.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                             .content
                                 .header 
-                                    +ioffice name=color_icon
+                                    +icolor name=color_icon
                                     |#{plural}
                         
                         

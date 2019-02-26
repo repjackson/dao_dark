@@ -10,6 +10,10 @@ Template.user_edit.onCreated ->
 Template.user_schema_editor.onCreated ->
     @autorun -> Meteor.subscribe 'church_schemas'
     
+Template.user_tribe_editor.onCreated ->
+    @autorun -> Meteor.subscribe 'type','tribe'
+    
+    
 Template.user_edit.onRendered ->
     Meteor.setTimeout ->
         $('.button').popup()
@@ -25,6 +29,15 @@ Template.user_schema_editor.helpers
         current_user = Meteor.users.findOne Router.current().params._id
         if current_user.schema_ids and @_id in current_user.schema_ids then 'darkblue' else ''
 
+Template.user_tribe_editor.helpers
+    tribes: -> 
+        Docs.find
+            type:'tribe'
+    
+    user_tribe_class: ->
+        current_user = Meteor.users.findOne Router.current().params._id
+        if current_user.tribes and @slug in current_user.tribes then 'blue' else ''
+
 
 Template.user_schema_editor.events
     'click .toggle_schema': ->
@@ -35,6 +48,45 @@ Template.user_schema_editor.events
         else
             Meteor.users.update current_user._id,
                 $addToSet: schema_ids: @_id
+
+Template.user_tribe_editor.events
+    'click .toggle_tribe': ->
+        # console.log @
+        current_user = Meteor.users.findOne Router.current().params._id
+        if current_user.tribes and @slug in current_user.tribes
+            Meteor.users.update current_user._id,
+                $pull: tribes: @slug
+        else
+            Meteor.users.update current_user._id,
+                $addToSet: tribes: @slug
+
+
+Template.user_single_doc_ref_editor.onCreated ->
+    console.log @data
+    @autorun => Meteor.subscribe 'type', @data.schema
+
+
+
+
+Template.user_single_doc_ref_editor.events
+    'click .select_choice': ->
+        context = Template.currentData()
+        current_user = Meteor.users.findOne Router.current().params._id
+        Meteor.users.update current_user._id,
+            $set: "#{context.key}": @slug
+
+Template.user_single_doc_ref_editor.helpers
+    choices: -> 
+        console.log @
+        Docs.find
+            type:@schema
+    
+    choice_class: ->
+        console.log @
+        context = Template.parentData()
+        console.log context
+        current_user = Meteor.users.findOne Router.current().params._id
+        if current_user["#{context.key}"] and @slug is current_user["#{context.key}"] then 'blue' else ''
 
 
 
@@ -94,6 +146,11 @@ Template.user_schema_editor.events
 #     return
 
 Template.user_edit.events
+    'click .remove_user': ->
+        if confirm "Confirm delete #{@username}?  Cannot be undone."
+            Meteor.users.remove Router.current().params._id
+            Router.go "/t/goldrun"
+
     "change input[name='profile_image']": (e) ->
         files = e.currentTarget.files
         # console.log files
@@ -108,7 +165,7 @@ Template.user_edit.events
                 else
                     console.log res
                     Meteor.users.update Router.current().params._id, 
-                        $set: "profile.image_id": res.public_id
+                        $set: "image_id": res.public_id
                 return
 
     "change input[name='banner_image']": (e) ->
@@ -125,14 +182,14 @@ Template.user_edit.events
                 else
                     console.log res
                     Meteor.users.update Router.current().params._id, 
-                        $set: "profile.banner_image_id": res.public_id
+                        $set: "banner_image_id": res.public_id
                 return
 
 
     'click #remove_photo': ->
         if confirm 'Remove photo?'
             Meteor.users.update Router.current().params._id,
-                $unset: "profile.image_id": 1
+                $unset: "image_id": 1
 
         
 #     'change #Profile_photo': (event, template) ->
