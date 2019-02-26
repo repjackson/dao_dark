@@ -54,9 +54,44 @@ template(name='user_edit')
                 if is_dev
                     +user_tribe_editor
                 if is_admin
-                    +user_single_doc_ref_editor key='building' schema='building' label='Label'
-                +stripe_connect
-                +payment_methods
+                    +user_single_doc_ref_editor key='building' schema='building' label='Building'
+                    +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
+                    .ui.labeled.icon.input
+                        .ui.label Address
+                        i.globe.icon
+                        input#address(type='text' value=user_from_id_param.address)
+                    .ui.labeled.icon.input
+                        .ui.label Unit #
+                        i.home.icon
+                        input#apt_number(type='number' value=user_from_id_param.apt_number)
+                    .ui.labeled.icon.input
+                        .ui.label Building #
+                        i.building.icon
+                        input#building_number(type='number' value=user_from_id_param.building_number)
+                    .ui.labeled.icon.input
+                        .ui.label Date Started
+                        i.calendar.icon
+                        input#start_date(type='date' value=user_from_id_param.start_date)
+                    .ui.labeled.icon.input
+                        .ui.label 
+                            |Phone
+                        i.phone.icon
+                        input#telephone(type='number' value=user_from_id_param.telephone)
+                    .ui.labeled.icon.input
+                        .ui.label Email
+                        input#email(type='email' value=user_from_id_param.email)
+                    
+                    if user_from_id_param.owner
+                        .ui.blue.owner.button
+                            i.checkmark.icon
+                            | Owner
+                    else 
+                        .ui.owner.button
+                            i.circle.outline.icon
+                            | Owner
+                                        
+                // +stripe_connect
+                // +payment_methods
 
 
 template(name='user_schema_editor')

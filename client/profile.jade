@@ -104,6 +104,28 @@ template(name='user_about')
     img.ui.fluid.rounded.image(src="{{c.url profile.banner_image_id width=1000 height=300 crop='crop'}}")
     // .profile-banner-container
     .ui.secondary.segment
+        .ui.list
+            .ui.item First Name 
+                strong #{first_name}
+            .ui.item Last Name 
+                strong #{last_name}
+            .ui.item Address 
+                strong #{address}
+            .ui.item Unit # 
+                strong #{apt_number}
+            .ui.item Building # 
+                strong #{building_number}
+            .ui.item Start Date 
+                strong #{start_date}
+            .ui.item Start Date 
+                strong #{start_date}
+            .ui.item Telephone 
+                strong #{telephone}
+            .ui.item Email 
+                strong #{email}
+            .ui.item Owner 
+                strong #{owner}
+
         .ui.inline.header
             i.fire.icon
             |Group Memberships

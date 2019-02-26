@@ -17,6 +17,9 @@ template(name='health_club_dashboard')
                                     a(href="/t/goldrun/u/#{_id}/about")
                                         .header #{first_name} #{last_name}
                                     a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
+                                    .ui.header Apt # #{apt_number}
+                                    .ui.header Building #{building}
+
                                 .ui.fluid.button.checkout(title='Sign Out')
                                     i.sign.out.large.icon
                                     |Sign Out
@@ -45,6 +48,8 @@ template(name='health_club_dashboard')
                                     a.header(href="/t/goldrun/u/#{_id}/about")
                                         |#{profile.first_name} #{profile.last_name}
                                     .meta #{username}
+                                    .ui.header Apt # #{apt_number}
+                                    .ui.header Building #{building}
                                 .ui.fluid.button.checkin(title='Check In')
                                     i.sign.in.icon
                                     |Sign In
