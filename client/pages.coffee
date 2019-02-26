@@ -59,51 +59,6 @@ Template.health_club_dashboard.events
         username_query = $('.username_search').val()
         Session.set 'username_query',username_query
 
-    'click .checkin': (e,t)->
-        swal {
-            title: "Checkin #{@username}?"
-            # text: 'This will also delete the messages.'
-            type: 'info'
-            showCancelButton: true
-            animation: false
-            confirmButtonColor: 'green'
-            confirmButtonText: 'Check In'
-            closeOnConfirm: true
-        }, =>
-            $(e.currentTarget).closest('.ui.card').transition('zoom')
-            Meteor.setTimeout =>
-                Meteor.users.update @_id,
-                    $set:health_club_checkedin:true
-                Docs.insert 
-                    type:'log_event'
-                    object_id:@_id
-                    body: "#{@username} checked in."
-            , 1000
-            
-            
-            
-    
-    
-    'click .checkout': (e,t)->
-        swal {
-            title: "Checkout #{@username}?"
-            # text: 'This will also delete the messages.'
-            type: 'success'
-            showCancelButton: true
-            animation: false
-            confirmButtonColor: 'orange'
-            confirmButtonText: 'Checkout'
-            closeOnConfirm: true
-        }, =>
-            $(e.currentTarget).closest('.ui.card').transition('zoom')
-            Meteor.setTimeout =>
-                Meteor.users.update @_id,
-                    $set:health_club_checkedin:false
-                Docs.insert 
-                    type:'log_event'
-                    object_id:@_id
-                    body: "#{@username} checked out."
-            , 1000
 
 Template.add_resident.onCreated ->
     Session.set 'permission', false

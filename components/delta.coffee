@@ -320,7 +320,7 @@ if Meteor.isClient
                  'disabled '
             else if facet.filters.length > 0 and @name in facet.filters
                 'blue'
-            else 'basic'
+            else ''
             
     Template.result.onCreated ->
         @autorun => Meteor.subscribe 'doc', @data._id

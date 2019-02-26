@@ -78,9 +78,9 @@ template(name='creation_info')
 
 template(name='user_list_toggle')
     if currentUser
-        .ui.circular.icon.compact.button.toggle(class=user_list_toggle_class title=label href='#')
-            // i.icon(class=icon)
-            +icolor name=icon
+        .ui.circular.icon.button.toggle(class=user_list_toggle_class title=label href='#')
+            i.icon(class=icon)
+            // +icolor name=icon
             // |#{label}
         each list_users
             +user_info
@@ -90,11 +90,11 @@ template(name='voting')
     div
     if points
         strong #{points}
-    .ui.icon.circular.large.basic.button.upvote
+    .ui.icon.circular.large.button.upvote
         i.thumbs.up.large.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.circular.large.basic.button.downvote
+    .ui.icon.circular.large.button.downvote
         i.thumbs.down.large.icon(class=downvote_class)
     each downvoter_ids
         +user_info
@@ -102,7 +102,7 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.circular.icon.basic.large.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+    a.ui.circular.icon.large.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
         // |View #{type}
         // +ioffice name='chevron-right' classes='ui inline image'
         i.right.chevron.teal.large.icon
@@ -137,14 +137,14 @@ template(name='toggle_friend')
 
 
 template(name='edit_button')
-    a.ui.circular.icon.large.basic.button.edit(title="Edit #{title}" href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
-        i.blue.pencil.large.icon
+    a.ui.circular.icon.large.button.edit(title="Edit #{title}" href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
+        i.pencil.large.icon
         // +ioffice name='pencil' classes='ui inline image'
         // |Edit
 
 
 template(name='save_button')
-    a.ui.circular.icon.basic.button.big.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+    a.ui.circular.icon.button.big.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
         // +iblue name='checkmark'
         i.large.green.checkmark.icon
         // |Save

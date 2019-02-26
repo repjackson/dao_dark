@@ -6,16 +6,16 @@ template(name='delta')
                     // a.ui.right.corner.label.move_left
                     //     i.left.chevron.link.icon
                     .ui.inline.header
-                        if color_icon
-                            +icolor name=color_icon
-                        else
-                            i.icon(class=icon)
+                        // if color_icon
+                        //     +icolor name=color_icon
+                        // else
+                        i.icon(class=icon)
                         | #{plural}
                     // .ui.small.center.aligned.header #{body}
                     unless is_loading
                         if can_add
-                            .ui.circular.icon.basic.large.button.add_type_doc(title="Add #{title}")
-                                i.plus.green.large.icon
+                            .ui.circular.icon.large.button.add_type_doc(title="Add #{title}")
+                                i.plus.large.icon
                             //   +icolor name='plus' classes='ui inline mini image'
                                 // |Add #{title}
                         if can_edit
@@ -30,7 +30,6 @@ template(name='delta')
                                 
                         if current_delta
                             if is_dev
-                                div
                                 .ui.icon.button.print_delta(title='Print Session Doc')
                                     i.code.icon
                                     // |Print Session
@@ -167,8 +166,8 @@ template(name='result')
                 a.ui.header(href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
                     if logo_id
                         img.ui.avatar.image(src="{{c.url logo_id width=100 height=100 gravity='face' crop='fill'}}")
-                    // else if icon
-                    //     i.icon(class=icon)
+                    else if icon
+                        i.icon(class=icon)
                     each bricks
                         if header
                             +Template.dynamic template=view_template 
@@ -243,16 +242,16 @@ template(name='type_view')
                         a.section(href="/t/#{ct.slug}")
                             // +icolor name=ct.color_icon classes='ui mini inline image'
                             |#{ct.title}
-                            // .ui.circular.compact.basic.button
+                            // .ui.circular.compact.button
                         .divider
                             i.chevron.right.large.icon
                         a.section(href="/t/#{ct.slug}/s/#{type}" title=schema.plural)
-                            if schema.color_icon
-                                +icolor name=schema.color_icon classes='ui mini inline image'
-                            else
-                                i.icon(class=schema.icon)
+                            // if schema.color_icon
+                                // +icolor name=schema.color_icon classes='ui mini inline image'
+                            // else
+                            i.icon(class=schema.icon)
                             |#{schema.plural}
-                            // .ui.circular.compact.basic.button
+                            // .ui.circular.compact.button
                         .divider
                             i.chevron.right.large.icon
                         .active.section

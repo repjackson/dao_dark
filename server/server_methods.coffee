@@ -333,10 +333,16 @@ Meteor.methods
             type:'delta'
             _author_id:Meteor.userId()
         
-        
-        schema = Docs.findOne
-            type:'schema'
-            slug:type
+        if type in ['field', 'brick','schema','tribe','page','block']
+            schema = Docs.findOne
+                type:'schema'
+                tribe:'dao'
+                slug:type
+        else
+            schema = Docs.findOne
+                type:'schema'
+                tribe:tribe
+                slug:type
         
         schema_bricks = Docs.find(
             type:'brick'

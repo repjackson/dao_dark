@@ -15,6 +15,15 @@ template(name='notify_button')
                 .right.floated.content
                     i.remove_notified_user.large.link.red.remove.icon
 
+template(name='checkin')
+    unless healthclub_checkedin
+        .ui.button.checkin(title='Check In')
+            i.sign.in.icon
+            |Sign In
+    if healthclub_checkedin
+        .ui.button.checkout(title='Sign Out')
+            i.sign.out.large.icon
+            |Sign Out
 
 
 template(name='view_section')
