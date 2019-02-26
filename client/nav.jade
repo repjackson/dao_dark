@@ -7,7 +7,7 @@ template(name='topnav')
         else 
             a.item.icon.toggle_leftbar(href='#')
                 // +ioffice name='menu'
-                i.large.bars.icon
+                i.bars.icon
         if ct.color_icon_header
             a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
                 +icolor name=ct.color_icon
@@ -29,8 +29,8 @@ template(name='topnav')
         //             strong #{plural}
         each topnav_pages
             a.item(href="/t/#{ct.slug}/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
-                if color_icon_header
-                    +ioffice name=color_icon
+                // if color_icon_header
+                //     +ioffice name=color_icon
                 if show_icon
                     i.icon(class=icon)
                 if show_label
@@ -47,22 +47,22 @@ template(name='topnav')
             if is_dev
                 a.icon.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
                     // +ioffice name='activity-grid-2' classes='ui avatar image'
-                    i.large.sitemap.icon
+                    i.sitemap.icon
                     // | Sections
             a.icon.item(href="/t/#{ct.slug}/menu")
                 // +ioffice name='activity-grid-2' classes='ui avatar image'
-                i.large.th.icon
+                i.th.icon
                 // | Sections
             if currentUser
                 a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
                     // +ioffice name='plus' classes='ui mini image'
-                    i.large.plus.icon
+                    i.plus.icon
                 // a.item.toggle_topbar(href='#')
                 //     +ioffice name='inbox' classes='ui mini image'
                     // i.inbox.icon
                 a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
                     // +ioffice name='gender-neutral-user' classes='ui mini image'
-                    i.large.user.icon
+                    i.user.icon
                     // | #{currentUser.username} [#{currentUser.status}]
                     | #{currentUser.username}
                 a.icon.item.toggle_rightbar(href='#')

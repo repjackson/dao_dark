@@ -5,16 +5,15 @@ template(name='health_club_dashboard')
                 .row
                     .ui.header
                         // +icolor name='internal' classes='ui image'
-                        i.sign.in.green.icon
+                        i.sign.in.icon
                         |Checked In Members
                 .ui.two.column.row
                     each checkedin_members
                         .column
                             .ui.padded.stackable.grid.segment
-                                .four.wide.column
-                                    a(href="/t/goldrun/u/#{_id}/about")
-                                        img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                // .four.wide.column
+                                    // a(href="/t/goldrun/u/#{_id}/about")
+                                        // img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                                 .twelve.wide.column
                                     .content
                                         .ui.header #{first_name} #{last_name}
@@ -69,50 +68,56 @@ template(name='health_club_dashboard')
                         i.search.icon
                         input.username_search(type='text' placeholder='Search Username...')
                     each checkedout_members
-                        .ui.segment
-                            a(href="/t/goldrun/u/#{_id}/about")
-                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                            .content
-                                a.header(href="/t/goldrun/u/#{_id}/about")
-                                    |#{profile.first_name} #{profile.last_name}
-                                .meta #{username}
-                                .ui.list
-                                    .ui.item First Name 
-                                        strong #{first_name}
-                                    .ui.item Last Name 
-                                        strong #{last_name}
-                                    .ui.item Address 
-                                        strong #{address}
-                                    .ui.item Unit # 
-                                        strong #{apt_number}
-                                    .ui.item Building # 
-                                        strong #{building_number}
-                                    .ui.item Start Date 
-                                        strong #{start_date}
-                                    unless owner
-                                        .ui.item Lease Expiration Date 
-                                            strong #{lease_expiration}
-                                    .ui.item Telephone 
-                                        strong #{telephone}
-                                    .ui.item Email 
-                                        strong #{email}
-                                    if owner
-                                        .ui.item 
-                                            |Owner 
-                                            i.checkmark.icon
+                        .ui.padded.stackable.grid.segment
+                            .four.wide.column
+                                a(href="/t/goldrun/u/#{_id}/about")
+                                    img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                    img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                            .twelve.wide.column
+                                .content
+                                    .ui.header #{first_name} #{last_name}
+                                    // a(href="/t/goldrun/u/#{_id}/about")
+                                    a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
+                                    .description
+                                        .ui.list
+                                            .ui.item First Name 
+                                                strong #{first_name}
+                                            .ui.item Last Name 
+                                                strong #{last_name}
+                                            .ui.item Address 
+                                                strong #{address}
+                                            .ui.item Unit # 
+                                                strong #{apt_number}
+                                            .ui.item Building # 
+                                                strong #{building_number}
+                                            .ui.item Start Date 
+                                                strong #{start_date}
+                                            unless owner
+                                                .ui.item Lease Expiration Date 
+                                                    strong #{lease_expiration}
+                                            .ui.item Telephone 
+                                                strong #{telephone}
+                                            .ui.item Email 
+                                                strong #{email}
+                                            if owner
+                                                .ui.item 
+                                                    |Owner 
+                                                    i.checkmark.icon
+                                    .extra
                             .ui.button.checkin(title='Check In')
                                 i.sign.in.icon
                                 |Sign In
             .four.wide.column.scrolling
                 a.ui.large.fluid.button(href='/t/goldrun/add_resident')
-                    i.user.plus.green.icon
+                    i.user.plus.icon
                     |Add Resident
                 .ui.accordion
                     h4.active.title
-                        +icolor name='edit-property' classes='ui inline image'
-                            .ui.inline.dividing.header 
-                        i.dropdown.icon
+                        // +icolor name='edit-property' classes='ui inline image'
+                            // .ui.inline.dividing.header 
+                        i.rss.icon
                         | Log
+                        i.dropdown.icon
                     .active.content
                         .ui.feed
                             each events
@@ -124,8 +129,8 @@ template(name='health_club_dashboard')
                                             |#{body}
                                             .date
                                                 |#{when}
-                                    if is_dev
-                                        +remove_button
+                                            if is_dev
+                                                +remove_button
                 .ui.accordion
                     h4.active.title
                         +icolor name='megaphone' classes='ui inline image'

@@ -20,15 +20,15 @@ template(name='user_edit')
                         label Last Name
                         input#last_name(type='text', placeholder='Last Name', value='{{user_from_id_param.last_name}}')
                     .field
-                        if user_from_id_param.image_id
-                            label Image
-                            .ui.centered.rounded.image
-                                img.ui.medium.image(src="{{c.url user_from_id_param.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                a#remove_photo.ui.right.corner.link.label
-                                    i.remove.link.icon
-                        else
-                            label Profile Image
-                            input(type='file' name='profile_image' accept='image/*')
+                        // if user_from_id_param.image_id
+                        //     label Image
+                        //     .ui.centered.rounded.image
+                        //         img.ui.medium.image(src="{{c.url user_from_id_param.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                        //         a#remove_photo.ui.right.corner.link.label
+                        //             i.remove.link.icon
+                        // else
+                        //     label Profile Image
+                        //     input(type='file' name='profile_image' accept='image/*')
                     .field
                         if user_from_id_param.profile.banner_image_id
                             label Banner Image

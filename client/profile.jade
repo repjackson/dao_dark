@@ -11,10 +11,10 @@ template(name='profile_layout')
                         .ui.padded.stackable.grid
                             .row
                                 .four.wide.column
-                                    .field
-                                        if image_id
-                                            a.item(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/about")
-                                                img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
+                                    // .field
+                                    //     if image_id
+                                    //         a.item(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/about")
+                                    //             img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
                                     // if current_user
                                     if is_admin
                                         .ui.vertical.fluid.menu
