@@ -49,10 +49,10 @@ template(name='topnav')
                     // +ioffice name='activity-grid-2' classes='ui avatar image'
                     i.sitemap.icon
                     // | Sections
+            a.icon.item.tribe_people(href="/t/#{ct.slug}/s/person" title='People')
+                i.users.icon
             a.icon.item(href="/t/#{ct.slug}/menu")
-                // +ioffice name='activity-grid-2' classes='ui avatar image'
                 i.th.icon
-                // | Sections
             if currentUser
                 a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
                     // +ioffice name='plus' classes='ui mini image'

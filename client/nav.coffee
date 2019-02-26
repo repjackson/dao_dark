@@ -53,6 +53,11 @@ Template.topnav.events
     # 'click .toggle_dev': ->
     #     Session.set('dev_mode', !Session.get('dev_mode'))
 
+    'click .tribe_people': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', 'person', Router.current().params.tribe_slug,->
+            Session.set 'loading', false
+    
     'click .tribe_schemas': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', 'schema', Router.current().params.tribe_slug,->
