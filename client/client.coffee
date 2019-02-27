@@ -148,6 +148,7 @@ Template.registerHelper 'small_bricks', () ->
         type:'brick'
         field:$in:['text','single_doc','multi_doc','boolean','color_icon','number']
         parent_id:schema._id
+        view_roles: $in:Meteor.user().roles
     }, sort:rank:1
     
     
@@ -168,6 +169,7 @@ Template.registerHelper 'big_bricks', () ->
         type:'brick'
         parent_id:schema._id
         field:$nin:['text','single_doc','multi_doc','boolean','color_icon','number']
+        view_roles: $in:Meteor.user().roles
     }, sort:rank:1
     
     
@@ -194,11 +196,22 @@ Template.registerHelper 'bricks', () ->
             slug:@type
             tribe:Router.current().params.tribe_slug
         # console.log @type, schema
-    Docs.find {
-        type:'brick'
-        parent_id:schema._id
-        # field:$nin:['text','single_doc','multi_doc','boolean']
-    }, sort:rank:1
+        
+    if 'dev' in Meteor.user().roles    
+        Docs.find {
+            type:'brick'
+            parent_id:schema._id
+            # view_roles: $in:Meteor.user().roles
+            # field:$nin:['text','single_doc','multi_doc','boolean']
+        }, sort:rank:1
+    else    
+        Docs.find {
+            type:'brick'
+            parent_id:schema._id
+            view_roles: $in:Meteor.user().roles
+            # field:$nin:['text','single_doc','multi_doc','boolean']
+        }, sort:rank:1
+        
     
     
     

@@ -24,24 +24,38 @@ template(name='checkin')
         .ui.button.checkout(title='Sign Out')
             i.sign.out.large.icon
             |Sign Out
+    .ui.header Events
+    .ui.feed
+        each log_events
+            .event
+                .label
+                    img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                .content
+                    .summary
+                        |#{body}
+                        .date
+                            |#{when}
+                        if is_dev
+                            +remove_button
 
 
 template(name='view_section')
     // a.ui.icon.button(href="/schema/#{_id}/edit")
     //     i.pencil.icon
     //     |Configure Schema
-    a.ui.view_section.circular.icon.large.basic.button(href="/t/#{ct.slug}/s/#{slug}" title='Select Schema')
+    a.ui.view_section.icon.large.button(href="/t/#{ct.slug}/s/#{slug}" title='Select Schema')
         i.sitemap.large.icon
         // +icolor name='back-sorting' classes='ui mini inline image'
         
         
 template(name='page_view')
-    a.ui.circular.basic.icon.button(href="/t/#{ct.slug}/p/#{slug}")
+    a.ui.icon.button(href="/t/#{ct.slug}/p/#{slug}")
         // i.eye.icon
         +icolor name='visible' classes='ui mini inline image'
         | Page View
         
         
 template(name='enter_tribe')
-    a.ui.enter_tribe.circular.basic.icon.button(href="/t/#{slug}" title="Enter #{title} Tribe")
-        +icolor name='fire' classes='ui mini inline image'
+    a.ui.enter_tribe.icon.button(href="/t/#{slug}" title="Enter #{title} Tribe")
+        // +icolor name='fire' classes='ui mini inline image'
+        |Enter Site

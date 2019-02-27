@@ -344,10 +344,20 @@ Meteor.methods
                 tribe:tribe
                 slug:type
         
-        schema_bricks = Docs.find(
-            type:'brick'
-            parent_id:schema._id
-            ).fetch()
+        if 'dev' in Meteor.user().roles    
+            schema_bricks = Docs.find({
+                type:'brick'
+                parent_id:schema._id
+                # view_roles: $in:Meteor.user().roles
+                # field:$nin:['text','single_doc','multi_doc','boolean']
+            }, sort:rank:1).fetch()
+        else    
+            schema_bricks = Docs.find({
+                type:'brick'
+                parent_id:schema._id
+                view_roles: $in:Meteor.user().roles
+                # field:$nin:['text','single_doc','multi_doc','boolean']
+            }, sort:rank:1).fetch()
             
         # console.log 'schema bricks', schema_bricks
             
@@ -355,6 +365,9 @@ Meteor.methods
         for brick in schema_bricks
             # console.log brick
             unless brick.field in ['textarea','image','youtube','html']
+
+                
+                
                 facet = {
                     key:brick.key
                     label:brick.label

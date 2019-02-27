@@ -2,7 +2,8 @@ template(name='delta')
     with schema
         .ui.stackable.grid
             .row
-                .column.padleft.scrolling(class=delta_left_column_class)
+                // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
+                .six.wide.column.padleft.scrolling
                     // a.ui.right.corner.label.move_left
                     //     i.left.chevron.link.icon
                     .ui.inline.header
@@ -14,7 +15,7 @@ template(name='delta')
                     // .ui.small.center.aligned.header #{body}
                     unless is_loading
                         if can_add
-                            .ui.circular.icon.large.button.add_type_doc(title="Add #{title}")
+                            .ui.icon.large.button.add_type_doc(title="Add #{title}")
                                 i.plus.large.icon
                             //   +icolor name='plus' classes='ui inline mini image'
                                 // |Add #{title}
@@ -47,7 +48,8 @@ template(name='delta')
                             
                     each current_delta.facets
                         +facet
-                .column(class=delta_right_column_class)
+                // .column(class=delta_right_column_class)
+                .ten.wide.column
                     // a.ui.left.corner.label.move_right
                     //     i.right.chevron.link.pointer.icon
                     // .ui.horizontal.spaced.list
@@ -82,56 +84,57 @@ template(name='delta')
                     //         .ui.disabled.circular.button
                     //             i.filter.icon
                     //             | Toggle Fields
-                    .ui.stackable.grid.scrolling(class=result_grid_class)
-                        each current_delta.result_ids
-                            .column
-                                +result
+                    // .ui.stackable.grid.scrolling(class=result_grid_class)
+                    each current_delta.result_ids
+                        +result
 
 
 template(name='facet')
     if filtering_res
-        div
-        if icon
-            i.grey.icon(class=icon)
-        .ui.small.inline.header 
-            |#{label}
-        // .ui.transparent.left.icon.small.input
-        //     i.search.icon
-        //     input.add_filter(type='text' placeholder='search')
-        // i.dropdown.icon
-        // each filters
-        //     .unselect.ui.grey.circular.button #{this}
-        each filtering_res
-            if name
-                .selector.ui.label.toggle_selection(class=toggle_value_class title=count)
-                    | #{name}
-                    // small #{count}
-            else
-                .selector.ui.label.toggle_selection(class=toggle_value_class title=count)
-                    strong [null]
-                // small #{count}
-    // .ui.accordion
-    //     .active.title
-    //         .ui.small.header 
-    //             if icon
-    //                 i.icon(class=icon)
-    //             |#{label}
-    //     .active.content
-    //         // .ui.transparent.left.icon.small.input
-    //         //     i.search.icon
-    //         //     input.add_filter(type='text' placeholder='search')
-    //         // i.dropdown.icon
-    //         // each filters
-    //         //     .unselect.ui.grey.circular.button #{this}
-    //         each filtering_res
-    //             if name
-    //                 .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-    //                     | #{name}
-    //                     // small #{count}
-    //             else
-    //                 .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
-    //                     strong [null]
-    //                     // small #{count}
+        .ui.accordion
+            .active.title
+                .ui.header 
+                    // if icon
+                    //     i.icon(class=icon)
+                    |#{label}
+                    i.grey.dropdown.icon
+            .active.content
+                // .ui.transparent.left.icon.small.input
+                //     i.search.icon
+                //     input.add_filter(type='text' placeholder='search')
+                // i.dropdown.icon
+                // each filters
+                //     .unselect.ui.grey.circular.button #{this}
+                each filtering_res
+                    if name
+                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                            | #{name}
+                            // small #{count}
+                    else
+                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                            strong [null]
+                            // small #{count}
+    
+        // div
+        // if icon
+        //     i.grey.icon(class=icon)
+        // .ui.small.inline.header 
+        //     |#{label}
+        // // .ui.transparent.left.icon.small.input
+        // //     i.search.icon
+        // //     input.add_filter(type='text' placeholder='search')
+        // // i.dropdown.icon
+        // // each filters
+        // //     .unselect.ui.grey.circular.button #{this}
+        // each filtering_res
+        //     if name
+        //         .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+        //             | #{name}
+        //             // small #{count}
+        //     else
+        //         .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+        //             strong [null]
+        //         // small #{count}
 
 
 
@@ -161,7 +164,7 @@ template(name='set_delta_key')
 
 template(name='result')
     with result 
-        .ui.result.segment(class="{{#if is_loading}}loading{{/if}}")
+        .ui.result.fluid.segment(class="{{#if is_loading}}loading{{/if}}")
             .content
                 a.ui.header(href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
                     if logo_id

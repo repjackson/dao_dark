@@ -11,9 +11,15 @@ Template.enter_tribe.events
     'click .enter_tribe': ->
         # console.log @
 
+Template.checkin.onCreated ->
+    @autorun -> Meteor.subscribe 'type', 'log_event'
 Template.checkin.helpers
     is_checkedin: ->
         
+    log_events: ->
+        Docs.find
+            object_id:@_id
+            type:'log_event'
 
 Template.checkin.events
     'click .checkin': (e,t)->
@@ -55,6 +61,7 @@ Template.checkin.events
                     $set:healthclub_checkedin:false
                 Docs.insert 
                     type:'log_event'
+                    parent_id:@_id
                     object_id:@_id
                     body: "#{@username} checked out."
             , 1000
