@@ -1,6 +1,6 @@
 template(name='topnav')
     // .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
-    .ui.attached.borderless.inverted.topnav.big.menu(style="background:#{ct.primary_color}")
+    .ui.attached.borderless.inverted.topnav.labeled.icon.menu(style="background:#{ct.primary_color}")
         if is_loading
             .icon.item
                 i.loading.refresh.large.icon
@@ -16,7 +16,7 @@ template(name='topnav')
                 a.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
                     img.ui.tiny.image(src="{{c.url ct.logo_id}}")
         if ct.title_header
-            a.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
+            a.ui.header.item(href="/t/#{ct.slug}" class="{{isActivePath '/'}}")
                 strong #{ct.title}
         // each topnav_schemas
         //     a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
@@ -41,40 +41,41 @@ template(name='topnav')
 
         // a.item.toggle_invert(href='#')
         //     i.adjust.icon
-        .right.menu
-            a.icon.item(href="/t/#{ct.slug}/chat" title='Chat')
-                i.chat.icon
-            a.icon.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
-                i.th.icon
-                // | Sections
-            // a.icon.item.tribe_people(href="/t/#{ct.slug}/s/person" title='People')
-            //     i.users.icon
-            // a.icon.item(href="/t/#{ct.slug}/menu")
-            //     i.th.icon
-            if currentUser
-                a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
-                    // +ioffice name='plus' classes='ui mini image'
-                    i.plus.icon
-                // a.item.toggle_topbar(href='#')
-                //     +ioffice name='inbox' classes='ui mini image'
-                    // i.inbox.icon
-                a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
-                    // +ioffice name='gender-neutral-user' classes='ui mini image'
-                    i.user.icon
-                    // | #{currentUser.username} [#{currentUser.status}]
-                    | #{currentUser.username}
-                a.icon.item.toggle_rightbar(href='#')
-                    // +ioffice name='menu'
-                    i.bars.icon
-            else
-                a.item(href="/t/goldrun/login")
-                    i.sign.in.alternate.icon
-                    // +ioffice name='login-rounded-down'
-                    |Sign In 
-                a.item(href="/t/goldrun/register")
-                    i.user.plus.icon
-                    // +ioffice name='add-user-male'
-                    |Register 
+        a.icon.item(href="/t/#{ct.slug}/chat" title='Chat')
+            i.chat.icon
+            |Chat
+        a.icon.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
+            i.th.icon
+            | Sections
+        // a.icon.item.tribe_people(href="/t/#{ct.slug}/s/person" title='People')
+        //     i.users.icon
+        // a.icon.item(href="/t/#{ct.slug}/menu")
+        //     i.th.icon
+        if currentUser
+            a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
+                // +ioffice name='plus' classes='ui mini image'
+                i.plus.icon
+                |Add
+            // a.item.toggle_topbar(href='#')
+            //     +ioffice name='inbox' classes='ui mini image'
+                // i.inbox.icon
+            a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
+                // +ioffice name='gender-neutral-user' classes='ui mini image'
+                i.user.icon
+                // | #{currentUser.username} [#{currentUser.status}]
+                | #{currentUser.username}
+            a.icon.item.toggle_rightbar(href='#')
+                // +ioffice name='menu'
+                i.bars.icon
+        else
+            a.item(href="/t/goldrun/login")
+                i.sign.in.alternate.icon
+                // +ioffice name='login-rounded-down'
+                |Sign In 
+            a.item(href="/t/goldrun/register")
+                i.user.plus.icon
+                // +ioffice name='add-user-male'
+                |Register 
     // if is_admin
     // .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
     //     each topnav_schemas

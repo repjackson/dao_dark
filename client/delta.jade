@@ -17,8 +17,8 @@ template(name='delta')
                         if can_add
                             .ui.icon.large.button.add_type_doc(title="Add #{title}")
                                 i.plus.large.icon
+                                |Add #{title}
                             //   +icolor name='plus' classes='ui inline mini image'
-                                // |Add #{title}
                         if can_edit
                             +edit_button
                             // .ui.circular.button.edit_schema
@@ -85,8 +85,9 @@ template(name='delta')
                     //             i.filter.icon
                     //             | Toggle Fields
                     // .ui.stackable.grid.scrolling(class=result_grid_class)
-                    each current_delta.result_ids
-                        +result
+                    .scrolling
+                        each current_delta.result_ids
+                            +result
 
 
 template(name='facet')
@@ -189,8 +190,8 @@ template(name='result')
                     +view_button
                     each schema.actions
                         +Template.dynamic template=this data=..
-                +author_info
-                +creation_info
+                    +author_info
+                    +creation_info
 
     
     //     each _keys
