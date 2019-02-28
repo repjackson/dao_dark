@@ -15,7 +15,7 @@ Meteor.methods
                     tribe:tribe
                     }
             
-            console.log 'schema', schema
+            # console.log 'schema', schema
             
             # if not delta.facets
             #     delta.facets = []

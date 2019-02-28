@@ -56,18 +56,19 @@ template(name='topnav')
         // a.icon.item(href="/t/#{ct.slug}/menu")
         //     i.th.icon
         if currentUser
-            a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
-                // +ioffice name='plus' classes='ui mini image'
-                i.plus.icon
-                // |Add
+            // a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
+            //     // +ioffice name='plus' classes='ui mini image'
+            //     i.plus.icon
+            //     // |Add
             // a.item.toggle_topbar(href='#')
             //     +ioffice name='inbox' classes='ui mini image'
                 // i.inbox.icon
-            a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
-                // +ioffice name='gender-neutral-user' classes='ui mini image'
-                i.user.icon
-                // | #{currentUser.username} [#{currentUser.status}]
-                // | #{currentUser.username}
+            if is_dev
+                a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
+                    // +ioffice name='gender-neutral-user' classes='ui mini image'
+                    i.user.icon
+                    // | #{currentUser.username} [#{currentUser.status}]
+                    // | #{currentUser.username}
             // a.icon.item.toggle_rightbar(href='#')
             //     // +ioffice name='menu'
             //     i.bars.icon
@@ -261,17 +262,17 @@ template(name='footer')
                 .inverted.column
                     +role_switcher
 
-                    h5.ui.small.inverted.header Social Media
-                    .ui.list
-                        if ct.facebook
-                            a.item(href="https://www.facebook.com/#{ct.facebook}", target='_blank')
-                                img(src='/images/32x32x1.png', alt='32x32x1')
-                        if ct.twitter
-                            a.item(href='https://twitter.com/Joyful_Giver', target='_blank')
-                                img(src='/images/32x32x2.png', alt='32x32x2')
-                        if ct.instagram
-                            a.item(href='https://www.instagram.com/joyfulgiver_app/', target='_blank')
-                                img(src='/images/32x32x9.png', alt='32x32x9')
+                    // h5.ui.small.inverted.header Social Media
+                    // .ui.list
+                    //     if ct.facebook
+                    //         a.item(href="https://www.facebook.com/#{ct.facebook}", target='_blank')
+                    //             img(src='/images/32x32x1.png', alt='32x32x1')
+                    //     if ct.twitter
+                    //         a.item(href='https://twitter.com/Joyful_Giver', target='_blank')
+                    //             img(src='/images/32x32x2.png', alt='32x32x2')
+                    //     if ct.instagram
+                    //         a.item(href='https://www.instagram.com/joyfulgiver_app/', target='_blank')
+                    //             img(src='/images/32x32x9.png', alt='32x32x9')
                 //     .ui.small.images
                 //         img(src='/images/stripe.png', alt='100x80x1')
                 //         img(src='/images/ssl.png', alt='100x80x2')
