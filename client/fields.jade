@@ -65,7 +65,7 @@ template(name='link_view')
 
 
 template(name='image_view')
-    img.ui.medium.image(src="{{c.url field_value}}")
+    img.ui.small.centered.rounded.image(src="{{c.url field_value width=200 gravity='face' crop='fill'}}")
 
 
 template(name='image_edit')

@@ -203,12 +203,15 @@ template(name='result')
                             +Template.dynamic template=view_template 
                     // |#{title}
                 .description
-                    // each schema.field_templates
-                    //     with field_template_doc
-                    //         +Template.dynamic template=view_template
-                    each bricks
-                        unless header
-                            +Template.dynamic template=view_template 
+                    .ui.two.column.grid
+                        .column
+                            each small_bricks
+                                unless header
+                                    +Template.dynamic template=view_template 
+                        .column
+                            each big_bricks
+                                unless header
+                                    +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     if can_edit

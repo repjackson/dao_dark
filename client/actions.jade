@@ -19,13 +19,15 @@ template(name='checkin')
     unless healthclub_checkedin
         .ui.circular.button.checkin(title='Check In')
             // i.sign.in.icon
-            +icolor name='login-rounded-right' classes='ui avatar image'
+            +icolor name='login-rounded-right' classes='ui mini inline image'
             |Sign In to Health Club
     if healthclub_checkedin
         .ui.circular.button.checkout(title='Sign Out')
             // i.sign.out.large.icon
-            +icolor name='exit-sign' classes='ui avatar image'
+            +icolor name='exit-sign' classes='ui mini inline image'
             |Sign Out from Health Club
+    +rules_sign
+    +guest_sign
     .ui.accordion
         .title
             .ui.inline.small.header
@@ -61,6 +63,18 @@ template(name='page_view')
         i.eye.icon
         // +icolor name='visible' classes='ui mini inline image'
         | Page View
+        
+        
+template(name='rules_sign')
+    a.ui.circular.button(href="/t/#{ct.slug}/p/#{slug}")
+        +icolor name='autograph' classes='ui mini inline image'
+        | Sign/View Rules
+        
+        
+template(name='guest_sign')
+    a.ui.circular.button(href="/t/#{ct.slug}/p/#{slug}")
+        +icolor name='add-user-group-man-man' classes='ui mini inline image'
+        | Sign In a Guest
         
         
 template(name='enter_tribe')

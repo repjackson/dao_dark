@@ -146,7 +146,7 @@ Template.registerHelper 'small_bricks', () ->
         
     Docs.find {
         type:'brick'
-        field:$in:['text','single_doc','multi_doc','boolean','color_icon','number']
+        field:$in:['text','single_doc','multi_doc','boolean','color_icon','number',]
         parent_id:schema._id
         view_roles: $in:Meteor.user().roles
     }, sort:rank:1
