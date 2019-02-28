@@ -276,6 +276,11 @@ if Meteor.isClient
         , 1500
     
     Template.facet.events
+        'click .ui.accordion': ->
+            $('.accordion').accordion()
+
+    
+    
         'click .toggle_selection': ->
             delta = Docs.findOne type:'delta'
             facet = Template.currentData()

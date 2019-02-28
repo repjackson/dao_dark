@@ -377,14 +377,14 @@ Meteor.methods
                 }
                 facets.push facet
             
-        # timestamp_tags_facet = {
-        #     key:'timestamp_tags'
-        #     label:'Created'
-        #     icon:'clock'
-        #     filters:[]
-        #     res:[]
-        # }
-        # facets.push timestamp_tags_facet
+        timestamp_tags_facet = {
+            key:'_timestamp_tags'
+            label:'Created'
+            icon:'clock'
+            filters:[]
+            res:[]
+        }
+        facets.push timestamp_tags_facet
         
         Docs.update my_delta._id,        
             $set:

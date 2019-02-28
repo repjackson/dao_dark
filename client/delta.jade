@@ -7,10 +7,10 @@ template(name='delta')
                     // a.ui.right.corner.label.move_left
                     //     i.left.chevron.link.icon
                     .ui.inline.header
-                        // if color_icon
-                        //     +icolor name=color_icon
-                        // else
-                        i.icon(class=icon)
+                        if color_icon
+                            +icolor name=color_icon
+                        else
+                            i.icon(class=icon)
                         | #{plural}
                     // .ui.small.center.aligned.header #{body}
                     unless is_loading
@@ -95,10 +95,10 @@ template(name='facet')
         .ui.accordion
             .active.title
                 .ui.header 
-                    // if icon
-                    //     i.icon(class=icon)
+                    if icon
+                        i.small.grey.icon(class=icon)
                     |#{label}
-                    i.grey.dropdown.icon
+                    // i.grey.dropdown.icon
             .active.content
                 // .ui.transparent.left.icon.small.input
                 //     i.search.icon
@@ -187,10 +187,10 @@ template(name='result')
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     if can_edit
                         +edit_button
-                    +view_button
+                        +view_button
                     each schema.actions
                         +Template.dynamic template=this data=..
-                    +author_info
+                    // +author_info
                     +creation_info
 
     

@@ -12,9 +12,9 @@ Template.topnav.onRendered ->
     #             $('.dropdown').dropdown()
     #         , 3000
     
-    Meteor.setTimeout ->
-        $('.item').popup()
-    , 3000
+    # Meteor.setTimeout ->
+    #     $('.item').popup()
+    # , 3000
     
 
 Template.topnav.helpers
@@ -46,6 +46,21 @@ Template.topnav.helpers
     # user: -> Meteor.users.findOne username:Router.current().params.username
 
 Template.topnav.events
+    'click .toggle_leftbar': ->
+        $('.context .ui.left.sidebar')
+            .sidebar({
+                context: $('.context .bottom.segment')
+                exclusive: true
+                delaySetup:true
+                dimPage: true
+                transition: 'overlay'
+            })
+            .sidebar('attach events', '.toggle_leftbar')
+
+
+
+
+
     # 'click .add': ->
     #     new_id = Docs.insert {}
     #     Router.go "/edit/#{new_id}"
@@ -69,16 +84,16 @@ Template.topnav.events
             Session.set 'loading', false
 
 
-Template.topbar.onCreated ->
-    @autorun => Meteor.subscribe 'type', 'page'
+# Template.topbar.onCreated ->
+#     @autorun => Meteor.subscribe 'type', 'page'
 
 
 
-Template.topbar.helpers
-    nonprofit_pages: ->
-        Docs.find
-            type:'page'
-            nonprofit_footer:true
+# Template.topbar.helpers
+#     nonprofit_pages: ->
+#         Docs.find
+#             type:'page'
+#             nonprofit_footer:true
             
 
 
@@ -100,25 +115,25 @@ Template.leftbar.onRendered ->
                         transition: 'overlay'
                     })
                     .sidebar('attach events', '.toggle_leftbar')
-            , 3000
+            , 2000
 
 
-Template.topbar.onRendered ->
-    @autorun =>
-        if @subscriptionsReady()
-            Meteor.setTimeout ->
-                $('.context .ui.top.sidebar')
-                    .sidebar({
-                        context: $('.context .bottom.segment')
-                        exclusive: true
-                        delaySetup:false
-                        dimPage: false
-                        transition:  'overlay'
-                    })
-                    .sidebar('attach events', '.toggle_topbar')
-            , 3000
+# Template.topbar.onRendered ->
+#     @autorun =>
+#         if @subscriptionsReady()
+#             Meteor.setTimeout ->
+#                 $('.context .ui.top.sidebar')
+#                     .sidebar({
+#                         context: $('.context .bottom.segment')
+#                         exclusive: true
+#                         delaySetup:false
+#                         dimPage: false
+#                         transition:  'overlay'
+#                     })
+#                     .sidebar('attach events', '.toggle_topbar')
+#             , 3000
 
-Template.rightbar.events
+Template.leftbar.events
     'click .tribe_pages': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', 'page', Router.current().params.tribe_slug,->
@@ -130,25 +145,28 @@ Template.rightbar.events
             Session.set 'loading', false
 
 
+
+
+
     'click .logout': -> 
         Meteor.logout()
         Router.go '/signin'
 
 
-Template.rightbar.onRendered ->
-    @autorun =>
-        if @subscriptionsReady()
-            Meteor.setTimeout ->
-                $('.context .ui.right.sidebar')
-                    .sidebar({
-                        context: $('.context .bottom.segment')
-                        exclusive: true
-                        delaySetup:false
-                        dimPage: false
-                        transition:  'push'
-                    })
-                    .sidebar('attach events', '.toggle_rightbar')
-            , 3000
+# Template.rightbar.onRendered ->
+#     @autorun =>
+#         if @subscriptionsReady()
+#             Meteor.setTimeout ->
+#                 $('.context .ui.right.sidebar')
+#                     .sidebar({
+#                         context: $('.context .bottom.segment')
+#                         exclusive: true
+#                         delaySetup:false
+#                         dimPage: false
+#                         transition:  'push'
+#                     })
+#                     .sidebar('attach events', '.toggle_rightbar')
+#             , 3000
 
 
 
@@ -164,9 +182,8 @@ Template.leftbar.helpers
 Template.leftbar.events
     'click .set_schema': ->
         Session.set 'loading', true
-        Meteor.call 'set_delta_facets', @slug, ->
+        Meteor.call 'set_delta_facets', @slug, Router.current().params.tribe_slug,->
             Session.set 'loading', false
-
 
 
 

@@ -15,7 +15,7 @@ Meteor.methods
                     tribe:tribe
                     }
             
-            # console.log 'schema', schema
+            console.log 'schema', schema
             
             # if not delta.facets
             #     delta.facets = []
@@ -48,7 +48,7 @@ Meteor.methods
     
             skip_amount = current_page*calc_page_size-calc_page_size
     
-            final_sort_key = if delta.sort_key then delta.sort_key else 'timestamp'
+            final_sort_key = if delta.sort_key then delta.sort_key else '_timestamp'
             final_sort_direction = if delta.sort_direction then delta.sort_direction else -1
     
             results_cursor =
@@ -98,7 +98,7 @@ Meteor.methods
             # console.log 'delta', delta
 
     agg: (query, key)->
-        limit=50
+        limit=25
         # console.log 'agg query', query
         # console.log 'agg key', key
         options = { explain:false }
