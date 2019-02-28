@@ -250,6 +250,28 @@ if Meteor.isClient
                     right_column_size:-1
 
 
+    
+    Template.events_column.onCreated ->
+        @autorun -> Meteor.subscribe 'type', 'log_event'
+    Template.events_column.helpers
+        is_checkedin: ->
+            
+        log_events: ->
+            Docs.find {
+                # object_id:@_id
+                type:'log_event'
+            }, sort:_timestamp:-1
+    
+
+
+
+
+
+
+
+
+
+
 
     Template.type_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type

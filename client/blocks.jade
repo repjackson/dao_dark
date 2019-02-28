@@ -73,8 +73,8 @@ template(name='author_info')
     a.ui.circular.button(href="/u/#{username}") by #{author.username}
 
 template(name='creation_info')
-    .ui.small.header #{when}
-    .ui.small.header #{long_date _timestamp}
+    .ui.small.inline.header #{when}
+    .ui.small.inline.header #{long_date _timestamp}
 
 
 template(name='user_list_toggle')
@@ -109,10 +109,10 @@ template(name='view_button')
         i.right.chevron.icon
 
 template(name='remove_button')
-    a.ui.circular.button.remove(title='Delete')
+    a.ui.circular.icon.compact.small.button.remove(title='Delete')
         i.remove.icon
         // +iblue name='delete-sign'
-        |Remove #{title}
+        // |Remove #{title}
         // |Remove #{title} #{type}
             
 

@@ -65,7 +65,7 @@ template(name='link_view')
 
 
 template(name='image_view')
-    img.ui.fluid.image(src="{{c.url field_value}}")
+    img.ui.medium.image(src="{{c.url field_value}}")
 
 
 template(name='image_edit')
@@ -392,9 +392,11 @@ template(name='boolean_view')
 
         |#{label}: &nbsp;
         if field_value
-            // .ui.blue.label #{label}
-            strong True
+            .ui.basic.green.label
+                i.checkmark.icon
+                |#{label}
         else
+            // .ui.basic.red.label #{label}
             strong False
             // .ui.label #{label}
         

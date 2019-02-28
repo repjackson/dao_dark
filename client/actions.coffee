@@ -13,13 +13,22 @@ Template.enter_tribe.events
 
 Template.checkin.onCreated ->
     @autorun -> Meteor.subscribe 'type', 'log_event'
+Template.checkin.onRendered ->
+    Meteor.setTimeout ->
+        $('.accordion').accordion()
+    , 1500
+    
+
+
 Template.checkin.helpers
     is_checkedin: ->
         
     log_events: ->
-        Docs.find
+        Docs.find {
             object_id:@_id
             type:'log_event'
+        }, sort:_timestamp:-1
+
 
 Template.checkin.events
     'click .checkin': (e,t)->

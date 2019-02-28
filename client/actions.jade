@@ -24,21 +24,26 @@ template(name='checkin')
     if healthclub_checkedin
         .ui.circular.button.checkout(title='Sign Out')
             // i.sign.out.large.icon
-            +icolor name='login-rounded-right' classes='ui avatar image'
+            +icolor name='exit-sign' classes='ui avatar image'
             |Sign Out from Health Club
-    .ui.header Events
-    .ui.feed
-        each log_events
-            .event
-                .label
-                    img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                .content
-                    .summary
-                        |#{body}
-                        .date
-                            |#{when}
-                        if is_dev
-                            +remove_button
+    .ui.accordion
+        .title
+            .ui.inline.small.header
+                |Events
+                i.dropdown.icon
+        .content
+            .ui.feed
+                each log_events
+                    .event
+                        .label
+                            img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                        .content
+                            .summary
+                                |#{body}
+                                .date
+                                    |#{when}
+                                if is_dev
+                                    +remove_button
 
 
 template(name='view_section')

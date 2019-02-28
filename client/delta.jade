@@ -88,7 +88,7 @@ template(name='delta')
                     .scrolling
                         each current_delta.result_ids
                             +result
-                .four.wide.column
+                .four.wide.column.scrolling
                     +events_column
                 
 template(name='events_column')
@@ -101,10 +101,10 @@ template(name='events_column')
             i.dropdown.icon
         .active.content
             .ui.feed
-                each events
+                each log_events
                     .event
                         .label
-                            img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                            img.ui.image(src="{{c.url object.image width=400 height=400 gravity='face' crop='fill'}}")
                         .content
                             .summary
                                 |#{body}
