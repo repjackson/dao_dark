@@ -203,7 +203,7 @@ template(name='result')
                             +Template.dynamic template=view_template 
                     // |#{title}
                 .description
-                    .ui.two.column.grid
+                    .ui.two.column.stackable.grid
                         .column
                             each small_bricks
                                 unless header
@@ -252,6 +252,7 @@ template(name='type_edit')
             .centered.row
                 .four.wide.column
                     .ui.header(title="Type: #{type}")
+                        |#{title}
                         each bricks
                             if header
                                 +Template.dynamic template=view_template 
@@ -260,6 +261,7 @@ template(name='type_edit')
                     +save_button
                     +remove_button
                 .twelve.wide.column
+                    |#{type}
                     each small_bricks
                         +Template.dynamic template=edit_template 
                     each big_bricks

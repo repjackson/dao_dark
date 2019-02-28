@@ -57,12 +57,32 @@ template(name='user_status')
 
 template(name='user_info')
     a.ui.label(href="/t/goldrun/u/#{user._id}/about")
-        if user.profile.image_id
-            img.ui.mini.image(src="{{c.url user.profile.image_id }}")
+        if user.image_id
+            img.ui.mini.image(src="{{c.url user.image_id }}")
         if user.name
             |#{user.name}
         |@#{user.username}
+        |@#{user.first_name}
+        |@#{user.last_name}
         +user_status user
+
+template(name='user_card')
+    a.ui.segment(href="/t/goldrun/u/#{user._id}/about")
+        if user.image_id
+            img.ui.small.image(src="{{c.url user.image_id }}")
+        |@#{user.username}
+        |@#{user.first_name}
+        |@#{user.last_name}
+        +user_status user
+
+template(name='person_card')
+    a.ui.segment(href="/t/goldrun/p/person/#{person._id}/about")
+        if person.image_id
+            img.ui.small.image(src="{{c.url person.image_id }}")
+        |@#{person.username}
+        |@#{person.first_name}
+        |@#{person.last_name}
+        // +user_status user
 
 
 template(name='role_editor')

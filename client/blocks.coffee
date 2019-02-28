@@ -39,6 +39,26 @@ if Meteor.isClient
             Meteor.users.findOne @valueOf()
     
     
+    Template.user_card.onCreated ->
+        @autorun => Meteor.subscribe 'user_from_id', @data
+    Template.user_card.helpers
+        user: -> 
+            # console.log @
+            Meteor.users.findOne @valueOf()
+    
+    
+    
+    Template.person_card.onCreated ->
+        @autorun => Meteor.subscribe 'type', 'person'
+        @autorun => Meteor.subscribe 'doc_id', @data
+    Template.person_card.helpers
+        person: -> 
+            console.log @
+            Docs.findOne @valueOf()
+    
+    
+    
+    
     Template.toggle_edit.events
         'click .toggle_edit': ->
             console.log @

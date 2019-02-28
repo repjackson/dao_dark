@@ -19,6 +19,28 @@ Template.checkin.onRendered ->
     , 1500
     
 
+Template.rules_sign.onCreated ->
+    @autorun => Meteor.subscribe 'type', 'person'
+
+Template.rules_sign.helpers
+    rules_signed: ->
+        Docs.findOne
+            type:'rules_and_regulations_acknowledgement'
+            person_id: @_id
+            
+Template.rules_sign.events
+    'click .sign_rules': ->
+        rules_doc_id = Docs.insert
+            type:'rules_and_regulations_acknowledgement'
+            person_id: @_id
+        Router.go("/t/goldrun/s/rules_and_regulations_acknowledgement/#{rules_doc_id}/edit")
+
+    'click .view_rules': ->
+        rules_doc = Docs.findOne
+            type:'rules_and_regulations_acknowledgement'
+            person_id: @_id
+        Router.go("/t/goldrun/s/rules_and_regulations_acknowledgement/#{rules_doc._id}/view")
+
 
 Template.checkin.helpers
     is_checkedin: ->

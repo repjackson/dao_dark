@@ -40,7 +40,7 @@ Meteor.methods
                         { $set: 'facets.$.res': agg_res }
     
             # if delta.limit then limit=delta.limit else limit=30
-            calc_page_size = if delta.page_size then delta.page_size else 10
+            calc_page_size = if delta.page_size then delta.page_size else 20
 
             page_amount = Math.ceil(total/calc_page_size)
     

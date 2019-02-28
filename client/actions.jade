@@ -66,13 +66,18 @@ template(name='page_view')
         
         
 template(name='rules_sign')
-    a.ui.circular.button(href="/t/#{ct.slug}/p/#{slug}")
-        +icolor name='autograph' classes='ui mini inline image'
-        | Sign/View Rules
+    if rules_signed
+        .ui.circular.compact.green.small.button.view_rules
+            +icolor name='autograph' classes='ui mini inline image'
+            | View Signed Rule Doc
+    else
+        .ui.circular.compact.red.button.sign_rules
+            +icolor name='alert' classes='ui mini inline image'
+            | Sign Rules
         
         
 template(name='guest_sign')
-    a.ui.circular.button(href="/t/#{ct.slug}/p/#{slug}")
+    a.ui.circular.compact.button(href="/t/#{ct.slug}/p/#{slug}")
         +icolor name='add-user-group-man-man' classes='ui mini inline image'
         | Sign In a Guest
         
