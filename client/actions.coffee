@@ -2,7 +2,7 @@ Template.view_section.events
     'click .view_section': ->
         # console.log @
         Session.set 'loading', true
-        Meteor.call 'set_delta_facets', @slug, ->
+        Meteor.call 'set_delta_facets', @slug, Router.current().params.tribe_slug,->
             Session.set 'loading', false
             
             

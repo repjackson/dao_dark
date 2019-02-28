@@ -17,12 +17,14 @@ template(name='notify_button')
 
 template(name='checkin')
     unless healthclub_checkedin
-        .ui.button.checkin(title='Check In')
-            i.sign.in.icon
+        .ui.circular.button.checkin(title='Check In')
+            // i.sign.in.icon
+            +icolor name='login-rounded-right' classes='ui avatar image'
             |Sign In to Health Club
     if healthclub_checkedin
-        .ui.button.checkout(title='Sign Out')
-            i.sign.out.large.icon
+        .ui.circular.button.checkout(title='Sign Out')
+            // i.sign.out.large.icon
+            +icolor name='login-rounded-right' classes='ui avatar image'
             |Sign Out from Health Club
     .ui.header Events
     .ui.feed
@@ -50,7 +52,7 @@ template(name='view_section')
         
         
 template(name='page_view')
-    a.ui.button(href="/t/#{ct.slug}/p/#{slug}")
+    a.ui.circular.button(href="/t/#{ct.slug}/p/#{slug}")
         i.eye.icon
         // +icolor name='visible' classes='ui mini inline image'
         | Page View

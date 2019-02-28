@@ -27,7 +27,7 @@ Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 Template.registerHelper 'is_author', () -> @_author_id is Meteor.userId()
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
-Template.registerHelper 'formatted_date', () -> moment(@date).format("dddd, MMMM Do")
+Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do")
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 

@@ -48,9 +48,7 @@ template(name='health_club_dashboard')
                                             a.ui.button(href="/t/goldrun/u/#{_id}/about")
                                                 |View
                                                 i.chevron.right.icon
-                                            .ui.button.checkout(title='Sign Out')
-                                                i.sign.out.large.icon
-                                                |Sign Out
+                                            +checkin
                                             if signed_waiver
                                                 .ui.green.basic.button
                                                     i.checkmark.icon
@@ -104,9 +102,7 @@ template(name='health_club_dashboard')
                                                     |Owner 
                                                     i.checkmark.icon
                                     .extra
-                            .ui.button.checkin(title='Check In')
-                                i.sign.in.icon
-                                |Sign In
+                                +checkin
             .four.wide.column.scrolling
                 a.ui.large.fluid.button(href='/t/goldrun/add_resident')
                     i.user.plus.icon

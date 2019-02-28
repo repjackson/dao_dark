@@ -365,17 +365,18 @@ Meteor.methods
         for brick in schema_bricks
             # console.log brick
             unless brick.field in ['textarea','image','youtube','html']
-
-                
-                
-                facet = {
-                    key:brick.key
-                    label:brick.label
-                    icon:brick.icon
-                    filters:[]
-                    res:[]
-                }
-                facets.push facet
+                if _.intersection(Meteor.user().roles,brick.faceted_roles).length > 0
+                    # console.log 'intersection', _.intersection(Meteor.user().roles,brick.faceted_roles)
+                    # console.log 'faceted roles',brick.faceted_roles
+                    # console.log 'brick',brick.label
+                    facet = {
+                        key:brick.key
+                        label:brick.label
+                        icon:brick.icon
+                        filters:[]
+                        res:[]
+                    }
+                    facets.push facet
             
         timestamp_tags_facet = {
             key:'_timestamp_tags'

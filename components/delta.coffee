@@ -268,6 +268,12 @@ if Meteor.isClient
                 Docs.remove @_id
                 Router.go '/schemas'
 
+    Template.type_view.events
+        'click .set_tribe_schema': ->
+            Session.set 'loading', true
+            Meteor.call 'set_delta_facets', @slug, Router.current().params.tribe_slug,->
+                Session.set 'loading', false
+
 
 
     Template.facet.onRendered ->

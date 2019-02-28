@@ -38,8 +38,8 @@ template(name='add')
         .row
             .sixteen.wide.column
                 .ui.center.aligned.header
-                    // +icolor name='plus'
-                    i.plus.icon
+                    +icolor name='plus'
+                    // i.plus.icon
                     | Add
         .row
             .sixteen.wide.column
@@ -48,21 +48,21 @@ template(name='add')
                         .card.add_schema
                             .content
                                 .header 
-                                    i.sitemap.icon
-                                    // +icolor name='active-directory'
+                                    // i.sitemap.icon
+                                    +icolor name='active-directory'
                                     | Schema
                         .card.add_page
                             .content
                                 .header 
-                                    i.clone.icon
-                                    // +icolor name='template'
+                                    // i.clone.icon
+                                    +icolor name='template'
                                     | Page
                     each add_schemas
                         .card.add_doc
                             .content
                                 .header 
-                                    i.icon(class=icon)
-                                    // +icolor name=color_icon
+                                    // i.icon(class=icon)
+                                    +icolor name=color_icon
                                     |#{title}
                         
                         

@@ -8,20 +8,20 @@ template(name='topnav')
             a.item.icon.toggle_leftbar(href='#')
                 // +ioffice name='menu'
                 i.bars.icon
-            if ct.color_icon_header
-                a.header.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
-                    +icolor name=ct.color_icon
-            if ct.logo_id
-                if ct.logo_header
-                    a.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
-                        img.ui.tiny.image(src="{{c.url ct.logo_id}}")
-            if ct.title_header
-                if is_dev
-                    a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
-                        strong #{ct.title}
-                else 
-                    a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/menu" class="{{isActivePath '/'}}")
-                        strong #{ct.title}
+        if ct.color_icon_header
+            a.header.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
+                +icolor name=ct.color_icon
+        if ct.logo_id
+            if ct.logo_header
+                a.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
+                    img.ui.tiny.image(src="{{c.url ct.logo_id}}")
+        if ct.title_header
+            if is_dev
+                a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
+                    strong #{ct.title}
+            else 
+                a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/menu" class="{{isActivePath '/'}}")
+                    strong #{ct.title}
         // each topnav_schemas
         //     a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
         //         if color_icon
@@ -31,17 +31,17 @@ template(name='topnav')
         //         if show_label
         //             |&nbsp;
         //             strong #{plural}
-        // each topnav_pages
-        //     a.item(href="/t/#{ct.slug}/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
-        //         // if color_icon_header
-        //         //     +ioffice name=color_icon
-        //         if show_icon
-        //             i.icon(class=icon)
-        //         if show_label
-        //             |&nbsp; #{title}
-        //     if is_dev
-        //         a.icon.item(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
-        //             i.pencil.icon
+        each topnav_pages
+            a.item(href="/t/#{ct.slug}/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
+                // if color_icon_header
+                //     +ioffice name=color_icon
+                if show_icon
+                    i.icon(class=icon)
+                if show_label
+                    |&nbsp; #{title}
+            if is_dev
+                a.icon.item(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
+                    i.pencil.icon
 
         // a.item.toggle_invert(href='#')
         //     i.adjust.icon
@@ -51,15 +51,16 @@ template(name='topnav')
         // a.icon.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
         //     i.th.icon
         //     | Sections
-        // a.icon.item.tribe_people(href="/t/#{ct.slug}/s/person" title='People')
-        //     i.users.icon
+        a.icon.item.tribe_people(href="/t/#{ct.slug}/s/person" title='People')
+            i.users.icon
+            |People
         // a.icon.item(href="/t/#{ct.slug}/menu")
         //     i.th.icon
         if currentUser
-            // a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
-            //     // +ioffice name='plus' classes='ui mini image'
-            //     i.plus.icon
-            //     // |Add
+            a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
+                // +ioffice name='plus' classes='ui mini image'
+                i.plus.icon
+                |Add
             // a.item.toggle_topbar(href='#')
             //     +ioffice name='inbox' classes='ui mini image'
                 // i.inbox.icon
