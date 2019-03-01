@@ -46,25 +46,45 @@ Router.route '/u/:username/stripe', (->
     @render 'user_stripe'
     ), name:'user_stripe'
 
-# Router.route '/t/:tribe_slug/u/:username/blog', (->
-#     @layout 'profile_layout'
-#     @render 'user_blog'
-#     ), name:'user_blog'
+Router.route '/u/:username/blog', (->
+    @layout 'profile_layout'
+    @render 'user_blog'
+    ), name:'user_blog'
 
-# Router.route '/t/:tribe_slug/u/:username/events', (->
-#     @layout 'profile_layout'
-#     @render 'user_events'
-#     ), name:'user_events'
+Router.route '/u/:username/events', (->
+    @layout 'profile_layout'
+    @render 'user_events'
+    ), name:'user_events'
+
+Router.route '/u/:username/tags', (->
+    @layout 'profile_layout'
+    @render 'user_tags'
+    ), name:'user_tags'
+    
+    
+Router.route '/u/:username/messages', (->
+    @layout 'profile_layout'
+    @render 'user_messages'
+    ), name:'user_messages'
+    
+    
+Router.route '/u/:username/notifications', (->
+    @layout 'profile_layout'
+    @render 'user_notifications'
+    ), name:'user_notifications'
+    
+    
+    
 
 Router.route '/u/:username/chat', (->
     @layout 'profile_layout'
     @render 'user_chat'
     ), name:'user_user_chat'
 
-# Router.route '/u/:username/gallery', (->
-#     @layout 'profile_layout'
-#     @render 'user_Gallery'
-#     ), name:'user_Gallery'
+Router.route '/u/:username/gallery', (->
+    @layout 'profile_layout'
+    @render 'user_Gallery'
+    ), name:'user_Gallery'
 
 # Router.route '/u/:username/staff', (->
 #     @layout 'profile_layout'

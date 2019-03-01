@@ -21,19 +21,29 @@ template(name='profile_layout')
                                             a.item(href="/u/#{user_from_username_param.username}/edit")
                                                 i.settings.icon
                                                 | Settings
-                                    .ui.vertical.fluid.menu
-                                        each user_schemas
-                                            a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
-                                                i.icon(class=icon)
-                                                .content    
-                                                    .header
-                                                        |#{plural}
+                                    // .ui.vertical.fluid.menu
+                                    //     each user_schemas
+                                    //         a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                                    //             i.icon(class=icon)
+                                    //             .content    
+                                    //                 .header
+                                    //                     |#{plural}
                                     .ui.vertical.fluid.menu
                                         a.item(href="/u/#{user_from_username_param.username}/about" class="{{isActiveRoute regex='user_about'}}")
                                             i.info.icon
                                             .content    
                                                 .header
                                                     |About
+                                        a.item(href="/u/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
+                                            i.mail.icon
+                                            .content    
+                                                .header
+                                                    |Messages
+                                        a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_messages'}}")
+                                            i.bullhorn.icon
+                                            .content    
+                                                .header
+                                                    |Notifications
                                         a.item(href="/u/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
                                             i.chat.icon
                                             .content    
@@ -44,6 +54,11 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |Stripe
+                                        a.item(href="/u/#{user_from_username_param.username}/tags" class="{{isActiveRoute regex='user_tags'}}")
+                                            i.tags.icon
+                                            .content    
+                                                .header
+                                                    |Tags
                                         a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
                                             i.phone.icon
                                             .content    
@@ -234,24 +249,6 @@ template(name='user_following')
         +user_array_list user=user_from_username_param array='following_ids'
       
                 
-template(name='user_tags')
-    .ui.secondary.segment
-        .ui.inline.header 
-            i.tags.icon
-            |Tags
-        each tags
-            .ui.basic.label 
-                if is_user
-                    i.remove.link.icon.remove_tag
-                |#{this}
-        // if current_user
-        //     // if current_user
-        //     .ui.fluid.input
-        //         input.tag_user(type='text' placeholder='Tag yourself...')
-            // else    
-            //     .ui.fluid.input
-            //         input(type='text' placeholder="Tag #{user_from_username_param.profile.name}")
-            
             
 template(name='role_switcher')
     i.user.shield.icon(title='Role Switcher')
