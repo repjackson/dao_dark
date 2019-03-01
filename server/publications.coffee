@@ -140,10 +140,16 @@ Meteor.publish 'user_schemas', ()->
         
         
         
-Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type)->
+Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type, user_mode)->
     # console.log tribe_slug
     # console.log type
-    if type in ['field', 'brick','tribe','page','block','schema']
+    if user_mode
+        schema = Docs.findOne
+            type:'schema'
+            user_schema:true
+            slug:type
+        
+    else if type in ['field', 'brick','tribe','page','block','schema']
         schema = Docs.findOne
             type:'schema'
             slug:type
@@ -163,6 +169,13 @@ Meteor.publish 'document_by_slug', (slug)->
     Docs.find
         type:'document'
         slug:slug
+        
+        
+Meteor.publish 'wall_posts', (username)->
+    console.log username
+    Docs.find
+        type:'wall_post'
+        parent_username:username
         
         
         

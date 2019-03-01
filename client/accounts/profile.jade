@@ -39,12 +39,12 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |Chat
-                                        a.item(href="/u/#{user_from_username_param._id}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
                                             i.stripe.icon
                                             .content    
                                                 .header
                                                     |Stripe
-                                        a.item(href="/u/#{user_from_username_param._id}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
                                             i.phone.icon
                                             .content    
                                                 .header
@@ -93,7 +93,6 @@ template(name='profile_layout')
                                         | #{user.last_name}
                                         | #{user.username}
                                     +yield
-                                    // +user_feed
                                     // +churchDashboard
             +footer
 template(name='user_section')
@@ -101,43 +100,46 @@ template(name='user_section')
     // +Template.dynamic template=user_section_template
 
 template(name='user_about')
-    img.ui.fluid.rounded.image(src="{{c.url profile.banner_image_id width=1000 height=300 crop='crop'}}")
+    .ui.padded.stackable.grid
+        .eight.wide.column
+            .ui.list
+                .ui.item First Name 
+                    strong #{first_name}
+                .ui.item Last Name 
+                    strong #{last_name}
+                // .ui.item Address 
+                //     strong #{address}
+                // .ui.item Unit # 
+                //     strong #{apt_number}
+                // .ui.item Building # 
+                //     strong #{building_number}
+                // .ui.item Start Date 
+                //     strong #{start_date}
+                // .ui.item Lease Expiration 
+                //     strong #{lease_expiration}
+                .ui.item Telephone 
+                    strong #{telephone}
+                .ui.item Email 
+                    strong #{email}
+                .ui.item Owner 
+                    strong #{owner}
+        .eight.wide.column
+            +user_wall
+    // img.ui.fluid.rounded.image(src="{{c.url profile.banner_image_id width=1000 height=300 crop='crop'}}")
     // .profile-banner-container
-    .ui.secondary.segment
-        .ui.list
-            .ui.item First Name 
-                strong #{first_name}
-            .ui.item Last Name 
-                strong #{last_name}
-            // .ui.item Address 
-            //     strong #{address}
-            // .ui.item Unit # 
-            //     strong #{apt_number}
-            // .ui.item Building # 
-            //     strong #{building_number}
-            // .ui.item Start Date 
-            //     strong #{start_date}
-            // .ui.item Lease Expiration 
-            //     strong #{lease_expiration}
-            .ui.item Telephone 
-                strong #{telephone}
-            .ui.item Email 
-                strong #{email}
-            .ui.item Owner 
-                strong #{owner}
-
-        .ui.inline.header
-            i.fire.icon
-            |Group Memberships
-        each tribes
-            a.ui.button(href="/t/#{this}") 
-                i.external.icon
-                |#{this}
-        .ui.small.inline.header 
-            i.linkify.icon
-            |Link
-        a(href=profile.website target='_blank') #{profile.website}
-        +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
+    +user_feed
+    .ui.inline.header
+        i.fire.icon
+        |Group Memberships
+    each tribes
+        a.ui.button(href="/t/#{this}") 
+            i.external.icon
+            |#{this}
+    .ui.small.inline.header 
+        i.linkify.icon
+        |Link
+    a(href=profile.website target='_blank') #{profile.website}
+    +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
     +user_bookmarks    
     if current_user
         +role_switcher
@@ -275,3 +277,14 @@ template(name='user_string_toggle')
     .ui.button.toggle_element(class=user_string_element_toggle_class)
         |#{value}
 
+
+
+template(name='user_wall')
+    .ui.header Wall
+    if currentUser
+        .ui.fluid.icon.input
+            i.plus.icon
+            input.add_wall_post(type='text' placeholder='Add Note...')
+    each user_posts
+        .ui.item
+            |#{body}

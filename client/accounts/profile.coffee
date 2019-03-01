@@ -145,3 +145,31 @@ Template.user_tags.events
         console.log @
         Meteor.users.update Router.current().params.username,
             $pull:tags:element
+
+
+Template.user_wall.onCreated ->
+    @autorun => Meteor.subscribe 'wall_posts', Router.current().params.username
+
+    
+    
+Template.user_wall.helpers
+    user_posts: ->
+        Docs.find
+            type:'wall_post'
+            parent_username:Router.current().params.username
+
+
+Template.user_wall.events
+    'keyup .add_wall_post': (e,t)->
+        if e.which is 13
+            post = t.$('.add_wall_post').val().trim()
+            console.log post
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Docs.insert
+                body:post
+                type:'wall_post'
+                parent_user_id:current_user._id
+                parent_username:current_user.username
+            
+            t.$('.add_wall_post').val('')
+
