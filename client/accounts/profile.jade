@@ -3,8 +3,8 @@ template(name='profile_layout')
         +topnav
         .ui.bottom.attached.basic.segment.pushable
             +leftbar
-            +topbar
-            +rightbar
+            // +topbar
+            // +rightbar
             .pusher
                 #main
                     with user_from_username_param
@@ -13,42 +13,42 @@ template(name='profile_layout')
                                 .four.wide.column
                                     .field
                                         if image_id
-                                            a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/about")
+                                            a.item(href="/t/#{ct.slug}/u/#{user_from_username_param.username}/about")
                                                 img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
                                     // if current_user
                                     if is_admin
                                         .ui.vertical.fluid.menu
-                                            a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/edit")
+                                            a.item(href="/u/#{user_from_username_param.username}/edit")
                                                 i.settings.icon
                                                 | Settings
-                                    // .ui.vertical.fluid.menu
-                                    //     each user_schemas
-                                    //         a.item.set_delta_schema(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/s/#{slug}" class="{{isActiveRoute regex=group}}")
-                                    //             i.icon(class=icon)
-                                    //             .content    
-                                    //                 .header
-                                    //                     |#{plural}
                                     .ui.vertical.fluid.menu
-                                        a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/about" class="{{isActiveRoute regex='user_about'}}")
+                                        each user_schemas
+                                            a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                                                i.icon(class=icon)
+                                                .content    
+                                                    .header
+                                                        |#{plural}
+                                    .ui.vertical.fluid.menu
+                                        a.item(href="/u/#{user_from_username_param.username}/about" class="{{isActiveRoute regex='user_about'}}")
                                             i.info.icon
                                             .content    
                                                 .header
                                                     |About
-                                        a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/chat" class="{{isActiveRoute regex='user_chat'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
                                             i.chat.icon
                                             .content    
                                                 .header
                                                     |Chat
-                                        // a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
-                                        //     i.stripe.icon
-                                        //     .content    
-                                        //         .header
-                                        //             |Stripe
-                                        // a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/contact" class="{{isActiveRoute regex='user_contact'}}")
-                                        //     i.phone.icon
-                                        //     .content    
-                                        //         .header
-                                        //             |Contact
+                                        a.item(href="/u/#{user_from_username_param._id}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
+                                            i.stripe.icon
+                                            .content    
+                                                .header
+                                                    |Stripe
+                                        a.item(href="/u/#{user_from_username_param._id}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                                            i.phone.icon
+                                            .content    
+                                                .header
+                                                    |Contact
                                     if is_user
                                         .ui.vertical.fluid.menu
                                             a.item.logout(href='#')
@@ -97,7 +97,7 @@ template(name='profile_layout')
                                     // +churchDashboard
             +footer
 template(name='user_section')
-    +type
+    +delta
     // +Template.dynamic template=user_section_template
 
 template(name='user_about')

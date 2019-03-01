@@ -4,11 +4,11 @@
 
 
 Template.user_edit.onCreated ->
-    @autorun -> Meteor.subscribe 'user_from_id', Router.current().params._id
+    @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
 
 
 Template.user_schema_editor.onCreated ->
-    @autorun -> Meteor.subscribe 'church_schemas'
+    @autorun -> Meteor.subscribe 'user_schemas'
     
 Template.user_tribe_editor.onCreated ->
     @autorun -> Meteor.subscribe 'type','tribe'
@@ -24,10 +24,14 @@ Template.user_schema_editor.helpers
     schemas: -> 
         Docs.find
             type:'schema'
+            user_schema:true
     
     user_schema_class: ->
-        current_user = Meteor.users.findOne Router.current().params._id
-        if current_user.schema_ids and @_id in current_user.schema_ids then 'darkblue' else ''
+        current_user = Meteor.users.findOne username:Router.current().params.username
+        console.log @
+        console.log current_user
+        
+        if current_user.schema_ids and @_id in current_user.schema_ids then 'blue' else ''
 
 Template.user_tribe_editor.helpers
     tribes: -> 
@@ -41,7 +45,8 @@ Template.user_tribe_editor.helpers
 
 Template.user_schema_editor.events
     'click .toggle_schema': ->
-        current_user = Meteor.users.findOne Router.current().params._id
+        current_user = Meteor.users.findOne username:Router.current().params.username
+        console.log @
         if current_user.schema_ids and @_id in current_user.schema_ids
             Meteor.users.update current_user._id,
                 $pull: schema_ids: @_id

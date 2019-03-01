@@ -328,12 +328,17 @@ Meteor.methods
     #     else 
     #         return null            
         
-    set_delta_facets: (type, tribe)->
+    set_delta_facets: (type, tribe, user_mode)->
         my_delta = Docs.findOne 
             type:'delta'
             _author_id:Meteor.userId()
         
-        if type in ['field', 'brick','schema','tribe','page','block']
+        if user_mode
+            schema = Docs.findOne
+                type:'schema'
+                user_schema:true
+                slug:type
+        else if type in ['field', 'brick','schema','tribe','page','block']
             schema = Docs.findOne
                 type:'schema'
                 tribe:'dao'

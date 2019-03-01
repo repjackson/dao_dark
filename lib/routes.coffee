@@ -56,7 +56,7 @@ Router.route '/u/:username/stripe', (->
 #     @render 'user_events'
 #     ), name:'user_events'
 
-Router.route '/t/:tribe_slug/u/:username/chat', (->
+Router.route '/u/:username/chat', (->
     @layout 'profile_layout'
     @render 'user_chat'
     ), name:'user_user_chat'
@@ -82,7 +82,7 @@ Router.route '/u/:username/contact', (->
 #     ), name:'user_campaigns'
 
 
-Router.route '/t/:tribe_slug/u/:username/edit', -> @render 'user_edit'
+Router.route '/u/:username/edit', -> @render 'user_edit'
 
 
 Router.route '/t/:tribe_slug/p/:slug', -> @render 'page'

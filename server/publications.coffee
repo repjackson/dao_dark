@@ -132,6 +132,13 @@ Meteor.publish 'schemas', (dev_mode)->
                 # view_roles:$in:['public']
         
         
+Meteor.publish 'user_schemas', ()->
+    Docs.find
+        type:'schema'
+        user_schema:true
+        # view_roles:$in:Meteor.user().roles
+        
+        
         
 Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type)->
     # console.log tribe_slug
