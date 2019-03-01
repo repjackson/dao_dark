@@ -161,7 +161,7 @@ template(name='doc_edit')
     with referenced_document
         .ui.styled.fluid.accordion
             .title 
-                |Content
+                |Content #{label}
                 i.dropdown.icon
             .content 
                 |!{html}
@@ -170,7 +170,7 @@ template(name='doc_view')
     with referenced_document
         .ui.styled.fluid.accordion
             .title 
-                |Content
+                |Content #{label}
                 i.dropdown.icon
             .content 
                 |!{html}
@@ -540,8 +540,17 @@ template(name='single_user_edit')
             //                     small @#{username}
 
 
+template(name='single_person_view')
+    div
+    .ui.small.header #{label}
+    if field_value
+        +person_card field_value
+    div
+            
+            
 template(name='single_person_edit')
     .ui.form
+        label Person Selection for #{label}
         if field_value
             +person_card field_value
         else

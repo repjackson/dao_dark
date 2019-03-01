@@ -97,3 +97,13 @@ Template.checkin.events
                     object_id:@_id
                     body: "#{@username} checked out."
             , 1000
+
+
+
+Template.guest_sign.events
+    'click .enter_guest': ->
+        # console.log @
+        checkin_doc_id = Docs.insert
+            type:'health_club_checkin'
+            guest_of_id:@_id
+        Router.go("/t/goldrun/s/health_club_checkin/#{checkin_doc_id}/edit")

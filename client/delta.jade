@@ -203,15 +203,13 @@ template(name='result')
                             +Template.dynamic template=view_template 
                     // |#{title}
                 .description
-                    .ui.two.column.stackable.grid
-                        .column
-                            each small_bricks
-                                unless header
-                                    +Template.dynamic template=view_template 
-                        .column
-                            each big_bricks
-                                unless header
-                                    +Template.dynamic template=view_template 
+                    each small_bricks
+                        unless header
+                            +Template.dynamic template=view_template 
+                .description
+                    each big_bricks
+                        unless header
+                            +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     if can_edit

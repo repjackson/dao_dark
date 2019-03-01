@@ -665,6 +665,8 @@ Template.single_user_edit.events
 
 Template.doc_edit.onCreated ->
     @autorun => Meteor.subscribe 'document_by_slug', @data.key
+
+
 Template.doc_edit.onRendered ->
     Meteor.setTimeout ->
         $('.accordion').accordion()
