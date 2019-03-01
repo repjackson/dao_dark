@@ -260,8 +260,9 @@ if Meteor.isClient
             Docs.find {
                 # object_id:@_id
                 type:'log_event'
-            }, sort:_timestamp:-1
-    
+            }, 
+                sort:_timestamp:-1
+                limit:20
 
 
 

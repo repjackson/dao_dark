@@ -84,16 +84,16 @@ Template.topnav.events
             Session.set 'loading', false
 
 
-# Template.topbar.onCreated ->
-#     @autorun => Meteor.subscribe 'type', 'page'
+Template.topbar.onCreated ->
+    @autorun => Meteor.subscribe 'type', 'page'
 
 
 
-# Template.topbar.helpers
-#     nonprofit_pages: ->
-#         Docs.find
-#             type:'page'
-#             nonprofit_footer:true
+Template.topbar.helpers
+    nonprofit_pages: ->
+        Docs.find
+            type:'page'
+            nonprofit_footer:true
             
 
 
@@ -118,20 +118,20 @@ Template.leftbar.onRendered ->
             , 2000
 
 
-# Template.topbar.onRendered ->
-#     @autorun =>
-#         if @subscriptionsReady()
-#             Meteor.setTimeout ->
-#                 $('.context .ui.top.sidebar')
-#                     .sidebar({
-#                         context: $('.context .bottom.segment')
-#                         exclusive: true
-#                         delaySetup:false
-#                         dimPage: false
-#                         transition:  'overlay'
-#                     })
-#                     .sidebar('attach events', '.toggle_topbar')
-#             , 3000
+Template.topbar.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.context .ui.top.sidebar')
+                    .sidebar({
+                        context: $('.context .bottom.segment')
+                        exclusive: true
+                        delaySetup:false
+                        dimPage: false
+                        transition:  'overlay'
+                    })
+                    .sidebar('attach events', '.toggle_topbar')
+            , 3000
 
 Template.leftbar.events
     'click .tribe_pages': ->
@@ -153,20 +153,20 @@ Template.leftbar.events
         Router.go '/signin'
 
 
-# Template.rightbar.onRendered ->
-#     @autorun =>
-#         if @subscriptionsReady()
-#             Meteor.setTimeout ->
-#                 $('.context .ui.right.sidebar')
-#                     .sidebar({
-#                         context: $('.context .bottom.segment')
-#                         exclusive: true
-#                         delaySetup:false
-#                         dimPage: false
-#                         transition:  'push'
-#                     })
-#                     .sidebar('attach events', '.toggle_rightbar')
-#             , 3000
+Template.rightbar.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.context .ui.right.sidebar')
+                    .sidebar({
+                        context: $('.context .bottom.segment')
+                        exclusive: true
+                        delaySetup:false
+                        dimPage: false
+                        transition:  'push'
+                    })
+                    .sidebar('attach events', '.toggle_rightbar')
+            , 3000
 
 
 

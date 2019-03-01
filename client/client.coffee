@@ -27,7 +27,7 @@ Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 Template.registerHelper 'is_author', () -> @_author_id is Meteor.userId()
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
-Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do")
+Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do h:mm:ss a")
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
@@ -283,8 +283,8 @@ Template.registerHelper 'can_edit', () ->
         if 'dev' in Meteor.user().roles 
             # console.log 'dev in role'
             true
-        # else if Meteor.userId() is @_author_id 
-        #     true
+        else if Meteor.userId() is @_author_id 
+            true
         else if Meteor.user().roles
             if @edit_roles
                 union = _.intersection Meteor.user().roles,@edit_roles

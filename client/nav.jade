@@ -16,12 +16,12 @@ template(name='topnav')
                 a.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
                     img.ui.tiny.image(src="{{c.url ct.logo_id}}")
         if ct.title_header
-            // if is_dev
-            a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
-                strong #{ct.title}
-            // else 
-            //     a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/menu" class="{{isActivePath '/'}}")
-            //         strong #{ct.title}
+            if is_dev
+                a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
+                    strong #{ct.title}
+            else 
+                a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/menu" class="{{isActivePath '/'}}")
+                    strong #{ct.title}
         // each topnav_schemas
         //     a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
         //         if color_icon
@@ -43,45 +43,40 @@ template(name='topnav')
         //         a.icon.item(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
         //             i.pencil.icon
 
-        // a.item.toggle_invert(href='#')
-        //     i.adjust.icon
-        // a.icon.item(href="/t/#{ct.slug}/chat" title='Chat')
-        //     i.chat.icon
-        //     |Chat
+        a.icon.item(href="/t/#{ct.slug}/chat" title='Chat')
+            i.chat.icon
+            // |Chat
         // a.icon.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
         //     i.th.icon
         //     | Sections
         a.icon.item.tribe_people(href="/t/#{ct.slug}/s/person" title='People')
             i.users.icon
-            |People
+            // |People
         // a.icon.item(href="/t/#{ct.slug}/menu")
         //     i.th.icon
-        if currentUser
-            a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
-                // +ioffice name='plus' classes='ui mini image'
-                i.plus.icon
-                |Add
-            // a.item.toggle_topbar(href='#')
-            //     +ioffice name='inbox' classes='ui mini image'
-                // i.inbox.icon
-            if is_dev
-                a.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
-                    // +ioffice name='gender-neutral-user' classes='ui mini image'
+        +role_switcher
+        .right.menu
+            if currentUser
+                a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
+                    // +ioffice name='plus' classes='ui mini image'
+                    i.plus.icon
+                a.item.toggle_topbar(href='#')
+                    i.inbox.icon
+                a.icon.item(href="/t/#{ct.slug}/u/#{currentUser._id}/about" title="#{ct.title} Profile")
                     i.user.icon
-                    // | #{currentUser.username} [#{currentUser.status}]
-                    | #{currentUser.username}
-            // a.icon.item.toggle_rightbar(href='#')
-            //     // +ioffice name='menu'
-            //     i.bars.icon
-        else
-            a.item(href="/t/goldrun/login")
-                i.sign.in.alternate.icon
-                // +ioffice name='login-rounded-down'
-                |Sign In 
-            a.item(href="/t/goldrun/register")
-                i.user.plus.icon
-                // +ioffice name='add-user-male'
-                |Register 
+                        // | #{currentUser.username} [#{currentUser.status}]
+                    // | #{currentUser.username}
+                a.icon.item.toggle_rightbar(href='#')
+                    i.bars.icon
+            else
+                a.item(href="/t/goldrun/login")
+                    i.sign.in.alternate.icon
+                    // +ioffice name='login-rounded-down'
+                    |Sign In 
+                a.item(href="/t/goldrun/register")
+                    i.user.plus.icon
+                    // +ioffice name='add-user-male'
+                    |Register 
     // if is_admin
     // .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
     //     each topnav_schemas
@@ -94,28 +89,28 @@ template(name='topnav')
 
 
 
-// template(name='topbar')
-//     .ui.top.sidebar.inverted.push.nav_bar.toggle_topbar.topbar(style="background:#{ct.primary_color}")
-//         .ui.grid
-//             .centered.row
-//                 .four.wide.center.aligned.column
-//                     .ui.inverted.list
-//                         each nonprofit_pages
-//                             a.item(href="/p/#{slug}") #{title}
-//                 .four.wide.center.aligned.column
-//                     .ui.inverted.list
-//                         each church_pages
-//                             a.item(href="/p/#{slug}") #{title}
-//                 .four.wide.center.aligned.column
-//                     .ui.inverted.list
-//                         each also_serving_pages
-//                             a.item(href="/p/#{slug}") #{title}
+template(name='topbar')
+    .ui.top.sidebar.inverted.push.nav_bar.toggle_topbar.topbar(style="background:#{ct.primary_color}")
+        .ui.grid
+            .centered.row
+                .four.wide.center.aligned.column
+                    .ui.inverted.list
+                        each nonprofit_pages
+                            a.item(href="/p/#{slug}") #{title}
+                .four.wide.center.aligned.column
+                    .ui.inverted.list
+                        each church_pages
+                            a.item(href="/p/#{slug}") #{title}
+                .four.wide.center.aligned.column
+                    .ui.inverted.list
+                        each also_serving_pages
+                            a.item(href="/p/#{slug}") #{title}
                             
-//                 .four.wide.center.aligned.column
-//                     .ui.inverted.list
-//                         each resource_pages
-//                             a.item(href="/p/#{slug}") #{title}
-//         a.icon.item(href='/alerts' title='Alerts')
+                .four.wide.center.aligned.column
+                    .ui.inverted.list
+                        each resource_pages
+                            a.item(href="/p/#{slug}") #{title}
+        a.icon.item(href='/alerts' title='Alerts')
 
 
 
@@ -239,6 +234,12 @@ template(name='footer')
             .three.column.row
                 .column
                     h5.ui.small.inverted.header Info
+                    h5.ui.inverted.small.header   	
+                        |2959 Shadow Creek Dr
+                    h5.ui.inverted.small.header   	
+                        |(303) 545-1787
+                    h5.ui.inverted.small.header   	
+                        |Boulder, Colorado 80303
                     with ct.owner
                         h5.ui.small.inverted.header Owner Info
                         +user_info

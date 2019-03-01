@@ -180,15 +180,16 @@ template(name='doc_view')
 
 
 template(name='text_edit')
-    .ui.labeled.fluid.input
-        .ui.basic.label 
+    .ui.form
+        .field
             // if icon
             //     i.grey.icon(class=icon)
-            if label
-                |#{label}
-            else
-                |#{key}
-        input.edit_text(type='text' value=field_value placeholder=placeholder)
+            label 
+                if label
+                    |#{label}
+                else
+                    |#{key}
+            input.edit_text(type='text' value=field_value placeholder=placeholder)
 
 template(name='text_view')
     if field_value
