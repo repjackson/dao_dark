@@ -241,8 +241,10 @@ Template.registerHelper 'nl2br', (text)->
     new Spacebars.SafeString(nl2br)
 
     
-Template.registerHelper 'user_from_id_param', () ->
-    Meteor.users.findOne Router.current().params._id
+Template.registerHelper 'user_from_username_param', () ->
+    found = Meteor.users.findOne username:Router.current().params.username
+    # console.log found
+    found
 
 Template.registerHelper 'is_schema_type', () ->
     @type is 'schema'

@@ -1,6 +1,6 @@
 Template.profile_layout.onCreated ->
-    @autorun -> Meteor.subscribe 'user_from_id', Router.current().params._id
-    @autorun -> Meteor.subscribe 'user_schemas', Router.current().params._id
+    @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
+    @autorun -> Meteor.subscribe 'user_schemas', Router.current().params.username
     
 Template.user_section.helpers
     user_section_template: ->
@@ -8,10 +8,10 @@ Template.user_section.helpers
     
 Template.profile_layout.helpers
     user: ->
-        Meteor.users.findOne '_id': Router.current().params._id
+        Meteor.users.findOne 'username': Router.current().params.username
     
     user_schemas: ->
-        user = Meteor.users.findOne Router.current().params._id
+        user = Meteor.users.findOne Router.current().params.username
         Docs.find
             type:'schema'
             _id:$in:user.schema_ids
@@ -55,7 +55,7 @@ Template.profile_layout.helpers
 Template.profile_layout.events
     'click .set_delta_schema': ->
         console.log @
-        Meteor.call 'set_delta_facets', @slug, Session.get('delta_id'), Router.current().params._id
+        Meteor.call 'set_delta_facets', @slug, Session.get('delta_id'), Router.current().params.username
 
     'click .logout': ->
         Meteor.logout()
@@ -64,14 +64,14 @@ Template.profile_layout.events
 
 Template.user_array_element_toggle.helpers
     user_array_element_toggle_class: ->
-        # user = Meteor.users.findOne Router.current().params._id
+        # user = Meteor.users.findOne Router.current().params.username
         if @value in @user["#{@key}"] then 'blue' else ''
         
         
 Template.user_array_element_toggle.events
     'click .toggle_element': (e,t)->
         # console.log @
-        # user = Meteor.users.findOne Router.current().params._id
+        # user = Meteor.users.findOne Router.current().params.username
         if @user["#{@key}"]
             if @value in @user["#{@key}"]
                 Meteor.users.update @user._id,
@@ -85,7 +85,7 @@ Template.user_array_element_toggle.events
      
      
 Template.site_switcher.onCreated ->
-    @autorun => Meteor.subscribe 'user_sites', Router.current().params._id
+    @autorun => Meteor.subscribe 'user_sites', Router.current().params.username
         
 Template.user_array_list.helpers
     users: ->
@@ -134,7 +134,7 @@ Template.user_tags.events
         if e.which is 13
             element_val = t.$('.tag_user').val().trim()
             # # console.log element_val
-            Meteor.users.update Router.current().params._id,
+            Meteor.users.update Router.current().params.username,
                 $addToSet:tags:element_val
             
             t.$('.tag_user').val('')
@@ -143,5 +143,5 @@ Template.user_tags.events
     'click .remove_tag': (e,t)->
         element = @valueOf()
         console.log @
-        Meteor.users.update Router.current().params._id,
+        Meteor.users.update Router.current().params.username,
             $pull:tags:element

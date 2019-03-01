@@ -3,48 +3,48 @@ template(name='profile_layout')
         +topnav
         .ui.bottom.attached.basic.segment.pushable
             +leftbar
-            // +topbar
-            // +rightbar
+            +topbar
+            +rightbar
             .pusher
                 #main
-                    with user_from_id_param
+                    with user_from_username_param
                         .ui.padded.stackable.grid
                             .row
                                 .four.wide.column
                                     .field
                                         if image_id
-                                            a.item(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/about")
+                                            a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/about")
                                                 img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
                                     // if current_user
                                     if is_admin
                                         .ui.vertical.fluid.menu
-                                            a.item(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/edit")
+                                            a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/edit")
                                                 i.settings.icon
                                                 | Settings
                                     // .ui.vertical.fluid.menu
                                     //     each user_schemas
-                                    //         a.item.set_delta_schema(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                                    //         a.item.set_delta_schema(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/s/#{slug}" class="{{isActiveRoute regex=group}}")
                                     //             i.icon(class=icon)
                                     //             .content    
                                     //                 .header
                                     //                     |#{plural}
                                     .ui.vertical.fluid.menu
-                                        a.item(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/about" class="{{isActiveRoute regex='user_about'}}")
+                                        a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/about" class="{{isActiveRoute regex='user_about'}}")
                                             i.info.icon
                                             .content    
                                                 .header
                                                     |About
-                                        a.item(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/chat" class="{{isActiveRoute regex='user_chat'}}")
+                                        a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/chat" class="{{isActiveRoute regex='user_chat'}}")
                                             i.chat.icon
                                             .content    
                                                 .header
                                                     |Chat
-                                        // a.item(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
+                                        // a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
                                         //     i.stripe.icon
                                         //     .content    
                                         //         .header
                                         //             |Stripe
-                                        // a.item(href="/t/#{ct.slug}/u/#{user_from_id_param._id}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                                        // a.item(href="/t/#{ct.slug}/u/#{user_from_username_param._id}/contact" class="{{isActiveRoute regex='user_contact'}}")
                                         //     i.phone.icon
                                         //     .content    
                                         //         .header
@@ -109,16 +109,16 @@ template(name='user_about')
                 strong #{first_name}
             .ui.item Last Name 
                 strong #{last_name}
-            .ui.item Address 
-                strong #{address}
-            .ui.item Unit # 
-                strong #{apt_number}
-            .ui.item Building # 
-                strong #{building_number}
-            .ui.item Start Date 
-                strong #{start_date}
-            .ui.item Lease Expiration 
-                strong #{lease_expiration}
+            // .ui.item Address 
+            //     strong #{address}
+            // .ui.item Unit # 
+            //     strong #{apt_number}
+            // .ui.item Building # 
+            //     strong #{building_number}
+            // .ui.item Start Date 
+            //     strong #{start_date}
+            // .ui.item Lease Expiration 
+            //     strong #{lease_expiration}
             .ui.item Telephone 
                 strong #{telephone}
             .ui.item Email 
@@ -214,7 +214,7 @@ template(name='follow_user')
         else
             i.renew.icon
         |Followed By
-        +user_array_list user=user_from_id_param array='followed_by_ids'
+        +user_array_list user=user_from_username_param array='followed_by_ids'
             
             
 template(name='user_array_list')
@@ -229,7 +229,7 @@ template(name='user_following')
         .ui.header 
             i.human.icon
             |Following
-        +user_array_list user=user_from_id_param array='following_ids'
+        +user_array_list user=user_from_username_param array='following_ids'
       
                 
 template(name='user_tags')
@@ -248,7 +248,7 @@ template(name='user_tags')
         //         input.tag_user(type='text' placeholder='Tag yourself...')
             // else    
             //     .ui.fluid.input
-            //         input(type='text' placeholder="Tag #{user_from_id_param.profile.name}")
+            //         input(type='text' placeholder="Tag #{user_from_username_param.profile.name}")
             
             
 template(name='role_switcher')

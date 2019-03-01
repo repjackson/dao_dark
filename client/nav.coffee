@@ -145,9 +145,13 @@ Template.leftbar.events
             Session.set 'loading', false
 
 
+    'click .logout': -> 
+        Meteor.logout()
+        Router.go '/signin'
 
 
 
+Template.rightbar.events
     'click .logout': -> 
         Meteor.logout()
         Router.go '/signin'
@@ -166,7 +170,7 @@ Template.rightbar.onRendered ->
                         transition:  'push'
                     })
                     .sidebar('attach events', '.toggle_rightbar')
-            , 3000
+            , 2000
 
 
 

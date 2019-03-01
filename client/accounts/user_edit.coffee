@@ -168,60 +168,60 @@ Template.user_edit.events
                         $set: "image_id": res.public_id
                 return
     
-    'blur #apt_number': (e) ->
-        val =  $('#apt_number').val()
-        Meteor.users.update Router.current().params._id, 
-            $set: apt_number: val
+    # 'blur #apt_number': (e) ->
+    #     val =  $('#apt_number').val()
+    #     Meteor.users.update Router.current().params._id, 
+    #         $set: apt_number: val
 
-    'blur #building_number': (e) ->
-        val =  $('#building_number').val()
-        Meteor.users.update Router.current().params._id, 
-            $set: building_number: val
+    # 'blur #building_number': (e) ->
+    #     val =  $('#building_number').val()
+    #     Meteor.users.update Router.current().params._id, 
+    #         $set: building_number: val
     
-    'blur #first_name': (e) ->
-        val =  $('#first_name').val()
-        Meteor.users.update Router.current().params._id, 
-            $set: first_name: val
+    # 'blur #first_name': (e) ->
+    #     val =  $('#first_name').val()
+    #     Meteor.users.update Router.current().params._id, 
+    #         $set: first_name: val
     
-    'blur #last_name': (e) ->
-        val =  $('#last_name').val()
-        Meteor.users.update Router.current().params._id, 
-            $set: last_name: val
+    # 'blur #last_name': (e) ->
+    #     val =  $('#last_name').val()
+    #     Meteor.users.update Router.current().params._id, 
+    #         $set: last_name: val
     
-    'blur #address': (e) ->
-        val =  $('#address').val()
-        Meteor.users.update Router.current().params._id, 
-            $set: address: val
+    # 'blur #address': (e) ->
+    #     val =  $('#address').val()
+    #     Meteor.users.update Router.current().params._id, 
+    #         $set: address: val
     
-    'blur #start_date': (e) ->
-        val =  $('#start_date').val()
-        Meteor.users.update Router.current().params._id, 
-            $set: start_date: val
+    # 'blur #start_date': (e) ->
+    #     val =  $('#start_date').val()
+    #     Meteor.users.update Router.current().params._id, 
+    #         $set: start_date: val
     
-    'blur #lease_expiration': (e) ->
-        val =  $('#lease_expiration').val()
-        Meteor.users.update Router.current().params._id, 
-            $set: lease_expiration: val
+    # 'blur #lease_expiration': (e) ->
+    #     val =  $('#lease_expiration').val()
+    #     Meteor.users.update Router.current().params._id, 
+    #         $set: lease_expiration: val
     
-    'blur #telephone': (e) ->
-        val =  parseInt($('#telephone').val())
-        console.log val
-        Meteor.users.update Router.current().params._id, 
-            $set: telephone: val
+    # 'blur #telephone': (e) ->
+    #     val =  parseInt($('#telephone').val())
+    #     console.log val
+    #     Meteor.users.update Router.current().params._id, 
+    #         $set: telephone: val
     
-    'blur #email': (e) ->
-        val =  $('#email').val()
-        Meteor.users.update Router.current().params._id, 
-            $set: email: val
+    # 'blur #email': (e) ->
+    #     val =  $('#email').val()
+    #     Meteor.users.update Router.current().params._id, 
+    #         $set: email: val
     
-    'click .owner': (e) ->
-        current_user = Meteor.users.findOne Router.current().params._id
-        if current_user.owner
-            Meteor.users.update Router.current().params._id, 
-                $set: owner: false
-        else
-            Meteor.users.update Router.current().params._id, 
-                $set: owner: true
+    # 'click .owner': (e) ->
+    #     current_user = Meteor.users.findOne Router.current().params._id
+    #     if current_user.owner
+    #         Meteor.users.update Router.current().params._id, 
+    #             $set: owner: false
+    #     else
+    #         Meteor.users.update Router.current().params._id, 
+    #             $set: owner: true
 
     "change input[name='banner_image']": (e) ->
         files = e.currentTarget.files

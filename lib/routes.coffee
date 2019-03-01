@@ -6,7 +6,7 @@ Router.configure
 
 
 
-Router.route '/', -> @redirect '/t/goldrun'
+Router.route '/', -> @redirect '/t/goldrun/menu'
 
 Router.route '/t/:tribe_slug/chat', -> @render 'view_chats'
 Router.route '/t/:tribe_slug/add', -> @render 'add'
@@ -16,11 +16,6 @@ Router.route '/me', -> @render 'me'
 # Router.route '/t/:tribe_slug/users', -> @render 'users'
 Router.route '/t/:tribe_slug/inbox', -> @render 'inbox'
 Router.route '/bank', -> @render 'bank'
-Router.route '/t/:tribe_slug/add_resident', -> @render 'add_resident'
-Router.route '/t/:tribe_slug/sign_waiver/:receipt_id', -> @render 'sign_waiver'
-Router.route '/t/:tribe_slug/settings', -> @render 'settings'
-
-Router.route '/t/:tribe_slug/users', -> @render 'people'
 
 
 
@@ -29,74 +24,86 @@ Router.route '/edit/:id', -> @render 'edit'
 Router.route '/view/:id', -> @render 'view'
 Router.route '*', -> @render 'not_found'
 
-# Router.route '/u/:_id/s/:type', -> @render 'profile_layout', 'user_section'
-Router.route '/t/:tribe_slug/u/:_id/s/:type', (->
+# Router.route '/u/:username/s/:type', -> @render 'profile_layout', 'user_section'
+Router.route '/u/:username/s/:type', (->
     @layout 'profile_layout'
     @render 'user_section'
     ), name:'user_section'
 
 
-Router.route '/t/:tribe_slug/u/:_id/about', (->
+Router.route '/u/:username/about', (->
     @layout 'profile_layout'
     @render 'user_about'
     ), name:'user_about'
     
-Router.route '/t/:tribe_slug/u/:_id/stripe', (->
+Router.route '/u/:username', (->
+    @layout 'profile_layout'
+    @render 'user_about'
+    ), name:'user_home'
+    
+Router.route '/u/:username/stripe', (->
     @layout 'profile_layout'
     @render 'user_stripe'
     ), name:'user_stripe'
 
-# Router.route '/t/:tribe_slug/u/:_id/blog', (->
+# Router.route '/t/:tribe_slug/u/:username/blog', (->
 #     @layout 'profile_layout'
 #     @render 'user_blog'
 #     ), name:'user_blog'
 
-# Router.route '/t/:tribe_slug/u/:_id/events', (->
+# Router.route '/t/:tribe_slug/u/:username/events', (->
 #     @layout 'profile_layout'
 #     @render 'user_events'
 #     ), name:'user_events'
 
-Router.route '/t/:tribe_slug/u/:_id/chat', (->
+Router.route '/t/:tribe_slug/u/:username/chat', (->
     @layout 'profile_layout'
     @render 'user_chat'
     ), name:'user_user_chat'
 
-# Router.route '/u/:_id/gallery', (->
+# Router.route '/u/:username/gallery', (->
 #     @layout 'profile_layout'
 #     @render 'user_Gallery'
 #     ), name:'user_Gallery'
 
-# Router.route '/u/:_id/staff', (->
+# Router.route '/u/:username/staff', (->
 #     @layout 'profile_layout'
 #     @render 'user_staff'
 #     ), name:'user_staff'
 
-Router.route '/u/:_id/contact', (->
+Router.route '/u/:username/contact', (->
     @layout 'profile_layout'
     @render 'user_contact'
     ), name:'user_contact'
 
-# Router.route '/u/:_id/campaigns', (->
+# Router.route '/u/:username/campaigns', (->
 #     @layout 'profile_layout'
 #     @render 'user_campaigns'
 #     ), name:'user_campaigns'
 
 
-Router.route '/t/:tribe_slug/u/:_id/edit', -> @render 'user_edit'
+Router.route '/t/:tribe_slug/u/:username/edit', -> @render 'user_edit'
 
 
 Router.route '/t/:tribe_slug/p/:slug', -> @render 'page'
 
-Router.route '/t/:tribe_slug/login', -> @render 'login'
-Router.route '/t/:tribe_slug/register', -> @render 'register'
-Router.route '/t/:tribe_slug/forgot-password', -> @render 'forgot-password'
+Router.route '/login', -> @render 'login'
+Router.route '/register', -> @render 'register'
+Router.route '/forgot-password', -> @render 'forgot-password'
+
+
+Router.route '/t/:tribe_slug/add_resident', -> @render 'add_resident'
+Router.route '/t/:tribe_slug/sign_waiver/:receipt_id', -> @render 'sign_waiver'
+Router.route '/t/:tribe_slug/settings', -> @render 'settings'
+
+Router.route '/t/:tribe_slug/users', -> @render 'people'
 
 
 
 
 Router.route '/t/:tribe_slug/', (->
     @layout 'layout'
-    @render 'home'
+    @render 'menu'
     ), name:'home'
 
 Router.route '/t/:tribe_slug/s/:type', (->

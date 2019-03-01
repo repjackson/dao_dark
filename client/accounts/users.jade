@@ -24,8 +24,10 @@ template(name='user_item')
         a.four.wide.column(href="/u/#{_id}/about") 
             if profile.image_id
                 img.ui.image(src="{{c.url profile.image_id width=200 height=150 crop='fit'}}")
+            if image_id
+                img.ui.image(src="{{c.url image_id width=200 height=150 crop='fit'}}")
         .twelve.wide.column
-            a.ui.header(href="/u/#{_id}/about") 
+            a.ui.header(href="/u/#{username}") 
                 |#{profile.name}
                 |#{username}
             .meta
@@ -37,7 +39,7 @@ template(name='user_item')
             .ui.hidden.divider
             // if currentUser
             //     +toggle_friend
-            a.ui.circular.button(href="/u/#{_id}/about")
+            a.ui.circular.button(href="/u/#{username}")
                 i.right.chevron.icon
             
             
