@@ -152,7 +152,10 @@ Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type)->
         parent_id:schema._id
         
             
-Meteor.publish 'document_from_slug', (slug)->
+Meteor.publish 'document_by_slug', (slug)->
     Docs.find
         type:'document'
         slug:slug
+        
+        
+        

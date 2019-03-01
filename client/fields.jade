@@ -148,6 +148,34 @@ template(name='html_view')
     |!{field_value}
 
 
+template(name='doc_edit')
+    // .ui.labeled.fluid.input
+    //     .ui.basic.label 
+    //         // if icon
+    //         //     i.grey.icon(class=icon)
+    //         if label
+    //             |#{label}
+    //         else
+    //             |#{key}
+    //     input.edit_text(type='text' value=field_value placeholder=placeholder)
+    with referenced_document
+        .ui.styled.fluid.accordion
+            .title 
+                |Content
+                i.dropdown.icon
+            .content 
+                |!{html}
+
+template(name='doc_view')
+    with referenced_document
+        .ui.styled.fluid.accordion
+            .title 
+                |Content
+                i.dropdown.icon
+            .content 
+                |!{html}
+        
+
 
 
 

@@ -31,7 +31,7 @@ template(name='toggle_edit')
 
 template(name='user_list_info')
     a.ui.circular.button.item(href="/user/#{user._id}")
-        img.ui.avatar.image(src=user.profile.profilePic title=name)
+        img.ui.avatar.image(src=user.image title=name)
         |#{user.profile.name}
         +user_status user
 
@@ -76,12 +76,27 @@ template(name='user_card')
         +user_status user
 
 template(name='person_card')
-    a.ui.segment(href="/t/goldrun/p/person/#{person._id}/about")
-        if person.image_id
-            img.ui.small.image(src="{{c.url person.image_id }}")
-        |@#{person.username}
-        |@#{person.first_name}
-        |@#{person.last_name}
+    .ui.segment
+        .ui.two.column.grid
+            .column
+                if person.image
+                    a(href="/t/goldrun/s/person/#{person._id}/view")
+                        img.ui.small.image(src="{{c.url person.image  }}")
+            .column
+                a.ui.header(href="/t/goldrun/p/person/#{person._id}/view")
+                    |#{person.first_name}
+                    |#{person.last_name}
+                a.ui.small.header(href="/t/goldrun/p/person/#{person._id}/view")
+                    |@#{person.username}
+                .ui.list
+                    .item Telephone
+                        strong #{person.telephone}
+                    .item Email
+                        strong #{person.email}
+                    .item Building Number
+                        strong #{person.building_number}
+                    .item Unit Number
+                        strong #{person.unit_number}
         // +user_status user
 
 

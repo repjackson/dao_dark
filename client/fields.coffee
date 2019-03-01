@@ -663,6 +663,36 @@ Template.single_user_edit.events
 
 
 
+Template.doc_edit.onCreated ->
+    @autorun => Meteor.subscribe 'document_by_slug', @data.key
+Template.doc_edit.onRendered ->
+    Meteor.setTimeout ->
+        $('.accordion').accordion()
+    , 1000
+
+Template.doc_edit.helpers
+    referenced_document: ->
+        Docs.findOne
+            type:'document'
+            slug:@key
+
+
+
+
+Template.doc_view.onCreated ->
+    @autorun => Meteor.subscribe 'document_by_slug', @data.key
+Template.doc_view.onRendered ->
+    Meteor.setTimeout ->
+        $('.accordion').accordion()
+    , 1000
+
+Template.doc_view.helpers
+    referenced_document: ->
+        Docs.findOne
+            type:'document'
+            slug:@key
+    
+    
     
     
     

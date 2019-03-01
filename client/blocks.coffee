@@ -53,7 +53,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_id', @data
     Template.person_card.helpers
         person: -> 
-            console.log @
+            # console.log @
             Docs.findOne @valueOf()
     
     

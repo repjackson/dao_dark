@@ -6,7 +6,7 @@ template(name='delta')
                 .four.wide.column.padleft.scrolling
                     // a.ui.right.corner.label.move_left
                     //     i.left.chevron.link.icon
-                    .ui.large.center.aligned.header
+                    .ui.center.aligned.header
                         if color_icon
                             +icolor name=color_icon
                         else
@@ -196,8 +196,8 @@ template(name='result')
                 a.ui.header(href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
                     if logo_id
                         img.ui.avatar.image(src="{{c.url logo_id width=100 height=100 gravity='face' crop='fill'}}")
-                    else if icon
-                        i.icon(class=icon)
+                    // else if icon
+                    //     i.icon(class=icon)
                     each bricks
                         if header
                             +Template.dynamic template=view_template 

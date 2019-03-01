@@ -21,6 +21,7 @@ Template.checkin.onRendered ->
 
 Template.rules_sign.onCreated ->
     @autorun => Meteor.subscribe 'type', 'person'
+    @autorun => Meteor.subscribe 'type', 'rules_and_regulations_acknowledgement'
 
 Template.rules_sign.helpers
     rules_signed: ->

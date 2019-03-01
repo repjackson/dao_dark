@@ -31,17 +31,17 @@ template(name='topnav')
         //         if show_label
         //             |&nbsp;
         //             strong #{plural}
-        each topnav_pages
-            a.item(href="/t/#{ct.slug}/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
-                // if color_icon_header
-                //     +ioffice name=color_icon
-                if show_icon
-                    i.icon(class=icon)
-                if show_label
-                    |&nbsp; #{title}
-            if is_dev
-                a.icon.item(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
-                    i.pencil.icon
+        // each topnav_pages
+        //     a.item(href="/t/#{ct.slug}/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
+        //         // if color_icon_header
+        //         //     +ioffice name=color_icon
+        //         if show_icon
+        //             i.icon(class=icon)
+        //         if show_label
+        //             |&nbsp; #{title}
+        //     if is_dev
+        //         a.icon.item(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
+        //             i.pencil.icon
 
         // a.item.toggle_invert(href='#')
         //     i.adjust.icon
@@ -69,7 +69,7 @@ template(name='topnav')
                     // +ioffice name='gender-neutral-user' classes='ui mini image'
                     i.user.icon
                     // | #{currentUser.username} [#{currentUser.status}]
-                    // | #{currentUser.username}
+                    | #{currentUser.username}
             // a.icon.item.toggle_rightbar(href='#')
             //     // +ioffice name='menu'
             //     i.bars.icon

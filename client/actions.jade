@@ -19,12 +19,12 @@ template(name='checkin')
     unless healthclub_checkedin
         .ui.circular.button.checkin(title='Check In')
             // i.sign.in.icon
-            +icolor name='login-rounded-right' classes='ui mini inline image'
+            +icolor name='login-rounded-right' classes='ui avatar image'
             |Sign In to Health Club
     if healthclub_checkedin
         .ui.circular.button.checkout(title='Sign Out')
             // i.sign.out.large.icon
-            +icolor name='exit-sign' classes='ui mini inline image'
+            +icolor name='exit-sign' classes='ui avatar image'
             |Sign Out from Health Club
     +rules_sign
     +guest_sign
@@ -55,34 +55,34 @@ template(name='view_section')
     a.ui.view_section.large.button(href="/t/#{ct.slug}/s/#{slug}" title='Select Schema')
         i.sitemap.large.icon
         |Go to Section
-        // +icolor name='back-sorting' classes='ui mini inline image'
+        // +icolor name='back-sorting' classes='ui avatar image'
         
         
 template(name='page_view')
     a.ui.circular.button(href="/t/#{ct.slug}/p/#{slug}")
         i.eye.icon
-        // +icolor name='visible' classes='ui mini inline image'
+        // +icolor name='visible' classes='ui avatar image'
         | Page View
         
         
 template(name='rules_sign')
     if rules_signed
         .ui.circular.compact.green.small.button.view_rules
-            +icolor name='autograph' classes='ui mini inline image'
+            +icolor name='autograph' classes='ui avatar image'
             | View Signed Rule Doc
     else
         .ui.circular.compact.red.button.sign_rules
-            +icolor name='alert' classes='ui mini inline image'
+            +icolor name='alert' classes='ui avatar image'
             | Sign Rules
         
         
 template(name='guest_sign')
     a.ui.circular.compact.button(href="/t/#{ct.slug}/p/#{slug}")
-        +icolor name='add-user-group-man-man' classes='ui mini inline image'
+        +icolor name='add-user-group-man-man' classes='ui avatar image'
         | Sign In a Guest
         
         
 template(name='enter_tribe')
     a.ui.enter_tribe.icon.button(href="/t/#{slug}" title="Enter #{title} Tribe")
-        // +icolor name='fire' classes='ui mini inline image'
+        // +icolor name='fire' classes='ui avatar image'
         |Enter Site

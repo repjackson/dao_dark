@@ -1,7 +1,7 @@
 if Meteor.isClient
     Template.delta.onCreated ->
         # @autorun -> Meteor.subscribe 'schema', Router.current().params.type
-        # @autorun -> Meteor.subscribe 'type', 'schema'
+        @autorun -> Meteor.subscribe 'type', 'person'
         # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
         # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.type
         @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.tribe_slug, Router.current().params.type
