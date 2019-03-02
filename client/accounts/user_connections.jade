@@ -4,10 +4,31 @@ template(name='user_connections')
         | Connections
     .ui.fluid.input
         input.assign_task(type='text' placeholder='Assign task')
+    .ui.header Connections
     each connections
         .ui.segment
             +user_card
             .ui.header #{body}
+            if is_connected
+                .ui.blue.button.disconnect
+                    |Connected
+            else
+                .ui.button.connect
+                    |Connect
+            // +voting
+            // +author_info
+            // +creation_info
+    .ui.header Nonconnections    
+    each nonconnections
+        .ui.segment
+            +user_card
+            .ui.header #{body}
+            if is_connected
+                .ui.blue.button.disconnect
+                    |Connected
+            else
+                .ui.button.connect
+                    |Connect
             // +voting
             // +author_info
             // +creation_info
