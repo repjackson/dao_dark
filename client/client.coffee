@@ -139,10 +139,16 @@ Template.registerHelper 'small_bricks', () ->
             slug:@type
             # tribe:'dao'
     else
-        schema = Docs.findOne
-            type:'schema'
-            slug:@type
-            tribe:Router.current().params.tribe_slug
+        if Router.current().params.username
+            schema = Docs.findOne
+                type:'schema'
+                user_schema:true
+                slug:@type
+        else 
+            schema = Docs.findOne
+                type:'schema'
+                slug:@type
+                tribe:Router.current().params.tribe_slug
         
     Docs.find {
         type:'brick'
@@ -160,11 +166,16 @@ Template.registerHelper 'big_bricks', () ->
             slug:@type
             # tribe:'dao'
     else
-        schema = Docs.findOne
-            type:'schema'
-            slug:@type
-            tribe:Router.current().params.tribe_slug
-        
+        if Router.current().params.username
+            schema = Docs.findOne
+                type:'schema'
+                user_schema:true
+                slug:@type
+        else 
+            schema = Docs.findOne
+                type:'schema'
+                slug:@type
+                tribe:Router.current().params.tribe_slug
     Docs.find {
         type:'brick'
         parent_id:schema._id
@@ -191,10 +202,16 @@ Template.registerHelper 'bricks', () ->
             # tribe:'dao'
     else
         # console.log 'looking for', @type
-        schema = Docs.findOne
-            type:'schema'
-            slug:@type
-            tribe:Router.current().params.tribe_slug
+        if Router.current().params.username
+            schema = Docs.findOne
+                type:'schema'
+                user_schema:true
+                slug:@type
+        else 
+            schema = Docs.findOne
+                type:'schema'
+                slug:@type
+                tribe:Router.current().params.tribe_slug
         # console.log @type, schema
         
     if 'dev' in Meteor.user().roles    

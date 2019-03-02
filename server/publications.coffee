@@ -82,14 +82,12 @@ Meteor.publish 'schema_from_slug', (tribe_slug, schema_slug)->
             type:'schema'
             slug:schema_slug
     else 
-        tribe = 
-            Docs.findOne 
-                type:'tribe'
-                slug:tribe_slug
-        Docs.find
-            type:'schema'
-            slug:schema_slug
-            tribe:tribe_slug
+        match = {}
+        if tribe_slug then match.slug = tribe_slug
+        match.type = 'schema'
+        match.slug = schema_slug
+
+        Docs.find match
         
 Meteor.publish 'schema_from_doc_id', (tribe_slug, schema, id)->
     doc = Docs.findOne id
@@ -100,10 +98,13 @@ Meteor.publish 'schema_from_doc_id', (tribe_slug, schema, id)->
             slug:doc.type
             # tribe:tribe_slug
     else 
-        Docs.find
-            type:'schema'
-            slug:doc.type
-            tribe:tribe_slug
+        match = {}
+        if tribe_slug then match.slug = tribe_slug
+        match.type = 'schema'
+        match.slug = doc.type
+
+        Docs.find match
+
     
     
     
@@ -178,11 +179,12 @@ Meteor.publish 'wall_posts', (username)->
         parent_username:username
         
         
-Meteor.publish 'assigned_tasks', (username)->
-    console.log username
-    Docs.find
-        type:'task'
-        assigned_username:username
-        
+Meteor.publish 'assigned_tasks', (username, view_complete)->
+    match = {}
+    if view_complete then match.complete = true
+    match.type = 'task'
+    match.assigned_username = username
+
+    Docs.find match
         
         

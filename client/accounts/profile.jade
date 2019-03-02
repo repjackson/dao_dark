@@ -21,13 +21,13 @@ template(name='profile_layout')
                                             a.item(href="/u/#{user_from_username_param.username}/edit")
                                                 i.settings.icon
                                                 | Settings
-                                    // .ui.vertical.fluid.menu
-                                    //     each user_schemas
-                                    //         a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
-                                    //             i.icon(class=icon)
-                                    //             .content    
-                                    //                 .header
-                                    //                     |#{plural}
+                                    .ui.vertical.fluid.menu
+                                        each user_schemas
+                                            a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                                                i.icon(class=icon)
+                                                .content    
+                                                    .header
+                                                        |#{plural}
                                     .ui.vertical.fluid.menu
                                         a.item(href="/u/#{user_from_username_param.username}/about" class="{{isActiveRoute regex='user_about'}}")
                                             i.info.icon
@@ -54,7 +54,7 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |Connections
-                                        a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_messages'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
                                             i.bullhorn.icon
                                             .content    
                                                 .header
@@ -125,8 +125,10 @@ template(name='profile_layout')
                                     +yield
                                     // +churchDashboard
             +footer
+            
+            
 template(name='user_section')
-    +delta
+    +user_delta
     // +Template.dynamic template=user_section_template
 
 template(name='user_about')

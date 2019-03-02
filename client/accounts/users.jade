@@ -118,12 +118,3 @@ template(name='user_contact_info')
                 .item #{zip}
             
             
-template(name='user_chat')        
-    .description.chat_messages.scrolling.shadowed-box
-        .ui.comments
-            each chat_messages
-                +chat_message
-    if in_chat
-        .ui.icon.fluid.attached.input
-            i.chevron.right.icon
-            input.add_message(type='text' placeholder='Add Message')

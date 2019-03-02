@@ -13,11 +13,12 @@ Template.user_connections.helpers
             _id:$nin:Meteor.user().connected_ids
 
 
+Template.user_connect_button.helpers
     is_connected: ->
         Meteor.user() and Meteor.user().connected_ids and @_id in Meteor.user().connected_ids 
 
 
-Template.user_connections.events
+Template.user_connect_button.events
     'click .connect':->
         Meteor.users.update Meteor.userId(),
             $addToSet: connected_ids:@_id

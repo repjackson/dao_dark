@@ -131,60 +131,6 @@ template(name='username_edit')
             i.play.link.icon.change_username
 
 
-template(name='payment_methods')                
-    .ui.segment
-        .ui.header 
-            i.credit.card.icon
-            |Payment Methods
-        .ui.green.button.addCard
-            i.plus.icon
-            |Card
-        if cards
-            each cards
-                +card_holder
-        else
-            .ui.orange.segment
-                .ui.header No cards saved
-        .ui.header
-            i.plus.corner.icon
-            |Add a Card
-        // if adding_card
-        .content
-            // if isPhone
-            //     #scanBtn.btn.btn-info.pull-right Scan Card
-            form#payment-form.ui.form
-                .field
-                    // label(for='card-element')
-                    //     | Credit or debit card
-                    #card-element
-                    // A Stripe Element will be inserted here.
-                    // Used to display Element errors.
-                    #card-errors(role='alert')
-                button.ui.button Add
-        // .actions
-        //     .ui.green.button.save_new_card Save Card
-            // .ui.red.button.closePopup Cancel
-        // #add_buttons.modal-footer
-        // #edit_buttons.modal-footer
-        //     .btn.btn-info.update_existing_card Update Card
-        //     .ui.cancel.red.button.closePopup Cancel
-
-
-template(name='card_holder')
-    .ui.segment
-        .row
-            .col-lg-4
-                | {{brand}} {{last4}}
-                if default
-                    span.label.label-info Default
-                else
-                    span.btn.btn-default.btn-sm.make_default Make Default
-            .col-lg-4
-                | Expires {{exp_month}} / {{exp_year}}
-            .col-lg-4
-                .btn.btn-info.remove Remove
-                // <div class='btn btn-info edit'>Edit</div>
-     
      
 template(name='phone_editor')
     .ui.segment

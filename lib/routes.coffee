@@ -89,17 +89,12 @@ Router.route '/u/:username/notifications', (->
 Router.route '/u/:username/chat', (->
     @layout 'profile_layout'
     @render 'user_chat'
-    ), name:'user_user_chat'
+    ), name:'user_chat'
 
 Router.route '/u/:username/gallery', (->
     @layout 'profile_layout'
-    @render 'user_Gallery'
-    ), name:'user_Gallery'
-
-# Router.route '/u/:username/staff', (->
-#     @layout 'profile_layout'
-#     @render 'user_staff'
-#     ), name:'user_staff'
+    @render 'user_gallery'
+    ), name:'user_gallery'
 
 Router.route '/u/:username/contact', (->
     @layout 'profile_layout'
@@ -124,7 +119,7 @@ Router.route '/forgot-password', -> @render 'forgot-password'
 
 Router.route '/t/:tribe_slug/add_resident', -> @render 'add_resident'
 Router.route '/t/:tribe_slug/sign_waiver/:receipt_id', -> @render 'sign_waiver'
-Router.route '/t/:tribe_slug/settings', -> @render 'settings'
+Router.route '/settings', -> @render 'settings'
 
 Router.route '/t/:tribe_slug/users', -> @render 'people'
 

@@ -2,42 +2,38 @@ template(name='user_connections')
     .ui.header 
         i.tasks.icon
         | Connections
-    .ui.fluid.input
-        input.assign_task(type='text' placeholder='Assign task')
     .ui.header Connections
     each connections
-        .ui.segment
+        +user_segment
+    .ui.header Nonconnections    
+    each nonconnections
+        +user_segment
+
+
+template(name='user_segment')
+    .ui.segment.padded.stackable.grid
+        .four.wide.column
             if image_id
                 img.ui.small.image(src="{{c.url image_id }}")
             if profile.image_id
                 img.ui.small.image(src="{{c.url profile.image_id }}")
+        .eight.wide.column
             a.ui.header(href="/u/#{username}")
                 |#{username}
                 |@#{first_name}
                 |@#{last_name}
+        .four.wide.column
             .ui.header Tags
             each tags
                 .ui.label #{this}
             +user_status user
+            .ui.header #{body}
+            +user_connect_button
 
-            .ui.header #{body}
-            if is_connected
-                .ui.blue.button.disconnect
-                    |Connected
-            else
-                .ui.button.connect
-                    |Connect
-    .ui.header Nonconnections    
-    each nonconnections
-        .ui.segment
-            +user_card
-            .ui.header #{body}
-            if is_connected
-                .ui.blue.button.disconnect
-                    |Connected
-            else
-                .ui.button.connect
-                    |Connect
-            // +voting
-            // +author_info
-            // +creation_info
+template(name='user_connect_button')
+    if is_connected
+        .ui.blue.button.disconnect
+            |Connected
+    else
+        .ui.button.connect
+            |Connect
