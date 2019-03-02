@@ -193,7 +193,7 @@ template(name='result')
     with result 
         .ui.result.fluid.segment(class="{{#if is_loading}}loading{{/if}}")
             .content
-                a.ui.header(href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+                a.ui.header(href="/s/#{type}/#{_id}/view")
                     if logo_id
                         img.ui.avatar.image(src="{{c.url logo_id width=100 height=100 gravity='face' crop='fill'}}")
                     // else if icon
@@ -273,13 +273,13 @@ template(name='type_view')
             .row
                 .sixteen.wide.column
                     .ui.breadcrumb
-                        a.section(href="/t/#{ct.slug}")
-                            +icolor name=ct.color_icon classes='ui mini inline image'
-                            |#{ct.title}
-                            // .ui.circular.compact.button
-                        .divider
+                        // a.section(href="")
+                        //     +icolor name=ct.color_icon classes='ui mini inline image'
+                        //     |#{ct.title}
+                        //     // .ui.circular.compact.button
+                        // .divider
                             i.chevron.right.large.icon
-                        a.set_tribe_schema.section(href="/t/#{ct.slug}/s/#{type}" title=schema.plural)
+                        a.set_tribe_schema.section(href="/s/#{type}" title=schema.plural)
                             if schema.color_icon
                                 +icolor name=schema.color_icon classes='ui mini inline image'
                             // else

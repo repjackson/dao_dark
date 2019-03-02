@@ -1,6 +1,6 @@
 template(name='topnav')
     // .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
-    .ui.attached.borderless.inverted.topnav.labeled.icon.menu(style="background:#{ct.primary_color}")
+    .ui.attached.borderless.inverted.topnav.big.menu(style="background:#{ct.primary_color}")
         if is_loading
             .icon.item
                 i.loading.refresh.large.icon
@@ -62,8 +62,8 @@ template(name='topnav')
                 a.icon.item(href="/t/#{ct.slug}/add" title="#{ct.title} Add")
                     // +ioffice name='plus' classes='ui mini image'
                     i.plus.icon
-                a.item.toggle_topbar(href='#')
-                    i.inbox.icon
+                // a.item.toggle_topbar(href='#')
+                //     i.inbox.icon
                 a.icon.item(href="/u/#{currentUser.username}" title="#{ct.title} Profile")
                     i.user.icon
                         // | #{currentUser.username} [#{currentUser.status}]
