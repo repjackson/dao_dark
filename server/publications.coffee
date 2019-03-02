@@ -52,19 +52,19 @@ Meteor.publish 'group_docs', (group_id)->
 
     
     
-Meteor.publish 'bricks_from_doc_id', (tribe, schema, id)->
+Meteor.publish 'bricks_from_doc_id', (schema, id)->
     doc = Docs.findOne id
     # console.log 'pub bricks', tribe, schema, id
-    if schema in ['schema';'tribe','block','page','brick']
-        schema = Docs.findOne
-            type:'schema'
-            slug:doc.type
+    schema = Docs.findOne
+        type:'schema'
+        slug:doc.type
             # tribe:tribe
-    else 
-        schema = Docs.findOne
-            type:'schema'
-            slug:doc.type
-            tribe:tribe
+    # if schema in ['schema';'tribe','block','page','brick']
+    # else 
+    #     schema = Docs.findOne
+    #         type:'schema'
+    #         slug:doc.type
+    #         tribe:tribe
     Docs.find
         type:'brick'
         parent_id:schema._id
@@ -76,20 +76,20 @@ Meteor.publish 'my_delta', ->
         type:'delta'
 
         
-Meteor.publish 'schema_from_slug', (tribe_slug, schema_slug)->
+Meteor.publish 'schema_from_slug', (schema_slug)->
     if schema_slug in ['schema','brick','field','tribe','block','page']
         Docs.find
             type:'schema'
             slug:schema_slug
     else 
         match = {}
-        if tribe_slug then match.slug = tribe_slug
+        # if tribe_slug then match.slug = tribe_slug
         match.type = 'schema'
         match.slug = schema_slug
 
         Docs.find match
         
-Meteor.publish 'schema_from_doc_id', (tribe_slug, schema, id)->
+Meteor.publish 'schema_from_doc_id', (schema, id)->
     doc = Docs.findOne id
     # console.log 'pub', tribe_slug, schema, id
     if schema in ['schema','tribe','page','block','brick']
@@ -99,7 +99,7 @@ Meteor.publish 'schema_from_doc_id', (tribe_slug, schema, id)->
             # tribe:tribe_slug
     else 
         match = {}
-        if tribe_slug then match.slug = tribe_slug
+        # if tribe_slug then match.slug = tribe_slug
         match.type = 'schema'
         match.slug = doc.type
 
@@ -141,7 +141,7 @@ Meteor.publish 'user_schemas', ()->
         
         
         
-Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type, user_mode)->
+Meteor.publish 'schema_bricks_from_slug', (type, user_mode)->
     # console.log tribe_slug
     # console.log type
     if user_mode
@@ -150,16 +150,16 @@ Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type, user_mode)->
             user_schema:true
             slug:type
         
-    else if type in ['field', 'brick','tribe','page','block','schema']
-        schema = Docs.findOne
-            type:'schema'
-            slug:type
-            # tribe:tribe_slug
-    else
-        schema = Docs.findOne
-            type:'schema'
-            slug:type
-            tribe:tribe_slug
+    # else if type in ['field', 'brick','tribe','page','block','schema']
+    schema = Docs.findOne
+        type:'schema'
+        slug:type
+        # tribe:tribe_slug
+    # else
+    #     schema = Docs.findOne
+    #         type:'schema'
+    #         slug:type
+    #         tribe:tribe_slug
         
     Docs.find
         type:'brick'

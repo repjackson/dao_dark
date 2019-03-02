@@ -133,54 +133,54 @@ Template.registerHelper 'view_template', ->
     
 Template.registerHelper 'small_bricks', () ->
     # console.log @type
-    if @type in ['field', 'brick','schema','tribe','page','block']
-        schema = Docs.findOne
-            type:'schema'
-            slug:@type
-            # tribe:'dao'
-    else
-        if Router.current().params.username
-            schema = Docs.findOne
-                type:'schema'
-                user_schema:true
-                slug:@type
-        else 
-            schema = Docs.findOne
-                type:'schema'
-                slug:@type
-                tribe:Router.current().params.tribe_slug
+    schema = Docs.findOne
+        type:'schema'
+        slug:@type
+        # tribe:'dao'
+    # if @type in ['field', 'brick','schema','tribe','page','block']
+    # else
+    #     if Router.current().params.username
+    #         schema = Docs.findOne
+    #             type:'schema'
+    #             user_schema:true
+    #             slug:@type
+    #     else 
+    #         schema = Docs.findOne
+    #             type:'schema'
+    #             slug:@type
+    #             tribe:Router.current().params.tribe_slug
         
     Docs.find {
         type:'brick'
         field:$in:['text','single_doc','multi_doc','boolean','color_icon','number',]
         parent_id:schema._id
-        view_roles: $in:Meteor.user().roles
+        # view_roles: $in:Meteor.user().roles
     }, sort:rank:1
     
     
 Template.registerHelper 'big_bricks', () ->
     # console.log @type
-    if @type in ['field', 'brick','schema','tribe','page','block']
-        schema = Docs.findOne
-            type:'schema'
-            slug:@type
-            # tribe:'dao'
-    else
-        if Router.current().params.username
-            schema = Docs.findOne
-                type:'schema'
-                user_schema:true
-                slug:@type
-        else 
-            schema = Docs.findOne
-                type:'schema'
-                slug:@type
-                tribe:Router.current().params.tribe_slug
+    # if @type in ['field', 'brick','schema','tribe','page','block']
+    schema = Docs.findOne
+        type:'schema'
+        slug:@type
+        # tribe:'dao'
+    # else
+    #     if Router.current().params.username
+    #         schema = Docs.findOne
+    #             type:'schema'
+    #             user_schema:true
+    #             slug:@type
+    #     else 
+    #         schema = Docs.findOne
+    #             type:'schema'
+    #             slug:@type
+    #             tribe:Router.current().params.tribe_slug
     Docs.find {
         type:'brick'
         parent_id:schema._id
         field:$nin:['text','single_doc','multi_doc','boolean','color_icon','number']
-        view_roles: $in:Meteor.user().roles
+        # view_roles: $in:Meteor.user().roles
     }, sort:rank:1
     
     
@@ -195,39 +195,39 @@ Template.registerHelper 'children', ->
     
 Template.registerHelper 'bricks', () ->
     # console.log @type
-    if @type in ['field', 'brick','schema','tribe','page','block']
-        schema = Docs.findOne
-            type:'schema'
-            slug:@type
-            # tribe:'dao'
-    else
-        # console.log 'looking for', @type
-        if Router.current().params.username
-            schema = Docs.findOne
-                type:'schema'
-                user_schema:true
-                slug:@type
-        else 
-            schema = Docs.findOne
-                type:'schema'
-                slug:@type
-                tribe:Router.current().params.tribe_slug
-        # console.log @type, schema
+    # if @type in ['field', 'brick','schema','tribe','page','block']
+    schema = Docs.findOne
+        type:'schema'
+        slug:@type
+        # tribe:'dao'
+    # else
+    #     # console.log 'looking for', @type
+    #     if Router.current().params.username
+    #         schema = Docs.findOne
+    #             type:'schema'
+    #             user_schema:true
+    #             slug:@type
+    #     else 
+    #         schema = Docs.findOne
+    #             type:'schema'
+    #             slug:@type
+    #             tribe:Router.current().params.tribe_slug
+    #     # console.log @type, schema
         
-    if 'dev' in Meteor.user().roles    
-        Docs.find {
-            type:'brick'
-            parent_id:schema._id
-            # view_roles: $in:Meteor.user().roles
-            # field:$nin:['text','single_doc','multi_doc','boolean']
-        }, sort:rank:1
-    else    
-        Docs.find {
-            type:'brick'
-            parent_id:schema._id
-            view_roles: $in:Meteor.user().roles
-            # field:$nin:['text','single_doc','multi_doc','boolean']
-        }, sort:rank:1
+    Docs.find {
+        type:'brick'
+        parent_id:schema._id
+        # view_roles: $in:Meteor.user().roles
+        # field:$nin:['text','single_doc','multi_doc','boolean']
+    }, sort:rank:1
+    # if 'dev' in Meteor.user().roles    
+    # else    
+    #     Docs.find {
+    #         type:'brick'
+    #         parent_id:schema._id
+    #         view_roles: $in:Meteor.user().roles
+    #         # field:$nin:['text','single_doc','multi_doc','boolean']
+    #     }, sort:rank:1
         
     
     

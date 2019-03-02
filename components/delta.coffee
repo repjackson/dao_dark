@@ -1,11 +1,11 @@
 if Meteor.isClient
     Template.delta.onCreated ->
         # @autorun -> Meteor.subscribe 'schema', Router.current().params.type
-        @autorun -> Meteor.subscribe 'type', 'person'
+        # @autorun -> Meteor.subscribe 'type', 'person'
         # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
         # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.type
-        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.tribe_slug, Router.current().params.type
-        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.tribe_slug, Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
         # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
         @autorun -> Meteor.subscribe 'my_delta'
 
@@ -123,7 +123,7 @@ if Meteor.isClient
                     skip_amount:0
                     page_size:@value
             Session.set 'loading', true
-            Meteor.call 'fum', delta._id, Router.current().params.tribe_slug, ->
+            Meteor.call 'fum', delta._id, ->
                 Session.set 'loading', false
 
 
@@ -158,16 +158,14 @@ if Meteor.isClient
 
     Template.delta.events
         'click .add_type_doc': ->
-            current_tribe = Docs.findOne
-                type:'tribe'
-                slug:Router.current().params.tribe_slug
-            # console.log current_tribe
+            current_schema = Docs.findOne
+                type:'schema'
+                slug:Router.current().params.type
+            # console.log current_schema
             new_doc_id = Docs.insert 
                 type:Router.current().params.type
-                parent_id: current_tribe._id
-                tribe_id:current_tribe._id
-                tribe:current_tribe.slug
-            Router.go "/t/#{current_tribe.slug}/s/#{Router.current().params.type}/#{new_doc_id}/edit"
+                parent_id: current_schema._id
+            Router.go "/s/#{Router.current().params.type}/#{new_doc_id}/edit"
 
         'click .create_delta': (e,t)->
             Docs.insert 
@@ -276,13 +274,13 @@ if Meteor.isClient
 
     Template.type_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
-        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params.tribe_slug, Router.current().params.type, Router.current().params._id
-        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params.tribe_slug, Router.current().params.type, Router.current().params._id
+        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params.type, Router.current().params._id
+        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params.type, Router.current().params._id
         
     
     Template.type_view.onCreated ->
-        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params.tribe_slug, Router.current().params.type, Router.current().params._id
-        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params.tribe_slug, Router.current().params.type, Router.current().params._id
+        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params.type, Router.current().params._id
+        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params.type, Router.current().params._id
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
 
     Template.type_edit.events
@@ -315,10 +313,10 @@ if Meteor.isClient
             facet = Template.currentData()
             Session.set 'loading', true
             if facet.filters and @name in facet.filters
-                Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, Router.current().params.tribe_slug, ->
+                Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
                     Session.set 'loading', false
             else
-                Meteor.call 'add_facet_filter', delta._id, facet.key, @name, Router.current().params.tribe_slug, ->
+                Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
                     Session.set 'loading', false
           
         'keyup .add_filter': (e,t)->
@@ -327,7 +325,7 @@ if Meteor.isClient
                 facet = Template.currentData()
                 filter = t.$('.add_filter').val()
                 Session.set 'loading', true
-                Meteor.call 'add_facet_filter', delta._id, facet.key, filter, Router.current().params.tribe_slug, ->
+                Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
                     Session.set 'loading', false
                 t.$('.add_filter').val('')
                 

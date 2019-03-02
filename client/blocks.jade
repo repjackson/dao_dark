@@ -56,7 +56,7 @@ template(name='user_status')
 
 
 template(name='user_info')
-    a.ui.label(href="/t/goldrun/u/#{user._id}/about")
+    a.ui.label(href="/u/#{user.username}")
         if user.image_id
             img.ui.mini.image(src="{{c.url user.image_id }}")
         if user.name
@@ -67,7 +67,7 @@ template(name='user_info')
         +user_status user
 
 template(name='user_card')
-    a.ui.segment(href="/t/goldrun/u/#{user._id}/about")
+    a.ui.segment(href="/u/#{user.username}")
         if user.image_id
             img.ui.small.image(src="{{c.url user.image_id }}")
         |@#{user.username}
@@ -80,13 +80,13 @@ template(name='person_card')
         .ui.two.column.grid
             .column
                 if person.image
-                    a(href="/t/goldrun/s/person/#{person._id}/view")
+                    a(href="/s/person/#{person._id}/view")
                         img.ui.small.image(src="{{c.url person.image height=400 crop='limit'}}")
             .column
-                a.ui.header(href="/t/goldrun/s/person/#{person._id}/view")
+                a.ui.header(href="/s/person/#{person._id}/view")
                     |#{person.first_name}
                     |#{person.last_name}
-                a.ui.small.header(href="/t/goldrun/s/person/#{person._id}/view")
+                a.ui.small.header(href="/s/person/#{person._id}/view")
                     |@#{person.username}
                 .ui.list
                     .item Telephone
@@ -138,7 +138,7 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.large.circular.button.view(title='View' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+    a.ui.large.circular.button.view(title='View' href="/s/#{type}/#{_id}/view")
         |View #{type}
         // +ioffice name='chevron-right' classes='ui inline image'
         i.right.chevron.icon
@@ -173,14 +173,14 @@ template(name='toggle_friend')
 
 
 template(name='edit_button')
-    a.ui.large.circular.button.edit(title="Edit #{title}" href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
+    a.ui.large.circular.button.edit(title="Edit #{title}" href="/s/#{type}/#{_id}/edit")
         i.pencil.icon
         // +ioffice name='pencil' classes='ui inline image'
         |Edit
 
 
 template(name='save_button')
-    a.ui.circular.button.big.save(title='Save' href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+    a.ui.circular.button.big.save(title='Save' href="/s/#{type}/#{_id}/view")
         // +iblue name='checkmark'
         i.green.checkmark.icon
         |Save

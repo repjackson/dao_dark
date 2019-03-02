@@ -1,13 +1,10 @@
 Meteor.methods
-    fum: (delta_id, tribe)->
+    fum: (delta_id)->
         # console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
 
         if delta
             match = {}
-            if tribe then match.tribe = tribe
-            unless tribe
-                match.user_schema = true
             match.type = 'schema'
             match.slug = delta.doc_type
             
@@ -15,15 +12,10 @@ Meteor.methods
             schema = Docs.findOne match
             console.log 'found schema', schema
             
-            if 'dev' in Meteor.user().roles and tribe is 'dao'
-                built_query = {type:delta.doc_type}
-            else if schema.user_schema
-                built_query = {type:delta.doc_type}
-            else
-                built_query = {
-                    type:delta.doc_type
-                    tribe:tribe
-                    }
+            built_query = { type:delta.doc_type }
+            # if 'dev' in Meteor.user().roles and tribe is 'dao'
+            # else if schema.user_schema
+            #     built_query = {type:delta.doc_type}
             
             # console.log 'schema', schema
             
