@@ -7,6 +7,9 @@ template(name='user_tasks')
     each assigned_tasks
         .ui.segment
             .ui.header #{body}
+            +boolean_edit key='complete' label='Complete'
+            if complete
+                i.big.green.checkmark.icon
             +voting
             +author_info
             +creation_info

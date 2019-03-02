@@ -7,7 +7,19 @@ template(name='user_connections')
     .ui.header Connections
     each connections
         .ui.segment
-            +user_card
+            if image_id
+                img.ui.small.image(src="{{c.url image_id }}")
+            if profile.image_id
+                img.ui.small.image(src="{{c.url profile.image_id }}")
+            a.ui.header(href="/u/#{username}")
+                |#{username}
+                |@#{first_name}
+                |@#{last_name}
+            .ui.header Tags
+            each tags
+                .ui.label #{this}
+            +user_status user
+
             .ui.header #{body}
             if is_connected
                 .ui.blue.button.disconnect
@@ -15,9 +27,6 @@ template(name='user_connections')
             else
                 .ui.button.connect
                     |Connect
-            // +voting
-            // +author_info
-            // +creation_info
     .ui.header Nonconnections    
     each nonconnections
         .ui.segment
@@ -32,4 +41,3 @@ template(name='user_connections')
             // +voting
             // +author_info
             // +creation_info
-            

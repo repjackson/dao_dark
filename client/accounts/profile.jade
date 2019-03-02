@@ -44,6 +44,11 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |Tasks
+                                        a.item(href="/u/#{user_from_username_param.username}/blog" class="{{isActiveRoute regex='user_blog'}}")
+                                            i.newspaper.icon
+                                            .content    
+                                                .header
+                                                    |Blog
                                         a.item(href="/u/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
                                             i.fork.icon
                                             .content    
@@ -175,29 +180,6 @@ template(name='user_about')
 
 
 
-
-template(name='user_blog')
-    .ui.secondary.segment
-        .ui.header
-            i.contact.icon
-            |Blog
-        .ui.list
-            if profile.phone
-                .item
-                    a(href="tel:#{profile.phone}") 
-                        i.phone.icon
-                        |#{profile.phone}
-            if profile.website
-                .item 
-                    a(href=profile.website target='_blank') 
-                        |#{profile.website}
-                        i.external.icon
-            .item Created {{ from_now createdAt }}
-        .ui.list
-            .item #{profile.address.street}
-            .item #{profile.address.city}
-            .item #{profile.address.state}
-            .item #{profile.address.zip}
 
 
 template(name='user_people')
