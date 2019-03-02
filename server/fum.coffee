@@ -4,10 +4,20 @@ Meteor.methods
         delta = Docs.findOne delta_id
 
         if delta
-            schema = Docs.findOne 
-                type:'schema'
-                slug:delta.doc_type
+            match = {}
+            if tribe then match.tribe = tribe
+            unless tribe
+                match.user_schema = true
+            match.type = 'schema'
+            match.slug = delta.doc_type
+            
+            
+            schema = Docs.findOne match
+            console.log 'found schema', schema
+            
             if 'dev' in Meteor.user().roles and tribe is 'dao'
+                built_query = {type:delta.doc_type}
+            else if schema.user_schema
                 built_query = {type:delta.doc_type}
             else
                 built_query = {
@@ -25,7 +35,7 @@ Meteor.methods
                     built_query["#{facet.key}"] = $all: facet.filters
             
             total = Docs.find(built_query).count()
-            # console.log 'built query', built_query
+            console.log 'built query', built_query
             
             # response
             for facet in delta.facets

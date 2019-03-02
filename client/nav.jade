@@ -8,20 +8,22 @@ template(name='topnav')
             a.item.icon.toggle_leftbar(href='#')
                 // +ioffice name='menu'
                 i.bars.icon
-        if ct.color_icon_header
-            a.header.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
-                +icolor name=ct.color_icon
-        if ct.logo_id
-            if ct.logo_header
-                a.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
-                    img.ui.tiny.image(src="{{c.url ct.logo_id}}")
-        if ct.title_header
-            if is_dev
-                a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/s/schema" class="{{isActivePath '/'}}")
-                    strong #{ct.title}
-            else 
-                a.ui.header.tribe_schemas.item(href="/t/#{ct.slug}/menu" class="{{isActivePath '/'}}")
-                    strong #{ct.title}
+        // if ct.color_icon_header
+        //     a.header.tribe_schemas.item(href="/s/schema" class="{{isActivePath '/'}}")
+        //         +icolor name=ct.color_icon
+        // if ct.logo_id
+        //     if ct.logo_header
+        //         a.tribe_schemas.item(href="/s/schema" class="{{isActivePath '/'}}")
+        //             img.ui.tiny.image(src="{{c.url ct.logo_id}}")
+        // if ct.title_header
+        //     if is_dev
+        //         a.ui.header.tribe_schemas.item(href="/s/schema" class="{{isActivePath '/'}}")
+        //             strong #{ct.title}
+        //     else 
+        //         a.ui.header.tribe_schemas.item(href="/menu" class="{{isActivePath '/'}}")
+        //             strong #{ct.title}
+        a.ui.header.tribe_schemas.item(href="/s/schema" class="{{isActivePath '/'}}")
+            strong DAO
         // each topnav_schemas
         //     a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
         //         if color_icon

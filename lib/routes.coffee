@@ -14,7 +14,7 @@ Router.route '/t/:tribe_slug/pages', -> @render 'pages'
 Router.route '/t/:tribe_slug/menu', -> @render 'menu'
 Router.route '/me', -> @render 'me'
 # Router.route '/t/:tribe_slug/users', -> @render 'users'
-Router.route '/t/:tribe_slug/inbox', -> @render 'inbox'
+Router.route '/inbox', -> @render 'inbox'
 Router.route '/bank', -> @render 'bank'
 
 
@@ -117,8 +117,8 @@ Router.route '/register', -> @render 'register'
 Router.route '/forgot-password', -> @render 'forgot-password'
 
 
-Router.route '/t/:tribe_slug/add_resident', -> @render 'add_resident'
-Router.route '/t/:tribe_slug/sign_waiver/:receipt_id', -> @render 'sign_waiver'
+# Router.route '/t/:tribe_slug/add_resident', -> @render 'add_resident'
+# Router.route '/t/:tribe_slug/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 Router.route '/settings', -> @render 'settings'
 
 Router.route '/t/:tribe_slug/users', -> @render 'people'
@@ -131,12 +131,12 @@ Router.route '/t/:tribe_slug/', (->
     @render 'menu'
     ), name:'home'
 
-Router.route '/t/:tribe_slug/s/:type', (->
+Router.route '/s/:type', (->
     @layout 'layout'
     @render 'delta'
     ), name:'tribe_delta'
 
 
 # Router.route '/s/:type', -> @render 'delta'
-Router.route '/t/:tribe_slug/s/:type/:_id/edit', -> @render 'type_edit'
-Router.route '/t/:tribe_slug/s/:type/:_id/view', -> @render 'type_view'
+Router.route '/s/:type/:_id/edit', -> @render 'type_edit'
+Router.route '/s/:type/:_id/view', -> @render 'type_view'
