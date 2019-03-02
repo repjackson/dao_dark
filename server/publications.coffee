@@ -178,4 +178,11 @@ Meteor.publish 'wall_posts', (username)->
         parent_username:username
         
         
+Meteor.publish 'assigned_tasks', (username)->
+    console.log username
+    Docs.find
+        type:'task'
+        assigned_username:username
+        
+        
         

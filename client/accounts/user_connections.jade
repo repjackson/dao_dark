@@ -1,0 +1,14 @@
+template(name='user_connections')
+    .ui.header 
+        i.tasks.icon
+        | Connections
+    .ui.fluid.input
+        input.assign_task(type='text' placeholder='Assign task')
+    each connections
+        .ui.segment
+            +user_card
+            .ui.header #{body}
+            // +voting
+            // +author_info
+            // +creation_info
+            

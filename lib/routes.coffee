@@ -61,6 +61,16 @@ Router.route '/u/:username/tags', (->
     @render 'user_tags'
     ), name:'user_tags'
     
+Router.route '/u/:username/tasks', (->
+    @layout 'profile_layout'
+    @render 'user_tasks'
+    ), name:'user_tasks'
+    
+Router.route '/u/:username/connections', (->
+    @layout 'profile_layout'
+    @render 'user_connections'
+    ), name:'user_connections'
+    
     
 Router.route '/u/:username/messages', (->
     @layout 'profile_layout'

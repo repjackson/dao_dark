@@ -1,0 +1,13 @@
+template(name='user_tasks')
+    .ui.header 
+        i.tasks.icon
+        |Tasks
+    .ui.fluid.input
+        input.assign_task(type='text' placeholder='Assign task')
+    each assigned_tasks
+        .ui.segment
+            .ui.header #{body}
+            +voting
+            +author_info
+            +creation_info
+            

@@ -39,6 +39,16 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |Messages
+                                        a.item(href="/u/#{user_from_username_param.username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
+                                            i.tasks.icon
+                                            .content    
+                                                .header
+                                                    |Tasks
+                                        a.item(href="/u/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
+                                            i.fork.icon
+                                            .content    
+                                                .header
+                                                    |Connections
                                         a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_messages'}}")
                                             i.bullhorn.icon
                                             .content    
@@ -209,11 +219,6 @@ template(name='user_bookmarks')
             i.bookmark.icon
             |Bookmarks
                 
-template(name='user_tasks')
-    .ui.secondary.segment
-        .ui.header 
-            i.tasks.icon
-            |Tasks
                 
 template(name='user_unread')
     .ui.secondary.segment
