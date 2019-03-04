@@ -4,20 +4,22 @@ Template.view_section.events
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', @slug,->
             Session.set 'loading', false
-            
-            
-            
+
+
+
 Template.enter_tribe.events
     'click .enter_tribe': ->
         # console.log @
 
 Template.checkin.onCreated ->
     @autorun -> Meteor.subscribe 'type', 'log_event'
+
+
 Template.checkin.onRendered ->
     Meteor.setTimeout ->
         $('.accordion').accordion()
     , 1500
-    
+
 
 Template.rules_sign.onCreated ->
     @autorun => Meteor.subscribe 'type', 'person'
@@ -28,7 +30,7 @@ Template.rules_sign.helpers
         Docs.findOne
             type:'rules_and_regulations_acknowledgement'
             person_id: @_id
-            
+
 Template.rules_sign.events
     'click .sign_rules': ->
         rules_doc_id = Docs.insert
@@ -45,7 +47,7 @@ Template.rules_sign.events
 
 Template.checkin.helpers
     is_checkedin: ->
-        
+
     log_events: ->
         Docs.find {
             object_id:@_id
@@ -69,13 +71,13 @@ Template.checkin.events
             Meteor.setTimeout =>
                 Docs.update @_id,
                     $set:healthclub_checkedin:true
-                Docs.insert 
+                Docs.insert
                     type:'log_event'
                     object_id:@_id
                     body: "#{@username} checked in."
             , 1000
-            
-            
+
+
     'click .checkout': (e,t)->
         swal {
             title: "Checkout #{@username}?"
@@ -91,7 +93,7 @@ Template.checkin.events
             Meteor.setTimeout =>
                 Docs.update @_id,
                     $set:healthclub_checkedin:false
-                Docs.insert 
+                Docs.insert
                     type:'log_event'
                     parent_id:@_id
                     object_id:@_id
