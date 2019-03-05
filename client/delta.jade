@@ -273,19 +273,12 @@ template(name='type_view')
             .row
                 .sixteen.wide.column
                     .ui.breadcrumb
-                        // a.section(href="")
-                        //     +icolor name=ct.color_icon classes='ui mini inline image'
-                        //     |#{ct.title}
-                        //     // .ui.circular.compact.button
-                        // .divider
-                            i.chevron.right.large.icon
-                        a.set_tribe_schema.section(href="/s/#{type}" title=schema.plural)
+                        a.set_tribe_schema.ui.compact.circular.button.section(href="/s/#{type}" title=schema.plural)
                             if schema.color_icon
                                 +icolor name=schema.color_icon classes='ui mini inline image'
                             // else
                             // i.icon(class=schema.icon)
                             |#{schema.plural}
-                            // .ui.circular.compact.button
                         .divider
                             i.chevron.right.large.icon
                         .active.section

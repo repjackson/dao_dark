@@ -6,6 +6,20 @@ Template.view_section.events
             Session.set 'loading', false
 
 
+Template.email_receipt.events
+    'click .email_receipt': ->
+        console.log @person_id
+        person = Docs.findOne @person_id
+        console.log person.email
+        if not person.email
+            alert "No Email for #{person.first_name} #{person.last_name}"
+        else
+            Meteor.call 'email_receipt', person.email,->
+                # Session.set 'loading', false
+                alert 'Email sent'
+
+
+
 
 Template.enter_tribe.events
     'click .enter_tribe': ->

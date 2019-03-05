@@ -1,7 +1,7 @@
 Docs.allow
     insert: (userId, doc) -> userId
     update: (userId, doc) -> userId
-    remove: (userId, doc) ->         
+    remove: (userId, doc) ->
         u = Meteor.users.findOne(_id: userId)
         u and _.intersection(['dev','admin'], u.roles)
 
@@ -13,14 +13,14 @@ Cloudinary.config
 
 Meteor.users.allow
     insert: (userId, doc) ->
-        # only admin can insert 
+        # only admin can insert
         u = Meteor.users.findOne(_id: userId)
         u and u.author_id is userId
     update: (userId, doc, fields, modifier) ->
         # console.log 'user ' + userId + 'wants to modify doc' + doc._id
         # if userId and doc._id == userId
             # console.log 'user allowed to modify own account!'
-            # user can modify own 
+            # user can modify own
             # return true
         # admin can modify any
         u = Meteor.users.findOne(_id: userId)
@@ -38,21 +38,21 @@ Meteor.publish 'doc', (doc_id)->
 Meteor.publish 'deltas', ->
     Docs.find
         type:'delta'
-        
 
-    
+
+
 Meteor.publish 'schema', (doc_id)->
     doc = Docs.findOne doc_id
     Docs.find
         type:'schema'
         slug:doc.type
-    
-    
+
+
 Meteor.publish 'type', (type)->
-    Docs.find 
+    Docs.find
         type:type
-    
-    
+
+
 Meteor.publish 'children', (doc_id)->
     Docs.find
         parent_id: doc_id
@@ -77,20 +77,20 @@ Meteor.publish 'user_list', (doc,key)->
 
 Meteor.publish 'child_docs', (parent_id)->
     Docs.find {parent_id: parent_id},
-        limit: 20
-    
+        limit: 50
+
 Meteor.publish 'my_children', (parent_id)->
     Docs.find {
         author_id: Meteor.userId()
         parent_id: parent_id
-    }, limit: 10
-        
+    }, limit: 20
+
 Meteor.publish 'parent_doc', (child_id)->
     child_doc = Docs.findOne child_id
     if child_doc
         Docs.find
             _id: child_doc.parent_id
-    
+
 
 
 
@@ -102,9 +102,9 @@ Meteor.publish 'docs', (selected_tags)->
     Docs.find match,
         limit: 3
         sort: timestamp: -1
-        
-        
-        
+
+
+
 Meteor.publish 'tags', (selected_tags)->
     self = @
     match = {}
@@ -129,7 +129,7 @@ Meteor.publish 'tags', (selected_tags)->
     self.ready()
 
 
-    
+
 Meteor.publish 'docs_type', (selected_type)->
     match = {}
 
@@ -138,9 +138,9 @@ Meteor.publish 'docs_type', (selected_type)->
     Docs.find match,
         limit: 10
         sort: timestamp: -1
-        
-        
-    
+
+
+
 Meteor.publish 'types', (selected_type)->
     self = @
     match = {}
@@ -162,17 +162,17 @@ Meteor.publish 'types', (selected_type)->
             count: type.count
 
     self.ready()
-    
-    
+
+
 Meteor.publish 'user_from_username', (username)->
     Meteor.users.find username:username
-    
+
 Meteor.publish 'user_from_id', (user_id)->
     # console.log user_id
     Meteor.users.find user_id
-    
-    
-    
+
+
+
 Meteor.publish 'page', (slug)->
     Docs.find
         type:'page'
@@ -199,10 +199,3 @@ Meteor.publish 'page_blocks', (slug)->
     if page
         Docs.find
             parent_id:page._id
-    
-    
-    
-    
-        
-        
-    

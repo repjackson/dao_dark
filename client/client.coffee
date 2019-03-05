@@ -302,12 +302,12 @@ Template.registerHelper 'can_edit', () ->
         if 'dev' in Meteor.user().roles
             # console.log 'dev in role'
             true
-        else if Meteor.userId() is @_author_id
-            true
+        # else if Meteor.userId() is @_author_id
+        #     true
         else if Meteor.user().roles
             if @edit_roles
                 union = _.intersection Meteor.user().roles,@edit_roles
-                console.log union
+                # console.log union
                 if union.length > 0 then true else false
             else
                 false

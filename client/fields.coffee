@@ -397,6 +397,7 @@ Template.children_view.helpers
         Docs.find {
             type: @ref_schema
             parent_id: parent._id
+            # view_roles:$in:Meteor.user().roles
         }, sort:rank:1
 
 
@@ -421,18 +422,19 @@ Template.children_edit.helpers
         Docs.find {
             type: @ref_schema
             parent_id: parent._id
+            # view_roles:$in:Meteor.user().roles
         }, sort:rank:1
 
 
 Template.children_edit.events
     'click .add_child': ->
-        # console.log @
+        console.log @
         parent = Template.parentData(5)
-        Docs.insert
+        new_id = Docs.insert
             type: @ref_schema
             parent_id: parent._id
             parent_type:Router.current().params.type
-
+        console.log new_id
 
 
 
@@ -713,6 +715,13 @@ Template.single_person_edit.helpers
 Template.single_person_edit.events
     'click .clear_results': (e,t)->
         t.person_results.set null
+
+    'click .clear_selection': (e,t)->
+        if confirm "Clear Selection?"
+            brick = Template.parentData(4)
+            context = Template.parentData(5)
+            Docs.update context._id,
+                $unset:"#{brick.key}":1
 
     'keyup #single_person_select_input': (e,t)->
         search_value = $(e.currentTarget).closest('#single_person_select_input').val().trim()

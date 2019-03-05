@@ -24,6 +24,23 @@ Meteor.methods
         return
 
 
+    email_receipt:(email)->
+        rules_doc = Docs.findOne type:'document',slug:'rules_regs'
+        # console.log rules_doc
+        if rules_doc
+        	Email.send({
+                to: ["<repjackson@gmail.com>"]
+        		from:"goldrun@goldrun.com",
+        		subject:'Rules and Regulations Acknowledgement Receipt',
+        		html:"<h1> Gold Run Rules sent to #{email}.</h1>"+rules_doc.html
+        	})
+        	# Email.send({
+            #     to: ["<#{email}>"]
+        	# 	from:"goldrun@goldrun.com",
+        	# 	subject:'Rules and Regulations Acknowledgement Receipt',
+        	# 	html:rules_doc.html
+        	# })
+
     send_test:()->
         # ticket = Docs.findOne ticket_doc_id
 
@@ -245,4 +262,4 @@ Meteor.methods
             console.log 'email sent!'
             console.log 'not prod'
 
-        return    
+        return
