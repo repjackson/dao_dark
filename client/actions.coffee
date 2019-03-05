@@ -36,13 +36,13 @@ Template.rules_sign.events
         rules_doc_id = Docs.insert
             type:'rules_and_regulations_acknowledgement'
             person_id: @_id
-        Router.go("/t/goldrun/s/rules_and_regulations_acknowledgement/#{rules_doc_id}/edit")
+        Router.go("/s/rules_and_regulations_acknowledgement/#{rules_doc_id}/edit")
 
     'click .view_rules': ->
         rules_doc = Docs.findOne
             type:'rules_and_regulations_acknowledgement'
             person_id: @_id
-        Router.go("/t/goldrun/s/rules_and_regulations_acknowledgement/#{rules_doc._id}/view")
+        Router.go("/s/rules_and_regulations_acknowledgement/#{rules_doc._id}/view")
 
 
 Template.checkin.helpers
@@ -108,4 +108,4 @@ Template.guest_sign.events
         checkin_doc_id = Docs.insert
             type:'health_club_checkin'
             guest_of_id:@_id
-        Router.go("/t/goldrun/s/health_club_checkin/#{checkin_doc_id}/edit")
+        Router.go("/s/health_club_checkin/#{checkin_doc_id}/edit")

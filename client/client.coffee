@@ -20,7 +20,7 @@ $.cloudinary.config
 
 
 
-Session.setDefault 'invert', false
+# Session.setDefault 'invert', false
 # Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
 # Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'invert' else ''
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
@@ -53,11 +53,11 @@ Template.registerHelper 'schema', () ->
     Docs.findOne
         type:'schema'
         slug:@type
-        
-Template.registerHelper 'ct', () ->
-    Docs.findOne 
-        type:'tribe'
-        slug:Router.current().params.tribe_slug
+
+# Template.registerHelper 'ct', () ->
+#     Docs.findOne
+#         type:'tribe'
+#         slug:Router.current().params.tribe_slug
 
 Template.registerHelper 'user_from_id_param', () ->
     Meteor.users.findOne Router.current().params._id
@@ -71,7 +71,7 @@ Template.registerHelper 'calculated_size', (metric) ->
     # console.log typeof (@relevance*100).toFixed()
     whole = parseInt(@["#{metric}"]*10)
     # console.log whole
-    
+
     if whole is 2 then 'f2'
     else if whole is 3 then 'f3'
     else if whole is 4 then 'f4'
@@ -113,24 +113,24 @@ Template.registerHelper 'youtube_value', () ->
 Template.registerHelper 'edit_template', ->
     # console.log @
     "#{@field}_edit"
-    
+
 Template.registerHelper 'current_user', () ->
     Meteor.userId() is Router.current().params._id
-    
-    
+
+
 Template.registerHelper 'field_template_doc', () ->
     # console.log @
     Docs.findOne
         type:'field_template'
         slug: @valueOf()
-        
-    
-    
+
+
+
 Template.registerHelper 'view_template', ->
     # console.log @
     "#{@field}_view"
-    
-    
+
+
 Template.registerHelper 'small_bricks', () ->
     # console.log @type
     schema = Docs.findOne
@@ -144,20 +144,20 @@ Template.registerHelper 'small_bricks', () ->
     #             type:'schema'
     #             user_schema:true
     #             slug:@type
-    #     else 
+    #     else
     #         schema = Docs.findOne
     #             type:'schema'
     #             slug:@type
     #             tribe:Router.current().params.tribe_slug
-        
+
     Docs.find {
         type:'brick'
         field:$in:['text','single_doc','multi_doc','boolean','color_icon','number',]
         parent_id:schema._id
-        # view_roles: $in:Meteor.user().roles
+        view_roles: $in:Meteor.user().roles
     }, sort:rank:1
-    
-    
+
+
 Template.registerHelper 'big_bricks', () ->
     # console.log @type
     # if @type in ['field', 'brick','schema','tribe','page','block']
@@ -171,7 +171,7 @@ Template.registerHelper 'big_bricks', () ->
     #             type:'schema'
     #             user_schema:true
     #             slug:@type
-    #     else 
+    #     else
     #         schema = Docs.findOne
     #             type:'schema'
     #             slug:@type
@@ -180,19 +180,19 @@ Template.registerHelper 'big_bricks', () ->
         type:'brick'
         parent_id:schema._id
         field:$nin:['text','single_doc','multi_doc','boolean','color_icon','number']
-        # view_roles: $in:Meteor.user().roles
+        view_roles: $in:Meteor.user().roles
     }, sort:rank:1
-    
-    
+
+
 Template.registerHelper 'children', ->
     Docs.find
         parent_id:@_id
         # view_roles:$in:Meteor.user().roles
-    
-    
-    
-    
-    
+
+
+
+
+
 Template.registerHelper 'bricks', () ->
     # console.log @type
     # if @type in ['field', 'brick','schema','tribe','page','block']
@@ -207,31 +207,31 @@ Template.registerHelper 'bricks', () ->
     #             type:'schema'
     #             user_schema:true
     #             slug:@type
-    #     else 
+    #     else
     #         schema = Docs.findOne
     #             type:'schema'
     #             slug:@type
     #             tribe:Router.current().params.tribe_slug
     #     # console.log @type, schema
-        
+
     Docs.find {
         type:'brick'
         parent_id:schema._id
         # view_roles: $in:Meteor.user().roles
         # field:$nin:['text','single_doc','multi_doc','boolean']
     }, sort:rank:1
-    # if 'dev' in Meteor.user().roles    
-    # else    
+    # if 'dev' in Meteor.user().roles
+    # else
     #     Docs.find {
     #         type:'brick'
     #         parent_id:schema._id
     #         view_roles: $in:Meteor.user().roles
     #         # field:$nin:['text','single_doc','multi_doc','boolean']
     #     }, sort:rank:1
-        
-    
-    
-    
+
+
+
+
 Template.registerHelper 'field_value', () ->
     parent = Template.parentData()
     # parent2 = Template.parentData(2)
@@ -246,18 +246,18 @@ Template.registerHelper 'field_value', () ->
     brick = Template.parentData(4)
     context = Template.parentData(5)
     if parent["#{@key}"] then parent["#{@key}"]
-    else if context["#{brick.key}"] 
+    else if context["#{brick.key}"]
         context["#{brick.key}"]
-    # else if field_template_context["#{context}"] 
+    # else if field_template_context["#{context}"]
     #     field_template_context["#{context}"]
-    
+
 
 
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)
 
-    
+
 Template.registerHelper 'user_from_username_param', () ->
     found = Meteor.users.findOne username:Router.current().params.username
     # console.log found
@@ -278,15 +278,15 @@ Template.registerHelper 'can_add', () ->
             if @add_roles
                 union = _.intersection Meteor.user().roles,@add_roles
                 if union.length > 0 then true else false
-            else 
+            else
                 false
-        else 
+        else
             false
-    else 
+    else
         false
-    
-    
-    
+
+
+
 Template.registerHelper 'my_sites', () ->
     if Meteor.user().site_ids
         Docs.find
@@ -295,24 +295,23 @@ Template.registerHelper 'my_sites', () ->
 
 Template.registerHelper 'user_from_id', ()->
     Meteor.users.findOne @valueOf()
-    
-                
+
+
 Template.registerHelper 'can_edit', () ->
     if Meteor.user()
-        if 'dev' in Meteor.user().roles 
+        if 'dev' in Meteor.user().roles
             # console.log 'dev in role'
             true
-        else if Meteor.userId() is @_author_id 
+        else if Meteor.userId() is @_author_id
             true
         else if Meteor.user().roles
             if @edit_roles
                 union = _.intersection Meteor.user().roles,@edit_roles
+                console.log union
                 if union.length > 0 then true else false
-            else 
+            else
                 false
-        else 
+        else
             false
-    else 
+    else
         false
-                
-                

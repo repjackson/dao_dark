@@ -1,23 +1,23 @@
 Template.profile_layout.onCreated ->
     @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
     @autorun -> Meteor.subscribe 'user_schemas', Router.current().params.username
-    
+
 Template.user_section.helpers
     user_section_template: ->
         "user_#{Router.current().params.group}"
-    
+
 Template.profile_layout.helpers
     user: ->
         Meteor.users.findOne username:Router.current().params.username
-    
+
     user_schemas: ->
         user = Meteor.users.findOne username:Router.current().params.username
         Docs.find
             type:'schema'
             _id:$in:user.schema_ids
 
-    
-    
+
+
 #     # titheTotalGive: ->
 #     #     tithesList = Tithes.find({}).fetch()
 #     #     totalGive = 0
@@ -27,11 +27,11 @@ Template.profile_layout.helpers
 #     #     if totalGive
 #     #         totalGive = totalGive / 100
 #     #     parseInt totalGive
-    
+
 #     # TotalDonation: ->
 #     #     tithesList = Tithes.find({}).fetch()
 #     #     if tithesList then tithesList.length else 0
-    
+
 #     # codeDetail: ->
 #     #     tithesList = Tithes.find({}, sort: 'date': -1).fetch()
 #     #     codeDetail = []
@@ -65,9 +65,9 @@ Template.profile_layout.events
 Template.user_array_element_toggle.helpers
     user_array_element_toggle_class: ->
         # user = Meteor.users.findOne Router.current().params.username
-        if @value in @user["#{@key}"] then 'blue' else ''
-        
-        
+        if @user["#{@key}"] and @value in @user["#{@key}"] then 'blue' else ''
+
+
 Template.user_array_element_toggle.events
     'click .toggle_element': (e,t)->
         # console.log @
@@ -82,11 +82,11 @@ Template.user_array_element_toggle.events
         else
             Meteor.users.update @user._id,
                 $addToSet: "#{@key}":@value
-     
-     
+
+
 Template.site_switcher.onCreated ->
     @autorun => Meteor.subscribe 'user_sites', Router.current().params.username
-        
+
 Template.user_array_list.helpers
     users: ->
         users = []
@@ -95,29 +95,29 @@ Template.user_array_list.helpers
                 user = Meteor.users.findOne user_id
                 users.push user
             users
-            
-            
-    
-    
-     
-     
-     
+
+
+
+
+
+
+
 # Template.follow_user.events
 #     'click .toggle_follow_user': ->
-#         if @followed_by_ids and Meteor.userId() in @followed_by_ids        
+#         if @followed_by_ids and Meteor.userId() in @followed_by_ids
 #             Meteor.users.update @_id,
 #                 $pull: followed_by_ids:Meteor.userId()
 #             Meteor.users.update Meteor.userId(),
 #                 $pull: following_ids: @_id
-#         else 
+#         else
 #             Meteor.users.update @_id,
 #                 $addToSet: followed_by_ids:Meteor.userId()
 #             Meteor.users.update Meteor.userId(),
 #                 $addToSet: following_ids: @_id
-        
+
 Template.user_array_list.onCreated ->
     @autorun => Meteor.subscribe 'user_array_list', @data.user, @data.array
-        
+
 Template.user_array_list.helpers
     users: ->
         users = []
@@ -126,9 +126,9 @@ Template.user_array_list.helpers
                 user = Meteor.users.findOne user_id
                 users.push user
             users
-            
-            
-            
+
+
+
 Template.user_tags.events
     'keyup .tag_user': (e,t)->
         if e.which is 13
@@ -136,7 +136,7 @@ Template.user_tags.events
             # # console.log element_val
             Meteor.users.update Router.current().params.username,
                 $addToSet:tags:element_val
-            
+
             t.$('.tag_user').val('')
 
 
@@ -150,8 +150,8 @@ Template.user_tags.events
 Template.user_wall.onCreated ->
     @autorun => Meteor.subscribe 'wall_posts', Router.current().params.username
 
-    
-    
+
+
 Template.user_wall.helpers
     user_posts: ->
         Docs.find
@@ -170,6 +170,5 @@ Template.user_wall.events
                 type:'wall_post'
                 parent_user_id:current_user._id
                 parent_username:current_user.username
-            
-            t.$('.add_wall_post').val('')
 
+            t.$('.add_wall_post').val('')

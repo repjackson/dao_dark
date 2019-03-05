@@ -9,7 +9,7 @@ Meteor.publish 'facet_users', (selected_tags, role)->
     Meteor.users.find match
         # limit: 10
         # sort: timestamp: -1
-    
+
 Meteor.publish 'user_tags', (selected_tags, role)->
     self = @
     match = {}
@@ -36,10 +36,10 @@ Meteor.publish 'user_tags', (selected_tags, role)->
             count: tag.count
 
     self.ready()
-    
-    
-    
-    
+
+
+
+
 Meteor.publish 'user_sites', (user_id)->
     user = Meteor.users.findOne user_id
     Docs.find
@@ -50,8 +50,8 @@ Meteor.publish 'group_docs', (group_id)->
         group_id: group_id
 
 
-    
-    
+
+
 Meteor.publish 'bricks_from_doc_id', (schema, id)->
     doc = Docs.findOne id
     # console.log 'pub bricks', tribe, schema, id
@@ -60,7 +60,7 @@ Meteor.publish 'bricks_from_doc_id', (schema, id)->
         slug:doc.type
             # tribe:tribe
     # if schema in ['schema';'tribe','block','page','brick']
-    # else 
+    # else
     #     schema = Docs.findOne
     #         type:'schema'
     #         slug:doc.type
@@ -68,27 +68,27 @@ Meteor.publish 'bricks_from_doc_id', (schema, id)->
     Docs.find
         type:'brick'
         parent_id:schema._id
-        
-        
+
+
 Meteor.publish 'my_delta', ->
     Docs.find
         _author_id:Meteor.userId()
         type:'delta'
 
-        
+
 Meteor.publish 'schema_from_slug', (schema_slug)->
     if schema_slug in ['schema','brick','field','tribe','block','page']
         Docs.find
             type:'schema'
             slug:schema_slug
-    else 
+    else
         match = {}
         # if tribe_slug then match.slug = tribe_slug
         match.type = 'schema'
         match.slug = schema_slug
 
         Docs.find match
-        
+
 Meteor.publish 'schema_from_doc_id', (schema, id)->
     doc = Docs.findOne id
     # console.log 'pub', tribe_slug, schema, id
@@ -97,7 +97,7 @@ Meteor.publish 'schema_from_doc_id', (schema, id)->
             type:'schema'
             slug:doc.type
             # tribe:tribe_slug
-    else 
+    else
         match = {}
         # if tribe_slug then match.slug = tribe_slug
         match.type = 'schema'
@@ -105,19 +105,19 @@ Meteor.publish 'schema_from_doc_id', (schema, id)->
 
         Docs.find match
 
-    
-    
-    
+
+
+
 Meteor.publish 'tribe_schemas', (tribe)->
     Docs.find
         type:'schema'
         tribe:tribe
-    
-    
-    
-    
-            
-        
+
+
+
+
+
+
 Meteor.publish 'schemas', (dev_mode)->
     if dev_mode
         Docs.find
@@ -131,24 +131,19 @@ Meteor.publish 'schemas', (dev_mode)->
             Docs.find
                 type:'schema'
                 # view_roles:$in:['public']
-        
-        
+
+
 Meteor.publish 'user_schemas', ()->
     Docs.find
         type:'schema'
         user_schema:true
         # view_roles:$in:Meteor.user().roles
-        
-        
-        
-Meteor.publish 'schema_bricks_from_slug', (type, user_mode)->
+
+
+
+Meteor.publish 'schema_bricks_from_slug', (type)->
     # console.log tribe_slug
     # console.log type
-    if user_mode
-        schema = Docs.findOne
-            type:'schema'
-            user_schema:true
-            slug:type
         
     # else if type in ['field', 'brick','tribe','page','block','schema']
     schema = Docs.findOne
@@ -160,25 +155,25 @@ Meteor.publish 'schema_bricks_from_slug', (type, user_mode)->
     #         type:'schema'
     #         slug:type
     #         tribe:tribe_slug
-        
+
     Docs.find
         type:'brick'
         parent_id:schema._id
-        
-            
+
+
 Meteor.publish 'document_by_slug', (slug)->
     Docs.find
         type:'document'
         slug:slug
-        
-        
+
+
 Meteor.publish 'wall_posts', (username)->
     console.log username
     Docs.find
         type:'wall_post'
         parent_username:username
-        
-        
+
+
 Meteor.publish 'assigned_tasks', (username, view_complete)->
     match = {}
     if view_complete then match.complete = true
@@ -186,5 +181,3 @@ Meteor.publish 'assigned_tasks', (username, view_complete)->
     match.assigned_username = username
 
     Docs.find match
-        
-        

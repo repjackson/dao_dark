@@ -39,10 +39,10 @@ Template.html_edit.events
         # console.log @
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         Docs.update context._id,
             $set:"#{brick.key}":html
-                
+
 
 Template.html_edit.helpers
     getFEContext: ->
@@ -133,11 +133,11 @@ Template.image_edit.events
                     console.error 'Error uploading', err
                 else
                     console.log res
-        
+
                     if brick
                         Docs.update context._id,
                             $set:"#{brick.key}":res.public_id
-                    else 
+                    else
                         Docs.update parent._id,
                             $set:"#{@key}":res.public_id
                 return
@@ -170,7 +170,7 @@ Template.image_edit.events
             confirmButtonColor: '#da5347'
         }, =>
             # Meteor.call "c.delete_by_public_id", @image_id, (err,res) =>
-            Docs.update context._id, 
+            Docs.update context._id,
                 $unset:"#{brick.key}":1
                 # if not err
                 #     # Do Stuff with res
@@ -196,10 +196,10 @@ Template.array_edit.events
             if brick
                 Docs.update context._id,
                     $addToSet:"#{brick.key}":element_val
-            else 
+            else
                 Docs.update parent._id,
                     $addToSet:"#{@key}":element_val
-            
+
             t.$('.new_element').val('')
 
     'click .remove_element': (e,t)->
@@ -213,7 +213,7 @@ Template.array_edit.events
         if brick
             Docs.update context._id,
                 $pull:"#{field.key}":element
-        else 
+        else
             Docs.update parent._id,
                 $pull:"#{field.key}":element
 
@@ -226,8 +226,8 @@ Template.array_edit.events
 
 # Template.textarea.helpers
 #     is_editing: -> Template.instance().editing.get()
-    
-    
+
+
 Template.textarea_edit.events
     # 'click .toggle_edit': (e,t)->
     #     t.editing.set !t.editing.get()
@@ -237,15 +237,15 @@ Template.textarea_edit.events
         parent = Template.parentData()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         if brick
             Docs.update context._id,
                 $set:"#{brick.key}":textarea_val
-        else 
+        else
             if @collection and @collection is 'users'
                 Meteor.users.update parent._id,
                     $set:"#{@key}":textarea_val
-            else 
+            else
                 Docs.update parent._id,
                     $set:"#{@key}":textarea_val
 
@@ -257,11 +257,11 @@ Template.text_edit.events
         parent = Template.parentData()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         if brick
             Docs.update context._id,
             $set:"#{brick.key}":val
-        else 
+        else
             Docs.update parent._id,
                 $set:"#{@key}":val
 
@@ -282,24 +282,24 @@ Template.boolean_edit.events
     'click .toggle_boolean': (e,t)->
         parent = Template.parentData()
         # if parent["#{@key}"] then parent["#{@key}"]
-        
+
         # console.log @
-        
+
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         # console.log !context["#{brick.key}"]
         # console.log brick
         # console.log context
-        
+
         if brick
             Docs.update context._id,
                 $set:"#{brick.key}":!context["#{brick.key}"]
-        else 
+        else
             Docs.update parent._id,
-                $set:"#{@key}":!parent["#{@key}"] 
-        
-        
+                $set:"#{@key}":!parent["#{@key}"]
+
+
 
 
 
@@ -309,18 +309,18 @@ Template.number_edit.events
     'blur .edit_number': (e,t)->
         parent = Template.parentData()
         val = t.$('.edit_number').val()
-        
+
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         if brick
             Docs.update context._id,
                 $set:"#{brick.key}":val
-        else 
+        else
             Docs.update parent._id,
                 $set:"#{@key}":val
-        
-        
+
+
 
 
 
@@ -330,17 +330,17 @@ Template.date_edit.events
         val = t.$('.edit_date').val()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         if brick
             Docs.update context._id,
                 $set:"#{brick.key}":val
-        else 
+        else
             Docs.update parent._id,
                 $set:"#{@key}":val
 
 
 
-        
+
 
 
 
@@ -350,11 +350,11 @@ Template.time_edit.events
         val = t.$('.edit_time').val()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         if brick
             Docs.update context._id,
                 $set:"#{brick.key}":val
-        else 
+        else
             Docs.update parent._id,
                 $set:"#{@key}":val
 
@@ -364,23 +364,23 @@ Template.youtube_edit.events
     'blur .youtube_id': (e,t)->
         parent = Template.parentData()
         val = t.$('.youtube_id').val()
-        
+
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         if brick
             Docs.update context._id,
                 $set:"#{brick.key}":val
-        else 
+        else
             Docs.update parent._id,
                 $set:"#{@key}":val
 
-        
+
 Template.children_view.onCreated ->
     # @autorun => Meteor.subscribe 'children', @data.ref_schema, Template.parentData(5)._id
     @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
-    @autorun => Meteor.subscribe 'schema_from_slug', Router.current().params.tribe_slug, @data.ref_schema
-    @autorun => Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.tribe_slug, @data.ref_schema
+    @autorun => Meteor.subscribe 'schema_from_slug', @data.ref_schema
+    @autorun => Meteor.subscribe 'schema_bricks_from_slug', @data.ref_schema
 
 Template.children_view.onRendered ->
     Meteor.setTimeout ->
@@ -398,13 +398,13 @@ Template.children_view.helpers
             type: @ref_schema
             parent_id: parent._id
         }, sort:rank:1
-        
-        
+
+
 Template.children_edit.onCreated ->
     # @autorun => Meteor.subscribe 'children', @data.ref_schema, Template.parentData(5)._id
     @autorun => Meteor.subscribe 'child_docs', Template.parentData(5)._id
-    @autorun => Meteor.subscribe 'schema_from_slug', Router.current().params.tribe_slug, @data.ref_schema
-    @autorun => Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.tribe_slug, @data.ref_schema
+    @autorun => Meteor.subscribe 'schema_from_slug', @data.ref_schema
+    @autorun => Meteor.subscribe 'schema_bricks_from_slug', @data.ref_schema
 
 Template.children_edit.onRendered ->
     Meteor.setTimeout ->
@@ -422,22 +422,16 @@ Template.children_edit.helpers
             type: @ref_schema
             parent_id: parent._id
         }, sort:rank:1
-        
-        
+
+
 Template.children_edit.events
     'click .add_child': ->
         # console.log @
         parent = Template.parentData(5)
-        current_tribe = Docs.findOne
-            type:'tribe'
-            slug:Router.current().params.tribe_slug
-        # field = @
         Docs.insert
             type: @ref_schema
             parent_id: parent._id
             parent_type:Router.current().params.type
-            tribe_id:current_tribe._id
-            tribe:current_tribe.slug
 
 
 
@@ -447,9 +441,9 @@ Template.single_doc_view.onCreated ->
     # @autorun => Meteor.subscribe 'type', @data.ref_schema
 
 Template.single_doc_view.helpers
-    choices: -> 
+    choices: ->
         console.log @ref_schema
-        Docs.find 
+        Docs.find
             type:@ref_schema
 
 
@@ -459,18 +453,13 @@ Template.single_doc_edit.onCreated ->
     @autorun => Meteor.subscribe 'type', @data.ref_schema
 
 Template.single_doc_edit.helpers
-    choices: -> 
+    choices: ->
         # console.log @ref_schema
         if @ref_schema
-            if @ref_schema in ['field','tribe']
-                Docs.find 
-                    type:@ref_schema
-                    # tribe:Router.current().params.tribe_slug
-            else
-                Docs.find 
-                    type:@ref_schema
-                    tribe:Router.current().params.tribe_slug
-            
+            Docs.find
+                type:@ref_schema
+                # tribe:Router.current().params.tribe_slug
+
     choice_class: ->
         selection = @
         ref_field = Template.parentData()
@@ -497,8 +486,8 @@ Template.single_doc_edit.events
         # console.log @["#{ref_field.ref_key}"]
         # Docs.update target._id,
         #     $set: "#{ref_field.key}": @slug
-       
-        # if brick 
+
+        # if brick
         if context["#{brick.key}"] and @slug is context["#{ref_field.key}"]
             Docs.update context._id,
                 $unset: "#{brick.key}": 1
@@ -514,9 +503,9 @@ Template.multi_doc_view.onCreated ->
     # @autorun => Meteor.subscribe 'type', @data.ref_schema
 
 Template.multi_doc_view.helpers
-    choices: -> 
+    choices: ->
         console.log @ref_schema
-        Docs.find 
+        Docs.find
             type:@ref_schema
 
 
@@ -538,7 +527,7 @@ Template.multi_doc_edit.onCreated ->
 
 
 Template.multi_doc_edit.helpers
-    choices: -> 
+    choices: ->
         # console.log @ref_schema
         Docs.find type:@ref_schema
     choice_class: ->
@@ -563,15 +552,15 @@ Template.multi_doc_edit.events
         context = Template.parentData(5)
 
         # console.log @["#{ref_field.ref_key}"]
-        
-        if brick 
+
+        if brick
             if context["#{brick.key}"] and @slug in context["#{ref_field.key}"]
                 Docs.update context._id,
                     $pull: "#{brick.key}": @slug
             else
                 Docs.update context._id,
                     $addToSet: "#{brick.key}": @slug
-    
+
         else
             if target["#{ref_field.key}"] and @slug in target["#{ref_field.key}"]
                 Docs.update target._id,
@@ -596,8 +585,8 @@ Template.code_edit.onRendered ->
         enableSnippets: true,
         enableLiveAutocompletion: false
     })
-    
-    
+
+
 Template.single_user_edit.onCreated ->
     @user_results = new ReactiveVar
 
@@ -605,9 +594,9 @@ Template.single_user_edit.helpers
     user_results: ->
         user_results = Template.instance().user_results.get()
         user_results
-    
-    
-    
+
+
+
 Template.single_user_edit.events
     'click .clear_results': (e,t)->
         t.user_results.set null
@@ -622,25 +611,25 @@ Template.single_user_edit.events
 
     'click .select_user': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
-        
+
         # console.log @
-        
+
         val = t.$('.edit_text').val()
         parent = Template.parentData()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         # console.log Template.parentData()
         # console.log Template.parentData(1)
         # console.log Template.parentData(2)
         # console.log Template.parentData(3)
         console.log Template.parentData(4)
         console.log Template.parentData(5)
-        
+
         if brick
             Docs.update context._id,
                 $set:"#{brick.key}":@_id
-        # else 
+        # else
         #     Docs.update parent._id,
         #         $set:"#{@key}":val
 
@@ -693,12 +682,12 @@ Template.doc_view.helpers
         Docs.findOne
             type:'document'
             slug:@key
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 Template.single_person_edit.onCreated ->
     @person_results = new ReactiveVar
 
@@ -708,19 +697,19 @@ Template.single_person_edit.helpers
     #     # val = t.$('.edit_date').val()
     #     brick = Template.parentData(4)
     #     context = Template.parentData(5)
-        
+
     #     if brick
     #         Docs.update context._id,
     #             $set:"#{brick.key}":val
-    #     else 
+    #     else
     #         Docs.update parent._id,
     #             $set:"#{@key}":val
-        
-        
+
+
     person_results: ->
         person_results = Template.instance().person_results.get()
         person_results
-    
+
 Template.single_person_edit.events
     'click .clear_results': (e,t)->
         t.person_results.set null
@@ -735,25 +724,25 @@ Template.single_person_edit.events
 
     'click .select_person': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
-        
+
         console.log @
-        
+
         val = t.$('.edit_text').val()
         parent = Template.parentData()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         # console.log Template.parentData()
         # console.log Template.parentData(1)
         # console.log Template.parentData(2)
         # console.log Template.parentData(3)
         console.log Template.parentData(4)
         console.log Template.parentData(5)
-        
+
         if brick
             Docs.update context._id,
                 $set:"#{brick.key}":@_id
-        # else 
+        # else
         #     Docs.update parent._id,
         #         $set:"#{@key}":val
 
@@ -783,9 +772,9 @@ Template.multi_user_edit.helpers
     user_results: ->
         user_results = Template.instance().user_results.get()
         user_results
-    
-    
-    
+
+
+
 Template.multi_user_edit.events
     'click .clear_results': (e,t)->
         t.user_results.set null
@@ -800,25 +789,25 @@ Template.multi_user_edit.events
 
     'click .select_user': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
-        
+
         # console.log @
-        
+
         val = t.$('.edit_text').val()
         parent = Template.parentData()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        
+
         # console.log Template.parentData()
         # console.log Template.parentData(1)
         # console.log Template.parentData(2)
         # console.log Template.parentData(3)
         console.log Template.parentData(4)
         console.log Template.parentData(5)
-        
+
         if brick
             Docs.update context._id,
                 $addToSet:"#{brick.key}":@_id
-        # else 
+        # else
         #     Docs.update parent._id,
         #         $set:"#{@key}":val
 
@@ -837,12 +826,11 @@ Template.multi_user_edit.events
             brick = Template.parentData(4)
             context = Template.parentData(5)
 
-            
+
             if brick
                 Docs.update context._id,
                     $pull:"#{brick.key}":@_id
 
-            
-            
-            # Meteor.call 'unassign_user', page_doc._id, @
 
+
+            # Meteor.call 'unassign_user', page_doc._id, @

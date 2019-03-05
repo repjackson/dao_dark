@@ -13,31 +13,29 @@ Template.topnav.onRendered ->
     #         Meteor.setTimeout ->
     #             $('.dropdown').dropdown()
     #         , 3000
-    
+
     # Meteor.setTimeout ->
     #     $('.item').popup()
     # , 3000
-    
+
 
 Template.topnav.helpers
     topnav_schemas: ->
-        Docs.find {
-            type:'schema'
-            tribe:tribe.slug
-            topnav_roles:$in:Meteor.user().roles
-        }, sort:rank:1
-    
+        if Meteor.user()
+            Docs.find {
+                type:'schema'
+                topnav_roles:$in:Meteor.user().roles
+            }, sort:rank:1
+
     top_nav_item_class: ->
         if Session.equals('loading',true) then 'disabled' else ''
-    
+
     topnav_pages: ->
-        tribe = Docs.findOne 
+        tribe = Docs.findOne
             type:'tribe'
-            slug:Router.current().params.tribe_slug
         if tribe
             Docs.find {
                 type:'page'
-                tribe:tribe.slug
                 topnav_roles:$in:Meteor.user().roles
             }, sort:rank:1
 
@@ -70,7 +68,7 @@ Template.topnav.events
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', 'person',->
             Session.set 'loading', false
-    
+
     'click .tribe_schemas': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', 'schema',->
@@ -92,7 +90,7 @@ Template.topbar.helpers
         Docs.find
             type:'page'
             nonprofit_footer:true
-            
+
 
 
 
@@ -136,21 +134,21 @@ Template.leftbar.events
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', 'page',->
             Session.set 'loading', false
-    
+
     'click .tribe_schemas': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', 'schema',->
             Session.set 'loading', false
 
 
-    'click .logout': -> 
+    'click .logout': ->
         Meteor.logout()
         Router.go '/signin'
 
 
 
 Template.rightbar.events
-    'click .logout': -> 
+    'click .logout': ->
         Meteor.logout()
         Router.go '/signin'
 
@@ -176,7 +174,6 @@ Template.leftbar.helpers
     tribe_schemas: ->
         if Meteor.user() and Meteor.user().roles
             Docs.find {
-                # tribe: Router.current().params.tribe_slug
                 # view_roles: $in:Meteor.user().roles
                 type:'schema'
             }, sort:title:1
@@ -192,13 +189,10 @@ Template.leftbar.events
 
 Template.footer.onCreated ->
     @autorun => Meteor.subscribe 'type', 'page'
-    
-    
+
+
 Template.footer.helpers
     footer_pages: ->
         Docs.find
             type:'page'
             show_in_footer:true
-            # tribe: Router.current().params.tribe_slug
-            
-            

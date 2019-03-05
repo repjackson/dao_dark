@@ -75,15 +75,9 @@ if Meteor.isClient
 
         'click .add_schema': ->
             # console.log @
-            tribe =
-                Docs.findOne
-                    type:'tribe'
-
             new_id =
                 Docs.insert
                     type:'schema'
-                    tribe:tribe.slug
-                    tribe_id:tribe._id
 
             Router.go "/s/schema/#{new_id}/edit"
 

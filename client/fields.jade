@@ -180,11 +180,10 @@ template(name='doc_view')
 
 
 template(name='text_edit')
-    .ui.form
-        .field
+        .ui.labeled.input
             // if icon
             //     i.grey.icon(class=icon)
-            label 
+            .ui.label 
                 if label
                     |#{label}
                 else

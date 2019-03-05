@@ -15,7 +15,7 @@ template(name='delta')
                     // .ui.small.center.aligned.header #{body}
                     unless is_loading
                         if can_add
-                            .ui.circular.button.add_type_doc(title="Add #{title}")
+                            .ui.circular.fluid.large.button.add_type_doc(title="Add #{title}")
                                 // i.plus.large.icon
                                 +icolor name='plus' classes='ui avatar image'
                                 |Add #{title}
@@ -250,7 +250,7 @@ template(name='type_edit')
             .centered.row
                 .four.wide.column
                     .ui.header(title="Type: #{type}")
-                        |#{title}
+                        //- |#{title}
                         each bricks
                             if header
                                 +Template.dynamic template=view_template 
@@ -259,7 +259,7 @@ template(name='type_edit')
                     +save_button
                     +remove_button
                 .twelve.wide.column
-                    |#{type}
+                    //- |#{type}
                     each small_bricks
                         +Template.dynamic template=edit_template 
                     each big_bricks

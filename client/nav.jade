@@ -11,17 +11,17 @@ template(name='topnav')
              i.th.icon
         a.ui.header.tribe_schemas.item(href="/s/schema" class="{{isActivePath '/'}}")
             strong GR
-        // each topnav_schemas
-        //     a.item.mobile_hidden.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
-        //         if color_icon
-        //             img.ui.avatar.image(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
-        //         else if icon
-        //             i.icon(class=icon)
-        //         if show_label
-        //             |&nbsp;
-        //             strong #{plural}
+        each topnav_schemas
+            a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
+                if color_icon
+                    img.ui.avatar.image(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
+                else if icon
+                    i.icon(class=icon)
+                if show_label
+                    |&nbsp;
+                    strong #{plural}
         // each topnav_pages
-        //     a.item(href="/t/#{ct.slug}/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
+        //     a.item(href="/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
         //         // if color_icon_header
         //         //     +ioffice name=color_icon
         //         if show_icon
@@ -29,19 +29,19 @@ template(name='topnav')
         //         if show_label
         //             |&nbsp; #{title}
         //     if is_dev
-        //         a.icon.item(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
+        //         a.icon.item(href="/s/page/#{_id}/edit" title='Edit Page')
         //             i.pencil.icon
 
-        // a.icon.item(href="/t/#{ct.slug}/chat" title='Chat')
+        // a.icon.item(href="/chat" title='Chat')
         //     i.chat.icon
             // |Chat
-        // a.icon.item.tribe_schemas(href="/t/#{ct.slug}/s/schema")
+        // a.icon.item.tribe_schemas(href="/s/schema")
         //     i.th.icon
-        //     | Sections
-        // a.icon.item.tribe_people(href="/t/#{ct.slug}/s/person" title='People')
-        //     i.users.icon
-            // |People
-        // a.icon.item(href="/t/#{ct.slug}/menu")
+        //     | Sections   
+        a.icon.item.tribe_people(href="/s/person" title='People')
+             i.users.icon
+             //- |People
+        // a.icon.item(href="/menu")
         //     i.th.icon
         // +role_switcher
         .right.menu
@@ -67,14 +67,14 @@ template(name='topnav')
                     // +ioffice name='add-user-male'
                     |Register 
     // if is_admin
-    // .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
-    //     each topnav_schemas
-    //         a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-    //             if color_icon
-    //                 +ioffice name=color_icon
-    //             else if icon
-    //                 i.icon(class=icon)
-    //             |&nbsp; #{plural}
+    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
+        each topnav_schemas
+            a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+                if color_icon
+                    +icolor name=color_icon
+                else if icon
+                    i.icon(class=icon)
+                |&nbsp; #{plural}
 
 
 
@@ -127,19 +127,19 @@ template(name='rightbar')
         //                 img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
         //             else
         //                 img.img-circle.m-b(src='/icons/Logo_sm_100.png' alt='logo' width='100' height='79')
-        a.item(href="/t/#{ct.slug}/chat")
+        a.item(href="/chat")
             // +ioffice name='chat' classes='ui avatar image'
             i.chat.icon
             | Chat
-        a.item.toggle_rightbar.tribe_schemas(href="/t/#{ct.slug}/s/schema")
+        a.item.toggle_rightbar.tribe_schemas(href="/s/schema")
             // +ioffice name='active-directory' classes='ui avatar image'
             i.sitemap.icon
             | Schemas
-        a.item.toggle_rightbar.tribe_pages(href="/t/#{ct.slug}/s/page")
+        a.item.toggle_rightbar.tribe_pages(href="/s/page")
             // +ioffice name='web' classes='ui avatar image'
             i.clone.icon
             | Pages
-        a.item.toggle_rightbar(href="/t/#{ct.slug}/users")
+        a.item.toggle_rightbar(href="/users")
             // +ioffice name='group-foreground-selected' classes='ui avatar image'
             i.users.icon
             | Users
@@ -249,7 +249,7 @@ template(name='footer')
                     .ui.small.inverted.header Links
                     .ui.inverted.list
                         each footer_pages
-                            a.item(href="/t/#{ct.slug}/p/#{slug}") #{title}
+                            a.item(href="/p/#{slug}") #{title}
                 .inverted.column
                     +role_switcher
 

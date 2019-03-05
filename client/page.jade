@@ -21,7 +21,7 @@ template(name='page')
                                     |#{title}
                             .four.wide.center.aligned.column
                                 if can_edit
-                                    a.ui.icon.button(href="/t/#{ct.slug}/s/page/#{_id}/edit" title='Edit Page')
+                                    a.ui.icon.button(href="/s/page/#{_id}/edit" title='Edit Page')
                                         i.pencil.icon
                     .centered.row
                         .sixteen.wide.column 
@@ -92,7 +92,7 @@ template(name='menu')
             .sixteen.wide.column
                 .ui.stackable.four.link.cards
                     each view_schemas
-                        a.card.set_tribe_schema(href="/t/#{tribe}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+                        a.card.set_tribe_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                             .content
                                 .header 
                                     // i.icon(class=icon)
