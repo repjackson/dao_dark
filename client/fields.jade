@@ -168,10 +168,10 @@ template(name='doc_edit')
 
 template(name='doc_view')
     .ui.styled.fluid.accordion
-        .active.title 
-            |Content #{label}
-            i.dropdown.icon
-        .active.content 
+        .title 
+            .ui.header #{label}
+                i.dropdown.icon
+        .content 
             |!{referenced_document.html}
         
 
@@ -416,15 +416,13 @@ template(name='boolean_view')
         if icon
             i.grey.icon(class=icon)
 
-        |#{label}: &nbsp;
+        //- |#{label}: &nbsp;
         if field_value
             .ui.basic.green.label
                 i.checkmark.icon
                 |#{label}
         else
-            // .ui.basic.red.label #{label}
-            strong False
-            // .ui.label #{label}
+            .ui.basic.label #{label}
         
 
 

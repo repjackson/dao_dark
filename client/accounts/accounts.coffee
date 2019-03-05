@@ -1,4 +1,4 @@
-# Template.login.events 
+# Template.login.events
 #     'submit #loginForm': (e, t) ->
 #         username = e.target.username.value.toLowerCase()
 #         password = e.target.password.value
@@ -36,7 +36,7 @@ Template.login.events
                 e.target.password.value = password
                 # toastr.error err.reason
             else
-                Router.go "/t/goldrun"
+                Router.go "/"
                 # if Meteor.user() and Meteor.user().profile.isActive
                 #     if Meteor.user().roles
                 #         document.cookie = 'loggedinEmailId=' + username
@@ -169,7 +169,7 @@ Template.reset_password.onCreated ->
 	if Accounts._resetPasswordToken
 		Session.set 'resetPassword', Accounts._resetPasswordToken
 	return
-Template.reset_password.helpers 
+Template.reset_password.helpers
     resetPassword: ->
     	Session.get 'resetPassword'
 Template.reset_password.events

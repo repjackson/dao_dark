@@ -52,6 +52,21 @@ Template.topnav.events
                 transition: 'overlay'
             })
             .sidebar('attach events', '.toggle_leftbar')
+            .sidebar('toggle')
+
+
+
+    'click .toggle_rightbar': ->
+        $('.context .ui.right.sidebar')
+            .sidebar({
+                context: $('.context .bottom.segment')
+                exclusive: true
+                delaySetup:true
+                dimPage: true
+                transition: 'overlay'
+            })
+            .sidebar('attach events', '.toggle_rightbar')
+            .sidebar('toggle')
 
 
 

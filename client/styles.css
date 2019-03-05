@@ -34,37 +34,37 @@ body {
 
 
 
-.f10 { 
-  font-size: 200%; 
+.f10 {
+  font-size: 200%;
   line-height: 120%;
   margin-bottom: 10px; }
-.f9 { 
-  font-size: 180%; 
+.f9 {
+  font-size: 180%;
   line-height: 120%;
   margin-bottom: 5px; }
-.f8 { 
-  font-size: 160%; 
+.f8 {
+  font-size: 160%;
   line-height: 160%; }
-.f7 { 
-  font-size: 140%; 
+.f7 {
+  font-size: 140%;
   line-height: 140%; }
-.f6 { 
-  font-size: 120%; 
+.f6 {
+  font-size: 120%;
   line-height: 120%; }
-.f5 { 
-  font-size: 110%; 
+.f5 {
+  font-size: 110%;
   line-height: 110%; }
-.f4 { 
-  font-size: 100%; 
+.f4 {
+  font-size: 100%;
   line-height: 100%; }
-.f3 { 
-  font-size: 90%; 
+.f3 {
+  font-size: 90%;
   line-height: 90%; }
-.f2 { 
-  font-size: 70%; 
+.f2 {
+  font-size: 70%;
   line-height: 70%; }
-.f1 { 
-  font-size: 50%; 
+.f1 {
+  font-size: 50%;
   line-height: 50%; }
 .f0 { display:none; }
 
@@ -322,11 +322,11 @@ a {
 	/*padding: 1em;*/
 }
 
-.scrolling::-webkit-scrollbar { 
+.scrolling::-webkit-scrollbar {
     display: none;
 }
 
-.topnav::-webkit-scrollbar { 
+.topnav::-webkit-scrollbar {
     display: none;
 }
 
@@ -371,8 +371,8 @@ a {
     line-height: 150%;
 }
   .large120 {
-    font-size: 120%;
-    line-height: 120%;
+    font-size: 120% !important;
+    line-height: 120% !important;
 }
   .large150 {
     font-size: 150%;

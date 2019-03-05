@@ -32,26 +32,24 @@ template(name='topnav')
         //         a.icon.item(href="/s/page/#{_id}/edit" title='Edit Page')
         //             i.pencil.icon
 
-        // a.icon.item(href="/chat" title='Chat')
-        //     i.chat.icon
-            // |Chat
         // a.icon.item.tribe_schemas(href="/s/schema")
         //     i.th.icon
         //     | Sections   
-        a.icon.item.tribe_people(href="/s/person" title='People')
+        a.icon.item.tribe_people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
              i.users.large.icon
              //- |People
         // a.icon.item(href="/menu")
         //     i.th.icon
         // +role_switcher
         .right.menu
+            a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
+                i.large.chat.icon
             if currentUser
-                a.icon.item(href="/add" title="Add")
-                    // +ioffice name='plus' classes='ui mini image'
+                a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
                     i.plus.large.icon
-                // a.item.toggle_topbar(href='#')
-                //     i.inbox.icon
-                a.item(href="/u/#{currentUser.username}" title="Profile")
+                a.item.toggle_topbar(href="/u/#{currentUser.username}/notifications" class="{{isActiveRoute 'user_notifications'}}")
+                     i.large.inbox.icon
+                a.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'profile'}}")
                     i.user.large.icon
                     | #{currentUser.username}
                     //- // | #{currentUser.username} [#{currentUser.status}]

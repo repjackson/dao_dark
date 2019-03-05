@@ -49,7 +49,7 @@ template(name='delta')
                     each current_delta.facets
                         +facet
                 // .column(class=delta_right_column_class)
-                .eight.wide.column
+                .ten.wide.column
                     // a.ui.left.corner.label.move_right
                     //     i.right.chevron.link.pointer.icon
                     // .ui.horizontal.spaced.list
@@ -88,7 +88,7 @@ template(name='delta')
                     .scrolling
                         each current_delta.result_ids
                             +result
-                .four.wide.column.scrolling
+                .two.wide.column.scrolling
                     +events_column
                 
 template(name='events_column')
@@ -191,7 +191,7 @@ template(name='set_delta_key')
 
 template(name='result')
     with result 
-        .ui.result.fluid.segment(class="{{#if is_loading}}loading{{/if}}")
+        .ui.result.fluid.segment.large120(class="{{#if is_loading}}loading{{/if}}")
             .content
                 a.ui.header(href="/s/#{type}/#{_id}/view")
                     if logo_id
@@ -255,6 +255,7 @@ template(name='type_edit')
                             if header
                                 +Template.dynamic template=view_template 
                     // +ioffice name='pencil' classes='ui inline image'
+                    div
                     +creation_info
                     +save_button
                     +remove_button
@@ -273,7 +274,7 @@ template(name='type_view')
             .row
                 .sixteen.wide.column
                     .ui.breadcrumb
-                        a.set_tribe_schema.ui.compact.circular.button.section(href="/s/#{type}" title=schema.plural)
+                        a.set_tribe_schema.ui.circular.button.section(href="/s/#{type}" title=schema.plural)
                             if schema.color_icon
                                 +icolor name=schema.color_icon classes='ui mini inline image'
                             // else

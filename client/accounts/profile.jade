@@ -4,81 +4,76 @@ template(name='profile_layout')
         .ui.bottom.attached.basic.segment.pushable
             +leftbar
             // +topbar
-            // +rightbar
+            +rightbar
             .pusher
                 #main
                     with user_from_username_param
                         .ui.padded.stackable.grid
                             .row
                                 .four.wide.column
+                                    h1.ui.center.aligned.header
+                                        | #{user.first_name}
+                                        | #{user.last_name}
+                                        | #{user.username}                        
                                     .field
                                         if image_id
                                             a.item(href="/t/#{ct.slug}/u/#{user_from_username_param.username}/about")
                                                 img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
+                                        .ui.vertical.large.fluid.menu
+                                            a.item(href="/u/#{user_from_username_param.username}/about" class="{{isActiveRoute regex='user_about'}}")
+                                                i.info.icon
+                                                .content    
+                                                    .header
+                                                        |About
+                                            a.item(href="/u/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
+                                                i.mail.icon
+                                                .content    
+                                                    .header
+                                                        |Messages
+                                            a.item(href="/u/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
+                                                i.fork.icon
+                                                .content    
+                                                    .header
+                                                        |Connections
+                                            a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
+                                                i.bullhorn.icon
+                                                .content    
+                                                    .header
+                                                        |Notifications
+                                            a.item(href="/u/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
+                                                i.chat.icon
+                                                .content    
+                                                    .header
+                                                        |Chat
+                                            a.item(href="/u/#{user_from_username_param.username}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
+                                                i.stripe.icon
+                                                .content    
+                                                    .header
+                                                        |Stripe
+                                            a.item(href="/u/#{user_from_username_param.username}/tags" class="{{isActiveRoute regex='user_tags'}}")
+                                                i.tags.icon
+                                                .content    
+                                                    .header
+                                                        |Tags
+                                            //- a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                                            //-     i.phone.icon
+                                            //-     .content    
+                                            //-         .header
+                                            //-             |Contact
+
                                     // if current_user
                                     if is_admin
                                         .ui.vertical.fluid.menu
                                             a.item(href="/u/#{user_from_username_param.username}/edit")
                                                 i.settings.icon
                                                 | Settings
-                                    .ui.vertical.fluid.menu
+                                    .ui.vertical.large.fluid.menu
                                         each user_schemas
                                             a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
                                                 i.icon(class=icon)
                                                 .content    
                                                     .header
                                                         |#{plural}
-                                    .ui.vertical.fluid.menu
-                                        a.item(href="/u/#{user_from_username_param.username}/about" class="{{isActiveRoute regex='user_about'}}")
-                                            i.info.icon
-                                            .content    
-                                                .header
-                                                    |About
-                                        a.item(href="/u/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
-                                            i.mail.icon
-                                            .content    
-                                                .header
-                                                    |Messages
-                                        // a.item(href="/u/#{user_from_username_param.username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
-                                        //     i.tasks.icon
-                                        //     .content    
-                                        //         .header
-                                        //             |Tasks
-                                        // a.item(href="/u/#{user_from_username_param.username}/blog" class="{{isActiveRoute regex='user_blog'}}")
-                                        //     i.newspaper.icon
-                                        //     .content    
-                                        //         .header
-                                        //             |Blog
-                                        a.item(href="/u/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
-                                            i.fork.icon
-                                            .content    
-                                                .header
-                                                    |Connections
-                                        a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
-                                            i.bullhorn.icon
-                                            .content    
-                                                .header
-                                                    |Notifications
-                                        a.item(href="/u/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
-                                            i.chat.icon
-                                            .content    
-                                                .header
-                                                    |Chat
-                                        a.item(href="/u/#{user_from_username_param.username}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
-                                            i.stripe.icon
-                                            .content    
-                                                .header
-                                                    |Stripe
-                                        a.item(href="/u/#{user_from_username_param.username}/tags" class="{{isActiveRoute regex='user_tags'}}")
-                                            i.tags.icon
-                                            .content    
-                                                .header
-                                                    |Tags
-                                        a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
-                                            i.phone.icon
-                                            .content    
-                                                .header
-                                                    |Contact
                                     if is_user
                                         .ui.vertical.fluid.menu
                                             a.item.logout(href='#')
@@ -93,14 +88,14 @@ template(name='profile_layout')
                                         // .ui.small.header
                                         //     i.donate.icon
                                         //     |$#{titheTotalGive} Given
-                                        .ui.small.header
+                                        .ui.header
                                             i.heartbeat.icon
                                             |#{user.points} Karma
                                         .ui.header 
                                             i.user.shield.icon
                                             |Roles
                                         each roles
-                                            .ui.small.header #{this}
+                                            .ui.label #{this}
                                     // each codeDetail
                                     //     .media-body
                                     //         h5
@@ -118,10 +113,6 @@ template(name='profile_layout')
                                     // iframe#ravi039s-immediate-intestinal-surgery.gfm-media-widget(image='1' coinfo='1' width='100%' height='100%' frameborder='0')
                                     // script(src='//funds.gofundme.com/js/5.0/media-widget.js')
                                 .twelve.wide.column.scrolling
-                                    h1.ui.center.aligned.header
-                                        | #{user.first_name}
-                                        | #{user.last_name}
-                                        | #{user.username}
                                     +yield
                                     // +churchDashboard
             +footer
@@ -132,6 +123,9 @@ template(name='user_section')
     // +Template.dynamic template=user_section_template
 
 template(name='user_about')
+    .profile-banner-container
+        img.ui.fluid.rounded.image(src="{{c.url profile.banner_image_id width=1000 height=300 crop='crop'}}")
+
     .ui.padded.stackable.grid
         .eight.wide.column
             .ui.list
@@ -139,43 +133,33 @@ template(name='user_about')
                     strong #{first_name}
                 .ui.item Last Name 
                     strong #{last_name}
-                // .ui.item Address 
-                //     strong #{address}
-                // .ui.item Unit # 
-                //     strong #{apt_number}
-                // .ui.item Building # 
-                //     strong #{building_number}
-                // .ui.item Start Date 
-                //     strong #{start_date}
-                // .ui.item Lease Expiration 
-                //     strong #{lease_expiration}
+                //- // .ui.item Address 
+                //- //     strong #{address}
+                //- // .ui.item Unit # 
+                //- //     strong #{apt_number}
+                //- // .ui.item Building # 
+                //- //     strong #{building_number}
+                //- // .ui.item Start Date 
+                //- //     strong #{start_date}
+                //- // .ui.item Lease Expiration 
+                //- //     strong #{lease_expiration}
                 .ui.item Telephone 
                     strong #{telephone}
                 .ui.item Email 
                     strong #{email}
                 .ui.item Owner 
                     strong #{owner}
+                .ui.small.header 
+                    i.linkify.icon
+                    |Link
+                a(href=profile.website target='_blank') #{profile.website}
+                +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
+                +user_bookmarks    
         .eight.wide.column
-            +user_wall
-    // img.ui.fluid.rounded.image(src="{{c.url profile.banner_image_id width=1000 height=300 crop='crop'}}")
-    // .profile-banner-container
-    +user_feed
-    .ui.inline.header
-        i.fire.icon
-        |Group Memberships
-    each tribes
-        a.ui.button(href="/t/#{this}") 
-            i.external.icon
-            |#{this}
-    .ui.small.inline.header 
-        i.linkify.icon
-        |Link
-    a(href=profile.website target='_blank') #{profile.website}
-    +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
-    +user_bookmarks    
+            +user_feed
     if current_user
         +role_switcher
-        +site_switcher
+        //- +site_switcher
     +user_tags
     
 
@@ -193,6 +177,8 @@ template(name='user_feed')
         .ui.header 
             i.activity.icon
             |Activity Feed
+        +user_wall
+            
         if current_user
             .ui.fluid.input
                 input(type='text' placeholder='Share something...')
@@ -212,16 +198,6 @@ template(name='user_unread')
                 
                 
     
-template(name='follow_user')    
-    .ui.secondary.segment
-        unless current_user
-            a.toggle_follow_user(href='#' title='Follow User')
-                i.renew.icon
-        else
-            i.renew.icon
-        |Followed By
-        +user_array_list user=user_from_username_param array='followed_by_ids'
-            
             
 template(name='user_array_list')
     .ui.list
@@ -230,14 +206,6 @@ template(name='user_array_list')
                 +user_info
             
             
-template(name='user_following')    
-    .ui.secondary.segment
-        .ui.header 
-            i.human.icon
-            |Following
-        +user_array_list user=user_from_username_param array='following_ids'
-      
-                
             
 template(name='role_switcher')
     i.user.shield.icon(title='Role Switcher')
@@ -274,3 +242,4 @@ template(name='user_wall')
     each user_posts
         .ui.item
             |#{body}
+            +remove_button

@@ -428,13 +428,13 @@ Template.children_edit.helpers
 
 Template.children_edit.events
     'click .add_child': ->
-        console.log @
+        # console.log @
         parent = Template.parentData(5)
         new_id = Docs.insert
             type: @ref_schema
             parent_id: parent._id
             parent_type:Router.current().params.type
-        console.log new_id
+        # console.log new_id
 
 
 
@@ -472,9 +472,9 @@ Template.single_doc_edit.helpers
 
 
         if brick
-            if @slug is context["#{brick.key}"] then 'active' else 'basic'
+            if @slug is context["#{brick.key}"] then 'grey' else ''
         else
-            if @slug is target["#{ref_field.key}"] then 'active' else 'basic'
+            if @slug is target["#{ref_field.key}"] then 'grey' else ''
 
 
 Template.single_doc_edit.events
@@ -540,9 +540,9 @@ Template.multi_doc_edit.helpers
         context = Template.parentData(6)
 
         if brick
-            if context["#{brick.key}"] and @slug in context["#{brick.key}"] then 'active' else 'basic'
+            if context["#{brick.key}"] and @slug in context["#{brick.key}"] then 'grey' else ''
         else
-            if target["#{ref_field.key}"] and @slug in target["#{ref_field.key}"] then 'active' else 'basic'
+            if target["#{ref_field.key}"] and @slug in target["#{ref_field.key}"] then 'grey' else ''
 
 Template.multi_doc_edit.events
     'click .select_choice': ->
@@ -734,7 +734,7 @@ Template.single_person_edit.events
     'click .select_person': (e,t) ->
         page_doc = Docs.findOne Router.current().params.id
 
-        console.log @
+        # console.log @
 
         val = t.$('.edit_text').val()
         parent = Template.parentData()
@@ -745,8 +745,8 @@ Template.single_person_edit.events
         # console.log Template.parentData(1)
         # console.log Template.parentData(2)
         # console.log Template.parentData(3)
-        console.log Template.parentData(4)
-        console.log Template.parentData(5)
+        # console.log Template.parentData(4)
+        # console.log Template.parentData(5)
 
         if brick
             Docs.update context._id,
@@ -810,8 +810,8 @@ Template.multi_user_edit.events
         # console.log Template.parentData(1)
         # console.log Template.parentData(2)
         # console.log Template.parentData(3)
-        console.log Template.parentData(4)
-        console.log Template.parentData(5)
+        # console.log Template.parentData(4)
+        # console.log Template.parentData(5)
 
         if brick
             Docs.update context._id,
