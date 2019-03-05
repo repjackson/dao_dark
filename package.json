@@ -8,6 +8,9 @@
 		"twilio": "^3.28.0",
 		"watson-developer-cloud": "^3.3.0"
 	},
+	"scripts": {
+		"start": "MONGO_URL='mongodb://bodhisattva:aligntheworldintheway@aws-us-east-1-portal.21.dblayer.com:10444/daodb?ssl=true' meteor --settings settings.json"
+	},
 	"devDependencies": {
 		"autoprefixer": "^6.3.1",
 		"postcss": "^6.0.22",

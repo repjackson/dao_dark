@@ -65,7 +65,7 @@ Meteor.methods
 
 Accounts.emailTemplates.verifyEmail =
     subject: () -> "Gold Run Email Verification"
- 
+
     text: ( user, url )->
         emailAddress   = user.emails[0].address
         urlWithoutHash = url.replace( '#/', '' )
@@ -79,7 +79,7 @@ Accounts.emailTemplates.verifyEmail =
 #     #     service = Docs.findOne service_id
 #     #     service_author = Meteor.users.findOne service.author_id
 #     #     recipient_doc = Docs.findOne recipient_doc_id
-        
+
 #     #     requester = Meteor.users.findOne recipient_doc.author_id
 
 #     #     new_transaction_id = Docs.insert
@@ -91,7 +91,7 @@ Accounts.emailTemplates.verifyEmail =
 #     #         sale_point_price: sale_point_price
 
 #     #     message_link = "https://www.toriwebster.com/view/#{new_transaction_id}"
-        
+
 # Meteor.methods
 #     email_about_escalation_two: (incident_id)->
 #         incident = Docs.findOne incident_id
@@ -110,7 +110,7 @@ Accounts.emailTemplates.verifyEmail =
 #             "
 #         }
 #         Meteor.call 'sendEmail', mailFields
-#     #         # html: 
+#     #         # html:
 #     #         #     "<h4>#{message_author.profile.first_name} just sent the following message: </h4>
 #     #         #     #{text} <br>
 #     #         #     In conversation with tags: #{conversation_doc.tags}. \n
@@ -118,9 +118,9 @@ Accounts.emailTemplates.verifyEmail =
 #     #         #     \n
 #     #         #     Click <a href="/view/#{_id}"
 #     #         # "
-    
-    
-    
+
+
+
 #     email_about_escalation_three: (incident_id)->
 #         incident = Docs.findOne incident_id
 #         # console.log incident
@@ -138,7 +138,7 @@ Accounts.emailTemplates.verifyEmail =
 #             "
 #         }
 #         Meteor.call 'sendEmail', mailFields
-#     #         # html: 
+#     #         # html:
 #     #         #     "<h4>#{message_author.profile.first_name} just sent the following message: </h4>
 #     #         #     #{text} <br>
 #     #         #     In conversation with tags: #{conversation_doc.tags}. \n
@@ -146,9 +146,9 @@ Accounts.emailTemplates.verifyEmail =
 #     #         #     \n
 #     #         #     Click <a href="/view/#{_id}"
 #     #         # "
-    
-    
-    
+
+
+
 #     email_about_escalation_four: (incident_id)->
 #         incident = Docs.findOne incident_id
 #         # console.log incident
@@ -166,7 +166,7 @@ Accounts.emailTemplates.verifyEmail =
 #             "
 #         }
 #         Meteor.call 'sendEmail', mailFields
-#     #         # html: 
+#     #         # html:
 #     #         #     "<h4>#{message_author.profile.first_name} just sent the following message: </h4>
 #     #         #     #{text} <br>
 #     #         #     In conversation with tags: #{conversation_doc.tags}. \n
@@ -174,36 +174,36 @@ Accounts.emailTemplates.verifyEmail =
 #     #         #     \n
 #     #         #     Click <a href="/view/#{_id}"
 #     #         # "
-    
-    
-    
+
+
+
 Meteor.startup ->
     Meteor.Mailgun.config
         username: 'portalmailer@sandbox97641e5041e64bfd943374748157462b.mailgun.org'
         password: 'portalmailer'
     return
-    
-    
+
+
 # In your server code: define a method that the client can call
-Meteor.methods 
+Meteor.methods
     update_email: (new_email) ->
         userId = Meteor.userId();
         if !userId
             throw new Meteor.Error(401, "Unauthorized");
         Accounts.addEmail(userId, new_email);
         return "Updated Email to #{new_email}"
-    
+
     verify_email: (user_id)->
-        Accounts.sendVerificationEmail(user_id)        
-        
+        Accounts.sendVerificationEmail(user_id)
+
     notify_user_about_document: (doc_id, recipient_id)->
         doc = Docs.findOne doc_id
         parent = Docs.findOne doc.parent_id
         recipient = Meteor.users.findOne recipient_id
-        
-        
+
+
         doc_link = "/view/#{doc._id}"
-        notification = 
+        notification =
             Docs.findOne
                 type:'notification'
                 object_id:doc_id
@@ -216,7 +216,7 @@ Meteor.methods
                 type:'notification'
                 object_id:doc_id
                 recipient_id:recipient_id
-                content: 
+                content:
                     "<p>#{Meteor.user().name()} has notified you about <a href=#{doc_link}>#{parent.title} entry</a>.</p>"
 
 
@@ -244,5 +244,5 @@ Meteor.methods
                 html: mailFields.html
             console.log 'email sent!'
             console.log 'not prod'
-            
+
         return    
