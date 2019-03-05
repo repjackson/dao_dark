@@ -44,3 +44,26 @@ template(name='follow_user')
         |Followed By
         +user_array_list user=user_from_username_param array='followed_by_ids'
                 
+
+template(name='user_wall')
+    .ui.header
+        i.edit.icon
+        |Wall
+    if currentUser
+        .ui.fluid.icon.input
+            i.plus.icon
+            input.add_wall_post(type='text' placeholder='Add Note...')
+    .ui.comments
+        each user_posts
+            .comment
+                //- .avatar
+                .content
+                    a.author(href='#') #{author.first_name} #{author.last_name}
+                    .metadata
+                        span.date #{when}
+                    .text.large120 #{body}
+                    .actions
+                        i.remove.link.icon.remove_comment(title='Vote Down')
+                        i.thumbs.up.link.icon.vote_up_comment(title='Vote Up')
+                        |#{points}
+                        i.message.link.icon.mark_comment_read(title='Mark Read')

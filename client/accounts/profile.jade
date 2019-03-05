@@ -175,13 +175,13 @@ template(name='user_people')
 template(name='user_feed')
     .ui.secondary.segment
         .ui.header 
-            i.activity.icon
+            i.rss.icon
             |Activity Feed
-        +user_wall
-            
         if current_user
             .ui.fluid.input
                 input(type='text' placeholder='Share something...')
+    .ui.secondary.segment
+        +user_wall
                 
 template(name='user_bookmarks')
     .ui.secondary.segment
@@ -230,16 +230,3 @@ template(name='user_array_element_toggle')
 template(name='user_string_toggle')
     .ui.button.toggle_element(class=user_string_element_toggle_class)
         |#{value}
-
-
-
-template(name='user_wall')
-    .ui.header Wall
-    if currentUser
-        .ui.fluid.icon.input
-            i.plus.icon
-            input.add_wall_post(type='text' placeholder='Add Note...')
-    each user_posts
-        .ui.item
-            |#{body}
-            +remove_button
