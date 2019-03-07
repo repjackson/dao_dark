@@ -33,7 +33,10 @@ Meteor.users.allow
 
 
 Meteor.publish 'doc', (doc_id)->
-    Docs.find doc_id
+    if Docs.findOne doc_id
+        Docs.find doc_id
+    else
+        Meteor.users.find doc_id
 
 Meteor.publish 'deltas', ->
     Docs.find

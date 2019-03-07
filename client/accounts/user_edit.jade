@@ -41,9 +41,9 @@ template(name='user_edit')
                             input(type='file' name='banner_image' accept='image/*')
                 .ui.fluid.button.update_profile Update
                 +password_edit
-                // +phone_editor
-                // +username_edit
-                // +emails_edit
+                +phone_editor
+                +username_edit
+                +emails_edit
                 if is_dev
                     .ui.orange.button.remove_user 
                         i.remove.icon
@@ -51,8 +51,6 @@ template(name='user_edit')
             .eleven.wide.column
                 // +church_profile
                 +user_schema_editor
-                if is_dev
-                    +user_tribe_editor
                 // if is_admin
                 //     +user_single_doc_ref_editor key='building' schema='building' label='Building'
                 //     +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
@@ -95,8 +93,8 @@ template(name='user_edit')
                     //         i.clock.icon
                     //         input#lease_expiration(type='date' value=user_from_username_param.lease_expiration)
                                         
-                // +stripe_connect
-                // +payment_methods
+                +stripe_connect
+                +payment_methods
 
 
 template(name='user_schema_editor')
@@ -259,7 +257,3 @@ template(name='emails_edit')
         .ui.action.fluid.input
             input#new_email(type='email')
             #add_email.ui.submit.button Add Email
-
-
-
-

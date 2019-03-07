@@ -21,19 +21,19 @@ if Meteor.isClient
                 type:Router.current().params.type
 
         selected_tags: -> selected_tags.list()
-        
+
         grid_view_class: ->
             delta = Docs.findOne type:'delta'
             if delta.view_mode is 'grid' then 'delta_selected' else 'delta_selector'
-        
+
         list_view_class: ->
             delta = Docs.findOne type:'delta'
             if delta.view_mode is 'list' then 'delta_selected' else 'delta_selector'
-        
+
         table_view_class: ->
             delta = Docs.findOne type:'delta'
             if delta.view_mode is 'table' then 'delta_selected' else 'delta_selector'
-    
+
         results_class: ->
             delta = Docs.findOne type:'delta'
             if delta.viewing_detail
@@ -41,7 +41,7 @@ if Meteor.isClient
             else
             #     if delta.viewing_rightbar then 'nine wide' else 'twelve wide'
                 'twelve wide'
-    
+
         delta_left_column_class: ->
             delta = Docs.findOne type:'delta'
             if delta and delta.left_column_size
@@ -60,8 +60,8 @@ if Meteor.isClient
                     when 13 then 'thirteen wide'
                     when 14 then 'fourteen wide'
             else 'four wide'
-            
-            
+
+
         delta_right_column_class: ->
             delta = Docs.findOne type:'delta'
             if delta and delta.right_column_size
@@ -80,10 +80,10 @@ if Meteor.isClient
                     when 3 then 'three wide'
                     when 2 then 'two wide'
             else 'twelve wide'
-            
-    
-    
-    
+
+
+
+
         result_grid_class: ->
             delta = Docs.findOne type:'delta'
             if delta
@@ -93,7 +93,7 @@ if Meteor.isClient
                     else 'two column'
 
 
-        current_delta: -> 
+        current_delta: ->
             Docs.findOne type:'delta'
 
 
@@ -134,27 +134,27 @@ if Meteor.isClient
             delta = Docs.findOne type:'delta'
             if delta and delta["#{@key}"] is @value then 'grey' else ''
 
-    
-    
+
+
     Template.toggle_delta_config.helpers
         boolean_true: ->
             delta = Docs.findOne type:'delta'
             if delta then delta["#{@key}"]
-    
-    
-    
+
+
+
     Template.toggle_delta_config.events
         'click .enable_key': ->
             delta = Docs.findOne type:'delta'
             Docs.update delta._id,
                 $set:"#{@key}":true
-    
+
         'click .disable_key': ->
             delta = Docs.findOne type:'delta'
             Docs.update delta._id,
                 $set:"#{@key}":false
-    
-    
+
+
 
     Template.delta.events
         'click .add_type_doc': ->
@@ -162,13 +162,13 @@ if Meteor.isClient
                 type:'schema'
                 slug:Router.current().params.type
             # console.log current_schema
-            new_doc_id = Docs.insert 
+            new_doc_id = Docs.insert
                 type:Router.current().params.type
                 parent_id: current_schema._id
             Router.go "/s/#{Router.current().params.type}/#{new_doc_id}/edit"
 
         'click .create_delta': (e,t)->
-            Docs.insert 
+            Docs.insert
                 type:'delta'
                 left_column_size: 6
                 right_column_size: 10
@@ -176,7 +176,7 @@ if Meteor.isClient
         'click .print_delta': (e,t)->
             delta = Docs.findOne type:'delta'
             console.log delta
-    
+
         'click .reset': ->
             delta = Docs.findOne type:'delta'
             Meteor.call 'fum', delta._id, (err,res)->
@@ -203,7 +203,7 @@ if Meteor.isClient
                 if err then console.log err
                 else
                     Session.set 'is_calculating', false
-    
+
         'click .page_down': (e,t)->
             delta = Docs.findOne type:'delta'
             Docs.update delta._id,
@@ -236,29 +236,29 @@ if Meteor.isClient
         'click .move_left': ->
             delta = Docs.findOne type:'delta'
             Docs.update delta._id,
-                $inc: 
+                $inc:
                     left_column_size:-1
                     right_column_size:1
 
         'click .move_right': ->
             delta = Docs.findOne type:'delta'
             Docs.update delta._id,
-                $inc: 
+                $inc:
                     left_column_size:1
                     right_column_size:-1
 
 
-    
+
     Template.events_column.onCreated ->
         @autorun -> Meteor.subscribe 'type', 'log_event'
     Template.events_column.helpers
         is_checkedin: ->
-            
+
         log_events: ->
             Docs.find {
                 # object_id:@_id
                 type:'log_event'
-            }, 
+            },
                 sort:_timestamp:-1
                 limit:20
 
@@ -274,13 +274,13 @@ if Meteor.isClient
 
     Template.type_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
-        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params.type, Router.current().params._id
-        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params.type, Router.current().params._id
-        
-    
+        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
+
+
     Template.type_view.onCreated ->
-        @autorun -> Meteor.subscribe 'schema_from_doc_id', Router.current().params.type, Router.current().params._id
-        @autorun -> Meteor.subscribe 'bricks_from_doc_id', Router.current().params.type, Router.current().params._id
+        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
 
     Template.type_edit.events
@@ -301,13 +301,13 @@ if Meteor.isClient
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1500
-    
+
     Template.facet.events
         'click .ui.accordion': ->
             $('.accordion').accordion()
 
-    
-    
+
+
         'click .toggle_selection': ->
             delta = Docs.findOne type:'delta'
             facet = Template.currentData()
@@ -318,7 +318,7 @@ if Meteor.isClient
             else
                 Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
                     Session.set 'loading', false
-          
+
         'keyup .add_filter': (e,t)->
             if e.which is 13
                 delta = Docs.findOne type:'delta'
@@ -328,10 +328,10 @@ if Meteor.isClient
                 Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
                     Session.set 'loading', false
                 t.$('.add_filter').val('')
-                
-        
-      
-    
+
+
+
+
     Template.facet.helpers
         filtering_res: ->
             delta = Docs.findOne type:'delta'
@@ -342,9 +342,9 @@ if Meteor.isClient
                 else if filter.name in @filters
                     filtering_res.push filter
             filtering_res
-    
-        
-    
+
+
+
         toggle_value_class: ->
             facet = Template.parentData()
             delta = Docs.findOne type:'delta'
@@ -353,13 +353,18 @@ if Meteor.isClient
             else if facet.filters.length > 0 and @name in facet.filters
                 'blue'
             else ''
-            
+
     Template.result.onCreated ->
         @autorun => Meteor.subscribe 'doc', @data._id
-    
+
     Template.result.helpers
-        result: -> Docs.findOne @_id
-        
+        result: ->
+            if Docs.findOne @_id
+                Docs.findOne @_id
+            else if Meteor.users.findOne @_id
+                Meteor.users.findOne @_id
+
+
     Template.result.events
         'click .set_schema': ->
             Meteor.call 'set_delta_facets', @slug, Meteor.userId()

@@ -138,9 +138,8 @@ template(name='voting')
 
 
 template(name='view_button')
-    a.ui.large.circular.button.view(title='View' href="/s/#{type}/#{_id}/view")
+    .ui.large.circular.button.view(title='View')
         |View #{type}
-        // +ioffice name='chevron-right' classes='ui inline image'
         i.right.chevron.icon
 
 template(name='remove_button')
@@ -173,7 +172,7 @@ template(name='toggle_friend')
 
 
 template(name='edit_button')
-    a.ui.large.circular.button.edit(title="Edit #{title}" href="/s/#{type}/#{_id}/edit")
+    .ui.large.circular.button.edit(title="Edit #{title}")
         i.pencil.icon
         // +ioffice name='pencil' classes='ui inline image'
         |Edit
@@ -201,4 +200,3 @@ template(name='add_type_button')
     .ui.icon.circular.button.add(title="add #{type}")
         i.plus.icon
         |#{type}
-

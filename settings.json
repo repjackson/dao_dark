@@ -4,7 +4,7 @@
         "test_publishable_key": "pk_test_EeQ9GTKynLzNMq5hiTCkg3Ec",
         "live_publishable_key": "pk_live_I5XDcgYoZQHko5epFyMr5IWT",
         "client_id": "ca_6xrceWlIdjoZ0ebtxSUDBMG1yazAn5et",
-  			"stripe_connect_redirect": "https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&redirect_uri=https://dao-repjackson.c9users.io/connect&client_id="
+  			"stripe_connect_redirect": "https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&redirect_uri=https://localhost:3000/connect&client_id="
     },
     "analyticsSettings": {
       "Google Analytics" : {"trackingId": "UA-93827813-1"}

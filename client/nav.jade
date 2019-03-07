@@ -3,7 +3,7 @@ template(name='topnav')
     .ui.attached.borderless.inverted.topnav.big.menu(style="background:#{ct.primary_color}")
         if is_loading
             .icon.item
-                i.loading.refresh.large.icon
+                i.loading.compass.outline.large.icon
         else 
             a.item.icon.toggle_leftbar(href='#')
                 i.bars.large.icon
@@ -47,7 +47,7 @@ template(name='topnav')
             if currentUser
                 a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
                     i.plus.large.icon
-                a.item.toggle_topbar(href="/u/#{currentUser.username}/notifications" class="{{isActiveRoute 'user_notifications'}}")
+                a.item.toggle_topbar(href="/s/message" class="{{isActivePath '/s/message'}}")
                      i.large.inbox.icon
                 a.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'profile'}}")
                     i.user.large.icon

@@ -47,7 +47,13 @@ Template.registerHelper 'is_dev', () ->
 
 
 Template.registerHelper 'doc', () ->
-    Docs.findOne Router.current().params._id
+    doc = Docs.findOne Router.current().params._id
+    user = Meteor.users.findOne Router.current().params._id
+    if doc
+        doc
+    else if user
+        user
+
 
 Template.registerHelper 'schema', () ->
     Docs.findOne
@@ -133,9 +139,14 @@ Template.registerHelper 'view_template', ->
 
 Template.registerHelper 'small_bricks', () ->
     # console.log @type
-    schema = Docs.findOne
-        type:'schema'
-        slug:@type
+    if @type
+        schema = Docs.findOne
+            type:'schema'
+            slug:@type
+    else if @roles
+        schema = Docs.findOne
+            type:'schema'
+            slug:$in:@roles
         # tribe:'dao'
     # if @type in ['field', 'brick','schema','tribe','page','block']
     # else
@@ -161,21 +172,14 @@ Template.registerHelper 'small_bricks', () ->
 Template.registerHelper 'big_bricks', () ->
     # console.log @type
     # if @type in ['field', 'brick','schema','tribe','page','block']
-    schema = Docs.findOne
-        type:'schema'
-        slug:@type
-        # tribe:'dao'
-    # else
-    #     if Router.current().params.username
-    #         schema = Docs.findOne
-    #             type:'schema'
-    #             user_schema:true
-    #             slug:@type
-    #     else
-    #         schema = Docs.findOne
-    #             type:'schema'
-    #             slug:@type
-    #             tribe:Router.current().params.tribe_slug
+    if @type
+        schema = Docs.findOne
+            type:'schema'
+            slug:@type
+    else if @roles
+        schema = Docs.findOne
+            type:'schema'
+            slug:$in:@roles
     Docs.find {
         type:'brick'
         parent_id:schema._id
@@ -195,11 +199,14 @@ Template.registerHelper 'children', ->
 
 Template.registerHelper 'bricks', () ->
     # console.log @type
-    # if @type in ['field', 'brick','schema','tribe','page','block']
-    schema = Docs.findOne
-        type:'schema'
-        slug:@type
-        # tribe:'dao'
+    if @type
+        schema = Docs.findOne
+            type:'schema'
+            slug:@type
+    else if @roles
+        schema = Docs.findOne
+            type:'schema'
+            slug:$in:@roles
     # else
     #     # console.log 'looking for', @type
     #     if Router.current().params.username
