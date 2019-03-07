@@ -6,7 +6,7 @@ Meteor.methods
         options = {}
         options.username = username
         options.profile = profile
-        
+
         res= Accounts.createUser options
         if res
             return res
@@ -22,26 +22,26 @@ Meteor.methods
 
     crawl_fields: (specific_key)->
         start = Date.now()
-        
+
         if specific_key
-            filter = 
-                "#{specific_key}": $exists:true 
+            filter =
+                "#{specific_key}": $exists:true
                 _keys: $nin: ["#{specific_key}"]
         else
             filter = {}
-        
+
         found_cursor = Docs.find filter, { fields:{_id:1},limit:10000 }
-        
+
         count = found_cursor.count()
         current_number = 0
-        
+
         for found in found_cursor.fetch()
             res = Meteor.call 'detect_fields', found._id
             console.log 'detected',res, current_number, 'of', count
             current_number++
                 # console.log Docs.findOne res
         stop = Date.now()
-        
+
         diff = stop - start
         doc_count = found_cursor.count()
         console.log 'duration', moment(diff).format("HH:mm:ss:SS"), 'for', doc_count, 'docs'
@@ -64,7 +64,7 @@ Meteor.methods
 
             # console.log 'key type', key, js_type
 
-            if js_type is 'object'        
+            if js_type is 'object'
                 meta.object = true
                 if Array.isArray value
                     meta.array = true
@@ -144,7 +144,7 @@ Meteor.methods
             Docs.update doc_id,
                 $set: "_#{key}": meta
 
-        Docs.update doc_id, 
+        Docs.update doc_id,
             $set:_detected:1
         # console.log 'detected fields', doc_id
 
@@ -152,9 +152,9 @@ Meteor.methods
 
     keys: (specific_key)->
         start = Date.now()
-        
+
         console.log 're-keying docs with', specific_key
-        
+
         cursor = Docs.find({ "#{specific_key}":$exists:true}, { fields:{_id:1} })
 
         found = cursor.count()
@@ -162,68 +162,68 @@ Meteor.methods
 
         for doc in cursor.fetch()
             Meteor.call 'key', doc._id
-            
+
         stop = Date.now()
-        
+
         diff = stop - start
         # console.log diff
         console.log 'duration', moment(diff).format("HH:mm:ss:SS")
-            
+
     key: (doc_id)->
         doc = Docs.findOne doc_id
-        
+
         keys = _.keys doc
         # console.log doc
-        
+
         light_fields = _.reject( keys, (key)-> key.startsWith '_' )
         # console.log light_fields
-        
+
         Docs.update doc._id,
             $set:_keys:light_fields
-        
+
         console.log "keyed #{doc._id}"
 
     global_remove: (keyname)->
-        console.log 'removing', keyname, 'globally' 
+        console.log 'removing', keyname, 'globally'
         result = Docs.update({"#{keyname}":$exists:true}, {
-            $unset: 
+            $unset:
                 "#{keyname}": 1
                 "_#{keyname}": 1
             $pull:_keys:keyname
             }, {multi:true})
         console.log result
-        console.log 'removed', keyname, 'globally' 
-        
-        
+        console.log 'removed', keyname, 'globally'
+
+
     count_key: (key)->
         count = Docs.find({"#{key}":$exists:true}).count()
         console.log 'key count', count
-    
+
 
     rename: (old, newk)->
         console.log 'start renaming', old, 'to', newk
-        
+
         old_count = Docs.find({"#{old}":$exists:true}).count()
         console.log 'found',old_count,'of',old
-        
+
         new_count = Docs.find({"#{newk}":$exists:true}).count()
         console.log 'found',new_count,'of',newk
-        
-        
+
+
         result = Docs.update({"#{old}":$exists:true}, {$rename:"#{old}":"#{newk}"}, {multi:true})
         result2 = Docs.update({"#{old}":$exists:true}, {$rename:"_#{old}":"_#{newk}"}, {multi:true})
-        
+
         # > Docs.update({doc_sentiment_score:{$exists:true}},{$rename:{doc_sentiment_score:"sentiment_score"}},{multi:true})
 
         console.log 'mongo update call finished:',result
-        
+
         cursor = Docs.find({newk:$exists:true}, { fields:_id:1 })
 
         for doc in cursor.fetch()
             Meteor.call 'key', doc._id
 
         console.log 'done renaming', old, 'to', newk
-            
+
         console.log 'result1', result
         console.log 'result2', result2
 
@@ -234,8 +234,8 @@ Meteor.methods
             $unset: tag_count: 1
             }, {multi:true})
         console.log result
-    
-    
+
+
     tagify_date_time: (val)->
         console.log moment(val).format("dddd, MMMM Do YYYY, h:mm:ss a")
         minute = moment(val).minute()
@@ -253,49 +253,49 @@ Meteor.methods
         # date_array = _.each(date_array, (el)-> console.log(typeof el))
         # console.log date_array
         return date_array
-        
-        
+
+
     # fum: (delta_id)->
     #     console.log 'running fum', delta_id
     #     delta = Docs.findOne delta_id
 
     #     if delta
     #         built_query = {}
-            
+
     #         for facet in delta.facets
     #             if facet.filters.length > 0
     #                 built_query["#{facet.key}"] = $all: facet.filters
-            
+
     #         total = Docs.find(built_query).count()
     #         console.log 'built query', built_query
-            
+
     #         # response
     #         for facet in delta.facets
     #             values = []
     #             local_return = []
-                
+
     #             agg_res = Meteor.call 'agg', built_query, facet.key, facet.filters
-    
+
     #             if agg_res
     #                 Docs.update { _id:delta._id, 'facets.key':facet.key},
     #                     { $set: 'facets.$.res': agg_res }
-    
+
     #         if delta.limit then limit=delta.limit else limit=10
-    
-    
+
+
     #         results_cursor = Docs.find built_query, { fields:{_id:1}, limit:limit, sort:{_timestamp:-1}}
-            
+
     #         # if total is 1
     #         #     result_ids = results_cursor.fetch()
     #         # else
     #         #     result_ids = []
     #         result_ids = results_cursor.fetch()
-    
+
     #         console.log 'result ids', result_ids
-    
+
     #         console.log 'delta', delta
     #         console.log Meteor.userId()
-    
+
     #         Docs.update {_id:delta_id},
     #             {
     #                 $set:
@@ -303,8 +303,8 @@ Meteor.methods
     #                     # _facets: filtered_facets
     #                     result_ids:result_ids
     #             }
-                
-    #         delta = Docs.findOne delta_id    
+
+    #         delta = Docs.findOne delta_id
     #         # console.log 'delta', delta
 
     # agg: (query, key)->
@@ -325,14 +325,14 @@ Meteor.methods
     #         res = {}
     #         if agg
     #             agg.toArray()
-    #     else 
-    #         return null            
-        
+    #     else
+    #         return null
+
     set_delta_facets: (type, tribe, user_mode)->
-        my_delta = Docs.findOne 
+        my_delta = Docs.findOne
             type:'delta'
             _author_id:Meteor.userId()
-        
+
         if user_mode
             schema = Docs.findOne
                 type:'schema'
@@ -348,24 +348,24 @@ Meteor.methods
                 type:'schema'
                 tribe:tribe
                 slug:type
-        
-        if 'dev' in Meteor.user().roles    
+
+        if 'dev' in Meteor.user().roles
             schema_bricks = Docs.find({
                 type:'brick'
                 parent_id:schema._id
                 # view_roles: $in:Meteor.user().roles
                 # field:$nin:['text','single_doc','multi_doc','boolean']
             }, sort:rank:1).fetch()
-        else    
+        else
             schema_bricks = Docs.find({
                 type:'brick'
                 parent_id:schema._id
                 view_roles: $in:Meteor.user().roles
                 # field:$nin:['text','single_doc','multi_doc','boolean']
             }, sort:rank:1).fetch()
-            
+
         # console.log 'schema bricks', schema_bricks
-            
+
         facets = []
         for brick in schema_bricks
             # console.log brick
@@ -382,7 +382,7 @@ Meteor.methods
                         res:[]
                     }
                     facets.push facet
-            
+
         timestamp_tags_facet = {
             key:'_timestamp_tags'
             label:'Created'
@@ -391,20 +391,20 @@ Meteor.methods
             res:[]
         }
         facets.push timestamp_tags_facet
-        
-        Docs.update my_delta._id,        
+
+        Docs.update my_delta._id,
             $set:
                 doc_type:type
                 # user_id:user_id
                 facets: facets
-                
-        # console.log 'delta after set facets', Docs.findOne({type:'delta'})        
+
+        # console.log 'delta after set facets', Docs.findOne({type:'delta'})
         Meteor.call 'fum', my_delta._id, tribe
 
-        
-        
-        
-                
+
+
+
+
     slugify: (title)->
         slug = title.toString().toLowerCase().replace(/\s+/g, '_').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '_').replace(/^-+/, '').replace(/-+$/,'')
         console.log 'title', title
@@ -414,15 +414,26 @@ Meteor.methods
         # Docs.update { _id:doc_id, fields:field_object },
         #     { $set: "fields.$.slug": slug }
 
-                
-                
+
+    create_user_by_username: (username,role)->
+        options = {}
+        options.username = username
+        new_user_id = Accounts.createUser options
+
+        Meteor.users.update new_user_id,
+            $addToSet:roles:role
+
+        new_user_id
+
+
+
     update_location: (doc_id, result)->
         location_tags = (component.long_name for component in result.address_components)
         parts = result.address_components
-        
+
         geocode = {}
         for part in parts
-            geocode["#{part.types[0]}"] = part.short_name 
+            geocode["#{part.types[0]}"] = part.short_name
                 # console.log part.types[0]
                 # console.log part.short_name
         geocode['formatted_address'] = result.formatted_address
@@ -451,4 +462,3 @@ Meteor.methods
                 geocode:geocode
                 location_lat: result.lat
                 location_lng: result.lng
-                

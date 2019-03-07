@@ -157,18 +157,18 @@ if Meteor.isClient
 
     Template.edit_button.events
         'click .edit': ->
-            console.log @
-            delta = Docs.findOne type:'delta'
-            if delta
-                Router.go "/s/#{delta.doc_type}/#{@_id}/edit"
+            # console.log @
+            # delta = Docs.findOne type:'delta'
+            # if delta
+            Router.go "/s/#{Router.current().params.type}/#{@_id}/edit"
 
 
     Template.view_button.events
         'click .view': ->
-            console.log @
-            delta = Docs.findOne type:'delta'
-            if delta
-                Router.go "/s/#{delta.doc_type}/#{@_id}/view"
+            # console.log @
+            # delta = Docs.findOne type:'delta'
+            # if delta
+            Router.go "/s/#{Router.current().params.type}/#{@_id}/view"
 
 
 

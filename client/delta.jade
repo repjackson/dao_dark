@@ -15,18 +15,18 @@ template(name='delta')
                     // .ui.small.center.aligned.header #{body}
                     unless is_loading
                         if can_add
-                            .ui.circular.fluid.large.button.add_type_doc(title="Add #{title}")
+                            .ui.fluid.large.button.add_type_doc(title="Add #{title}")
                                 // i.plus.large.icon
                                 +icolor name='plus' classes='ui avatar image'
                                 |Add #{title}
                         if can_edit
-                            +edit_button
-                            // .ui.circular.button.edit_schema
-                            //     i.cog.icon
-                            //     | Configure #{plural}
+                            //- +edit_button
+                            .ui.button.edit_schema
+                                i.cog.icon
+                                | Configure #{plural}
                         // .ui.divider
                         // // each sessions
-                        // //     .ui.icon.large.circular.button.select_session(class=session_selector_class title='select session')
+                        // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
                         // //         i.play.icon
                                 
                         if current_delta
@@ -41,7 +41,7 @@ template(name='delta')
                                     i.trash.icon
                                     // |Delete Session
                         else
-                            .create_delta.ui.circular.basic.button.pointer(title='new session')
+                            .create_delta.ui.basic.button.pointer(title='new session')
                                 i.plus.icon
                                 |Create Session
                     // |did: #{session_delta_id}
@@ -66,10 +66,10 @@ template(name='delta')
                     //             | #{delta.total} Results
                     //     .item
                     //         if show_page_down
-                    //             .ui.icon.circular.button.page_down(title='Previous Page')
+                    //             .ui.icon.button.page_down(title='Previous Page')
                     //                 i.left.chevron.icon
                     //         if show_page_up
-                    //             .ui.icon.circular.button.page_up(title='Next Page')
+                    //             .ui.icon.button.page_up(title='Next Page')
                     //                 i.right.chevron.icon
                     //     .item
                     //         +set_delta_key key='view' value='grid' icon='clone'                                    
@@ -77,11 +77,11 @@ template(name='delta')
                     //     .item
                     //         +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
                     //     .item
-                    //         .ui.disabled.circular.button
+                    //         .ui.disabled.button
                     //             i.sort.down.icon
                     //             |Sort By
                     //     .item
-                    //         .ui.disabled.circular.button
+                    //         .ui.disabled.button
                     //             i.filter.icon
                     //             | Toggle Fields
                     // .ui.stackable.grid.scrolling(class=result_grid_class)
@@ -131,14 +131,14 @@ template(name='facet')
                 //     input.add_filter(type='text' placeholder='search')
                 // i.dropdown.icon
                 // each filters
-                //     .unselect.ui.grey.circular.button #{this}
+                //     .unselect.ui.grey.button #{this}
                 each filtering_res
                     if name
-                        .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                             | #{name}
                             // small #{count}
                     else
-                        .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
+                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                             strong [null]
                             // small #{count}
     
@@ -152,7 +152,7 @@ template(name='facet')
         // //     input.add_filter(type='text' placeholder='search')
         // // i.dropdown.icon
         // // each filters
-        // //     .unselect.ui.grey.circular.button #{this}
+        // //     .unselect.ui.grey.button #{this}
         // each filtering_res
         //     if name
         //         .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
@@ -167,22 +167,22 @@ template(name='facet')
 
 template(name='toggle_delta_config')
     if boolean_true
-        .ui.grey.active.icon.circular.button.disable_key(title=label)
+        .ui.grey.active.icon.button.disable_key(title=label)
             i.icon(class=icon)
             // | #{label}
     else
-        .ui.icon.circular.button.enable_key(title=label)
+        .ui.icon.button.enable_key(title=label)
             i.icon(class=icon)
             // | #{label}
 
 
 
 template(name='set_page_size')
-    .ui.icon.circular.button.set_page_size(class=page_size_class title='Page Size')
+    .ui.icon.button.set_page_size(class=page_size_class title='Page Size')
         .middle.aligned #{value}
 
 template(name='set_delta_key')
-    .ui.icon.circular.button.set_delta_key(class=set_delta_key_class)
+    .ui.icon.button.set_delta_key(class=set_delta_key_class)
         if icon
             i.icon(class=icon)
         // |#{label}
@@ -236,14 +236,6 @@ template(name='result')
     
                     
 
-
-
-
-
-
-
-
-
 template(name='type_edit')
     with doc
         .ui.stackable.padded.grid
@@ -257,7 +249,7 @@ template(name='type_edit')
                     // +ioffice name='pencil' classes='ui inline image'
                     div
                     +creation_info
-                    +save_button
+                    +view_button
                     +remove_button
                 .twelve.wide.column
                     //- |#{type}
@@ -274,12 +266,13 @@ template(name='type_view')
             .row
                 .sixteen.wide.column
                     .ui.breadcrumb
-                        a.set_tribe_schema.ui.circular.button.section(href="/s/#{type}" title=schema.plural)
-                            if schema.color_icon
-                                +icolor name=schema.color_icon classes='ui mini inline image'
-                            // else
-                            // i.icon(class=schema.icon)
-                            |#{schema.plural}
+                        a.section(href="/s/#{current_schema}" title=current_schema.plural)
+                            .ui.button
+                                if schema.color_icon
+                                    +icolor name=schema.color_icon classes='ui mini inline image'
+                                // else
+                                // i.icon(class=current_schema.icon)
+                                |#{current_schema.plural}
                         .divider
                             i.chevron.right.large.icon
                         .active.section
@@ -292,7 +285,7 @@ template(name='type_view')
             .row
                 .four.wide.column
                     // .ui.header
-                    //     a.ui.icon.circular.button(href="/s/#{type}" title=plural)
+                    //     a.ui.icon.button(href="/s/#{type}" title=plural)
                     //         i.chevron.left.icon
                     //     |View #{type}
                     if can_edit

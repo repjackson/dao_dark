@@ -5,9 +5,14 @@ Template.color_edit.events
         parent = Template.parentData()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        Docs.update context._id,
-            $set:"#{brick.key}":link_val
-
+        doc = Docs.findOne context._id
+        user = Meteor.users.findOne context._id
+        if doc
+            Docs.update context._id,
+                $set:"#{brick.key}":link_val
+        else if user
+            Meteor.users.update context._id,
+                $set:"#{brick.key}":link_val
 
 
 
@@ -17,8 +22,14 @@ Template.link_edit.events
         parent = Template.parentData()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        Docs.update context._id,
-            $set:"#{brick.key}":link_val
+        doc = Docs.findOne context._id
+        user = Meteor.users.findOne context._id
+        if doc
+            Docs.update context._id,
+                $set:"#{brick.key}":link_val
+        else if user
+            Meteor.users.update context._id,
+                $set:"#{brick.key}":link_val
 
 
 Template.color_icon_edit.events
@@ -27,8 +38,14 @@ Template.color_icon_edit.events
         parent = Template.parentData()
         brick = Template.parentData(4)
         context = Template.parentData(5)
-        Docs.update context._id,
-            $set:"#{brick.key}":icon_class
+        doc = Docs.findOne context._id
+        user = Meteor.users.findOne context._id
+        if doc
+            Docs.update context._id,
+                $set:"#{brick.key}":icon_class
+        else if user
+            Meteor.users.update context._id,
+                $set:"#{brick.key}":icon_class
 
 
 
@@ -40,8 +57,14 @@ Template.html_edit.events
         brick = Template.parentData(4)
         context = Template.parentData(5)
 
-        Docs.update context._id,
-            $set:"#{brick.key}":html
+        doc = Docs.findOne context._id
+        user = Meteor.users.findOne context._id
+        if doc
+            Docs.update context._id,
+                $set:"#{brick.key}":link_val
+        else if user
+            Meteor.users.update context._id,
+                $set:"#{brick.key}":link_val
 
 
 Template.html_edit.helpers
@@ -194,11 +217,17 @@ Template.array_edit.events
             context = Template.parentData(5)
 
             if brick
-                Docs.update context._id,
-                    $addToSet:"#{brick.key}":element_val
-            else
-                Docs.update parent._id,
-                    $addToSet:"#{@key}":element_val
+                doc = Docs.findOne context._id
+                user = Meteor.users.findOne context._id
+                if doc
+                    Docs.update context._id,
+                        $addToSet:"#{brick.key}":element_val
+                else if user
+                    Meteor.users.update context._id,
+                        $addToSet:"#{brick.key}":element_val
+            # else
+            #     Docs.update parent._id,
+            #         $addToSet:"#{@key}":element_val
 
             t.$('.new_element').val('')
 
@@ -211,8 +240,14 @@ Template.array_edit.events
         context = Template.parentData(5)
 
         if brick
-            Docs.update context._id,
-                $pull:"#{field.key}":element
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $pull:"#{brick.key}":element_val
+            else if user
+                Meteor.users.update context._id,
+                    $pull:"#{brick.key}":element_val
         else
             Docs.update parent._id,
                 $pull:"#{field.key}":element
@@ -239,8 +274,14 @@ Template.textarea_edit.events
         context = Template.parentData(5)
 
         if brick
-            Docs.update context._id,
-                $set:"#{brick.key}":textarea_val
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $set:"#{brick.key}":textarea_val
+            else if user
+                Meteor.users.update context._id,
+                    $set:"#{brick.key}":textarea_val
         else
             if @collection and @collection is 'users'
                 Meteor.users.update parent._id,
@@ -259,8 +300,14 @@ Template.text_edit.events
         context = Template.parentData(5)
 
         if brick
-            Docs.update context._id,
-            $set:"#{brick.key}":val
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $set:"#{brick.key}":val
+            else if user
+                Meteor.users.update context._id,
+                    $set:"#{brick.key}":val
         else
             Docs.update parent._id,
                 $set:"#{@key}":val
@@ -293,8 +340,14 @@ Template.boolean_edit.events
         # console.log context
 
         if brick
-            Docs.update context._id,
-                $set:"#{brick.key}":!context["#{brick.key}"]
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $set:"#{brick.key}":!context["#{brick.key}"]
+            else if user
+                Meteor.users.update context._id,
+                    $set:"#{brick.key}":!context["#{brick.key}"]
         else
             Docs.update parent._id,
                 $set:"#{@key}":!parent["#{@key}"]
@@ -314,8 +367,14 @@ Template.number_edit.events
         context = Template.parentData(5)
 
         if brick
-            Docs.update context._id,
-                $set:"#{brick.key}":val
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $set:"#{brick.key}":val
+            else if user
+                Meteor.users.update context._id,
+                    $set:"#{brick.key}":val
         else
             Docs.update parent._id,
                 $set:"#{@key}":val
@@ -332,8 +391,16 @@ Template.date_edit.events
         context = Template.parentData(5)
 
         if brick
-            Docs.update context._id,
-                $set:"#{brick.key}":val
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $set:"#{brick.key}":val
+            else if user
+                Meteor.users.update context._id,
+                    $set:"#{brick.key}":val
+
+
         else
             Docs.update parent._id,
                 $set:"#{@key}":val
@@ -352,8 +419,14 @@ Template.time_edit.events
         context = Template.parentData(5)
 
         if brick
-            Docs.update context._id,
-                $set:"#{brick.key}":val
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $set:"#{brick.key}":val
+            else if user
+                Meteor.users.update context._id,
+                    $set:"#{brick.key}":val
         else
             Docs.update parent._id,
                 $set:"#{@key}":val
@@ -369,8 +442,14 @@ Template.youtube_edit.events
         context = Template.parentData(5)
 
         if brick
-            Docs.update context._id,
-                $set:"#{brick.key}":val
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $set:"#{brick.key}":val
+            else if user
+                Meteor.users.update context._id,
+                    $set:"#{brick.key}":val
         else
             Docs.update parent._id,
                 $set:"#{@key}":val
@@ -491,8 +570,15 @@ Template.single_doc_edit.events
 
         # if brick
         if context["#{brick.key}"] and @slug is context["#{ref_field.key}"]
-            Docs.update context._id,
-                $unset: "#{brick.key}": 1
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $unset: "#{brick.key}": 1
+            else if user
+                Meteor.users.update context._id,
+                    $unset: "#{brick.key}": 1
+
         else
             Docs.update context._id,
                 $set: "#{brick.key}": @slug
@@ -557,11 +643,24 @@ Template.multi_doc_edit.events
 
         if brick
             if context["#{brick.key}"] and @slug in context["#{ref_field.key}"]
-                Docs.update context._id,
-                    $pull: "#{brick.key}": @slug
+                doc = Docs.findOne context._id
+                user = Meteor.users.findOne context._id
+                if doc
+                    Docs.update context._id,
+                        $pull: "#{brick.key}": @slug
+                else if user
+                    Meteor.users.update context._id,
+                        $pull: "#{brick.key}": @slug
             else
-                Docs.update context._id,
-                    $addToSet: "#{brick.key}": @slug
+                doc = Docs.findOne context._id
+                user = Meteor.users.findOne context._id
+
+                if doc
+                    Docs.update context._id,
+                        $addToSet: "#{brick.key}": @slug
+                else if user
+                    Meteor.users.update context._id,
+                        $addToSet: "#{brick.key}": @slug
 
         else
             if target["#{ref_field.key}"] and @slug in target["#{ref_field.key}"]
@@ -749,6 +848,8 @@ Template.single_person_edit.events
         # console.log Template.parentData(5)
 
         if brick
+
+
             Docs.update context._id,
                 $set:"#{brick.key}":@_id
         # else
@@ -814,8 +915,15 @@ Template.multi_user_edit.events
         # console.log Template.parentData(5)
 
         if brick
-            Docs.update context._id,
-                $addToSet:"#{brick.key}":@_id
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if doc
+                Docs.update context._id,
+                    $addToSet:"#{brick.key}":@_id
+            else if user
+                Meteor.users.update context._id,
+                    $addToSet:"#{brick.key}":@_id
+
         # else
         #     Docs.update parent._id,
         #         $set:"#{@key}":val
@@ -837,9 +945,14 @@ Template.multi_user_edit.events
 
 
             if brick
-                Docs.update context._id,
-                    $pull:"#{brick.key}":@_id
-
+                doc = Docs.findOne context._id
+                user = Meteor.users.findOne context._id
+                if doc
+                    Docs.update context._id,
+                        $pull:"#{brick.key}":@_id
+                else if user
+                    Meteor.users.update context._id,
+                        $pull:"#{brick.key}":@_id
 
 
             # Meteor.call 'unassign_user', page_doc._id, @

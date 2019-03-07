@@ -158,14 +158,21 @@ if Meteor.isClient
 
     Template.delta.events
         'click .add_type_doc': ->
+            current_type = Router.current().params.type
             current_schema = Docs.findOne
                 type:'schema'
                 slug:Router.current().params.type
             # console.log current_schema
-            new_doc_id = Docs.insert
-                type:Router.current().params.type
-                parent_id: current_schema._id
-            Router.go "/s/#{Router.current().params.type}/#{new_doc_id}/edit"
+            if current_schema.collection and current_schema.collection is 'users'
+                new_username = prompt 'username'?
+                if new_username
+                    Meteor.call 'create_user_by_username', new_username, current_type,(err,res)->
+                        Router.go "/s/#{Router.current().params.type}/#{res}/edit"
+            else
+                new_doc_id = Docs.insert
+                    type:Router.current().params.type
+                    parent_id: current_schema._id
+                Router.go "/s/#{Router.current().params.type}/#{new_doc_id}/edit"
 
         'click .create_delta': (e,t)->
             Docs.insert
@@ -185,7 +192,7 @@ if Meteor.isClient
             schema = Docs.findOne
                 type:'schema'
                 slug: Router.current().params.type
-            Router.go "/s/#{schema.slug}/#{schema._id}/edit"
+            Router.go "/s/schema/#{@_id}/edit"
 
         'click .delete_delta': (e,t)->
             delta = Docs.findOne type:'delta'

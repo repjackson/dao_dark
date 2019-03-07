@@ -31,6 +31,13 @@ Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 
+Template.registerHelper 'current_type', (input) -> Router.current().params.type
+
+
+Template.registerHelper 'current_schema', (input) ->
+    Docs.findOne
+        type:'schema'
+        slug: Router.current().params.type
 
 Template.registerHelper 'in_list', (key) ->
     if Meteor.userId()
