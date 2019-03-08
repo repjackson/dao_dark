@@ -145,7 +145,6 @@ template(name='view_button')
 template(name='remove_button')
     a.ui.icon.compact.button.remove(title='Delete')
         i.remove.icon
-        // +iblue name='delete-sign'
         // |Remove #{title}
         // |Remove #{title} #{type}
             
@@ -154,7 +153,6 @@ template(name='add_button')
     a.ui.button.add(title='Add')
         i.plus.icon(tooltip="Add #{type}")
         |#{type}
-        // +iblue name='plus'
 
 
 template(name='toggle_friend')
@@ -174,13 +172,11 @@ template(name='toggle_friend')
 template(name='edit_button')
     .ui.large.button.edit(title="Edit #{title}")
         i.pencil.icon
-        // +ioffice name='pencil' classes='ui inline image'
         |Edit
 
 
 template(name='save_button')
     a.ui.button.big.save(title='Save' href="/s/#{type}/#{_id}/view")
-        // +iblue name='checkmark'
         i.green.checkmark.icon
         |Save
 

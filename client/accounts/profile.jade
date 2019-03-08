@@ -18,6 +18,9 @@ template(name='profile_layout')
                                     if image_id
                                         a.item(href="/u/#{user_from_username_param.username}/about")
                                             img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
+                                    if profile.image_id
+                                        a.item(href="/u/#{user_from_username_param.username}/about")
+                                            img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
                                     // if current_user
                                     if is_admin
                                         .ui.vertical.fluid.menu
@@ -184,6 +187,8 @@ template(name='role_switcher')
     +user_array_element_toggle key='roles' value='admin' user=currentUser
     +user_array_element_toggle key='roles' value='user' user=currentUser
     +user_array_element_toggle key='roles' value='staff' user=currentUser
+    +user_array_element_toggle key='roles' value='resident' user=currentUser
+    +user_array_element_toggle key='roles' value='owner' user=currentUser
 
 
 template(name='site_switcher')

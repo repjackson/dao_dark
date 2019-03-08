@@ -14,7 +14,7 @@ template(name='color_view')
                 if icon
                     i.grey.icon(class=icon)
                 |#{label}
-            .ui.large.circular.label(style="background:#{field_value}")
+            .ui.large.label(style="background:#{field_value}")
             |#{field_value}
 
 template(name='color_icon_edit')
@@ -28,9 +28,25 @@ template(name='color_icon_edit')
         if field_value
             img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
 
+template(name='icon_edit')
+    .ui.form
+        .inline.field
+            label 
+                if icon
+                    i.grey.icon(class=icon)
+                |#{label}
+            input.icon_val(type='text' value=field_value placeholder='font awesome class')
+        if field_value
+            i.icon(class=field_value)
+
+
 template(name='color_icon_view')
     if field_value
         img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
+
+template(name='icon_view')
+    if field_value
+        i.icon(class=field_value)
 
 
 template(name='icolor')
@@ -289,7 +305,7 @@ template(name='array_edit')
         input.new_element(type='text' placeholder='+')
     if field_value
         each field_value
-            .ui.large.basic.circular.label
+            .ui.large.basic.label
                 i.delete.icon.remove_element
                 |#{this}
     div
@@ -510,7 +526,7 @@ template(name='single_user_edit')
             label User Selection for #{key}
             input#single_user_select_input(type='text' placeholder='Lookup User...')
             each selections
-                .ui.large.circular.label
+                .ui.large.label
                     |#{username} #{profile.name}
         if user_results
             .ui.top.attached.segment
@@ -591,7 +607,7 @@ template(name='multi_user_edit')
                 label User Selection for #{key}
                 input#multi_user_select_input(type='text' placeholder='Lookup User...')
                 each selections
-                    .ui.large.circular.label
+                    .ui.large.label
                         |#{username} #{profile.name}
             if user_results
                 .ui.top.attached.segment

@@ -48,6 +48,22 @@ Template.color_icon_edit.events
                 $set:"#{brick.key}":icon_class
 
 
+Template.icon_edit.events
+    'blur .icon_val': (e,t)->
+        icon_class = t.$('.icon_val').val()
+        parent = Template.parentData()
+        brick = Template.parentData(4)
+        context = Template.parentData(5)
+        doc = Docs.findOne context._id
+        user = Meteor.users.findOne context._id
+        if doc
+            Docs.update context._id,
+                $set:"#{brick.key}":icon_class
+        else if user
+            Meteor.users.update context._id,
+                $set:"#{brick.key}":icon_class
+
+
 
 Template.html_edit.events
     'blur .froala-container': (e,t)->
@@ -61,10 +77,10 @@ Template.html_edit.events
         user = Meteor.users.findOne context._id
         if doc
             Docs.update context._id,
-                $set:"#{brick.key}":link_val
+                $set:"#{brick.key}":html
         else if user
             Meteor.users.update context._id,
-                $set:"#{brick.key}":link_val
+                $set:"#{brick.key}":html
 
 
 Template.html_edit.helpers

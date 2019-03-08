@@ -69,11 +69,10 @@ Meteor.methods
                 Docs.find( built_query, modifier )
 
 
-            if schema.collection
-                if schema.collection is 'users'
-                    results_cursor = Meteor.users.find built_query, modifier
-                else
-                    results_cursor = global["#{schema.collection}"].find built_query, modifier
+            if schema.collection and schema.collection is 'users'
+                results_cursor = Meteor.users.find(built_query, modifier)
+                # else
+                #     results_cursor = global["#{schema.collection}"].find(built_query, modifier)
             else
                 results_cursor = Docs.find built_query, modifier
 

@@ -242,10 +242,10 @@ template(name='type_edit')
             .centered.row
                 .four.wide.column
                     .ui.header(title="Type: #{type}")
-                        //- |#{title}
-                        each bricks
-                            if header
-                                +Template.dynamic template=view_template 
+                        |#{title}
+                    each bricks
+                        if header
+                            +Template.dynamic template=view_template 
                     // +ioffice name='pencil' classes='ui inline image'
                     div
                     +creation_info
@@ -266,10 +266,10 @@ template(name='type_view')
             .row
                 .sixteen.wide.column
                     .ui.breadcrumb
-                        a.section(href="/s/#{current_schema}" title=current_schema.plural)
-                            .ui.button
+                        a.section(href="/s/#{current_schema.slug}" title=current_schema.plural)
+                            .ui.compact.small.button
                                 if schema.color_icon
-                                    +icolor name=schema.color_icon classes='ui mini inline image'
+                                     +icolor name=schema.color_icon classes='ui mini inline image'
                                 // else
                                 // i.icon(class=current_schema.icon)
                                 |#{current_schema.plural}

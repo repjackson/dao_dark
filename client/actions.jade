@@ -88,7 +88,6 @@ template(name='guest_sign')
         | Sign In a Guest
         
         
-template(name='enter_tribe')
-    a.ui.enter_tribe.icon.button(href="/t/#{slug}" title="Enter #{title} Tribe")
-        // +icolor name='fire' classes='ui avatar image'
-        |Enter Site
+template(name='view_user')
+    a.ui.view_user.icon.button(href="/u/#{username}" title="View User")
+        |View #{username}

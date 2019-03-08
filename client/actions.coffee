@@ -21,9 +21,6 @@ Template.email_receipt.events
 
 
 
-Template.enter_tribe.events
-    'click .enter_tribe': ->
-        # console.log @
 
 Template.checkin.onCreated ->
     @autorun -> Meteor.subscribe 'type', 'log_event'

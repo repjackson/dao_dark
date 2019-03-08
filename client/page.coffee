@@ -37,10 +37,10 @@ if Meteor.isClient
     Template.add.helpers
         add_schemas: ->
             if Meteor.user()
-                Docs.find
+                Docs.find {
                     type:'schema'
                     add_roles:$in:Meteor.user().roles
-
+                }, sort:title:1
 
     Template.menu.onCreated ->
         @autorun => Meteor.subscribe 'type', 'schema'
@@ -49,12 +49,14 @@ if Meteor.isClient
         view_schemas: ->
             if Meteor.user()
                 if 'dev' in Meteor.user().roles
-                    Docs.find
+                    Docs.find {
                         type:'schema'
+                    }, sort:title:1
                 else
-                    Docs.find
+                    Docs.find {
                         type:'schema'
                         view_roles:$in:Meteor.user().roles
+                    }, sort:title:1
 
     Template.menu.events
         'click .set_tribe_schema': ->
