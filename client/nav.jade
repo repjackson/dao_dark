@@ -7,9 +7,18 @@ template(name='topnav')
         else 
             a.item.icon.toggle_leftbar(href='#')
                 i.bars.large.icon
-        a.ui.header.tribe_schemas.item(href="/s/schema" class="{{isActivePath '/'}}")
-            i.home.icon
-            strong Gold Run
+            a.ui.tribe_schemas.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
+                i.home.large.icon
+            a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
+                i.large.list.icon
+            a.icon.item.tribe_people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
+                 i.users.large.icon
+                 //- |People
+                
+            //- strong Gold Run
+        //- a.ui.header.tribe_schemas.item(href="/library" class="{{isActivePath '/library'}}")
+        //-     i.home.icon
+        //-     strong Gold Run
         //- a.ui.tribe_schemas.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
             i.th.large.icon
         //- each topnav_schemas
@@ -36,9 +45,6 @@ template(name='topnav')
         // a.icon.item.tribe_schemas(href="/s/schema")
         //     i.th.icon
         //     | Sections   
-        a.icon.item.tribe_people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
-             i.users.large.icon
-             //- |People
         // a.icon.item(href="/menu")
         //     i.th.icon
         // +role_switcher
@@ -65,15 +71,15 @@ template(name='topnav')
                     i.user.plus.icon
                     // +ioffice name='add-user-male'
                     |Register 
-    // if is_admin
-    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
-        each topnav_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-                if color_icon
-                    +icolor name=color_icon
-                else if icon
-                    i.icon(class=icon)
-                |&nbsp; #{plural}
+    if is_dev
+        .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
+            each topnav_schemas
+                a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+                    if color_icon
+                        +icolor name=color_icon
+                    else if icon
+                        i.icon(class=icon)
+                    |&nbsp; #{plural}
 
 
 

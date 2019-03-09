@@ -3,7 +3,7 @@ template(name='delta')
         .ui.stackable.grid
             .row
                 // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
-                .four.wide.column.padleft.scrolling
+                .six.wide.column.padleft.scrolling
                     // a.ui.right.corner.label.move_left
                     //     i.left.chevron.link.icon
                     .ui.center.aligned.header
@@ -88,8 +88,8 @@ template(name='delta')
                     .scrolling
                         each current_delta.result_ids
                             +result
-                .two.wide.column.scrolling
-                    +events_column
+                //- .two.wide.column.scrolling
+                //-     +events_column
                 
 template(name='events_column')
     .ui.accordion
@@ -295,7 +295,6 @@ template(name='type_view')
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     +creation_info
                 .twelve.wide.column
-                    +cal
                     .ui.header
                         each bricks
                             if header

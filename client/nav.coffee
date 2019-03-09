@@ -89,6 +89,11 @@ Template.topnav.events
         Meteor.call 'set_delta_facets', 'schema',->
             Session.set 'loading', false
 
+    'click .records': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', 'record',->
+            Session.set 'loading', false
+
     'click .set_tribe_schema': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', @slug,->
