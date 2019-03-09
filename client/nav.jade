@@ -52,8 +52,10 @@ template(name='topnav')
             a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
                 i.large.chat.icon
             if currentUser
-                a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
+                a.icon.adddoc.item(href="#")
                     i.plus.large.icon
+                //- a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
+                //-     i.plus.large.icon
                 a.item.toggle_topbar(href="/s/message" class="{{isActivePath '/s/message'}}")
                      i.large.inbox.icon
                 a.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'profile'}}")

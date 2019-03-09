@@ -42,6 +42,13 @@ Template.topnav.helpers
     # user: -> Meteor.users.findOne username:Router.current().params.username
 
 Template.topnav.events
+    'click .adddoc': (e,t)->
+        e.preventDefault()
+        # Router.go '/add'
+        new_id = Docs.insert({})
+        # console.log 'hi'
+        Router.go("/edit/#{new_id}")
+
     'click .toggle_leftbar': ->
         $('.context .ui.left.sidebar')
             .sidebar({

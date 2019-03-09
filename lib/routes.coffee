@@ -20,8 +20,8 @@ Router.route '/bank', -> @render 'bank'
 
 
 # Router.route '/u/:username', -> @render 'user'
-Router.route '/edit/:id', -> @render 'edit'
-Router.route '/view/:id', -> @render 'view'
+Router.route '/edit/:_id', -> @render 'edit'
+Router.route '/view/:_id', -> @render 'view'
 Router.route '*', -> @render 'not_found'
 
 # Router.route '/u/:username/s/:type', -> @render 'profile_layout', 'user_section'

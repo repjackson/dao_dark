@@ -8,7 +8,7 @@ template(name='edit')
                         i.checkmark.icon
                     .ui.button.icon.delete
                         i.remove.icon
-                    +detect
+                    //- +detect
             .centered.row
                 .fifteen.wide.column
                     +brick_menu
@@ -20,12 +20,12 @@ template(name='edit')
                         each _keys
                             .column
                                 +brick_edit
-                    if analyzed_text
-                        |#{nl2br analyzed_text}
-                    if watson
-                        +watson_view
-                    if visual_classes
-                        +visual_classes
+                    //- if analyzed_text
+                    //-     |#{nl2br analyzed_text}
+                    //- if watson
+                    //-     +watson_view
+                    //- if visual_classes
+                    //-     +visual_classes
 
 template(name='brick_menu')
     i.large.grey.plus.icon(title='add brick')
