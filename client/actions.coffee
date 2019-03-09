@@ -120,3 +120,10 @@ Template.guest_sign.events
             type:'health_club_checkin'
             guest_of_id:@_id
         Router.go("/s/health_club_checkin/#{checkin_doc_id}/edit")
+
+
+
+
+Template.checkout.events
+    'click .checkout': ->
+        console.log @

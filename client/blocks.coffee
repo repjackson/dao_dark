@@ -1,6 +1,6 @@
 if Meteor.isClient
     Template.comments.onCreated ->
-        @autorun => Meteor.subscribe 'children', 'comment', Router.current().params._id
+        @autorun => Meteor.subscribe 'child_docs', Router.current().params._id
 
 
     Template.role_editor.onCreated ->

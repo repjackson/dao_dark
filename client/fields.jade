@@ -81,7 +81,7 @@ template(name='link_view')
 
 
 template(name='image_view')
-    img.ui.large.centered.rounded.image(src="{{c.url field_value }}")
+    img.ui.large.centered.rounded.image(src="{{c.url field_value width=400 gravity='face' crop='fill'}}")
 
 
 template(name='image_edit')
@@ -166,7 +166,7 @@ template(name='html_view')
 
 template(name='doc_edit')
     // .ui.labeled.fluid.input
-    //     .ui.basic.label 
+    //     .ui.label 
     //         // if icon
     //         //     i.grey.icon(class=icon)
     //         if label
@@ -215,6 +215,28 @@ template(name='text_view')
         strong #{field_value}
 
 
+template(name='phone_edit')
+    .ui.labeled.input
+        // if icon
+        //     i.grey.icon(class=icon)
+        .ui.label 
+            if label
+                |#{label}
+            else
+                |#{key}
+        |[fix this later]
+        input.edit_phone(type='tel' value=field_value placeholder=placeholder)
+
+template(name='phone_view')
+    if field_value
+        unless header
+            div
+            // if icon
+            //     i.grey.icon(class=icon)
+            |#{label}: &nbsp;
+        strong #{field_value}
+
+
 
 
 
@@ -229,7 +251,7 @@ template(name='code_edit')
 
 template(name='number_edit')
     .ui.labeled.input
-        .ui.basic.label
+        .ui.label
             // if icon
             //     i.grey.icon(class=icon)
             |#{label}
@@ -295,7 +317,7 @@ template(name='time_view')
 template(name='array_edit')
     div
     .ui.labeled.icon.input
-        .ui.basic.label 
+        .ui.label 
             // if icon
             //     i.grey.icon(class=icon)
             if label
@@ -305,7 +327,7 @@ template(name='array_edit')
         input.new_element(type='text' placeholder='+')
     if field_value
         each field_value
-            .ui.large.basic.label
+            .ui.large.label
                 i.delete.icon.remove_element
                 |#{this}
     div
@@ -318,7 +340,7 @@ template(name='array_view')
             //     i.grey.icon(class=icon)
             |#{label}
             each field_value
-                .ui.basic.label #{this}
+                .ui.label #{this}
 
 
 
@@ -438,7 +460,7 @@ template(name='boolean_view')
                 i.checkmark.icon
                 |#{label}
         else
-            .ui.basic.label #{label}
+            .ui.label #{label}
         
 
 
@@ -514,7 +536,7 @@ template(name='multi_doc_view')
     .ui.small.inline.header(title=key)
         |#{label}
     each field_value
-        .ui.basic.label
+        .ui.label
             |#{this}
     div
 
@@ -523,7 +545,7 @@ template(name='multi_doc_view')
 template(name='single_user_edit')
     .ui.form
         .field.attached
-            label User Selection for #{key}
+            label #{key}
             input#single_user_select_input(type='text' placeholder='Lookup User...')
             each selections
                 .ui.large.label
@@ -604,7 +626,7 @@ template(name='multi_user_edit')
     .ui.basic.segment
         .ui.form
             .field.attached
-                label User Selection for #{key}
+                label #{key}
                 input#multi_user_select_input(type='text' placeholder='Lookup User...')
                 each selections
                     .ui.large.label

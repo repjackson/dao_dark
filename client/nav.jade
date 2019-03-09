@@ -8,8 +8,9 @@ template(name='topnav')
             a.item.icon.toggle_leftbar(href='#')
                 i.bars.large.icon
         a.ui.header.tribe_schemas.item(href="/s/schema" class="{{isActivePath '/'}}")
+            i.home.icon
             strong Gold Run
-        a.ui.tribe_schemas.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
+        //- a.ui.tribe_schemas.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
             i.th.large.icon
         //- each topnav_schemas
         //-     a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")

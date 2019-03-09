@@ -1,5 +1,5 @@
 Template.comments_view.onCreated ->
-    @autorun => Meteor.subscribe 'children', Router.current().params._id
+    @autorun => Meteor.subscribe 'child_docs', Router.current().params._id
 Template.role_editor.onCreated ->
     @autorun => Meteor.subscribe 'type', 'role'
 
@@ -108,10 +108,10 @@ Template.user_list_toggle.helpers
 
 
 Template.voting_view.helpers
-    upvote_class: -> 
+    upvote_class: ->
         parent = Template.parentData(5)
         if parent._upvoter_ids and Meteor.userId() in parent._upvoter_ids then 'green' else 'outline'
-    downvote_class: -> 
+    downvote_class: ->
         parent = Template.parentData(5)
         if parent._downvoter_ids and Meteor.userId() in parent._downvoter_ids then 'red' else 'outline'
 
@@ -188,23 +188,20 @@ Template.clone_button.events
         # console.log cloned_fields
         cloned_id = Docs.insert cloned_fields
         Router.go "/edit/#{cloned_id}"
-            
-            
-            
+
+
+
 Template.toggle_friend.helpers
     is_friend: ->
         if Meteor.user().friend_ids
             Meteor.user().friend_ids and @_id in Meteor.user().friend_ids
-        
-        
+
+
 Template.toggle_friend.events
     'click .add_friend': ->
         Meteor.users.update Meteor.userId(),
             $addToSet: friend_ids:@_id
-        
+
     'click .remove_friend': ->
         Meteor.users.update Meteor.userId(),
             $pull: friend_ids:@_id
-        
-        
-        

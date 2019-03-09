@@ -91,3 +91,11 @@ template(name='guest_sign')
 template(name='view_user')
     a.ui.view_user.icon.button(href="/u/#{username}" title="View User")
         |View #{username}
+
+
+
+
+template(name='checkout')
+    .ui.small.compact.button.checkout
+        +icolor name='in-progress' classes='ui inline mini image' 
+        |Check Out
