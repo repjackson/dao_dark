@@ -1,6 +1,6 @@
 template(name='key_view')
-    div
-    .ui.inline.grey.header(title='name') #{key}
+    //- div
+    //- .ui.inline.grey.header(title='name') #{key}
     +Template.dynamic template=field_view
     // .ui.divider
     // +jsonView json=meta
@@ -36,6 +36,7 @@ template(name='view')
                     //-     +entities
                 .twelve.wide.column
                     each _keys
+                        .ui.label #{this}
                         +key_view
                     //- .ui.hidden.divider
                     //- if analyzed_text

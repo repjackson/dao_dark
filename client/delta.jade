@@ -3,7 +3,7 @@ template(name='delta')
         .ui.stackable.grid
             .row
                 // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
-                .six.wide.column.padleft.scrolling
+                .eight.wide.column.padleft.scrolling
                     // a.ui.right.corner.label.move_left
                     //     i.left.chevron.link.icon
                     .ui.center.aligned.header
@@ -49,7 +49,7 @@ template(name='delta')
                     each current_delta.facets
                         +facet
                 // .column(class=delta_right_column_class)
-                .ten.wide.column
+                .eight.wide.column
                     // a.ui.left.corner.label.move_right
                     //     i.right.chevron.link.pointer.icon
                     // .ui.horizontal.spaced.list
@@ -225,15 +225,15 @@ template(name='result')
                     +detect
                     each _keys
                         +key_view
+                    if visual_classes
+                        +visual_classes
+                    if analyzed_text
+                        |#{nl2br analyzed_text}
 
     
     //     each _keys
     //         // .ui.label #{this}
     //         +key_view
-    //     if visual_classes
-    //         +visual_classes
-    //     if analyzed_text
-    //         |#{nl2br analyzed_text}
 
     //     +view_button
     //     +edit_button
