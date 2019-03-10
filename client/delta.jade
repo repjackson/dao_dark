@@ -214,7 +214,7 @@ template(name='result')
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     if can_edit
                         +edit_button
-                        +view_button
+                    +view_button
                     each schema.actions
                         +Template.dynamic template=this data=..
                     +author_info

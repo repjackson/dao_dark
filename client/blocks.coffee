@@ -160,7 +160,8 @@ if Meteor.isClient
             # console.log @
             # delta = Docs.findOne type:'delta'
             # if delta
-            Router.go "/s/#{Router.current().params.type}/#{@_id}/edit"
+            # Router.go "/s/#{Router.current().params.type}/#{@_id}/edit"
+            Router.go "/edit/#{@_id}"
 
 
     Template.view_button.events
@@ -168,7 +169,7 @@ if Meteor.isClient
             # console.log @
             # delta = Docs.findOne type:'delta'
             # if delta
-            Router.go "/s/#{Router.current().params.type}/#{@_id}/view"
+            Router.go "/view/#{@_id}"
 
 
 

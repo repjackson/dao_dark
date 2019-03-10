@@ -17,6 +17,12 @@ template(name='comments')
                             i.thumbs.up.link.icon
                             i.remove.link.remove_comment.icon
 
+template(name='detect')
+    .ui.button.detect_fields
+        i.dna.icon
+        |Detect
+
+
 template(name='follow')
     .ui.segment
         .ui.header
@@ -176,7 +182,8 @@ template(name='edit_button')
 
 
 template(name='save_button')
-    a.ui.button.big.save(title='Save' href="/s/#{type}/#{_id}/view")
+    //- a.ui.button.big.save(title='Save' href="/s/#{type}/#{_id}/view")
+    a.ui.button.big.save(title='Save' href="/view/#{_id}")
         i.green.checkmark.icon
         |Save
 

@@ -50,7 +50,7 @@ Meteor.methods
         doc = Docs.findOne doc_id
         keys = _.keys doc
         light_fields = _.reject( keys, (key)-> key.startsWith '_' )
-        # console.log light_fields
+        console.log light_fields
 
         Docs.update doc._id,
             $set:_keys:light_fields
@@ -62,7 +62,7 @@ Meteor.methods
 
             js_type = typeof value
 
-            # console.log 'key type', key, js_type
+            console.log 'key type', key, js_type
 
             if js_type is 'object'
                 meta.object = true
@@ -70,16 +70,16 @@ Meteor.methods
                     meta.array = true
                     meta.length = value.length
                     meta.array_element_type = typeof value[0]
-                    meta.brick = 'array'
+                    meta.field = 'array'
                 else
                     if key is 'watson'
-                        meta.brick = 'watson'
+                        meta.field = 'watson'
                     else
-                        meta.brick = 'object'
+                        meta.field = 'object'
 
             else if js_type is 'boolean'
                 meta.boolean = true
-                meta.brick = 'boolean'
+                meta.field = 'boolean'
 
             else if js_type is 'number'
                 meta.number = true
@@ -94,7 +94,7 @@ Meteor.methods
                 integer = Number.isInteger(value)
                 if integer
                     meta.integer = true
-                meta.brick = 'number'
+                meta.field = 'number'
 
 
             else if js_type is 'string'
@@ -112,41 +112,41 @@ Meteor.methods
 
                 if key is 'html'
                     meta.html = true
-                    meta.brick = 'html'
+                    meta.field = 'html'
                 if key is 'youtube_id'
                     meta.youtube = true
-                    meta.brick = 'youtube'
+                    meta.field = 'youtube'
                 else if html_result
                     meta.html = true
-                    meta.brick = 'html'
+                    meta.field = 'html'
                 else if url_result
                     meta.url = true
                     image_check = (/\.(gif|jpg|jpeg|tiff|png)$/i).test value
                     if image_check
                         meta.image = true
-                        meta.brick = 'image'
+                        meta.field = 'image'
                     else
-                        meta.brick = 'url'
+                        meta.field = 'url'
                 # else if youtube_result
                 #     meta.youtube = true
-                #     meta.brick = 'youtube'
+                #     meta.field = 'youtube'
                 else if Meteor.users.findOne value
                     meta.user_id = true
-                    meta.brick = 'user_ref'
+                    meta.field = 'user_ref'
                 else if Docs.findOne value
                     meta.doc_id = true
-                    meta.brick = 'doc_ref'
+                    meta.field = 'doc_ref'
                 else if meta.length > 20
-                    meta.brick = 'textarea'
+                    meta.field = 'textarea'
                 else
-                    meta.brick = 'text'
+                    meta.field = 'text'
 
             Docs.update doc_id,
                 $set: "_#{key}": meta
 
         Docs.update doc_id,
             $set:_detected:1
-        # console.log 'detected fields', doc_id
+        console.log 'detected fields', doc_id
 
         return doc_id
 
