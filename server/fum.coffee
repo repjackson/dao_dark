@@ -4,47 +4,47 @@ Meteor.methods
         delta = Docs.findOne delta_id
 
         if delta
-            match = {}
-            match.type = 'schema'
-            match.slug = delta.doc_type
+            # console.log 'delta', delta
+            built_query = {}
 
+            if not delta.facets
+                # console.log 'no facets'
+                Docs.update delta_id,
+                    $set:
+                        facets: [
+                            key:'_keys'
+                            filters:[]
+                            res:[]
+                        ]
 
-            schema = Docs.findOne match
-            # console.log 'found schema', schema
-            if schema.collection and schema.collection is 'users'
-                built_query = { roles:$in:[delta.doc_type] }
-            else
-                built_query = { type:delta.doc_type }
-            # if 'dev' in Meteor.user().roles and tribe is 'dao'
-            # else if schema.user_schema
-            #     built_query = {type:delta.doc_type}
-
-            # console.log 'schema', schema
-
-            # if not delta.facets
-            #     delta.facets = []
+                delta.facets = [
+                    key:'_keys'
+                    filters:[]
+                    res:[]
+                ]
 
             for facet in delta.facets
+                # console.log 'this facet', facet.key
                 if facet.filters.length > 0
                     built_query["#{facet.key}"] = $all: facet.filters
 
             total = Docs.find(built_query).count()
-            console.log 'built query', built_query
+            # console.log 'built query', built_query
 
             # response
             for facet in delta.facets
                 values = []
                 local_return = []
 
-                agg_res = Meteor.call 'agg', built_query, facet.key, schema.collection
-                # agg_res = Meteor.call 'agg', built_query, facet.key
+                # agg_res = Meteor.call 'agg', built_query, facet.key, schema.collection
+                agg_res = Meteor.call 'agg', built_query, facet.key
 
                 if agg_res
                     Docs.update { _id:delta._id, 'facets.key':facet.key},
                         { $set: 'facets.$.res': agg_res }
 
             # if delta.limit then limit=delta.limit else limit=30
-            calc_page_size = if delta.page_size then delta.page_size else 42
+            calc_page_size = if delta.page_size then delta.page_size else 10
 
             page_amount = Math.ceil(total/calc_page_size)
 
@@ -63,18 +63,16 @@ Meteor.methods
                     skip:skip_amount
                 }
 
-
-
             results_cursor =
                 Docs.find( built_query, modifier )
 
 
-            if schema.collection and schema.collection is 'users'
-                results_cursor = Meteor.users.find(built_query, modifier)
-                # else
-                #     results_cursor = global["#{schema.collection}"].find(built_query, modifier)
-            else
-                results_cursor = Docs.find built_query, modifier
+            # if schema.collection and schema.collection is 'users'
+            #     results_cursor = Meteor.users.find(built_query, modifier)
+            #     # else
+            #     #     results_cursor = global["#{schema.collection}"].find(built_query, modifier)
+            # else
+                # results_cursor = Docs.find built_query, modifier
 
 
             # if total is 1
@@ -103,7 +101,7 @@ Meteor.methods
             # delta = Docs.findOne delta_id
             # console.log 'delta', delta
 
-    agg: (query, key, collection)->
+    agg: (query, key)->
         limit=50
         # console.log 'agg query', query
         # console.log 'agg key', key
@@ -119,10 +117,10 @@ Meteor.methods
             { $project: _id: 0, name: '$_id', count: 1 }
         ]
         if pipe
-            if collection is 'users'
-                agg = Meteor.users.rawCollection().aggregate(pipe,options)
-            else
-                agg = global['Docs'].rawCollection().aggregate(pipe,options)
+            # if collection is 'users'
+            #     agg = Meteor.users.rawCollection().aggregate(pipe,options)
+            # else
+            agg = global['Docs'].rawCollection().aggregate(pipe,options)
             # else
             res = {}
             # console.log 'res', res

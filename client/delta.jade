@@ -118,30 +118,32 @@ template(name='events_column')
 
 template(name='facet')
     if filtering_res
-        .ui.accordion
-            .active.title
-                .ui.header 
-                    if icon
-                        i.small.grey.icon(class=icon)
-                    |#{label}
-                    // i.grey.dropdown.icon
-            .active.content
-                // .ui.transparent.left.icon.small.input
-                //     i.search.icon
-                //     input.add_filter(type='text' placeholder='search')
-                // i.dropdown.icon
-                // each filters
-                //     .unselect.ui.grey.button #{this}
-                each filtering_res
-                    if name
-                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                            | #{name}
-                            // small #{count}
-                    else
-                        .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
-                            strong [null]
-                            // small #{count}
-    
+        div
+        //- .ui.accordion
+            //- .active.title
+        .ui.inline.header 
+            if icon
+                i.small.grey.icon(class=icon)
+            |#{key}
+            //- |#{label}
+            // i.grey.dropdown.icon
+            //- .active.content
+        // .ui.transparent.left.icon.small.input
+        //     i.search.icon
+        //     input.add_filter(type='text' placeholder='search')
+        // i.dropdown.icon
+        // each filters
+        //     .unselect.ui.grey.button #{this}
+        each filtering_res
+            if name
+                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                    | #{name}
+                    // small #{count}
+            else
+                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                    strong [null]
+                    // small #{count}
+
         // div
         // if icon
         //     i.grey.icon(class=icon)
@@ -212,6 +214,7 @@ template(name='result')
                             +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    +remove_button
                     if can_edit
                         +edit_button
                     +view_button
@@ -219,6 +222,9 @@ template(name='result')
                         +Template.dynamic template=this data=..
                     +author_info
                     +creation_info
+                    +detect
+                    each _keys
+                        +key_view
 
     
     //     each _keys

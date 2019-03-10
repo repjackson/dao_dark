@@ -7,8 +7,10 @@ template(name='topnav')
         else 
             a.item.icon.toggle_leftbar(href='#')
                 i.bars.large.icon
-            a.ui.tribe_schemas.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
+            a.ui.tribe_schemas.icon.item(href="/" class="{{isActivePath '/'}}")
                 i.home.large.icon
+            //- a.ui.tribe_schemas.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
+            //-     i.home.large.icon
             a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
                 i.large.list.icon
             a.icon.item.tribe_people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")

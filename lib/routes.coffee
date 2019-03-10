@@ -128,7 +128,7 @@ Router.route '/users', -> @render 'people'
 
 Router.route '/', (->
     @layout 'layout'
-    @render 'menu'
+    @render 'home'
     ), name:'home'
 
 Router.route '/s/:type', (->
