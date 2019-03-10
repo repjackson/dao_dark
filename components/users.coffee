@@ -32,7 +32,7 @@ if Meteor.isClient
     #         Meteor.user().friend_ids and @_id in Meteor.user().friend_ids
             
     #     toggle_friend_class: ->
-    #         if Meteor.user().friend_ids and @_id in Meteor.user().friend_ids then 'blue' else 'basic'
+    #         if Meteor.user().friend_ids and @_id in Meteor.user().friend_ids then 'grey' else 'basic'
             
             
     # Template.toggle_friend.events

@@ -1,25 +1,24 @@
 template(name='edit')
     with doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .centered.row
-                .twelve.center.aligned.wide.column
+                .four.wide.column
                     i.pencil.large.grey.icon(title='editing doc')
-                    a.ui.big.icon.button(href="/view/#{_id}")
+                    a.ui.big.button(href="/view/#{_id}")
                         i.checkmark.icon
+                        |Save
                     .ui.button.icon.delete
                         i.remove.icon
                     //- +detect
-            .centered.row
-                .fifteen.wide.column
-                    +brick_menu
-                    div bricks
-                    each bricks
+                .twelve.wide.column
+                    +field_menu
+                    each fields
                         .ui.label #{this}
                     // +ref_edit multi=false key='_schema' type='schema'
                     .ui.padded.stackable.two.column.grid
                         each _keys
                             .column
-                                +brick_edit
+                                +field_edit
                     //- if analyzed_text
                     //-     |#{nl2br analyzed_text}
                     //- if watson
@@ -27,17 +26,19 @@ template(name='edit')
                     //- if visual_classes
                     //-     +visual_classes
 
-template(name='brick_menu')
-    i.large.grey.plus.icon(title='add brick')
-    each bricks
-        .ui.button.add_brick
+template(name='field_menu')
+    .ui.header 
+        i.grey.plus.icon(title='add field')
+        |Add Block
+    each fields
+        .ui.button.add_field
             i.icon(class=icon)
             |#{title}
 
 
-template(name='brick_edit')
+template(name='field_edit')
     .ui.tertiary.segment
-        i.remove.icon.large.link.remove_brick(title='remove field')
+        i.remove.icon.large.link.remove_field(title='Remove Field')
         .ui.labeled.input
             .ui.label(title='name') #{key}
             input.change_key(type='text' placeholder='key' value=key)
@@ -45,4 +46,4 @@ template(name='brick_edit')
         .ui.divider
         +Template.dynamic template=field_edit
         .ui.divider
-        +jsonView json=meta
+        //- +jsonView json=meta

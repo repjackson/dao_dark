@@ -358,7 +358,7 @@ if Meteor.isClient
             if Session.equals 'loading', true
                  'disabled '
             else if facet.filters.length > 0 and @name in facet.filters
-                'blue'
+                'grey'
             else ''
 
     Template.result.onCreated ->

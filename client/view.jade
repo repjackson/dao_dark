@@ -19,27 +19,29 @@ template(name='view')
                     +author_info
                     +creation_info
                     if is_author
-                        +edit_button
-                        +detect
+                        //- +edit_button
+                        a.ui.button(href="/edit/#{_id}")
+                            |Edit
+                        //- +detect
                     +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
-                    +clone_button
-                    if watson
-                        +doc_sentiment
-                        +doc_emotion
-                        +concepts
-                        +categories
-                        +entities
+                    //- +clone_button
+                    //- if watson
+                    //-     +doc_sentiment
+                    //-     +doc_emotion
+                    //-     +concepts
+                    //-     +categories
+                    //-     +entities
                 .twelve.wide.column
                     each _keys
                         +key_view
-                    .ui.hidden.divider
-                    if analyzed_text
-                        |#{nl2br analyzed_text}
-                        .ui.hidden.divider
-                    div
-                    +comments_view
-                    if watson
-                        +keywords
-
-                    if visual_classes
-                        +visual_classes
+                    //- .ui.hidden.divider
+                    //- if analyzed_text
+                    //-     |#{nl2br analyzed_text}
+                    //-     .ui.hidden.divider
+                    //- div
+                    //- +comments_view
+                    //- if watson
+                    //-     +keywords
+                    //- 
+                    //- if visual_classes
+                    //-     +visual_classes

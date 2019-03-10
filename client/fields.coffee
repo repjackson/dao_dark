@@ -315,12 +315,19 @@ Template.text_edit.events
         brick = Template.parentData(4)
         context = Template.parentData(5)
 
+        console.log parent
+        console.log brick
+        console.log context
+
         if brick
             doc = Docs.findOne context._id
             user = Meteor.users.findOne context._id
             if doc
                 Docs.update context._id,
-                    $set:"#{brick.key}":val
+                    $set:"#{brick}":val
+            # if doc
+            #     Docs.update context._id,
+            #         $set:"#{brick.key}":val
             else if user
                 Meteor.users.update context._id,
                     $set:"#{brick.key}":val
@@ -336,9 +343,9 @@ Template.boolean_edit.helpers
         context = Template.parentData(5)
 
         if brick
-            if context["#{brick.key}"] then 'blue' else ''
+            if context["#{brick.key}"] then 'grey' else ''
         else
-            if parent["#{@key}"] then 'blue' else ''
+            if parent["#{@key}"] then 'grey' else ''
 
 
 Template.boolean_edit.events

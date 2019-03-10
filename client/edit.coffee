@@ -1,9 +1,9 @@
 Template.edit.onCreated ->
     @autorun -> Meteor.subscribe 'doc', Router.current().params._id
     @autorun -> Meteor.subscribe 'schema', Router.current().params._id
-    @autorun -> Meteor.subscribe 'type', 'brick'
+    @autorun -> Meteor.subscribe 'type', 'field'
 
-    
+
 Template.edit.events
     'click .toggle_complete': (e,t)->
         Docs.update Router.current().params._id,
@@ -11,66 +11,63 @@ Template.edit.events
 
 
     'click .delete': ->
-        if confirm 'confirm delete'
+        if confirm 'Confirm Delete'
             Docs.remove @_id
             Router.go '/'
 
 
-Template.brick_menu.helpers
-    bricks: ->
+Template.field_menu.helpers
+    fields: ->
         Docs.find
-            type:'brick'
+            type:'field'
 
 
-Template.brick_menu.events
-    'click .add_brick': ->
+Template.field_menu.events
+    'click .add_field': ->
         console.log @
         Docs.update Router.current().params._id,
-            $push: 
-                bricks: @slug
+            $push:
+                fields: @slug
                 _keys: "new_#{@slug}"
             $set:
-                "_new_#{@slug}": { brick:@slug }
+                "_new_#{@slug}": { field:@slug }
 
-Template.brick_edit.events
+Template.field_edit.events
     'blur .change_key': (e,t)->
         old_string = @valueOf()
         # console.log old_string
-        new_key = t.$('.change_key').val()    
+        new_key = t.$('.change_key').val()
         parent = Template.parentData()
         current_keys = Template.parentData()._keys
-        
-        Meteor.call 'rename_key', old_string, new_key, parent 
-            
-        
-    'click .remove_brick': ->
+
+        Meteor.call 'rename_key', old_string, new_key, parent
+
+
+    'click .remove_field': ->
         key_name = @valueOf()
         console.log @
         console.log Template.currentData()
         parent = Template.parentData()
-        brick = parent["_#{key_name}"].brick
-        if confirm "remove #{key_name}?"
+        field = parent["_#{key_name}"].field
+        if confirm "Remove #{key_name}?"
             Docs.update parent._id,
-                $unset: 
+                $unset:
                     "#{key_name}": 1
                     "_#{key_name}": 1
-                $pull: 
+                $pull:
                     _keys: key_name
-                    bricks:brick
-                    
+                    fields:field
 
 
-
-Template.brick_edit.helpers
+Template.field_edit.helpers
     key: -> @valueOf()
-    
+
     meta: ->
         key_string = @valueOf()
         parent = Template.parentData()
         parent["_#{key_string}"]
-    
-    
+
     field_edit: ->
         key_string = @valueOf()
         meta = Template.parentData()["_#{key_string}"]
-        "#{meta.brick}_edit"
+        "#{meta.field}_edit"

@@ -31,7 +31,7 @@ Template.user_schema_editor.helpers
         console.log @
         console.log current_user
         
-        if current_user.schema_ids and @_id in current_user.schema_ids then 'blue' else ''
+        if current_user.schema_ids and @_id in current_user.schema_ids then 'grey' else ''
 
 Template.user_tribe_editor.helpers
     tribes: -> 
@@ -40,7 +40,7 @@ Template.user_tribe_editor.helpers
     
     user_tribe_class: ->
         current_user = Meteor.users.findOne Router.current().params._id
-        if current_user.tribes and @slug in current_user.tribes then 'blue' else ''
+        if current_user.tribes and @slug in current_user.tribes then 'grey' else ''
 
 
 Template.user_schema_editor.events
@@ -91,7 +91,7 @@ Template.user_single_doc_ref_editor.helpers
         context = Template.parentData()
         # console.log context
         current_user = Meteor.users.findOne Router.current().params._id
-        if current_user["#{context.key}"] and @slug is current_user["#{context.key}"] then 'blue' else ''
+        if current_user["#{context.key}"] and @slug is current_user["#{context.key}"] then 'grey' else ''
 
 
 

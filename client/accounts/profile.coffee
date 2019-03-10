@@ -65,7 +65,7 @@ Template.profile_layout.events
 Template.user_array_element_toggle.helpers
     user_array_element_toggle_class: ->
         # user = Meteor.users.findOne Router.current().params.username
-        if @user["#{@key}"] and @value in @user["#{@key}"] then 'blue' else ''
+        if @user["#{@key}"] and @value in @user["#{@key}"] then 'grey' else ''
 
 
 Template.user_array_element_toggle.events

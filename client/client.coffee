@@ -254,14 +254,17 @@ Template.registerHelper 'field_value', () ->
     # parent5 = Template.parentData(5)
     # parent6 = Template.parentData(6)
     # console.log Template.parentData()
-    # console.log Template.parentData(4)
-    # console.log Template.parentData(5)
+    console.log Template.parentData(4)
+    console.log Template.parentData(5)
     field_template_context = Template.parentData(6)
     brick = Template.parentData(4)
     context = Template.parentData(5)
     if parent["#{@key}"] then parent["#{@key}"]
-    else if context["#{brick.key}"]
-        context["#{brick.key}"]
+    else if context["#{brick}"]
+        console.log context["#{brick}"]
+        context["#{brick}"]
+    # else if context["#{brick.key}"]
+    #     context["#{brick.key}"]
     # else if field_template_context["#{context}"]
     #     field_template_context["#{context}"]
 

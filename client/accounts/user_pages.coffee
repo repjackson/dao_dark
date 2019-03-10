@@ -7,7 +7,7 @@ Template.user_tasks.onCreated ->
 
 Template.user_tasks.helpers
     view_complete_class: ->
-        if Session.equals('view_complete',true) then 'blue' else ''
+        if Session.equals('view_complete',true) then 'grey' else ''
 
     assigned_tasks: ->
         Docs.find
