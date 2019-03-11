@@ -22,8 +22,6 @@ template(name='people')
 template(name='user_item')                            
     .ui.stackable.grid.segment
         a.four.wide.column(href="/u/#{_id}/about") 
-            if profile.image_id
-                img.ui.image(src="{{c.url profile.image_id width=200 height=150 crop='fit'}}")
             if image_id
                 img.ui.image(src="{{c.url image_id width=200 height=150 crop='fit'}}")
         .twelve.wide.column
@@ -33,12 +31,15 @@ template(name='user_item')
             .meta
                 each tags
                     .ui.basic.label #{this}
-                i.grey.user.shield.icon(title='Roles')
+                i.user.shield.icon
+                |Roles 
                 each roles
-                    | #{this}
+                    .ui.basic.label #{this}
+                i.message.icon
+                |Emails
                 if emails
                     each emails
-                        |#{address}
+                        .ui.basic.label #{address}
             .ui.hidden.divider
             // if currentUser
             //     +toggle_friend

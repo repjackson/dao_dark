@@ -18,9 +18,9 @@ template(name='profile_layout')
                                     if image_id
                                         a.item(href="/u/#{user_from_username_param.username}/about")
                                             img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
-                                    if profile.image_id
-                                        a.item(href="/u/#{user_from_username_param.username}/about")
-                                            img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
+                                    //- if profile.image_id
+                                    //-     a.item(href="/u/#{user_from_username_param.username}/about")
+                                    //-         img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
                                     // if current_user
                                     if is_admin
                                         .ui.vertical.fluid.menu
@@ -98,7 +98,7 @@ template(name='user_section')
 
 template(name='user_about')
     .profile-banner-container
-        img.ui.fluid.rounded.image(src="{{c.url profile.banner_image_id width=1000 height=300 crop='crop'}}")
+        img.ui.fluid.rounded.image(src="{{c.url banner_image_id width=1000 height=300 crop='crop'}}")
 
     .ui.padded.stackable.grid
         .eight.wide.column
