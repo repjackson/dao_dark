@@ -1,7 +1,7 @@
-template(name='notify_button')
+template(name='notify')
     if currentUser
         .ui.header
-            +icon name='appointment-reminders'
+            +icolor name='appointment-reminders'
             |Notify Someone
         // .ui.fluid.input
         //     +inputAutocomplete settings=recipient_select_settings id="recipient_select" class="" autocomplete="off" placeholder='Lookup...'
@@ -108,3 +108,8 @@ template(name='checkout')
     .ui.small.compact.button.checkout
         +icolor name='in-progress' classes='ui inline mini image' 
         |Check Out
+
+
+
+template(name='mark_read')
+    

@@ -9,11 +9,11 @@ Template.user_edit.onCreated ->
 
 Template.user_schema_editor.onCreated ->
     @autorun -> Meteor.subscribe 'user_schemas'
-    
+
 Template.user_tribe_editor.onCreated ->
     @autorun -> Meteor.subscribe 'type','tribe'
-    
-    
+
+
 Template.user_edit.onRendered ->
     Meteor.setTimeout ->
         $('.button').popup()
@@ -21,23 +21,23 @@ Template.user_edit.onRendered ->
 
 
 Template.user_schema_editor.helpers
-    schemas: -> 
+    schemas: ->
         Docs.find
             type:'schema'
             user_schema:true
-    
+
     user_schema_class: ->
         current_user = Meteor.users.findOne username:Router.current().params.username
         console.log @
         console.log current_user
-        
+
         if current_user.schema_ids and @_id in current_user.schema_ids then 'grey' else ''
 
 Template.user_tribe_editor.helpers
-    tribes: -> 
+    tribes: ->
         Docs.find
             type:'tribe'
-    
+
     user_tribe_class: ->
         current_user = Meteor.users.findOne Router.current().params._id
         if current_user.tribes and @slug in current_user.tribes then 'grey' else ''
@@ -81,11 +81,11 @@ Template.user_single_doc_ref_editor.events
             $set: "#{context.key}": @slug
 
 Template.user_single_doc_ref_editor.helpers
-    choices: -> 
+    choices: ->
         # console.log @
         Docs.find
             type:@schema
-    
+
     choice_class: ->
         # console.log @
         context = Template.parentData()
@@ -96,7 +96,7 @@ Template.user_single_doc_ref_editor.helpers
 
 
 
-# Template.phone_editor.helpers 
+# Template.phone_editor.helpers
 #     'newNumber': ->
 #         Phoneformat.formatLocal 'US', Meteor.user().profile.phone
 
@@ -136,7 +136,7 @@ Template.user_single_doc_ref_editor.helpers
 #                             toastr.success 'Your phone was successfully verified!'
 #                         else
 #                             toastr.success 'Your verification code does not match.'
-                        
+
 # stripeTokenHandler = (token) ->
 #     # Insert the token ID into the form so it gets submitted to the server
 #     form = document.getElementById('payment-form')
@@ -169,63 +169,63 @@ Template.user_edit.events
                     console.error 'Error uploading', err
                 else
                     console.log res
-                    Meteor.users.update Router.current().params._id, 
+                    Meteor.users.update Router.current().params._id,
                         $set: "image_id": res.public_id
                 return
-    
+
     # 'blur #apt_number': (e) ->
     #     val =  $('#apt_number').val()
-    #     Meteor.users.update Router.current().params._id, 
+    #     Meteor.users.update Router.current().params._id,
     #         $set: apt_number: val
 
     # 'blur #building_number': (e) ->
     #     val =  $('#building_number').val()
-    #     Meteor.users.update Router.current().params._id, 
+    #     Meteor.users.update Router.current().params._id,
     #         $set: building_number: val
-    
+
     # 'blur #first_name': (e) ->
     #     val =  $('#first_name').val()
-    #     Meteor.users.update Router.current().params._id, 
+    #     Meteor.users.update Router.current().params._id,
     #         $set: first_name: val
-    
+
     # 'blur #last_name': (e) ->
     #     val =  $('#last_name').val()
-    #     Meteor.users.update Router.current().params._id, 
+    #     Meteor.users.update Router.current().params._id,
     #         $set: last_name: val
-    
+
     # 'blur #address': (e) ->
     #     val =  $('#address').val()
-    #     Meteor.users.update Router.current().params._id, 
+    #     Meteor.users.update Router.current().params._id,
     #         $set: address: val
-    
+
     # 'blur #start_date': (e) ->
     #     val =  $('#start_date').val()
-    #     Meteor.users.update Router.current().params._id, 
+    #     Meteor.users.update Router.current().params._id,
     #         $set: start_date: val
-    
+
     # 'blur #lease_expiration': (e) ->
     #     val =  $('#lease_expiration').val()
-    #     Meteor.users.update Router.current().params._id, 
+    #     Meteor.users.update Router.current().params._id,
     #         $set: lease_expiration: val
-    
+
     # 'blur #telephone': (e) ->
     #     val =  parseInt($('#telephone').val())
     #     console.log val
-    #     Meteor.users.update Router.current().params._id, 
+    #     Meteor.users.update Router.current().params._id,
     #         $set: telephone: val
-    
+
     # 'blur #email': (e) ->
     #     val =  $('#email').val()
-    #     Meteor.users.update Router.current().params._id, 
+    #     Meteor.users.update Router.current().params._id,
     #         $set: email: val
-    
+
     # 'click .owner': (e) ->
     #     current_user = Meteor.users.findOne Router.current().params._id
     #     if current_user.owner
-    #         Meteor.users.update Router.current().params._id, 
+    #         Meteor.users.update Router.current().params._id,
     #             $set: owner: false
     #     else
-    #         Meteor.users.update Router.current().params._id, 
+    #         Meteor.users.update Router.current().params._id,
     #             $set: owner: true
 
     "change input[name='banner_image']": (e) ->
@@ -241,7 +241,7 @@ Template.user_edit.events
                     console.error 'Error uploading', err
                 else
                     console.log res
-                    Meteor.users.update Router.current().params._id, 
+                    Meteor.users.update Router.current().params._id,
                         $set: "banner_image_id": res.public_id
                 return
 
@@ -251,7 +251,7 @@ Template.user_edit.events
             Meteor.users.update Router.current().params._id,
                 $unset: "image_id": 1
 
-        
+
 #     'change #Profile_photo': (event, template) ->
 #         #  $('.imageprocessing').show();
 #         showLoadingMask()
@@ -278,7 +278,7 @@ Template.user_edit.events
 #         if !name
 #             toastr.error 'Please enter person name'
 #             return false
-#         dataJson = 
+#         dataJson =
 #             'profile.name': $('#pname').val()
 #             'profile.profilePic': if profilePicImage == '/icons/Logo_sm_100.png' then '/icons/Logo_sm_100.png' else profilePicImage
 #         Meteor.call 'updateUserDetail', dataJson, (err, res) ->
@@ -286,7 +286,7 @@ Template.user_edit.events
 #                 toastr.error err.reason
 #             else
 #                 toastr.success 'Account Details Updated'
-            
+
 
 # Template.card_holder.events
 #     'click .remove': (event, template) ->
@@ -427,11 +427,11 @@ Template.user_edit.events
 #                         console.log err
 #                     else
 #                         alert "Username changed."
-                        
-                        
-                        
-                        
-# Template.password_edit.events 
+
+
+
+
+# Template.password_edit.events
 #     'click .change_password': (event, template) ->
 #         $('#passwordUpdate').data('bootstrapValidator').validate()
 #         if $('#passwordUpdate').data('bootstrapValidator').isValid()
@@ -458,9 +458,9 @@ Template.user_edit.events
 #             new_password:
 #                 message: 'You must provide a new password.'
 #                 validators: notEmpty: message: 'New Password is mandatory'
-                        
-                        
-                        
+
+
+
 # profilePicImage = '/icons/Logo_sm_100.png'
 
 
@@ -472,12 +472,12 @@ Template.user_edit.events
 #     'click #removeStripe': ->
 #         if confirm 'Are you sure you want to disconnect stripe? This will disable payment processing entirely.'
 #             Meteor.call 'remove_stripe', Meteor.userId()
-            
-            
+
+
 #     'click #dashboardStripe': ->
 #         window.open encodeURI('https://dashboard.stripe.com/dashboard'), '_system'
-        
-        
+
+
 #     "change input[type='file']": (e) ->
 #         files = e.currentTarget.files
 #         # console.log files
@@ -491,7 +491,7 @@ Template.user_edit.events
 #                     console.error 'Error uploading', err
 #                 else
 #                     console.log res
-#                     Meteor.users.update Router.current().params._id, 
+#                     Meteor.users.update Router.current().params._id,
 #                         $set: "profile.image_id": res.public_id
 #                 return
 
@@ -500,10 +500,10 @@ Template.user_edit.events
 #         if confirm 'Remove photo?'
 #             Meteor.users.update Router.current().params._id,
 #                 $unset: "profile.image_id": 1
-        
-        
-        
-        
+
+
+
+
 #     'change #Profile_photo': (event, template) ->
 #         #  $('.imageprocessing').show();
 #         showLoadingMask()
@@ -530,7 +530,7 @@ Template.user_edit.events
 #             showLoadingMask()
 #             address = encodeURIComponent($('#address').val() + ',' + $('#city').val() + ',' + $('#state').val() + ' ' + $('#zip').val())
 #             geoURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + Session.get('SETTINGS').mapsApiKey
-#             mydata = 
+#             mydata =
 #                 'link': geoURL
 #                 'usr': Meteor.userId()
 #             coord = undefined
@@ -541,7 +541,7 @@ Template.user_edit.events
 #                 else
 #                     coord = data
 #                     #console.log(coord);
-#                     dataJson = 
+#                     dataJson =
 #                         'profile.churchName': $('#name').val()
 #                         'profile.phone': $('#phone').val()
 #                         'profile.address':
@@ -581,7 +581,7 @@ Template.user_edit.events
 #                     toastr.success 'This email id already registered.'
 
 
-# Template.churchRepAccountEditor.helpers 
+# Template.churchRepAccountEditor.helpers
 #     loggedinUserIDDet: (emailAddresses) ->
 #         loggedinEmailId = readCookie('loggedinEmailId')
 #         filteredEmail = emailAddresses.filter((d, i) ->
@@ -632,19 +632,30 @@ Template.emails_edit.events
     'click #add_email': ->
         new_email = $('#new_email').val().trim()
         user = Meteor.user()
-        
+
         re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         valid_email = re.test(new_email)
-        
+
         if valid_email
-            Meteor.call 'update_email', new_email, (error, result) ->
+            Meteor.call 'add_email', Router.current().params.username, new_email, (error, result) ->
                 if error
                     # console.log 'updateUsername', error
                     alert "Error Adding Email: #{error.reason}"
                 else
                     alert result
                 return
-                
+
+    'click .remove_email': ->
+        if confirm 'Remove email?'
+            console.log @
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            console.log current_user
+            Meteor.call 'remove_email', current_user._id, @address, (err,res)->
+                if res
+                    alert 'Email removed'
+
+
     'click .send_verification_email': (e,t)->
-        Meteor.call 'verify_email', Meteor.userId(), ->
-            alert 'Verification Email Sent'
+        console.log @
+        # Meteor.call 'verify_email', Meteor.userId(), ->
+        #     alert 'Verification Email Sent'

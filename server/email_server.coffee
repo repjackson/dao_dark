@@ -201,9 +201,8 @@ Meteor.startup ->
     return
 
 
-# In your server code: define a method that the client can call
 Meteor.methods
-    update_email: (new_email) ->
+    add_email: (username,new_email) ->
         userId = Meteor.userId();
         if !userId
             throw new Meteor.Error(401, "Unauthorized");
@@ -212,6 +211,10 @@ Meteor.methods
 
     verify_email: (user_id)->
         Accounts.sendVerificationEmail(user_id)
+
+    remove_email: (user_id, email)->
+        Accounts.removeEmail user_id, email
+
 
     notify_user_about_document: (doc_id, recipient_id)->
         doc = Docs.findOne doc_id

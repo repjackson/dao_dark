@@ -114,8 +114,8 @@ template(name='author_info')
     a.ui.button(href="/u/#{author.username}") by #{author.username}
 
 template(name='creation_info')
-    .ui.small.inline.header #{when}
-    .ui.small.inline.header #{long_date _timestamp}
+    .ui.tiny.grey.inline.header #{when}
+    .ui.tiny.grey.inline.header #{long_date _timestamp}
 
 
 template(name='user_list_toggle')

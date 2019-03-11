@@ -254,6 +254,8 @@ template(name='emails_edit')
                         else
                             .ui.basic.label Unverified
                             .send_verification_email.ui.button Verify
+                        .ui.small.button.remove_email
+                            i.remove.icon
         .ui.action.fluid.input
             input#new_email(type='email')
             #add_email.ui.submit.button Add Email

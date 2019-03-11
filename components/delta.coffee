@@ -271,14 +271,6 @@ if Meteor.isClient
 
 
 
-
-
-
-
-
-
-
-
     Template.type_edit.onCreated ->
         @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
         @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
