@@ -153,8 +153,10 @@ Template.user_single_doc_ref_editor.helpers
 Template.user_edit.events
     'click .remove_user': ->
         if confirm "Confirm delete #{@username}?  Cannot be undone."
-            Meteor.users.remove Router.current().params._id
-            Router.go "/t/goldrun"
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            if current_user
+                Meteor.users.remove current_user._id
+            Router.go "/users"
 
     "change input[name='profile_image']": (e) ->
         files = e.currentTarget.files
@@ -416,34 +418,35 @@ Template.user_edit.events
 #     return
 
 
-# Template.username_edit.events
-#     'click .change_username': (e,t)->
-#         new_username = t.$('.new_username').val()
-#         if new_username
-#             if confirm "Change username from #{Meteor.user().username} to #{new_username}?"
-#                 Meteor.call 'change_username', Meteor.userId(), new_username, (err,res)->
-#                     if err
-#                         alert err
-#                         console.log err
-#                     else
-#                         alert "Username changed."
+Template.username_edit.events
+    'click .change_username': (e,t)->
+        new_username = t.$('.new_username').val()
+        if new_username
+            if confirm "Change username from #{Meteor.user().username} to #{new_username}?"
+                Meteor.call 'change_username', Meteor.userId(), new_username, (err,res)->
+                    if err
+                        alert err
+                        console.log err
+                    else
+                        alert "Username changed."
+                        Router.go("/u/#{new_username}")
 
 
 
 
-# Template.password_edit.events
-#     'click .change_password': (event, template) ->
-#         $('#passwordUpdate').data('bootstrapValidator').validate()
-#         if $('#passwordUpdate').data('bootstrapValidator').isValid()
-#             Accounts.changePassword $('#password').val(), $('#new_password').val(), (err, res) ->
-#                 if err
-#                     toastr.error err.reason
-#                 else
-#                     toastr.success 'Password Changed'
-#                     # $('.amSuccess').html('<p>Password Changed</p>').fadeIn().delay('5000').fadeOut();
+Template.password_edit.events
+    'click .change_password': (event, template) ->
+        $('#passwordUpdate').data('bootstrapValidator').validate()
+        if $('#passwordUpdate').data('bootstrapValidator').isValid()
+            Accounts.changePassword $('#password').val(), $('#new_password').val(), (err, res) ->
+                if err
+                    toastr.error err.reason
+                else
+                    toastr.success 'Password Changed'
+                    # $('.amSuccess').html('<p>Password Changed</p>').fadeIn().delay('5000').fadeOut();
 
 
-
+#
 # Template.password_edit.onRendered ->
 #     $('#passwordUpdate').bootstrapValidator
 #         message: 'This value is not valid'
@@ -627,22 +630,26 @@ Template.user_edit.events
 #                         country: 'US'
 #                         message: 'The value is not valid US phone number'
 
+Template.emails_edit.helpers
+    current_user: ->
+        Meteor.users.findOne username:Router.current().params.username
 
 Template.emails_edit.events
     'click #add_email': ->
         new_email = $('#new_email').val().trim()
-        user = Meteor.user()
+        current_user = Meteor.users.findOne username:Router.current().params.username
 
         re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         valid_email = re.test(new_email)
 
         if valid_email
-            Meteor.call 'add_email', Router.current().params.username, new_email, (error, result) ->
+            Meteor.call 'add_email', current_user._id, new_email, (error, result) ->
                 if error
                     # console.log 'updateUsername', error
-                    alert "Error Adding Email: #{error.reason}"
+                    alert "Error adding email: #{error.reason}"
                 else
                     alert result
+                    $('#new_email').val('')
                 return
 
     'click .remove_email': ->
@@ -650,9 +657,13 @@ Template.emails_edit.events
             console.log @
             current_user = Meteor.users.findOne username:Router.current().params.username
             console.log current_user
-            Meteor.call 'remove_email', current_user._id, @address, (err,res)->
-                if res
-                    alert 'Email removed'
+            Meteor.call 'remove_email', current_user._id, @address, (error,result)->
+                if error
+                    # console.log 'updateUsername', error
+                    alert "Error removing email: #{error.reason}"
+                else
+                    alert result
+                return
 
 
     'click .send_verification_email': (e,t)->

@@ -36,6 +36,9 @@ template(name='user_item')
                 i.grey.user.shield.icon(title='Roles')
                 each roles
                     | #{this}
+                if emails
+                    each emails
+                        |#{address}
             .ui.hidden.divider
             // if currentUser
             //     +toggle_friend

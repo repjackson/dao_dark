@@ -55,10 +55,12 @@ template(name='topnav')
                     i.plus.blue.large.icon
                 a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
                     i.plus.large.icon
-                //- a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
-                //-     i.large.chat.icon
-                //- a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
-                //-      i.large.inbox.icon
+                a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
+                    i.large.chat.icon
+                a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
+                     i.large.inbox.icon
+                a.item(href="/users" class="{{isActivePath '/users'}}")
+                     i.large.users.icon
                 a.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
                     i.user.large.icon
                     | #{currentUser.username}

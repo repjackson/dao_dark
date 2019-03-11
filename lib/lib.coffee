@@ -49,7 +49,7 @@ Docs.helpers
 
 
 Meteor.users.helpers
-    name: -> 
+    name: ->
         if @profile?.first_name and @profile?.last_name
             "#{@profile.first_name}  #{@profile.last_name}"
         else
@@ -63,10 +63,10 @@ Meteor.users.helpers
             "ev.ID": @profile.customer_jpid
         # console.log found
         found
-        
-        
-    email: -> 
-        if @emails
+
+
+    email: ->
+        if @emails and @emails.length > 0
             @emails[0].address
 
 
@@ -85,14 +85,14 @@ Meteor.methods
         #         Meteor.call 'updateTitheuserID', titheData.tithe, userID: id
         #         tithe = Tithes.findOne(titheData.tithe)
         #         source = tithe.data.source
-        #         cardObj = 
+        #         cardObj =
         #             cardid: source.id
         #             user: id
         #             exp_month: source.exp_month
         #             exp_year: source.exp_year
         #             last4: source.last4
         #         Meteor.call 'addMyCards', cardObj
-        #     userInfo = 
+        #     userInfo =
         #         email: options.email
         #         name: uname
         #     Meteor.call 'sendGiverEmail', userInfo
@@ -116,10 +116,10 @@ Meteor.methods
                 $addToSet: facets: new_facet_ob
         Docs.update { _id:delta_id, "facets.key":key},
             $addToSet: "facets.$.filters": filter
-        
+
         Meteor.call 'fum', delta_id, (err,res)->
-            
-            
+
+
     remove_facet_filter: (delta_id, key, filter)->
         if key is '_keys'
             Docs.update { _id:delta_id },
@@ -134,6 +134,6 @@ Meteor.methods
         Docs.update parent._id,
             $addToSet:_keys:new_key
         Docs.update parent._id,
-            $rename: 
+            $rename:
                 "#{old_key}": new_key
                 "_#{old_key}": "_#{new_key}"

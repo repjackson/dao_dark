@@ -202,12 +202,12 @@ Meteor.startup ->
 
 
 Meteor.methods
-    add_email: (username,new_email) ->
-        userId = Meteor.userId();
-        if !userId
-            throw new Meteor.Error(401, "Unauthorized");
-        Accounts.addEmail(userId, new_email);
-        return "Updated Email to #{new_email}"
+    add_email: (user_id,new_email) ->
+        # userId = Meteor.userId();
+        # if !userId
+        #     throw new Meteor.Error(401, "Unauthorized");
+        Accounts.addEmail(user_id, new_email);
+        return "Added email #{new_email}."
 
     verify_email: (user_id)->
         Accounts.sendVerificationEmail(user_id)

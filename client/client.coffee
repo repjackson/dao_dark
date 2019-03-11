@@ -75,6 +75,9 @@ Template.registerHelper 'schema', () ->
 Template.registerHelper 'user_from_id_param', () ->
     Meteor.users.findOne Router.current().params._id
 
+Template.registerHelper 'current_user', () ->
+    Meteor.users.findOne username:Router.current().params.username
+
 Template.registerHelper 'is_schema_type', () ->
     @type is 'schema'
 
