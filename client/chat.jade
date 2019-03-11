@@ -26,8 +26,8 @@ template(name='chat_list_item')
                         .item(title=profile.name)
                             // a(href="/user/profile/#{_id}")
                             img.ui.avatar.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                            // |#{profile.name}
-                            // +user_status
+                            |#{username}
+                            +user_status
             .description
                 each tags
                     .ui.small.label #{this}
@@ -35,10 +35,10 @@ template(name='chat_list_item')
                 // strong {{cutString last_message.body 100}}
                 strong {{last_message.body}}
             .description
-                |by #{last_message.author.profile.name} #{last_message.when}
-            // .extra
-            //     .span #{unread_message_count} unread messages
-            //     .span #{_message_count} total messages                
+                |by #{last_message.author.username} #{last_message.when}
+            //- .extra
+            //-     .span #{unread_message_count} unread messages
+            //-     .span #{message_count} total messages                
             
             
             
@@ -116,8 +116,8 @@ template(name='view_chat')
                 .ui.small.header 
                     i.line.chart.icon
                     |Stats
-                .ui.small.header #{message_count} Messages
-                .ui.small.header #{unread_message_count} Unread
+                .ui.small.inline.header #{message_count} Messages
+                .ui.small.inline.header #{unread_message_count} Unread
                 .ui.small.header 
                     i.align.left.icon
                     |Description
@@ -178,4 +178,3 @@ template(name='view_chat')
                 .ui.small.header Started by 
                     img.ui.avatar.image(src="{{c.url author.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
                     |#{author.profile.name} #{when}
-

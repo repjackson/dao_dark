@@ -1,12 +1,12 @@
-# ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3')
+ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3')
 VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3')
 NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
 PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3')
 
-# tone_analyzer = new ToneAnalyzerV3(
-#     username: Meteor.settings.private.tone.username
-#     password: Meteor.settings.private.tone.password
-#     version_date: '2017-09-21')
+tone_analyzer = new ToneAnalyzerV3(
+    username: Meteor.settings.private.tone.username
+    password: Meteor.settings.private.tone.password
+    version_date: '2017-09-21')
 # pFbEpJ4Onu3XV6K5juyIkkljoid92Qja2HXc_e8-voJQ
 
 
@@ -29,62 +29,61 @@ personality_insights = new PersonalityInsightsV3(
 
 
 Meteor.methods
-    call_personality: (doc_id)->
+    call_personality: (doc_id, key)->
         self = @
         doc = Docs.findOne doc_id
-        if doc.html
-            params =
-                content: doc.html,
-                content_type: 'text/html',
-                consumption_preferences: true,
-                raw_scores: false
-            personality_insights.profile params, Meteor.bindEnvironment((err, response)->
+        params =
+            content: doc.html,
+            content_type: 'text/html',
+            consumption_preferences: true,
+            raw_scores: false
+        personality_insights.profile params, Meteor.bindEnvironment((err, response)->
+            if err
+                # console.log err
+                Docs.update { _id: doc_id},
+                    $set:
+                        personality: false
+            else
+                # console.dir response
+                Docs.update { _id: doc_id},
+                    $set:
+                        personality: response
+                # console.log(JSON.stringify(response, null, 2))
+        )
+
+
+    call_tone: (doc_id, mode, key)->
+        self = @
+        doc = Docs.findOne doc_id
+        # console.log doc.html
+        if doc.html or doc.body
+            # stringed = JSON.stringify(doc.html, null, 2)
+            if mode is html
+                params =
+                    text:doc.html
+                    content_type:'text/html'
+            if mode is text
+                params =
+                    text:doc.body
+                    content_type:'text/plain'
+            tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
                 if err
-                    # console.log err
-                    Docs.update { _id: doc_id},
-                        $set:
-                            personality: false
+                    console.log err
                 else
                     # console.dir response
                     Docs.update { _id: doc_id},
                         $set:
-                            personality: response
+                            tone: response
                     # console.log(JSON.stringify(response, null, 2))
             )
-        else return 
-        
-        
-    # call_tone: (doc_id)->
-    #     self = @
-    #     doc = Docs.findOne doc_id
-    #     # console.log doc.html
-    #     if doc.html or doc.body
-    #         # stringed = JSON.stringify(doc.html, null, 2)
-    #         if doc.html
-    #             params =
-    #                 text:doc.html
-    #                 content_type:'text/html'
-    #         if doc.body
-    #             params =
-    #                 text:doc.body
-    #                 content_type:'text/plain'
-    #         tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
-    #             if err
-    #                 console.log err
-    #             else
-    #                 # console.dir response
-    #                 Docs.update { _id: doc_id},
-    #                     $set:
-    #                         tone: response
-    #                 # console.log(JSON.stringify(response, null, 2))
-    #         )
-    #     else return 
-        
+        else return
+
+
     call_visual_link: (doc_id, field)->
         self = @
         doc = Docs.findOne doc_id
         link = doc["#{field}"]
-        
+
         params =
             url:link
             # images_file: images_file
@@ -98,12 +97,12 @@ Meteor.methods
                     $set:
                         visual_classes: response.images[0].classifiers[0].classes
         )
-        
-    call_watson: (doc_id, key, mode) ->
+
+    call_watson: (doc_id, mode, key) ->
         console.log 'calling watson'
         self = @
         doc = Docs.findOne doc_id
-        parameters = 
+        parameters =
             features:
                 entities:
                     emotion: false
@@ -137,10 +136,10 @@ Meteor.methods
                 console.log(JSON.stringify(response, null, 2))
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
-                
+
                 concept_array = _.pluck(response.concepts, 'text')
                 lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
-                Docs.update { _id: doc_id }, 
+                Docs.update { _id: doc_id },
                     $set:
                         analyzed_text:response.analyzed_text
                         watson: response
@@ -152,13 +151,13 @@ Meteor.methods
             )
             # Meteor.call 'call_tone', doc_id, ->
             # Meteor.call 'call_personality', doc_id, ->
-        
+
 
     pull_site: (doc_id, url)->
         this_id = doc_id
         doc = Docs.findOne doc_id
         # console.log url
-        parameters = 
+        parameters =
             url: url
             features:
                 entities:
@@ -185,7 +184,7 @@ Meteor.methods
                 console.log response
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
-                
+
                 concept_array = _.pluck(response.concepts, 'text')
                 lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
                 Docs.update {_id:this_id},

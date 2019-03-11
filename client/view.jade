@@ -12,7 +12,7 @@ template(name='view')
     with doc
         .ui.stackable.padded.grid
             .centered.row
-                .four.wide.column
+                .four.wide.column.scrolling
                     .ui.header
                         if icon
                             i.grey.icon(class=icon)
@@ -35,7 +35,9 @@ template(name='view')
                         +concepts
                         +categories
                         +entities
-                .twelve.wide.column.large120
+                        +personality
+                        +consumption_preferences
+                .twelve.wide.column.large120.scrolling
                     each _keys
                         //- .ui.label #{this}
                         +key_view
@@ -47,6 +49,7 @@ template(name='view')
                     +comments
                     if watson
                         +keywords
+                        +tone
                     //- +watson_view
                     if visual_classes
                         +visual_classes

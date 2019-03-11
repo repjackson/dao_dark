@@ -127,3 +127,15 @@ Template.guest_sign.events
 Template.checkout.events
     'click .checkout': ->
         console.log @
+
+
+
+Template.send_message.events
+    'click .send_message': ->
+        console.log @
+        if confirm "Send message?"
+            Docs.update @_id,
+                $set:
+                    sent: true
+                    sent_datetime: Date.now()
+                    read_ids: [Meteor.userId()]

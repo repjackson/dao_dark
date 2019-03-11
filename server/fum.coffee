@@ -14,11 +14,16 @@ Meteor.methods
                 # console.log 'no facets'
                 Docs.update delta_id,
                     $set:
-                        facets: [
+                        facets: [{
                             key:'_keys'
                             filters:[]
                             res:[]
-                        ]
+                        }
+                        {
+                            key:'_timestamp_tags'
+                            filters:[]
+                            res:[]
+                        }]
 
                 delta.facets = [
                     key:'_keys'
@@ -47,7 +52,7 @@ Meteor.methods
                         { $set: 'facets.$.res': agg_res }
 
             # if delta.limit then limit=delta.limit else limit=30
-            calc_page_size = if delta.page_size then delta.page_size else 10
+            calc_page_size = if delta.page_size then delta.page_size else 25
 
             page_amount = Math.ceil(total/calc_page_size)
 

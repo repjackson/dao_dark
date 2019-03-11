@@ -86,12 +86,12 @@ Template.topnav.events
     # 'click .toggle_dev': ->
     #     Session.set('dev_mode', !Session.get('dev_mode'))
 
-    'click .tribe_people': ->
+    'click .people': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', 'person',->
             Session.set 'loading', false
 
-    'click .tribe_schemas': ->
+    'click .delta': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', 'schema',->
             Session.set 'loading', false
@@ -101,7 +101,7 @@ Template.topnav.events
         Meteor.call 'set_delta_facets', 'record',->
             Session.set 'loading', false
 
-    'click .set_tribe_schema': ->
+    'click .set_schema': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', @slug,->
             Session.set 'loading', false

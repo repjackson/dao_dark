@@ -4,7 +4,12 @@ template(name='color_edit')
             label 
                 if icon
                     i.grey.icon(class=icon)
-                |#{label}
+                if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
             input.edit_color(type='color' value=field_value placeholder='color')
 
 template(name='color_view')
@@ -13,7 +18,12 @@ template(name='color_view')
             label 
                 if icon
                     i.grey.icon(class=icon)
-                |#{label}
+                if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
             .ui.large.label(style="background:#{field_value}")
             |#{field_value}
 
@@ -23,7 +33,12 @@ template(name='color_icon_edit')
             label 
                 if icon
                     i.grey.icon(class=icon)
-                |#{label}
+                if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
             input.color_icon(type='url' value=field_value placeholder='icons8 class')
         if field_value
             img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
@@ -34,7 +49,12 @@ template(name='icon_edit')
             label 
                 if icon
                     i.grey.icon(class=icon)
-                |#{label}
+                if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
             input.icon_val(type='text' value=field_value placeholder='font awesome class')
         if field_value
             i.icon(class=field_value)
@@ -73,7 +93,7 @@ template(name='link_edit')
 
 
 template(name='link_view')
-    .ui.small.header 
+    .ui.small.grey.header 
         if icon
             i.grey.icon(class=icon)
         |#{label}
@@ -126,7 +146,12 @@ template(name='textarea_view')
     div
         if icon
             i.grey.icon(class=icon)
-        strong #{label} #{this}: &nbsp;
+        if label
+            |#{label}
+        else if key
+            |#{key}
+        else
+            |#{this}
         if field_value
             |#{nl2br field_value}
 
@@ -139,10 +164,12 @@ template(name='textarea_edit')
                     i.grey.icon(class=icon)
                 if label
                     |#{label}
-                else
+                else if key
                     |#{key}
+                else
+                    |#{this}
             textarea.edit_textarea(rows='5') #{field_value}
-        +call_watson mode='text'
+        +call_watson mode='text' key=key
 
 
 template(name='html_edit')
@@ -153,8 +180,10 @@ template(name='html_edit')
                     i.grey.icon(class=icon)
                 if label
                     |#{label}
-                else
+                else if key
                     |#{key}
+                else
+                    |#{this}
     .froala-container
         +froalaReactive getFEContext
     +call_watson mode='html'
@@ -202,8 +231,10 @@ template(name='text_edit')
             .ui.label 
                 if label
                     |#{label}
-                else
+                else if key
                     |#{key}
+                else
+                    |#{this}
             input.edit_text(type='text' value=field_value placeholder=placeholder)
 
 template(name='text_view')
@@ -215,9 +246,11 @@ template(name='text_view')
             .ui.inline.small.header 
                 if label
                     |#{label}
+                else if key
+                    |#{key}
                 else
                     |#{this}
-        strong #{field_value}
+        strong &nbsp; #{field_value}
 
 
 template(name='phone_edit')
@@ -227,9 +260,10 @@ template(name='phone_edit')
         .ui.label 
             if label
                 |#{label}
-            else
+            else if key
                 |#{key}
-        |[fix this later]
+            else
+                |#{this}
         input.edit_phone(type='tel' value=field_value placeholder=placeholder)
 
 template(name='phone_view')
@@ -238,8 +272,13 @@ template(name='phone_view')
             div
             // if icon
             //     i.grey.icon(class=icon)
-            |#{label}: &nbsp;
-        strong #{field_value}
+            if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
+        strong &nbsp; #{field_value}
 
 
 
@@ -270,7 +309,7 @@ template(name='number_view')
         |#{label}
     else
         |#{this}
-    strong #{field_value}
+    strong &nbsp; #{field_value}
 
 
 
@@ -298,7 +337,7 @@ template(name='date_view')
         |#{key}
     else
         |#{this}
-    strong #{field_value}
+    strong &nbsp; #{field_value}
 
 
 
@@ -326,7 +365,33 @@ template(name='time_view')
         |#{key}
     else
         |#{this}
-    strong #{field_value}
+    strong &nbsp; #{field_value}
+
+
+
+
+
+template(name='datetime_edit')
+    .ui.form
+        .field
+            label 
+                if label
+                    |#{label}
+                else
+                    |#{key}
+            input.edit_datetime(type='datetime' value=field_value placeholder=placeholder)
+
+
+template(name='datetime_view')
+    if icon
+        i.grey.icon(class=icon)
+    if label
+        |#{label}
+    else if key
+        |#{key}
+    else
+        |#{this}
+    strong &nbsp; #{field_value}
 
 
 
@@ -376,7 +441,7 @@ template(name='array_view')
 
 
 template(name='children_edit')
-    .ui.small.header #{label}
+    .ui.small.grey.header #{label}
     .ui.button.add_child
         i.plus.icon
         |Add Child #{ref_schema}
@@ -633,14 +698,14 @@ template(name='single_user_view')
 
 template(name='single_person_view')
     div
-    .ui.small.header #{label}
+    .ui.small.grey.header #{label}
     if field_value
         +person_card field_value
     div
             
             
 template(name='single_person_edit')
-    .ui.small.header #{label}
+    .ui.small.grey.header #{label}
     .ui.form
         if field_value
             +person_card field_value
@@ -660,7 +725,7 @@ template(name='single_person_edit')
                                         img.ui.avatar.image(src="{{c.url image width=100 height=100 gravity='face' crop='fill'}}")
                                     //- else
                                     //-     i.user.icon
-                                    strong #{first_name} #{last_name}
+                                    strong &nbsp; #{first_name} #{last_name}
                                     small @#{username}
                                 .ui.sub.header #{building_number} #{address}
             else

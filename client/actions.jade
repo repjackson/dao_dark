@@ -94,6 +94,15 @@ template(name='view_user')
 
 
 
+template(name='send_message')
+    if sent
+        |Sent at #{sent_datetime}
+    unless sent
+        .ui.button.send_message 
+            i.paper.plane.icon
+            |Send Message
+
+
 
 template(name='checkout')
     .ui.small.compact.button.checkout

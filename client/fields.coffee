@@ -234,7 +234,7 @@ Template.image_edit.events
         }, =>
             # Meteor.call "c.delete_by_public_id", @image_id, (err,res) =>
             Docs.update context._id,
-                $unset:"#{brick}":1
+                $unset:"#{brick.key}":1
                 # if not err
                 #     # Do Stuff with res
                 #     # console.log res
@@ -351,9 +351,9 @@ Template.text_edit.events
         brick = Template.parentData(4)
         context = Template.parentData(5)
 
-        console.log parent
-        console.log brick
-        console.log context
+        # console.log parent
+        # console.log brick
+        # console.log context
 
         if brick
             doc = Docs.findOne context._id
@@ -943,10 +943,8 @@ Template.single_person_edit.events
         # console.log Template.parentData(5)
 
         if brick
-
-
             Docs.update context._id,
-                $set:"#{brick}":@_id
+                $set:"#{brick.key}":@_id
         # else
         #     Docs.update parent._id,
         #         $set:"#{@key}":val
@@ -1014,7 +1012,7 @@ Template.multi_user_edit.events
             user = Meteor.users.findOne context._id
             if doc
                 Docs.update context._id,
-                    $addToSet:"#{brick}":@_id
+                    $addToSet:"#{brick.key}":@_id
             else if user
                 Meteor.users.update context._id,
                     $addToSet:"#{brick}":@_id
@@ -1044,10 +1042,10 @@ Template.multi_user_edit.events
                 user = Meteor.users.findOne context._id
                 if doc
                     Docs.update context._id,
-                        $pull:"#{brick}":@_id
+                        $pull:"#{brick.key}":@_id
                 else if user
                     Meteor.users.update context._id,
-                        $pull:"#{brick}":@_id
+                        $pull:"#{brick.key}":@_id
 
 
             # Meteor.call 'unassign_user', page_doc._id, @

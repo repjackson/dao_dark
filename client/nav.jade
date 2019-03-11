@@ -7,17 +7,16 @@ template(name='topnav')
         else 
             a.item.icon.toggle_leftbar(href='#')
                 i.bars.large.icon
-        a.ui.tribe_schemas.icon.item(href="/" class="{{isActivePath '/'}}")
+        a.ui.alpha.icon.item(href="/" class="{{isActivePath '/'}}")
             i.home.large.icon
-        a.ui.tribe_schemas.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
+        a.ui.delta.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
             i.sitemap.large.icon
         a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
             i.large.list.icon
-        a.icon.item.tribe_people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
+        a.icon.item.people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
              i.users.large.icon
-             //- |People
-         a.ui.tribe_schemas.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
-             i.th.large.icon
+        a.ui.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
+            i.th.large.icon
                 
             //- strong Gold Run
         //- a.ui.header.tribe_schemas.item(href="/library" class="{{isActivePath '/library'}}")
@@ -51,16 +50,16 @@ template(name='topnav')
         //     i.th.icon
         // +role_switcher
         .right.menu
-            a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
-                i.large.chat.icon
             if currentUser
                 a.icon.adddoc.item(href="#")
                     i.plus.blue.large.icon
                 a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
                     i.plus.large.icon
-                a.item.toggle_topbar(href="/s/message" class="{{isActivePath '/s/message'}}")
-                     i.large.inbox.icon
-                a.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'profile'}}")
+                //- a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
+                //-     i.large.chat.icon
+                //- a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
+                //-      i.large.inbox.icon
+                a.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
                     i.user.large.icon
                     | #{currentUser.username}
                     //- // | #{currentUser.username} [#{currentUser.status}]
@@ -78,7 +77,7 @@ template(name='topnav')
     //- if is_dev
     .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
         each topnav_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+            a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                 if color_icon
                     +icolor name=color_icon
                 else if icon
