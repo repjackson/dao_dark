@@ -1,6 +1,6 @@
-api_key = Meteor.settings.private.mailgun.api_key
-domain = Meteor.settings.private.mailgun.domain
-mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+# api_key = Meteor.settings.private.mailgun.api_key
+# domain = Meteor.settings.private.mailgun.domain
+# mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 Meteor.methods
     send_email: (mail_fields) ->
@@ -15,8 +15,9 @@ Meteor.methods
         }
         console.log 'sending email', data
         if Meteor.isProduction
-            mailgun.messages().send data, (error, body)->
-              console.log(body)
+            # mailgun.messages().send data, (error, body)->
+            #   console.log(body)
+            Email.send data
         if Meteor.isDevelopment
             # mailgun.messages().send data, (error, body)->
             #   console.log(body)
@@ -77,11 +78,11 @@ Meteor.methods
         # Meteor.call 'send_email', mail_fields
 
 
-# Accounts.emailTemplates.siteName = "DAO"
-# Accounts.emailTemplates.from     = "DAO Admin <no-reply@dao.af>"
+Accounts.emailTemplates.siteName = "DAO"
+Accounts.emailTemplates.from = "DAO <no-reply@dao.af>"
 
 Accounts.emailTemplates.verifyEmail =
-    subject: () -> "Gold Run Email Verification"
+    subject: () -> "DAO Email Verification"
 
     text: ( user, url )->
         emailAddress   = user.emails[0].address
@@ -90,6 +91,14 @@ Accounts.emailTemplates.verifyEmail =
         emailBody      = "To verify your email address (#{emailAddress}) visit the following link:\n\n#{urlWithoutHash}\n\n If you did not request this verification, please ignore this email. If you feel something is wrong, please contact our support team: #{supportEmail}."
         return emailBody
 
+Accounts.emailTemplates.enrollAccount.subject = (user) =>
+  return "Welcome to DAO, #{user.first_name} #{user.last_name}"
+
+
+Accounts.emailTemplates.enrollAccount.text = (user, url) =>
+  'You have been enrolled in DAO. \n' + 'To activate your account, simply click the link below:\n\n' + url;
+
+Accounts.emailTemplates.resetPassword.from = () => 'DAO Password Reset <no-reply@example.com>'
 
 
 #     # create_transaction: (service_id, recipient_doc_id, sale_dollar_price=0, sale_point_price=0)->
@@ -194,11 +203,11 @@ Accounts.emailTemplates.verifyEmail =
 
 
 
-Meteor.startup ->
-    Meteor.Mailgun.config
-        username: 'portalmailer@sandbox97641e5041e64bfd943374748157462b.mailgun.org'
-        password: 'portalmailer'
-    return
+# Meteor.startup ->
+#     Meteor.Mailgun.config
+#         username: 'portalmailer@sandbox97641e5041e64bfd943374748157462b.mailgun.org'
+#         password: 'portalmailer'
+#     return
 
 
 Meteor.methods
@@ -209,8 +218,9 @@ Meteor.methods
         Accounts.addEmail(user_id, new_email);
         return "Added email #{new_email}."
 
-    verify_email: (user_id)->
-        Accounts.sendVerificationEmail(user_id)
+    verify_email: (user_id, email)->
+        console.log 'sending verification email for', user_id
+        Accounts.sendVerificationEmail(user_id,email)
 
     remove_email: (user_id, email)->
         Accounts.removeEmail user_id, email
@@ -241,7 +251,7 @@ Meteor.methods
 
 
 
-    sendEmail: (mailFields) ->
+    mailgun_send: (mailFields) ->
         console.log 'about to send email...'
         # check([mailFields.to, mailFields.from, mailFields.subject, mailFields.text, mailFields.html], [String]);
         # Let other method calls from the same client start running,

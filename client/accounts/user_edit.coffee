@@ -677,6 +677,7 @@ Template.emails_edit.events
 
 
     'click .send_verification_email': (e,t)->
-        console.log @
-        # Meteor.call 'verify_email', Meteor.userId(), ->
-        #     alert 'Verification Email Sent'
+        current_user = Meteor.users.findOne username:Router.current().params.username
+        console.log current_user
+        Meteor.call 'verify_email', current_user._id, @address, ->
+            alert 'Verification Email Sent'
