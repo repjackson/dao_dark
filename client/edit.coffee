@@ -10,7 +10,7 @@ Template.edit.events
             $set:complete:!@complete
 
 
-    'click .delete': ->
+    'click .delete_doc': ->
         if confirm 'Confirm Delete'
             Docs.remove @_id
             Router.go '/'

@@ -226,7 +226,7 @@ if Meteor.isClient
 
 
     Template.remove_button.events
-        'click .remove': ->
+        'click .remove_doc': ->
             swal {
                 title: "Remove #{@type}?"
                 # text: 'This will also delete the messages.'
@@ -248,3 +248,17 @@ if Meteor.isClient
     Template.view_user_button.events
         'click .view_user': ->
             Router.go "/u/#{username}"
+
+    Template.clone_button.events
+        'click .clone_doc': (e,t)->
+            e.preventDefault()
+            doc = @
+            keys = @_keys
+            cloned_fields = {}
+            for key in keys
+                cloned_fields["#{key}"] = doc["#{key}"]
+                cloned_fields["_#{key}"] = doc["_#{key}"]
+            cloned_fields['_keys'] = keys
+            console.log cloned_fields
+            cloned_id = Docs.insert cloned_fields
+            Router.go "/edit/#{cloned_id}"

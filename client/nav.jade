@@ -1,28 +1,28 @@
 template(name='topnav')
     // .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
-    .ui.attached.borderless.inverted.topnav.big.menu(style="background:#{ct.primary_color}")
+    .ui.attached.borderless.inverted.topnav.big.menu
         if is_loading
             .icon.item
                 i.loading.compass.outline.large.icon
         else 
             a.item.icon.toggle_leftbar(href='#')
                 i.bars.large.icon
-            a.ui.tribe_schemas.icon.item(href="/" class="{{isActivePath '/'}}")
-                i.home.large.icon
-            //- a.ui.tribe_schemas.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
-            //-     i.home.large.icon
-            a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
-                i.large.list.icon
-            a.icon.item.tribe_people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
-                 i.users.large.icon
-                 //- |People
+        a.ui.tribe_schemas.icon.item(href="/" class="{{isActivePath '/'}}")
+            i.home.large.icon
+        a.ui.tribe_schemas.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
+            i.sitemap.large.icon
+        a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
+            i.large.list.icon
+        a.icon.item.tribe_people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
+             i.users.large.icon
+             //- |People
+         a.ui.tribe_schemas.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
+             i.th.large.icon
                 
             //- strong Gold Run
         //- a.ui.header.tribe_schemas.item(href="/library" class="{{isActivePath '/library'}}")
         //-     i.home.icon
         //-     strong Gold Run
-        //- a.ui.tribe_schemas.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
-            i.th.large.icon
         //- each topnav_schemas
         //-     a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
         //-         if color_icon
@@ -55,9 +55,9 @@ template(name='topnav')
                 i.large.chat.icon
             if currentUser
                 a.icon.adddoc.item(href="#")
+                    i.plus.blue.large.icon
+                a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
                     i.plus.large.icon
-                //- a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
-                //-     i.plus.large.icon
                 a.item.toggle_topbar(href="/s/message" class="{{isActivePath '/s/message'}}")
                      i.large.inbox.icon
                 a.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'profile'}}")
@@ -75,15 +75,15 @@ template(name='topnav')
                     i.user.plus.icon
                     // +ioffice name='add-user-male'
                     |Register 
-    if is_dev
-        .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
-            each topnav_schemas
-                a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-                    if color_icon
-                        +icolor name=color_icon
-                    else if icon
-                        i.icon(class=icon)
-                    |&nbsp; #{plural}
+    //- if is_dev
+    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
+        each topnav_schemas
+            a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+                if color_icon
+                    +icolor name=color_icon
+                else if icon
+                    i.icon(class=icon)
+                |&nbsp; #{plural}
 
 
 

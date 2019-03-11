@@ -20,7 +20,7 @@ Meteor.methods
             $set: child_count: count
 
 
-    crawl_fields: (specific_key)->
+    crawl: (specific_key)->
         start = Date.now()
 
         if specific_key

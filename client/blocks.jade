@@ -68,8 +68,8 @@ template(name='user_info')
         if user.name
             |#{user.name}
         |@#{user.username}
-        |@#{user.first_name}
-        |@#{user.last_name}
+        |#{user.first_name}
+        |#{user.last_name}
         +user_status user
 
 template(name='user_card')
@@ -149,7 +149,7 @@ template(name='view_button')
         i.right.chevron.icon
 
 template(name='remove_button')
-    a.ui.icon.compact.button.remove(title='Delete')
+    a.ui.icon.compact.button.remove_doc(title='Delete')
         i.remove.icon
         // |Remove #{title}
         // |Remove #{title} #{type}
@@ -174,11 +174,21 @@ template(name='toggle_friend')
         
 
 
+template(name='clone_button')
+    a.ui.icon.circular.button.clone_doc(title='clone' href="#")
+        i.clone.icon
+
+
 
 template(name='edit_button')
     .ui.large.button.edit(title="Edit #{title}")
         i.pencil.icon
         |Edit
+
+template(name='editm_button')
+    .ui.large.button.edit(title="Edit #{title}")
+        i.pencil.icon
+        |Edit (m)
 
 
 template(name='save_button')

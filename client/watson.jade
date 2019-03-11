@@ -264,13 +264,13 @@ template(name='watson_view')
                 +entities
         .twelve.wide.column
             +semantic_roles
-            // .ui.large.accordion
-            //     .active.title 
-            //         |tone
-            //         i.dropdown.icon
-            //     .active.content
-            //         +tone
-            // +keyword_list
+            .ui.large.accordion
+             .active.title 
+                 |tone
+                 i.dropdown.icon
+             .active.content
+                 +tone
+            +keyword_list
             +keywords
             +concept_list
             .ui.hidden.divider
@@ -282,6 +282,6 @@ template(name='watson_view')
                         i.dropdown.icon
                     .content
                         +jsonView(json=watson)
-        // .four.wide.column
-        //     +personality
-        //     +consumption_preferences
+        .four.wide.column
+            +personality
+            +consumption_preferences

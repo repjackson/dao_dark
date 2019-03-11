@@ -126,7 +126,7 @@ template(name='textarea_view')
     div
         if icon
             i.grey.icon(class=icon)
-        |#{label}: &nbsp;
+        strong #{label} #{this}: &nbsp;
         if field_value
             |#{nl2br field_value}
 
@@ -142,7 +142,7 @@ template(name='textarea_edit')
                 else
                     |#{key}
             textarea.edit_textarea(rows='5') #{field_value}
-        // +call_watson mode='text'
+        +call_watson mode='text'
 
 
 template(name='html_edit')
@@ -157,6 +157,7 @@ template(name='html_edit')
                     |#{key}
     .froala-container
         +froalaReactive getFEContext
+    +call_watson mode='html'
 
 
 
@@ -211,7 +212,11 @@ template(name='text_view')
             div
             // if icon
             //     i.grey.icon(class=icon)
-            |#{label}: &nbsp;
+            .ui.inline.small.header 
+                if label
+                    |#{label}
+                else
+                    |#{this}
         strong #{field_value}
 
 
@@ -261,7 +266,10 @@ template(name='number_view')
     div
     if icon
         i.grey.icon(class=icon)
-    | #{label}: &nbsp;
+    if label
+        |#{label}
+    else
+        |#{this}
     strong #{field_value}
 
 
@@ -274,15 +282,22 @@ template(name='date_edit')
             label 
                 if label
                     |#{label}
-                else
+                else if key
                     |#{key}
+                else
+                    |#{this}
             input.edit_date(type='date' value=field_value placeholder=placeholder)
 
 
 template(name='date_view')
     if icon
         i.grey.icon(class=icon)
-    | #{label}: &nbsp;
+    if label
+        |#{label}
+    else if key
+        |#{key}
+    else
+        |#{this}
     strong #{field_value}
 
 
@@ -305,7 +320,12 @@ template(name='time_view')
     if icon
         i.grey.icon(class=icon)
 
-    | #{label}: &nbsp;
+    if label
+        |#{label}
+    else if key
+        |#{key}
+    else
+        |#{this}
     strong #{field_value}
 
 
@@ -322,8 +342,10 @@ template(name='array_edit')
             //     i.grey.icon(class=icon)
             if label
                 |#{label}
-            else
+            else if key
                 |#{key}
+            else
+                |#{this}
         input.new_element(type='text' placeholder='+')
     if field_value
         each field_value
@@ -338,7 +360,12 @@ template(name='array_view')
         div 
             // if icon
             //     i.grey.icon(class=icon)
-            |#{label}
+            if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
             each field_value
                 .ui.label #{this}
 
@@ -387,7 +414,12 @@ template(name='child_edit')
 template(name='children_view')
     .ui.accordion
         .title
-            .ui.small.inline.header #{label}
+            if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
             i.dropdown.icon
         .content
             each children
@@ -446,7 +478,12 @@ template(name='youtube_view')
 template(name='boolean_edit')
     div
         .ui.button.toggle_boolean(class=boolean_toggle_class title=key)
-            |#{label}
+            if label
+                |#{label}
+            else if key
+                |#{key}
+            else
+                |#{this}
 
 
 template(name='boolean_view')
@@ -458,9 +495,20 @@ template(name='boolean_view')
         if field_value
             .ui.basic.green.label
                 i.checkmark.icon
-                |#{label}
+                if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
         else
-            .ui.label #{label}
+            .ui.basic.label
+                if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
         
 
 
@@ -572,6 +620,15 @@ template(name='single_user_edit')
             //                 h4.ui.header
             //                     |#{first_name} #{last_name}
             //                     small @#{username}
+
+
+template(name='single_user_view')
+    .ui.form
+        each selections
+            .ui.large.label
+                |#{username} #{profile.name}
+        .field
+            +user_info field_value
 
 
 template(name='single_person_view')

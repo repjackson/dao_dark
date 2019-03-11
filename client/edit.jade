@@ -2,15 +2,15 @@ template(name='edit')
     with doc
         .ui.stackable.padded.grid
             .centered.row
-                .four.wide.column
+                .two.wide.column
                     i.pencil.large.grey.icon(title='editing doc')
                     a.ui.big.button(href="/view/#{_id}")
                         i.checkmark.icon
                         |Save
-                    .ui.button.icon.delete
+                    .ui.button.icon.delete_doc
                         i.remove.icon
                     +detect
-                .twelve.wide.column
+                .fourteen.wide.column
                     +field_menu
                     each fields
                         .ui.label #{this}

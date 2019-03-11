@@ -5,7 +5,10 @@ Meteor.methods
 
         if delta
             # console.log 'delta', delta
-            built_query = {}
+            if delta.doc_type
+                built_query = { type:delta.doc_type }
+            else
+                built_query = {}
 
             if not delta.facets
                 # console.log 'no facets'

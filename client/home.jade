@@ -2,7 +2,7 @@ template(name='home')
     .ui.stackable.grid
         .row
             // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
-            .eight.wide.right.aligned.column.scrolling
+            .six.wide.column.scrolling
                 unless is_loading
                     // .ui.divider
                     // // each sessions
@@ -10,16 +10,15 @@ template(name='home')
                     // //         i.play.icon
                             
                     if current_delta
-                        if is_dev
-                            .ui.icon.button.print_delta(title='Print Session Doc')
-                                i.code.icon
-                                // |Print Session
-                            .ui.reset.icon.button(title='Reload Session')
-                                i.refresh.icon
-                                // |Reload Session
-                            .ui.delete_delta.icon.button(title='Delete Session')
-                                i.trash.icon
-                                // |Delete Session
+                        .ui.icon.button.print_delta(title='Print Session Doc')
+                            i.code.icon
+                            // |Print Session
+                        .ui.reset.icon.button(title='Reload Session')
+                            i.refresh.icon
+                            // |Reload Session
+                        .ui.delete_delta.icon.button(title='Delete Session')
+                            i.trash.icon
+                            // |Delete Session
                     else
                         .create_delta.ui.button.pointer(title='new session')
                             i.plus.icon
@@ -29,7 +28,7 @@ template(name='home')
                 each current_delta.facets
                     +facet
             // .column(class=delta_right_column_class)
-            .eight.wide.column
+            .ten.wide.column
                 .scrolling
                     each current_delta.result_ids
                         +result
