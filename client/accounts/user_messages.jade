@@ -2,8 +2,11 @@ template(name='user_messages')
     .ui.header 
         i.mail.icon
         |User Messages
-    .ui.fluid.input
-        input#new_message(type='text' placeholder='New Message')
+    if currentUser
+        .ui.fluid.input
+            input#new_message(type='text' placeholder='New Message')
+    else
+        |Login to message
     each user_messages
         .ui.segment
             .ui.header #{title}
