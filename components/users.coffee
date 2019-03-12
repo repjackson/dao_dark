@@ -1,14 +1,14 @@
 if Meteor.isClient
     Template.people.onCreated ->
-        # @autorun -> Meteor.subscribe 'people'
+        @autorun -> Meteor.subscribe 'users'
         @autorun -> Meteor.subscribe 'user_tags', selected_tags.array(), 'user'
         @autorun -> Meteor.subscribe 'facet_users', selected_tags.array(), 'user'
-    
+
     Template.people.helpers
         people: ->
             # Meteor.users.find { _id:$ne:Meteor.userId() }
             Meteor.users.find { }
-   
+
         selected_tags: -> selected_tags.list()
 
         global_tags: ->
@@ -20,21 +20,21 @@ if Meteor.isClient
         'click .select_tag': -> selected_tags.push @name
         'click .unselect_tag': -> selected_tags.remove @valueOf()
         'click #clear_tags': -> selected_tags.clear()
-   
-            
-                    
-        
 
 
-                    
+
+
+
+
+
     # Template.toggle_friend.helpers
     #     is_friend: ->
     #         Meteor.user().friend_ids and @_id in Meteor.user().friend_ids
-            
+
     #     toggle_friend_class: ->
     #         if Meteor.user().friend_ids and @_id in Meteor.user().friend_ids then 'grey' else 'basic'
-            
-            
+
+
     # Template.toggle_friend.events
     #     'click .toggle_friend': (e,t)->
     #         e.preventDefault()
@@ -45,6 +45,3 @@ if Meteor.isClient
     #             Meteor.users.update Meteor.userId(),
     #                 $addToSet: friend_ids:@_id
     #         t.$('.toggle_friend').transition('pulse')
-            
-
-        

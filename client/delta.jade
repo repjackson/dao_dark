@@ -214,7 +214,8 @@ template(name='result')
                             +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                    +remove_button
+                    if is_dev
+                        +remove_button
                     if can_edit
                         //- a.ui.button(href="/edit/#{_id}")
                         //-     |Edit (m)
@@ -227,9 +228,9 @@ template(name='result')
                         i.right.arrow.icon
                     each schema.actions
                         +Template.dynamic template=this data=..
-                    div
+                    //- div
                     +author_info
-                    div
+                    //- div
                     +creation_info
                     //- div
                     //- +detect

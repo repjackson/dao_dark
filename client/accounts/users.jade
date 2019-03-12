@@ -43,7 +43,9 @@ template(name='user_item')
             .ui.hidden.divider
             // if currentUser
             //     +toggle_friend
+            +user_connect_button        
             a.ui.circular.button(href="/u/#{username}")
+                |View #{username}
                 i.right.chevron.icon
             
             

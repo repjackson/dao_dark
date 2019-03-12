@@ -63,30 +63,18 @@ template(name='forgot_password')
 
 
 template(name='reset_password')
-    .color-line
-    .back-link
-        a.btn.btn-primary(href="{{pathFor route='landingPage'}}") Back to Home Page
-    .normalheader.transition.animated.fadeIn
-        .panel-body.text-center
-            h3.font-light.m-b-xs
-                b Reset your password?
-    .animate-panel.bluegraybg
-        .login-container
-            .row
-                .col-md-12
-                    .hpanel
-                        .panel-body
-                            +flashMessages
-                            form#resetPasswordForm
-                                if resetPassword
-                                    .form-group
-                                        label.control-label(for='Password') Password
-                                        input#resetPasswordPassword.form-control.validationRequired.validationEqualTo(type='password', placeholder='password', name='password')
-                                    .form-group
-                                        label.control-label(for='CPassword') Confirm Password
-                                        input#resetPasswordPasswordConfirm.form-control.validationRequired.validationEqualTo(type='password', euqalto='#resetPasswordPassword', placeholder='confirm password', name='confirmpassword')
-                                    button.btn.btn-success.btn-block(type='submit') Submit
-                                    a(href='/signin') Sign-in
+    .ui.container
+        h3 Reset your password?
+        .ui.basic.segment
+            form.ui.form#resetPasswordForm
+                .field
+                    label(for='Password') Password
+                    input#resetPasswordPassword.form-control.validationRequired.validationEqualTo(type='password', placeholder='password', name='password')
+                .field
+                    label(for='CPassword') Confirm Password
+                    input#resetPasswordPasswordConfirm.form-control.validationRequired.validationEqualTo(type='password', euqalto='#resetPasswordPassword', placeholder='confirm password', name='confirmpassword')
+                button.ui.fluid.green.button(type='submit') Submit
+                a(href='/signin') Sign-in
                         
                         
                         

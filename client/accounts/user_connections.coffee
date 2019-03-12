@@ -1,8 +1,8 @@
 Template.user_connections.onCreated ->
-    @autorun => Meteor.subscribe 'all_users', Router.current().params.username
+    @autorun => Meteor.subscribe 'users'
 
-    
-    
+
+
 Template.user_connections.helpers
     connections: ->
         Meteor.users.find
@@ -15,7 +15,7 @@ Template.user_connections.helpers
 
 Template.user_connect_button.helpers
     is_connected: ->
-        Meteor.user() and Meteor.user().connected_ids and @_id in Meteor.user().connected_ids 
+        Meteor.user() and Meteor.user().connected_ids and @_id in Meteor.user().connected_ids
 
 
 Template.user_connect_button.events
@@ -40,5 +40,3 @@ Template.user_connect_button.events
                 assigned_username:current_user.username
 
             t.$('.assign_task').val('')
-            
-        

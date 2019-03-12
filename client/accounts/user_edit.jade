@@ -14,7 +14,7 @@ template(name='user_edit')
             .five.wide.column
                 .ui.form
                     .field
-                        label Name
+                        label First Name
                         input#first_name(type='text', placeholder='First Name', value='{{user_from_username_param.first_name}}')
                     .field
                         label Last Name
@@ -51,33 +51,33 @@ template(name='user_edit')
             .eleven.wide.column
                 // +church_profile
                 +user_schema_editor
-                // if is_admin
-                //     +user_single_doc_ref_editor key='building' schema='building' label='Building'
-                //     +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
-                    // .ui.labeled.icon.input
-                    //     .ui.label Address
-                    //     i.globe.icon
-                    //     input#address(type='text' value=user_from_username_param.address)
-                    // .ui.labeled.icon.input
-                    //     .ui.label Unit #
-                    //     i.home.icon
-                    //     input#apt_number(type='number' value=user_from_username_param.apt_number)
-                    // .ui.labeled.icon.input
-                    //     .ui.label Building #
-                    //     i.building.icon
-                    //     input#building_number(type='number' value=user_from_username_param.building_number)
-                    // .ui.labeled.icon.input
-                    //     .ui.label Date Started
-                    //     i.calendar.icon
-                    //     input#start_date(type='date' value=user_from_username_param.start_date)
-                    // .ui.labeled.icon.input
-                    //     .ui.label 
-                    //         |Phone
-                    //     i.phone.icon
-                    //     input#telephone(type='number' value=user_from_username_param.telephone)
-                    // .ui.labeled.icon.input
-                    //     .ui.label Email
-                    //     input#email(type='email' value=user_from_username_param.email)
+                 if is_admin
+                     +user_single_doc_ref_editor key='building' schema='building' label='Building'
+                     +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
+                .ui.labeled.icon.input
+                     .ui.label Address
+                     i.globe.icon
+                     input#address(type='text' value=user_from_username_param.address)
+                .ui.labeled.icon.input
+                     .ui.label Unit #
+                     i.home.icon
+                     input#apt_number(type='number' value=user_from_username_param.apt_number)
+                .ui.labeled.icon.input
+                     .ui.label Building #
+                     i.building.icon
+                     input#building_number(type='number' value=user_from_username_param.building_number)
+                .ui.labeled.icon.input
+                     .ui.label Date Started
+                     i.calendar.icon
+                     input#start_date(type='date' value=user_from_username_param.start_date)
+                .ui.labeled.icon.input
+                     .ui.label 
+                         |Phone
+                     i.phone.icon
+                     input#telephone(type='number' value=user_from_username_param.telephone)
+                .ui.labeled.icon.input
+                     .ui.label Email
+                     input#email(type='email' value=user_from_username_param.email)
                     
                     // if user_from_username_param.owner
                     //     .ui.blue.owner.button
@@ -120,9 +120,9 @@ template(name='user_single_doc_ref_editor')
             |#{title}
 
 template(name='username_edit')
-    .ui.segment
+    .ui.basic.segment
         .ui.small.header 
-            i.face-id.icon
+            i.i.cursor.icon
             |Change Username [#{user_from_username_param.username}]
         .ui.icon.fluid.input
             input.new_username(type='text' placeholder='New Username...')
@@ -131,7 +131,7 @@ template(name='username_edit')
 
      
 template(name='phone_editor')
-    .ui.segment
+    .ui.basic.segment
         .ui.small.header    
             i.phone.icon
             |Phone
@@ -157,15 +157,17 @@ template(name='add_card_modal')
 
 
 template(name='password_edit')
-    .ui.segment
+    .ui.basic.segment
         .ui.small.header
-            i.password.icon
+            i.lock.icon
             |Change Password
         .ui.fluid.input
             input#password(type='password', placeholder='Old Password')
         .ui.fluid.icon.input
             i.refresh.link.icon.reset_password
             input#new_password(type='password', placeholder='New Password')
+        .ui.button.send_enrollment_email
+            |Send Enrollment Email
             
             
             
@@ -179,7 +181,7 @@ template(name='user_field')
                         
                         
 template(name='church_profile')
-    .ui.segment
+    .ui.basic.segment
         #churchForm.form-horizontal
             legend Church Information
             .form-group
@@ -236,11 +238,11 @@ template(name='churchRepAccountEditor')
 
             
 template(name='emails_edit')
-    h2.ui.center.aligned.header 
-        i.envelope.icon
-        | Email(s)
-    .ui.segment
-        #test_email.ui.big.button test email
+    .ui.basic.segment
+        .ui.small.header 
+            i.envelope.icon
+            | Email(s)
+        //- #test_email.ui.big.button test email
         .ui.divided.list
             each current_user.emails
                 .item 
@@ -254,7 +256,7 @@ template(name='emails_edit')
                         else
                             .ui.basic.label Unverified
                             .send_verification_email.ui.button Verify
-                        .ui.small.button.remove_email
+                        .ui.small.icon.button.remove_email
                             i.remove.icon
         .ui.action.fluid.input
             input#new_email(type='email')

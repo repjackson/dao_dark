@@ -1,0 +1,19 @@
+template(name='user_messages')
+    .ui.header 
+        i.mail.icon
+        |User Messages
+    .ui.fluid.input
+        input#new_message(type='text' placeholder='New Message')
+    each user_messages
+        .ui.segment
+            .ui.header #{title}
+            .ui.header #{body}
+            each tags
+                .ui.label #{this}
+            +voting
+            if can_edit
+                +remove_button
+            +author_info
+            +creation_info
+            //- +watson_view
+            

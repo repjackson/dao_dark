@@ -6,6 +6,12 @@
 $.cloudinary.config
     cloud_name:"facet"
 
+Accounts.onEnrollmentLink (token,done)->
+    console.log token
+    console.log done
+
+
+
 # Meteor.startup ->
 #     hostnameArray = document.location.hostname.split('.')
 #     console.log hostnameArray

@@ -64,7 +64,7 @@ template(name='user_status')
 template(name='user_info')
     a.ui.label(href="/u/#{user.username}")
         if user.image_id
-            img.ui.mini.image(src="{{c.url user.image_id }}")
+            img.ui.mini.inline.image(src="{{c.url user.image_id }}")
         if user.name
             |#{user.name}
         |@#{user.username}
@@ -129,14 +129,14 @@ template(name='user_list_toggle')
 
 
 template(name='voting')
-    div
+    //- div
     if points
         strong #{points}
-    .ui.icon.button.upvote
+    .ui.icon.large.button.upvote
         i.thumbs.up.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.button.downvote
+    .ui.icon.large.button.downvote
         i.thumbs.down.icon(class=downvote_class)
     each downvoter_ids
         +user_info
@@ -149,7 +149,7 @@ template(name='view_button')
         i.right.chevron.icon
 
 template(name='remove_button')
-    .remove_doc(title='Delete')
+    .ui.circcular.icon.button.remove_doc(title='Delete')
         i.grey.link.remove.icon
         // |Remove #{title}
         // |Remove #{title} #{type}

@@ -40,6 +40,11 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |Connections
+                                        a.item(href="/u/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
+                                            i.mail.icon
+                                            .content    
+                                                .header
+                                                    |Messages
                                         a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
                                             i.bullhorn.icon
                                             .content    
@@ -60,25 +65,30 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |Tags
-                                        //- a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
-                                        //-     i.phone.icon
-                                        //-     .content    
-                                        //-         .header
-                                        //-             |Contact
+                                        a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                                            i.phone.icon
+                                            .content    
+                                                .header
+                                                    |Contact
 
-                                    .ui.vertical.large.fluid.menu
-                                        each user_schemas
-                                            a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
-                                                i.icon(class=icon)
-                                                .content    
-                                                    .header
-                                                        |#{plural}
+                                    each user_schemas
+                                        .ui.vertical.large.fluid.menu
+                                            each user_schemas
+                                                a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                                                    i.icon(class=icon)
+                                                    .content    
+                                                        .header
+                                                            |#{plural}
                                     if is_user
                                         .ui.vertical.fluid.menu
                                             a.item.logout(href='#')
                                                 i.sign.out.icon
                                                 |Log Out
                                     .ui.segment
+                                        .ui.header
+                                            |#{user.points} Following
+                                        .ui.header
+                                            |#{user.points} Followers
                                         .ui.header
                                             i.heartbeat.icon
                                             |#{user.points} Karma
@@ -119,16 +129,18 @@ template(name='user_about')
                     strong #{lease_expiration}
                 .ui.item Telephone 
                     strong #{telephone}
-                .ui.item Email 
-                    strong #{email}
+                //- .ui.item Email 
+                //-     strong #{email}
                 .ui.item Owner 
                     strong #{owner}
                 .ui.small.header 
                     i.linkify.icon
                     |Link
                 a(href=profile.website target='_blank') #{website}
-                +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
-                +user_bookmarks    
+            each emails
+                .ui.label #{address}
+            //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
+            +user_bookmarks    
         .eight.wide.column
             +user_feed
     if current_user
@@ -157,11 +169,10 @@ template(name='user_feed')
         +user_wall
                 
 template(name='user_bookmarks')
-    .ui.secondary.segment
-        .ui.header 
-            i.bookmark.icon
-            |Bookmarks
-                
+    .ui.header 
+        i.bookmark.icon
+        |Bookmarks
+            
                 
 template(name='user_unread')
     .ui.secondary.segment

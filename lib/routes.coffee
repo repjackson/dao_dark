@@ -18,6 +18,16 @@ Router.route '/inbox', -> @render 'inbox'
 Router.route '/bank', -> @render 'bank'
 
 
+Router.route('enroll', {
+    path: '/enroll-account/:token'
+    template: 'reset_password'
+    onBeforeAction: ()=>
+        Meteor.logout()
+        Session.set('_resetPasswordToken', this.params.token)
+        @subscribe('enrolledUser', this.params.token).wait()
+})
+
+
 
 # Router.route '/u/:username', -> @render 'user'
 Router.route '/edit/:_id', -> @render 'edit'

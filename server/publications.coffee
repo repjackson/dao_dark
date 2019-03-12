@@ -39,6 +39,14 @@ Meteor.publish 'user_tags', (selected_tags, role)->
 
 
 
+Meteor.publish 'enrolledUser', (token) ->
+    Meteor.users.find({"services.password.reset.token": token});
+
+Meteor.publish 'me', () ->
+    if Meteor.userId()
+        Meteor.users.find Meteor.userId()
+
+
 
 Meteor.publish 'user_sites', (user_id)->
     user = Meteor.users.findOne user_id
@@ -144,7 +152,7 @@ Meteor.publish 'user_schemas', ()->
 Meteor.publish 'schema_bricks_from_slug', (type)->
     # console.log tribe_slug
     # console.log type
-        
+
     # else if type in ['field', 'brick','tribe','page','block','schema']
     schema = Docs.findOne
         type:'schema'
@@ -173,6 +181,15 @@ Meteor.publish 'wall_posts', (username)->
         type:'wall_post'
         parent_username:username
 
+
+
+
+
+Meteor.publish 'user_messages', (username)->
+    match = {}
+    match.type = 'message'
+    match.to_username = username
+    Docs.find match
 
 Meteor.publish 'assigned_tasks', (username, view_complete)->
     match = {}

@@ -15,7 +15,7 @@ template(name='user_segment')
         .four.wide.column
             if image_id
                 img.ui.small.image(src="{{c.url image_id }}")
-            if profile.image_id
+            else if profile.image_id
                 img.ui.small.image(src="{{c.url profile.image_id }}")
         .eight.wide.column
             a.ui.header(href="/u/#{username}")

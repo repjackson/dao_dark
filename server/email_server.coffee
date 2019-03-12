@@ -222,6 +222,10 @@ Meteor.methods
         console.log 'sending verification email for', user_id
         Accounts.sendVerificationEmail(user_id,email)
 
+    send_enrollment_email: (user_id)->
+        console.log 'sending enrollment email for', user_id
+        Accounts.sendEnrollmentEmail(user_id)
+
     remove_email: (user_id, email)->
         Accounts.removeEmail user_id, email
 
@@ -230,7 +234,6 @@ Meteor.methods
         doc = Docs.findOne doc_id
         parent = Docs.findOne doc.parent_id
         recipient = Meteor.users.findOne recipient_id
-
 
         doc_link = "/view/#{doc._id}"
         notification =

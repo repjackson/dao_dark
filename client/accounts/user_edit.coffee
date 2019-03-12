@@ -28,8 +28,8 @@ Template.user_schema_editor.helpers
 
     user_schema_class: ->
         current_user = Meteor.users.findOne username:Router.current().params.username
-        console.log @
-        console.log current_user
+        # console.log @
+        # console.log current_user
 
         if current_user.schema_ids and @_id in current_user.schema_ids then 'grey' else ''
 
@@ -96,46 +96,46 @@ Template.user_single_doc_ref_editor.helpers
 
 
 
-# Template.phone_editor.helpers
-#     'newNumber': ->
-#         Phoneformat.formatLocal 'US', Meteor.user().profile.phone
+Template.phone_editor.helpers
+    'newNumber': ->
+        Phoneformat.formatLocal 'US', Meteor.user().profile.phone
 
-# Template.phone_editor.events
-#     'click .remove_phone': (event, template) ->
-#         Meteor.call 'UpdateMobileNo'
-#         return
-#     'click .resend_verification': (event, template) ->
-#         Meteor.call 'generateAuthCode', Meteor.userId(), Meteor.user().profile.phone
-#         bootbox.prompt 'We texted you a validation code. Enter the code below:', (result) ->
-#             code = result.toUpperCase()
-#             if Meteor.user().profile.phone_auth == code
-#                 Meteor.call 'updatePhoneVerified', (err, res) ->
-#                     if err
-#                         toastr.error err.reason
-#                     else
-#                         toastr.success 'Your phone was successfully verified!'
-#                     return
-#             else
-#                 toastr.success 'Your verification code does not match.'
+Template.phone_editor.events
+    'click .remove_phone': (event, template) ->
+        Meteor.call 'UpdateMobileNo'
+        return
+    'click .resend_verification': (event, template) ->
+        Meteor.call 'generateAuthCode', Meteor.userId(), Meteor.user().profile.phone
+        bootbox.prompt 'We texted you a validation code. Enter the code below:', (result) ->
+            code = result.toUpperCase()
+            if Meteor.user().profile.phone_auth == code
+                Meteor.call 'updatePhoneVerified', (err, res) ->
+                    if err
+                        toastr.error err.reason
+                    else
+                        toastr.success 'Your phone was successfully verified!'
+                    return
+            else
+                toastr.success 'Your verification code does not match.'
 
-#     'click .update_phone': ->
-#         `var phone`
-#         phone = $('#phone').val()
-#         phone = Phoneformat.formatE164('US', phone)
-#         Meteor.call 'savePhone2', Meteor.userId(), phone, (error, result) ->
-#             if error
-#                 toastr.success 'There was an error processing your request.'
-#             else
-#                 if result.error
-#                     toastr.success result.message
-#                 else
-#                     bootbox.prompt result.message, (result) ->
-#                         code = result.toUpperCase()
-#                         if Meteor.user().profile.phone_auth == code
-#                             Meteor.call 'updatePhoneVerified'
-#                             toastr.success 'Your phone was successfully verified!'
-#                         else
-#                             toastr.success 'Your verification code does not match.'
+    'click .update_phone': ->
+        `var phone`
+        phone = $('#phone').val()
+        phone = Phoneformat.formatE164('US', phone)
+        Meteor.call 'savePhone2', Meteor.userId(), phone, (error, result) ->
+            if error
+                toastr.success 'There was an error processing your request.'
+            else
+                if result.error
+                    toastr.success result.message
+                else
+                    bootbox.prompt result.message, (result) ->
+                        code = result.toUpperCase()
+                        if Meteor.user().profile.phone_auth == code
+                            Meteor.call 'updatePhoneVerified'
+                            toastr.success 'Your phone was successfully verified!'
+                        else
+                            toastr.success 'Your verification code does not match.'
 
 # stripeTokenHandler = (token) ->
 #     # Insert the token ID into the form so it gets submitted to the server
@@ -178,52 +178,61 @@ Template.user_edit.events
 
     'blur #apt_number': (e) ->
         val =  $('#apt_number').val()
-        Meteor.users.update Router.current().params._id,
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id,
             $set: apt_number: val
 
     'blur #building_number': (e) ->
         val =  $('#building_number').val()
-        Meteor.users.update Router.current().params._id,
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id,
             $set: building_number: val
 
     'blur #first_name': (e) ->
         val =  $('#first_name').val()
-        Meteor.users.update Router.current().params._id,
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id,
             $set: first_name: val
 
     'blur #last_name': (e) ->
         val =  $('#last_name').val()
-        Meteor.users.update Router.current().params._id,
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id,
             $set: last_name: val
 
     'blur #address': (e) ->
         val =  $('#address').val()
-        Meteor.users.update Router.current().params._id,
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id,
             $set: address: val
 
     'blur #start_date': (e) ->
         val =  $('#start_date').val()
-        Meteor.users.update Router.current().params._id,
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id,
             $set: start_date: val
 
     'blur #lease_expiration': (e) ->
         val =  $('#lease_expiration').val()
-        Meteor.users.update Router.current().params._id,
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id,
             $set: lease_expiration: val
 
     'blur #telephone': (e) ->
         val =  parseInt($('#telephone').val())
         console.log val
-        Meteor.users.update Router.current().params._id,
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id,
             $set: telephone: val
 
     'blur #email': (e) ->
         val =  $('#email').val()
-        Meteor.users.update Router.current().params._id,
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id,
             $set: email: val
 
     'click .owner': (e) ->
-        current_user = Meteor.users.findOne Router.current().params._id
+        user = Meteor.users.findOne username:Router.current().params.username
         if current_user.owner
             Meteor.users.update Router.current().params._id,
                 $set: owner: false
@@ -284,20 +293,20 @@ Template.user_edit.events
 #                 $('.clsProfilePic').attr 'src', downloadUrl
 #                 # ChurchCodes.update(template.data.code._id,{$set: {'customPage.header_image': downloadUrl}})
 
-#     'click .update_profile': (e, t) ->
-#         e.preventDefault()
-#         name = $('#pname').val()
-#         if !name
-#             toastr.error 'Please enter person name'
-#             return false
-#         dataJson =
-#             'profile.name': $('#pname').val()
-#             'profile.profilePic': if profilePicImage == '/icons/Logo_sm_100.png' then '/icons/Logo_sm_100.png' else profilePicImage
-#         Meteor.call 'updateUserDetail', dataJson, (err, res) ->
-#             if err
-#                 toastr.error err.reason
-#             else
-#                 toastr.success 'Account Details Updated'
+    'click .update_profile': (e, t) ->
+        e.preventDefault()
+        name = $('#pname').val()
+        if !name
+            toastr.error 'Please enter person name'
+            return false
+        dataJson =
+            'profile.name': $('#pname').val()
+            'profile.profilePic': if profilePicImage == '/icons/Logo_sm_100.png' then '/icons/Logo_sm_100.png' else profilePicImage
+        Meteor.call 'updateUserDetail', dataJson, (err, res) ->
+            if err
+                toastr.error err.reason
+            else
+                toastr.success 'Account Details Updated'
 
 
 # Template.card_holder.events
@@ -445,15 +454,18 @@ Template.username_edit.events
 
 
 Template.password_edit.events
-    'click .change_password': (event, template) ->
-        $('#passwordUpdate').data('bootstrapValidator').validate()
-        if $('#passwordUpdate').data('bootstrapValidator').isValid()
-            Accounts.changePassword $('#password').val(), $('#new_password').val(), (err, res) ->
-                if err
-                    toastr.error err.reason
-                else
-                    toastr.success 'Password Changed'
-                    # $('.amSuccess').html('<p>Password Changed</p>').fadeIn().delay('5000').fadeOut();
+    'click .change_password': (e, t) ->
+        Accounts.changePassword $('#password').val(), $('#new_password').val(), (err, res) ->
+            if err
+                alert err.reason
+            else
+                alert 'Password Changed'
+                # $('.amSuccess').html('<p>Password Changed</p>').fadeIn().delay('5000').fadeOut();
+    'click .send_enrollment_email': (e,t)->
+        current_user = Meteor.users.findOne username:Router.current().params.username
+        # console.log current_user
+        Meteor.call 'send_enrollment_email', current_user._id, @address, ->
+            alert 'Enrollment Email Sent'
 
 
 
@@ -664,9 +676,9 @@ Template.emails_edit.events
 
     'click .remove_email': ->
         if confirm 'Remove email?'
-            console.log @
+            # console.log @
             current_user = Meteor.users.findOne username:Router.current().params.username
-            console.log current_user
+            # console.log current_user
             Meteor.call 'remove_email', current_user._id, @address, (error,result)->
                 if error
                     # console.log 'updateUsername', error
