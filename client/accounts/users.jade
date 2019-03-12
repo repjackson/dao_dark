@@ -24,6 +24,8 @@ template(name='user_item')
         a.four.wide.column(href="/u/#{_id}/about") 
             if image_id
                 img.ui.image(src="{{c.url image_id width=200 height=150 crop='fit'}}")
+            else if profile.image_id
+                img.ui.image(src="{{c.url profile.image_id width=200 height=150 crop='fit'}}")
         .twelve.wide.column
             a.ui.header(href="/u/#{username}") 
                 |#{profile.name}

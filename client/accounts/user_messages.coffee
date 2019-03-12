@@ -1,5 +1,6 @@
 Template.user_messages.onCreated ->
     @autorun => Meteor.subscribe 'user_messages',Router.current().params.username
+    @autorun => Meteor.subscribe 'users'
 
 
 

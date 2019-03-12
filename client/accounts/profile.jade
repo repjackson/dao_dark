@@ -11,10 +11,11 @@ template(name='profile_layout')
                         .ui.padded.stackable.grid
                             .row
                                 .four.wide.column.scrolling
-                                    h1.ui.center.aligned.header
+                                    .ui.large.center.aligned.header
                                         | #{user.first_name}
                                         | #{user.last_name}
-                                        | #{user.username}                        
+                                    .ui.center.aligned.header
+                                        | @#{user.username}                        
                                     if image_id
                                         a.item(href="/u/#{user_from_username_param.username}/about")
                                             img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")

@@ -328,7 +328,8 @@ Template.registerHelper 'user_from_id', ()->
 
 Template.registerHelper 'can_edit', () ->
     if Meteor.user()
-        if 'dev' in Meteor.user().roles
+        # if 'dev' in Meteor.user().roles
+        if _.intersection Meteor.user().roles,['admin','dev']
             # console.log 'dev in role'
             true
         # else if Meteor.userId() is @_author_id

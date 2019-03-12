@@ -7,16 +7,18 @@ template(name='topnav')
         else 
             a.item.icon.toggle_leftbar(href='#')
                 i.bars.large.icon
-        a.ui.alpha.icon.item(href="/" class="{{isActivePath '/'}}")
-            i.home.large.icon
+        if is_dev
+            a.ui.alpha.icon.item(href="/" class="{{isActivePath '/'}}")
+                i.home.large.icon
+        unless is_dev
+            a.ui.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
+                i.th.large.icon
         a.ui.delta.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
             i.sitemap.large.icon
         a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
             i.large.list.icon
         a.icon.item.people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
              i.users.large.icon
-        a.ui.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
-            i.th.large.icon
                 
             //- strong Gold Run
         //- a.ui.header.tribe_schemas.item(href="/library" class="{{isActivePath '/library'}}")
@@ -57,9 +59,9 @@ template(name='topnav')
                     i.plus.large.icon
                 a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
                     i.large.chat.icon
-                a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
+                a.icon.item.messages(href="/u/#{currentUser.username}/messages" class="{{isActiveRoute 'user_messages'}}")
                      i.large.inbox.icon
-                a.item(href="/users" class="{{isActivePath '/users'}}")
+                a.icon.item(href="/users" class="{{isActivePath '/users'}}")
                      i.large.users.icon
                 a.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
                     i.user.large.icon
