@@ -11,7 +11,7 @@ template(name='user_edit')
                     | #{user_from_username_param.first_name} #{user_from_username_param.last_name} Profile
                 .ui.center.aligned.small.header @#{user_from_username_param.username}
         .row
-            .five.wide.column
+            .five.wide.column.scrolling
                 .ui.form
                     .field
                         label First Name
@@ -164,10 +164,17 @@ template(name='password_edit')
         .ui.fluid.input
             input#password(type='password', placeholder='Old Password')
         .ui.fluid.icon.input
-            i.refresh.link.icon.reset_password
             input#new_password(type='password', placeholder='New Password')
-        .ui.button.send_enrollment_email
+        .ui.fluid.button.change_password
+            i.refresh.icon
+            |Set Password
+        
+        .ui.fluid.button.send_enrollment_email
             |Send Enrollment Email
+        if is_dev
+            .ui.fluid.button.set_password
+                i.user.shield.icon
+                | Set Password
             
             
             

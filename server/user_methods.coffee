@@ -10,6 +10,12 @@ Meteor.methods
         Accounts.setUsername(userId, username)
         return "Updated Username: #{username}"
 
+    set_password: (user_id, new_password)->
+        Accounts.setPassword(user_id, new_password)
+
+
+
+
     notify_message: (message_id)->
         message = Docs.findOne message_id
         if message

@@ -461,6 +461,13 @@ Template.password_edit.events
             else
                 alert 'Password Changed'
                 # $('.amSuccess').html('<p>Password Changed</p>').fadeIn().delay('5000').fadeOut();
+
+    'click .set_password': (e, t) ->
+        new_password = $('#new_password').val()
+        current_user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.call 'set_password', current_user._id, new_password, ->
+            alert "Password set to #{new_password}."
+
     'click .send_enrollment_email': (e,t)->
         current_user = Meteor.users.findOne username:Router.current().params.username
         # console.log current_user
