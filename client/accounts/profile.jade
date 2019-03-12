@@ -10,7 +10,7 @@ template(name='profile_layout')
                     with user_from_username_param
                         .ui.padded.stackable.grid
                             .row
-                                .four.wide.column
+                                .four.wide.column.scrolling
                                     h1.ui.center.aligned.header
                                         | #{user.first_name}
                                         | #{user.last_name}

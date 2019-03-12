@@ -113,7 +113,7 @@ Template.html_edit.helpers
         # @current_doc = Docs.findOne @_id
         self = @
         {
-            _value: context["#{brick}"]
+            _value: context["#{brick.key}"]
             _keepMarkers: true
             _className: 'froala-reactive-meteorized-override'
             toolbarInline: false

@@ -5,9 +5,9 @@ Template.user_messages.onCreated ->
 
 Template.user_messages.helpers
     user_messages: ->
-        Docs.find
+        Docs.find {
             type:'message'
-
+        }, sort:_timestamp:-1
 
 Template.user_messages.events
     'keyup #new_message': (e,t)->

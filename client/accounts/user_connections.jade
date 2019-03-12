@@ -20,11 +20,13 @@ template(name='user_segment')
                     img.ui.small.image(src="{{c.url profile.image_id }}")
             .eight.wide.column
                 a.ui.header(href="/u/#{username}")
-                    |#{username}
-                    |@#{first_name}
-                    |@#{last_name}
+                    |#{first_name}
+                    |#{last_name}
+                a.ui.small.header(href="/u/#{username}")
+                    @#{username}
             .four.wide.column
-                .ui.header Tags
+                .ui.inline.small.grey.header
+                    i.tags.icon
                 each tags
                     .ui.label #{this}
                 +user_status user
