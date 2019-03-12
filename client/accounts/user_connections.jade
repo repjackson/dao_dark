@@ -11,24 +11,25 @@ template(name='user_connections')
 
 
 template(name='user_segment')
-    .ui.segment.padded.stackable.grid
-        .four.wide.column
-            if image_id
-                img.ui.small.image(src="{{c.url image_id }}")
-            else if profile.image_id
-                img.ui.small.image(src="{{c.url profile.image_id }}")
-        .eight.wide.column
-            a.ui.header(href="/u/#{username}")
-                |#{username}
-                |@#{first_name}
-                |@#{last_name}
-        .four.wide.column
-            .ui.header Tags
-            each tags
-                .ui.label #{this}
-            +user_status user
-            .ui.header #{body}
-            +user_connect_button
+    .ui.segment
+        .ui.padded.stackable.grid
+            .four.wide.column
+                if image_id
+                    img.ui.small.image(src="{{c.url image_id }}")
+                else if profile.image_id
+                    img.ui.small.image(src="{{c.url profile.image_id }}")
+            .eight.wide.column
+                a.ui.header(href="/u/#{username}")
+                    |#{username}
+                    |@#{first_name}
+                    |@#{last_name}
+            .four.wide.column
+                .ui.header Tags
+                each tags
+                    .ui.label #{this}
+                +user_status user
+                .ui.header #{body}
+                +user_connect_button
 
 template(name='user_connect_button')
     if is_connected

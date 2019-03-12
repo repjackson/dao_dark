@@ -70,8 +70,7 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |Contact
-
-                                    each user_schemas
+                                    if user_schemas
                                         .ui.vertical.large.fluid.menu
                                             each user_schemas
                                                 a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")

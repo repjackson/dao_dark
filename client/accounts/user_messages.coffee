@@ -22,3 +22,15 @@ Template.user_messages.events
                 to_username:current_user.username
 
             t.$('#new_message').val('')
+
+
+Template.notify_message.events
+    'click .notify': (e,t)->
+        current_user = Meteor.users.findOne username:Router.current().params.username
+        Docs.insert
+            type:'log_event'
+            body:"#{current_user.username} was notified about message: #{@body} by #{Meteor.user().username}."
+            user_ids:[current_user._id,Meteor.userId()]
+            to_user_id:current_user._id
+            to_username:current_user.username
+        Meteor.call 'notify_message', @_id
