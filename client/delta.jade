@@ -195,7 +195,7 @@ template(name='result')
     with result 
         .ui.result.fluid.segment.large120(class="{{#if is_loading}}loading{{/if}}")
             .content
-                a.ui.header(href="/s/#{type}/#{_id}/view")
+                a.ui.header(href="/view#{_id}")
                     if logo_id
                         img.ui.avatar.image(src="{{c.url logo_id width=100 height=100 gravity='face' crop='fill'}}")
                     // else if icon
@@ -219,11 +219,11 @@ template(name='result')
                     if can_edit
                         //- a.ui.button(href="/edit/#{_id}")
                         //-     |Edit (m)
-                        a.ui.button(href="/s/#{type}/#{_id}/edit")
+                        a.ui.button(href="/edit/#{_id}")
                             |Edit
                     //- a.ui.button(href="/view/#{_id}")
                     //-     |Save (m)
-                    a.ui.button(href="/s/#{type}/#{_id}/view")
+                    a.ui.button(href="/view/#{_id}")
                         |View
                         i.right.arrow.icon
                     each schema.actions
@@ -260,7 +260,7 @@ template(name='type_edit')
                     +creation_info
                     //- a.ui.button(href="/view/#{_id}")
                     //-     |Save (m)
-                    a.ui.fluid.button(href="/s/#{type}/#{_id}/view")
+                    a.ui.fluid.button(href="/view/#{_id}")
                         i.checkmark.icon
                         |Save
                     +remove_button
