@@ -53,8 +53,8 @@ template(name='topnav')
         // +role_switcher
         .right.menu
             if currentUser
-                //- a.icon.adddoc.item(href="#")
-                //-     i.plus.blue.large.icon
+                a.icon.adddoc.item(href="#")
+                    i.plus.blue.large.icon
                 a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
                     i.plus.large.icon
                 a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")

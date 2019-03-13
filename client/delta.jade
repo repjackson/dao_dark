@@ -234,12 +234,13 @@ template(name='result')
                     +creation_info
                     //- div
                     //- +detect
-                    //- each _keys
-                    //-     +key_view
-                    //- if visual_classes
-                    //-     +visual_classes
-                    //- if analyzed_text
-                    //-     |#{nl2br analyzed_text}
+                    +watson_view
+                    each _keys
+                        +key_view
+                    if visual_classes
+                        +visual_classes
+                    if analyzed_text
+                        |#{nl2br analyzed_text}
 
     
                     

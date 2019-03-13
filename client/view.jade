@@ -2,7 +2,8 @@ template(name='key_view')
     //- div
     //- .ui.inline.grey.header(title='name') #{key}
     div
-    +Template.dynamic template=field_view
+    with context
+        +Template.dynamic template=field_view
     // .ui.divider
     // +jsonView json=meta
         

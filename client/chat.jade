@@ -127,11 +127,11 @@ template(name='view_chat')
                     |Participants
                 if currentUser
                     if in_chat
-                        a.ui.label.leave_chat(href="#")
+                        a.ui.button.leave_chat(href="#")
                             i.sign.in.icon
                             |Leave
                     else
-                        a.ui.label.join_chat(href="#")
+                        a.ui.button.join_chat(href="#")
                             i.sign.out.icon
                             |Join
                 .ui.divided.relaxed.list

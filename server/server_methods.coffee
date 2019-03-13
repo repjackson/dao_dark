@@ -136,6 +136,8 @@ Meteor.methods
                 else if Docs.findOne value
                     meta.doc_id = true
                     meta.field = 'doc_ref'
+                else if meta.length is 20
+                    meta.field = 'image'
                 else if meta.length > 20
                     meta.field = 'textarea'
                 else

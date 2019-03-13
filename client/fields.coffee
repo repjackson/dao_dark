@@ -4,7 +4,10 @@ Template.color_edit.events
         val = t.$('.edit_color').val()
         parent = Template.parentData()
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
         doc = Docs.findOne context._id
         user = Meteor.users.findOne context._id
         if doc
@@ -25,7 +28,10 @@ Template.link_edit.events
         val = t.$('.edit_url').val()
         parent = Template.parentData()
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
         doc = Docs.findOne context._id
         user = Meteor.users.findOne context._id
         if doc
@@ -45,7 +51,10 @@ Template.color_icon_edit.events
         icon_class = t.$('.color_icon').val()
         parent = Template.parentData()
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
         doc = Docs.findOne context._id
         user = Meteor.users.findOne context._id
         if doc
@@ -65,7 +74,10 @@ Template.icon_edit.events
         val = t.$('.icon_val').val()
         parent = Template.parentData()
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
         doc = Docs.findOne context._id
         user = Meteor.users.findOne context._id
         if doc
@@ -87,7 +99,10 @@ Template.html_edit.events
         # console.log 'html', html
         # console.log @
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
 
         doc = Docs.findOne context._id
         user = Meteor.users.findOne context._id
@@ -108,7 +123,10 @@ Template.html_edit.helpers
         # console.log @
         # console.log Template.parentData(1)
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
         # @current_doc = Docs.findOne Router.current().params.doc_id
         # @current_doc = Docs.findOne @_id
         self = @
@@ -181,7 +199,10 @@ Template.image_edit.events
         # console.log files
         parent = Template.parentData()
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # type:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
@@ -209,7 +230,10 @@ Template.image_edit.events
         cloudinary_id = t.$('.cloudinary_id').val()
         parent = Template.parentData()
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
         Docs.update context._id,
             $set:"#{brick}":cloudinary_id
 
@@ -220,7 +244,10 @@ Template.image_edit.events
     'click #remove_photo': ->
         parent = Template.parentData()
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
 
         swal {
             title: 'Remove Photo?'
@@ -254,7 +281,10 @@ Template.array_edit.events
             # # console.log element_val
             parent = Template.parentData()
             brick = Template.parentData(4)
-            context = Template.parentData(5)
+            if Template.parentData(6)._id
+                context = Template.parentData(6)
+            else
+                context = Template.parentData(5)
 
             if brick
                 doc = Docs.findOne context._id
@@ -281,7 +311,10 @@ Template.array_edit.events
         field = Template.currentData()
         parent = Template.parentData()
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
 
         if brick
             doc = Docs.findOne context._id
@@ -319,18 +352,26 @@ Template.textarea_edit.events
         textarea_val = t.$('.edit_textarea').val()
         parent = Template.parentData()
         brick = Template.parentData(4)
-        context = Template.parentData(5)
+        # console.log Template.parentData(4)
+        # console.log Template.parentData(5)
+        if Template.parentData(6)._id
+            context = Template.parentData(6)
+        else
+            context = Template.parentData(5)
+        # console.log Template.parentData(7)
+        # console.log Template.parentData(8)
+        # console.log Template.parentData(9)
+
+        console.log brick
+        console.log context
 
         if brick
             doc = Docs.findOne context._id
             user = Meteor.users.findOne context._id
+            console.log brick
             if doc
-                if brick.key
-                    Docs.update context._id,
-                        $set:"#{brick.key}":textarea_val
-                else
-                    Docs.update context._id,
-                        $set:"#{brick}":textarea_val
+                Docs.update context._id,
+                    $set:"#{brick.key}":textarea_val
             else if user
                 Meteor.users.update context._id,
                     $set:"#{brick}":textarea_val
@@ -359,12 +400,8 @@ Template.text_edit.events
             doc = Docs.findOne context._id
             user = Meteor.users.findOne context._id
             if doc
-                if brick.key
-                    Docs.update context._id,
-                        $set:"#{brick.key}":val
-                else
-                    Docs.update context._id,
-                        $set:"#{brick}":val
+                Docs.update context._id,
+                    $set:"#{brick.key}":val
             else if user
                 if brick.key
                     Meteor.users.update context._id,
@@ -407,12 +444,8 @@ Template.boolean_edit.events
             doc = Docs.findOne context._id
             user = Meteor.users.findOne context._id
             if doc
-                if brick.key
-                    Docs.update context._id,
-                        $set:"#{brick.key}":!context["#{brick.key}"]
-                else
-                    Docs.update context._id,
-                        $set:"#{brick}":!context["#{brick}"]
+                Docs.update context._id,
+                    $set:"#{brick.key}":!context["#{brick.key}"]
             else if user
                 Meteor.users.update context._id,
                     $set:"#{brick}":!context["#{brick}"]

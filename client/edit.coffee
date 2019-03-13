@@ -67,7 +67,16 @@ Template.field_edit.helpers
         parent = Template.parentData()
         parent["_#{key_string}"]
 
+    context: ->
+        console.log @
+        {key:@valueOf()}
+
+
     field_edit: ->
-        key_string = @valueOf()
-        meta = Template.parentData()["_#{key_string}"]
+        # console.log @
+        # console.log Template.parentData(2)
+        # console.log Template.parentData(3)
+        meta = Template.parentData(2)["_#{@key}"]
+        # console.log meta
+        # console.log "#{meta.field}_edit"
         "#{meta.field}_edit"

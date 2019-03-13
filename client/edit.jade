@@ -27,7 +27,7 @@ template(name='edit')
                     //-     +visual_classes
 
 template(name='field_menu')
-    .ui.header 
+    .ui.header
         i.grey.plus.icon(title='add field')
         |Add Block
     each fields
@@ -44,6 +44,7 @@ template(name='field_edit')
             input.change_key(type='text' placeholder='key' value=key)
         
         .ui.divider
-        +Template.dynamic template=field_edit
+        with context
+            +Template.dynamic template=field_edit
         .ui.divider
         //- +jsonView json=meta

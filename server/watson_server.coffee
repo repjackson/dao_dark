@@ -98,7 +98,7 @@ Meteor.methods
                         visual_classes: response.images[0].classifiers[0].classes
         )
 
-    call_watson: (doc_id, mode, key) ->
+    call_watson: (doc_id, key, mode) ->
         console.log 'calling watson'
         self = @
         doc = Docs.findOne doc_id

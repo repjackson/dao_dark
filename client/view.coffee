@@ -16,8 +16,13 @@ Template.key_view.helpers
         parent = Template.parentData()
         parent["_#{key_string}"]
 
+    context: ->
+        console.log @
+        {key:@valueOf()}
+
 
     field_view: ->
+        # console.log @
         key_string = @valueOf()
-        meta = Template.parentData()["_#{key_string}"]
+        meta = Template.parentData(2)["_#{@key}"]
         "#{meta.field}_view"
