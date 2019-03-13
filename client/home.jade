@@ -2,7 +2,7 @@ template(name='home')
     .ui.stackable.grid
         .row
             // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
-            .six.wide.column.scrolling
+            .eight.wide.right.aligned.column.scrolling
                 unless is_loading
                     // .ui.divider
                     // // each sessions
@@ -28,7 +28,7 @@ template(name='home')
                 each current_delta.facets
                     +facet
             // .column(class=delta_right_column_class)
-            .ten.wide.column
+            .eight.wide.column
                 .scrolling
                     each current_delta.result_ids
                         +result
