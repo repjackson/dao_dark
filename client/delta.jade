@@ -190,7 +190,7 @@ template(name='set_delta_key')
 
 template(name='result')
     with result 
-        .ui.result.fluid.basic.segment.large120(class="{{#if is_loading}}loading{{/if}}")
+        .ui.result.fluid.tertiary.segment.large120(class="{{#if is_loading}}loading{{/if}}")
             .content
                 a.ui.header(href="/view#{_id}")
                     if logo_id
