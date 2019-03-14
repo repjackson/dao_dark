@@ -133,11 +133,11 @@ template(name='facet')
                 //     .unselect.ui.grey.button #{this}
         each filtering_res
             if name
-                .selector.ui.big.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.big.circular.button.toggle_selection(class=toggle_value_class title=count)
                     | #{name}
                     // small #{count}
             else
-                .selector.ui.big.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.big.circular.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
                     // small #{count}
 

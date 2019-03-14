@@ -80,7 +80,7 @@ Meteor.publish 'bricks_from_doc_id', (schema, id)->
 
 Meteor.publish 'my_delta', ->
     Docs.find
-        _author_id:Meteor.userId()
+        # _author_id:Meteor.userId()
         type:'delta'
 
 
