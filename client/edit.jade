@@ -1,13 +1,14 @@
 template(name='edit')
+    +topnav
     with doc
         .ui.stackable.padded.grid
             .centered.row
                 .two.wide.column
                     i.pencil.large.grey.icon(title='editing doc')
-                    a.ui.big.button(href="/view/#{_id}")
+                    a.ui.big.circular.basic.inverted.button(href="/view/#{_id}")
                         i.checkmark.icon
                         |Save
-                    .ui.button.icon.delete_doc
+                    .ui.circular.basic.inverted.button.icon.delete_doc
                         i.remove.icon
                     +detect
                 .fourteen.wide.column
@@ -27,11 +28,10 @@ template(name='edit')
                     //-     +visual_classes
 
 template(name='field_menu')
-    .ui.header
-        i.grey.plus.icon(title='add field')
-        |Add Block
+    i.grey.plus.large.icon(title='add field')
+        //- |brick
     each fields
-        .ui.button.add_field
+        .ui.basic.large.circular.inverted.button.add_field
             i.icon(class=icon)
             |#{title}
 

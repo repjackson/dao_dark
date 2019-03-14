@@ -27,15 +27,15 @@ head
 template(name='not_found')
     // +topnav
     .ui.center.aligned.basic.segment
-        .ui.header Not Found
-        a.ui.icon.button(href='/s/schema')
+        .ui.header not found
+        a.ui.icon.button(href='/')
             i.home.icon
         
         
 template(name='layout')
     //- .layout.context
-    .ui.basic.center.aligned.segment
-        +topnav
+    //- .ui.basic.center.aligned.segment
+    //-     +topnav
     +yield
     .ui.basic.center.aligned.segment
         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
@@ -43,7 +43,7 @@ template(name='layout')
             input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
             // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
             img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-            button.ui.large.inverted.circular.icon.button(type='submit')
+            button.ui.large.inverted.basic.circular.icon.button(type='submit')
                 i.pied.piper.alternate.large.icon
     
     //- .ui.bottom.attached.basic.segment.pushable

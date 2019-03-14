@@ -6,9 +6,9 @@ Meteor.methods
         if delta
             # console.log 'delta', delta
             if delta.doc_type
-                built_query = { type:delta.doc_type }
+                built_query = { type:delta.doc_type, archived:$ne:true }
             else
-                built_query = {}
+                built_query = { archived:$ne:true}
 
             if not delta.facets
                 # console.log 'no facets'

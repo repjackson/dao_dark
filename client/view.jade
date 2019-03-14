@@ -10,6 +10,7 @@ template(name='key_view')
         
 
 template(name='view')
+    +topnav
     with doc
         .ui.stackable.padded.grid
             .centered.row
@@ -52,6 +53,7 @@ template(name='view')
                             .ui.hidden.divider
                         div
                         +comments
+                        +voting
                         if watson
                             +keywords
                         //- +watson_view

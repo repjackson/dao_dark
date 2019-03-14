@@ -190,7 +190,7 @@ template(name='set_delta_key')
 
 template(name='result')
     with result 
-        .ui.result.fluid.tertiary.segment.large120(class="{{#if is_loading}}loading{{/if}}")
+        .ui.result.fluid.secondary.segment.large120(class="{{#if is_loading}}loading{{/if}}")
             .content
                 a.ui.header(href="/view#{_id}")
                     if logo_id
@@ -224,6 +224,9 @@ template(name='result')
                     a.ui.icon.button(href="/view/#{_id}")
                         //- |View
                         i.right.arrow.icon
+                    if is_dev
+                        .ui.large.icon.button.archive_doc
+                            i.archive.icon
                     //- each schema.actions
                     //-     +Template.dynamic template=this data=..
                     //- div

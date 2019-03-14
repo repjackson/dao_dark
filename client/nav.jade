@@ -63,9 +63,9 @@ template(name='topnav')
         //-      i.large.inbox.icon
         //- a.ui.icon.basic.inverted.circular.large.button(href="/users" class="{{isActivePath '/users'}}")
         //-      i.large.users.icon
-        a.ui.basic.inverted.circular.large.button(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
+        a.ui.basic.inverted.circular.large.icon.button(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
             i.user.large.icon
-            | #{currentUser.username}
+            //- | #{currentUser.username}
             //- // | #{currentUser.username} [#{currentUser.status}]
         //- a.icon.item.toggle_rightbar(href='#')
         //-     i.bars.large.icon

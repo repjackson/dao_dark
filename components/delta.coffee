@@ -372,5 +372,13 @@ if Meteor.isClient
 
 
     Template.result.events
+        'click .archive_doc': ->
+            if confirm 'archive?'
+                Docs.update @_id,
+                    $set:archived:true
+                delta = Docs.findOne type:'delta'
+                # console.log 'hi'
+                Meteor.call 'fum', delta._id, (err,res)->
+
         'click .set_schema': ->
             Meteor.call 'set_delta_facets', @slug, Meteor.userId()

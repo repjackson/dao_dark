@@ -240,6 +240,7 @@ template(name='tone')
     .ui.list
         each tone.sentences_tone
             .item
+                span #{sentence_id}
                 span.large120(title="#{sentence_id}") #{text}
                 each tones
                     span(class="{{calculated_size 'score'}}" title="{{ to_percent score }}%") &nbsp; #{tone_id} 
