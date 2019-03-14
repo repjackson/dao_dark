@@ -99,7 +99,7 @@ Meteor.methods
         )
 
     call_watson: (doc_id, key, mode) ->
-        console.log 'calling watson'
+        # console.log 'calling watson'
         self = @
         doc = Docs.findOne doc_id
         parameters =
@@ -133,7 +133,7 @@ Meteor.methods
             if err
                 console.log 'error:', err
             else
-                console.log(JSON.stringify(response, null, 2))
+                # console.log(JSON.stringify(response, null, 2))
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
 
@@ -181,7 +181,7 @@ Meteor.methods
             if err
                 console.log 'error:', err
             else
-                console.log response
+                # console.log response
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
 
