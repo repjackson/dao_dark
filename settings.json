@@ -32,7 +32,7 @@
     },
     "tone": {
       "url": "https://gateway.watsonplatform.net/tone-analyzer/api",
-      "username": "355ae3de-c0bd-4d60-a35a-c287904bd360",
+      "apikey": "LoYmT-a3MSsEOtHgYef1rf6xIkHZ_zf8ICXcIud9UNtu",
       "password": "OzX5px2EtWGt"
     },
     "language": {

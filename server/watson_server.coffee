@@ -4,8 +4,8 @@ NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-languag
 PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3')
 
 tone_analyzer = new ToneAnalyzerV3(
-    username: Meteor.settings.private.tone.username
-    password: Meteor.settings.private.tone.password
+    iam_apikey: Meteor.settings.private.tone.apikey
+    url: Meteor.settings.private.tone.url
     version_date: '2017-09-21')
 # pFbEpJ4Onu3XV6K5juyIkkljoid92Qja2HXc_e8-voJQ
 
@@ -61,11 +61,11 @@ Meteor.methods
         #     # stringed = JSON.stringify(doc.html, null, 2)
         if mode is 'html'
             params =
-                text:doc["#{key}"]
+                tone_input:doc["#{key}"]
                 content_type:'text/html'
         if mode is 'text'
             params =
-                text:doc["#{key}"]
+                tone_input:doc["#{key}"]
                 content_type:'text/plain'
         tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
             if err
@@ -148,10 +148,9 @@ Meteor.methods
                         watson_keywords: lowered_keywords
                         doc_sentiment_score: response.sentiment.document.score
                         doc_sentiment_label: response.sentiment.document.label
-            return
-            )
-            # Meteor.call 'call_tone', doc_id, ->
-            # Meteor.call 'call_personality', doc_id, ->
+        )
+        # Meteor.call 'call_personality', doc_id, ->
+        Meteor.call 'call_tone', doc_id, key, mode, ->
 
 
     pull_site: (doc_id, url)->

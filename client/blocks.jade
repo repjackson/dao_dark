@@ -1,9 +1,9 @@
 template(name='comments')
     .ui.header
-        i.chat.grey.icon
+        i.chat.grey.outline.icon
         |comments
     if currentUser
-        .ui.fluid.icon.input
+        .ui.fluid.icon.transparent.input
             i.plus.icon
             input.add_comment(type='text' placeholder='Add comment...')
     .ui.comments

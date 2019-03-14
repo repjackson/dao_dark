@@ -88,7 +88,10 @@ Template.call_visual.events
 
 Template.tone.events
     'click #call_tone': ->
-        Meteor.call 'call_tone', Router.current().params._id, parent.key, @mode, ->
+        console.log Router.current().params._id
+        console.log parent.key
+        console.log @mode
+        # Meteor.call 'call_tone', Router.current().params._id, parent.key, @mode, ->
 
 
 

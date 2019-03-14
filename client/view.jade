@@ -19,10 +19,10 @@ template(name='view')
                             if icon
                                 i.grey.icon(class=icon)
                             |#{title}
-                        div
-                        +author_info
-                        div
-                        +creation_info
+                        //- div
+                        //- +author_info
+                        //- div
+                        //- +creation_info
                         div
                         if is_author
                             //- +edit_button
@@ -30,7 +30,7 @@ template(name='view')
                                 |Edit
                         +detect
                         //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
-                        +clone_button
+                        //- +clone_button
                         if watson
                             +doc_sentiment
                             +doc_emotion
@@ -41,6 +41,8 @@ template(name='view')
                             +consumption_preferences
                 .twelve.wide.column
                     .ui.tertiary.segment.large150
+                        if watson
+                            +tone
                         each _keys
                             //- .ui.label #{this}
                             +key_view
@@ -52,7 +54,6 @@ template(name='view')
                         +comments
                         if watson
                             +keywords
-                            +tone
                         //- +watson_view
                         if visual_classes
                             +visual_classes
