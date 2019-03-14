@@ -545,6 +545,16 @@ Template.time_edit.events
                 $set:"#{@key}":val
 
 
+Template.youtube_edit.onRendered ->
+    Meteor.setTimeout ->
+        $('.ui.embed').embed();
+    , 1000
+
+Template.youtube_view.onRendered ->
+    Meteor.setTimeout ->
+        $('.ui.embed').embed();
+    , 1000
+
 
 Template.youtube_edit.events
     'blur .youtube_id': (e,t)->

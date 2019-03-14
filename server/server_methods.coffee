@@ -73,7 +73,8 @@ Meteor.methods
                     meta.field = 'array'
                 else
                     if key is 'watson'
-                        meta.field = 'watson'
+                        meta.field = 'object'
+                        # meta.field = 'watson'
                     else
                         meta.field = 'object'
 

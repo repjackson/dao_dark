@@ -351,7 +351,7 @@ if Meteor.isClient
                  'disabled '
             else if facet.filters.length > 0 and @name in facet.filters
                 'grey'
-            else ''
+            else 'inverted basic'
 
     Template.result.onCreated ->
         @autorun => Meteor.subscribe 'doc', @data._id

@@ -113,7 +113,8 @@ template(name='keyword_list')
         |#{watson_keywords.length} keywords
     each watson_keywords
         // .ui.label #{this}
-        span(class="{{calculated_size 'relevance'}}") #{this}
+        .ui.label #{this}
+        //- span(class="{{calculated_size 'relevance'}}") #{this}
 
 
 
@@ -263,18 +264,18 @@ template(name='watson_view')
                 +categories
                 +entities
         .twelve.wide.column
-            +semantic_roles
-            .ui.large.accordion
-             .active.title 
-                 |tone
-                 i.dropdown.icon
-             .active.content
-                 +tone
+            //- +semantic_roles
+            //- .ui.large.accordion
+            //-  .active.title 
+            //-      |tone
+            //-      i.dropdown.icon
+            //-  .active.content
+            //-      +tone
             +keyword_list
             +keywords
             +concept_list
             .ui.hidden.divider
-            +relations
+            //- +relations
             if dev
                 .ui.styled.accordion
                     .title 

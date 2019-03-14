@@ -117,7 +117,7 @@ template(name='events_column')
 template(name='facet')
     if filtering_res
         div
-        .ui.inline.header 
+        .ui.inline.inverted.header 
             if icon
                 i.small.grey.icon(class=icon)
             if label
@@ -133,11 +133,11 @@ template(name='facet')
                 //     .unselect.ui.grey.button #{this}
         each filtering_res
             if name
-                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.big.button.toggle_selection(class=toggle_value_class title=count)
                     | #{name}
                     // small #{count}
             else
-                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.big.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
                     // small #{count}
 
@@ -211,8 +211,8 @@ template(name='result')
                             +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                    if is_dev
-                        +remove_button
+                    //- if is_dev
+                    //-     +remove_button
                     if can_edit
                         //- a.ui.button(href="/edit/#{_id}")
                         //-     |Edit (m)
@@ -230,10 +230,11 @@ template(name='result')
                     //- div
                     +creation_info
                     //- div
-                    //- +detect
-                    +watson_view
+                    +detect
                     each _keys
                         +key_view
+                    if watson
+                        +watson_view
                     if visual_classes
                         +visual_classes
                     if analyzed_text
