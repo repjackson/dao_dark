@@ -52,31 +52,32 @@ Meteor.methods
         )
 
 
-    call_tone: (doc_id, mode, key)->
+    call_tone: (doc_id, key, mode)->
         self = @
         doc = Docs.findOne doc_id
-        # console.log doc.html
-        if doc.html or doc.body
-            # stringed = JSON.stringify(doc.html, null, 2)
-            if mode is html
-                params =
-                    text:doc.html
-                    content_type:'text/html'
-            if mode is text
-                params =
-                    text:doc.body
-                    content_type:'text/plain'
-            tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
-                if err
-                    console.log err
-                else
-                    # console.dir response
-                    Docs.update { _id: doc_id},
-                        $set:
-                            tone: response
-                    # console.log(JSON.stringify(response, null, 2))
+        console.log key
+        console.log mode
+        # if doc.html or doc.body
+        #     # stringed = JSON.stringify(doc.html, null, 2)
+        if mode is 'html'
+            params =
+                text:doc["#{key}"]
+                content_type:'text/html'
+        if mode is 'text'
+            params =
+                text:doc["#{key}"]
+                content_type:'text/plain'
+        tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
+            if err
+                console.log err
+            else
+                # console.dir response
+                Docs.update { _id: doc_id},
+                    $set:
+                        tone: response
+                # console.log(JSON.stringify(response, null, 2))
             )
-        else return
+        # else return
 
 
     call_visual_link: (doc_id, field)->

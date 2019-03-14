@@ -63,12 +63,12 @@ Template.keywords.onRendered ->
 
 Template.call_watson.events
     'click #call_watson': ->
-        console.log @
-        console.log Template.currentData()
-        console.log Template.parentData()
-        console.log Template.parentData(1)
-        console.log Template.parentData(2)
-        console.log Template.parentData(3)
+        # console.log @
+        # console.log Template.currentData()
+        # console.log Template.parentData()
+        # console.log Template.parentData(1)
+        # console.log Template.parentData(2)
+        # console.log Template.parentData(3)
         parent = Template.parentData()
         Meteor.call 'call_watson', Router.current().params._id, parent.key, @mode, ->
 
@@ -88,7 +88,7 @@ Template.call_visual.events
 
 Template.tone.events
     'click #call_tone': ->
-        Meteor.call 'call_tone', Router.current().params._id, ->
+        Meteor.call 'call_tone', Router.current().params._id, parent.key, @mode, ->
 
 
 

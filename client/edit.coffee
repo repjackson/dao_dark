@@ -68,7 +68,7 @@ Template.field_edit.helpers
         parent["_#{key_string}"]
 
     context: ->
-        console.log @
+        # console.log @
         {key:@valueOf()}
 
 

@@ -116,21 +116,21 @@ template(name='events_column')
 
 template(name='facet')
     if filtering_res
-        div
-        .ui.inline.inverted.header 
-            if icon
-                i.small.grey.icon(class=icon)
-            if label
-                |#{label}
-            else 
-                |#{key}
-            // i.grey.dropdown.icon
-                //- .ui.transparent.left.icon.small.input
-                //-     i.search.icon
-                //-     input.add_filter(type='text' placeholder='search')
-                // i.dropdown.icon
-                // each filters
-                //     .unselect.ui.grey.button #{this}
+        //- div
+        //- .ui.inline.inverted.header 
+        //-     if icon
+        //-         i.small.grey.icon(class=icon)
+        //-     if label
+        //-         |#{label}
+        //-     else 
+        //-         |#{key}
+        //-     // i.grey.dropdown.icon
+        //-         //- .ui.transparent.left.icon.small.input
+        //-         //-     i.search.icon
+        //-         //-     input.add_filter(type='text' placeholder='search')
+        //-         // i.dropdown.icon
+        //-         // each filters
+        //-         //     .unselect.ui.grey.button #{this}
         each filtering_res
             if name
                 .selector.ui.big.circular.button.toggle_selection(class=toggle_value_class title=count)
@@ -216,19 +216,20 @@ template(name='result')
                     if can_edit
                         //- a.ui.button(href="/edit/#{_id}")
                         //-     |Edit (m)
-                        a.ui.button(href="/edit/#{_id}")
-                            |Edit
+                        a.ui.icon.button(href="/edit/#{_id}")
+                            //- |Edit
+                            i.pencil.icon
                     //- a.ui.button(href="/view/#{_id}")
                     //-     |Save (m)
-                    a.ui.button(href="/view/#{_id}")
-                        |View
+                    a.ui.icon.button(href="/view/#{_id}")
+                        //- |View
                         i.right.arrow.icon
-                    each schema.actions
-                        +Template.dynamic template=this data=..
+                    //- each schema.actions
+                    //-     +Template.dynamic template=this data=..
                     //- div
-                    +author_info
+                    //- +author_info
                     //- div
-                    +creation_info
+                    //- +creation_info
                     //- div
                     +detect
                     each _keys

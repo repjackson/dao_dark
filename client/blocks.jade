@@ -1,26 +1,25 @@
 template(name='comments')
-    .ui.secondary.segment
-        .ui.header
-            i.chat.icon
-            |Comments
-        if currentUser
-            .ui.fluid.icon.input
-                i.plus.icon
-                input.add_comment(type='text' placeholder='Add comment...')
-        .ui.comments
-            each doc_comments
-                .comment
-                    .content
-                        .header #{body}
-                        .meta #{when}
-                        .actions
-                            i.thumbs.up.link.icon
-                            i.remove.link.remove_comment.icon
+    .ui.header
+        i.chat.grey.icon
+        |comments
+    if currentUser
+        .ui.fluid.icon.input
+            i.plus.icon
+            input.add_comment(type='text' placeholder='Add comment...')
+    .ui.comments
+        each doc_comments
+            .comment
+                .content
+                    .header #{body}
+                    .meta #{when}
+                    .actions
+                        i.thumbs.up.link.icon
+                        i.remove.link.remove_comment.icon
 
 template(name='detect')
-    .ui.button.detect_fields
+    .ui.icon.button.detect_fields
         i.dna.icon
-        |Detect
+        //- |Detect
 
 
 template(name='follow')
@@ -180,21 +179,21 @@ template(name='clone_button')
 
 
 template(name='edit_button')
-    .ui.large.button.edit(title="Edit #{title}")
-        i.pencil.icon
-        |Edit
+    .ui.large.icon.button.edit(title="Edit #{title}")
+        i.blue.pencil.icon
+        //- |Edit
 
 template(name='editm_button')
-    .ui.large.button.edit(title="Edit #{title}")
+    .ui.large.icon.button.edit(title="Edit #{title}")
         i.pencil.icon
-        |Edit (m)
+        //- |Edit (m)
 
 
 template(name='save_button')
     //- a.ui.button.big.save(title='Save' href="/s/#{type}/#{_id}/view")
-    a.ui.button.big.save(title='Save' href="/view/#{_id}")
+    a.ui.button.icon.big.save(title='Save' href="/view/#{_id}")
         i.green.checkmark.icon
-        |Save
+        //- |Save
 
 template(name='toggle_button')
     .ui.icon.toggle.button(title=label)

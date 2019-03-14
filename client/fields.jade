@@ -93,10 +93,10 @@ template(name='link_edit')
 
 
 template(name='link_view')
-    .ui.small.grey.header 
-        if icon
-            i.grey.icon(class=icon)
-        |#{label}
+    //- .ui.small.grey.header 
+    //-     if icon
+    //-         i.grey.icon(class=icon)
+    //-     |#{label}
     a(href=field_value target='_window') #{field_value}
 
 
@@ -144,14 +144,14 @@ template(name='image_link_view')
 
 template(name='textarea_view')
     div
-        if icon
-            i.grey.icon(class=icon)
-        if label
-            |#{label}
-        else if key
-            |#{key}
-        else
-            |#{this}
+        //- if icon
+        //-     i.grey.icon(class=icon)
+        //- if label
+        //-     |#{label}
+        //- else if key
+        //-     |#{key}
+        //- else
+        //-     |#{this}
         if field_value
             |#{nl2br field_value}
             +call_watson mode='text' key=key
@@ -188,7 +188,7 @@ template(name='html_edit')
     .froala-container
         +froalaReactive getFEContext
     +call_watson mode='html'
-
+    +tone mode='html'
 
 
 template(name='html_view')
@@ -245,13 +245,13 @@ template(name='text_view')
             div
             // if icon
             //     i.grey.icon(class=icon)
-            .ui.inline.small.header 
-                if label
-                    |#{label}
-                else if key
-                    |#{key}
-                else
-                    |#{this}
+            //- .ui.inline.small.header 
+            //-     if label
+            //-         |#{label}
+            //-     else if key
+            //-         |#{key}
+            //-     else
+            //-         |#{this}
         strong &nbsp; #{field_value}
 
 
@@ -304,13 +304,13 @@ template(name='number_edit')
         input.edit_number(type='number' value=field_value placeholder=placeholder)
 
 template(name='number_view')
-    div
-    if icon
-        i.grey.icon(class=icon)
-    if label
-        |#{label}
-    else
-        |#{this}
+    //- div
+    //- if icon
+    //-     i.grey.icon(class=icon)
+    //- if label
+    //-     |#{label}
+    //- else
+    //-     |#{this}
     strong &nbsp; #{field_value}
 
 
@@ -427,12 +427,12 @@ template(name='array_view')
         div 
             // if icon
             //     i.grey.icon(class=icon)
-            if label
-                |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}
+            //- if label
+            //-     |#{label}
+            //- else if key
+            //-     |#{key}
+            //- else
+            //-     |#{this}
             each field_value
                 .ui.label #{this}
 

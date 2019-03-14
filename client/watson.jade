@@ -1,6 +1,6 @@
 template(name='doc_sentiment') 
-    .ui.dividing.header 
-        |sentiment
+    //- .ui.dividing.header 
+    //-     |sentiment
     .ui.small.disabled.progress.invert(data-percent=sentiment_score_percent class=sentiment_bar_class)
         .bar
         .progress
@@ -60,8 +60,8 @@ template(name='call_visual')
 
 
 template(name='keywords')
-    .ui.small.grey.header 
-        |#{watson.keywords.length} keywords
+    //- .ui.small.grey.header 
+    //-     |#{watson.keywords.length} keywords
     .ui.three.column.stackable.grid
         each watson.keywords
             .ui.column
@@ -99,8 +99,8 @@ template(name='keywords')
 
 
 template(name='entities')
-    .ui.small.grey.header 
-        |#{watson.entities.length} entities
+    //- .ui.small.grey.header 
+    //-     |#{watson.entities.length} entities
     .ui.list
         each watson.entities
             .item
@@ -109,8 +109,8 @@ template(name='entities')
 
 
 template(name='keyword_list')
-    .ui.small.grey.header 
-        |#{watson_keywords.length} keywords
+    //- .ui.small.grey.header 
+    //-     |#{watson_keywords.length} keywords
     each watson_keywords
         // .ui.label #{this}
         .ui.label #{this}
@@ -119,7 +119,7 @@ template(name='keyword_list')
 
 
 template(name='concept_list')
-    .ui.small.grey.header 
+    //- .ui.small.grey.header 
         |#{watson_concepts.length} concepts
     each watson_concepts
         .ui.label #{this}
@@ -127,8 +127,8 @@ template(name='concept_list')
 
 
 template(name='concepts')
-    .ui.small.grey.header 
-        |#{watson.concepts.length} concepts
+    //- .ui.small.grey.header 
+    //-     |#{watson.concepts.length} concepts
     .ui.list
         each watson.concepts
             .item
@@ -137,8 +137,8 @@ template(name='concepts')
 
 
 template(name='visual_classes')
-    .ui.small.grey.header 
-        |#{visual_classes.length} visual classes
+    //- .ui.small.grey.header 
+    //-     |#{visual_classes.length} visual classes
     .ui.list
         each visual_classes
             .item
@@ -149,8 +149,8 @@ template(name='visual_classes')
 
 
 template(name='categories')
-    .ui.small.grey.header 
-        |#{watson.categories.length} categories
+    //- .ui.small.grey.header 
+    //-     |#{watson.categories.length} categories
     .ui.list
         each watson.categories
             .item
@@ -159,17 +159,17 @@ template(name='categories')
 
 
 template(name='semantic_roles')
-    .ui.accordion
-        .title
-            .ui.header #{watson.semantic_roles.length} semantic roles
-                i.dropdown.icon
-        .content
-            +jsonView(json=watson.semantic_roles)
-            // .ui.list
-            //     each watson.semantic_roles
-            //         .item
-            //             strong #{label}
-            //             |{{ to_percent score }}%
+    //- .ui.accordion
+    //-     .title
+    //-         .ui.header #{watson.semantic_roles.length} semantic roles
+    //-             i.dropdown.icon
+    //-     .content
+    //-         +jsonView(json=watson.semantic_roles)
+    //-         // .ui.list
+    //-         //     each watson.semantic_roles
+    //-         //         .item
+    //-         //             strong #{label}
+    //-         //             |{{ to_percent score }}%
 
 
 template(name='relations')
@@ -274,15 +274,15 @@ template(name='watson_view')
             +keyword_list
             +keywords
             +concept_list
-            .ui.hidden.divider
-            //- +relations
-            if dev
-                .ui.styled.accordion
-                    .title 
-                        i.code.icon
-                        i.dropdown.icon
-                    .content
-                        +jsonView(json=watson)
+            //- .ui.hidden.divider
+            //- //- +relations
+            //- if dev
+            //-     .ui.styled.accordion
+            //-         .title 
+            //-             i.code.icon
+            //-             i.dropdown.icon
+            //-         .content
+            //-             +jsonView(json=watson)
         .four.wide.column
             +personality
             +consumption_preferences
