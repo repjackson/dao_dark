@@ -8,7 +8,7 @@ template(name='topnav')
         //-     a.item.icon.toggle_leftbar(href='#')
         //-         i.bars.large.icon
         //- if is_dev
-    a.alpha.ui.icon.basic.inverted.circular.button(href="/" class="{{isActivePath '/'}}")
+    a.alpha.ui.icon.basic.inverted.circular.large.button(href="/" class="{{isActivePath '/'}}")
         i.home.large.icon
         //- unless is_dev
         //-     a.ui.icon.ui.button(href="/menu" class="{{isActivePath '/menu'}}")
@@ -53,28 +53,28 @@ template(name='topnav')
         // +role_switcher
         //- .right.menu
     if currentUser
-        a.ui.icon.basic.inverted.circular.button.adddoc(href="#")
+        a.ui.icon.basic.inverted.circular.large.button.adddoc(href="#")
             i.plus.large.icon
         //- a.icon.ui.button(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
         //-     i.plus.large.icon
         //- a.icon.ui.button(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
         //-     i.large.chat.icon
-        a.ui.icon.basic.inverted.circular.button.messages(href="/u/#{currentUser.username}/messages" class="{{isActiveRoute 'user_messages'}}")
-             i.large.inbox.icon
-        a.ui.icon.basic.inverted.circular.button(href="/users" class="{{isActivePath '/users'}}")
-             i.large.users.icon
-        a.ui.icon.basic.inverted.circular.button(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
+        //- a.ui.icon.basic.inverted.circular.large.button.messages(href="/u/#{currentUser.username}/messages" class="{{isActiveRoute 'user_messages'}}")
+        //-      i.large.inbox.icon
+        //- a.ui.icon.basic.inverted.circular.large.button(href="/users" class="{{isActivePath '/users'}}")
+        //-      i.large.users.icon
+        a.ui.basic.inverted.circular.large.button(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
             i.user.large.icon
             | #{currentUser.username}
             //- // | #{currentUser.username} [#{currentUser.status}]
         //- a.icon.item.toggle_rightbar(href='#')
         //-     i.bars.large.icon
     else
-        a.ui.icon.basic.inverted.circular.button(href="/login")
+        a.ui.icon.basic.inverted.circular.large.button(href="/login")
             i.sign.in.alternate.large.icon
             // +ioffice name='login-rounded-down'
             //- |Sign In 
-        a.ui.icon.basic.inverted.circular.button(href="/register")
+        a.ui.icon.basic.inverted.circular.large.button(href="/register")
             i.user.plus.large.icon
             // +ioffice name='add-user-male'
             //- |Register 

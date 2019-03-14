@@ -1,5 +1,5 @@
 template(name='comments')
-    .ui.header
+    .ui.grey.header
         i.chat.grey.outline.icon
         |comments
     if currentUser
@@ -8,7 +8,7 @@ template(name='comments')
             input.add_comment(type='text' placeholder='Add comment...')
     .ui.comments
         each doc_comments
-            .comment
+            .ui.comment
                 .content
                     .header #{body}
                     .meta #{when}

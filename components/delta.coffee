@@ -353,6 +353,13 @@ if Meteor.isClient
                 'grey'
             else 'inverted basic'
 
+    Template.result.onRendered ->
+        Meteor.setTimeout ->
+            $('.progress').popup()
+        , 2000
+
+
+
     Template.result.onCreated ->
         @autorun => Meteor.subscribe 'doc', @data._id
 

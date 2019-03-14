@@ -1,15 +1,15 @@
 template(name='doc_sentiment') 
     //- .ui.dividing.header 
     //-     |sentiment
-    .ui.small.disabled.progress.invert(data-percent=sentiment_score_percent class=sentiment_bar_class)
+    .ui.small.disabled.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
         .bar
         .progress
-    .label
-        |{{ to_percent doc_sentiment_score }}%
-        if is_positive
-            | positive
-        else
-            | negative
+    //- .label
+    //-     |{{ to_percent doc_sentiment_score }}%
+    //-     if is_positive
+    //-         | positive
+    //-     else
+    //-         | negative
 
         // |#{doc_sentiment_label}
         // |#{sentiment_score_percent}
@@ -24,26 +24,26 @@ template(name='doc_emotion')
     // .ui.dividing.header 
     //     | emotion
     with watson.emotion.document.emotion
-        .ui.blue.disabled.small.progress.invert(data-percent=sadness_percent)
+        .ui.blue.disabled.small.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
             .bar
             .progress
-        .label {{to_percent sadness}}% sadness 
-        .ui.green.disabled.small.progress.invert(data-percent=joy_percent)
+            //- .label {{to_percent sadness}}% sadness 
+        .ui.teal.disabled.small.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
             .bar
             .progress
-        .label {{to_percent joy}}% joy 
-        .ui.black.disabled.small.progress.invert(data-percent=fear_percent)
+            //- .label {{to_percent joy}}% joy 
+        .ui.black.disabled.small.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
             .bar
             .progress
-        .label {{to_percent fear}}% fear 
-        .ui.yellow.disabled.small.progress.invert(data-percent=disgust_percent)
+            //- .label {{to_percent fear}}% fear 
+        .ui.yellow.disabled.small.progress(data-percent=disgust_percent title="{{to_percent disgust}}% disgust")
             .bar
             .progress
-        .label {{to_percent disgust}}% disgust 
-        .ui.red.disabled.small.progress.invert(data-percent="{{to_percent anger}}")
+            //- .label {{to_percent disgust}}% disgust 
+        .ui.orange.disabled.small.progress(data-percent="{{to_percent anger}}" title="{{to_percent anger}}% anger")
             .bar
             .progress
-        .label {{to_percent anger}}% anger 
+            //- .label {{to_percent anger}}% anger 
             
             
             
@@ -65,31 +65,31 @@ template(name='keywords')
     .ui.four.column.stackable.grid
         each watson.keywords
             .ui.column
-                span(class="{{calculated_size 'relevance'}}") #{text}
-                .meta
-                    |{{ to_percent relevance }}% relevant |
-                    |sentiment: {{ to_percent sentiment.score }}%
+                span(class="{{calculated_size 'relevance'}}" title="{{ to_percent relevance }}% relevant") #{text}
+                //- .meta
+                //-     |{{ to_percent relevance }}% relevant |
+                //-     |sentiment: {{ to_percent sentiment.score }}%
                 .description
                     if emotion
                         with emotion
-                            span {{ to_percent sadness }}% sadness
+                            //- span {{ to_percent sadness }}% sadness
                             .ui.blue.small.disabled.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
                                 .bar
                                 //- .progress
-                            span {{ to_percent joy }}% joy 
-                            .ui.green.small.disabled.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
+                            //- span {{ to_percent joy }}% joy 
+                            .ui.teal.small.disabled.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
                                 .bar
                                 //- .progress
-                            span {{ to_percent fear }}% fear
+                            //- span {{ to_percent fear }}% fear
                             //- .progress
                             .ui.black.small.disabled.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
                                 .bar
-                            span {{ to_percent disgust }}% disgust 
-                            .ui.yellow.small.disabled.progress(data-percent=disgust_percent title="{{to_percent joy}}% joy")
+                            //- span {{ to_percent disgust }}% disgust 
+                            .ui.yellow.small.disabled.progress(data-percent=disgust_percent title="{{to_percent disgust}}% disgust")
                                 .bar
                                     //- .progress
-                            span {{ to_percent anger }}% anger 
-                            .ui.red.small.disabled.progress(data-percent=anger_percent title="{{to_percent joy}}% joy")
+                            //- span {{ to_percent anger }}% anger 
+                            .ui.orange.small.disabled.progress(data-percent=anger_percent title="{{to_percent anger}}% anger")
                                 .bar
                                 //- .progress
 
@@ -129,9 +129,8 @@ template(name='concepts')
     //-     |#{watson.concepts.length} concepts
     .ui.list
         each watson.concepts
-            .item
+            div(class="{{calculated_size 'relevance'}}" title="{{to_percent relevance}}% relevant")
                 a(href=dbpedia_resource target='_blank') #{text}
-                | {{to_percent relevance}}%
 
 
 template(name='visual_classes')
@@ -241,8 +240,7 @@ template(name='tone')
     .ui.list
         each tone.sentences_tone
             .item
-                strong #{sentence_id}
-                span.large120 #{text}
+                span.large120(title="#{sentence_id}") #{text}
                 each tones
                     span(class="{{calculated_size 'score'}}" title="{{ to_percent score }}%") &nbsp; #{tone_id} 
     // unless tone                
