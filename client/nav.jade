@@ -19,19 +19,19 @@ template(name='topnav')
         a.icon.item.people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
              i.users.large.icon
                 
-            strong Gold Run
-        a.ui.header.tribe_schemas.item(href="/library" class="{{isActivePath '/library'}}")
-            i.home.icon
-            strong Gold Run
-        each topnav_schemas
-            a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
-                if color_icon
-                    img.ui.avatar.image(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
-                else if icon
-                    i.icon(class=icon)
-                if show_label
-                    |&nbsp;
-                    strong #{plural}
+            //- strong Gold Run
+        //- a.ui.header.tribe_schemas.item(href="/library" class="{{isActivePath '/library'}}")
+        //-     i.home.icon
+        //-     strong Gold Run
+        //- each topnav_schemas
+        //-     a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
+        //-         if color_icon
+        //-             img.ui.avatar.image(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
+        //-         else if icon
+        //-             i.icon(class=icon)
+        //-         if show_label
+        //-             |&nbsp;
+        //-             strong #{plural}
         // each topnav_pages
         //     a.ui.button(href="/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
         //         // if color_icon_header
@@ -50,39 +50,39 @@ template(name='topnav')
         // a.icon.ui.button(href="/menu")
         //     i.th.icon
         // +role_switcher
-        //- .right.menu
-        if currentUser
-            a.ui.icon.item.adddoc(href="#")
-                i.plus.large.icon
-            a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
-                i.plus.large.icon
-            a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
-                i.large.chat.icon
-            a.ui.icon.item.messages(href="/u/#{currentUser.username}/messages" class="{{isActiveRoute 'user_messages'}}")
-                i.large.inbox.icon
-            a.ui.icon.item(href="/users" class="{{isActivePath '/users'}}")
-                i.large.users.icon
-            a.ui.icon.button(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
-                i.user.large.icon
-                | #{currentUser.username}
-                // | #{currentUser.username} [#{currentUser.status}]
-            a.icon.item.toggle_rightbar(href='#')
-                i.bars.large.icon
-        else
-            a.ui.icon.item(href="/login")
-                i.sign.in.alternate.large.icon
-                // +ioffice name='login-rounded-down'
-                //- |Sign In 
-            a.ui.icon.item(href="/register")
-                i.user.plus.large.icon
-                // +ioffice name='add-user-male'
-                //- |Register 
-        //- if is_dev
+        .right.menu
+            if currentUser
+                a.ui.icon.item.adddoc(href="#")
+                    i.plus.large.icon
+                a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
+                    i.plus.large.icon
+                a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
+                    i.large.chat.icon
+                a.ui.icon.item.messages(href="/u/#{currentUser.username}/messages" class="{{isActiveRoute 'user_messages'}}")
+                    i.large.inbox.icon
+                a.ui.icon.item(href="/users" class="{{isActivePath '/users'}}")
+                    i.large.users.icon
+                a.ui.icon.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
+                    i.user.large.icon
+                    | #{currentUser.username}
+                    // | #{currentUser.username} [#{currentUser.status}]
+                a.icon.item.toggle_rightbar(href='#')
+                    i.bars.large.icon
+            else
+                a.ui.icon.item(href="/login")
+                    i.sign.in.alternate.large.icon
+                    // +ioffice name='login-rounded-down'
+                    //- |Sign In 
+                a.ui.icon.item(href="/register")
+                    i.user.plus.large.icon
+                    // +ioffice name='add-user-male'
+                    //- |Register 
+            //- if is_dev
     .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
         each topnav_schemas
             a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                 if color_icon
-                    +icolor name=color_icon
+                    +icolor name=color_icon classes='ui avatar image'
                 else if icon
                     i.icon(class=icon)
                 |&nbsp; #{plural}
@@ -208,11 +208,11 @@ template(name='leftbar')
         if currentUser
             a.ui.button(href="/user/#{currentUser._id}/edit" class="{{isActiveRoute 'user_edit'}}")
                 i.user.icon
-                | My Account
+                | my account
                 
             a.item#linkLogout(href='/logout')
                 i.sign.out.icon
-                | Logout
+                | logout
             
         each tribe_schemas
             a.item.set_schema.toggle_leftbar(href="/s/#{slug}")
@@ -263,7 +263,7 @@ template(name='footer')
                         // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
                         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
                         button.ui.large.inverted.button(type='submit')
-                            | Donate 
+                            | donate 
                     //- .ui.small.inverted.header Links
                     //- .ui.inverted.list
                     //-     each footer_pages
@@ -291,7 +291,7 @@ template(name='footer')
                 .four.wide.center.aligned.column
                     .ui.inline.inverted.header
                         i.copyright.outline.icon
-                        |2019 DAO
+                        |2019 dao
                 //- if is_dev
                 //-     .four.wide.center.aligned.column
                 //-         a(href='/t/dao')

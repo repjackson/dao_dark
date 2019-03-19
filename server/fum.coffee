@@ -55,7 +55,7 @@ Meteor.methods
                         { $set: 'facets.$.res': agg_res }
 
             # if delta.limit then limit=delta.limit else limit=30
-            calc_page_size = if delta.page_size then delta.page_size else 1
+            calc_page_size = if delta.page_size then delta.page_size else 10
 
             page_amount = Math.ceil(total/calc_page_size)
 
@@ -74,16 +74,19 @@ Meteor.methods
                     skip:skip_amount
                 }
 
-            results_cursor =
-                Docs.find( built_query, modifier )
+            # results_cursor =
+            #     Docs.find( built_query, modifier )
+            if delta.doc_type
+                schema = Docs.findOne
+                    type:'schema'
+                    slug:delta.doc_type
 
-
-            # if schema.collection and schema.collection is 'users'
-            #     results_cursor = Meteor.users.find(built_query, modifier)
-            #     # else
-            #     #     results_cursor = global["#{schema.collection}"].find(built_query, modifier)
-            # else
-                # results_cursor = Docs.find built_query, modifier
+            if schema and schema.collection and schema.collection is 'users'
+                results_cursor = Meteor.users.find(built_query, modifier)
+                # else
+                #     results_cursor = global["#{schema.collection}"].find(built_query, modifier)
+            else
+                results_cursor = Docs.find built_query, modifier
 
 
             # if total is 1
@@ -94,7 +97,7 @@ Meteor.methods
 
             # console.log 'result ids', result_ids
 
-            # console.log 'delta', delta
+            console.log 'delta', delta
             # console.log Meteor.userId()
 
             Docs.update {_id:delta._id},
@@ -112,11 +115,11 @@ Meteor.methods
             # delta = Docs.findOne delta_id
             # console.log 'delta', delta
 
-    agg: (query, key)->
+    agg: (query, key, collection)->
         limit=42
-        # console.log 'agg query', query
-        # console.log 'agg key', key
-        # console.log 'agg collection', collection
+        console.log 'agg query', query
+        console.log 'agg key', key
+        console.log 'agg collection', collection
         options = { explain:false }
         pipe =  [
             { $match: query }
@@ -128,13 +131,13 @@ Meteor.methods
             { $project: _id: 0, name: '$_id', count: 1 }
         ]
         if pipe
-            # if collection is 'users'
-            #     agg = Meteor.users.rawCollection().aggregate(pipe,options)
-            # else
-            agg = global['Docs'].rawCollection().aggregate(pipe,options)
+            if collection and collection is 'users'
+                agg = Meteor.users.rawCollection().aggregate(pipe,options)
+            else
+                agg = global['Docs'].rawCollection().aggregate(pipe,options)
             # else
             res = {}
-            # console.log 'res', res
+            console.log 'res', res
             if agg
                 agg.toArray()
         else

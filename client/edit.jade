@@ -1,5 +1,4 @@
 template(name='edit')
-    +topnav
     with doc
         .ui.stackable.padded.grid
             .centered.row
@@ -7,7 +6,7 @@ template(name='edit')
                     i.pencil.large.grey.icon(title='editing doc')
                     a.ui.big.circular.basic.inverted.button(href="/view/#{_id}")
                         i.checkmark.icon
-                        |Save
+                        |save
                     .ui.circular.basic.inverted.button.icon.delete_doc
                         i.remove.icon
                     +detect
@@ -38,7 +37,7 @@ template(name='field_menu')
 
 template(name='field_edit')
     .ui.tertiary.segment
-        i.remove.icon.large.link.remove_field(title='Remove Field')
+        i.remove.icon.large.link.remove_field(title='remove field')
         .ui.labeled.input
             .ui.label(title='name') #{key}
             input.change_key(type='text' placeholder='key' value=key)

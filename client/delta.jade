@@ -47,47 +47,47 @@ template(name='delta')
                     each current_delta.facets
                         +facet
                 // .column(class=delta_right_column_class)
-                .eight.wide.column
-                    // a.ui.left.corner.label.move_right
-                    //     i.right.chevron.link.pointer.icon
-                    // .ui.horizontal.spaced.list
-                    //     .item
-                    //         |View
-                    //         +set_page_size value=10
-                    //         +set_page_size value=20
-                    //         +set_page_size value=50
-                    //     .item
-                    //         if multiple_pages
-                    //             .ui.label
-                    //                 | Page #{delta.current_page}/#{delta.page_amount}
-                    //     .item
-                    //             | #{delta.total} Results
-                    //     .item
-                    //         if show_page_down
-                    //             .ui.icon.button.page_down(title='Previous Page')
-                    //                 i.left.chevron.icon
-                    //         if show_page_up
-                    //             .ui.icon.button.page_up(title='Next Page')
-                    //                 i.right.chevron.icon
-                    //     .item
-                    //         +set_delta_key key='view' value='grid' icon='clone'                                    
-                    //         +set_delta_key key='view' value='table' icon='table'                                    
-                    //     .item
-                    //         +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
-                    //     .item
-                    //         .ui.disabled.button
-                    //             i.sort.down.icon
-                    //             |Sort By
-                    //     .item
-                    //         .ui.disabled.button
-                    //             i.filter.icon
-                    //             | Toggle Fields
-                    // .ui.stackable.grid.scrolling(class=result_grid_class)
-                    .scrolling
-                        each current_delta.result_ids
-                            +result
-                .four.wide.column.scrolling
-                    +events_column
+                .twelve.wide.padded.column
+                    .row
+                        .ui.horizontal.spaced.list
+                            .item
+                                |View
+                                +set_page_size value=10
+                                +set_page_size value=20
+                                +set_page_size value=50
+                            .item
+                                if multiple_pages
+                                    .ui.label
+                                        | Page #{delta.current_page}/#{delta.page_amount}
+                            .item
+                                    | #{delta.total} Results
+                            .item
+                                if show_page_down
+                                    .ui.icon.button.page_down(title='Previous Page')
+                                        i.left.chevron.icon
+                                if show_page_up
+                                    .ui.icon.button.page_up(title='Next Page')
+                                        i.right.chevron.icon
+                            .item
+                                +set_delta_key key='view' value='grid' icon='clone'                                    
+                                +set_delta_key key='view' value='table' icon='table'                                    
+                            .item
+                                +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
+                            .item
+                                .ui.disabled.button
+                                    i.sort.down.icon
+                                    |Sort By
+                            .item
+                                .ui.disabled.button
+                                    i.filter.icon
+                                    | Toggle Fields
+                        .ui.divider
+                    .row
+                        .ui.stackable.grid(class=result_grid_class)
+                            each current_delta.result_ids
+                                +result
+                //- .four.wide.column.scrolling
+                //-     +events_column
                 
 template(name='events_column')
     .ui.accordion
@@ -133,11 +133,11 @@ template(name='facet')
         //-         //     .unselect.ui.grey.button #{this}
         each filtering_res
             if name
-                .selector.ui.large.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                     | #{name}
                     // small #{count}
             else
-                .selector.ui.large.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
                     // small #{count}
 
@@ -216,12 +216,12 @@ template(name='result')
                     if can_edit
                         //- a.ui.button(href="/edit/#{_id}")
                         //-     |Edit (m)
-                        a.ui.icon.button(href="/edit/#{_id}")
+                        a.ui.icon.button(href="/s/#{type}/#{_id}/edit")
                             //- |Edit
                             i.pencil.icon
                     //- a.ui.button(href="/view/#{_id}")
                     //-     |Save (m)
-                    a.ui.icon.button(href="/view/#{_id}")
+                    a.ui.icon.button(href="/s/#{type}/#{_id}/view")
                         //- |View
                         i.right.arrow.icon
                     if is_dev
@@ -262,7 +262,7 @@ template(name='type_edit')
                     +creation_info
                     //- a.ui.button(href="/view/#{_id}")
                     //-     |Save (m)
-                    a.ui.fluid.button(href="/view/#{_id}")
+                    a.ui.fluid.button(href="/s/#{type}/#{_id}/view")
                         i.checkmark.icon
                         |Save
                     +remove_button
@@ -296,7 +296,7 @@ template(name='type_view')
                             if title
                                 |#{title}
                             else
-                                |View #{type}
+                                |view #{type}
             .row
                 .four.wide.column
                     // .ui.header
@@ -304,8 +304,8 @@ template(name='type_view')
                     //         i.chevron.left.icon
                     //     |View #{type}
                     if can_edit
-                        a.ui.button(href="/edit/#{_id}")
-                            |Edit (m)
+                        //- a.ui.button(href="/edit/#{_id}")
+                        //-     |Edit (m)
                         a.ui.button(href="/s/#{type}/#{_id}/edit")
                             i.pencil.icon
                             |Edit
