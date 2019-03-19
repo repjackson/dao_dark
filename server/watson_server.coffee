@@ -110,8 +110,8 @@ Meteor.methods
                     sentiment: false
                     # limit: 2
                 keywords:
-                    emotion: true
-                    sentiment: true
+                    emotion: false
+                    sentiment: false
                     # limit: 2
                 concepts: {}
                 # categories: {}
@@ -138,19 +138,23 @@ Meteor.methods
                 keyword_array = _.pluck(response.keywords, 'text')
                 lowered_keywords = keyword_array.map (keyword)-> keyword.toLowerCase()
 
-                concept_array = _.pluck(response.concepts, 'text')
-                lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
-                Docs.update { _id: doc_id },
-                    $set:
-                        analyzed_text:response.analyzed_text
-                        watson: response
-                        watson_concepts: lowered_concepts
-                        watson_keywords: lowered_keywords
-                        doc_sentiment_score: response.sentiment.document.score
-                        doc_sentiment_label: response.sentiment.document.label
+                for entity in watson.entities
+                    console.log 'type', type
+                    console.log 'text', text
+
+        #         concept_array = _.pluck(response.concepts, 'text')
+        #         lowered_concepts = concept_array.map (concept)-> concept.toLowerCase()
+        #         Docs.update { _id: doc_id },
+        #             $set:
+        #                 analyzed_text:response.analyzed_text
+        #                 watson: response
+        #                 watson_concepts: lowered_concepts
+        #                 watson_keywords: lowered_keywords
+        #                 doc_sentiment_score: response.sentiment.document.score
+        #                 doc_sentiment_label: response.sentiment.document.label
         )
         # Meteor.call 'call_personality', doc_id, ->
-        Meteor.call 'call_tone', doc_id, key, mode, ->
+        # Meteor.call 'call_tone', doc_id, key, mode, ->
 
 
     pull_site: (doc_id, url)->

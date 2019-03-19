@@ -348,10 +348,10 @@ if Meteor.isClient
             facet = Template.parentData()
             delta = Docs.findOne type:'delta'
             if Session.equals 'loading', true
-                 'disabled inverted basic'
+                 'disabled '
             else if facet.filters.length > 0 and @name in facet.filters
                 'grey'
-            else 'inverted basic'
+            else ''
 
     Template.result.onRendered ->
         Meteor.setTimeout ->

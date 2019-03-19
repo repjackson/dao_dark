@@ -185,7 +185,7 @@ if Meteor.isClient
 
         'click .reset': ->
             delta = Docs.findOne type:'delta'
-            console.log 'hi'
+            # console.log 'hi'
             Meteor.call 'fum', delta._id, (err,res)->
 
         'click .delete_delta': (e,t)->
