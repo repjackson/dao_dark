@@ -89,11 +89,11 @@ Meteor.methods
                 results_cursor = Docs.find built_query, modifier
 
 
-            # if total is 1
-            #     result_ids = results_cursor.fetch()
-            # else
-            #     result_ids = []
-            result_ids = results_cursor.fetch()
+            if total is 1
+                result_ids = results_cursor.fetch()
+            else
+                result_ids = []
+            # result_ids = results_cursor.fetch()
 
             # console.log 'result ids', result_ids
 

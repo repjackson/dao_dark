@@ -4,8 +4,8 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'type', 'person'
         # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
         # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.type
-        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
-        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
+        # @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
+        # @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
         # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
         @autorun -> Meteor.subscribe 'my_delta'
 
@@ -354,9 +354,9 @@ if Meteor.isClient
             else ''
 
     Template.result.onRendered ->
-        Meteor.setTimeout ->
-            $('.progress').popup()
-        , 2000
+        # Meteor.setTimeout ->
+        #     $('.progress').popup()
+        # , 2000
 
 
 
