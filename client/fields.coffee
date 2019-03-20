@@ -389,10 +389,17 @@ Template.text_edit.events
     'blur .edit_text': (e,t)->
         val = t.$('.edit_text').val()
         parent = Template.parentData()
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
-        # console.log parent
+        # console.log Template.parentData()
+        # console.log Template.parentData(1)
+        # console.log Template.parentData(2)
+        # console.log Template.parentData(3)
+        # console.log Template.parentData(4)
+        # console.log Template.parentData(5)
+        # console.log Template.parentData(6)
+        # console.log Template.parentData(7)
         # console.log brick
         # console.log context
 
@@ -400,8 +407,12 @@ Template.text_edit.events
             doc = Docs.findOne context._id
             user = Meteor.users.findOne context._id
             if doc
-                Docs.update context._id,
-                    $set:"#{brick.key}":val
+                if brick.key
+                    Docs.update context._id,
+                        $set:"#{brick.key}":val
+                else
+                    Docs.update context._id,
+                        $set:"#{brick}":val
             else if user
                 if brick.key
                     Meteor.users.update context._id,
