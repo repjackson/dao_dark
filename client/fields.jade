@@ -102,7 +102,7 @@ template(name='link_view')
 
 template(name='image_view')
     img.ui.large.centered.rounded.image(src="{{c.url field_value width=400 gravity='face' crop='fill'}}")
-
+    +call_visual
 
 template(name='image_edit')
     .ui.form

@@ -19,6 +19,7 @@ template(name='view')
                             if icon
                                 i.grey.icon(class=icon)
                             |#{title}
+                        +clone_button
                         //- div
                         //- +author_info
                         //- div
@@ -26,8 +27,8 @@ template(name='view')
                         div
                         if is_author
                             //- +edit_button
-                            a.ui.button(href="/edit/#{_id}")
-                                |Edit
+                            a.ui.big.icon.circular.basic.inverted.button(href="/edit/#{_id}")
+                                i.pencil.icon
                         +detect
                         //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
                         //- +clone_button

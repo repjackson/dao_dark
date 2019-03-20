@@ -2,17 +2,16 @@ template(name='edit')
     with doc
         .ui.stackable.padded.grid
             .centered.row
-                i.pencil.large.grey.icon(title='editing doc')
-                a.ui.big.circular.inverted.basic.button(href="/view/#{_id}")
-                    i.checkmark.icon
-                    |save
-                .ui.circular.inverted.basic.button.icon.delete_doc
-                    i.remove.icon
-                +detect
+                .center.aligned.twelve.wide.column
+                    a.ui.huge.circular.inverted.basic.icon.button(href="/view/#{_id}")
+                        i.checkmark.icon
+                    .ui.circular.inverted.basic.button.icon.delete_doc
+                        i.remove.icon
+                    +detect
             .centered.row
                 +field_menu
-                each fields
-                    .ui.label #{this}
+                //- each fields
+                //-     .ui.label #{this}
             .centered.row
                 .ui.padded.stackable.two.column.grid
                     each _keys
@@ -35,7 +34,7 @@ template(name='field_menu')
 
 
 template(name='field_edit')
-    .ui.tertiary.segment
+    .ui.inverted.basic.segment
         i.remove.icon.large.link.remove_field(title='remove field')
         .ui.labeled.input
             .ui.label(title='name') #{key}

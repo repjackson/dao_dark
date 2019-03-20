@@ -1,26 +1,26 @@
 if Meteor.isClient
-    Template.type_edit.onCreated ->
-        @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
-        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
-        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
-
-
-    Template.type_view.onCreated ->
-        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
-        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
-        @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
-
-    Template.type_edit.events
-        'click .delete_schema': ->
-            if confirm 'Confirm delete schema'
-                Docs.remove @_id
-                Router.go '/schemas'
-
-    Template.type_view.events
-        'click .set_tribe_schema': ->
-            Session.set 'loading', true
-            Meteor.call 'set_delta_facets', @slug, Router.current().params.tribe_slug,->
-                Session.set 'loading', false
+    # Template.type_edit.onCreated ->
+    #     @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
+    #     # @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
+    #     # @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
+    #
+    #
+    # Template.type_view.onCreated ->
+    #     # @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
+    #     # @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
+    #     @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
+    #
+    # Template.type_edit.events
+    #     'click .delete_schema': ->
+    #         if confirm 'Confirm delete schema'
+    #             Docs.remove @_id
+    #             Router.go '/schemas'
+    #
+    # Template.type_view.events
+    #     'click .set_tribe_schema': ->
+    #         Session.set 'loading', true
+    #         Meteor.call 'set_delta_facets', @slug, Router.current().params.tribe_slug,->
+    #             Session.set 'loading', false
 
 
 

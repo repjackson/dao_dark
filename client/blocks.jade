@@ -1,11 +1,11 @@
 template(name='comments')
-    .ui.grey.header
-        i.chat.grey.outline.icon
-        |comments
+    //- .ui.grey.header
+    //-     i.chat.grey.outline.icon
+    //-     |comments
     if currentUser
         .ui.fluid.icon.transparent.input
             i.plus.icon
-            input.add_comment(type='text' placeholder='Add comment...')
+            input.add_comment(type='text' placeholder='comment...')
     .ui.comments
         each doc_comments
             .ui.comment
@@ -17,7 +17,7 @@ template(name='comments')
                         i.remove.link.remove_comment.icon
 
 template(name='detect')
-    .ui.icon.button.detect_fields
+    .ui.icon.big.circular.inverted.basic.button.detect_fields
         i.dna.icon
         //- |Detect
 
@@ -39,24 +39,6 @@ template(name='user_list_info')
         img.ui.avatar.image(src=user.image title=name)
         |#{user.profile.name}
         +user_status user
-
-
-template(name='view_full_button')
-    a.ui.button.ui.icon.button(href="/view/#{_id}" class=classes data-tooltip='View Full')
-        i.double.icon
-        |View
-
-template(name='user_status')
-    if online 
-        // .ui.label(class='{{labelClass}}') 
-        .ui.empty.green.label(title='Online')
-        // img.ui.avatar.image(src="https://img.icons8.com/connection-user_status-on/color/48" title='Online' width="48" height="48")
-        // |Online
-    else if idle
-        .ui.empty.yellow.label(title='Idle')
-        // .ui.label(class='{{labelClass}}') Idle
-        // else 
-        //     |Offline
 
 
 
@@ -130,11 +112,11 @@ template(name='voting')
     //- div
     if points
         strong #{points}
-    .ui.icon.large.button.upvote
+    .ui.icon.large.big.circular.inverted.basic.button.upvote
         i.thumbs.up.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.large.button.downvote
+    .ui.icon.large.big.circular.inverted.basic.button.downvote
         i.thumbs.down.icon(class=downvote_class)
     each downvoter_ids
         +user_info
@@ -147,7 +129,7 @@ template(name='view_button')
         i.right.chevron.icon
 
 template(name='remove_button')
-    .ui.circcular.icon.button.remove_doc(title='Delete')
+    .ui.circular.icon.basic.large.button.remove_doc(title='Delete')
         i.grey.link.remove.icon
         // |Remove #{title}
         // |Remove #{title} #{type}
@@ -159,34 +141,18 @@ template(name='add_button')
         |#{type}
 
 
-template(name='toggle_friend')
-    if is_friend
-        .ui.grey.animated.fade.button.remove_friend
-            .visible.content
-                |Friends
-            .hidden.content
-                i.minus.icon
-    else
-        .ui.button.add_friend
-            |+ Friend
-        
 
 
 template(name='clone_button')
-    a.ui.icon.circular.button.clone_doc(title='clone' href="#")
+    a.ui.icon.circular.big.basic.inverted.button.clone_doc(title='clone' href="#")
         i.clone.icon
 
 
 
 template(name='edit_button')
-    .ui.large.icon.button.edit(title="Edit #{title}")
+    .ui.large.icon.basic.circular.button.edit(title="edit #{title}")
         i.blue.pencil.icon
         //- |Edit
-
-template(name='editm_button')
-    .ui.large.icon.button.edit(title="Edit #{title}")
-        i.pencil.icon
-        //- |Edit (m)
 
 
 template(name='save_button')

@@ -428,8 +428,8 @@ Template.text_edit.events
 Template.boolean_edit.helpers
     boolean_toggle_class: ->
         parent = Template.parentData()
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         if brick
             if context["#{brick}"] then 'grey' else ''
@@ -444,8 +444,8 @@ Template.boolean_edit.events
 
         # console.log @
 
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         # console.log !context["#{brick}"]
         # console.log brick
@@ -475,8 +475,8 @@ Template.number_edit.events
         parent = Template.parentData()
         val = t.$('.edit_number').val()
 
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         if brick
             doc = Docs.findOne context._id
@@ -503,8 +503,8 @@ Template.date_edit.events
     'blur .edit_date': (e,t)->
         parent = Template.parentData()
         val = t.$('.edit_date').val()
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         if brick
             doc = Docs.findOne context._id
@@ -535,8 +535,8 @@ Template.time_edit.events
     'blur .edit_time': (e,t)->
         parent = Template.parentData()
         val = t.$('.edit_time').val()
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         if brick
             doc = Docs.findOne context._id
@@ -572,8 +572,8 @@ Template.youtube_edit.events
         parent = Template.parentData()
         val = t.$('.youtube_id').val()
 
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         if brick
             doc = Docs.findOne context._id
@@ -710,8 +710,8 @@ Template.single_doc_edit.events
         ref_field = Template.currentData()
         target = Template.parentData(1)
 
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
         # console.log @["#{ref_field.ref_key}"]
         # Docs.update target._id,
         #     $set: "#{ref_field.key}": @slug
@@ -791,8 +791,8 @@ Template.multi_doc_edit.events
         ref_field = Template.currentData()
         target = Template.parentData(1)
 
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         console.log @["#{ref_field.ref_key}"]
 
@@ -876,8 +876,8 @@ Template.single_user_edit.events
 
         val = t.$('.edit_text').val()
         parent = Template.parentData()
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         # console.log Template.parentData()
         # console.log Template.parentData(1)
@@ -996,8 +996,8 @@ Template.single_person_edit.events
 
         val = t.$('.edit_text').val()
         parent = Template.parentData()
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         # console.log Template.parentData()
         # console.log Template.parentData(1)
@@ -1061,8 +1061,8 @@ Template.multi_user_edit.events
 
         val = t.$('.edit_text').val()
         parent = Template.parentData()
-        brick = Template.parentData(4)
-        context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         # console.log Template.parentData()
         # console.log Template.parentData(1)

@@ -92,9 +92,9 @@ template(name='result')
                         //- if is_dev
                         //-     +remove_button
                         if can_edit
-                            a.ui.icon.button(href="/edit/#{_id}")
+                            a.ui.icon.big.circular.inverted.basic.button(href="/edit/#{_id}")
                                 i.pencil.icon
-                        a.ui.icon.button(href="/view/#{_id}")
+                        a.ui.icon.big.circular.inverted.basic.button(href="/view/#{_id}")
                             i.eye.icon
                         //- each schema.actions
                         //-     +Template.dynamic template=this data=..
@@ -167,10 +167,7 @@ template(name='type_view')
                     //     |View #{type}
                     if can_edit
                         a.ui.button(href="/edit/#{_id}")
-                            |Edit (m)
-                        //- a.ui.button(href="/s/#{type}/#{_id}/edit")
-                        //-     i.pencil.icon
-                            |Edit
+                            i.pencil.icon
                     each schema.actions
                         +Template.dynamic template=this data=doc
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
