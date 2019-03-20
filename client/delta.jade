@@ -117,7 +117,7 @@ template(name='events_column')
 template(name='facet')
     if filtering_res
         div
-        .ui.inline.inverted.header 
+        .ui.inverted.header 
             if icon
                 i.small.grey.icon(class=icon)
             if label
@@ -133,11 +133,11 @@ template(name='facet')
         //-         //     .unselect.ui.grey.button #{this}
         each filtering_res
             if name
-                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
                     | #{name}
                     small #{count}
             else
-                .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
+                .selector.ui.circular.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
                     small #{count}
 
@@ -201,14 +201,14 @@ template(name='result')
                         if header
                             +Template.dynamic template=view_template 
                     // |#{title}
-                .description
-                    each small_bricks
-                        unless header
-                            +Template.dynamic template=view_template 
-                .description
-                    each big_bricks
-                        unless header
-                            +Template.dynamic template=view_template 
+                //- .description
+                //-     each small_bricks
+                //-         unless header
+                //-             +Template.dynamic template=view_template 
+                //- .description
+                //-     each big_bricks
+                //-         unless header
+                //-             +Template.dynamic template=view_template 
                 .extra
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     //- if is_dev

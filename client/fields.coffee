@@ -598,6 +598,11 @@ Template.html_view.onRendered ->
         $('.accordion').accordion()
     , 1000
 
+Template.textarea_view.onRendered ->
+    Meteor.setTimeout ->
+        $('.accordion').accordion()
+    , 1000
+
 Template.children_view.helpers
     children: ->
         field = @

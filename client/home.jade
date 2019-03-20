@@ -8,26 +8,22 @@ template(name='home')
                     // // each sessions
                     // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
                     // //         i.play.icon
-                    if is_dev        
-                        if current_delta
-                            .ui.icon.basic.inverted.button.print_delta(title='Print Session Doc')
-                                i.code.icon
-                                // |Print Session
-                            .ui.reset.icon.basic.inverted.button(title='Reload Session')
-                                i.refresh.icon
-                                // |Reload Session
-                            .ui.delete_delta.icon.basic.inverted.button(title='Delete Session')
-                                i.trash.icon
-                                // |Delete Session
-                        else
-                            .create_delta.ui.button.pointer(title='new session')
-                                i.plus.icon
-                                |Create Session
                 // |did: #{session_delta_id}
                         
                 each current_delta.facets
                     +facet
-            // .column(class=delta_right_column_class)
+                if is_dev        
+                    if current_delta
+                        .ui.icon.basic.inverted.button.print_delta(title='Print Session Doc')
+                            i.code.icon
+                        .ui.reset.icon.basic.inverted.button(title='Reload Session')
+                            i.refresh.icon
+                        .ui.delete_delta.icon.basic.inverted.button(title='Delete Session')
+                            i.trash.icon
+                    else
+                        .create_delta.ui.button.pointer(title='new session')
+                            i.plus.icon
+                            |session
             .eight.wide.column.scrolling
                 each current_delta.result_ids
                     +result
