@@ -5,25 +5,25 @@ template(name='topnav')
         //- else 
         //-     a.icon.button.toggle_leftbar(href='#')
         //-         i.bars.large.icon
-        a.alpha.ui.icon.circular.button(href="/" class="{{isActivePath '/'}}")
+        a.alpha.ui.icon.circular.inverted.basic.button(href="/" class="{{isActivePath '/'}}")
             i.home.large.icon
         if currentUser
-            a.ui.circular.icon.button.adddoc(href="#")
+            a.ui.circular.icon.inverted.basic.button.adddoc(href="#")
                 i.plus.large.icon
-            a.ui.circular.button(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
+            a.ui.circular.inverted.basic.button(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
                 //- i.user.large.icon
                 | #{currentUser.username}
             if signing_out
                 .icon.disabled.item.toggle_rightbar
                     i.notched.circle.loading.big.icon
             else
-                .logout.ui.small.circular.icon.button(title='log out')
+                .logout.ui.small.circular.icon.inverted.basic.button(title='log out')
                     i.sign.out.icon
 
         else
-            a.ui.circular.icon.button(href="/login")
+            a.ui.circular.icon.inverted.basic.button(href="/login")
                 i.sign.in.alternate.large.icon
-            a.ui.circular.icon.button(href="/register")
+            a.ui.circular.icon.inverted.basic.button(href="/register")
                 i.user.plus.large.icon
 
 

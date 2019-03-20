@@ -24,8 +24,9 @@ template(name='home')
                         .create_delta.ui.button.pointer(title='new session')
                             i.plus.icon
                             |session
-            .eight.wide.column.scrolling
-                each current_delta.result_ids
-                    +result
+            .eight.wide.column
+                if single_doc
+                    each current_delta.result_ids
+                        +result
                 
             

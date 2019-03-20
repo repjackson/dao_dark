@@ -54,24 +54,10 @@ Meteor.methods
                     Docs.update { _id:delta._id, 'facets.key':facet.key},
                         { $set: 'facets.$.res': agg_res }
 
-            # if delta.limit then limit=delta.limit else limit=30
-            calc_page_size = if delta.page_size then delta.page_size else 1
-
-            page_amount = Math.ceil(total/calc_page_size)
-
-            current_page = if delta.current_page then delta.current_page else 1
-
-            skip_amount = current_page*calc_page_size-calc_page_size
-
-            final_sort_key = if delta.sort_key then delta.sort_key else '_timestamp'
-            final_sort_direction = if delta.sort_direction then delta.sort_direction else -1
-
             modifier =
                 {
                     fields:_id:1
-                    limit:calc_page_size
-                    sort:"#{final_sort_key}":final_sort_direction
-                    skip:skip_amount
+                    limit:3
                 }
 
             # results_cursor =
@@ -89,11 +75,11 @@ Meteor.methods
                 results_cursor = Docs.find built_query, modifier
 
 
-            if total is 1
-                result_ids = results_cursor.fetch()
-            else
-                result_ids = []
-            # result_ids = results_cursor.fetch()
+            # if total is 1
+            #     result_ids = results_cursor.fetch()
+            # else
+            #     result_ids = []
+            result_ids = results_cursor.fetch()
 
             # console.log 'result ids', result_ids
 
@@ -102,10 +88,6 @@ Meteor.methods
 
             Docs.update {_id:delta._id},
                 {$set:
-                    current_page:current_page
-                    page_amount:page_amount
-                    skip_amount:skip_amount
-                    page_size:calc_page_size
                     total: total
                     result_ids:result_ids
                 }, ->

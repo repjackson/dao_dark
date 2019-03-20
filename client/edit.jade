@@ -2,37 +2,36 @@ template(name='edit')
     with doc
         .ui.stackable.padded.grid
             .centered.row
-                .two.wide.column
-                    i.pencil.large.grey.icon(title='editing doc')
-                    a.ui.big.circular.button(href="/view/#{_id}")
-                        i.checkmark.icon
-                        |save
-                    .ui.circular.button.icon.delete_doc
-                        i.remove.icon
-                    +detect
-                .fourteen.wide.column
-                    +field_menu
-                    each fields
-                        .ui.label #{this}
-                    // +ref_edit multi=false key='_schema' type='schema'
-                    .ui.padded.stackable.two.column.grid
-                        each _keys
-                            .column
-                                +field_edit
-                    //- if analyzed_text
-                    //-     |#{nl2br analyzed_text}
-                    //- if watson
-                    //-     +watson_view
-                    //- if visual_classes
-                    //-     +visual_classes
+                i.pencil.large.grey.icon(title='editing doc')
+                a.ui.big.circular.inverted.basic.button(href="/view/#{_id}")
+                    i.checkmark.icon
+                    |save
+                .ui.circular.inverted.basic.button.icon.delete_doc
+                    i.remove.icon
+                +detect
+            .centered.row
+                +field_menu
+                each fields
+                    .ui.label #{this}
+            .centered.row
+                .ui.padded.stackable.two.column.grid
+                    each _keys
+                        .column
+                            +field_edit
+                //- if analyzed_text
+                //-     |#{nl2br analyzed_text}
+                //- if watson
+                //-     +watson_view
+                //- if visual_classes
+                //-     +visual_classes
 
 template(name='field_menu')
     i.grey.plus.large.icon(title='add field')
         //- |brick
     each fields
-        .ui.large.circular.button.add_field
+        .ui.large.circular.inverted.basic.button.add_field
             i.icon(class=icon)
-            |#{title}
+            |#{slug}
 
 
 template(name='field_edit')

@@ -9,19 +9,6 @@ head
     meta(name="msapplication-navbutton-color" content="black")
     meta(name="apple-mobile-web-app-status-bar-style" content="black")
 
-// template(name='layout')
-//     .layout.context(class=invert_class)
-//         +topnav
-//         .ui.bottom.attached.basic.segment.pushable
-//             +topbar
-//             +leftbar
-//             +rightbar
-//             .pusher
-//                 #main
-//                     +yield
-//             +footer
-
-
 
 template(name='not_found')
     // +topnav
@@ -41,7 +28,7 @@ template(name='layout')
             input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
             // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
             img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-            button.ui.large.inverted.basic.circular.icon.button(type='submit')
+            button.ui.circular.inverted.basic.icon.button(type='submit')
                 i.pied.piper.alternate.large.icon
     
     //- .ui.bottom.attached.basic.segment.pushable
