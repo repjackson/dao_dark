@@ -195,11 +195,11 @@ template(name='html_edit')
 
 
 template(name='html_view')
-    .ui.unstyled.accordion
-        .active.title
-            |content
+    .ui.inverted.accordion
+        .title
+            large content
             i.dropdown.icon
-        .active.content
+        .content
             |!{field_value}
             +call_watson mode='html'
 
@@ -442,7 +442,7 @@ template(name='array_view')
             else
                 |#{this}
             each field_value
-                .ui.label #{this}
+                .ui.black.large.label #{this}
 
 
 
