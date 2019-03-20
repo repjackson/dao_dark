@@ -175,7 +175,7 @@ Template.leftbar.events
 
 
 
-Template.rightbar.events
+Template.topnav.events
     'click .logout': ->
         Meteor.logout()
         Router.go '/signin'

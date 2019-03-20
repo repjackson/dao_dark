@@ -192,8 +192,13 @@ template(name='html_edit')
 
 
 template(name='html_view')
-    |!{field_value}
-    +call_watson mode='html'
+    .ui.unstyled.accordion
+        .active.title
+            |content
+            i.dropdown.icon
+        .active.content
+            |!{field_value}
+            +call_watson mode='html'
 
 
 template(name='doc_edit')

@@ -4,10 +4,10 @@ template(name='edit')
             .centered.row
                 .two.wide.column
                     i.pencil.large.grey.icon(title='editing doc')
-                    a.ui.big.circular.basic.inverted.button(href="/view/#{_id}")
+                    a.ui.big.circular.button(href="/view/#{_id}")
                         i.checkmark.icon
                         |save
-                    .ui.circular.basic.inverted.button.icon.delete_doc
+                    .ui.circular.button.icon.delete_doc
                         i.remove.icon
                     +detect
                 .fourteen.wide.column
@@ -30,7 +30,7 @@ template(name='field_menu')
     i.grey.plus.large.icon(title='add field')
         //- |brick
     each fields
-        .ui.basic.large.circular.inverted.button.add_field
+        .ui.large.circular.button.add_field
             i.icon(class=icon)
             |#{title}
 

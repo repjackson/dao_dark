@@ -55,7 +55,7 @@ Meteor.methods
                         { $set: 'facets.$.res': agg_res }
 
             # if delta.limit then limit=delta.limit else limit=30
-            calc_page_size = if delta.page_size then delta.page_size else 10
+            calc_page_size = if delta.page_size then delta.page_size else 3
 
             page_amount = Math.ceil(total/calc_page_size)
 
@@ -116,7 +116,7 @@ Meteor.methods
             # console.log 'delta', delta
 
     agg: (query, key, collection)->
-        limit=42
+        limit=100
         console.log 'agg query', query
         console.log 'agg key', key
         console.log 'agg collection', collection

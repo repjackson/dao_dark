@@ -135,11 +135,11 @@ template(name='facet')
             if name
                 .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                     | #{name}
-                    // small #{count}
+                    small #{count}
             else
                 .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                     strong [null]
-                    // small #{count}
+                    small #{count}
 
             // div
             // if icon
@@ -190,7 +190,7 @@ template(name='set_delta_key')
 
 template(name='result')
     with result 
-        .ui.result.fluid.secondary.segment.large120(class="{{#if is_loading}}loading{{/if}}")
+        .ui.result.secondary.segment.large120(class="{{#if is_loading}}loading{{/if}}")
             .content
                 a.ui.header(href="/view#{_id}")
                     if logo_id
@@ -214,19 +214,19 @@ template(name='result')
                     //- if is_dev
                     //-     +remove_button
                     if can_edit
-                        //- a.ui.button(href="/edit/#{_id}")
-                        //-     |Edit (m)
-                        a.ui.icon.button(href="/s/#{type}/#{_id}/edit")
-                            //- |Edit
-                            i.pencil.icon
-                    //- a.ui.button(href="/view/#{_id}")
-                    //-     |Save (m)
-                    a.ui.icon.button(href="/s/#{type}/#{_id}/view")
-                        //- |View
-                        i.right.arrow.icon
-                    if is_dev
-                        .ui.large.icon.button.archive_doc
-                            i.archive.icon
+                        a.ui.button(href="/edit/#{_id}")
+                            |edit
+                        //- a.ui.icon.button(href="/s/#{type}/#{_id}/edit")
+                        //-     |delta edit
+                        //-     i.pencil.icon
+                    a.ui.button(href="/view/#{_id}")
+                        |view
+                    //- a.ui.icon.button(href="/s/#{type}/#{_id}/view")
+                    //-     |delta view
+                    //-     i.right.arrow.icon
+                    //- if is_dev
+                    //-     .ui.large.icon.button.archive_doc
+                    //-         i.archive.icon
                     //- each schema.actions
                     //-     +Template.dynamic template=this data=..
                     //- div
@@ -260,11 +260,11 @@ template(name='type_edit')
                     // +ioffice name='pencil' classes='ui inline image'
                     div
                     +creation_info
-                    //- a.ui.button(href="/view/#{_id}")
-                    //-     |Save (m)
+                    a.ui.button(href="/view/#{_id}")
+                        |alpha
                     a.ui.fluid.button(href="/s/#{type}/#{_id}/view")
                         i.checkmark.icon
-                        |Save
+                        |delta
                     +remove_button
                 .twelve.wide.column
                     //- |#{type}
@@ -304,10 +304,10 @@ template(name='type_view')
                     //         i.chevron.left.icon
                     //     |View #{type}
                     if can_edit
-                        //- a.ui.button(href="/edit/#{_id}")
-                        //-     |Edit (m)
-                        a.ui.button(href="/s/#{type}/#{_id}/edit")
-                            i.pencil.icon
+                        a.ui.button(href="/edit/#{_id}")
+                            |Edit (m)
+                        //- a.ui.button(href="/s/#{type}/#{_id}/edit")
+                        //-     i.pencil.icon
                             |Edit
                     each schema.actions
                         +Template.dynamic template=this data=doc

@@ -1,92 +1,30 @@
 template(name='topnav')
-    // .ui.attached.borderless.large.inverted.topnav.menu(style="background:#{ct.primary_color}")
-    .ui.attached.borderless.inverted.topnav.big.menu
+    .ui.center.aligned.basic.segment
         if is_loading
-            .icon.item
-                i.loading.compass.outline.large.icon
-        else 
-            a.item.icon.toggle_leftbar(href='#')
-                i.bars.large.icon
-        a.alpha.ui.icon.item(href="/" class="{{isActivePath '/'}}")
+            i.loading.compass.outline.large.icon
+        //- else 
+        //-     a.icon.button.toggle_leftbar(href='#')
+        //-         i.bars.large.icon
+        a.alpha.ui.icon.button(href="/" class="{{isActivePath '/'}}")
             i.home.large.icon
-        //- if is_dev
-        a.ui.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
-            i.th.large.icon
-        a.ui.delta.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
-            i.sitemap.large.icon
-        a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
-            i.large.list.icon
-        a.icon.item.people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
-             i.users.large.icon
-                
-            //- strong Gold Run
-        //- a.ui.header.tribe_schemas.item(href="/library" class="{{isActivePath '/library'}}")
-        //-     i.home.icon
-        //-     strong Gold Run
-        //- each topnav_schemas
-        //-     a.item.mobile_hidden.set_tribe_schema(href="/s/#{slug}" class="{{#if is_loading}}disabled{{/if}}" title="{{#unless show_label}} {{title}} {{/unless}}")
-        //-         if color_icon
-        //-             img.ui.avatar.image(src="https://img.icons8.com/color/48/000000/#{color_icon}.png")
-        //-         else if icon
-        //-             i.icon(class=icon)
-        //-         if show_label
-        //-             |&nbsp;
-        //-             strong #{plural}
-        // each topnav_pages
-        //     a.ui.button(href="/p/#{slug}" class="{{#if is_loading}}disabled{{/if}}")
-        //         // if color_icon_header
-        //         //     +ioffice name=color_icon
-        //         if show_icon
-        //             i.icon(class=icon)
-        //         if show_label
-        //             |&nbsp; #{title}
-        //     if is_dev
-        //         a.icon.ui.button(href="/s/page/#{_id}/edit" title='Edit Page')
-        //             i.pencil.icon
-
-        // a.icon.item.tribe_schemas(href="/s/schema")
-        //     i.th.icon
-        //     | Sections   
-        // a.icon.ui.button(href="/menu")
-        //     i.th.icon
-        // +role_switcher
-        .right.menu
-            if currentUser
-                a.ui.icon.item.adddoc(href="#")
-                    i.plus.large.icon
-                a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
-                    i.plus.large.icon
-                a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
-                    i.large.chat.icon
-                a.ui.icon.item.messages(href="/u/#{currentUser.username}/messages" class="{{isActiveRoute 'user_messages'}}")
-                    i.large.inbox.icon
-                a.ui.icon.item(href="/users" class="{{isActivePath '/users'}}")
-                    i.large.users.icon
-                a.ui.icon.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
-                    i.user.large.icon
-                    | #{currentUser.username}
-                    // | #{currentUser.username} [#{currentUser.status}]
-                a.icon.item.toggle_rightbar(href='#')
-                    i.bars.large.icon
+        if currentUser
+            a.ui.icon.button.adddoc(href="#")
+                i.plus.large.icon
+            a.ui.button(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
+                i.user.large.icon
+                | #{currentUser.username}
+            if signing_out
+                .icon.disabled.item.toggle_rightbar
+                    i.notched.circle.loading.big.icon
             else
-                a.ui.icon.item(href="/login")
-                    i.sign.in.alternate.large.icon
-                    // +ioffice name='login-rounded-down'
-                    //- |Sign In 
-                a.ui.icon.item(href="/register")
-                    i.user.plus.large.icon
-                    // +ioffice name='add-user-male'
-                    //- |Register 
-            //- if is_dev
-    .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
-        each topnav_schemas
-            a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-                if color_icon
-                    +icolor name=color_icon classes='ui avatar image'
-                else if icon
-                    i.icon(class=icon)
-                |&nbsp; #{plural}
+                .logout.ui.small.icon.button(title='log out')
+                    i.sign.out.icon
 
+        else
+            a.ui.icon.button(href="/login")
+                i.sign.in.alternate.large.icon
+            a.ui.icon.button(href="/register")
+                i.user.plus.large.icon
 
 
 template(name='topbar')
