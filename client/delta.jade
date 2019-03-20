@@ -74,11 +74,11 @@ template(name='result')
                         |#{nl2br analyzed_text}
                     
                 .content
-                    a.ui.header(href="/view#{_id}")
-                        each bricks
-                            if header
-                                +Template.dynamic template=view_template 
-                        // |#{title}
+                    //- a.ui.header(href="/view#{_id}")
+                    //-     each bricks
+                    //-         if header
+                    //-             +Template.dynamic template=view_template 
+                    //-     // |#{title}
                     //- .description
                     //-     each small_bricks
                     //-         unless header

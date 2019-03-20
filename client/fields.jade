@@ -196,10 +196,10 @@ template(name='html_edit')
 
 template(name='html_view')
     .ui.inverted.accordion
-        .title
+        .active.title
             large content
             i.dropdown.icon
-        .content
+        .active.content
             |!{field_value}
             +call_watson mode='html'
 
