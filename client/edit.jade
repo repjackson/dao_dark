@@ -2,14 +2,13 @@ template(name='edit')
     with doc
         .ui.stackable.padded.grid
             .centered.row
-                .center.aligned.twelve.wide.column
+                .center.aligned.sixteen.wide.column
                     a.ui.huge.circular.inverted.basic.icon.button(href="/view/#{_id}")
                         i.checkmark.icon
                     .ui.circular.inverted.basic.button.icon.delete_doc
                         i.remove.icon
                     +detect
-            .centered.row
-                +field_menu
+                    +field_menu
                 //- each fields
                 //-     .ui.label #{this}
             .centered.row

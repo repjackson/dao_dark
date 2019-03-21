@@ -30,7 +30,7 @@ Accounts.onEnrollmentLink (token,done)->
 # Template.registerHelper 'dark_side', () -> Session.equals('invert',true)
 # Template.registerHelper 'invert_class', () -> if Session.equals('invert',true) then 'invert' else ''
 Template.registerHelper 'is_active_route', () -> ''
-Template.registerHelper 'is_active_path', () -> ''
+Template.registerHelper 'isActivePath', () -> ''
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 Template.registerHelper 'is_author', () -> @_author_id is Meteor.userId()

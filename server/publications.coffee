@@ -183,6 +183,11 @@ Meteor.publish 'wall_posts', (username)->
 
 
 
+Meteor.publish 'all_users', ()->
+    Meteor.users.find {}
+
+
+
 
 
 Meteor.publish 'user_messages', (username)->

@@ -72,7 +72,7 @@ template(name='keywords')
                 .description
                     if emotion
                         with emotion
-                            //- span {{ to_percent sadness }}% sadness
+                            span {{ to_percent sadness }}% sadness
                             .ui.blue.small.disabled.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
                                 .bar
                                 //- .progress
@@ -148,8 +148,8 @@ template(name='concept_list')
 
 template(name='concepts')
     //- .ui.small.grey.header 
-    //-     |#{watson.concepts.length} concepts
-    .ui.list
+    //-     |#{watson.concepts.length} 
+    .large150
         each watson.concepts
             div(class="{{calculated_size 'relevance'}}" title="{{to_percent relevance}}% relevant")
                 a(href=dbpedia_resource target='_blank') #{text}

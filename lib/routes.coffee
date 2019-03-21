@@ -16,6 +16,8 @@ Router.route '/me', -> @render 'me'
 # Router.route '/users', -> @render 'users'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/bank', -> @render 'bank'
+Router.route '/checkin', -> @render 'checkin'
+Router.route '/healthclub', -> @render 'healthclub'
 
 
 Router.route('enroll', {

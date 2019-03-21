@@ -1,4 +1,4 @@
-# Template.login.events
+# Template.checkin.events
 #     'submit #loginForm': (e, t) ->
 #         username = e.target.username.value.toLowerCase()
 #         password = e.target.password.value
@@ -25,7 +25,7 @@
 
 
 
-Template.login.events
+Template.checkin.events
     'submit #login': (e, t) ->
         username = e.target.username.value.toLowerCase()
         password = e.target.password.value
@@ -51,7 +51,7 @@ Template.login.events
 
 
 
-Template.login.helpers
+Template.checkin.helpers
     enter_class: ->
         if Meteor.loggingIn() then 'loading disabled' else ''
 
@@ -61,7 +61,7 @@ Template.login.helpers
 
 
 
-# Template.login.onRendered ->
+# Template.checkin.onRendered ->
 #     $('body').addClass 'landing-page'
 #     $('body').scrollspy
 #         target: '.navbar-fixed-top'

@@ -22,11 +22,11 @@ Template.email_receipt.events
 
 
 
-Template.checkin.onCreated ->
+Template.healthclub.onCreated ->
     @autorun -> Meteor.subscribe 'type', 'log_event'
 
 
-Template.checkin.onRendered ->
+Template.healthclub.onRendered ->
     Meteor.setTimeout ->
         $('.accordion').accordion()
     , 1500
@@ -54,17 +54,6 @@ Template.rules_sign.events
             type:'rules_and_regulations_acknowledgement'
             person_id: @_id
         Router.go("/s/rules_and_regulations_acknowledgement/#{rules_doc._id}/view")
-
-
-Template.checkin.helpers
-    is_checkedin: ->
-
-    log_events: ->
-        Docs.find {
-            object_id:@_id
-            type:'log_event'
-        }, sort:_timestamp:-1
-
 
 
 Template.checkout.events

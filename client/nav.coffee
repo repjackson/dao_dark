@@ -157,70 +157,70 @@ Template.topnav.events
 #                     .sidebar('attach events', '.toggle_topbar')
 #             , 3000
 #
-# Template.leftbar.events
-#     'click .tribe_pages': ->
-#         Session.set 'loading', true
-#         Meteor.call 'set_delta_facets', 'page',->
-#             Session.set 'loading', false
-#
-#     'click .tribe_schemas': ->
-#         Session.set 'loading', true
-#         Meteor.call 'set_delta_facets', 'schema',->
-#             Session.set 'loading', false
-#
-#
-#     'click .logout': ->
-#         Meteor.logout()
-#         Router.go '/signin'
-#
-#
-#
-# Template.topnav.events
-#     'click .logout': ->
-#         Meteor.logout()
-#         Router.go '/signin'
-#
-#
-# Template.rightbar.onRendered ->
-#     @autorun =>
-#         if @subscriptionsReady()
-#             Meteor.setTimeout ->
-#                 $('.context .ui.right.sidebar')
-#                     .sidebar({
-#                         context: $('.context .bottom.segment')
-#                         exclusive: true
-#                         delaySetup:false
-#                         dimPage: false
-#                         transition:  'push'
-#                     })
-#                     .sidebar('attach events', '.toggle_rightbar')
-#             , 2000
-#
-#
-#
-# Template.leftbar.helpers
-#     tribe_schemas: ->
-#         if Meteor.user() and Meteor.user().roles
-#             Docs.find {
-#                 # view_roles: $in:Meteor.user().roles
-#                 type:'schema'
-#             }, sort:title:1
-#
-# Template.leftbar.events
-#     'click .set_schema': ->
-#         Session.set 'loading', true
-#         Meteor.call 'set_delta_facets', @slug,->
-#             Session.set 'loading', false
-#
-#
-#
-#
-# Template.footer.onCreated ->
-#     @autorun => Meteor.subscribe 'type', 'page'
-#
-#
-# Template.footer.helpers
-#     footer_pages: ->
-#         Docs.find
-#             type:'page'
-#             show_in_footer:true
+Template.leftbar.events
+    'click .tribe_pages': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', 'page',->
+            Session.set 'loading', false
+
+    'click .tribe_schemas': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', 'schema',->
+            Session.set 'loading', false
+
+
+    'click .logout': ->
+        Meteor.logout()
+        Router.go '/signin'
+
+
+
+Template.topnav.events
+    'click .logout': ->
+        Meteor.logout()
+        Router.go '/signin'
+
+
+Template.rightbar.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.context .ui.right.sidebar')
+                    .sidebar({
+                        context: $('.context .bottom.segment')
+                        exclusive: true
+                        delaySetup:false
+                        dimPage: false
+                        transition:  'push'
+                    })
+                    .sidebar('attach events', '.toggle_rightbar')
+            , 2000
+
+
+
+Template.leftbar.helpers
+    tribe_schemas: ->
+        if Meteor.user() and Meteor.user().roles
+            Docs.find {
+                # view_roles: $in:Meteor.user().roles
+                type:'schema'
+            }, sort:title:1
+
+Template.leftbar.events
+    'click .set_schema': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', @slug,->
+            Session.set 'loading', false
+
+
+
+
+Template.footer.onCreated ->
+    @autorun => Meteor.subscribe 'type', 'page'
+
+
+Template.footer.helpers
+    footer_pages: ->
+        Docs.find
+            type:'page'
+            show_in_footer:true

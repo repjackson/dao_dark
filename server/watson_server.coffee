@@ -55,8 +55,8 @@ Meteor.methods
     call_tone: (doc_id, key, mode)->
         self = @
         doc = Docs.findOne doc_id
-        console.log key
-        console.log mode
+        # console.log key
+        # console.log mode
         # if doc.html or doc.body
         #     # stringed = JSON.stringify(doc.html, null, 2)
         if mode is 'html'

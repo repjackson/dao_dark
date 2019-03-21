@@ -15,37 +15,6 @@ template(name='notify')
                 .right.floated.content
                     i.remove_notified_user.large.link.red.remove.icon
 
-template(name='checkin')
-    unless healthclub_checkedin
-        .ui.circular.button.checkin(title='Check In')
-            // i.sign.in.icon
-            +icolor name='login-rounded-right' classes='ui avatar image'
-            |Sign In to Health Club
-    if healthclub_checkedin
-        .ui.circular.button.checkout(title='Sign Out')
-            // i.sign.out.large.icon
-            +icolor name='exit-sign' classes='ui avatar image'
-            |Sign Out from Health Club
-    +rules_sign
-    +guest_sign
-    .ui.accordion
-        .title
-            .ui.inline.small.header
-                |Events
-                i.dropdown.icon
-        .content
-            .ui.feed
-                each log_events
-                    .event
-                        .label
-                            img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                        .content
-                            .summary
-                                |#{body}
-                                .date
-                                    |#{when}
-                                if is_dev
-                                    +remove_button
 
 
 template(name='email_receipt')

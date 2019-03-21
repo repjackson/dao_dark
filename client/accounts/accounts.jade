@@ -4,7 +4,7 @@ template(name='login')
             .ten.wide.column
                 .shadowed-box
                     .ui.center.aligned.large.header 
-                        |Log In
+                        |login
                     form.ui.large.form#login
                         .field(class=login_class)
                             label
@@ -18,17 +18,16 @@ template(name='login')
                             input#password(type='password' placeholder='******')
                         .ui.hidden.divider
                         button#submit.ui.fluid.circular.button(type='submit' class=enter_class title='Submit')
-                            // i.sign.in.icon
-                            +icolor name='enter-2'
-                            // strong Login
+                            i.sign.in.icon
+                            strong login
                     .ui.basic.center.aligned.segment        
                         .ui.horizontal.relaxed.list
                             a.item(href='/signup')
                                 i.sign.in.icon
-                                |Signup
+                                |signup
                             a.item(href='/forgot-password') 
                                 i.refresh.icon
-                                |Forgot Password
+                                |forgot password
                             // +socialLoginButtons
                         
                         
@@ -45,61 +44,34 @@ template(name='forgot_password')
                 .ui.segment
                     .ui.center.aligned.header
                         i.forgot-password.icon
-                        |Reset Password
+                        |reset password
                     form#forgotPasswordForm(action='#')
                         .form-group
-                            label.control-label(for='username') Email
+                            label.control-label(for='username') email
                             input#username.form-control(type='email', placeholder='example@gmail.com', title='Please enter you username', required='', value='', name='username', autofocus='')
                         button#reset.ui.teal.fluid.button(type='submit')
                             i.submit-progress.icon
-                            |Send Reset Link
+                            |send reset link
                         .ui.horizontal.relaxed.list
                             a.item(href='/signup')
                                 i.add-user-male.icon
-                                |Signup
+                                |signup
                             a.item(href='/signin') 
                                 i.login-rounded-down.icon
-                                |Sign-in
+                                |signin
 
 
 template(name='reset_password')
     .ui.container
-        h3 Reset your password?
+        h3 reset your password?
         .ui.basic.segment
             form.ui.form#resetPasswordForm
                 .field
-                    label(for='Password') Password
+                    label(for='Password') password
                     input#resetPasswordPassword.form-control.validationRequired.validationEqualTo(type='password', placeholder='password', name='password')
                 .field
-                    label(for='CPassword') Confirm Password
+                    label(for='CPassword') confirm password
                     input#resetPasswordPasswordConfirm.form-control.validationRequired.validationEqualTo(type='password', euqalto='#resetPasswordPassword', placeholder='confirm password', name='confirmpassword')
-                button.ui.fluid.green.button(type='submit') Submit
-                a(href='/signin') Sign-in
+                button.ui.fluid.green.button(type='submit') submit
+                a(href='/signin') login
                         
-                        
-                        
-template(name='selectRole')
-    .color-line
-    .back-link
-        a.btn.btn-primary(href="{{pathFor route='landingPage'}}") Back to Home Page
-    .normalheader.transition.animated.fadeIn
-        .panel-body.text-center
-            h3.font-light.m-b-xs
-                b Select your role
-    .animate-panel.bluegraybg
-        .login-container
-            .row
-                .col-md-12
-                    .hpanel
-                        .panel-body
-                            .col-lg-6.border-right
-                                p
-                                .btn-top-space.text-center.btn1-div
-                                    a.btn.btn-1.roleSelect(href='#', data-role='Organization') Organization
-                                p
-                            .col-lg-6
-                                p
-                                .btn-top-space.text-center.btn1-div
-                                    a.btn.btn-1.roleSelect(href='#', data-role='Giver') Giver
-                                p
-                    

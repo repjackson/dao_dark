@@ -1,3 +1,4 @@
+
 Docs.allow
     insert: (userId, doc) -> userId
     update: (userId, doc) -> userId
@@ -64,9 +65,10 @@ Meteor.publish 'users', ->
     Meteor.users.find()
 
 Meteor.publish 'health_club_members',(username_query)->
+    console.log username_query
     Meteor.users.find({
         username: {$regex:"#{username_query}", $options: 'i'}
-        }).fetch()
+        })
 
 
 
