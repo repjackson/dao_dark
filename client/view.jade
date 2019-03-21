@@ -40,10 +40,8 @@ template(name='view')
                             +entities
                             +personality
                             +consumption_preferences
-                .twelve.wide.column
+                .six.wide.column.scrolling
                     .ui.inverted.basic.segment.large150
-                        if watson
-                            +tone
                         each _keys
                             //- .ui.label #{this}
                             +key_view
@@ -54,7 +52,10 @@ template(name='view')
                         div
                         +comments
                         +voting
+                .six.wide.column.scrolling
+                    .ui.inverted.basic.segment.large150
                         if watson
+                            +tone
                             +keywords
                         //- +watson_view
                         if visual_classes

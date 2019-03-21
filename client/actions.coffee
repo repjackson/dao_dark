@@ -66,63 +66,6 @@ Template.checkin.helpers
         }, sort:_timestamp:-1
 
 
-Template.checkin.events
-    'click .checkin': (e,t)->
-        swal {
-            title: "Checkin #{@username}?"
-            # text: 'This will also delete the messages.'
-            type: 'info'
-            showCancelButton: true
-            animation: false
-            confirmButtonColor: 'green'
-            confirmButtonText: 'Check In'
-            closeOnConfirm: true
-        }, =>
-            $(e.currentTarget).closest('.ui.card').transition('zoom')
-            Meteor.setTimeout =>
-                Docs.update @_id,
-                    $set:healthclub_checkedin:true
-                Docs.insert
-                    type:'log_event'
-                    object_id:@_id
-                    body: "#{@username} checked in."
-            , 1000
-
-
-    'click .checkout': (e,t)->
-        swal {
-            title: "Checkout #{@username}?"
-            # text: 'This will also delete the messages.'
-            type: 'success'
-            showCancelButton: true
-            animation: false
-            confirmButtonColor: 'orange'
-            confirmButtonText: 'Checkout'
-            closeOnConfirm: true
-        }, =>
-            $(e.currentTarget).closest('.ui.card').transition('zoom')
-            Meteor.setTimeout =>
-                Docs.update @_id,
-                    $set:healthclub_checkedin:false
-                Docs.insert
-                    type:'log_event'
-                    parent_id:@_id
-                    object_id:@_id
-                    body: "#{@username} checked out."
-            , 1000
-
-
-
-Template.guest_sign.events
-    'click .enter_guest': ->
-        # console.log @
-        checkin_doc_id = Docs.insert
-            type:'health_club_checkin'
-            guest_of_id:@_id
-        Router.go("/s/health_club_checkin/#{checkin_doc_id}/edit")
-
-
-
 
 Template.checkout.events
     'click .checkout': ->

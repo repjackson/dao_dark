@@ -1,29 +1,4 @@
 if Meteor.isClient
-    # Template.type_edit.onCreated ->
-    #     @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
-    #     # @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
-    #     # @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
-    #
-    #
-    # Template.type_view.onCreated ->
-    #     # @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.type
-    #     # @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.type
-    #     @autorun -> Meteor.subscribe 'doc', Router.current().params._id, Router.current().params.type
-    #
-    # Template.type_edit.events
-    #     'click .delete_schema': ->
-    #         if confirm 'Confirm delete schema'
-    #             Docs.remove @_id
-    #             Router.go '/schemas'
-    #
-    # Template.type_view.events
-    #     'click .set_tribe_schema': ->
-    #         Session.set 'loading', true
-    #         Meteor.call 'set_delta_facets', @slug, Router.current().params.tribe_slug,->
-    #             Session.set 'loading', false
-
-
-
     Template.facet.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
@@ -61,12 +36,15 @@ if Meteor.isClient
         filtering_res: ->
             delta = Docs.findOne type:'delta'
             filtering_res = []
-            for filter in @res
-                if filter.count < delta.total
-                    filtering_res.push filter
-                else if filter.name in @filters
-                    filtering_res.push filter
-            filtering_res
+            if @key is '_keys'
+                @res
+            else
+                for filter in @res
+                    if filter.count < delta.total
+                        filtering_res.push filter
+                    else if filter.name in @filters
+                        filtering_res.push filter
+                filtering_res
 
 
 

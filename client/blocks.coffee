@@ -263,16 +263,7 @@ if Meteor.isClient
 
     Template.remove_button.events
         'click .remove_doc': ->
-            swal {
-                title: "Remove #{@type}?"
-                # text: 'This will also delete the messages.'
-                type: 'warning'
-                showCancelButton: true
-                animation: false
-                confirmButtonColor: 'red'
-                confirmButtonText: 'Delete'
-                closeOnConfirm: true
-            }, =>
+            if confirm "Remove #{@type}?"
                 Docs.remove @_id
 
 

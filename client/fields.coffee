@@ -98,11 +98,8 @@ Template.html_edit.events
         html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
         # console.log 'html', html
         # console.log @
-        brick = Template.parentData(4)
-        if Template.parentData(6)._id
-            context = Template.parentData(6)
-        else
-            context = Template.parentData(5)
+        brick = Template.parentData(5)
+        context = Template.parentData(6)
 
         doc = Docs.findOne context._id
         user = Meteor.users.findOne context._id
@@ -249,26 +246,9 @@ Template.image_edit.events
         else
             context = Template.parentData(5)
 
-        swal {
-            title: 'Remove Photo?'
-            type: 'warning'
-            animation: false
-            showCancelButton: true
-            closeOnConfirm: true
-            cancelButtonText: 'No'
-            confirmButtonText: 'Remove'
-            confirmButtonColor: '#da5347'
-        }, =>
-            # Meteor.call "c.delete_by_public_id", @image_id, (err,res) =>
+        if confirm 'Remove Photo?'
             Docs.update context._id,
                 $unset:"#{brick.key}":1
-                # if not err
-                #     # Do Stuff with res
-                #     # console.log res
-                #     # console.log @image_id, FlowRouter.getParam('doc_id')
-
-                # else
-                #     throw new Meteor.Error "it failed"
 
 
 
