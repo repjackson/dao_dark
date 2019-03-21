@@ -1,30 +1,28 @@
 template(name='topnav')
-    .ui.center.aligned.basic.segment
+    .ui.center.aligned.basic.inverted.segment
         if is_loading
-            i.loading.compass.outline.large.icon
-        //- else 
-        //-     a.icon.button.toggle_leftbar(href='#')
-        //-         i.bars.large.icon
-        a.alpha.ui.icon.circular.inverted.basic.button(href="/" class="{{is_active_path '/'}}")
-            i.home.large.icon
-        if currentUser
-            a.ui.circular.icon.inverted.basic.button.adddoc(href="#")
-                i.plus.large.icon
-            //- a.ui.circular.inverted.basic.button(href="/u/#{currentUser.username}" title="Profile" class="{{is_active_route 'user_home'}}")
-                //- i.user.large.icon
-            .ui.small.inverted.inline.header #{currentUser.username}
-            if signing_out
-                .icon.disabled.item.toggle_rightbar
-                    i.notched.circle.loading.big.icon
-            else
-                .logout.ui.small.circular.icon.inverted.basic.button(title='log out')
-                    i.sign.out.icon
+            i.loading.adjust.huge.grey.icon
+        else 
+            a.alpha.ui.icon.circular.inverted.basic.button(href="/" class="{{is_active_path '/'}}")
+                i.home.large.icon
+            if currentUser
+                a.ui.circular.icon.inverted.basic.button.adddoc(href="#")
+                    i.plus.large.icon
+                //- a.ui.circular.inverted.basic.button(href="/u/#{currentUser.username}" title="Profile" class="{{is_active_route 'user_home'}}")
+                    //- i.user.large.icon
+                .ui.small.inverted.inline.header #{currentUser.username}
+                if signing_out
+                    .icon.disabled.item.toggle_rightbar
+                        i.notched.circle.loading.big.icon
+                else
+                    .logout.ui.small.circular.icon.inverted.basic.button(title='log out')
+                        i.sign.out.icon
 
-        else
-            a.ui.circular.icon.inverted.basic.button(href="/login")
-                i.sign.in.alternate.large.icon
-            a.ui.circular.icon.inverted.basic.button(href="/register")
-                i.user.plus.large.icon
+            else
+                a.ui.circular.icon.inverted.basic.button(href="/login")
+                    i.sign.in.alternate.large.icon
+                a.ui.circular.icon.inverted.basic.button(href="/register")
+                    i.user.plus.large.icon
 
 
 template(name='topbar')

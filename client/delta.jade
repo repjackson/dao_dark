@@ -1,4 +1,5 @@
 template(name='facet')
+    |&nbsp;
     //- if filtering_res
     //- .ui.inverted.inline.header 
     //-     if icon
@@ -7,8 +8,7 @@ template(name='facet')
     //-         |#{label}
     //-     else 
     //-         |#{key}
-    .ui.transparent.left.icon.large.inverted.input
-        i.search.icon
+    .ui.transparent.inverted.input
         input.add_filter(type='text' placeholder=key)
     //-     // i.grey.dropdown.icon
     //-         // i.dropdown.icon
@@ -63,11 +63,11 @@ template(name='result')
     with result 
         unless is_loading
             .ui.result.inverted.basic.segment.two.column.stackable.grid
-                .column
+                .column.scrolling
                     each _keys
                         +key_view
                     
-                .column
+                .column.scrolling
                     if watson
                         +watson_view
                         if visual_classes
