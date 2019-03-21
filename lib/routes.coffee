@@ -129,8 +129,8 @@ Router.route '/register', -> @render 'register'
 Router.route '/forgot-password', -> @render 'forgot-password'
 
 
-# Router.route '/add_resident', -> @render 'add_resident'
-# Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
+Router.route '/add_resident', -> @render 'add_resident'
+Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 Router.route '/settings', -> @render 'settings'
 
 Router.route '/users', -> @render 'people'

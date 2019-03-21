@@ -2,116 +2,74 @@
 template(name='healthclub')
     .ui.stackable.padded.grid
         .row
-            .twelve.wide.column.scrolling
+            .twelve.wide.column
                 .row
                     .ui.center.aligned.large.header 
                         |Gold Run Health Club Check In
-                    .ui.small.header
-                        // +icolor name='internal' classes='ui image'
-                        i.sign.in.icon
-                        |Checked In Members
-                .ui.two.column.row
-                    each checkedin_members
-                        .column
-                            .ui.padded.stackable.grid.segment
-                                // .four.wide.column
-                                    // a(href="/t/goldrun/u/#{_id}/about")
-                                        // img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                .twelve.wide.column
-                                    .content
-                                        .ui.header #{first_name} #{last_name}
-                                        // a(href="/t/goldrun/u/#{_id}/about")
-                                        a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
-                                        .description
-                                            .ui.list
-                                                .ui.item First Name 
-                                                    strong #{first_name}
-                                                .ui.item Last Name 
-                                                    strong #{last_name}
-                                                .ui.item Address 
-                                                    strong #{address}
-                                                .ui.item Unit # 
-                                                    strong #{apt_number}
-                                                .ui.item Building # 
-                                                    strong #{building_number}
-                                                .ui.item Start Date 
-                                                    strong #{start_date}
-                                                unless owner
-                                                    .ui.item Lease Expiration Date 
-                                                        strong #{lease_expiration}
-                                                .ui.item Telephone 
-                                                    strong #{telephone}
-                                                .ui.item Email 
-                                                    strong #{email}
-                                                if owner
-                                                    .ui.item 
-                                                        |Owner 
-                                                        i.checkmark.icon
-                                        .extra
-                                            a.ui.button(href="/t/goldrun/u/#{_id}/about")
-                                                |View
-                                                i.chevron.right.icon
+                .row
+                    .ui.inline.header
+                        i.sign.in.alternate.icon
+                        |Sign In
+                    .ui.icon.big.fluid.input
+                        i.search.icon
+                        input.username_search(type='text' placeholder='Search Member...')
+                    .ui.fluid.button.clear_results
+                        i.remove.icon
+                        |Clear
+                    if checkedout_members.length
+                        .ui.secondary.segment
+                            .ui.stackable.four.cards
+                                each checkedout_members
+                                    .card
+                                        .image
+                                            if profile.image_id
+                                                img.ui.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                            else if image_id
+                                                img.ui.rounded.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                        .content
+                                            .ui.header #{first_name} #{last_name} #{username}
+                                            // a(href="/t/goldrun/u/#{_id}/about")
+                                            //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
+                                        .content
                                             +checkin_button
-                                            if signed_waiver
-                                                .ui.green.basic.button
-                                                    i.checkmark.icon
-                                                    |Waiver Signed
-                                            else
-                                                .ui.red.button.sign_waiver
-                                                    i.cancel.icon
-                                                    |Waiver Not Signed
-                    .ui.divider
-                    .ui.header
-                        // +icolor name='external' classes='ui image'
-                        i.search.icon
-                        |Search Members
-                    .ui.fluid.icon.input
-                        i.search.icon
-                        input.username_search(type='text' placeholder='Search Username...')
-                    each checkedout_members
-                        .ui.padded.stackable.grid.segment
-                            .four.wide.column
-                                a(href="/t/goldrun/u/#{_id}/about")
-                                    if profile.image_id
-                                        img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                    else if image_id
-                                        img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                            .twelve.wide.column
-                                .content
-                                    .ui.header #{first_name} #{last_name}
-                                    // a(href="/t/goldrun/u/#{_id}/about")
-                                    a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
-                                    .description
-                                        .ui.list
-                                            .ui.item First Name 
-                                                strong #{first_name}
-                                            .ui.item Last Name 
-                                                strong #{last_name}
-                                            .ui.item Address 
-                                                strong #{address}
-                                            .ui.item Unit # 
-                                                strong #{apt_number}
-                                            .ui.item Building # 
-                                                strong #{building_number}
-                                            .ui.item Start Date 
-                                                strong #{start_date}
-                                            unless owner
-                                                .ui.item Lease Expiration Date 
-                                                    strong #{lease_expiration}
-                                            .ui.item Telephone 
-                                                strong #{telephone}
-                                            .ui.item Email 
-                                                strong #{email}
-                                            if owner
-                                                .ui.item 
-                                                    |Owner 
-                                                    i.checkmark.icon
-                                    .extra
-                                +checkin_button
+                
+                
+                
+                .row
+                    .ui.secondary.segment
+                        .ui.header
+                            +icolor name='internal' classes='ui image'
+                            |#{checkedin_members.length} Checked In Members
+                        .ui.four.stackable.cards
+                            each checkedin_members
+                                .card
+                                    .image
+                                        if profile.image_id
+                                            img.ui.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                        else if image_id
+                                            img.ui.rounded.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                    .content
+                                        .ui.header #{first_name} #{last_name} @#{username}
+                                        //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
+                                        //- a.ui.button(href="/t/goldrun/u/#{_id}/about")
+                                        //-     |View
+                                        //-     i.chevron.right.icon
+                                    .content
+                                        +checkin_button
+                                        //- if signed_waiver
+                                        //-     .ui.green.basic.button
+                                        //-         i.checkmark.icon
+                                        //-         |Waiver Signed
+                                        //- else
+                                        //-     .ui.red.button.sign_waiver
+                                        //-         i.cancel.icon
+                                        //-         |Waiver Not Signed
+                        
             .four.wide.column.scrolling
-                a.ui.large.fluid.button(href='/t/goldrun/add_resident')
-                    i.user.plus.icon
-                    |Add Resident
+                if is_admin
+                    a.ui.large.fluid.button(href='/add_resident')
+                        i.user.plus.icon
+                        |Add Resident
                 .ui.accordion
                     h4.active.title
                         // +icolor name='edit-property' classes='ui inline image'
@@ -324,29 +282,29 @@ template(name='checkin_button')
         .ui.circular.button.checkin(title='Check In')
             // i.sign.in.icon
             +icolor name='login-rounded-right' classes='ui avatar image'
-            |Sign In to Health Club
+            |Check In
     if healthclub_checkedin
         .ui.circular.button.checkout(title='Sign Out')
             // i.sign.out.large.icon
             +icolor name='exit-sign' classes='ui avatar image'
-            |Sign Out from Health Club
-    +rules_sign
-    +guest_sign
-    .ui.accordion
-        .title
-            .ui.inline.small.header
-                |Events
-                i.dropdown.icon
-        .content
-            .ui.feed
-                each log_events
-                    .event
-                        .label
-                            img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                        .content
-                            .summary
-                                |#{body}
-                                .date
-                                    |#{when}
-                                if is_dev
-                                    +remove_button
+            |Check Out
+    //- +rules_sign
+    //- +guest_sign
+    //- .ui.accordion
+    //-     .title
+    //-         .ui.inline.small.header
+    //-             |Events
+    //-             i.dropdown.icon
+    //-     .content
+    //-         .ui.feed
+    //-             each log_events
+    //-                 .event
+    //-                     .label
+    //-                         img.ui.image(src="{{c.url object.profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+    //-                     .content
+    //-                         .summary
+    //-                             |#{body}
+    //-                             .date
+    //-                                 |#{when}
+    //-                             if is_dev
+    //-                                 +remove_button

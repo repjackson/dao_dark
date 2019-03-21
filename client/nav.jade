@@ -5,8 +5,17 @@ template(name='topnav')
         else 
             a.alpha.ui.icon.item(href="/" class="{{isActivePath '/'}}")
                 i.home.large.icon
-            a.alpha.ui.icon.item(href="/checkin" class="{{isActivePath '/checkin'}}")
+            a.alpha.ui.icon.item(href="/healthclub" class="{{isActivePath '/checkin'}}")
                 |Check In
+            a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
+                i.plus.large.icon
+            a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
+                i.large.chat.icon
+            a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
+                 i.large.inbox.icon
+            a.item(href="/users" class="{{isActivePath '/users'}}")
+                 i.large.users.icon
+                         
         .right.menu
             if currentUser
                 a.ui.circular.icon.item.adddoc(href="#")
@@ -29,6 +38,15 @@ template(name='topnav')
                 a.ui.item(href="/register")
                     i.user.plus.large.icon
                     |register
+    if is_dev
+        .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
+            each topnav_schemas
+                a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+                    if color_icon
+                        +icolor name=color_icon
+                    else if icon
+                        i.icon(class=icon)
+                    |&nbsp; #{plural}
 
 
 template(name='topbar')

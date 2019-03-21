@@ -48,12 +48,12 @@ Template.checkin_button.events
             # text: 'This will also delete the messages.'
             type: 'info'
             showCancelButton: true
-            animation: false
+            animation: true
             confirmButtonColor: 'green'
             confirmButtonText: 'Check In'
             closeOnConfirm: true
         }, =>
-            $(e.currentTarget).closest('.ui.card').transition('zoom')
+            $(e.currentTarget).closest('.card').transition('zoom')
             Meteor.setTimeout =>
                 Meteor.users.update @_id,
                     $set:healthclub_checkedin:true
@@ -61,6 +61,8 @@ Template.checkin_button.events
                     type:'log_event'
                     object_id:@_id
                     body: "#{@username} checked in."
+                swal( "#{@username} checked in.", "", "success" )
+                Session.set 'username_query',null
             , 1000
 
 
@@ -70,12 +72,12 @@ Template.checkin_button.events
             # text: 'This will also delete the messages.'
             type: 'success'
             showCancelButton: true
-            animation: false
+            animation: true
             confirmButtonColor: 'orange'
             confirmButtonText: 'Checkout'
             closeOnConfirm: true
         }, =>
-            $(e.currentTarget).closest('.ui.card').transition('zoom')
+            $(e.currentTarget).closest('.card').transition('zoom')
             Meteor.setTimeout =>
                 Meteor.users.update @_id,
                     $set:healthclub_checkedin:false
@@ -84,6 +86,8 @@ Template.checkin_button.events
                     parent_id:@_id
                     object_id:@_id
                     body: "#{@username} checked out."
+                swal( "#{@username} checked out.", "", "success" )
+                Session.set 'username_query',null
             , 1000
 
 
@@ -103,6 +107,10 @@ Template.healthclub.events
     'keyup .username_search': (e,t)->
         username_query = $('.username_search').val()
         Session.set 'username_query',username_query
+
+    'click .clear_results': ->
+        Session.set 'username_query',null
+
 
 
 Template.add_resident.onCreated ->
