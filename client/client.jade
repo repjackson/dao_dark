@@ -20,7 +20,7 @@ template(name='not_found')
         
 template(name='layout')
     //- .layout.context
-    +topnav
+    //- +topnav
     +yield
     .ui.basic.center.aligned.segment
         form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')

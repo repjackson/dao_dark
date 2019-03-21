@@ -12,8 +12,8 @@ template(name='key_view')
 template(name='view')
     with doc
         .ui.stackable.padded.grid
-            .centered.row
-                .four.wide.column
+            .three.column.row
+                .column.scrolling
                     .ui.inverted.basic.segment.large150
                         .ui.header
                             if icon
@@ -38,9 +38,14 @@ template(name='view')
                             +concepts
                             +categories
                             +entities
-                            +personality
-                            +consumption_preferences
-                .six.wide.column.scrolling
+                            //- +semantic_roles
+                            +keyword_list
+                            +keywords
+                            +concept_list
+                            //- +relations
+                            //- +personality
+                            //- +consumption_preferences
+                .column.scrolling
                     .ui.inverted.basic.segment.large150
                         each _keys
                             //- .ui.label #{this}
@@ -52,7 +57,7 @@ template(name='view')
                         div
                         +comments
                         +voting
-                .six.wide.column.scrolling
+                .column.scrolling
                     .ui.inverted.basic.segment.large150
                         if watson
                             +tone

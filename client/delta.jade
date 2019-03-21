@@ -66,14 +66,13 @@ template(name='result')
                 .column.scrolling
                     each _keys
                         +key_view
-                    
                 .column.scrolling
                     if watson
                         +watson_view
-                        if visual_classes
-                            +visual_classes
-                            if analyzed_text
-                                |#{nl2br analyzed_text}
+                    if visual_classes
+                        +visual_classes
+                        if analyzed_text
+                            |#{nl2br analyzed_text}
                     //- a.ui.header(href="/view#{_id}")
                     //-     each bricks
                     //-         if header

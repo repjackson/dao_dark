@@ -4,13 +4,13 @@ template(name='doc_sentiment')
     .ui.small.disabled.progress(data-percent=sentiment_score_percent class=sentiment_bar_class)
         .bar
         .progress
-    //- .label
-    //-     |{{ to_percent doc_sentiment_score }}%
-    //-     if is_positive
-    //-         | positive
-    //-     else
-    //-         | negative
-
+    .label
+        |{{ to_percent doc_sentiment_score }}%
+        if is_positive
+            | positive
+        else
+            | negative
+    
         // |#{doc_sentiment_label}
         // |#{sentiment_score_percent}
 
@@ -27,23 +27,23 @@ template(name='doc_emotion')
         .ui.blue.disabled.small.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
             .bar
             .progress
-            //- .label {{to_percent sadness}}% sadness 
+                .label {{to_percent sadness}}% sadness 
         .ui.teal.disabled.small.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
             .bar
             .progress
-            //- .label {{to_percent joy}}% joy 
+                .label {{to_percent joy}}% joy 
         .ui.black.disabled.small.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
             .bar
             .progress
-            //- .label {{to_percent fear}}% fear 
+                .label {{to_percent fear}}% fear 
         .ui.yellow.disabled.small.progress(data-percent=disgust_percent title="{{to_percent disgust}}% disgust")
             .bar
             .progress
-            //- .label {{to_percent disgust}}% disgust 
+                .label {{to_percent disgust}}% disgust 
         .ui.orange.disabled.small.progress(data-percent="{{to_percent anger}}" title="{{to_percent anger}}% anger")
             .bar
             .progress
-            //- .label {{to_percent anger}}% anger 
+                .label {{to_percent anger}}% anger 
             
             
             
@@ -76,19 +76,19 @@ template(name='keywords')
                             .ui.blue.small.disabled.progress(data-percent=sadness_percent title="{{to_percent sadness}}% sadness")
                                 .bar
                                 //- .progress
-                            //- span {{ to_percent joy }}% joy 
+                            span {{ to_percent joy }}% joy 
                             .ui.teal.small.disabled.progress(data-percent=joy_percent title="{{to_percent joy}}% joy")
                                 .bar
                                 //- .progress
-                            //- span {{ to_percent fear }}% fear
+                            span {{ to_percent fear }}% fear
                             //- .progress
                             .ui.black.small.disabled.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
                                 .bar
-                            //- span {{ to_percent disgust }}% disgust 
+                            span {{ to_percent disgust }}% disgust 
                             .ui.yellow.small.disabled.progress(data-percent=disgust_percent title="{{to_percent disgust}}% disgust")
                                 .bar
                                     //- .progress
-                            //- span {{ to_percent anger }}% anger 
+                            span {{ to_percent anger }}% anger 
                             .ui.orange.small.disabled.progress(data-percent=anger_percent title="{{to_percent anger}}% anger")
                                 .bar
                                 //- .progress
@@ -133,7 +133,7 @@ template(name='keyword_list')
     //-     |#{watson_keywords.length} keywords
     each watson_keywords
         // .ui.label #{this}
-        .ui.label #{this}
+        .ui.inverted.black.label #{this}
         //- span(class="{{calculated_size 'relevance'}}") #{this}
 
 
@@ -142,7 +142,7 @@ template(name='concept_list')
     //- .ui.small.grey.header 
         |#{watson_concepts.length} concepts
     each watson_concepts
-        .ui.label #{this}
+        .ui.inverted.black.label #{this}
 
 
 
@@ -178,23 +178,23 @@ template(name='categories')
 
 
 template(name='semantic_roles')
-    //- .ui.accordion
-    //-     .title
-    //-         .ui.header #{watson.semantic_roles.length} semantic roles
-    //-             i.dropdown.icon
-    //-     .content
-    //-         +jsonView(json=watson.semantic_roles)
-    //-         // .ui.list
-    //-         //     each watson.semantic_roles
-    //-         //         .item
-    //-         //             strong #{label}
-    //-         //             |{{ to_percent score }}%
+    .ui.accordion
+        .active.title
+            .ui.inverted.header #{watson.semantic_roles.length} semantic roles
+                i.dropdown.icon
+        .active.content
+            +jsonView(json=watson.semantic_roles)
+            .ui.list
+                each watson.semantic_roles
+                    .item
+                        strong #{label}
+                        |{{ to_percent score }}%
 
 
 template(name='relations')
     .ui.accordion
         .title
-            |#{watson.relations.length} relations
+            .ui.inverted.inline.header #{watson.relations.length} relations
         .content    
             +jsonView(json=watson.relations)
             .ui.list
@@ -280,12 +280,12 @@ template(name='watson_view')
     +concepts
     +categories
     +entities
-    +semantic_roles
+    //- +semantic_roles
     +keyword_list
     +keywords
     +concept_list
     //- .ui.hidden.divider
-    //- //- +relations
+    //- +relations
     //- if dev
     //-     .ui.styled.accordion
     //-         .title 
@@ -293,5 +293,5 @@ template(name='watson_view')
     //-             i.dropdown.icon
     //-         .content
     //-             +jsonView(json=watson)
-    +personality
-    +consumption_preferences
+    //- +personality
+    //- +consumption_preferences
