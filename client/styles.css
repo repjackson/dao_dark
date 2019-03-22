@@ -19,6 +19,9 @@ body {
   background: rgba(250,250,250,1) !important
 }
 
+.healthclub {
+    background-image: url("/gym.jpg");
+}
 
 .ui.button, .ui.label{
   margin:.1em !important;

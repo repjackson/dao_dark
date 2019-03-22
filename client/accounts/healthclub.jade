@@ -1,4 +1,3 @@
-
 template(name='healthclub')
     .ui.left.icon.big.fluid.action.input
         i.search.icon
@@ -9,7 +8,7 @@ template(name='healthclub')
         .row
             .sixteen.wide.column
                 if checkedout_members.length
-                    .ui.center.aligned.header 
+                    .ui.center.aligned.inverted.header 
                         +icolor name='internal' classes='ui inline image'
                         |Check In Member
                     .ui.three.column.grid
@@ -38,9 +37,9 @@ template(name='healthclub')
         unless checking_in
             .row
                 .sixteen.wide.column
-                    .ui.two.column.grid
+                    .ui.two.column.stackable.grid
                         .column.scrolling
-                            .ui.center.aligned.header
+                            .ui.center.aligned.inverted.header
                                 +icolor name='internal' classes='ui image'
                                 |#{checkedin_members.length} Checked In Members
                             each checkedin_members
@@ -58,10 +57,14 @@ template(name='healthclub')
                                                 //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
                                             .content
                                                 +checkin_button
-                                                a.ui.button(href="/u/#{username}/")
-                                                    |View
-                                                    i.chevron.right.icon
-            
+                                                if is_dev
+                                                    a.ui.button(href="/u/#{username}/")
+                                                        |View
+                                                        i.chevron.right.icon
+                                                div
+                                                    
+                                                each tags
+                                                    .ui.label #{this}
                                                 //- if signed_waiver
                                                 //-     .ui.green.basic.button
                                                 //-         i.checkmark.icon
@@ -105,11 +108,19 @@ template(name='healthclub')
                                     |Notices
                                 .content
                                     |FM receiver headsets now available to borrow for tvs.
-                            //- .ui.secondary.segment
-                            //-     .ui.header
-                            //-         +icolor name='car' classes='ui inline image'
-                            //-         | Warned Cars
-                            //-     .content
+                            .ui.secondary.segment
+                                .ui.small.header Wifi: Gold Run Health Club
+                                .ui.small.header Password: goldrun1
+                                .ui.small.header Upstairs Code: 4589
+                            .ui.secondary.segment
+                                .ui.small.header Mon 7a-10p
+                                .ui.small.header Tues 7a-10p
+                                .ui.small.header Wed 7a-10p
+                                .ui.small.header Thur 7a-10p
+                                .ui.small.header Fri 7a-9p
+                                .ui.small.header Sat 8a-9p
+                                .ui.small.header Sun 8a-10p
+                    
                             //- .ui.secondary.segment
                             //-     .ui.header
                             //-         +icolor name='poll-topic' classes='ui inline image'
