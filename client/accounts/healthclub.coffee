@@ -63,7 +63,7 @@ Template.checkin_button.events
                     type:'log_event'
                     object_id:@_id
                     body: "#{@username} checked in."
-                swal( "#{@username} checked in.", "", "success" )
+                # swal( "#{@username} checked in.", "", "success" )
                 Session.set 'username_query',null
                 $('.username_search').val('')
             , 1000
@@ -89,7 +89,7 @@ Template.checkin_button.events
                     parent_id:@_id
                     object_id:@_id
                     body: "#{@username} checked out."
-                swal( "#{@username} checked out.", "", "success" )
+                # swal( "#{@username} checked out.", "", "success" )
                 Session.set 'username_query',null
                 $('.username_search').val('')
             , 1000

@@ -17,7 +17,7 @@ Router.route '/me', -> @render 'me'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/bank', -> @render 'bank'
 Router.route '/checkin', -> @render 'checkin'
-Router.route '/healthclub', -> @render 'healthclub'
+# Router.route '/healthclub', -> @render 'healthclub'
 
 
 Router.route('enroll', {
@@ -37,6 +37,12 @@ Router.route '/view/:_id', -> @render 'view'
 Router.route '*', -> @render 'not_found'
 
 # Router.route '/u/:username/s/:type', -> @render 'profile_layout', 'user_section'
+Router.route '/healthclub', (->
+    @layout 'nonav'
+    @render 'healthclub'
+    ), name:'healthclub'
+
+
 Router.route '/u/:username/s/:type', (->
     @layout 'profile_layout'
     @render 'user_section'
