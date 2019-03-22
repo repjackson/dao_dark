@@ -3,9 +3,9 @@ template(name='edit')
         .ui.stackable.padded.grid
             .centered.row
                 .center.aligned.sixteen.wide.column
-                    a.ui.huge.circular.inverted.basic.icon.button(href="/view/#{_id}")
+                    a.ui.huge.circular.icon.button(href="/view/#{_id}")
                         i.checkmark.icon
-                    .ui.circular.inverted.basic.button.icon.delete_doc
+                    .ui.circular.button.icon.delete_doc
                         i.remove.icon
                     +detect
                     +field_menu
@@ -27,13 +27,13 @@ template(name='field_menu')
     i.grey.plus.large.icon(title='add field')
         //- |brick
     each fields
-        .ui.large.circular.inverted.basic.button.add_field
+        .ui.large.circular.button.add_field
             i.icon(class=icon)
             |#{slug}
 
 
 template(name='field_edit')
-    .ui.inverted.basic.segment
+    .ui.tertiary.segment
         i.remove.icon.large.link.remove_field(title='remove field')
         .ui.labeled.input
             .ui.label(title='name') #{key}

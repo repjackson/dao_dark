@@ -17,7 +17,7 @@ template(name='comments')
                         i.remove.link.remove_comment.icon
 
 template(name='detect')
-    .ui.icon.big.circular.inverted.basic.button.detect_fields
+    .ui.icon.big.circular.button.detect_fields
         i.dna.icon
         //- |Detect
 
@@ -112,11 +112,11 @@ template(name='voting')
     //- div
     if points
         strong #{points}
-    .ui.icon.large.big.circular.inverted.basic.button.upvote
+    .ui.icon.large.big.circular.button.upvote
         i.thumbs.up.icon(class=upvote_class)
     each upvoter_ids
         +user_info
-    .ui.icon.large.big.circular.inverted.basic.button.downvote
+    .ui.icon.large.big.circular.button.downvote
         i.thumbs.down.icon(class=downvote_class)
     each downvoter_ids
         +user_info

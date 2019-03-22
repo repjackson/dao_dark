@@ -1,14 +1,14 @@
 template(name='facet')
     |&nbsp;
     //- if filtering_res
-    //- .ui.inverted.inline.header 
+    //- .ui.inline.header 
     //-     if icon
     //-         i.small.grey.icon(class=icon)
     //-     if label
     //-         |#{label}
     //-     else 
     //-         |#{key}
-    .ui.transparent.inverted.input
+    .ui.transparent.input
         input.add_filter(type='text' placeholder=key)
     //-     // i.grey.dropdown.icon
     //-         // i.dropdown.icon
@@ -62,7 +62,7 @@ template(name='toggle_delta_config')
 template(name='result')
     with result 
         unless is_loading
-            .ui.result.inverted.basic.segment.two.column.stackable.grid
+            .ui.result.basic.segment.two.column.stackable.grid
                 .column.scrolling
                     each _keys
                         +key_view
@@ -91,9 +91,9 @@ template(name='result')
                         //- if is_dev
                         //-     +remove_button
                         if can_edit
-                            a.ui.icon.big.circular.inverted.basic.button(href="/edit/#{_id}")
+                            a.ui.icon.big.circular.basic.button(href="/edit/#{_id}")
                                 i.pencil.icon
-                        a.ui.icon.big.circular.inverted.basic.button(href="/view/#{_id}")
+                        a.ui.icon.big.circular.basic.button(href="/view/#{_id}")
                             i.eye.icon
                         //- each schema.actions
                         //-     +Template.dynamic template=this data=..

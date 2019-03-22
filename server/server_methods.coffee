@@ -128,9 +128,9 @@ Meteor.methods
                         meta.field = 'image'
                     else
                         meta.field = 'url'
-                # else if youtube_result
-                #     meta.youtube = true
-                #     meta.field = 'youtube'
+                else if youtube_result
+                    meta.youtube = true
+                    meta.field = 'youtube'
                 else if Meteor.users.findOne value
                     meta.user_id = true
                     meta.field = 'user_ref'

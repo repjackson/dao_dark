@@ -34,6 +34,8 @@ Template.healthclub.helpers
             healthclub_checkedin:$ne:true
             }).fetch()
 
+    checking_in: ->
+        Session.get('username_query')
 
     events: ->
         Docs.find {
@@ -63,6 +65,7 @@ Template.checkin_button.events
                     body: "#{@username} checked in."
                 swal( "#{@username} checked in.", "", "success" )
                 Session.set 'username_query',null
+                $('.username_search').val('')
             , 1000
 
 
@@ -88,6 +91,7 @@ Template.checkin_button.events
                     body: "#{@username} checked out."
                 swal( "#{@username} checked out.", "", "success" )
                 Session.set 'username_query',null
+                $('.username_search').val('')
             , 1000
 
 
@@ -110,6 +114,7 @@ Template.healthclub.events
 
     'click .clear_results': ->
         Session.set 'username_query',null
+        $('.username_search').val('')
 
 
 
@@ -132,7 +137,7 @@ Template.add_resident.events
                 alert err
             else
                 Meteor.users.update res,
-                    $set:health_club_checkedin:true
+                    $set:healthclub_checkedin:true
                 Docs.insert
                     type:'log_event'
                     object_id:res
@@ -141,8 +146,10 @@ Template.add_resident.events
                     type:'log_event'
                     object_id:res
                     body: "#{username} checked in."
+                Session.set 'username_query',null
+                $('.username_search').val('')
 
-                Router.go "/t/goldrun/p/healthclub"
+                # Router.go "/healthclub"
 
 
 Template.add_resident.helpers

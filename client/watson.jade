@@ -32,7 +32,7 @@ template(name='doc_emotion')
             .bar
             .progress
                 .label {{to_percent joy}}% joy 
-        .ui.black.disabled.small.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
+        .ui.disabled.small.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
             .bar
             .progress
                 .label {{to_percent fear}}% fear 
@@ -82,7 +82,7 @@ template(name='keywords')
                                 //- .progress
                             span {{ to_percent fear }}% fear
                             //- .progress
-                            .ui.black.small.disabled.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
+                            .ui.small.disabled.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
                                 .bar
                             span {{ to_percent disgust }}% disgust 
                             .ui.yellow.small.disabled.progress(data-percent=disgust_percent title="{{to_percent disgust}}% disgust")
@@ -115,7 +115,7 @@ template(name='entities')
                         //- .progress
                     //- span {{ to_percent fear }}% fear
                     //- .progress
-                    .ui.black.small.disabled.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
+                    .ui.small.disabled.progress(data-percent=fear_percent title="{{to_percent fear}}% fear")
                         .bar
                     //- span {{ to_percent disgust }}% disgust 
                     .ui.yellow.small.disabled.progress(data-percent=disgust_percent title="{{to_percent disgust}}% disgust")
@@ -133,7 +133,7 @@ template(name='keyword_list')
     //-     |#{watson_keywords.length} keywords
     each watson_keywords
         // .ui.label #{this}
-        .ui.inverted.black.label #{this}
+        .ui.label #{this}
         //- span(class="{{calculated_size 'relevance'}}") #{this}
 
 
@@ -142,7 +142,7 @@ template(name='concept_list')
     //- .ui.small.grey.header 
         |#{watson_concepts.length} concepts
     each watson_concepts
-        .ui.inverted.black.label #{this}
+        .ui.label #{this}
 
 
 
@@ -180,7 +180,7 @@ template(name='categories')
 template(name='semantic_roles')
     .ui.accordion
         .active.title
-            .ui.inverted.header #{watson.semantic_roles.length} semantic roles
+            .ui.header #{watson.semantic_roles.length} semantic roles
                 i.dropdown.icon
         .active.content
             +jsonView(json=watson.semantic_roles)
@@ -194,7 +194,7 @@ template(name='semantic_roles')
 template(name='relations')
     .ui.accordion
         .title
-            .ui.inverted.inline.header #{watson.relations.length} relations
+            .ui.inline.header #{watson.relations.length} relations
         .content    
             +jsonView(json=watson.relations)
             .ui.list

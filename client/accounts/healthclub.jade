@@ -10,15 +10,18 @@ template(name='healthclub')
                     .ui.inline.header
                         i.sign.in.alternate.icon
                         |Sign In
-                    .ui.icon.big.fluid.input
+                    .ui.left.icon.big.fluid.action.input
                         i.search.icon
                         input.username_search(type='text' placeholder='Search Member...')
-                    .ui.fluid.button.clear_results
-                        i.remove.icon
-                        |Clear
+                        .ui.button.clear_results
+                            i.remove.icon
+                            |Clear
                     if checkedout_members.length
-                        .ui.secondary.segment
-                            .ui.stackable.four.cards
+                        .ui.secondary.attached.segment
+                            .ui.center.aligned.header 
+                                +icolor name='internal' classes='ui inline image'
+                                |Check In Member
+                            .ui.stackable.doubling.four.cards
                                 each checkedout_members
                                     .card
                                         .image
@@ -32,39 +35,40 @@ template(name='healthclub')
                                             //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
                                         .content
                                             +checkin_button
-                
-                
-                
-                .row
-                    .ui.secondary.segment
-                        .ui.header
-                            +icolor name='internal' classes='ui image'
-                            |#{checkedin_members.length} Checked In Members
-                        .ui.four.stackable.cards
-                            each checkedin_members
-                                .card
-                                    .image
-                                        if profile.image_id
-                                            img.ui.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        else if image_id
-                                            img.ui.rounded.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                    .content
-                                        .ui.header #{first_name} #{last_name} @#{username}
-                                        //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
-                                        //- a.ui.button(href="/t/goldrun/u/#{_id}/about")
-                                        //-     |View
-                                        //-     i.chevron.right.icon
-                                    .content
-                                        +checkin_button
-                                        //- if signed_waiver
-                                        //-     .ui.green.basic.button
-                                        //-         i.checkmark.icon
-                                        //-         |Waiver Signed
-                                        //- else
-                                        //-     .ui.red.button.sign_waiver
-                                        //-         i.cancel.icon
-                                        //-         |Waiver Not Signed
-                        
+                    else
+                        if checking_in
+                            .ui.header No members found
+                            +add_resident
+                unless checking_in
+                    .row
+                        .ui.secondary.green.segment
+                            .ui.header
+                                +icolor name='internal' classes='ui image'
+                                |#{checkedin_members.length} Checked In Members
+                            .ui.four.stackable.doubling.cards
+                                each checkedin_members
+                                    .green.card
+                                        .image
+                                            if profile.image_id
+                                                img.ui.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                            else if image_id
+                                                img.ui.rounded.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                        .content
+                                            .ui.header #{first_name} #{last_name} @#{username}
+                                            //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
+                                            //- a.ui.button(href="/t/goldrun/u/#{_id}/about")
+                                            //-     |View
+                                            //-     i.chevron.right.icon
+                                        .content
+                                            +checkin_button
+                                            //- if signed_waiver
+                                            //-     .ui.green.basic.button
+                                            //-         i.checkmark.icon
+                                            //-         |Waiver Signed
+                                            //- else
+                                            //-     .ui.red.button.sign_waiver
+                                            //-         i.cancel.icon
+                                            //-         |Waiver Not Signed
             .four.wide.column.scrolling
                 if is_admin
                     a.ui.large.fluid.button(href='/add_resident')
