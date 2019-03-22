@@ -51,13 +51,13 @@ Template.checkin_button.events
         Session.set('selected_user_id', @_id)
         $('.ui.check_in.modal')
           .modal({
-            inverted: false
+            inverted: true
             setting: transition: 'scale'
             # closable: false
             onDeny: ->
             onApprove: =>
                 Meteor.setTimeout =>
-                    $(e.currentTarget).closest('.segment').transition('swing left')
+                    $(e.currentTarget).closest('.segment').transition('scale')
                 , 750
                 Meteor.setTimeout =>
                     Meteor.users.update @_id,
@@ -69,7 +69,7 @@ Template.checkin_button.events
                     # swal( "#{@username} checked in.", "", "success" )
                     Session.set 'username_query',null
                     $('.username_search').val('')
-                , 3000
+                , 2000
             }).modal('show')
 
 
@@ -77,13 +77,13 @@ Template.checkin_button.events
         Session.set('selected_user_id', @_id)
         $('.ui.check_out.modal')
           .modal({
-            inverted: false
+            inverted: true
             setting: transition: 'scale'
             # closable: false
             onDeny: ->
             onApprove: =>
                 Meteor.setTimeout =>
-                    $(e.currentTarget).closest('.segment').transition('swing right')
+                    $(e.currentTarget).closest('.segment').transition('scale')
                 , 750
                 Meteor.setTimeout =>
                     Meteor.users.update @_id,
@@ -96,7 +96,7 @@ Template.checkin_button.events
                     # swal( "#{@username} checked out.", "", "success" )
                     Session.set 'username_query',null
                     $('.username_search').val('')
-                , 3000
+                , 2000
           }).modal('show')
 
 
