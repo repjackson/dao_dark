@@ -1,7 +1,7 @@
 Template.healthclub.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
     @autorun => Meteor.subscribe 'type', 'field'
-    @autorun => Meteor.subscribe 'type', 'log_event'
+    # @autorun => Meteor.subscribe 'type', 'log_event'
     @autorun => Meteor.subscribe 'all_users'
     # @autorun => Meteor.subscribe 'tribe_schemas', Router.current().params.tribe_slug
     # @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
@@ -23,6 +23,9 @@ Template.healthclub.onRendered ->
 
 
 Template.healthclub.helpers
+    selected_person: ->
+        Meteor.users.findOne Session.get('selected_user_id')
+
     checkedin_members: ->
         Meteor.users.find
             healthclub_checkedin:true
@@ -45,56 +48,57 @@ Template.healthclub.helpers
 
 Template.checkin_button.events
     'click .checkin': (e,t)->
-        swal {
-            title: "Checkin #{@username}?"
-            # text: 'This will also delete the messages.'
-            type: 'info'
-            showCancelButton: true
-            animation: false
-            confirmButtonColor: 'green'
-            confirmButtonText: 'Check In'
-            closeOnConfirm: true
-        }, =>
-            $(e.currentTarget).closest('.card').transition('zoom')
-            Meteor.setTimeout =>
-                Meteor.users.update @_id,
-                    $set:healthclub_checkedin:true
-                Docs.insert
-                    type:'log_event'
-                    object_id:@_id
-                    body: "#{@username} checked in."
-                # swal( "#{@username} checked in.", "", "success" )
-                Session.set 'username_query',null
-                $('.username_search').val('')
-            , 1000
+        Session.set('selected_user_id', @_id)
+        $('.ui.check_in.modal')
+          .modal({
+            inverted: false
+            setting: transition: 'scale'
+            # closable: false
+            onDeny: ->
+            onApprove: =>
+                Meteor.setTimeout =>
+                    $(e.currentTarget).closest('.segment').transition('swing left')
+                , 750
+                Meteor.setTimeout =>
+                    Meteor.users.update @_id,
+                        $set:healthclub_checkedin:true
+                    Docs.insert
+                        type:'log_event'
+                        object_id:@_id
+                        body: "#{@username} checked in."
+                    # swal( "#{@username} checked in.", "", "success" )
+                    Session.set 'username_query',null
+                    $('.username_search').val('')
+                , 3000
+            }).modal('show')
 
 
     'click .checkout': (e,t)->
-        $('.ui.modal').modal()
+        Session.set('selected_user_id', @_id)
+        $('.ui.check_out.modal')
+          .modal({
+            inverted: false
+            setting: transition: 'scale'
+            # closable: false
+            onDeny: ->
+            onApprove: =>
+                Meteor.setTimeout =>
+                    $(e.currentTarget).closest('.segment').transition('swing right')
+                , 750
+                Meteor.setTimeout =>
+                    Meteor.users.update @_id,
+                        $set:healthclub_checkedin:false
+                    Docs.insert
+                        type:'log_event'
+                        parent_id:@_id
+                        object_id:@_id
+                        body: "#{@username} checked out."
+                    # swal( "#{@username} checked out.", "", "success" )
+                    Session.set 'username_query',null
+                    $('.username_search').val('')
+                , 3000
+          }).modal('show')
 
-        swal {
-            title: "Checkout #{@username}?"
-            # text: 'This will also delete the messages.'
-            type: 'success'
-            showCancelButton: true
-            animation: false
-            confirmButtonColor: 'orange'
-            confirmButtonText: 'Checkout'
-            closeOnConfirm: true
-        }, =>
-            $(e.currentTarget).closest('.card').transition('zoom')
-            Meteor.setTimeout =>
-                Meteor.users.update @_id,
-                    $set:healthclub_checkedin:false
-                Docs.insert
-                    type:'log_event'
-                    parent_id:@_id
-                    object_id:@_id
-                    body: "#{@username} checked out."
-                # swal( "#{@username} checked out.", "", "success" )
-                Session.set 'username_query',null
-                $('.username_search').val('')
-            , 1000
 
 
 
@@ -139,7 +143,10 @@ Template.add_resident.events
                 alert err
             else
                 Meteor.users.update res,
-                    $set:healthclub_checkedin:true
+                    $set:
+                        first_name:first_name
+                        last_name:last_name
+                        healthclub_checkedin:true
                 Docs.insert
                     type:'log_event'
                     object_id:res

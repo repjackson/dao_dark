@@ -96,9 +96,9 @@ Template.user_single_doc_ref_editor.helpers
 
 
 
-Template.phone_editor.helpers
-    'newNumber': ->
-        Phoneformat.formatLocal 'US', Meteor.user().profile.phone
+# Template.phone_editor.helpers
+#     'newNumber': ->
+#         Phoneformat.formatLocal 'US', Meteor.user().profile.phone
 
 Template.phone_editor.events
     'click .remove_phone': (event, template) ->

@@ -50,10 +50,10 @@ template(name='user_edit')
                         |Delete User
             .eleven.wide.column
                 // +church_profile
-                +user_schema_editor
-                 if is_admin
-                     +user_single_doc_ref_editor key='building' schema='building' label='Building'
-                     +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
+                //- +user_schema_editor
+                if is_admin
+                    +user_single_doc_ref_editor key='building' schema='building' label='Building'
+                    +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
                 .ui.labeled.icon.input
                      .ui.label Address
                      i.globe.icon
@@ -93,8 +93,8 @@ template(name='user_edit')
                     //         i.clock.icon
                     //         input#lease_expiration(type='date' value=user_from_username_param.lease_expiration)
                                         
-                +stripe_connect
-                +payment_methods
+                //- +stripe_connect
+                //- +payment_methods
 
 
 template(name='user_schema_editor')

@@ -24,10 +24,10 @@ template(name='home')
                         .create_delta.ui.button.pointer(title='new session')
                             i.plus.icon
                             |session
-        if single_doc
-            .row
-                .fifteen.wide.column
-                    each current_delta.result_ids
-                        +result
+        //- if single_doc
+        .row
+            .fifteen.wide.column
+                each current_delta.result_ids
+                    +result
                 
             

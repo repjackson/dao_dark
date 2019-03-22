@@ -1,18 +1,18 @@
 template(name='topnav')
-    .ui.attached.inverted.menu
+    .ui.attached.inverted.large.menu
         if is_loading
             i.loading.adjust.large.grey.icon
         else 
             a.alpha.ui.icon.item(href="/" class="{{isActivePath '/'}}")
                 i.home.large.icon
-            a.alpha.ui.icon.item(href="/healthclub" class="{{isActivePath '/checkin'}}")
-                |Check In
-            a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
-                i.plus.large.icon
-            a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
-                i.large.chat.icon
-            a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
-                 i.large.inbox.icon
+            a.alpha.ui.icon.item(href="/healthclub" class="{{isActivePath '/checkin'}}" title='Check In')
+                +icolor name='internal' classes='ui avatar image'
+            //- a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
+            //-     i.plus.large.icon
+            //- a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
+            //-     i.large.chat.icon
+            //- a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
+            //-      i.large.inbox.icon
             a.item(href="/users" class="{{isActivePath '/users'}}")
                  i.large.users.icon
                          
@@ -29,15 +29,11 @@ template(name='topnav')
                 else
                     .logout.ui.item(title='log out')
                         i.sign.out.icon
-                        |logout
-
             else
                 a.ui.item(href="/login")
                     i.sign.in.alternate.large.icon
-                    |login
                 a.ui.item(href="/register")
                     i.user.plus.large.icon
-                    |register
     if is_dev
         .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
             each topnav_schemas

@@ -22,8 +22,6 @@ Template.email_receipt.events
 
 
 
-Template.healthclub.onCreated ->
-    @autorun -> Meteor.subscribe 'type', 'log_event'
 
 
 Template.healthclub.onRendered ->
