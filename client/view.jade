@@ -14,7 +14,7 @@ template(name='view')
         .ui.stackable.padded.grid
             .three.column.row
                 .column.scrolling
-                    .ui.inverted.basic.segment.large150
+                    .ui.secondary.segment.large150
                         .ui.header
                             if icon
                                 i.grey.icon(class=icon)
@@ -46,7 +46,7 @@ template(name='view')
                             //- +personality
                             //- +consumption_preferences
                 .column.scrolling
-                    .ui.inverted.basic.segment.large150
+                    .ui.secondary.segment.large150
                         each _keys
                             //- .ui.label #{this}
                             +key_view
@@ -58,7 +58,7 @@ template(name='view')
                         +comments
                         +voting
                 .column.scrolling
-                    .ui.inverted.basic.segment.large150
+                    .ui.secondary.segment.large150
                         if watson
                             +tone
                             +keywords

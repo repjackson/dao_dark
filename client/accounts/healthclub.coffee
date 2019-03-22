@@ -50,7 +50,7 @@ Template.checkin_button.events
             # text: 'This will also delete the messages.'
             type: 'info'
             showCancelButton: true
-            animation: true
+            animation: false
             confirmButtonColor: 'green'
             confirmButtonText: 'Check In'
             closeOnConfirm: true
@@ -70,12 +70,14 @@ Template.checkin_button.events
 
 
     'click .checkout': (e,t)->
+        $('.ui.modal').modal()
+
         swal {
             title: "Checkout #{@username}?"
             # text: 'This will also delete the messages.'
             type: 'success'
             showCancelButton: true
-            animation: true
+            animation: false
             confirmButtonColor: 'orange'
             confirmButtonText: 'Checkout'
             closeOnConfirm: true
@@ -104,7 +106,7 @@ Template.healthclub.events
             type:'rules_and_regulations_acknowledgement'
             resident_residence:@_id
             is_resident:true
-        Router.go "/t/goldrun/sign_waiver/#{receipt_id}"
+        Router.go "/sign_waiver/#{receipt_id}"
 
 
 
@@ -149,7 +151,7 @@ Template.add_resident.events
                 Session.set 'username_query',null
                 $('.username_search').val('')
 
-                # Router.go "/healthclub"
+                Router.go "/healthclub"
 
 
 Template.add_resident.helpers

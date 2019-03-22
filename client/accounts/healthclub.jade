@@ -1,32 +1,35 @@
 
 template(name='healthclub')
+    .ui.left.icon.big.fluid.action.input
+        i.search.icon
+        input.username_search(type='text' placeholder='Check In Health Club Member...')
+        .ui.icon.button.clear_results
+            i.remove.icon
     .ui.stackable.padded.grid
         .row
             .sixteen.wide.column
-                .ui.left.icon.big.fluid.action.input
-                    i.search.icon
-                    input.username_search(type='text' placeholder='Check In Health Club Member...')
-                    .ui.icon.button.clear_results
-                        i.remove.icon
                 if checkedout_members.length
                     .ui.secondary.attached.segment
                         .ui.center.aligned.header 
                             +icolor name='internal' classes='ui inline image'
                             |Check In Member
-                        .ui.two.cards
+                        .ui.three.column.grid
                             each checkedout_members
-                                .card
-                                    .image
-                                        if profile.image_id
-                                            img.ui.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        else if image_id
-                                            img.ui.rounded.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                    .content
-                                        .ui.header #{first_name} #{last_name} #{username}
-                                        // a(href="/t/goldrun/u/#{_id}/about")
-                                        //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
-                                    .content
-                                        +checkin_button
+                                .column
+                                    .ui.secondary.segment 
+                                        .ui.grid
+                                            .row
+                                                .sixteen.wide.column
+                                                    .ui.small.header #{first_name} #{last_name} @#{username}
+                                            .row
+                                                .eight.wide.column
+                                                    if profile.image_id
+                                                        img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                                    else if image_id
+                                                        img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                                .eight.wide.column
+                                                    //- .image
+                                                    +checkin_button
                 else
                     if checking_in
                         .ui.header No members found
@@ -35,47 +38,55 @@ template(name='healthclub')
             .row
                 .sixteen.wide.column
                     .ui.two.column.grid
-                        .column
+                        .column.scrolling
                             .ui.header
                                 +icolor name='internal' classes='ui image'
                                 |#{checkedin_members.length} Checked In Members
-                            .ui.fluid.cards
-                                each checkedin_members
-                                    .green.card
-                                        .image
+                            each checkedin_members
+                                .ui.secondary.segment 
+                                    .ui.grid
+                                        .four.wide.column
                                             if profile.image_id
-                                                img.ui.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
                                             else if image_id
-                                                img.ui.rounded.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        .content
-                                            .ui.header #{first_name} #{last_name} @#{username}
-                                            //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
-                                            //- a.ui.button(href="/t/goldrun/u/#{_id}/about")
-                                            //-     |View
-                                            //-     i.chevron.right.icon
-                                        .content
-                                            +checkin_button
-                                            //- if signed_waiver
-                                            //-     .ui.green.basic.button
-                                            //-         i.checkmark.icon
-                                            //-         |Waiver Signed
-                                            //- else
-                                            //-     .ui.red.button.sign_waiver
-                                            //-         i.cancel.icon
-                                            //-         |Waiver Not Signed
+                                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                        .twelve.wide.column
+                                            //- .image
+                                            .content
+                                                .ui.header #{first_name} #{last_name} @#{username}
+                                                //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
+                                                //- a.ui.button(href="/t/goldrun/u/#{_id}/about")
+                                                //-     |View
+                                                //-     i.chevron.right.icon
+                                            .content
+                                                +checkin_button
+                                                //- if signed_waiver
+                                                //-     .ui.green.basic.button
+                                                //-         i.checkmark.icon
+                                                //-         |Waiver Signed
+                                                //- else
+                                                //-     .ui.red.button.sign_waiver
+                                                //-         i.cancel.icon
+                                                //-         |Waiver Not Signed
                         .column.scrolling
                             if is_admin
                                 a.ui.large.fluid.button(href='/add_resident')
                                     i.user.plus.icon
                                     |Add Resident
+                            a.ui.large.fluid.button(href='/add_resident')
+                                i.user.plus.icon
+                                |New Member
+                            a.ui.large.fluid.button(href='/add_resident')
+                                i.user.plus.icon
+                                |Guest Waiver
                             //- .ui.accordion
-                            //-     h4.active.title
+                            //-     h4.title
                             //-         // +icolor name='edit-property' classes='ui inline image'
                             //-             // .ui.inline.dividing.header 
                             //-         i.rss.icon
                             //-         | Log
                             //-         i.dropdown.icon
-                            //-     .active.content
+                            //-     .content
                             //-         .ui.feed
                             //-             each events
                             //-                 .event
@@ -89,126 +100,126 @@ template(name='healthclub')
                             //-                             if is_dev
                             //-                                 +remove_button
                             .ui.accordion
-                                h4.active.title
+                                h4.title
                                     +icolor name='megaphone' classes='ui inline image'
                                     |Notices
                                     i.dropdown.icon
-                                .active.content
+                                .content
                             .ui.accordion
-                                .active.title
+                                .title
                                     +icolor name='car' classes='ui inline image'
                                     | Warned Cars
                                     i.dropdown.icon
-                                .active.content
+                                .content
                             .ui.accordion
-                                .active.title
+                                .title
                                     +icolor name='poll-topic' classes='ui inline image'
                                     |Poll
                                     i.dropdown.icon
-                                .active.content
+                                .content
                             .ui.accordion
-                                .active.title
+                                .title
                                     +icolor name='front-desk' classes='ui inline image'
                                     | Staff On Duty
                                     i.dropdown.icon
-                                .active.content
+                                .content
                                     with currentUser
                                         .ui.card
                                             img.ui.image(src="{{c.url profile.image_id }}")
                                             .content
                                                 .header #{username}
+                            //- .ui.accordion
+                            //-     h4.title
+                            //-         +icolor name='basketball' classes='ui inline image'
+                            //-         | Basketball Court
+                            //-         i.dropdown.icon
+                            //-     .content
+                            //-         if open
+                            //-             +icolor name='open-sign' classes='ui mini inline image'
+                            //-             .ui.button.checkin Check In
+                            //-         else
+                            //-             +icolor name='close-sign' classes='ui mini inline image'
+                            //-             .ui.button.signout Check Out
                             .ui.accordion
-                                h4.active.title
-                                    +icolor name='basketball' classes='ui inline image'
-                                    | Basketball Court
-                                    i.dropdown.icon
-                                .active.content
-                                    if open
-                                        +icolor name='open-sign' classes='ui mini inline image'
-                                        .ui.button.checkin Check In
-                                    else
-                                        +icolor name='close-sign' classes='ui mini inline image'
-                                        .ui.button.signout Check Out
-                            .ui.accordion
-                                h4.active.title
+                                h4.title
                                     +icolor name='bicycle' classes='ui inline image'
                                     | Impounded Bikes
                                     i.dropdown.icon
-                                .active.content
-                            .ui.accordion
-                                h4.active.title
-                                    +ioffice name='beach-volleyball' classes='ui inline image'
-                                    | Vollyball Court
-                                    i.dropdown.icon
-                                .active.content
-                                    if open
-                                        +ioffice name='open-sign' classes='ui mini inline image'
-                                        .ui.button.checkin Check In
-                                    else
-                                        +ioffice name='close-sign' classes='ui mini inline image'
-                                        .ui.button.signout Check Out
-                            .ui.accordion
-                                h4.active.title
-                                    +ioffice name='tennis' classes='ui inline image'
-                                    | Racquetball Court #1
-                                    i.dropdown.icon
-                                .active.content
-                                    if open
-                                        +ioffice name='open-sign' classes='ui mini inline image'
-                                        .ui.button.checkin Check In
-                                    else
-                                        +ioffice name='close-sign' classes='ui mini inline image'
-                                        .ui.button.signout Check Out
-                            .ui.accordion
-                                h4.active.title
-                                    +ioffice name='tennis' classes='ui inline image'
-                                    | Racquetball Court #2
-                                    i.dropdown.icon
-                                .active.content
-                                    if open
-                                        +ioffice name='open-sign' classes='ui mini inline image'
-                                        .ui.button.checkin Check In
-                                    else
-                                        +ioffice name='close-sign' classes='ui mini inline image'
-                                        .ui.button.signout Check Out
-                            .ui.accordion
-                                h4.active.title
-                                    +ioffice name='swimming-back-view' classes='ui inline image'
-                                    |Pool
-                                    i.dropdown.icon
-                                .active.content
-                                    if open
-                                        +icolor name='open-sign' classes='ui mini inline image'
-                                        .ui.button.checkin Check In
-                                    else
-                                        +icolor name='close-sign' classes='ui mini inline image'
-                                        .ui.button.signout Check Out
-                            .ui.accordion
-                                h4.active.title
-                                    +icolor name='jacuzzi' classes='ui inline image'
-                                    |Indoor Hot Tub
-                                    i.dropdown.icon
-                                .active.content
-                                    | Status    
-                                    if open
-                                        +icolor name='open-sign' classes='ui mini inline image'
-                                        .ui.button.checkin Check In
-                                    else
-                                        +icolor name='close-sign' classes='ui mini inline image'
-                                        .ui.button.signout Check Out
-                            .ui.accordion
-                                h4.active.title
-                                    +icolor name='jacuzzi' classes='ui inline image'
-                                    |Outdoor Hot Tub
-                                    i.dropdown.icon
-                                .active.content
-                                    | Status    
-                                    if open
-                                        +icolor name='open-sign' classes='ui mini inline image'
-                                        .ui.button.checkin Check In
-                                    else
-                                        +icolor name='close-sign' classes='ui mini inline image'
-                                        .ui.button.signout Check Out
+                                .content
+                            //- .ui.accordion
+                            //-     h4.title
+                            //-         +ioffice name='beach-volleyball' classes='ui inline image'
+                            //-         | Vollyball Court
+                            //-         i.dropdown.icon
+                            //-     .content
+                            //-         if open
+                            //-             +ioffice name='open-sign' classes='ui mini inline image'
+                            //-             .ui.button.checkin Check In
+                            //-         else
+                            //-             +ioffice name='close-sign' classes='ui mini inline image'
+                            //-             .ui.button.signout Check Out
+                            //- .ui.accordion
+                            //-     h4.title
+                            //-         +ioffice name='tennis' classes='ui inline image'
+                            //-         | Racquetball Court #1
+                            //-         i.dropdown.icon
+                            //-     .content
+                            //-         if open
+                            //-             +ioffice name='open-sign' classes='ui mini inline image'
+                            //-             .ui.button.checkin Check In
+                            //-         else
+                            //-             +ioffice name='close-sign' classes='ui mini inline image'
+                            //-             .ui.button.signout Check Out
+                            //- .ui.accordion
+                            //-     h4.title
+                            //-         +ioffice name='tennis' classes='ui inline image'
+                            //-         | Racquetball Court #2
+                            //-         i.dropdown.icon
+                            //-     .content
+                            //-         if open
+                            //-             +ioffice name='open-sign' classes='ui mini inline image'
+                            //-             .ui.button.checkin Check In
+                            //-         else
+                            //-             +ioffice name='close-sign' classes='ui mini inline image'
+                            //-             .ui.button.signout Check Out
+                            //- .ui.accordion
+                            //-     h4.title
+                            //-         +ioffice name='swimming-back-view' classes='ui inline image'
+                            //-         |Pool
+                            //-         i.dropdown.icon
+                            //-     .content
+                            //-         if open
+                            //-             +icolor name='open-sign' classes='ui mini inline image'
+                            //-             .ui.button.checkin Check In
+                            //-         else
+                            //-             +icolor name='close-sign' classes='ui mini inline image'
+                            //-             .ui.button.signout Check Out
+                            //- .ui.accordion
+                            //-     h4.title
+                            //-         +icolor name='jacuzzi' classes='ui inline image'
+                            //-         |Indoor Hot Tub
+                            //-         i.dropdown.icon
+                            //-     .content
+                            //-         | Status    
+                            //-         if open
+                            //-             +icolor name='open-sign' classes='ui mini inline image'
+                            //-             .ui.button.checkin Check In
+                            //-         else
+                            //-             +icolor name='close-sign' classes='ui mini inline image'
+                            //-             .ui.button.signout Check Out
+                            //- .ui.accordion
+                            //-     h4.title
+                            //-         +icolor name='jacuzzi' classes='ui inline image'
+                            //-         |Outdoor Hot Tub
+                            //-         i.dropdown.icon
+                            //-     .content
+                            //-         | Status    
+                            //-         if open
+                            //-             +icolor name='open-sign' classes='ui mini inline image'
+                            //-             .ui.button.checkin Check In
+                            //-         else
+                            //-             +icolor name='close-sign' classes='ui mini inline image'
+                            //-             .ui.button.signout Check Out
                 
                         
                         
@@ -276,12 +287,12 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.circular.button.checkin(title='Check In')
+        .ui.button.checkin(title='Check In')
             // i.sign.in.icon
             +icolor name='login-rounded-right' classes='ui avatar image'
-            |Check In
+            //- |Check In
     if healthclub_checkedin
-        .ui.circular.button.checkout(title='Sign Out')
+        .ui.button.checkout(title='Sign Out')
             // i.sign.out.large.icon
             +icolor name='exit-sign' classes='ui avatar image'
             |Check Out

@@ -1,10 +1,10 @@
 body {
-  font-family: 'Ubuntu', sans-serif !important;
-  /* filter: invert(100%) */
-  font-size: 120% !important;
-  /*line-height: 200% !important;*/
-  /*background: #3d3d3d !important;*/
-	background: rgba(0, 0, 0, .20) !important
+    font-family: 'Ubuntu', sans-serif !important;
+    /* filter: invert(100%) */
+    font-size: 120% !important;
+    /*line-height: 200% !important;*/
+    /*background: #3d3d3d !important;*/
+    background: rgba(0, 0, 0, .10) !important
 }
 
 /*.invert {*/
