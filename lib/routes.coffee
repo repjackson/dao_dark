@@ -42,6 +42,11 @@ Router.route '/healthclub', (->
     @render 'healthclub'
     ), name:'healthclub'
 
+Router.route '/add_resident', (->
+    @layout 'nonav'
+    @render 'add_resident'
+    ), name:'add_resident'
+
 
 Router.route '/u/:username/s/:type', (->
     @layout 'profile_layout'
@@ -135,7 +140,6 @@ Router.route '/register', -> @render 'register'
 Router.route '/forgot-password', -> @render 'forgot-password'
 
 
-Router.route '/add_resident', -> @render 'add_resident'
 Router.route '/sign_waiver/:receipt_id', -> @render 'sign_waiver'
 Router.route '/settings', -> @render 'settings'
 

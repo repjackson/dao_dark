@@ -1,6 +1,6 @@
 Template.healthclub.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
-    @autorun => Meteor.subscribe 'type', 'field'
+    # @autorun => Meteor.subscribe 'type', 'field'
     # @autorun => Meteor.subscribe 'type', 'log_event'
     @autorun => Meteor.subscribe 'all_users'
     # @autorun => Meteor.subscribe 'tribe_schemas', Router.current().params.tribe_slug
@@ -35,7 +35,7 @@ Template.healthclub.helpers
         Meteor.users.find({
             username: {$regex:"#{username_query}", $options: 'i'}
             healthclub_checkedin:$ne:true
-            }).fetch()
+            },{ limit:5 }).fetch()
 
     checking_in: ->
         Session.get('username_query')
@@ -48,56 +48,83 @@ Template.healthclub.helpers
 
 Template.checkin_button.events
     'click .checkin': (e,t)->
-        Session.set('selected_user_id', @_id)
-        $('.ui.check_in.modal')
-          .modal({
-            inverted: true
-            setting: transition: 'scale'
-            # closable: false
-            onDeny: ->
-            onApprove: =>
-                Meteor.setTimeout =>
-                    $(e.currentTarget).closest('.segment').transition('scale')
-                , 750
-                Meteor.setTimeout =>
-                    Meteor.users.update @_id,
-                        $set:healthclub_checkedin:true
-                    Docs.insert
-                        type:'log_event'
-                        object_id:@_id
-                        body: "#{@username} checked in."
-                    # swal( "#{@username} checked in.", "", "success" )
-                    Session.set 'username_query',null
-                    $('.username_search').val('')
-                , 2000
-            }).modal('show')
+        $(e.currentTarget).closest('.card').transition('scale')
+        Meteor.setTimeout =>
+            Meteor.users.update @_id,
+                $set:healthclub_checkedin:true
+            # Docs.insert
+            #     type:'log_event'
+            #     object_id:@_id
+            #     body: "#{@username} checked in."
+            # swal( "#{@username} checked in.", "", "success" )
+            Session.set 'username_query',null
+            $('.username_search').val('')
+        , 750
+
+        # Session.set('selected_user_id', @_id)
+        # $('.ui.check_in.modal')
+        #   .modal({
+        #     inverted: true
+        #     setting: transition: 'scale'
+        #     # closable: false
+        #     onDeny: ->
+        #     onApprove: =>
+        #         Meteor.setTimeout =>
+        #             $(e.currentTarget).closest('.card').transition('scale')
+        #         , 750
+        #         Meteor.setTimeout =>
+        #             Meteor.users.update @_id,
+        #                 $set:healthclub_checkedin:true
+        #             Docs.insert
+        #                 type:'log_event'
+        #                 object_id:@_id
+        #                 body: "#{@username} checked in."
+        #             # swal( "#{@username} checked in.", "", "success" )
+        #             Session.set 'username_query',null
+        #             $('.username_search').val('')
+        #         , 2000
+        #     }).modal('show')
 
 
     'click .checkout': (e,t)->
-        Session.set('selected_user_id', @_id)
-        $('.ui.check_out.modal')
-          .modal({
-            inverted: true
-            setting: transition: 'scale'
-            # closable: false
-            onDeny: ->
-            onApprove: =>
-                Meteor.setTimeout =>
-                    $(e.currentTarget).closest('.segment').transition('scale')
-                , 750
-                Meteor.setTimeout =>
-                    Meteor.users.update @_id,
-                        $set:healthclub_checkedin:false
-                    Docs.insert
-                        type:'log_event'
-                        parent_id:@_id
-                        object_id:@_id
-                        body: "#{@username} checked out."
-                    # swal( "#{@username} checked out.", "", "success" )
-                    Session.set 'username_query',null
-                    $('.username_search').val('')
-                , 2000
-          }).modal('show')
+        $(e.currentTarget).closest('.card').transition('scale')
+        Meteor.setTimeout =>
+            Meteor.users.update @_id,
+                $set:healthclub_checkedin:false
+            # Docs.insert
+            #     type:'log_event'
+            #     parent_id:@_id
+            #     object_id:@_id
+            #     body: "#{@username} checked out."
+            # swal( "#{@username} checked out.", "", "success" )
+            Session.set 'username_query',null
+            $('.username_search').val('')
+        , 1000
+
+        # Session.set('selected_user_id', @_id)
+        # $('.ui.check_out.modal')
+        #   .modal({
+        #     inverted: true
+        #     setting: transition: 'scale'
+        #     # closable: false
+        #     onDeny: ->
+        #     onApprove: =>
+        #         Meteor.setTimeout =>
+        #             $(e.currentTarget).closest('.card').transition('scale')
+        #         , 750
+        #         Meteor.setTimeout =>
+        #             Meteor.users.update @_id,
+        #                 $set:healthclub_checkedin:false
+        #             Docs.insert
+        #                 type:'log_event'
+        #                 parent_id:@_id
+        #                 object_id:@_id
+        #                 body: "#{@username} checked out."
+        #             # swal( "#{@username} checked out.", "", "success" )
+        #             Session.set 'username_query',null
+        #             $('.username_search').val('')
+        #         , 2000
+        #   }).modal('show')
 
 
 
@@ -128,7 +155,7 @@ Template.add_resident.onCreated ->
     Session.set 'permission', false
 
 Template.add_resident.events
-    'blur #last_name': (e,t)->
+    'keyup #last_name': (e,t)->
         first_name = $('#first_name').val().toLowerCase()
         last_name = $('#last_name').val().toLowerCase()
         $('#username').val("#{first_name}_#{last_name}")
@@ -137,7 +164,7 @@ Template.add_resident.events
     'click .create_and_checkin': ->
         first_name = $('#first_name').val().toLowerCase()
         last_name = $('#last_name').val().toLowerCase()
-        username = $('#username').val()
+        username = "#{first_name}_#{last_name}"
         Meteor.call 'add_resident', first_name, last_name, username, (err,res)->
             if err
                 alert err

@@ -16,28 +16,26 @@ body {
 .invert {
   filter: invert(90%);
   /*background: #262626 !important*/
-  background: rgba(250,250,250,1) !important
+  background: rgba(250,250,250,1) !important;
 }
 
 .healthclub {
+    /* background: rgba(100, 100, 100, .8) !important; */
+    min-height:100%;
     background-image: url("/gym.jpg");
-    /* background-repeat: no-repeat;
-    background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     /* Set a specified height, or the minimum height for the background image */
-    min-height: 500px;
+    /* min-height: 500px; */
 
     /* Set background image to fixed (don't scroll along with the page) */
     background-attachment: fixed;
-
     /* Center the background image */
     background-position: center;
-
     /* Set the background image to no repeat */
     background-repeat: no-repeat;
-
     /* Scale the background image to be as large as possible */
     background-size: cover;
-
 }
 
 .ui.button, .ui.label{

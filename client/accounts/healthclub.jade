@@ -1,87 +1,128 @@
 template(name='healthclub')
-    .ui.left.icon.big.fluid.action.input
+    .ui.grid
+        .row
+            .ten.wide.column
+                .ui.segment
+                    .ui.large.list
+                        .item Wifi: Gold Run Health Club
+                        .item Password: goldrun1
+                        .item Upstairs Code: 4589
+                    .ui.large.list
+                        .item Security
+                        .item 303.443.3701
+                    .item Onsite Manager
+                    .ui.list
+                        .item Rick Hamp 
+                        .item 303-545-1787
+                        .item goldruncondos@gmail.com
+                    .ui.large.list
+                        .item After Hours Emergency
+                        .item 303-221-1117
+            .six.wide.column
+                .ui.segment
+                    .ui.large.list
+                        .item Mon 7a-10p
+                        .item Tues 7a-10p
+                        .item Wed 7a-10p
+                        .item Thur 7a-10p
+                        .item Fri 7a-9p
+                        .item Sat 8a-9p
+                        .item Sun 8a-10p
+    
+    .ui.left.icon.large.fluid.action.input
         i.search.icon
         input.username_search(type='text' placeholder='Check In Health Club Member...')
-        .ui.icon.button.clear_results
-            i.remove.icon
+        if checking_in
+            .ui.icon.button.clear_results
+                i.remove.icon
+    //- if is_admin
+    //-     a.ui.button(href='/add_resident')
+    //-         i.plus.icon
+    //-         | User
+    a.ui.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+        |Sign Rules and Regulations
+    a.ui.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+        |Sign Guest Waiver
+                
     .ui.stackable.padded.grid
         .row
             .sixteen.wide.column
                 if checkedout_members.length
                     .ui.center.aligned.inverted.header 
-                        +icolor name='internal' classes='ui inline image'
+                        //- +icolor name='internal' classes='ui inline image'
                         |Check In Member
-                    .ui.three.column.grid
+                    .ui.cards
                         each checkedout_members
-                            .column
-                                .ui.secondary.segment 
-                                    .ui.grid
-                                        .row
-                                            .sixteen.wide.column
-                                                .ui.small.header #{first_name} #{last_name} @#{username}
-                                        .row
-                                            .eight.wide.column
-                                                if profile.image_id
-                                                    img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                                else if image_id
-                                                    img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                            .eight.wide.column
-                                                a.ui.button(href="/u/#{username}/")
-                                                    |View
-                                                    i.chevron.right.icon
-                                                +checkin_button
+                            .card
+                                .image
+                                    if profile.image_id
+                                        img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                    else if image_id
+                                        img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                .content
+                                    .header #{first_name} #{last_name}
+                                    .meta @#{username}
+                                    if is_dev
+                                        a.ui.icon.button(href="/u/#{username}/")
+                                            //- |View
+                                            i.chevron.right.icon
+                                    +checkin_button
                 else
                     if checking_in
                         .ui.header No members found
                         +add_resident
+                        
         unless checking_in
             .row
                 .sixteen.wide.column
                     .ui.two.column.stackable.grid
                         .column.scrolling
-                            .ui.center.aligned.inverted.header
-                                +icolor name='internal' classes='ui image'
-                                |#{checkedin_members.length} Checked In Members
-                            each checkedin_members
-                                .ui.secondary.green.segment 
-                                    .ui.grid
-                                        .four.wide.column
+                            //- .ui.center.aligned.inverted.header
+                            //-     +icolor name='internal' classes='ui image'
+                            //-     |#{checkedin_members.length} Checked In Members
+                            .ui.three.cards
+                                each checkedin_members
+                                    .card
+                                        .image
                                             if profile.image_id
                                                 img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
                                             else if image_id
                                                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        .twelve.wide.column
-                                            //- .image
-                                            .content
-                                                .ui.header #{first_name} #{last_name} @#{username}
-                                                //- a.meta(href="/t/goldrun/u/#{_id}/about") #{username}
-                                            .content
-                                                +checkin_button
-                                                if is_dev
-                                                    a.ui.button(href="/u/#{username}/")
-                                                        |View
-                                                        i.chevron.right.icon
-                                                div
-                                                    
-                                                each tags
-                                                    .ui.label #{this}
-                                                //- if signed_waiver
-                                                //-     .ui.green.basic.button
-                                                //-         i.checkmark.icon
-                                                //-         |Waiver Signed
-                                                //- else
-                                                //-     .ui.red.button.sign_waiver
-                                                //-         i.cancel.icon
-                                                //-         |Waiver Not Signed
+                                        .content
+                                            .header #{first_name} #{last_name} 
+                                            .meta @#{username}
+                                        .content
+                                            +checkin_button
+                                            if is_dev
+                                                a.ui.icon.button(href="/u/#{username}/")
+                                                    i.chevron.right.icon
+                                            div
+                                            +icolor name='swimming-pool' classes='ui avatar image'
+                                            +icolor name='weightlift' classes='ui avatar image'
+                                            +icolor name='jacuzzi' classes='ui avatar image'
+                                            +icolor name='shower' classes='ui avatar image'
+                                            +icolor name='racquetball' classes='ui avatar image'
+                                            +icolor name='water-steam' classes='ui avatar image'
+                
+                                            each tags
+                                                .ui.label #{this}
+                                            //- if signed_waiver
+                                            //-     .ui.green.basic.button
+                                            //-         i.checkmark.icon
+                                            //-         |Waiver Signed
+                                            //- else
+                                            //-     .ui.red.button.sign_waiver
+                                            //-         i.cancel.icon
+                                            //-         |Waiver Not Signed
                         .column.scrolling
-                            if is_admin
-                                a.ui.large.fluid.button(href='/add_resident')
-                                    i.user.plus.icon
-                                    |Add Resident
-                            a.ui.large.fluid.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
-                                |New Member
-                            a.ui.large.fluid.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
-                                |Guest Waiver
+                            .ui.segment
+                                .ui.header
+                                    //- +icolor name='megaphone' classes='ui inline image'
+                                    i.rss.icon
+                                    |Notices
+                                .content
+                                    .ui.small.header FM receiver headsets now available to borrow for tvs
+                                
                             //- .ui.accordion
                             //-     h4.title
                             //-         // +icolor name='edit-property' classes='ui inline image'
@@ -102,50 +143,12 @@ template(name='healthclub')
                             //-                                 |#{when}
                             //-                             if is_dev
                             //-                                 +remove_button
-                            .ui.secondary.segment
-                                .ui.header
-                                    +icolor name='megaphone' classes='ui inline image'
-                                    |Notices
-                                .content
-                                    .ui.small.header FM receiver headsets now available to borrow for tvs
-                            .ui.grid
-                                .four.wide.column
-                                    .ui.secondary.segment
-                                        | Wifi
-                                        .ui.small.inline.header Gold Run Health Club
-                                        | Password
-                                        .ui.small.inline.header goldrun1
-                                        | Upstairs Code
-                                        .ui.small.inline.header 4589
-                                .six.wide.column
-                                    .ui.secondary.segment
-                                        | Security
-                                        .ui.small.header 303.443.3701
-                                    .ui.secondary.segment
-                                        | Onsite Manager
-                                        .ui.small.header Rick Hamp 
-                                        .ui.small.header 303-545-1787
-                                        .ui.small.header goldruncondos@gmail.com
-                                    .ui.secondary.segment
-                                        | After Hours Emergency
-                                        .ui.small.header 303-221-1117
-                                    
-                                .four.wide.column
-                                    .ui.secondary.segment
-                                        .ui.small.header Mon 7a-10p
-                                        .ui.small.header Tues 7a-10p
-                                        .ui.small.header Wed 7a-10p
-                                        .ui.small.header Thur 7a-10p
-                                        .ui.small.header Fri 7a-9p
-                                        .ui.small.header Sat 8a-9p
-                                        .ui.small.header Sun 8a-10p
-                    
-                            //- .ui.secondary.segment
+                            //- .ui.segment
                             //-     .ui.header
                             //-         +icolor name='poll-topic' classes='ui inline image'
                             //-         |Poll
                             //-     .content
-                            //- .ui.secondary.segment
+                            //- .ui.segment
                             //-     .ui.small.header
                             //-         +icolor name='front-desk' classes='ui inline image'
                             //-         | Staff On Duty
@@ -154,48 +157,48 @@ template(name='healthclub')
                             //-             img.ui.image(src="{{c.url profile.image_id }}")
                             //-             .content
                             //-                 .header #{username}
-    .ui.check_out.modal
-        .header Checkout #{selected_person.username}?
-        .content
-            .ui.header #{selected_person.first_name} #{selected_person.last_name}
-            .ui.header #{selected_person.username}
-        .actions
-            .ui.large.ok.teal.button
-                |Check Out
-            .ui.large.cancel.basic.button
-                |Cancel
-    .ui.check_in.modal
-        .header Check In #{selected_person.username}?
-        .content
-            .ui.header #{selected_person.first_name} #{selected_person.last_name}
-            .ui.header #{selected_person.username}
-        .actions
-            .ui.large.ok.green.button
-                |Check In
-            .ui.large.cancel.basic.button
-                |Cancel
+    //- .ui.check_out.modal
+    //-     .header Checkout #{selected_person.username}?
+    //-     .content
+    //-         .ui.header #{selected_person.first_name} #{selected_person.last_name}
+    //-         .ui.header #{selected_person.username}
+    //-     .actions
+    //-         .ui.large.ok.teal.button
+    //-             |Check Out
+    //-         .ui.large.cancel.basic.button
+    //-             |Cancel
+    //- .ui.check_in.modal
+    //-     .header Check In #{selected_person.username}?
+    //-     .content
+    //-         .ui.header #{selected_person.first_name} #{selected_person.last_name}
+    //-         .ui.header #{selected_person.username}
+    //-     .actions
+    //-         .ui.large.ok.green.button
+    //-             |Check In
+    //-         .ui.large.cancel.basic.button
+    //-             |Cancel
                         
                         
 template(name='add_resident')
     .ui.stackable.padded.grid
         .centered.row
             .eight.wide.column
-                h1.ui.center.aligned.header
+                h1.ui.center.aligned.inverted.header
                     i.user.plus.icon
                     |Add Resident
-                .ui.large.form
+                .ui.big.inverted.form
                     .field
-                        |First Name
-                        input#first_name(type='text')
+                        //- |First Name
+                        input#first_name(type='text' placeholder='First Name')
                     .field
-                        |Last Name
-                        input#last_name(type='text')
-                    .field
-                        |Username
-                        input#username(type='text')
+                        //- |Last Name
+                        input#last_name(type='text' placeholder='Last Name')
+                    //- .field
+                    //-     |Username
+                    //-     input#username(type='text')
                 if permission
                     .ui.fluid.green.button.create_and_checkin
-                        |Create and Checkin
+                        |Create and Check In
         .row
         
         
@@ -240,15 +243,15 @@ template(name='sign_waiver')
 
 template(name='checkin_button')
     unless healthclub_checkedin
-        .ui.icon.button.checkin(title='Check In')
-            // i.sign.in.icon
-            +icolor name='internal' classes='ui image'
+        .ui.big.icon.circular.button.checkin(title='Check In')
+            i.sign.in.large.icon
+            //- +icolor name='internal' classes='ui image'
             //- |Check In
     if healthclub_checkedin
-        .ui.button.checkout(title='Sign Out')
-            // i.sign.out.large.icon
-            +icolor name='exit-sign' classes='ui avatar image'
-            |Check Out
+        .ui.big.icon.circular.button.checkout(title='Sign Out')
+            i.sign.out.large.icon
+            //- +icolor name='exit-sign' classes='ui avatar image'
+            //- |Check Out
     //- +rules_sign
     //- +guest_sign
     //- .ui.accordion
