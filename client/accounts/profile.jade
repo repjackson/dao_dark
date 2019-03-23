@@ -31,42 +31,42 @@ template(name='profile_layout')
                                         
                                                 
                                     .ui.vertical.large.fluid.menu
-                                        a.item(href="/u/#{user_from_username_param.username}/about" class="{{is_active_route regex='user_about'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/about" class="{{isActiveRoute regex='user_about'}}")
                                             i.info.icon
                                             .content    
                                                 .header
                                                     |About
-                                        a.item(href="/u/#{user_from_username_param.username}/connections" class="{{is_active_route regex='user_connections'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
                                             i.fork.icon
                                             .content    
                                                 .header
                                                     |Connections
-                                        a.item(href="/u/#{user_from_username_param.username}/messages" class="{{is_active_route regex='user_messages'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
                                             i.mail.icon
                                             .content    
                                                 .header
                                                     |Messages
-                                        a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{is_active_route regex='user_notifications'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
                                             i.bullhorn.icon
                                             .content    
                                                 .header
                                                     |Notifications
-                                        a.item(href="/u/#{user_from_username_param.username}/chat" class="{{is_active_route regex='user_chat'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
                                             i.chat.icon
                                             .content    
                                                 .header
                                                     |Chat
-                                        a.item(href="/u/#{user_from_username_param.username}/stripe" class="{{is_active_route regex='user_stripe'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
                                             i.stripe.icon
                                             .content    
                                                 .header
                                                     |Stripe
-                                        a.item(href="/u/#{user_from_username_param.username}/tags" class="{{is_active_route regex='user_tags'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/tags" class="{{isActiveRoute regex='user_tags'}}")
                                             i.tags.icon
                                             .content    
                                                 .header
                                                     |Tags
-                                        a.item(href="/u/#{user_from_username_param.username}/contact" class="{{is_active_route regex='user_contact'}}")
+                                        a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
                                             i.phone.icon
                                             .content    
                                                 .header
@@ -74,7 +74,7 @@ template(name='profile_layout')
                                     if user_schemas
                                         .ui.vertical.large.fluid.menu
                                             each user_schemas
-                                                a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{is_active_route regex=group}}")
+                                                a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
                                                     i.icon(class=icon)
                                                     .content    
                                                         .header

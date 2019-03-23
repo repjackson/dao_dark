@@ -1,3 +1,118 @@
+template(name='delta')
+    with current_schema
+        .ui.stackable.grid
+            .row
+                // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
+                .four.wide.column.scrolling
+                    .ui.center.aligned.header
+                        if color_icon
+                            +icolor name=color_icon
+                        else
+                            i.icon(class=icon)
+                        | #{plural}
+                    // .ui.small.center.aligned.header #{body}
+                    unless is_loading
+                        if can_add
+                            .ui.fluid.large.button.add_type_doc(title="Add #{title}")
+                                // i.plus.large.icon
+                                +icolor name='plus' classes='ui avatar image'
+                                |Add #{title}
+                        if can_edit
+                            //- +edit_button
+                            .ui.button.edit_schema
+                                i.cog.icon
+                                | Configure #{plural}
+                        // .ui.divider
+                        // // each sessions
+                        // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
+                        // //         i.play.icon
+                                
+                        if current_delta
+                            if is_dev
+                                .ui.icon.button.print_delta(title='Print Session Doc')
+                                    i.code.icon
+                                    // |Print Session
+                                .ui.reset.icon.button(title='Reload Session')
+                                    i.refresh.icon
+                                    // |Reload Session
+                                .ui.delete_delta.icon.button(title='Delete Session')
+                                    i.trash.icon
+                                    // |Delete Session
+                        else
+                            .create_delta.ui.basic.button.pointer(title='new session')
+                                i.plus.icon
+                                |Create Session
+                    // |did: #{session_delta_id}
+                            
+                    each current_delta.facets
+                        +facet
+                // .column(class=delta_right_column_class)
+                .eight.wide.column
+                    // a.ui.left.corner.label.move_right
+                    //     i.right.chevron.link.pointer.icon
+                    // .ui.horizontal.spaced.list
+                    //     .item
+                    //         |View
+                    //         +set_page_size value=10
+                    //         +set_page_size value=20
+                    //         +set_page_size value=50
+                    //     .item
+                    //         if multiple_pages
+                    //             .ui.label
+                    //                 | Page #{delta.current_page}/#{delta.page_amount}
+                    //     .item
+                    //             | #{delta.total} Results
+                    //     .item
+                    //         if show_page_down
+                    //             .ui.icon.button.page_down(title='Previous Page')
+                    //                 i.left.chevron.icon
+                    //         if show_page_up
+                    //             .ui.icon.button.page_up(title='Next Page')
+                    //                 i.right.chevron.icon
+                    //     .item
+                    //         +set_delta_key key='view' value='grid' icon='clone'                                    
+                    //         +set_delta_key key='view' value='table' icon='table'                                    
+                    //     .item
+                    //         +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
+                    //     .item
+                    //         .ui.disabled.button
+                    //             i.sort.down.icon
+                    //             |Sort By
+                    //     .item
+                    //         .ui.disabled.button
+                    //             i.filter.icon
+                    //             | Toggle Fields
+                    // .ui.stackable.grid.scrolling(class=result_grid_class)
+                    .scrolling
+                        each current_delta.result_ids
+                            +result
+                .four.wide.column.scrolling
+                    +events_column
+                
+template(name='events_column')
+    .ui.accordion
+        h4.active.title
+            // +icolor name='edit-property' classes='ui inline image'
+                // .ui.inline.dividing.header 
+            i.rss.icon
+            | Log
+            i.dropdown.icon
+        .active.content
+            .ui.feed
+                each log_events
+                    .event
+                        .label
+                            img.ui.image(src="{{c.url object.image width=400 height=400 gravity='face' crop='fill'}}")
+                        .content
+                            .summary
+                                |#{body}
+                                .date
+                                    |#{when}
+                                if is_dev
+                                    +remove_button
+
+
+
 template(name='facet')
     |&nbsp;
     //- if filtering_res

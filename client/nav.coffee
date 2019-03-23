@@ -1,8 +1,7 @@
 Template.topnav.onCreated ->
-
     @autorun => Meteor.subscribe 'me'
     @autorun => Meteor.subscribe 'type', 'field'
-    # @autorun => Meteor.subscribe 'schemas'
+    @autorun => Meteor.subscribe 'schemas'
     # @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
     # @autorun => Meteor.subscribe 'tribe_schemas', Router.current().params.tribe_slug
     # @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
@@ -97,15 +96,15 @@ Template.topnav.events
         Meteor.call 'set_delta_facets', 'schema',->
             Session.set 'loading', false
 
-    # 'click .records': ->
-    #     Session.set 'loading', true
-    #     Meteor.call 'set_delta_facets', 'record',->
-    #         Session.set 'loading', false
-    #
-    # 'click .set_schema': ->
-    #     Session.set 'loading', true
-    #     Meteor.call 'set_delta_facets', @slug,->
-    #         Session.set 'loading', false
+    'click .records': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', 'record',->
+            Session.set 'loading', false
+
+    'click .set_schema': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', @slug,->
+            Session.set 'loading', false
 
 
 # Template.topbar.onCreated ->

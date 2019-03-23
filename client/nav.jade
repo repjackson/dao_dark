@@ -1,38 +1,47 @@
 template(name='topnav')
-    .ui.attached.inverted.large.menu
+    .ui.attached.inverted.large.borderless.menu
         if is_loading
-            i.loading.adjust.large.grey.icon
+            .icon.item
+                i.loading.adjust.large.grey.icon
         else 
             a.alpha.ui.icon.item(href="/" class="{{isActivePath '/'}}")
                 i.home.large.icon
-            a.alpha.ui.icon.item(href="/healthclub" class="{{isActivePath '/checkin'}}" title='Check In')
-                +icolor name='internal' classes='ui avatar image'
-            //- a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
-            //-     i.plus.large.icon
-            //- a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
-            //-     i.large.chat.icon
-            //- a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
-            //-      i.large.inbox.icon
+            a.alpha.ui.item(href="/goldrun" class="{{isActivePath '/goldrun'}}" title=' Gold Run')
+                //- +icolor name='internal' classes='ui avatar image'
+                |GR
+            a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
+                i.plus.large.icon
+            a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
+                i.large.chat.icon
+            a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
+                 i.large.inbox.icon
             a.item(href="/users" class="{{isActivePath '/users'}}")
                  i.large.users.icon
-                         
+            a.ui.delta.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
+                i.sitemap.large.icon
+            a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
+                i.large.list.icon
+            a.icon.item.people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
+                i.users.large.icon
+            a.ui.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
+                i.th.large.icon
         .right.menu
             if currentUser
                 a.ui.circular.icon.item.adddoc(href="#")
                     i.plus.large.icon
-                a.ui.item(href="/u/#{currentUser.username}" title="Profile" class="{{is_active_route 'user_home'}}")
+                a.ui.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
                     i.user.large.icon
                     |#{currentUser.username}
                 if signing_out
                     .icon.disabled.item.toggle_rightbar
                         i.notched.circle.loading.big.icon
                 else
-                    .logout.ui.item(title='log out')
+                    .logout.ui.icon.item(title='log out')
                         i.sign.out.icon
             else
-                a.ui.item(href="/login")
+                a.ui.icon.item(href="/login")
                     i.sign.in.alternate.large.icon
-                a.ui.item(href="/register")
+                a.ui.icon.item(href="/register")
                     i.user.plus.large.icon
     if is_dev
         .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
@@ -61,7 +70,6 @@ template(name='topbar')
                     .ui.inverted.list
                         each also_serving_pages
                             a.ui.button(href="/p/#{slug}") #{title}
-                            
                 .four.wide.center.aligned.column
                     .ui.inverted.list
                         each resource_pages
@@ -74,7 +82,7 @@ template(name='rightbar')
     .ui.right.vertical.sidebar.nav_bar.inverted.menu.rightbar(style="background:#{ct.primary_color}")
         // if is_church
         //     .profile-picture
-        //         a(href="{{pathFor route='churchDashboard'}}" class="{{is_active_route 'churchDashboard'}}")
+        //         a(href="{{pathFor route='churchDashboard'}}" class="{{isActiveRoute 'churchDashboard'}}")
         //             if currentUser.profile.profilePic
         //                 img.img-circle.m-b(src='{{currentUser.profile.profilePic}}' alt='logo' width='100' height='79')
         //             else
@@ -114,23 +122,23 @@ template(name='rightbar')
             // +ioffice name='settings-3' classes='ui avatar image'
             i.cog.icon
             | Account
-        // .item.toggle_rightbar
-        //     | #{currentUser.profile.first_name} #{currentUser.profile.last_name}
-        //     | #{currentUser.username} #{currentUser.profile.name}
-        //     i.grey.user.shield.icon(title='Role')
-        //     each currentUser.roles
-        //         .ui.basic.label #{this}
-        // .item.toggle_rightbar
-        //     i.leaderboard.icon
-        //     | Leaderboard
-        // a.item.toggle_rightbar(href='/account')
-        //     if currentUser.username
-        //         |#{currentUser.username}
-        //     else
-        //         |Account
-        // a.item.toggle_rightbar(href="/u/#{currentUser._id}/about")
-        //     i.user.icon
-        //     | Profile
+        .item.toggle_rightbar
+            | #{currentUser.profile.first_name} #{currentUser.profile.last_name}
+            | #{currentUser.username} #{currentUser.profile.name}
+            i.grey.user.shield.icon(title='Role')
+            each currentUser.roles
+                .ui.basic.label #{this}
+        .item.toggle_rightbar
+            i.leaderboard.icon
+            | Leaderboard
+        a.item.toggle_rightbar(href='/account')
+            if currentUser.username
+                |#{currentUser.username}
+            else
+                |Account
+        a.item.toggle_rightbar(href="/u/#{currentUser._id}/about")
+            i.user.icon
+            | Profile
         if signing_out
             .icon.disabled.item.toggle_rightbar
                 i.notched.circle.loading.big.icon
@@ -151,18 +159,18 @@ template(name='leftbar')
         //     a.item.toggle_leftbar.toggle_dev.mobile_hidden(href="#")
         //         i.user.shield.icon
         //         | Dev
-        // a.item.toggle_leftbar(href="/people" class="{{is_active_route regex='people'}}" title='People')
+        // a.item.toggle_leftbar(href="/people" class="{{isActiveRoute regex='people'}}" title='People')
         //     i.users.icon
         //     | People
-        // a.item.toggle_leftbar(href="/churches" class="{{is_active_route regex='churches'}}" title='Churches')
+        // a.item.toggle_leftbar(href="/churches" class="{{isActiveRoute regex='churches'}}" title='Churches')
         //     i.building.icon
         //     | Organizations
-        // a.item.toggle_leftbar(href='/chat' title='Chat' class="{{is_active_route regex='chat'}}")
+        // a.item.toggle_leftbar(href='/chat' title='Chat' class="{{isActiveRoute regex='chat'}}")
         //     i.chat.icon
         //     | Chat
             
         if currentUser
-            a.ui.button(href="/user/#{currentUser._id}/edit" class="{{is_active_route 'user_edit'}}")
+            a.ui.button(href="/user/#{currentUser._id}/edit" class="{{isActiveRoute 'user_edit'}}")
                 i.user.icon
                 | my account
                 

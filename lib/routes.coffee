@@ -37,10 +37,10 @@ Router.route '/view/:_id', -> @render 'view'
 Router.route '*', -> @render 'not_found'
 
 # Router.route '/u/:username/s/:type', -> @render 'profile_layout', 'user_section'
-Router.route '/healthclub', (->
+Router.route '/goldrun', (->
     @layout 'nonav'
-    @render 'healthclub'
-    ), name:'healthclub'
+    @render 'goldrun'
+    ), name:'goldrun'
 
 Router.route '/add_resident', (->
     @layout 'nonav'
@@ -156,9 +156,8 @@ Router.route '/', (->
 Router.route '/s/:type', (->
     @layout 'layout'
     @render 'delta'
-    ), name:'tribe_delta'
+    ), name:'delta'
 
 
-# Router.route '/s/:type', -> @render 'delta'
 Router.route '/s/:type/:_id/edit', -> @render 'type_edit'
 Router.route '/s/:type/:_id/view', -> @render 'type_view'

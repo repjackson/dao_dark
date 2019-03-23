@@ -20,27 +20,26 @@ body {
 }
 
 .healthclub {
-    /* background: rgba(100, 100, 100, .8) !important; */
+    background: rgba(245, 245, 245) !important;
     min-height:100%;
-    background-image: url("/gym.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    /* background-image: url("/gym.jpg"); */
+    /* background-repeat: no-repeat; */
+    /* background-attachment: fixed; */
     /* Set a specified height, or the minimum height for the background image */
     /* min-height: 500px; */
-
     /* Set background image to fixed (don't scroll along with the page) */
-    background-attachment: fixed;
+    /* background-attachment: fixed; */
     /* Center the background image */
-    background-position: center;
+    /* background-position: center; */
     /* Set the background image to no repeat */
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     /* Scale the background image to be as large as possible */
-    background-size: cover;
+    /* background-size: cover; */
 }
-
+/*
 .ui.button, .ui.label{
   margin:.1em !important;
-}
+} */
 
 .button {
   animation: fadein 1s;
@@ -88,10 +87,10 @@ body {
 
 
 
-.ui.button, .ui.label {
+/* .ui.button, .ui.label {
 	 margin-top: 0.1em !important;
 	 margin-bottom: 0.1em !important;
-}
+} */
  .meta .ui.button {
 	 margin: 0.2em !important;
 }
@@ -207,9 +206,9 @@ a {
 /*	 margin-top: 0.1em !important;*/
 /*	 margin-bottom: 0.1em !important;*/
 /*}*/
- .meta .ui.button {
+ /* .meta .ui.button {
 	 margin: 0.2em !important;
-}
+} */
 
 .spaced {
   margin:.3em !important;
@@ -256,10 +255,10 @@ a {
 .grey_car{
   background-color: lightgrey !important;}
 
-.ui.button, .ui.label.tag {
+/* .ui.button, .ui.label.tag {
   margin-top: .2em !important;
   margin-bottom: .2em !important;
-}
+} */
 
 .facet_res {
   text-align: center !important;
@@ -386,10 +385,10 @@ a {
     line-height: 130%;
 }
 
-.ui.button, .ui.label.tag {
+/* .ui.button, .ui.label.tag {
   margin-top: .2em !important;
   margin-bottom: .2em !important;
-}
+} */
 
 @media only screen and (max-width: 700px) {
   .ui.fixed.menu {

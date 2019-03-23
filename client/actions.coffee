@@ -24,11 +24,6 @@ Template.email_receipt.events
 
 
 
-Template.healthclub.onRendered ->
-    Meteor.setTimeout ->
-        $('.accordion').accordion()
-    , 1500
-
 
 Template.rules_sign.onCreated ->
     @autorun => Meteor.subscribe 'type', 'person'

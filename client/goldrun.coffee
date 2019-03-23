@@ -1,4 +1,4 @@
-Template.healthclub.onCreated ->
+Template.goldrun.onCreated ->
     @autorun => Meteor.subscribe 'health_club_members', Session.get('username_query')
     # @autorun => Meteor.subscribe 'type', 'field'
     # @autorun => Meteor.subscribe 'type', 'log_event'
@@ -7,7 +7,7 @@ Template.healthclub.onCreated ->
     # @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
 
 
-Template.healthclub.onRendered ->
+Template.goldrun.onRendered ->
     # @autorun =>
     #     if @subscriptionsReady()
     #         Meteor.setTimeout ->
@@ -22,7 +22,7 @@ Template.healthclub.onRendered ->
     , 3000
 
 
-Template.healthclub.helpers
+Template.goldrun.helpers
     selected_person: ->
         Meteor.users.findOne Session.get('selected_user_id')
 
@@ -130,7 +130,7 @@ Template.checkin_button.events
 
 
 
-Template.healthclub.events
+Template.goldrun.events
     'click .sign_waiver': (e,t)->
         # console.log @
         receipt_id = Docs.insert
@@ -185,7 +185,7 @@ Template.add_resident.events
                 Session.set 'username_query',null
                 $('.username_search').val('')
 
-                Router.go "/healthclub"
+                Router.go "/goldrun"
 
 
 Template.add_resident.helpers

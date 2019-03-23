@@ -40,7 +40,7 @@ template(name='user_list_info')
     a.ui.button.item(href="/user/#{user._id}")
         img.ui.avatar.image(src=user.image title=name)
         |#{user.profile.name}
-        +user_status user
+        //- +user_status user
 
 
 
@@ -53,7 +53,7 @@ template(name='user_info')
         |@#{user.username}
         |#{user.first_name}
         |#{user.last_name}
-        +user_status user
+        //- +user_status user
 
 template(name='user_card')
     a.ui.segment(href="/u/#{user.username}")
@@ -62,7 +62,7 @@ template(name='user_card')
         |@#{user.username}
         |@#{user.first_name}
         |@#{user.last_name}
-        +user_status user
+        //- +user_status user
 
 template(name='person_card')
     .ui.fluid.segment
@@ -86,7 +86,7 @@ template(name='person_card')
                         strong #{person.building_number}
                     .item Unit Number
                         strong #{person.unit_number}
-        // +user_status user
+        //- // +user_status user
 
 
 template(name='role_editor')
@@ -131,7 +131,7 @@ template(name='view_button')
         i.right.chevron.icon
 
 template(name='remove_button')
-    .ui.circular.icon.basic.large.button.remove_doc(title='Delete')
+    .ui.circular.icon.large.button.remove_doc(title='Delete')
         i.grey.link.remove.icon
         // |Remove #{title}
         // |Remove #{title} #{type}
@@ -146,13 +146,13 @@ template(name='add_button')
 
 
 template(name='clone_button')
-    a.ui.icon.circular.big.basic.inverted.button.clone_doc(title='clone' href="#")
+    a.ui.icon.circular.big.button.clone_doc(title='clone' href="#")
         i.clone.icon
 
 
 
 template(name='edit_button')
-    .ui.large.icon.basic.circular.button.edit(title="edit #{title}")
+    .ui.large.icon.circular.button.edit(title="edit #{title}")
         i.blue.pencil.icon
         //- |Edit
 
