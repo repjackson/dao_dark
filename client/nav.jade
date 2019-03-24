@@ -4,31 +4,33 @@ template(name='topnav')
             .icon.item
                 i.loading.adjust.large.grey.icon
         else 
-            a.alpha.ui.icon.item(href="/" class="{{isActivePath '/'}}")
-                i.home.large.icon
-            a.alpha.ui.item(href="/goldrun" class="{{isActivePath '/goldrun'}}" title=' Gold Run')
+            a.alpha.ui.header.item(href="/goldrun" class="{{isActivePath '/goldrun'}}" title=' Gold Run')
                 //- +icolor name='internal' classes='ui avatar image'
                 |GR
-            a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
-                i.plus.large.icon
-            a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
-                i.large.chat.icon
-            a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
-                 i.large.inbox.icon
-            a.item(href="/users" class="{{isActivePath '/users'}}")
-                 i.large.users.icon
-            a.ui.delta.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
-                i.sitemap.large.icon
-            a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
-                i.large.list.icon
-            a.icon.item.people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
-                i.users.large.icon
-            a.ui.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
-                i.th.large.icon
+            if is_dev
+                a.alpha.ui.icon.item(href="/" class="{{isActivePath '/'}}")
+                    i.home.large.icon
+                a.icon.item(href="/add" title="Add" class="{{isActiveRoute regex='add'}}")
+                    i.plus.large.icon
+                a.icon.item(href="/chat" title='Chat' class="{{isActiveRoute regex='chat'}}")
+                    i.large.chat.icon
+                a.item.messages(href="/s/message" class="{{isActivePath '/s/message'}}")
+                     i.large.inbox.icon
+                a.item(href="/users" class="{{isActivePath '/users'}}")
+                     i.large.users.icon
+                a.ui.delta.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
+                    i.sitemap.large.icon
+                a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
+                    i.large.list.icon
+                a.icon.item.people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
+                    i.users.large.icon
+                a.ui.icon.item(href="/menu" class="{{isActivePath '/menu'}}")
+                    i.th.large.icon
         .right.menu
             if currentUser
-                a.ui.circular.icon.item.adddoc(href="#")
-                    i.plus.large.icon
+                if is_dev
+                    a.ui.circular.icon.item.adddoc(href="#")
+                        i.plus.large.icon
                 a.ui.item(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
                     i.user.large.icon
                     |#{currentUser.username}

@@ -52,7 +52,8 @@ Template.registerHelper 'in_list', (key) ->
 
 Template.registerHelper 'is_admin', () ->
     if Meteor.user() and Meteor.user().roles
-        if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
+        # if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
+        if 'admin' in Meteor.user().roles then true else false
 
 Template.registerHelper 'is_dev', () ->
     if Meteor.user() and Meteor.user().roles

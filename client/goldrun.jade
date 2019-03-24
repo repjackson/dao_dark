@@ -6,18 +6,19 @@ template(name='goldrun')
             .ui.left.icon.large.fluid.action.input
                 i.search.icon
                 input.username_search(type='text' placeholder='Search member...')
-                if checking_in
+                if is_query
                     .ui.icon.button.clear_results
                         i.remove.icon
-            //- if is_admin
-            //-     a.ui.button(href='/add_resident')
-            //-         i.plus.icon
-            //-         | User
-            .ui.basic.center.aligned.segment
-                a.ui.big.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
-                    |Sign Rules and Regulations
-                a.ui.big.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
-                    |Sign Guest Waiver
+            unless checking_in
+                .ui.basic.center.aligned.segment
+                    if is_admin
+                        a.ui.button(href='/add_resident')
+                            i.user.shield.icon
+                            | Add Resident
+                    a.ui.big.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+                        |Sign Rules and Regulations
+                    a.ui.big.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+                        |Sign Guest Waiver
             .ui.stackable.padded.grid
                 .row
                     .sixteen.wide.column
@@ -43,8 +44,10 @@ template(name='goldrun')
                                         +checkin_button
                         else
                             if checking_in
-                                .ui.center.aligned.header No members found
-                                +add_resident
+                                if is_query
+                                    .ui.center.aligned.header No Members Found
+                                    .ui.center.aligned.header Please ask staff to add
+                                    //- +add_resident
                                 
                 unless checking_in
                     .row
@@ -149,7 +152,8 @@ template(name='goldrun')
             //-             |Check In
             //-         .ui.large.cancel.basic.button
             //-             |Cancel
-            +health_club_info    
+            unless checking_in
+                +health_club_info    
                         
                         
 template(name='add_resident')

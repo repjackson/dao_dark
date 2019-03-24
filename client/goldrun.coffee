@@ -38,6 +38,8 @@ Template.goldrun.helpers
             },{ limit:5 }).fetch()
 
     checking_in: ->
+        Session.get('checking_in')
+    is_query: ->
         Session.get('username_query')
 
     events: ->
@@ -58,6 +60,7 @@ Template.checkin_button.events
             #     body: "#{@username} checked in."
             # swal( "#{@username} checked in.", "", "success" )
             Session.set 'username_query',null
+            Session.set 'checking_in',false
             $('.username_search').val('')
         , 750
 
@@ -140,6 +143,8 @@ Template.goldrun.events
         Router.go "/sign_waiver/#{receipt_id}"
 
 
+    'click .username_search': (e,t)->
+        Session.set 'checking_in',true
 
     'keyup .username_search': (e,t)->
         username_query = $('.username_search').val()
@@ -147,6 +152,7 @@ Template.goldrun.events
 
     'click .clear_results': ->
         Session.set 'username_query',null
+        Session.set 'checking_in',false
         $('.username_search').val('')
 
 
