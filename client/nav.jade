@@ -4,9 +4,9 @@ template(name='topnav')
             .icon.item
                 i.loading.adjust.large.grey.icon
         else 
-            a.alpha.ui.header.item(href="/goldrun" class="{{isActivePath '/goldrun'}}" title=' Gold Run')
-                //- +icolor name='internal' classes='ui avatar image'
-                |GR
+            a.alpha.ui.item(href="/goldrun" class="{{isActivePath '/goldrun'}}" title=' Gold Run')
+                i.home.icon
+                | Gold Run
             if is_dev
                 a.alpha.ui.icon.item(href="/" class="{{isActivePath '/'}}")
                     i.home.large.icon

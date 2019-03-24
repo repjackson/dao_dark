@@ -2,23 +2,13 @@ template(name='goldrun')
     .ui.padded.grid
         .sixteen.wide.column
             .ui.center.aligned.header 
-                |Health Club Check In
-            .ui.left.icon.large.fluid.action.input
-                i.search.icon
-                input.username_search(type='text' placeholder='Search member...')
+                |Gold Run Health Club
+            .ui.left.icon.massive.fluid.action.input
+                i.sign.in.green.icon
+                input.username_search(type='text' placeholder='Search and Check In Resident...')
                 if is_query
                     .ui.icon.button.clear_results
                         i.remove.icon
-            unless checking_in
-                .ui.basic.center.aligned.segment
-                    if is_admin
-                        a.ui.button(href='/add_resident')
-                            i.user.shield.icon
-                            | Add Resident
-                    a.ui.big.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
-                        |Sign Rules and Regulations
-                    a.ui.big.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
-                        |Sign Guest Waiver
             .ui.stackable.padded.grid
                 .row
                     .sixteen.wide.column
@@ -26,14 +16,14 @@ template(name='goldrun')
                             .ui.dividing.header 
                                 //- +icolor name='internal' classes='ui inline image'
                                 |Check In Member
-                            .ui.cards
+                            .ui.three.cards
                                 each checkedout_members
                                     .card
-                                        //- .image
-                                        //-     if profile.image_id
-                                        //-         img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        //-     else if image_id
-                                        //-         img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                        .image
+                                            if profile.image_id
+                                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                            else if image_id
+                                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                                         .content
                                             .header #{first_name} #{last_name}
                                             .meta @#{username}
@@ -48,7 +38,6 @@ template(name='goldrun')
                                     .ui.center.aligned.header No Members Found
                                     .ui.center.aligned.header Please ask staff to add
                                     //- +add_resident
-                                
                 unless checking_in
                     .row
                         .sixteen.wide.column
@@ -60,18 +49,29 @@ template(name='goldrun')
                             .ui.three.cards
                                 each checkedin_members
                                     .card
-                                        //- .image
-                                        //-     if profile.image_id
-                                        //-         img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                        //-     else if image_id
-                                        //-         img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                        .image
+                                            if profile.image_id
+                                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                            else if image_id
+                                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                                         .content
                                             .header #{first_name} #{last_name} 
                                             //- .meta @#{username}
+                                        if is_admin
+                                            .content
+                                                div #{address}
+                                                strong #{building_number}
+                                                strong ##{apt_number}
+                                                div start 
+                                                    strong #{start_date}
+                                                div expiration 
+                                                    strong #{lease_expiration}
+
                                         +checkin_button
-                                        if is_dev
+                                        if is_admin
                                             a.ui.icon.button(href="/u/#{username}/")
-                                                i.chevron.right.icon
+                                                i.user.shield.icon
+                                                |View
                                                 //- div
                                                 //- +icolor name='swimming-pool' classes='ui avatar image'
                                                 //- +icolor name='weightlift' classes='ui avatar image'
@@ -79,7 +79,7 @@ template(name='goldrun')
                                                 //- +icolor name='shower' classes='ui avatar image'
                                                 //- +icolor name='racquetball' classes='ui avatar image'
                                                 //- +icolor name='water-steam' classes='ui avatar image'
-                    
+
                                                 //- each tags
                                                 //-     .ui.label #{this}
                                                 //- if signed_waiver
@@ -132,6 +132,17 @@ template(name='goldrun')
                                     //-             img.ui.image(src="{{c.url profile.image_id }}")
                                     //-             .content
                                     //-                 .header #{username}
+                    .centered.row
+                        .ui.basic.center.aligned.segment
+                            if is_admin
+                                a.ui.button(href='/add_resident')
+                                    i.user.shield.icon
+                                    | Add Resident
+                            a.ui.button(href='https://sites.google.com/goldrun.page/home/new-members?authuser=2' target='_window')
+                                |Rules and Regulations
+                            a.ui.button(href='https://sites.google.com/goldrun.page/home/guest-waiver?authuser=2' target='_window')
+                                |Guest Waiver
+                
             //- .ui.check_out.modal
             //-     .header Checkout #{selected_person.username}?
             //-     .content
@@ -221,12 +232,12 @@ template(name='sign_waiver')
 template(name='checkin_button')
     unless healthclub_checkedin
         .ui.bottom.attached.button.checkin(title='Check In')
-            //- i.sign.in.large.icon
+            i.sign.in.icon
             //- +icolor name='internal' classes='ui image'
             |Check In
     if healthclub_checkedin
         .ui.bottom.attached.button.checkout(title='Sign Out')
-            //- i.sign.out.large.icon
+            i.sign.out.icon
             //- +icolor name='exit-sign' classes='ui avatar image'
             |Check Out
     //- +rules_sign

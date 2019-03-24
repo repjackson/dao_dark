@@ -36,62 +36,62 @@ template(name='profile_layout')
                                             .content    
                                                 .header
                                                     |About
-                                        a.item(href="/u/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
-                                            i.fork.icon
-                                            .content    
-                                                .header
-                                                    |Connections
-                                        a.item(href="/u/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
-                                            i.mail.icon
-                                            .content    
-                                                .header
-                                                    |Messages
-                                        a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
-                                            i.bullhorn.icon
-                                            .content    
-                                                .header
-                                                    |Notifications
-                                        a.item(href="/u/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
-                                            i.chat.icon
-                                            .content    
-                                                .header
-                                                    |Chat
-                                        a.item(href="/u/#{user_from_username_param.username}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
-                                            i.stripe.icon
-                                            .content    
-                                                .header
-                                                    |Stripe
-                                        a.item(href="/u/#{user_from_username_param.username}/tags" class="{{isActiveRoute regex='user_tags'}}")
-                                            i.tags.icon
-                                            .content    
-                                                .header
-                                                    |Tags
-                                        a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
-                                            i.phone.icon
-                                            .content    
-                                                .header
-                                                    |Contact
-                                    if user_schemas
-                                        .ui.vertical.large.fluid.menu
-                                            each user_schemas
-                                                a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
-                                                    i.icon(class=icon)
-                                                    .content    
-                                                        .header
-                                                            |#{plural}
+                                        //- a.item(href="/u/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
+                                        //-     i.fork.icon
+                                        //-     .content    
+                                        //-         .header
+                                        //-             |Connections
+                                        //- a.item(href="/u/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
+                                        //-     i.mail.icon
+                                        //-     .content    
+                                        //-         .header
+                                        //-             |Messages
+                                        //- a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
+                                        //-     i.bullhorn.icon
+                                        //-     .content    
+                                        //-         .header
+                                        //-             |Notifications
+                                        //- a.item(href="/u/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
+                                        //-     i.chat.icon
+                                        //-     .content    
+                                        //-         .header
+                                        //-             |Chat
+                                        //- a.item(href="/u/#{user_from_username_param.username}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
+                                        //-     i.stripe.icon
+                                        //-     .content    
+                                        //-         .header
+                                        //-             |Stripe
+                                        //- a.item(href="/u/#{user_from_username_param.username}/tags" class="{{isActiveRoute regex='user_tags'}}")
+                                        //-     i.tags.icon
+                                        //-     .content    
+                                        //-         .header
+                                        //-             |Tags
+                                        //- a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                                        //-     i.phone.icon
+                                        //-     .content    
+                                        //-         .header
+                                        //-             |Contact
+                                    //- if user_schemas
+                                    //-     .ui.vertical.large.fluid.menu
+                                    //-         each user_schemas
+                                    //-             a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                                    //-                 i.icon(class=icon)
+                                    //-                 .content    
+                                    //-                     .header
+                                    //-                         |#{plural}
                                     if is_user
                                         .ui.vertical.fluid.menu
                                             a.item.logout(href='#')
                                                 i.sign.out.icon
                                                 |Log Out
                                     .ui.segment
-                                        .ui.header
-                                            |#{user.points} Following
-                                        .ui.header
-                                            |#{user.points} Followers
-                                        .ui.header
-                                            i.heartbeat.icon
-                                            |#{user.points} Karma
+                                        //- .ui.header
+                                        //-     |#{user.points} Following
+                                        //- .ui.header
+                                        //-     |#{user.points} Followers
+                                        //- .ui.header
+                                        //-     i.heartbeat.icon
+                                        //-     |#{user.points} Karma
                                         .ui.header 
                                             i.user.shield.icon
                                             |Roles
@@ -140,12 +140,12 @@ template(name='user_about')
             each emails
                 .ui.label #{address}
             //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
-            +user_bookmarks    
-        .eight.wide.column
-            +user_feed
-    if current_user
-        +role_switcher
-    +user_tags
+            //- +user_bookmarks    
+        //- .eight.wide.column
+        //-     +user_feed
+    //- if current_user
+    //-     +role_switcher
+    //- +user_tags
     
 
 

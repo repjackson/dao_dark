@@ -29,31 +29,31 @@ template(name='user_edit')
                         else
                             label Profile Image
                             input(type='file' name='profile_image' accept='image/*')
-                    .field
-                        if user_from_username_param.banner_image_id
-                            label Banner Image
-                            .ui.centered.rounded.image
-                                img.ui.medium.image(src="{{c.url user_from_username_param.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                a#remove_banner.ui.right.corner.link.label
-                                    i.remove.link.icon
-                        else
-                            label Banner Image
-                            input(type='file' name='banner_image' accept='image/*')
-                .ui.fluid.button.update_profile Update
-                +password_edit
-                +phone_editor
-                +username_edit
-                +emails_edit
+                    //- .field
+                    //-     if user_from_username_param.banner_image_id
+                    //-         label Banner Image
+                    //-         .ui.centered.rounded.image
+                    //-             img.ui.medium.image(src="{{c.url user_from_username_param.banner_image_id width=400 height=400 gravity='face' crop='fill'}}")
+                    //-             a#remove_banner.ui.right.corner.link.label
+                    //-                 i.remove.link.icon
+                    //-     else
+                    //-         label Banner Image
+                    //-         input(type='file' name='banner_image' accept='image/*')
+                //- .ui.fluid.button.update_profile Update
                 if is_dev
+                    +password_edit
+                    +phone_editor
+                    +username_edit
+                    +emails_edit
                     .ui.orange.button.remove_user 
                         i.remove.icon
                         |Delete User
             .eleven.wide.column
                 // +church_profile
                 //- +user_schema_editor
-                if is_admin
-                    +user_single_doc_ref_editor key='building' schema='building' label='Building'
-                    +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
+                //- if is_admin
+                //-     +user_single_doc_ref_editor key='building' schema='building' label='Building'
+                //-     +user_single_doc_ref_editor key='membership' schema='goldrun_role' label='Gold Run Role'
                 .ui.labeled.icon.input
                      .ui.label Address
                      i.globe.icon
