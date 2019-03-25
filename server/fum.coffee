@@ -3,14 +3,20 @@ Meteor.methods
         # console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
 
+        console.log delta
+        if delta.doc_type
+            schema = Docs.findOne
+                type:'schema'
+                slug:delta.doc_type
+
         if delta
             # console.log 'delta', delta
             if delta.doc_type
                 built_query = { type:delta.doc_type }
                 # built_query = { type:delta.doc_type, archived:$ne:true }
             else
-                # built_query = { }
-                built_query = { archived:$ne:true}
+                built_query = { }
+                # built_query = { archived:$ne:true}
 
             if not delta.facets
                 # console.log 'no facets'
@@ -47,8 +53,8 @@ Meteor.methods
                 values = []
                 local_return = []
 
-                # agg_res = Meteor.call 'agg', built_query, facet.key, schema.collection
-                agg_res = Meteor.call 'agg', built_query, facet.key
+                agg_res = Meteor.call 'agg', built_query, facet.key, schema.collection
+                # agg_res = Meteor.call 'agg', built_query, facet.key
 
                 if agg_res
                     Docs.update { _id:delta._id, 'facets.key':facet.key},
@@ -57,7 +63,7 @@ Meteor.methods
             modifier =
                 {
                     fields:_id:1
-                    limit:3
+                    limit:10
                 }
 
             # results_cursor =
@@ -81,7 +87,7 @@ Meteor.methods
             #     result_ids = []
             result_ids = results_cursor.fetch()
 
-            # console.log 'result ids', result_ids
+            console.log 'result ids', result_ids
 
             console.log 'delta', delta
             # console.log Meteor.userId()
@@ -99,9 +105,9 @@ Meteor.methods
 
     agg: (query, key, collection)->
         limit=42
-        # console.log 'agg query', query
-        # console.log 'agg key', key
-        # console.log 'agg collection', collection
+        console.log 'agg query', query
+        console.log 'agg key', key
+        console.log 'agg collection', collection
         options = { explain:false }
         pipe =  [
             { $match: query }

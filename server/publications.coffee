@@ -80,46 +80,9 @@ Meteor.publish 'bricks_from_doc_id', (schema, id)->
 
 Meteor.publish 'my_delta', ->
     Docs.find
-        # _author_id:Meteor.userId()
+        _author_id:Meteor.userId()
         type:'delta'
 
-
-Meteor.publish 'schema_from_slug', (schema_slug)->
-    if schema_slug in ['schema','brick','field','tribe','block','page']
-        Docs.find
-            type:'schema'
-            slug:schema_slug
-    else
-        match = {}
-        # if tribe_slug then match.slug = tribe_slug
-        match.type = 'schema'
-        match.slug = schema_slug
-
-        Docs.find match
-
-Meteor.publish 'schema_from_doc_id', (schema, id)->
-    doc = Docs.findOne id
-    # console.log 'pub', tribe_slug, schema, id
-    if schema in ['schema','tribe','page','block','brick']
-        Docs.find
-            type:'schema'
-            slug:doc.type
-            # tribe:tribe_slug
-    else
-        match = {}
-        # if tribe_slug then match.slug = tribe_slug
-        match.type = 'schema'
-        match.slug = doc.type
-
-        Docs.find match
-
-
-
-
-Meteor.publish 'tribe_schemas', (tribe)->
-    Docs.find
-        type:'schema'
-        tribe:tribe
 
 
 
@@ -148,25 +111,6 @@ Meteor.publish 'user_schemas', ()->
         # view_roles:$in:Meteor.user().roles
 
 
-
-Meteor.publish 'schema_bricks_from_slug', (type)->
-    # console.log tribe_slug
-    # console.log type
-
-    # else if type in ['field', 'brick','tribe','page','block','schema']
-    schema = Docs.findOne
-        type:'schema'
-        slug:type
-        # tribe:tribe_slug
-    # else
-    #     schema = Docs.findOne
-    #         type:'schema'
-    #         slug:type
-    #         tribe:tribe_slug
-
-    Docs.find
-        type:'brick'
-        parent_id:schema._id
 
 
 Meteor.publish 'document_by_slug', (slug)->

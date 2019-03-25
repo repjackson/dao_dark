@@ -182,12 +182,12 @@ Template.registerHelper 'small_bricks', () ->
         type:'brick'
         field:$in:['text','single_doc','multi_doc','boolean','color_icon','number',]
         parent_id:schema._id
-        view_roles: $in:Meteor.user().roles
+        # view_roles: $in:Meteor.user().roles
     }, sort:rank:1
 
 
 Template.registerHelper 'big_bricks', () ->
-    # console.log @type
+    console.log @type
     # if @type in ['field', 'brick','schema','tribe','page','block']
     if @type
         schema = Docs.findOne
@@ -201,7 +201,7 @@ Template.registerHelper 'big_bricks', () ->
         type:'brick'
         parent_id:schema._id
         field:$nin:['text','single_doc','multi_doc','boolean','color_icon','number']
-        view_roles: $in:Meteor.user().roles
+        # view_roles: $in:Meteor.user().roles
     }, sort:rank:1
 
 

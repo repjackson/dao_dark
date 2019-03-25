@@ -10,8 +10,30 @@ Template.user_edit.onCreated ->
 Template.user_schema_editor.onCreated ->
     @autorun -> Meteor.subscribe 'user_schemas'
 
+
+
 Template.user_tribe_editor.onCreated ->
     @autorun -> Meteor.subscribe 'type','tribe'
+Template.user_tribe_editor.helpers
+    tribes: ->
+        Docs.find
+            type:'tribe'
+
+    user_tribe_class: ->
+        current_user = Meteor.users.findOne username:Router.current().params.username
+        if current_user.tribes and @slug in current_user.tribes then 'grey' else ''
+
+
+Template.user_tribe_editor.events
+    'click .toggle_tribe': ->
+        # console.log @
+        current_user = Meteor.users.findOne username:Router.current().params.username
+        if current_user.tribes and @slug in current_user.tribes
+            Meteor.users.update current_user._id,
+                $pull: tribes: @slug
+        else
+            Meteor.users.update current_user._id,
+                $addToSet: tribes: @slug
 
 
 Template.user_edit.onRendered ->
@@ -33,14 +55,6 @@ Template.user_schema_editor.helpers
 
         if current_user.schema_ids and @_id in current_user.schema_ids then 'grey' else ''
 
-Template.user_tribe_editor.helpers
-    tribes: ->
-        Docs.find
-            type:'tribe'
-
-    user_tribe_class: ->
-        current_user = Meteor.users.findOne Router.current().params._id
-        if current_user.tribes and @slug in current_user.tribes then 'grey' else ''
 
 
 Template.user_schema_editor.events
@@ -54,16 +68,6 @@ Template.user_schema_editor.events
             Meteor.users.update current_user._id,
                 $addToSet: schema_ids: @_id
 
-Template.user_tribe_editor.events
-    'click .toggle_tribe': ->
-        # console.log @
-        current_user = Meteor.users.findOne Router.current().params._id
-        if current_user.tribes and @slug in current_user.tribes
-            Meteor.users.update current_user._id,
-                $pull: tribes: @slug
-        else
-            Meteor.users.update current_user._id,
-                $addToSet: tribes: @slug
 
 
 Template.user_single_doc_ref_editor.onCreated ->

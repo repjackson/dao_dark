@@ -1,4 +1,53 @@
 if Meteor.isClient
+    Template.delta.onCreated ->
+        # @autorun -> Meteor.subscribe 'schema', Router.current().params.type
+        # @autorun -> Meteor.subscribe 'type', 'schema'
+        # @autorun -> Meteor.subscribe 'tags', selected_tags.array(), Router.current().params.type
+        # @autorun -> Meteor.subscribe 'docs', selected_tags.array(), Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_from_slug', Router.current().params.tribe_slug, Router.current().params.type
+        @autorun -> Meteor.subscribe 'schema_bricks_from_slug', Router.current().params.tribe_slug, Router.current().params.type
+        # @autorun -> Meteor.subscribe 'deltas', Router.current().params.type
+        @autorun -> Meteor.subscribe 'my_delta'
+
+    Template.delta.helpers
+        selected_tags: -> selected_tags.list()
+
+        current_delta: ->
+            Docs.findOne
+                type:'delta'
+                _author_id:Meteor.userId()
+
+        global_tags: ->
+            doc_count = Docs.find().count()
+            if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find()
+
+        single_doc: ->
+            delta = Docs.findOne type:'delta'
+            count = delta.result_ids.length
+            if count is 1 then true else false
+
+
+    Template.delta.events
+        'click .create_delta': (e,t)->
+            Docs.insert
+                type:'delta'
+
+        'click .print_delta': (e,t)->
+            delta = Docs.findOne type:'delta'
+            console.log delta
+
+        'click .reset': ->
+            delta = Docs.findOne type:'delta'
+            # console.log 'hi'
+            Meteor.call 'fum', delta._id, (err,res)->
+
+        'click .delete_delta': (e,t)->
+            delta = Docs.findOne type:'delta'
+            if delta
+                if confirm "delete  #{delta._id}?"
+                    Docs.remove delta._id
+
+
     Template.facet.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
@@ -57,17 +106,17 @@ if Meteor.isClient
                 'grey'
             else ''
 
-    Template.result.onRendered ->
+    Template.delta_result.onRendered ->
         # Meteor.setTimeout ->
         #     $('.progress').popup()
         # , 2000
 
 
 
-    Template.result.onCreated ->
+    Template.delta_result.onCreated ->
         @autorun => Meteor.subscribe 'doc', @data._id
 
-    Template.result.helpers
+    Template.delta_result.helpers
         result: ->
             if Docs.findOne @_id
                 Docs.findOne @_id
@@ -75,6 +124,64 @@ if Meteor.isClient
                 Meteor.users.findOne @_id
 
 
-    Template.result.events
+    Template.delta_result.events
         'click .set_schema': ->
             Meteor.call 'set_delta_facets', @slug, Meteor.userId()
+
+
+if Meteor.isServer
+    Meteor.publish 'schema_from_slug', (tribe_slug, schema_slug)->
+        if schema_slug in ['schema','brick','field','tribe','block','page']
+            Docs.find
+                type:'schema'
+                slug:schema_slug
+        else
+            match = {}
+            # if tribe_slug then match.slug = tribe_slug
+            match.type = 'schema'
+            match.slug = schema_slug
+
+            Docs.find match
+
+    Meteor.publish 'schema_from_doc_id', (tribe_slug, schema, id)->
+        doc = Docs.findOne id
+        # console.log 'pub', tribe_slug, schema, id
+        if schema in ['schema','tribe','page','block','brick']
+            Docs.find
+                type:'schema'
+                slug:doc.type
+                # tribe:tribe_slug
+        else
+            match = {}
+            # if tribe_slug then match.slug = tribe_slug
+            match.type = 'schema'
+            match.slug = doc.type
+
+            Docs.find match
+
+
+    Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type)->
+        console.log tribe_slug
+        # console.log type
+
+        # else if type in ['field', 'brick','tribe','page','block','schema']
+        schema = Docs.findOne
+            type:'schema'
+            slug:type
+            # tribe:tribe_slug
+        # else
+        #     schema = Docs.findOne
+        #         type:'schema'
+        #         slug:type
+        #         tribe:tribe_slug
+
+        Docs.find
+            type:'brick'
+            parent_id:schema._id
+
+
+
+    Meteor.publish 'tribe_schemas', (tribe)->
+        Docs.find
+            type:'schema'
+            tribe:tribe

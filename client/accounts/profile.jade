@@ -97,6 +97,7 @@ template(name='profile_layout')
                                             |Roles
                                         each roles
                                             .ui.label #{this}
+                                    +tribe_switcher
                                 .twelve.wide.column.scrolling
                                     +yield
             +footer
@@ -223,13 +224,13 @@ template(name='role_switcher')
     +user_array_element_toggle key='roles' value='owner' user=currentUser
 
 
-template(name='site_switcher')
+template(name='tribe_switcher')
     .ui.secondary.segment
         .ui.header 
-            i.clone.icon
-            |Site Switcher
-        each my_sites
-            +user_string_toggle key='current_site' value=slug  
+            i.fire.icon
+            |Tribe Switcher
+        each my_tribes
+            +user_string_toggle key='current_tribe' value=slug  
             
 template(name='user_array_element_toggle')
     .ui.button.toggle_element(class=user_array_element_toggle_class)

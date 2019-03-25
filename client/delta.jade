@@ -13,18 +13,18 @@ template(name='delta')
                     // .ui.small.center.aligned.header #{body}
                     unless is_loading
                         if can_add
-                            .ui.fluid.large.button.add_type_doc(title="Add #{title}")
-                                // i.plus.large.icon
-                                +icolor name='plus' classes='ui avatar image'
-                                |Add #{title}
+                            .ui.icon.button.add_type_doc(title="Add #{title}")
+                                i.plus.icon
+                                //- +icolor name='plus' classes='ui avatar image'
+                                //- |Add #{title}
                         if can_edit
                             //- +edit_button
-                            .ui.button.edit_schema
+                            .ui.icon.button.edit_schema
                                 i.cog.icon
-                                | Configure #{plural}
+                                //- | Configure #{plural}
                         // .ui.divider
                         // // each sessions
-                        // //     .ui.icon.large.button.select_session(class=session_selector_class title='select session')
+                        // //     .ui.icon.button.select_session(class=session_selector_class title='select session')
                         // //         i.play.icon
                                 
                         if current_delta
@@ -47,7 +47,7 @@ template(name='delta')
                     each current_delta.facets
                         +facet
                 // .column(class=delta_right_column_class)
-                .eight.wide.column
+                .twelve.wide.column
                     // a.ui.left.corner.label.move_right
                     //     i.right.chevron.link.pointer.icon
                     // .ui.horizontal.spaced.list
@@ -85,9 +85,9 @@ template(name='delta')
                     // .ui.stackable.grid.scrolling(class=result_grid_class)
                     .scrolling
                         each current_delta.result_ids
-                            +result
-                .four.wide.column.scrolling
-                    +events_column
+                            +delta_result
+                //- .four.wide.column.scrolling
+                //-     +events_column
                 
 template(name='events_column')
     .ui.accordion
@@ -114,16 +114,17 @@ template(name='events_column')
 
 
 template(name='facet')
+    div
     |&nbsp;
     //- if filtering_res
-    //- .ui.inline.header 
-    //-     if icon
-    //-         i.small.grey.icon(class=icon)
-    //-     if label
-    //-         |#{label}
-    //-     else 
-    //-         |#{key}
-    .ui.transparent.input
+    .ui.inline.header 
+        if icon
+            i.small.grey.icon(class=icon)
+        if label
+            |#{label}
+        else 
+            |#{key}
+    .ui.input
         input.add_filter(type='text' placeholder=key)
     //-     // i.grey.dropdown.icon
     //-         // i.dropdown.icon
@@ -131,11 +132,11 @@ template(name='facet')
     //-         //     .unselect.ui.grey.button #{this}
     each filtering_res
         if name
-            .selector.ui.circular.large.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                 | #{name}
                 //- small #{count}
         else
-            .selector.ui.circular.large.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
                 strong [null]
                 //- small #{count}
 
@@ -174,51 +175,37 @@ template(name='toggle_delta_config')
 
 
 
-template(name='result')
+template(name='delta_result')
     with result 
         unless is_loading
             .ui.result.basic.segment.two.column.stackable.grid
                 .column.scrolling
-                    each _keys
-                        +key_view
-                .column.scrolling
-                    if watson
-                        +watson_view
-                    if visual_classes
-                        +visual_classes
-                        if analyzed_text
-                            |#{nl2br analyzed_text}
-                    //- a.ui.header(href="/view#{_id}")
-                    //-     each bricks
-                    //-         if header
-                    //-             +Template.dynamic template=view_template 
-                    //-     // |#{title}
-                    //- .description
-                    //-     each small_bricks
-                    //-         unless header
-                    //-             +Template.dynamic template=view_template 
-                    //- .description
-                    //-     each big_bricks
-                    //-         unless header
-                    //-             +Template.dynamic template=view_template 
+                    a.ui.header(href="/view#{_id}")
+                        each bricks
+                            if header
+                                +Template.dynamic template=view_template 
+                        // |#{title}
+                    .description
+                        each small_bricks
+                            unless header
+                                +Template.dynamic template=view_template 
+                    .description
+                        each big_bricks
+                            unless header
+                                +Template.dynamic template=view_template 
                     .extra
                         // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                        //- if is_dev
-                        //-     +remove_button
+                        if is_dev
+                            +remove_button
                         if can_edit
-                            a.ui.icon.big.circular.basic.button(href="/edit/#{_id}")
+                            a.ui.icon.big.button(href="/edit/#{_id}")
                                 i.pencil.icon
-                        a.ui.icon.big.circular.basic.button(href="/view/#{_id}")
+                        a.ui.icon.big.button(href="/view/#{_id}")
                             i.eye.icon
-                        //- each schema.actions
-                        //-     +Template.dynamic template=this data=..
-                        //- div
-                        //- +author_info
-                        //- div
-                        //- +creation_info
-                        //- div
-                        +clone_button
-                        +detect
+                        each schema.actions
+                            +Template.dynamic template=this data=..
+                        +author_info
+                        +creation_info
 
     
                     
@@ -265,7 +252,7 @@ template(name='type_view')
                                 // i.icon(class=current_schema.icon)
                                 |#{current_schema.plural}
                         .divider
-                            i.chevron.right.large.icon
+                            i.chevron.right.icon
                         .active.section
                             if icon
                                 i.icon(class=icon)

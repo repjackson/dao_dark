@@ -1,14 +1,16 @@
 
 if Meteor.isClient
-    Template.home.onCreated ->
+    Template.alpha.onCreated ->
         @autorun -> Meteor.subscribe 'my_delta'
 
 
-    Template.home.helpers
+    Template.alpha.helpers
         selected_tags: -> selected_tags.list()
 
-        current_delta: ->
-            Docs.findOne type:'delta'
+        # current_delta: ->
+        #     Docs.findOne
+        #         type:'delta'
+        #         _author_id:Meteor.userId()
 
 
         global_tags: ->
@@ -23,7 +25,7 @@ if Meteor.isClient
 
 
 
-    Template.home.events
+    Template.alpha.events
         'click .create_delta': (e,t)->
             Docs.insert
                 type:'delta'

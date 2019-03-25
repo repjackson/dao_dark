@@ -49,7 +49,7 @@ template(name='user_edit')
                         i.remove.icon
                         |Delete User
             .eleven.wide.column
-                // +church_profile
+                +user_tribe_editor
                 //- +user_schema_editor
                 //- if is_admin
                 //-     +user_single_doc_ref_editor key='building' schema='building' label='Building'
@@ -105,7 +105,7 @@ template(name='user_schema_editor')
             |#{title}
             
 template(name='user_tribe_editor')
-    .ui.header User Group Memberships
+    .ui.header My Tribes
     each tribes
         .ui.button.toggle_tribe(class=user_tribe_class title=title)
             i.icon(class=icon)

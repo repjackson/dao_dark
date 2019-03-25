@@ -42,6 +42,11 @@ Router.route '/goldrun', (->
     @render 'goldrun'
     ), name:'goldrun'
 
+Router.route '/tango', (->
+    @layout 'layout'
+    @render 'tango'
+    ), name:'tango'
+
 Router.route '/add_resident', (->
     @layout 'nonav'
     @render 'add_resident'
@@ -146,12 +151,12 @@ Router.route '/settings', -> @render 'settings'
 Router.route '/users', -> @render 'people'
 
 
-
-
 Router.route '/', (->
     @layout 'layout'
-    @render 'home'
-    ), name:'home'
+    @render 'alpha'
+    ), name:'alpha'
+
+
 
 Router.route '/s/:type', (->
     @layout 'layout'

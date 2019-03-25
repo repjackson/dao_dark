@@ -110,6 +110,7 @@ Meteor.methods
 
                 youtube_check = /((\w|-){11})(?:\S+)?$/
                 youtube_result = youtube_check.test value
+                console.log youtube_result
 
                 if key is 'html'
                     meta.html = true
@@ -128,9 +129,9 @@ Meteor.methods
                         meta.field = 'image'
                     else
                         meta.field = 'url'
-                else if youtube_result
-                    meta.youtube = true
-                    meta.field = 'youtube'
+                # else if youtube_result
+                #     meta.youtube = true
+                #     meta.field = 'youtube'
                 else if Meteor.users.findOne value
                     meta.user_id = true
                     meta.field = 'user_ref'
@@ -149,7 +150,7 @@ Meteor.methods
 
         # Docs.update doc_id,
         #     $set:_detected:1
-        console.log 'detected fields', doc_id
+        # console.log 'detected fields', doc_id
 
         return doc_id
 

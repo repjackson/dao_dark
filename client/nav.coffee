@@ -2,9 +2,9 @@ Template.topnav.onCreated ->
     @autorun => Meteor.subscribe 'me'
     @autorun => Meteor.subscribe 'type', 'field'
     @autorun => Meteor.subscribe 'schemas'
-    # @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
-    # @autorun => Meteor.subscribe 'tribe_schemas', Router.current().params.tribe_slug
-    # @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
+    @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
+    @autorun => Meteor.subscribe 'tribe_schemas', Router.current().params.tribe_slug
+    @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
 
 
 Template.topnav.onRendered ->
@@ -76,9 +76,6 @@ Template.topnav.events
             .sidebar('toggle')
 
 
-
-
-
     # 'click .add': ->
     #     new_id = Docs.insert {}
     #     Router.go "/edit/#{new_id}"
@@ -101,60 +98,65 @@ Template.topnav.events
         Meteor.call 'set_delta_facets', 'record',->
             Session.set 'loading', false
 
+    'click .tribes': ->
+        Session.set 'loading', true
+        Meteor.call 'set_delta_facets', 'tribe',->
+            Session.set 'loading', false
+
     'click .set_schema': ->
         Session.set 'loading', true
         Meteor.call 'set_delta_facets', @slug,->
             Session.set 'loading', false
 
 
-# Template.topbar.onCreated ->
-#     @autorun => Meteor.subscribe 'type', 'page'
-#
-#
-#
-# Template.topbar.helpers
-#     nonprofit_pages: ->
-#         Docs.find
-#             type:'page'
-#             nonprofit_footer:true
-#
-#
-#
-#
-# Template.leftbar.onCreated ->
-#     # @autorun => Meteor.subscribe 'schemas'
-#
-#
-# Template.leftbar.onRendered ->
-#     @autorun =>
-#         if @subscriptionsReady()
-#             Meteor.setTimeout ->
-#                 $('.context .ui.left.sidebar')
-#                     .sidebar({
-#                         context: $('.context .bottom.segment')
-#                         exclusive: true
-#                         delaySetup:true
-#                         dimPage: true
-#                         transition: 'overlay'
-#                     })
-#                     .sidebar('attach events', '.toggle_leftbar')
-#             , 2000
-#
-#
-# Template.topbar.onRendered ->
-#     @autorun =>
-#         if @subscriptionsReady()
-#             Meteor.setTimeout ->
-#                 $('.context .ui.top.sidebar')
-#                     .sidebar({
-#                         context: $('.context .bottom.segment')
-#                         exclusive: true
-#                         delaySetup:false
-#                         dimPage: false
-#                         transition:  'overlay'
-#                     })
-#                     .sidebar('attach events', '.toggle_topbar')
-#             , 3000
+Template.topbar.onCreated ->
+    @autorun => Meteor.subscribe 'type', 'page'
+
+
+
+Template.topbar.helpers
+    nonprofit_pages: ->
+        Docs.find
+            type:'page'
+            nonprofit_footer:true
+
+
+
+
+Template.leftbar.onCreated ->
+    # @autorun => Meteor.subscribe 'schemas'
+
+
+Template.leftbar.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.context .ui.left.sidebar')
+                    .sidebar({
+                        context: $('.context .bottom.segment')
+                        exclusive: true
+                        delaySetup:true
+                        dimPage: true
+                        transition: 'overlay'
+                    })
+                    .sidebar('attach events', '.toggle_leftbar')
+            , 2000
+
+
+Template.topbar.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.context .ui.top.sidebar')
+                    .sidebar({
+                        context: $('.context .bottom.segment')
+                        exclusive: true
+                        delaySetup:false
+                        dimPage: false
+                        transition:  'overlay'
+                    })
+                    .sidebar('attach events', '.toggle_topbar')
+            , 3000
 #
 Template.leftbar.events
     'click .tribe_pages': ->
@@ -215,7 +217,7 @@ Template.leftbar.events
 
 
 Template.footer.onCreated ->
-    @autorun => Meteor.subscribe 'type', 'page'
+    # @autorun => Meteor.subscribe 'type', 'page'
 
 
 Template.footer.helpers
