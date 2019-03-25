@@ -31,13 +31,10 @@ template(name='delta')
                             if is_dev
                                 .ui.icon.button.print_delta(title='Print Session Doc')
                                     i.code.icon
-                                    // |Print Session
                                 .ui.reset.icon.button(title='Reload Session')
                                     i.refresh.icon
-                                    // |Reload Session
                                 .ui.delete_delta.icon.button(title='Delete Session')
                                     i.trash.icon
-                                    // |Delete Session
                         else
                             .create_delta.ui.basic.button.pointer(title='new session')
                                 i.plus.icon
@@ -178,34 +175,33 @@ template(name='toggle_delta_config')
 template(name='delta_result')
     with result 
         unless is_loading
-            .ui.result.basic.segment.two.column.stackable.grid
-                .column.scrolling
-                    a.ui.header(href="/view#{_id}")
-                        each bricks
-                            if header
-                                +Template.dynamic template=view_template 
-                        // |#{title}
-                    .description
-                        each small_bricks
-                            unless header
-                                +Template.dynamic template=view_template 
-                    .description
-                        each big_bricks
-                            unless header
-                                +Template.dynamic template=view_template 
-                    .extra
-                        // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                        if is_dev
-                            +remove_button
-                        if can_edit
-                            a.ui.icon.big.button(href="/edit/#{_id}")
-                                i.pencil.icon
-                        a.ui.icon.big.button(href="/view/#{_id}")
-                            i.eye.icon
-                        each schema.actions
-                            +Template.dynamic template=this data=..
-                        +author_info
-                        +creation_info
+            .ui.result.segment
+                a.ui.header(href="/view#{_id}")
+                    each bricks
+                        if header
+                            +Template.dynamic template=view_template 
+                    // |#{title}
+                .description
+                    each small_bricks
+                        unless header
+                            +Template.dynamic template=view_template 
+                .description
+                    each big_bricks
+                        unless header
+                            +Template.dynamic template=view_template 
+                .extra
+                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    if is_dev
+                        +remove_button
+                    if can_edit
+                        a.ui.icon.big.button(href="/edit/#{_id}")
+                            i.pencil.icon
+                    a.ui.icon.big.button(href="/view/#{_id}")
+                        i.eye.icon
+                    each schema.actions
+                        +Template.dynamic template=this data=..
+                    +author_info
+                    +creation_info
 
     
                     

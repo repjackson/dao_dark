@@ -140,6 +140,15 @@ template(name='user_about')
                 a(href=profile.website target='_blank') #{website}
             each emails
                 .ui.label #{address}
+                .ui.secondary.segment
+            .ui.inline.header
+                i.fire.icon
+                | My Tribes
+            each tribes
+                a.ui.button(href="/t/#{this}") 
+                    i.external.icon
+                    |#{this}
+    
             //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
             //- +user_bookmarks    
         //- .eight.wide.column
@@ -169,10 +178,12 @@ template(name='user_feed')
     .ui.secondary.segment
         +user_wall
                 
+                
 template(name='user_bookmarks')
     .ui.header 
         i.bookmark.icon
         |Bookmarks
+            
             
                 
 template(name='user_unread')

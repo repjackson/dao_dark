@@ -40,6 +40,14 @@ Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'current_type', (input) -> Router.current().params.type
 
 
+
+
+Template.registerHelper 'ct', () ->
+    Docs.findOne
+        type:'tribe'
+        slug:Router.current().params.tribe_slug
+
+
 Template.registerHelper 'current_schema', (input) ->
     Docs.findOne
         type:'schema'
@@ -187,7 +195,7 @@ Template.registerHelper 'small_bricks', () ->
 
 
 Template.registerHelper 'big_bricks', () ->
-    console.log @type
+    # console.log @type
     # if @type in ['field', 'brick','schema','tribe','page','block']
     if @type
         schema = Docs.findOne

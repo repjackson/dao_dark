@@ -17,7 +17,6 @@ Router.route '/me', -> @render 'me'
 Router.route '/inbox', -> @render 'inbox'
 Router.route '/bank', -> @render 'bank'
 Router.route '/checkin', -> @render 'checkin'
-# Router.route '/healthclub', -> @render 'healthclub'
 
 
 Router.route('enroll', {
@@ -37,15 +36,7 @@ Router.route '/view/:_id', -> @render 'view'
 Router.route '*', -> @render 'not_found'
 
 # Router.route '/u/:username/s/:type', -> @render 'profile_layout', 'user_section'
-Router.route '/goldrun', (->
-    @layout 'nonav'
-    @render 'goldrun'
-    ), name:'goldrun'
 
-Router.route '/tango', (->
-    @layout 'layout'
-    @render 'tango'
-    ), name:'tango'
 
 Router.route '/add_resident', (->
     @layout 'nonav'
@@ -155,6 +146,24 @@ Router.route '/', (->
     @layout 'layout'
     @render 'alpha'
     ), name:'alpha'
+
+
+
+Router.route '/t/:tribe_slug/', (->
+    @layout 'layout'
+    @render 'delta'
+    ), name:'tribe_home'
+
+
+Router.route '/t/:tribe_slug/s/:type', (->
+    @layout 'layout'
+    @render 'delta'
+    ), name:'tribe_delta'
+
+
+# Router.route '/s/:type', -> @render 'delta'
+Router.route '/t/:tribe_slug/s/:type/:_id/edit', -> @render 'type_edit'
+Router.route '/t/:tribe_slug/s/:type/:_id/view', -> @render 'type_view'
 
 
 
