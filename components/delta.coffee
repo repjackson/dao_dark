@@ -47,6 +47,91 @@ if Meteor.isClient
                 if confirm "delete  #{delta._id}?"
                     Docs.remove delta._id
 
+    Template.delta.events
+        'click .add_type_doc': ->
+            current_tribe = Docs.findOne
+                type:'tribe'
+                slug:Router.current().params.tribe_slug
+            # console.log current_tribe
+            new_doc_id = Docs.insert
+                type:Router.current().params.type
+                parent_id: current_tribe._id
+                tribe_id:current_tribe._id
+                tribe:current_tribe.slug
+            Router.go "/t/#{current_tribe.slug}/s/#{Router.current().params.type}/#{new_doc_id}/edit"
+
+        'click .create_delta': (e,t)->
+            Docs.insert
+                type:'delta'
+                # left_column_size: 6
+                # right_column_size: 10
+
+        'click .print_delta': (e,t)->
+            delta = Docs.findOne type:'delta'
+            console.log delta
+
+        'click .reset': ->
+            delta = Docs.findOne type:'delta'
+            Meteor.call 'fum', delta._id, (err,res)->
+
+        'click .edit_schema': ->
+            ct = Docs.findOne
+                type:'tribe'
+                slug:Router.current().params.tribe_slug
+
+            schema = Docs.findOne
+                type:'schema'
+                slug: Router.current().params.type
+            if ct
+                Router.go "/t/#{ct.slug}/s/#{schema.slug}/#{schema._id}/edit"
+            else
+                Router.go "/s/#{schema.slug}/#{schema._id}/edit"
+
+        'click .delete_delta': (e,t)->
+            delta = Docs.findOne type:'delta'
+            if delta
+                if confirm "delete  #{delta._id}?"
+                    Docs.remove delta._id
+
+
+        'click .page_up': (e,t)->
+            delta = Docs.findOne type:'delta'
+            Docs.update delta._id,
+                $inc: current_page:1
+            Session.set 'is_calculating', true
+            Meteor.call 'fo', (err,res)->
+                if err then console.log err
+                else
+                    Session.set 'is_calculating', false
+
+        'click .page_down': (e,t)->
+            delta = Docs.findOne type:'delta'
+            Docs.update delta._id,
+                $inc: current_page:-1
+            Session.set 'is_calculating', true
+            Meteor.call 'fo', (err,res)->
+                if err then console.log err
+                else
+                    Session.set 'is_calculating', false
+
+
+        'click .select_tag': -> selected_tags.push @name
+        'click .unselect_tag': -> selected_tags.remove @valueOf()
+        'click #clear_tags': -> selected_tags.clear()
+
+        'keyup #search': (e)->
+            switch e.which
+                when 13
+                    if e.target.value is 'clear'
+                        selected_tags.clear()
+                        $('#search').val('')
+                    else
+                        selected_tags.push e.target.value.toLowerCase().trim()
+                        $('#search').val('')
+                when 8
+                    if e.target.value is ''
+                        selected_tags.pop()
+
 
     Template.facet.onRendered ->
         Meteor.setTimeout ->

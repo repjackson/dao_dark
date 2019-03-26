@@ -194,96 +194,15 @@ template(name='delta_result')
                     if is_dev
                         +remove_button
                     if can_edit
-                        a.ui.icon.big.button(href="/edit/#{_id}")
-                            i.pencil.icon
-                    a.ui.icon.big.button(href="/view/#{_id}")
-                        i.eye.icon
+                        //- a.ui.icon.large.button(href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
+                        a.ui.icon.large.button(href="/s/#{type}/#{_id}/edit")
+                            i.pencil.large.icon
+                    a.ui.icon.large.button(href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+                        i.eye.large.icon
                     each schema.actions
                         +Template.dynamic template=this data=..
                     +author_info
                     +creation_info
 
     
-                    
-
-template(name='type_edit')
-    with doc
-        .ui.stackable.padded.grid
-            .centered.row
-                .four.wide.column
-                    .ui.header(title="Type: #{type}")
-                        |#{title}
-                    each bricks
-                        if header
-                            +Template.dynamic template=view_template 
-                    // +ioffice name='pencil' classes='ui inline image'
-                    div
-                    +creation_info
-                    a.ui.button(href="/view/#{_id}")
-                        |alpha
-                    a.ui.fluid.button(href="/s/#{type}/#{_id}/view")
-                        i.checkmark.icon
-                        |delta
-                    +remove_button
-                .twelve.wide.column
-                    //- |#{type}
-                    each small_bricks
-                        +Template.dynamic template=edit_template 
-                    each big_bricks
-                        +Template.dynamic template=edit_template 
-                        // .ui.header #{key} [#{field}] #{label}
-
-
-template(name='type_view')
-    with doc
-        .ui.stackable.padded.grid
-            .row
-                .sixteen.wide.column
-                    .ui.breadcrumb
-                        a.section(href="/s/#{current_schema.slug}" title=current_schema.plural)
-                            .ui.compact.small.button
-                                if schema.color_icon
-                                     +icolor name=schema.color_icon classes='ui mini inline image'
-                                // else
-                                // i.icon(class=current_schema.icon)
-                                |#{current_schema.plural}
-                        .divider
-                            i.chevron.right.icon
-                        .active.section
-                            if icon
-                                i.icon(class=icon)
-                            if title
-                                |#{title}
-                            else
-                                |view #{type}
-            .row
-                .four.wide.column
-                    // .ui.header
-                    //     a.ui.icon.button(href="/s/#{type}" title=plural)
-                    //         i.chevron.left.icon
-                    //     |View #{type}
-                    if can_edit
-                        a.ui.button(href="/edit/#{_id}")
-                            i.pencil.icon
-                    each schema.actions
-                        +Template.dynamic template=this data=doc
-                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                    +creation_info
-                .twelve.wide.column
-                    .ui.header
-                        each bricks
-                            if header
-                                +Template.dynamic template=view_template 
-                        // if icon
-                        //     i.icon(class=icon)
-                        // |#{title}
-                    each bricks
-                        unless header
-                            .item
-                                +Template.dynamic template=view_template 
-                    div
-                    +comments
-                    if watson
-                        +watson_view
-                    
                     

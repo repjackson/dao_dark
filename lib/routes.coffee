@@ -151,7 +151,7 @@ Router.route '/', (->
 
 Router.route '/t/:tribe_slug/', (->
     @layout 'layout'
-    @render 'delta'
+    @render 'tribe_home'
     ), name:'tribe_home'
 
 
@@ -171,6 +171,8 @@ Router.route '/s/:type', (->
     @layout 'layout'
     @render 'delta'
     ), name:'delta'
+
+
 
 
 Router.route '/s/:type/:_id/edit', -> @render 'type_edit'

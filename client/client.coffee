@@ -126,17 +126,8 @@ Template.registerHelper 'parent', () ->
 
 
 Template.registerHelper 'youtube_value', () ->
-    # console.log @
-    # console.log Template.currentData()
-    # console.log Template.parentData()
-    # console.log Template.parentData(1)
-    # console.log Template.parentData(2)
-    # console.log Template.parentData(3)
-    # console.log Template.parentData(4)
-    # console.log Template.parentData(5)
-    # console.log Template.parentData(6)
     parent = Template.parentData(5)
-    # console.log parent["_#{@valueOf()}"].youtube_id
+    # console.log parent["_ #{@valueOf()}"].youtube_id
     parent["_#{@valueOf()}"].youtube_id
 
 
@@ -266,26 +257,33 @@ Template.registerHelper 'bricks', () ->
 
 Template.registerHelper 'field_value', () ->
     parent = Template.parentData()
-    # parent2 = Template.parentData(2)
-    # parent3 = Template.parentData(3)
-    # parent4 = Template.parentData(4)
-    # parent5 = Template.parentData(5)
-    # parent6 = Template.parentData(6)
-    # console.log Template.parentData()
-    # console.log Template.parentData(4)
-    # console.log Template.parentData(5)
+    parent2 = Template.parentData(2)
+    parent3 = Template.parentData(3)
+    parent4 = Template.parentData(4)
+    parent5 = Template.parentData(5)
+    parent6 = Template.parentData(6)
+    # console.log @
+    # console.log parent
+    # console.log parent2
+    # console.log parent3
+    # console.log parent4
+    # console.log parent5
+    # console.log parent6
     field_template_context = Template.parentData(6)
     brick = Template.parentData(4)
-    if Template.parentData(6)._id
-        context = Template.parentData(6)
-    else
-        context = Template.parentData(5)
+    # if Template.parentData(6)._id
+    #     context = Template.parentData(6)
+    # else
+    context = Template.parentData(5)
     if parent["#{@key}"] then parent["#{@key}"]
     else if brick.key
+        # console.log context
+        # console.log brick
         context["#{brick.key}"]
         # else if context["#{brick}"]
-        # console.log context["#{brick}"]
+        # console.log context["#{brick.key}"]
     else
+        # console.log context["#{brick}"]
         context["#{brick}"]
     # else if context["#{brick.key}"]
     #     context["#{brick.key}"]

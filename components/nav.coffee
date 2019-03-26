@@ -2,7 +2,7 @@ if Meteor.isClient
     Template.topnav.onCreated ->
         @autorun => Meteor.subscribe 'me'
         @autorun => Meteor.subscribe 'type', 'field'
-        @autorun => Meteor.subscribe 'schemas'
+        # @autorun => Meteor.subscribe 'schemas'
         @autorun => Meteor.subscribe 'tribe_schemas', Router.current().params.tribe_slug
         @autorun => Meteor.subscribe 'tribe_from_slug', Router.current().params.tribe_slug
 

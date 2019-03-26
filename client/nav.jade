@@ -25,8 +25,6 @@ template(name='topnav')
                      i.large.inbox.icon
                 a.item(href="/users" class="{{isActivePath '/users'}}")
                      i.large.users.icon
-                a.ui.delta.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
-                    i.sitemap.large.icon
                 a.ui.records.icon.item(href="/s/record" class="{{isActivePath '/s/record'}}")
                     i.large.list.icon
                 a.icon.item.people(href="/s/person" title='People' class="{{isActivePath '/s/person'}}")
@@ -34,6 +32,10 @@ template(name='topnav')
                 a.ui.icon.item(href="/t/#{ct.slug}/menu" class="{{isActivePath '/menu'}}")
                     i.th.large.icon
         .right.menu
+            if is_dev
+                a.ui.delta.icon.item(href="/s/schema" class="{{isActivePath '/s/schema'}}")
+                    i.sitemap.large.icon
+            
             a.ui.tribes.icon.item(href="/s/tribe" class="{{isActivePath '/s/tribe'}}")
                 i.large.fire.icon
             if currentUser
@@ -60,7 +62,7 @@ template(name='topnav')
     if is_dev
         .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
             each topnav_schemas
-                a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+                a.item.mobile_hidden.set_schema(href="/t/#{ct.slug}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
                     if color_icon
                         +icolor name=color_icon classes='ui avatar image'
                     else if icon

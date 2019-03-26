@@ -60,9 +60,9 @@ Meteor.publish 'group_docs', (group_id)->
 
 
 
-Meteor.publish 'bricks_from_doc_id', (schema, id)->
+Meteor.publish 'bricks_from_doc_id', (tribe,schema, id)->
     doc = Docs.findOne id
-    # console.log 'pub bricks', tribe, schema, id
+    console.log 'pub bricks', tribe, schema, id
     schema = Docs.findOne
         type:'schema'
         slug:doc.type
