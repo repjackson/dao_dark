@@ -11,11 +11,9 @@ template(name='type_edit')
                     // +ioffice name='pencil' classes='ui inline image'
                     div
                     +creation_info
-                    a.ui.button(href="/view/#{_id}")
-                        |alpha
                     a.ui.fluid.button(href="/s/#{type}/#{_id}/view")
                         i.checkmark.icon
-                        |delta
+                        | Save
                     +remove_button
                 .twelve.wide.column
                     //- |#{type}
@@ -47,7 +45,7 @@ template(name='type_view')
                             if title
                                 |#{title}
                             else
-                                |view #{type}
+                                | View #{type}
             .row
                 .four.wide.column
                     // .ui.header
@@ -55,8 +53,9 @@ template(name='type_view')
                     //         i.chevron.left.icon
                     //     |View #{type}
                     if can_edit
-                        a.ui.button(href="/edit/#{_id}")
+                        a.ui.fluid.button(href="/s/#{type}/#{_id}/edit")
                             i.pencil.icon
+                            |Edit
                     each schema.actions
                         +Template.dynamic template=this data=doc
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'

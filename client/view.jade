@@ -14,22 +14,23 @@ template(name='view')
         .ui.stackable.padded.grid
             .three.column.row
                 .column.scrolling
-                    .ui.secondary.segment.large150
+                    .ui.basic.segment.large150
                         .ui.header
                             if icon
                                 i.grey.icon(class=icon)
                             |#{title}
-                        +clone_button
-                        //- div
-                        //- +author_info
-                        //- div
-                        //- +creation_info
-                        div
-                        if is_author
-                            //- +edit_button
-                            a.ui.big.icon.circular.basic.inverted.button(href="/edit/#{_id}")
-                                i.pencil.icon
-                        +detect
+                        if is_dev
+                            +clone_button
+                            //- div
+                            //- +author_info
+                            //- div
+                            //- +creation_info
+                            div
+                            if is_author
+                                //- +edit_button
+                                a.ui.big.icon.button(href="/edit/#{_id}")
+                                    i.pencil.icon
+                            +detect
                         //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' add_label='Bookmark' remove_label='Unbookmark' color='red' big=true
                         //- +clone_button
                         if watson
@@ -38,15 +39,15 @@ template(name='view')
                             +concepts
                             +categories
                             +entities
-                            //- +semantic_roles
+                            +semantic_roles
                             +keyword_list
                             +keywords
                             +concept_list
-                            //- +relations
-                            //- +personality
-                            //- +consumption_preferences
+                            +relations
+                            +personality
+                            +consumption_preferences
                 .column.scrolling
-                    .ui.secondary.segment.large150
+                    .ui.basic.segment.large150
                         each _keys
                             //- .ui.label #{this}
                             +key_view
@@ -58,7 +59,7 @@ template(name='view')
                         +comments
                         +voting
                 .column.scrolling
-                    .ui.secondary.segment.large150
+                    .ui.basic.segment.large150
                         if watson
                             +tone
                             +keywords

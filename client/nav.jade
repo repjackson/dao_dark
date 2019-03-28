@@ -58,16 +58,16 @@ template(name='topnav')
                     i.sign.in.alternate.large.icon
                 a.ui.icon.item(href="/register")
                     i.user.plus.large.icon
-                        
-    if is_dev
-        .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
-            each topnav_schemas
-                a.item.mobile_hidden.set_schema(href="/t/#{ct.slug}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-                    if color_icon
-                        +icolor name=color_icon classes='ui avatar image'
-                    else if icon
-                        i.icon(class=icon)
-                    |&nbsp; #{plural}
+    //- 
+    //- if is_dev
+    //-     .ui.attached.borderless.inverted.menu.topnav(style="background:#{ct.primary_color};opacity:0.8")
+    //-         each topnav_schemas
+    //-             a.item.mobile_hidden.set_schema(href="/t/#{ct.slug}/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+    //-                 if color_icon
+    //-                     +icolor name=color_icon classes='ui avatar image'
+    //-                 else if icon
+    //-                     i.icon(class=icon)
+    //-                 |&nbsp; #{plural}
 
 
 template(name='topbar')

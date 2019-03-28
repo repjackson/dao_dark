@@ -466,7 +466,6 @@ template(name='child_edit')
         |#{rank} #{title} #{label}
     .content
         each bricks
-            .ui.header #{this}
             +Template.dynamic template=edit_template 
         div
         +remove_button

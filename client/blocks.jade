@@ -1,11 +1,11 @@
 template(name='comments')
-    //- .ui.grey.header
-    //-     i.chat.grey.outline.icon
-    //-     |comments
+    .ui.grey.header
+        i.chat.grey.outline.icon
+        |Comments
     if currentUser
-        .ui.fluid.icon.transparent.input
+        .ui.fluid.icon.input
             i.plus.icon
-            input.add_comment(type='text' placeholder='comment...')
+            input.add_comment(type='text' placeholder='Add...')
     .ui.comments
         each doc_comments
             .ui.comment
@@ -19,7 +19,7 @@ template(name='comments')
 template(name='detect')
     .ui.icon.big.circular.button.detect_fields
         i.dna.icon
-        //- |Detect
+        |Detect Fields
 
 
 template(name='follow')

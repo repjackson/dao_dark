@@ -203,11 +203,11 @@ Template.registerHelper 'big_bricks', () ->
         # view_roles: $in:Meteor.user().roles
     }, sort:rank:1
 
-
-Template.registerHelper 'children', ->
-    Docs.find
-        parent_id:@_id
-        # view_roles:$in:Meteor.user().roles
+#
+# Template.registerHelper 'children', ->
+#     Docs.find
+#         parent_id:@_id
+#         # view_roles:$in:Meteor.user().roles
 
 
 
@@ -271,10 +271,10 @@ Template.registerHelper 'field_value', () ->
     # console.log parent6
     field_template_context = Template.parentData(6)
     brick = Template.parentData(4)
-    # if Template.parentData(6)._id
-    #     context = Template.parentData(6)
-    # else
-    context = Template.parentData(5)
+    if Template.parentData(6)._id
+        context = Template.parentData(6)
+    else
+        context = Template.parentData(5)
     if parent["#{@key}"] then parent["#{@key}"]
     else if brick.key
         # console.log context

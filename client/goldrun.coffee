@@ -50,14 +50,14 @@ Template.goldrun.helpers
 
 Template.checkin_button.events
     'click .checkin': (e,t)->
-        $(e.currentTarget).closest('.card').transition('scale')
+        $(e.currentTarget).closest('.card').transition('zoom')
         Meteor.setTimeout =>
             Meteor.users.update @_id,
                 $set:healthclub_checkedin:true
-            # Docs.insert
-            #     type:'log_event'
-            #     object_id:@_id
-            #     body: "#{@username} checked in."
+            Docs.insert
+                type:'log_event'
+                object_id:@_id
+                body: "#{@username} checked in."
             # swal( "#{@username} checked in.", "", "success" )
             Session.set 'username_query',null
             Session.set 'checking_in',false
@@ -68,12 +68,12 @@ Template.checkin_button.events
         # $('.ui.check_in.modal')
         #   .modal({
         #     inverted: true
-        #     setting: transition: 'scale'
+        #     setting: transition: 'zoom'
         #     # closable: false
         #     onDeny: ->
         #     onApprove: =>
         #         Meteor.setTimeout =>
-        #             $(e.currentTarget).closest('.card').transition('scale')
+        #             $(e.currentTarget).closest('.card').transition('zoom')
         #         , 750
         #         Meteor.setTimeout =>
         #             Meteor.users.update @_id,
@@ -90,7 +90,7 @@ Template.checkin_button.events
 
 
     'click .checkout': (e,t)->
-        $(e.currentTarget).closest('.card').transition('scale')
+        $(e.currentTarget).closest('.card').transition('zoom')
         Meteor.setTimeout =>
             Meteor.users.update @_id,
                 $set:healthclub_checkedin:false
@@ -108,12 +108,12 @@ Template.checkin_button.events
         # $('.ui.check_out.modal')
         #   .modal({
         #     inverted: true
-        #     setting: transition: 'scale'
+        #     setting: transition: 'zoom'
         #     # closable: false
         #     onDeny: ->
         #     onApprove: =>
         #         Meteor.setTimeout =>
-        #             $(e.currentTarget).closest('.card').transition('scale')
+        #             $(e.currentTarget).closest('.card').transition('zoom')
         #         , 750
         #         Meteor.setTimeout =>
         #             Meteor.users.update @_id,

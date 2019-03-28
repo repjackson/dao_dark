@@ -52,9 +52,12 @@
       "url": "https://gateway.watsonplatform.net/visual-recognition/api"
     },
     "personality": {
-      "url": "https://gateway.watsonplatform.net/personality-insights/api",
-      "username": "a80ae329-2664-438a-84b4-55d6866947a0",
-      "password": "bMI0PgCgyP3k"
+      "apikey": "k3qTBQiTfIuJMWarQjXYG6Hc1GkK1XVmZcaPTtzShmU1",
+      "iam_apikey_description": "Auto generated apikey during resource-key operation for Instance - crn:v1:bluemix:public:personality-insights:us-south:a/f18c8f41459468045d98bcffc36f39d4:bd3a22ef-c2c0-4f88-990d-58363b487314::",
+      "iam_apikey_name": "auto-generated-apikey-ddeec0a3-81a7-4872-94a4-8bdd0e4977f3",
+      "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+      "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/f18c8f41459468045d98bcffc36f39d4::serviceid:ServiceId-737a486e-da22-404d-a3f2-4296dc02065d",
+      "url": "https://gateway.watsonplatform.net/personality-insights/api"
     },
     "google": {
       "places": "AIzaSyDjxr1W7FhbxSIlmZKJ9x3tisiG7pmUxt4"

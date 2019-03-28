@@ -245,7 +245,7 @@ if Meteor.isServer
             Docs.find match
 
 
-    Meteor.publish 'schema_bricks_from_slug', (tribe_slug, type)->
+    Meteor.publish 'schema_bricks_from_slug', (type, tribe_slug)->
         console.log tribe_slug
         # console.log type
 

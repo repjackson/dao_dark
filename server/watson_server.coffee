@@ -22,9 +22,9 @@ visual_recognition = new VisualRecognitionV3(
 
 
 personality_insights = new PersonalityInsightsV3(
-    username: Meteor.settings.private.personality.username
-    password: Meteor.settings.private.personality.password
-    version_date: '2017-10-13')
+    version:'2017-10-13',
+    iam_apikey: Meteor.settings.private.personality.apikey,
+    url: Meteor.settings.private.personality.url)
 
 
 
@@ -33,18 +33,18 @@ Meteor.methods
         self = @
         doc = Docs.findOne doc_id
         params =
-            content: doc.html,
+            content: doc.new_html,
             content_type: 'text/html',
             consumption_preferences: true,
-            raw_scores: false
+            raw_scores: true
         personality_insights.profile params, Meteor.bindEnvironment((err, response)->
             if err
-                # console.log err
+                console.log err
                 Docs.update { _id: doc_id},
                     $set:
                         personality: false
             else
-                # console.dir response
+                console.dir response
                 Docs.update { _id: doc_id},
                     $set:
                         personality: response
@@ -106,19 +106,19 @@ Meteor.methods
         parameters =
             features:
                 entities:
-                    emotion: false
-                    sentiment: false
+                    emotion: true
+                    sentiment: true
                     # limit: 2
                 keywords:
-                    emotion: false
-                    sentiment: false
+                    emotion: true
+                    sentiment: true
                     # limit: 2
                 concepts: {}
-                # categories: {}
+                categories: {}
                 emotion: {}
-                # # metadata: {}
-                # relations: {}
-                # semantic_roles: {}
+                # metadata: {}
+                relations: {}
+                semantic_roles: {}
                 sentiment: {}
 
         switch mode
@@ -155,7 +155,7 @@ Meteor.methods
                         doc_sentiment_score: response.sentiment.document.score
                         doc_sentiment_label: response.sentiment.document.label
         )
-        # Meteor.call 'call_personality', doc_id, ->
+        Meteor.call 'call_personality', doc_id, ->
         Meteor.call 'call_tone', doc_id, key, mode, ->
 
 
