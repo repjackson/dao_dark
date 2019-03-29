@@ -3,14 +3,13 @@ template(name='delta')
         .ui.stackable.grid
             .row
                 // .twelve.wide.column.padleft.scrolling(class=delta_left_column_class)
-                .four.wide.column.scrolling
-                    .ui.center.aligned.header
+                .eight.wide.right.aligned.column.scrolling
+                    .ui.right.aligned.inline.header
                         if color_icon
                             +icolor name=color_icon
                         else
                             i.icon(class=icon)
                         | #{plural}
-                    // .ui.small.center.aligned.header #{body}
                     unless is_loading
                         if can_add
                             .ui.icon.button.add_type_doc(title="Add #{title}")
@@ -44,7 +43,7 @@ template(name='delta')
                     each current_delta.facets
                         +facet
                 // .column(class=delta_right_column_class)
-                .twelve.wide.column
+                .eight.wide.column
                     // a.ui.left.corner.label.move_right
                     //     i.right.chevron.link.pointer.icon
                     // .ui.horizontal.spaced.list
@@ -114,14 +113,16 @@ template(name='facet')
     div
     |&nbsp;
     //- if filtering_res
-    .ui.inline.header 
+    //- .ui.inline.header 
+    //-     if icon
+    //-         i.small.grey.icon(class=icon)
+    //-     if label
+    //-         |#{label}
+    //-     else 
+    //-         |#{key}
+    .ui.icon.input
         if icon
-            i.small.grey.icon(class=icon)
-        if label
-            |#{label}
-        else 
-            |#{key}
-    .ui.input
+            i.large.grey.icon(class=icon)
         input.add_filter(type='text' placeholder=key)
     //-     // i.grey.dropdown.icon
     //-         // i.dropdown.icon
@@ -129,11 +130,11 @@ template(name='facet')
     //-         //     .unselect.ui.grey.button #{this}
     each filtering_res
         if name
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                 | #{name}
                 //- small #{count}
         else
-            .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+            .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
                 strong [null]
                 //- small #{count}
 
@@ -150,11 +151,11 @@ template(name='facet')
         // //     .unselect.ui.grey.button #{this}
         // each filtering_res
         //     if name
-        //         .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+        //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
         //             | #{name}
         //             // small #{count}
         //     else
-        //         .selector.ui.compact.button.toggle_selection(class=toggle_value_class title=count)
+        //         .selector.ui.button.toggle_selection(class=toggle_value_class title=count)
         //             strong [null]
         //         // small #{count}
 

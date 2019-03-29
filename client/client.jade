@@ -21,13 +21,8 @@ template(name='not_found')
 template(name='layout')
     //- .layout.context
     +topnav
-    .ui.bottom.attached.basic.segment.pushable
-        //- +topbar
-        +leftbar
-        +rightbar
-        .pusher
-            #main
-                +yield
+    #main
+        +yield
     +footer
 
 template(name='nonav')

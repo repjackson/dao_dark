@@ -49,16 +49,9 @@ if Meteor.isClient
 
     Template.delta.events
         'click .add_type_doc': ->
-            current_tribe = Docs.findOne
-                type:'tribe'
-                slug:Router.current().params.tribe_slug
-            # console.log current_tribe
             new_doc_id = Docs.insert
                 type:Router.current().params.type
-                parent_id: current_tribe._id
-                tribe_id:current_tribe._id
-                tribe:current_tribe.slug
-            Router.go "/t/#{current_tribe.slug}/s/#{Router.current().params.type}/#{new_doc_id}/edit"
+            Router.go "/s/#{Router.current().params.type}/#{new_doc_id}/edit"
 
         'click .create_delta': (e,t)->
             Docs.insert
@@ -75,17 +68,10 @@ if Meteor.isClient
             Meteor.call 'fum', delta._id, (err,res)->
 
         'click .edit_schema': ->
-            ct = Docs.findOne
-                type:'tribe'
-                slug:Router.current().params.tribe_slug
-
             schema = Docs.findOne
                 type:'schema'
                 slug: Router.current().params.type
-            if ct
-                Router.go "/t/#{ct.slug}/s/#{schema.slug}/#{schema._id}/edit"
-            else
-                Router.go "/s/#{schema.slug}/#{schema._id}/edit"
+            Router.go "/s/#{schema.slug}/#{schema._id}/edit"
 
         'click .delete_delta': (e,t)->
             delta = Docs.findOne type:'delta'
@@ -113,7 +99,6 @@ if Meteor.isClient
                 if err then console.log err
                 else
                     Session.set 'is_calculating', false
-
 
         'click .select_tag': -> selected_tags.push @name
         'click .unselect_tag': -> selected_tags.remove @valueOf()
@@ -263,10 +248,3 @@ if Meteor.isServer
         Docs.find
             type:'brick'
             parent_id:schema._id
-
-
-
-    Meteor.publish 'tribe_schemas', (tribe)->
-        Docs.find
-            type:'schema'
-            tribe:tribe

@@ -11,31 +11,6 @@ Template.user_schema_editor.onCreated ->
     @autorun -> Meteor.subscribe 'user_schemas'
 
 
-
-Template.user_tribe_editor.onCreated ->
-    @autorun -> Meteor.subscribe 'type','tribe'
-Template.user_tribe_editor.helpers
-    tribes: ->
-        Docs.find
-            type:'tribe'
-
-    user_tribe_class: ->
-        current_user = Meteor.users.findOne username:Router.current().params.username
-        if current_user.tribes and @slug in current_user.tribes then 'grey' else ''
-
-
-Template.user_tribe_editor.events
-    'click .toggle_tribe': ->
-        # console.log @
-        current_user = Meteor.users.findOne username:Router.current().params.username
-        if current_user.tribes and @slug in current_user.tribes
-            Meteor.users.update current_user._id,
-                $pull: tribes: @slug
-        else
-            Meteor.users.update current_user._id,
-                $addToSet: tribes: @slug
-
-
 Template.user_edit.onRendered ->
     Meteor.setTimeout ->
         $('.button').popup()
