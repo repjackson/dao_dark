@@ -3,7 +3,7 @@ Meteor.methods
         # console.log 'running fum', delta_id
         delta = Docs.findOne delta_id
 
-        console.log delta
+        # console.log delta
         if delta.doc_type
             schema = Docs.findOne
                 type:'schema'
@@ -63,7 +63,8 @@ Meteor.methods
             modifier =
                 {
                     fields:_id:1
-                    limit:10
+                    limit:1
+                    sort:_timestamp:-1
                 }
 
             # results_cursor =

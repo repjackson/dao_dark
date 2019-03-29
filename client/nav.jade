@@ -1,7 +1,8 @@
 template(name='topnav')
     .ui.center.aligned.basic.segment
         if is_loading
-            i.adjust.big.grey.icon
+            i.loading.icon
+                +icolor name='yin-yang' classes='loading icon'
         else 
             if currentUser
                 a.alpha(href="/" class="{{isActivePath '/'}}")
