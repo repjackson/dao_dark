@@ -1,7 +1,7 @@
 template(name='topnav')
     .ui.center.aligned.basic.segment
         if is_loading
-            i.loading.adjust.big.grey.icon
+            i.adjust.big.grey.icon
         else 
             if currentUser
                 a.alpha(href="/" class="{{isActivePath '/'}}")
@@ -9,45 +9,44 @@ template(name='topnav')
                 a(href="/add" title="Add")
                     i.plus.large.circular.icon
                 a(href="/users" class="{{isActivePath '/users'}}")
-                     i.large.users.icon
+                     i.large.users.circular.icon
                 a(href="/menu" class="{{isActivePath '/menu'}}")
                     i.th.large.circular.icon
                 a.delta(href="/s/schema" class="{{isActivePath '/s/schema'}}")
                     i.sitemap.large.circular.icon
                 a.adddoc(href="#")
                     i.plus.large.circular.icon
-                a(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
-                    i.user.large.circular.icon
+                a.ui.basic.circular.button(href="/u/#{currentUser.username}" title="Profile" class="{{isActiveRoute 'user_home'}}")
+                    i.user.large.icon
                     |#{currentUser.username}
                 if signing_out
                     .icon.disabled.item.toggle_rightbar
                         i.notched.circle.loading.big.icon
                 else
-                    i.sign.out.logout.circular.icon
+                    i.sign.out.logout.large.circular.icon
             else
                 a.ui.button(href="/login")
                     i.sign.in.alternate.large.circular.icon
                 a.ui.button(href="/register")
                     i.user.plus.large.circular.icon
-    if is_dev
-        .ui.attached.borderless.menu.topnav
-            each topnav_schemas
-                a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
-                    if color_icon
-                        +icolor name=color_icon classes='ui avatar image'
-                    else if icon
-                        i.icon(class=icon)
-                    |&nbsp; #{plural}
+    //- .ui.attached.borderless.menu.topnav
+    //-     each topnav_schemas
+    //-         a.item.mobile_hidden.set_schema(href="/s/#{slug}" class="{{isActiveRoute regex=slug}}" title=title)
+    //-             if color_icon
+    //-                 +icolor name=color_icon classes='ui avatar image'
+    //-             else if icon
+    //-                 i.icon(class=icon)
+    //-             |&nbsp; #{plural}
 
 
 
 template(name='footer')
-    .ui.basic.center.aligned.segment
-        form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
-            input(type='hidden', name='cmd', value='_s-xclick')
-            input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
-            // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
-            img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
-            button.ui.large.circular.icon.basic.button(type='submit')
-                i.pied.piper.alternate.large.icon
-        +role_switcher
+    //- .ui.basic.center.aligned.segment
+    //-     form(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+    //-         input(type='hidden', name='cmd', value='_s-xclick')
+    //-         input(type='hidden', name='hosted_button_id', value='AUVHGYNUW5LVE')
+    //-         // input(type='image', src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif', border='0', name='submit')
+    //-         img(alt='', border='0', src='https://www.paypal.com/en_US/i/scr/pixel.gif', width='1', height='1')
+    //-         button.ui.large.circular.icon.basic.button(type='submit')
+    //-             i.pied.piper.alternate.large.icon
+    +role_switcher

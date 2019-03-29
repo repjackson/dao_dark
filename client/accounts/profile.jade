@@ -1,105 +1,98 @@
 template(name='profile_layout')
     .layout.context
         +topnav
-        .ui.bottom.attached.basic.segment.pushable
-            +leftbar
-            // +topbar
-            +rightbar
-            .pusher
-                #main
-                    with user_from_username_param
-                        .ui.padded.stackable.grid
-                            .row
-                                .four.wide.column.scrolling
-                                    .ui.large.center.aligned.header
-                                        | #{user.first_name}
-                                        | #{user.last_name}
-                                    .ui.center.aligned.header
-                                        | @#{user.username}                        
-                                    if image_id
-                                        a.item(href="/u/#{user_from_username_param.username}/about")
-                                            img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
-                                    //- if profile.image_id
-                                    //-     a.item(href="/u/#{user_from_username_param.username}/about")
-                                    //-         img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
-                                    // if current_user
-                                    if is_admin
-                                        .ui.vertical.fluid.menu
-                                            a.item(href="/u/#{user_from_username_param.username}/edit")
-                                                i.settings.icon
-                                                | Settings
-                                        
-                                                
-                                    .ui.vertical.large.fluid.menu
-                                        a.item(href="/u/#{user_from_username_param.username}/about" class="{{isActiveRoute regex='user_about'}}")
-                                            i.info.icon
-                                            .content    
-                                                .header
-                                                    |About
-                                        //- a.item(href="/u/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
-                                        //-     i.fork.icon
-                                        //-     .content    
-                                        //-         .header
-                                        //-             |Connections
-                                        //- a.item(href="/u/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
-                                        //-     i.mail.icon
-                                        //-     .content    
-                                        //-         .header
-                                        //-             |Messages
-                                        //- a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
-                                        //-     i.bullhorn.icon
-                                        //-     .content    
-                                        //-         .header
-                                        //-             |Notifications
-                                        //- a.item(href="/u/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
-                                        //-     i.chat.icon
-                                        //-     .content    
-                                        //-         .header
-                                        //-             |Chat
-                                        //- a.item(href="/u/#{user_from_username_param.username}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
-                                        //-     i.stripe.icon
-                                        //-     .content    
-                                        //-         .header
-                                        //-             |Stripe
-                                        //- a.item(href="/u/#{user_from_username_param.username}/tags" class="{{isActiveRoute regex='user_tags'}}")
-                                        //-     i.tags.icon
-                                        //-     .content    
-                                        //-         .header
-                                        //-             |Tags
-                                        //- a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
-                                        //-     i.phone.icon
-                                        //-     .content    
-                                        //-         .header
-                                        //-             |Contact
-                                    //- if user_schemas
-                                    //-     .ui.vertical.large.fluid.menu
-                                    //-         each user_schemas
-                                    //-             a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
-                                    //-                 i.icon(class=icon)
-                                    //-                 .content    
-                                    //-                     .header
-                                    //-                         |#{plural}
-                                    if is_user
-                                        .ui.vertical.fluid.menu
-                                            a.item.logout(href='#')
-                                                i.sign.out.icon
-                                                |Log Out
-                                    .ui.segment
-                                        //- .ui.header
-                                        //-     |#{user.points} Following
-                                        //- .ui.header
-                                        //-     |#{user.points} Followers
-                                        //- .ui.header
-                                        //-     i.heartbeat.icon
-                                        //-     |#{user.points} Karma
-                                        .ui.header 
-                                            i.user.shield.icon
-                                            |Roles
-                                        each roles
-                                            .ui.label #{this}
-                                    +tribe_switcher
-                                .twelve.wide.column.scrolling
-                                    +yield
+        with user_from_username_param
+            .ui.padded.stackable.grid
+                .row
+                    .four.wide.column.scrolling
+                        .ui.large.center.aligned.header
+                            | #{user.first_name}
+                            | #{user.last_name}
+                        .ui.center.aligned.header
+                            | @#{user.username}                        
+                        if image_id
+                            a.item(href="/u/#{user_from_username_param.username}/about")
+                                img.ui.medium.image(src="{{c.url image_id height=400 crop='limit'}}")
+                        //- if profile.image_id
+                        //-     a.item(href="/u/#{user_from_username_param.username}/about")
+                        //-         img.ui.medium.image(src="{{c.url profile.image_id height=400 crop='limit'}}")
+                        // if current_user
+                        if is_admin
+                            .ui.vertical.fluid.menu
+                                a.item(href="/u/#{user_from_username_param.username}/edit")
+                                    i.settings.icon
+                                    | Settings
+                            
+                                    
+                        .ui.vertical.large.fluid.menu
+                            a.item(href="/u/#{user_from_username_param.username}/about" class="{{isActiveRoute regex='user_about'}}")
+                                i.info.icon
+                                .content    
+                                    .header
+                                        |About
+                            //- a.item(href="/u/#{user_from_username_param.username}/connections" class="{{isActiveRoute regex='user_connections'}}")
+                            //-     i.fork.icon
+                            //-     .content    
+                            //-         .header
+                            //-             |Connections
+                            //- a.item(href="/u/#{user_from_username_param.username}/messages" class="{{isActiveRoute regex='user_messages'}}")
+                            //-     i.mail.icon
+                            //-     .content    
+                            //-         .header
+                            //-             |Messages
+                            //- a.item(href="/u/#{user_from_username_param.username}/notifications" class="{{isActiveRoute regex='user_notifications'}}")
+                            //-     i.bullhorn.icon
+                            //-     .content    
+                            //-         .header
+                            //-             |Notifications
+                            //- a.item(href="/u/#{user_from_username_param.username}/chat" class="{{isActiveRoute regex='user_chat'}}")
+                            //-     i.chat.icon
+                            //-     .content    
+                            //-         .header
+                            //-             |Chat
+                            //- a.item(href="/u/#{user_from_username_param.username}/stripe" class="{{isActiveRoute regex='user_stripe'}}")
+                            //-     i.stripe.icon
+                            //-     .content    
+                            //-         .header
+                            //-             |Stripe
+                            //- a.item(href="/u/#{user_from_username_param.username}/tags" class="{{isActiveRoute regex='user_tags'}}")
+                            //-     i.tags.icon
+                            //-     .content    
+                            //-         .header
+                            //-             |Tags
+                            //- a.item(href="/u/#{user_from_username_param.username}/contact" class="{{isActiveRoute regex='user_contact'}}")
+                            //-     i.phone.icon
+                            //-     .content    
+                            //-         .header
+                            //-             |Contact
+                        //- if user_schemas
+                        //-     .ui.vertical.large.fluid.menu
+                        //-         each user_schemas
+                        //-             a.item.set_delta_schema(href="/u/#{user_from_username_param.username}/s/#{slug}" class="{{isActiveRoute regex=group}}")
+                        //-                 i.icon(class=icon)
+                        //-                 .content    
+                        //-                     .header
+                        //-                         |#{plural}
+                        if is_user
+                            .ui.vertical.fluid.menu
+                                a.item.logout(href='#')
+                                    i.sign.out.icon
+                                    |Log Out
+                        .ui.segment
+                            //- .ui.header
+                            //-     |#{user.points} Following
+                            //- .ui.header
+                            //-     |#{user.points} Followers
+                            //- .ui.header
+                            //-     i.heartbeat.icon
+                            //-     |#{user.points} Karma
+                            .ui.header 
+                                i.user.shield.icon
+                                |Roles
+                            each roles
+                                .ui.label #{this}
+                    .twelve.wide.column.scrolling
+                        +yield
             +footer
             
             
@@ -140,22 +133,14 @@ template(name='user_about')
                 a(href=profile.website target='_blank') #{website}
             each emails
                 .ui.label #{address}
-                .ui.secondary.segment
-            .ui.inline.header
-                i.fire.icon
-                | My Tribes
-            each tribes
-                a.ui.button(href="/t/#{this}") 
-                    i.external.icon
-                    |#{this}
     
-            //- +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
-            //- +user_bookmarks    
-        //- .eight.wide.column
-        //-     +user_feed
-    //- if current_user
-    //-     +role_switcher
-    //- +user_tags
+            +textarea_view key='bio' label='Bio' collection='users' icon='align-left'
+            +user_bookmarks    
+        .eight.wide.column
+            +user_feed
+    if current_user
+        +role_switcher
+    +user_tags
     
 
 
@@ -235,13 +220,6 @@ template(name='role_switcher')
     +user_array_element_toggle key='roles' value='owner' user=currentUser
 
 
-template(name='tribe_switcher')
-    .ui.secondary.segment
-        .ui.header 
-            i.fire.icon
-            |Tribe Switcher
-        each my_tribes
-            +user_string_toggle key='current_tribe' value=slug  
             
 template(name='user_array_element_toggle')
     .ui.button.toggle_element(class=user_array_element_toggle_class)

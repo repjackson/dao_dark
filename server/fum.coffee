@@ -53,8 +53,8 @@ Meteor.methods
                 values = []
                 local_return = []
 
-                agg_res = Meteor.call 'agg', built_query, facet.key, schema.collection
-                # agg_res = Meteor.call 'agg', built_query, facet.key
+                # agg_res = Meteor.call 'agg', built_query, facet.key, schema.collection
+                agg_res = Meteor.call 'agg', built_query, facet.key
 
                 if agg_res
                     Docs.update { _id:delta._id, 'facets.key':facet.key},

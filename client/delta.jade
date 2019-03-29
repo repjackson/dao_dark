@@ -27,13 +27,12 @@ template(name='delta')
                         // //         i.play.icon
                                 
                         if current_delta
-                            if is_dev
-                                .ui.icon.button.print_delta(title='Print Session Doc')
-                                    i.code.icon
-                                .ui.reset.icon.button(title='Reload Session')
-                                    i.refresh.icon
-                                .ui.delete_delta.icon.button(title='Delete Session')
-                                    i.trash.icon
+                            .ui.icon.button.print_delta(title='Print Session Doc')
+                                i.code.icon
+                            .ui.reset.icon.button(title='Reload Session')
+                                i.refresh.icon
+                            .ui.delete_delta.icon.button(title='Delete Session')
+                                i.trash.icon
                         else
                             .create_delta.ui.basic.button.pointer(title='new session')
                                 i.plus.icon
@@ -42,48 +41,9 @@ template(name='delta')
                             
                     each current_delta.facets
                         +facet
-                // .column(class=delta_right_column_class)
                 .eight.wide.column
-                    // a.ui.left.corner.label.move_right
-                    //     i.right.chevron.link.pointer.icon
-                    // .ui.horizontal.spaced.list
-                    //     .item
-                    //         |View
-                    //         +set_page_size value=10
-                    //         +set_page_size value=20
-                    //         +set_page_size value=50
-                    //     .item
-                    //         if multiple_pages
-                    //             .ui.label
-                    //                 | Page #{delta.current_page}/#{delta.page_amount}
-                    //     .item
-                    //             | #{delta.total} Results
-                    //     .item
-                    //         if show_page_down
-                    //             .ui.icon.button.page_down(title='Previous Page')
-                    //                 i.left.chevron.icon
-                    //         if show_page_up
-                    //             .ui.icon.button.page_up(title='Next Page')
-                    //                 i.right.chevron.icon
-                    //     .item
-                    //         +set_delta_key key='view' value='grid' icon='clone'                                    
-                    //         +set_delta_key key='view' value='table' icon='table'                                    
-                    //     .item
-                    //         +toggle_delta_config key='minimize' title='Minimize' label='Minimize' icon='chevron up'
-                    //     .item
-                    //         .ui.disabled.button
-                    //             i.sort.down.icon
-                    //             |Sort By
-                    //     .item
-                    //         .ui.disabled.button
-                    //             i.filter.icon
-                    //             | Toggle Fields
-                    // .ui.stackable.grid.scrolling(class=result_grid_class)
-                    .scrolling
                         each current_delta.result_ids
                             +delta_result
-                //- .four.wide.column.scrolling
-                //-     +events_column
                 
 template(name='events_column')
     .ui.accordion
@@ -195,10 +155,10 @@ template(name='delta_result')
                     if is_dev
                         +remove_button
                     if can_edit
-                        //- a.ui.icon.large.button(href="/t/#{ct.slug}/s/#{type}/#{_id}/edit")
+                        //- a.ui.icon.large.button(href="/s/#{type}/#{_id}/edit")
                         a.ui.icon.large.button(href="/s/#{type}/#{_id}/edit")
                             i.pencil.large.icon
-                    a.ui.icon.large.button(href="/t/#{ct.slug}/s/#{type}/#{_id}/view")
+                    a.ui.icon.large.button(href="/s/#{type}/#{_id}/view")
                         i.eye.large.icon
                     each schema.actions
                         +Template.dynamic template=this data=..

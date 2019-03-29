@@ -7,10 +7,10 @@ if Meteor.isClient
     Template.alpha.helpers
         selected_tags: -> selected_tags.list()
 
-        # current_delta: ->
-        #     Docs.findOne
-        #         type:'delta'
-        #         _author_id:Meteor.userId()
+        current_delta: ->
+            Docs.findOne
+                type:'delta'
+                # _author_id:Meteor.userId()
 
 
         global_tags: ->
@@ -36,7 +36,6 @@ if Meteor.isClient
 
         'click .reset': ->
             delta = Docs.findOne type:'delta'
-            # console.log 'hi'
             Meteor.call 'fum', delta._id, (err,res)->
 
         'click .delete_delta': (e,t)->

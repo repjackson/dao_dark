@@ -193,8 +193,22 @@ if Meteor.isClient
             else if Meteor.users.findOne @_id
                 Meteor.users.findOne @_id
 
+    Template.alpha_result.onCreated ->
+        @autorun => Meteor.subscribe 'doc', @data._id
 
     Template.delta_result.events
+        'click .set_schema': ->
+            Meteor.call 'set_delta_facets', @slug, Meteor.userId()
+
+    Template.alpha_result.helpers
+        result: ->
+            if Docs.findOne @_id
+                Docs.findOne @_id
+            else if Meteor.users.findOne @_id
+                Meteor.users.findOne @_id
+
+
+    Template.alpha_result.events
         'click .set_schema': ->
             Meteor.call 'set_delta_facets', @slug, Meteor.userId()
 
