@@ -1,10 +1,10 @@
 body {
     font-family: 'Ubuntu', sans-serif !important;
-    /* filter: invert(90%) !important; */
+    filter: invert(90%) !important;
     font-size: 110% !important;
     /*line-height: 200% !important;*/
-    /*background: #3d3d3d !important;*/
-    background: rgba(200, 200, 200, .1) !important
+    /* background: #3d3d3d !important; */
+    background: rgba(10, 10, 10, .8) !important
 }
 
 /*.invert {*/
@@ -36,10 +36,10 @@ body {
     /* Scale the background image to be as large as possible */
     /* background-size: cover; */
 }
-/*
+
 .ui.button, .ui.label{
   margin:.1em !important;
-} */
+}
 
 .button {
   animation: fadein 1s;

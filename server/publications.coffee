@@ -132,8 +132,6 @@ Meteor.publish 'all_users', ()->
 
 
 
-
-
 Meteor.publish 'user_messages', (username)->
     match = {}
     match.type = 'message'

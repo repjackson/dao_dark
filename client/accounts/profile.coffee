@@ -1,3 +1,80 @@
+
+Router.route '/user/:username/s/:type', (->
+    @layout 'profile_layout'
+    @render 'user_section'
+    ), name:'user_section'
+
+
+Router.route '/user/:username/about', (->
+    @layout 'profile_layout'
+    @render 'user_about'
+    ), name:'user_about'
+
+Router.route '/user/:username', (->
+    @layout 'profile_layout'
+    @render 'user_about'
+    ), name:'user_home'
+
+Router.route '/user/:username/stripe', (->
+    @layout 'profile_layout'
+    @render 'user_stripe'
+    ), name:'user_stripe'
+
+Router.route '/user/:username/blog', (->
+    @layout 'profile_layout'
+    @render 'user_blog'
+    ), name:'user_blog'
+
+Router.route '/user/:username/events', (->
+    @layout 'profile_layout'
+    @render 'user_events'
+    ), name:'user_events'
+
+Router.route '/user/:username/tags', (->
+    @layout 'profile_layout'
+    @render 'user_tags'
+    ), name:'user_tags'
+
+Router.route '/user/:username/tasks', (->
+    @layout 'profile_layout'
+    @render 'user_tasks'
+    ), name:'user_tasks'
+
+Router.route '/user/:username/connections', (->
+    @layout 'profile_layout'
+    @render 'user_connections'
+    ), name:'user_connections'
+
+
+Router.route '/user/:username/messages', (->
+    @layout 'profile_layout'
+    @render 'user_messages'
+    ), name:'user_messages'
+
+
+Router.route '/user/:username/notifications', (->
+    @layout 'profile_layout'
+    @render 'user_notifications'
+    ), name:'user_notifications'
+
+
+
+
+Router.route '/user/:username/chat', (->
+    @layout 'profile_layout'
+    @render 'user_chat'
+    ), name:'user_chat'
+
+Router.route '/user/:username/gallery', (->
+    @layout 'profile_layout'
+    @render 'user_gallery'
+    ), name:'user_gallery'
+
+Router.route '/user/:username/contact', (->
+    @layout 'profile_layout'
+    @render 'user_contact'
+    ), name:'user_contact'
+
 Template.profile_layout.onCreated ->
     @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
     @autorun -> Meteor.subscribe 'user_schemas', Router.current().params.username

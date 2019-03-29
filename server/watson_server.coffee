@@ -36,15 +36,15 @@ Meteor.methods
             content: doc.new_html,
             content_type: 'text/html',
             consumption_preferences: true,
-            raw_scores: true
+            raw_scores: false
         personality_insights.profile params, Meteor.bindEnvironment((err, response)->
             if err
-                console.log err
+                # console.log err
                 Docs.update { _id: doc_id},
                     $set:
                         personality: false
             else
-                console.dir response
+                # console.dir response
                 Docs.update { _id: doc_id},
                     $set:
                         personality: response
