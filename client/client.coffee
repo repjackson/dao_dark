@@ -1,10 +1,5 @@
-@selected_tags = new ReactiveArray []
-@selected_usernames = new ReactiveArray []
-@selected_status = new ReactiveArray []
-
-
-$.cloudinary.config
-    cloud_name:"facet"
+# $.cloudinary.config
+#     cloud_name:"facet"
 
 Accounts.onEnrollmentLink (token,done)->
     console.log token
